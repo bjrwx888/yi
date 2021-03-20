@@ -1,5 +1,8 @@
 
+using Autofac;
+using Autofac.Extras.DynamicProxy;
 using CC.Yi.BLL;
+using CC.Yi.Common.Castle;
 using CC.Yi.DAL;
 using CC.Yi.IBLL;
 using CC.Yi.IDAL;
@@ -45,8 +48,18 @@ namespace CC.Yi.API
             {
                 options.UseSqlServer(connection, b => b.MigrationsAssembly("CC.Yi.API"));//设置数据库
             });
-            services.AddScoped(typeof(IBaseDal<>), typeof(BaseDal<>));
-            services.AddScoped(typeof(IstudentBll), typeof(studentBll));
+            //依赖注入转交给Autofac
+            //services.AddScoped(typeof(IBaseDal<>), typeof(BaseDal<>));
+            //services.AddScoped(typeof(IstudentBll), typeof(studentBll));
+        }
+
+        //动态 面向AOP思想的依赖注入 Autofac
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterType(typeof(CustomAutofacAop));
+            builder.RegisterGeneric(typeof(BaseDal<>)).As(typeof(IBaseDal<>)) ;
+            builder.RegisterType<studentBll>().As<IstudentBll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle
+  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

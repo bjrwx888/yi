@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using CC.Yi.DAL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +39,6 @@ namespace CC.Yi.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
 }

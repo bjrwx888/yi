@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Autofac.Extras.DynamicProxy;
+using CC.Yi.Common.Castle;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace CC.Yi.IBLL
 {
+    [Intercept(typeof(CustomAutofacAop))]
     public interface IBaseBll<T> where T : class, new()
     {
         #region
