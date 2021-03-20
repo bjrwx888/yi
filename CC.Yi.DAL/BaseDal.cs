@@ -1,7 +1,9 @@
 ﻿using CC.Yi.IDAL;
 using CC.Yi.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -9,10 +11,9 @@ namespace CC.Yi.DAL
 {
     public class BaseDal<T> : IBaseDal<T> where T : class, new()
     {
-        public DataContext Db;
-        public BaseDal(DataContext _Db)
+        public DbContext Db
         {
-            Db = _Db;
+            get { return DbContentFactory.GetCurrentDbContent(); }
         }
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
@@ -65,6 +66,11 @@ namespace CC.Yi.DAL
             //Db.SaveChanges();
             return entity;
         }
+        public bool AddRange(IEnumerable<T> entities)
+        {
+            Db.Set<T>().AddRange(entities);
+            return true;
+        }
 
         public bool Update(T entity)
         {
@@ -73,7 +79,16 @@ namespace CC.Yi.DAL
             //return Db.SaveChanges() > 0;
             return true;
         }
-
+        public bool Update(T entity, params string[] propertyNames)
+        {
+            EntityEntry entry = Db.Entry<T>(entity);
+            entry.State = EntityState.Unchanged;
+            foreach (var item in propertyNames)
+            {
+                entry.Property(item).IsModified = true;
+            }
+            return true;
+        }
 
         public bool Delete(T entity)
         {
@@ -87,6 +102,12 @@ namespace CC.Yi.DAL
             Db.Set<T>().Remove(entity);//由于这里先Find找到了实体，所以这里可以用Remove标记该实体要移除（删除）。如果不是先Find到实体就需要用System.Data.Entity.EntityState.Deleted
             return true;
         }
+        public bool DeteteRange(IEnumerable<T> entity)
+        {
+            Db.Set<T>().RemoveRange(entity);
+            return true;
+        }
+
 
     }
 }

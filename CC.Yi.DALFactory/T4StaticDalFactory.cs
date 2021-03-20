@@ -15,7 +15,7 @@ namespace CC.Yi.DALFactory
             IstudentDal Data = CallContext.GetData("studentDal") as IstudentDal;
             if (Data == null)
             {
-                Data = new studentDal(DbSessionFactory.GetCurrentDbSession().GetDbContent());
+                Data = new studentDal();
                 CallContext.SetData("studentDal", Data);
             }
             return Data;

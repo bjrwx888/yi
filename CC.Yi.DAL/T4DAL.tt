@@ -25,9 +25,6 @@ namespace CC.Yi.DAL
  #>
     public partial class <#=k #>Dal : BaseDal<<#=k #>>, I<#=k #>Dal
     {
-        public <#=k #>Dal(DataContext _Db) : base(_Db)
-        {
-        }
     }
 <#    } #>
 }

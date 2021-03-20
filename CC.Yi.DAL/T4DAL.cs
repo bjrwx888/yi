@@ -8,8 +8,5 @@ namespace CC.Yi.DAL
 {
     public partial class studentDal : BaseDal<student>, IstudentDal
     {
-        public studentDal(DataContext _Db) : base(_Db)
-        {
-        }
     }
 }
