@@ -11,7 +11,7 @@
 
 操作系统：Windows，Linux
 
-扩展：EFcore，Autofac，Castle，HttpRuntimeCache，Memcache，Redis，Swagger，T4 （后期我们会添加更多）
+扩展：EFcore，Autofac，Castle，Memcache，Redis，Swagger，T4 （后期我们会添加更多）
 
 封装：Json处理模块，滑动验证码模块，base64图片处理模块（后期我们会添加更多）
 
