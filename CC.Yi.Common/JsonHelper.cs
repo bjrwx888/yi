@@ -2,7 +2,7 @@
 
 namespace CC.Yi.Common
 {
-    public static class JsonFactory
+    public static class JsonHelper
     {
         public static string JsonToString(object q)
         {

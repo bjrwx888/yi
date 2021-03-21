@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using CC.Yi.BLL;
+using CC.Yi.Common.Cache;
 using CC.Yi.Common.Castle;
 using CC.Yi.DAL;
 using CC.Yi.IBLL;
@@ -51,6 +52,11 @@ namespace CC.Yi.API
             //依赖注入转交给Autofac
             //services.AddScoped(typeof(IBaseDal<>), typeof(BaseDal<>));
             //services.AddScoped(typeof(IstudentBll), typeof(studentBll));
+            services.AddSingleton(typeof(ICacheWriter), new RedisCacheService(new Microsoft.Extensions.Caching.Redis.RedisCacheOptions()
+            {
+                Configuration = Configuration.GetSection("Cache.ConnectionString").Value,
+                InstanceName = Configuration.GetSection("Cache.InstanceName").Value
+            }));
         }
 
         //动态 面向AOP思想的依赖注入 Autofac
@@ -59,7 +65,6 @@ namespace CC.Yi.API
             builder.RegisterType(typeof(CustomAutofacAop));
             builder.RegisterGeneric(typeof(BaseDal<>)).As(typeof(IBaseDal<>)) ;
             builder.RegisterType<studentBll>().As<IstudentBll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle
-  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

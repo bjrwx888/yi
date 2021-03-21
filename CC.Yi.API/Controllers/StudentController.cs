@@ -30,7 +30,7 @@ namespace CC.Yi.API.Controllers
         public IActionResult GetTest()//查
         {
             var data = _studentBll.GetAllEntities().ToList();
-            return Content(Common.JsonFactory.JsonToString(data));
+            return Content(Common.JsonHelper.JsonToString(data));
         }
         [HttpGet]
         public IActionResult AddTest()//增
