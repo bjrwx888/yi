@@ -11,7 +11,7 @@
 
 操作系统：Windows，Linux
 
-扩展：EFcore，Autofac，Castle，Redis，Swagger，T4 （后期我们会添加更多）
+扩展：EFcore，Autofac，Castle，Redis，Swagger，T4 ，Nlog（后期我们会添加更多）
 
 封装：Json处理模块，滑动验证码模块，base64图片处理模块（后期我们会添加更多）
 
@@ -35,16 +35,17 @@ API：接口层（接入Swagger，可视化测试接口）
 #### 安装教程
 我们将在之后更新教程手册！
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  下载全部源码
+2.  使用Visual Studio 2019在windows环境中打开CC.Yi.sln文件即可
+
 
 #### 使用说明
 我们将在之后更新教程手册！
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  添加一个数据库，并修改连接数据库的配置文件
+2.  添加模型类，使用Add-Migration xxx迁移，再使用Update-Database更新数据库
+3.  向T4Model添加模型名，一键转换生成T4
+4.  控制器构造函数进行依赖注入直接使用
 
 #### 联系我们：
 QQ：454313500
