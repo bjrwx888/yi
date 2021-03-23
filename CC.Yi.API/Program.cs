@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +17,33 @@ namespace CC.Yi.API
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            var scope = host.Services.CreateScope();
+            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            try
             {
+                logger.Debug("正在启动Yi意框架。。。。。。");
+                var host = CreateHostBuilder(args).Build();
+                var scope = host.Services.CreateScope();
                 var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<Model.DataContext>();
-                    DbContentFactory.Initialize(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while seeding the database.");
-                }
+                var context = services.GetRequiredService<Model.DataContext>();//获取服务
+                DbContentFactory.Initialize(context);//调用静态类方法注入
+                host.Run();
+                logger.Info("Yi意框架启动成功！");
             }
-            host.Run();
+            catch (Exception exception)
+            {
+                //NLog: catch setup errors
+                logger.Error(exception, "Stopped program because of exception");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
+            }
+
+
+
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -39,6 +51,12 @@ namespace CC.Yi.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).UseServiceProviderFactory(new AutofacServiceProviderFactory());
+                }).UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                 .ConfigureLogging(logging =>
+                 {
+                     // logging.ClearProviders(); // 这个方法会清空所有控制台的输出
+                     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                 }).UseNLog();
+
     }
 }

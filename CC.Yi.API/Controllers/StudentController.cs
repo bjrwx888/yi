@@ -19,6 +19,7 @@ namespace CC.Yi.API.Controllers
         {
             _studentBll = studentBll;
             _logger = logger;
+            _logger.LogInformation("现在你进入了StudentController控制器");
         }
 
 
@@ -29,13 +30,15 @@ namespace CC.Yi.API.Controllers
         [HttpGet]
         public IActionResult GetTest()//查
         {
+            _logger.LogInformation("调用查方法");
             var data = _studentBll.GetAllEntities().ToList();
             return Content(Common.JsonHelper.JsonToString(data));
         }
         [HttpGet]
         public IActionResult AddTest()//增
         {
-           List<student> students = new List<student>() {new student { name = "学生a" } ,new student { name="学生d"} };
+            _logger.LogInformation("调用增方法");
+            List<student> students = new List<student>() {new student { name = "学生a" } ,new student { name="学生d"} };
             _studentBll.Add(students);
            return Content("ok");
 
@@ -43,7 +46,7 @@ namespace CC.Yi.API.Controllers
         [HttpGet]
         public IActionResult RemoveTest()//删
         {
-    
+            _logger.LogInformation("调用删方法");
             if (_studentBll.Delete(u=>u.name=="学生a"))
             {
                 return Content("ok");
@@ -56,6 +59,7 @@ namespace CC.Yi.API.Controllers
         [HttpGet]
         public IActionResult UpdateTest()//改
         {
+            _logger.LogInformation("调用改方法");
             if (_studentBll.Update(new student { id=2, name = "学生a" }, "name"))
             {
                 return Content("ok");
