@@ -59,13 +59,7 @@ namespace CC.Yi.API
             }));
         }
 
-        //动态 面向AOP思想的依赖注入 Autofac
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            builder.RegisterType(typeof(CustomAutofacAop));
-            builder.RegisterGeneric(typeof(BaseDal<>)).As(typeof(IBaseDal<>)) ;
-            builder.RegisterType<studentBll>().As<IstudentBll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle
-        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

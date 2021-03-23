@@ -56,7 +56,7 @@ namespace CC.Yi.API
                  {
                      // logging.ClearProviders(); // 这个方法会清空所有控制台的输出
                      logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                 }).UseNLog();
+                 }).UseNLog();//开启nlog日志输出
 
     }
 }
