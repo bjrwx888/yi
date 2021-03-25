@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,6 @@ namespace CC.Yi.Common.Cache
         public static ICacheWriter CacheWriter { get; set; }
         static CacheHelper()
         {
-
             //这里存在一些问题
             ContainerBuilder containerBuilder = new ContainerBuilder();
             IContainer container = containerBuilder.Build();

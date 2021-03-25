@@ -11,6 +11,7 @@ using CC.Yi.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,7 @@ namespace CC.Yi.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+         
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -49,6 +50,8 @@ namespace CC.Yi.API
             {
                 options.UseSqlServer(connection, b => b.MigrationsAssembly("CC.Yi.API"));//设置数据库
             });
+
+
             //依赖注入转交给Autofac
             //services.AddScoped(typeof(IBaseDal<>), typeof(BaseDal<>));
             //services.AddScoped(typeof(IstudentBll), typeof(studentBll));
@@ -57,6 +60,19 @@ namespace CC.Yi.API
                 Configuration = Configuration.GetSection("Cache.ConnectionString").Value,
                 InstanceName = Configuration.GetSection("Cache.InstanceName").Value
             }));
+
+
+            //配置Identity身份认证
+            services.AddIdentity<result_user, IdentityRole>(options =>
+             {
+                 options.Password.RequiredLength = 6;//密码最短长度
+                 options.Password.RequireDigit = false;//密码需求数字
+                 options.Password.RequireLowercase = false;//密码需求小写字母
+                 options.Password.RequireNonAlphanumeric = false;//密码需求特殊字符
+                 options.Password.RequireUppercase = false;//密码需求大写字母
+                //options.User.RequireUniqueEmail = false;//注册邮箱是否可以不重复
+                //options.User.AllowedUserNameCharacters="abcd"//密码只允许在这里的字符
+            }).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
         }
 
 
@@ -70,6 +86,8 @@ namespace CC.Yi.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CC.Yi.API v1"));
             }
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 
