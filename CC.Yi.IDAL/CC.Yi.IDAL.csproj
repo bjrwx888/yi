@@ -14,6 +14,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4IDAL.cs</LastGenOutput>
     </None>
+    <None Update="T4IDbSession.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4IDbSession.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +29,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>T4IDAL.tt</DependentUpon>
+    </Compile>
+    <Compile Update="T4IDbSession.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4IDbSession.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
