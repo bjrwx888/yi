@@ -75,11 +75,21 @@ namespace CC.Yi.API
             }).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
         }
 
+        private void InitData(IServiceProvider serviceProvider)
+        {
+            var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            
+                var context = serviceScope.ServiceProvider.GetService<DataContext>();
+                DbContentFactory.Initialize(context);//调用静态类方法注入
+            
+        }
+
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -99,6 +109,7 @@ namespace CC.Yi.API
             {
                 endpoints.MapControllers();
             });
+            InitData(app.ApplicationServices);
         }
     }
 }

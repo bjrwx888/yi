@@ -9,6 +9,8 @@ namespace CC.Yi.DAL
     public class DbContentFactory
     {
         private static DataContext Webcontext;
+
+
         public static void Initialize(DataContext webContext)
         {
             Webcontext = webContext;

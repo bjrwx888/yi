@@ -22,10 +22,10 @@ namespace CC.Yi.API
             {
                 logger.Debug("正在启动Yi意框架。。。。。。");
                 var host = CreateHostBuilder(args).Build();
-                var scope = host.Services.CreateScope();
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<Model.DataContext>();//获取服务
-                DbContentFactory.Initialize(context);//调用静态类方法注入
+                //var scope = host.Services.CreateScope();
+                //var services = scope.ServiceProvider;
+                //var context = services.GetRequiredService<Model.DataContext>();//获取服务
+                //DbContentFactory.Initialize(context);//调用静态类方法注入
                 host.Run();
                 logger.Info("Yi意框架启动成功！");
             }
