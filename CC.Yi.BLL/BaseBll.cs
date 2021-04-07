@@ -45,9 +45,9 @@ namespace CC.Yi.BLL
 
         public T Add(T entity)
         {
-            CurrentDal.Add(entity);
+           var myEntity=CurrentDal.Add(entity);
             DbSession.SaveChanges();
-            return entity;
+            return myEntity;
         }
 
         public bool Add(IEnumerable<T> entities)
