@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CC.Yi.Model
 {
-    public partial class DataContext : IdentityDbContext
+    public partial class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
-        public DbSet<result_user> result_user { get; set; }
+        //public DbSet<result_user> result_user { get; set; }
     }
 }

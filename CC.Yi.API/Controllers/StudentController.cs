@@ -1,7 +1,9 @@
 ﻿using CC.Yi.IBLL;
 using CC.Yi.Model;
+using Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,18 +18,18 @@ namespace CC.Yi.API.Controllers
     {
         private readonly ILogger<StudentController> _logger;//处理日志相关文件
 
-        private UserManager<result_user> _userManager;//处理用户相关逻辑：添加密码，修改密码，添加删除角色等等
-        private SignInManager<result_user> _signInManager;//处理注册登录的相关逻辑
+        //private UserManager<result_user> _userManager;//处理用户相关逻辑：添加密码，修改密码，添加删除角色等等
+        //private SignInManager<result_user> _signInManager;//处理注册登录的相关逻辑
 
         private IstudentBll _studentBll;
-        public StudentController(ILogger<StudentController> logger, IstudentBll studentBll, UserManager<result_user> userManager, SignInManager<result_user> signInManager)
+        public StudentController(ILogger<StudentController> logger, IstudentBll studentBll)
         {
 
             _logger = logger;
             _logger.LogInformation("现在你进入了StudentController控制器");
             _studentBll = studentBll;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            //_userManager = userManager;
+            //_signInManager = signInManager;
         }
         #region
         //关于身份认证配置使用：
@@ -54,45 +56,52 @@ namespace CC.Yi.API.Controllers
         //注意：请确保你的数据库中存在合理的数据
         #endregion
         [HttpGet]
-        public IActionResult GetTest()//查
+        public async Task<Result> GetTest()//查
         {
             _logger.LogInformation("调用查方法");
-            var data = _studentBll.GetAllEntities().ToList();
-            return Content(Common.JsonHelper.JsonToString(data));
+            var data =await  _studentBll.GetAllEntities().ToListAsync();
+            return Result.Success("查询成功").SetData(data);
         }
         [HttpGet]
-        public IActionResult AddTest()//增
+        public Result AddTest()//增
         {
             _logger.LogInformation("调用增方法");
             List<student> students = new List<student>() {new student { name = "学生a" } ,new student { name="学生d"} };
-            _studentBll.Add(students);
-           return Content("ok");
+            if (_studentBll.Add(students))
+            {
+                return Result.Success("增加成功");
+            }
+            else
+            {
+                return Result.Error("增加失败");
+            }
+           
 
         }
         [HttpGet]
-        public IActionResult RemoveTest()//删
+        public Result RemoveTest()//删
         {
             _logger.LogInformation("调用删方法");
             if (_studentBll.Delete(u=>u.name=="学生a"))
             {
-                return Content("ok");
+                return Result.Success("删除成功");
             }
             else
             {
-                return Content("no");
+                return Result.Error("删除失败");
             }     
         }
         [HttpGet]
-        public IActionResult UpdateTest()//改
+        public Result UpdateTest()//改
         {
             _logger.LogInformation("调用改方法");
             if (_studentBll.Update(new student { id=2, name = "学生a" }, "name"))
             {
-                return Content("ok");
+                return Result.Success("修改成功");
             }
             else
             {
-                return Content("no");
+                return Result.Error("修改失败");
             }
 
         }

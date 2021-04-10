@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
 namespace CC.Yi.Model
 {
-    public partial class DataContext :IdentityDbContext
+    public partial class DataContext :DbContext
     {
         public DbSet<student> student { get; set; }
     }
