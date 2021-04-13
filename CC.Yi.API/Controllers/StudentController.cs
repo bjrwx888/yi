@@ -1,6 +1,6 @@
-﻿using CC.Yi.IBLL;
+﻿using CC.Yi.Common;
+using CC.Yi.IBLL;
 using CC.Yi.Model;
-using Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
