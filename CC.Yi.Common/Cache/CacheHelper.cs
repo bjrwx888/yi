@@ -11,42 +11,40 @@ namespace CC.Yi.Common.Cache
         public static ICacheWriter CacheWriter { get; set; }
         static CacheHelper()
         {
-            //这里存在一些问题
-            ContainerBuilder containerBuilder = new ContainerBuilder();
-            IContainer container = containerBuilder.Build();
-            CacheHelper.CacheWriter = container.Resolve<ICacheWriter>();
+            CacheHelper.CacheWriter = new RedisCache();
         }
 
-        public static void AddCache(string key, string value, int expDate)
+
+
+
+        public bool AddCache<T>(string key, T value, DateTime expDate)
         {
-            CacheWriter.Add(key, value, expDate);
+            return CacheWriter.AddCache<T>(key,value,expDate);
         }
 
-        //没有过期参数，表示用不过期
-        public static void AddCache(string key, string value)
+        public bool AddCache<T>(string key, T value)
         {
-            CacheWriter.Add(key, value);
+            return CacheWriter.AddCache<T>(key, value);
         }
 
-        public static object GetCache(string key)
+        public bool RemoveCache(string key)
         {
-            return CacheWriter.Get(key);
-        }
-        public static void SetCache(string key, string value, int expDate)
-        {
-
-            CacheWriter.Replace(key, value, expDate);
+            return CacheWriter.RemoveCache(key);
         }
 
-        //没有过期参数，表示用不过期
-        public static void SetCache(string key, string value)
+        public T GetCache<T>(string key)
         {
-            CacheWriter.Replace(key, value);
+            return CacheWriter.GetCache<T>(key);
         }
 
-        public static void Remove(string key)
+        public bool SetCache<T>(string key, T value, DateTime expDate)
         {
-            CacheWriter.Remove(key);
+            return CacheWriter.SetCache<T>(key,value,expDate);
+        }
+
+        public bool SetCache<T>(string key, T value)
+        {
+            return CacheWriter.SetCache<T>(key, value);
         }
 
     }

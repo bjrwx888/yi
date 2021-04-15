@@ -1,4 +1,5 @@
 ﻿using CC.Yi.Common;
+using CC.Yi.Common.Cache;
 using CC.Yi.IBLL;
 using CC.Yi.Model;
 using Microsoft.AspNetCore.Identity;
@@ -49,6 +50,15 @@ namespace CC.Yi.API.Controllers
         //    return Ok();
         //}
 
+        #region
+        //下面，这里是操作reids
+        #endregion
+        [HttpGet]
+        public Result GetReids()
+        {
+            var data = CacheHelper.CacheWriter.GetCache<string>("key01");
+            return Result.Success(data);
+        }
 
 
         #region

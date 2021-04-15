@@ -8,24 +8,11 @@ namespace CC.Yi.Common.Cache
 {
     public interface ICacheWriter
     {
-        //void AddCache(string key, object value, DateTime expDate);
-        //void AddCache(string key, object value);
-        //object GetCache(string key);
-        //T GetCache<T>(string key);
-        //void SetCache(string key, object value, DateTime expDate);
-        //void SetCache(string key, object value);
-        //bool Delete(string key);
-
-        string Get(string key);
-
-        string GetString(string key);
-
-        void AddString(string key, string value);
-
-        void Add(string key, string value, int ExpirationTime = 20);
-
-        void Remove(string key);
-
-        void Replace(string key, string value, int ExpirationTime = 20);
+        bool AddCache<T>(string key, T value, DateTime expDate);
+        bool AddCache<T>(string key, T value);
+        bool RemoveCache(string key);
+        T GetCache<T>(string key);
+        bool SetCache<T>(string key, T value, DateTime expDate);
+        bool SetCache<T>(string key, T value);
     }
 }
