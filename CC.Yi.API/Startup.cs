@@ -1,6 +1,7 @@
 
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using CC.Yi.API.Filter;
 using CC.Yi.BLL;
 using CC.Yi.Common.Cache;
 using CC.Yi.Common.Castle;
@@ -35,7 +36,7 @@ namespace CC.Yi.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -45,7 +46,16 @@ namespace CC.Yi.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CC.Yi.API", Version = "v1" });
             });
             services.AddSession();
-            services.AddMvc();
+
+
+
+            //配置过滤器
+            Action<MvcOptions> filters = new Action<MvcOptions>(r => {
+                r.Filters.Add(typeof(DbContextFilter));
+            });
+            services.AddMvc(filters);
+
+            //配置数据库连接
             string connection1 = Configuration["ConnectionStringBySQL"];
             string connection2 = Configuration["ConnectionStringByMySQL"];
             string connection3 = Configuration["ConnectionStringBySQLite"];
@@ -78,7 +88,9 @@ namespace CC.Yi.API
             //    //options.User.RequireUniqueEmail = false;//注册邮箱是否可以不重复
             //    //options.User.AllowedUserNameCharacters="abcd"//密码只允许在这里的字符
             //}).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
-             services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
+
+            //解决跨域问题
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
              builder =>
              {
                  builder.AllowAnyMethod()
@@ -88,17 +100,17 @@ namespace CC.Yi.API
              }));
         }
 
+        //初始化使用函数
         private void InitData(IServiceProvider serviceProvider)
         {
-            var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            //var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-            var context = serviceScope.ServiceProvider.GetService<DataContext>();
-            DbContentFactory.Initialize(context);//调用静态类方法注入
+            //var context = serviceScope.ServiceProvider.GetService<DataContext>();
+            //DbContentFactory.Initialize(context);//调用静态类方法注入
         }
 
 
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 

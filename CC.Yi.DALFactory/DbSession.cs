@@ -18,7 +18,7 @@ namespace CC.Yi.DALFactory
                 try
                 {
                     // Attempt to save changes to the database
-                    context.SaveChangesAsync();
+                    context.SaveChanges();
                     saved = true;
                 }
                 catch (DbUpdateConcurrencyException ex)

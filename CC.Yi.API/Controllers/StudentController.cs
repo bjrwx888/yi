@@ -1,4 +1,5 @@
-﻿using CC.Yi.Common;
+﻿using CC.Yi.API.Filter;
+using CC.Yi.Common;
 using CC.Yi.Common.Cache;
 using CC.Yi.IBLL;
 using CC.Yi.Model;
@@ -15,7 +16,7 @@ namespace CC.Yi.API.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class StudentController : ControllerBase
+    public class StudentController : Controller
     {
         private readonly ILogger<StudentController> _logger;//处理日志相关文件
 
