@@ -8,6 +8,8 @@ namespace CC.Yi.Common.Cache
     public class RedisCache : ICacheWriter
     {
         private RedisClient client;
+        public string redisIp { get; set; }
+        
         public RedisCache()
         {
             client = new RedisClient("127.0.0.1", 6379, "52013142020.");

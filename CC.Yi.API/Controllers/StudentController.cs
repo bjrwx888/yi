@@ -1,15 +1,21 @@
 ﻿using CC.Yi.API.Filter;
 using CC.Yi.Common;
 using CC.Yi.Common.Cache;
+using CC.Yi.Common.Jwt;
 using CC.Yi.IBLL;
 using CC.Yi.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CC.Yi.API.Controllers
@@ -61,12 +67,58 @@ namespace CC.Yi.API.Controllers
             return Result.Success(data);
         }
 
+        #region
+        //下面，权限验证
+        #endregion
+
+        //发送令牌
+        [HttpGet]
+        public Result Login(string role)
+        {
+            string userName = "admin";
+            var claims = new[]
+                   {
+                    new Claim(JwtRegisteredClaimNames.Nbf,$"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
+                    new Claim (JwtRegisteredClaimNames.Exp,$"{new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"),
+                    new Claim(ClaimTypes.Name, userName),
+                   new Claim(ClaimTypes.Role,role)
+
+                };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConst.SecurityKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                 issuer: JwtConst.Domain,
+                    audience: JwtConst.Domain,
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: creds);
+
+            var tokenData= new JwtSecurityTokenHandler().WriteToken(token);
+            return Result.Success("欢迎你！管理员!").SetData(new { token= tokenData });
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "myadmin")]//基于策略的验证
+        public Result MyAdmin()
+        {
+            return Result.Success("欢迎你！管理员!");
+        }
+
+        [HttpGet]
+        [Authorize(Roles ="user")]//基于角色的验证
+        public Result MyUser()
+        {
+            return Result.Success("欢迎你！游客！");
+        }
+
 
         #region
         //下面，经典的 增删改查 即为简易--Yi意框架
         //注意：请确保你的数据库中存在合理的数据
         #endregion
         [HttpGet]
+        [DbContextFilter]
         public async Task<Result> GetTest()//查
         {
             _logger.LogInformation("调用查方法");
@@ -74,6 +126,7 @@ namespace CC.Yi.API.Controllers
             return Result.Success("查询成功").SetData(data);
         }
         [HttpGet]
+        [DbContextFilter]
         public Result AddTest()//增
         {
             _logger.LogInformation("调用增方法");
@@ -90,6 +143,7 @@ namespace CC.Yi.API.Controllers
 
         }
         [HttpGet]
+        [DbContextFilter]
         public Result RemoveTest()//删
         {
             _logger.LogInformation("调用删方法");
@@ -103,6 +157,7 @@ namespace CC.Yi.API.Controllers
             }     
         }
         [HttpGet]
+        [DbContextFilter]
         public Result UpdateTest()//改
         {
             _logger.LogInformation("调用改方法");

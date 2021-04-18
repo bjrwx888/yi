@@ -1,14 +1,17 @@
 
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using CC.Yi.API.Extension;
 using CC.Yi.API.Filter;
 using CC.Yi.BLL;
 using CC.Yi.Common.Cache;
 using CC.Yi.Common.Castle;
+using CC.Yi.Common.Jwt;
 using CC.Yi.DAL;
 using CC.Yi.IBLL;
 using CC.Yi.IDAL;
 using CC.Yi.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,10 +22,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CC.Yi.API
@@ -39,19 +44,40 @@ namespace CC.Yi.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // 配置Jwt
+            services.AddAuthorization(options =>
+            {
+                //配置基于策略的验证
+                options.AddPolicy("myadmin", policy =>
+                    policy.RequireRole("admin"));
+            });
+
+           
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                   .AddJwtBearer(options => {
+                       options.TokenValidationParameters = new TokenValidationParameters
+                       {
+                           ValidateIssuer = true,//是否验证Issuer
+                           ValidateAudience = true,//是否验证Audience
+                           ValidateLifetime = true,//是否验证失效时间
+                           ClockSkew = TimeSpan.FromSeconds(30),
+                           ValidateIssuerSigningKey = true,//是否验证SecurityKey
+                           ValidAudience = JwtConst.Domain,//Audience
+                           ValidIssuer = JwtConst.Domain,//Issuer，这两项和前面签发jwt的设置一致
+                           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConst.SecurityKey))//拿到SecurityKey
+                       };
+                   });
+
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CC.Yi.API", Version = "v1" });
-            });
+            services.AddSwaggerService();
             services.AddSession();
 
 
 
             //配置过滤器
             Action<MvcOptions> filters = new Action<MvcOptions>(r => {
-                r.Filters.Add(typeof(DbContextFilter));
+                //r.Filters.Add(typeof(DbContextFilter));
             });
             services.AddMvc(filters);
 
@@ -117,8 +143,7 @@ namespace CC.Yi.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CC.Yi.API v1"));
+                app.UseSwaggerService();
             }
 
             //app.UseAuthentication();
@@ -126,7 +151,7 @@ namespace CC.Yi.API
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
