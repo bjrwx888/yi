@@ -1,25 +1,60 @@
 # CC.Yi
 
 #### 介绍
-基于.NET5的MVC三层架构的高并发高解耦简易型框架--Yi意框架（意义是为了开发更简易）
+基于.NET5的前后端分离三层架构的高并发高解耦简易型框架--Yi意框架（意义是为了开发更简易）
 
-第一版开发完成时间：2021/3/19 （请记住，这是一个值得纪念的日子）
+第一版开发公布时间：2021/3/19 （请记住，这是一个值得纪念的日子）
 
-为了更简易的开发，我们在2021/3/27 加入了vue分支（我们将持续更新）
-
+为了适配更简易的开发，我们在2021/3/27 加入了Yi-Easy分支（我们将持续更新）
 
 #### 软件架构
-架构：.NET5（后期我们将集成数据+前端Vue，让开发更加简易！）
+
+Yi意框架
+
+	Yi意框架源码
+
+		CC.Yi（.Net5核心版本）
+
+		CC.Yi.Easy（.Net5精简版本）
+
+	Yi意框架应用（图片管理系统）
+
+		CC.Yi.PictureManagement（Betav0.0.1Yi框架后端）
+
+		CC.Yi.PictureManagement（Vue-ElementUI前端）
+
+	Yi意框架应用（作业管理系统）
+
+		CC.Yi.WorkManagement（v1.0.0Yi意框架后端）
+
+		CC.Yi.WorkManagement（Vue-ElementUI前端）
+
+	Yi意框架应用（权限管理系统）
+
+		CC.Yi.RolePermission（v1.1.0Yi意框架后端）
+
+		CC.Yi.RolePermission（Vue-Vuetify前端）
+
+	Yi意框架应用（题库管理系统）
+
+		CC.Yi.QuestionBank（v1.2.0Yi意框架后端）
+
+		CC.Yi.QuestionBank（Vue-Vuetify前端）
+
+
+架构：后端.NET5 ，前端Vue
 
 支持的数据库： SQL Server，MySQL，SQLite，reidis
 
 操作系统：Windows，Linux
 
-扩展：EFcore，Autofac，Identity，Castle，Redis，Swagger，T4 ，Nlog（后期我们会添加更多）
+扩展：EFcore，Autofac，Identity，Castle，Redis，Swagger，T4 ，Nlog ，Jwt
 
-封装：Json处理模块，滑动验证码模块，base64图片处理模块（后期我们会添加更多）
+封装：Json处理模块，滑动验证码模块，base64图片处理模块，HTTP请求
 
 思想：简单工厂模式，抽象工厂模式，观察者模式，面向AOP思想，面向对象开发
+
+其他: nginx前后端集群配置，前后端跨域设置，权限认证配置，swaggerToken配置
 
 
 #### 目录结构
