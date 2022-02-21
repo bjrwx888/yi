@@ -133,7 +133,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             {
                 return Result.Error();
             }
-            var menuList= await _userService.GetAxiosByRouter(router, _user.id, menuIds);
+            var menuList= await _userService.GetAxiosByRouter(router, menuIds);
             AxiosUrlsModel urlsModel = new();
             menuList.ForEach(u =>
             {

@@ -34,14 +34,14 @@ namespace Yi.Framework.Core
         /// <param name="second"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task start(string cron, JobKey jobKey, string jobClass, long second = 0, IDictionary<string, object> data = null)
+        public async Task start(string cron, JobKey jobKey, string dllName,string jobClass, long second = 0, IDictionary<string, object> data = null)
         {
             if (data == null)
             {
                 data = new Dictionary<string, object>();
             }
 
-            var myClass = AssemblyHelper.GetClass("Yi.Framework.Job", jobClass).FirstOrDefault();
+            var myClass = AssemblyHelper.GetClass(dllName, jobClass).FirstOrDefault();
 
             _scheduler = await _schedulerFactory.GetScheduler();
             _scheduler.JobFactory = _jobFactory;

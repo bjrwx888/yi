@@ -1,11 +1,15 @@
 <template>
   <div>
     <v-divider></v-divider>
-    <app-btn  dark class="ma-4" @click="dialog = true"> 添加新项 </app-btn>
+    <app-btn  dark class="ma-4" @click="showAll"> 展开全部</app-btn>
+    <app-btn  dark class="my-4 mr-4" @click="dialog = true"> 添加新项 </app-btn>
     <app-btn dark class="my-4"  color="secondary" @click="deleteItem(null)">
       删除所选
     </app-btn>
-    
+   
+
+ 
+
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
         <v-card-title>
@@ -40,7 +44,8 @@
     </v-dialog>
 
     <v-treeview
-    open-on-click
+      ref="tree"
+      open-on-click
       selectable
       :items="desserts"
       :selection-type="selectionType"
@@ -115,6 +120,10 @@ export default {
     this.init();
   },
   methods: {
+showAll(){
+  this.$refs.tree.updateAll(true);
+},
+
     setMould(item) {
       menuApi.SetMouldByMenu(item.id, this.mouldSelect[0].id).then((resp) => {
         this.$dialog.notify.info(resp.msg, {
@@ -175,6 +184,9 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
+
+
+      
     },
     editItem(item) {
       this.editedIndex = item.id;

@@ -6,18 +6,50 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yi.Framework.Model;
 
+#nullable disable
+
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211106082100_yi-1")]
+    [Migration("20220221034128_yi-1")]
     partial class yi1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.11");
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("menurole", b =>
+                {
+                    b.Property<int>("menusid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("rolesid")
+                        .HasColumnType("int");
+
+                    b.HasKey("menusid", "rolesid");
+
+                    b.HasIndex("rolesid");
+
+                    b.ToTable("menurole");
+                });
+
+            modelBuilder.Entity("roleuser", b =>
+                {
+                    b.Property<int>("rolesid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("usersid")
+                        .HasColumnType("int");
+
+                    b.HasKey("rolesid", "usersid");
+
+                    b.HasIndex("usersid");
+
+                    b.ToTable("roleuser");
+                });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.menu", b =>
                 {
@@ -40,10 +72,10 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<string>("menu_name")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("menuid")
+                    b.Property<int?>("mouldid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("mouldid")
+                    b.Property<int>("parentId")
                         .HasColumnType("int");
 
                     b.Property<string>("router")
@@ -53,8 +85,6 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
-
-                    b.HasIndex("menuid");
 
                     b.HasIndex("mouldid");
 
@@ -167,49 +197,6 @@ namespace Yi.Framework.Model.Migrations
 
             modelBuilder.Entity("menurole", b =>
                 {
-                    b.Property<int>("menusid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("rolesid")
-                        .HasColumnType("int");
-
-                    b.HasKey("menusid", "rolesid");
-
-                    b.HasIndex("rolesid");
-
-                    b.ToTable("menurole");
-                });
-
-            modelBuilder.Entity("roleuser", b =>
-                {
-                    b.Property<int>("rolesid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("usersid")
-                        .HasColumnType("int");
-
-                    b.HasKey("rolesid", "usersid");
-
-                    b.HasIndex("usersid");
-
-                    b.ToTable("roleuser");
-                });
-
-            modelBuilder.Entity("Yi.Framework.Model.Models.menu", b =>
-                {
-                    b.HasOne("Yi.Framework.Model.Models.menu", null)
-                        .WithMany("children")
-                        .HasForeignKey("menuid");
-
-                    b.HasOne("Yi.Framework.Model.Models.mould", "mould")
-                        .WithMany()
-                        .HasForeignKey("mouldid");
-
-                    b.Navigation("mould");
-                });
-
-            modelBuilder.Entity("menurole", b =>
-                {
                     b.HasOne("Yi.Framework.Model.Models.menu", null)
                         .WithMany()
                         .HasForeignKey("menusid")
@@ -240,7 +227,11 @@ namespace Yi.Framework.Model.Migrations
 
             modelBuilder.Entity("Yi.Framework.Model.Models.menu", b =>
                 {
-                    b.Navigation("children");
+                    b.HasOne("Yi.Framework.Model.Models.mould", "mould")
+                        .WithMany()
+                        .HasForeignKey("mouldid");
+
+                    b.Navigation("mould");
                 });
 #pragma warning restore 612, 618
         }

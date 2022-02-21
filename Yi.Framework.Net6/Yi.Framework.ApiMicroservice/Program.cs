@@ -43,7 +43,6 @@ builder.Host.ConfigureLogging(loggingBuilder =>
 //Ioc配置
 #endregion
 builder.Services.AddIocService(builder.Configuration);
-
 #region
 //Quartz任务调度配置
 #endregion
@@ -111,6 +110,7 @@ var app = builder.Build();
 //错误抓取反馈注入
 #endregion
 app.UseErrorHandlingService();
+
 #region
 //静态文件注入
 #endregion

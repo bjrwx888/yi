@@ -44,7 +44,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 {JobConst.method,"get" },
                 {JobConst.url,"https://www.baidu.com" }
             };
-           await _quartzInvoker.start("*/1 * * * * ? ", new Quartz.JobKey("test", "my"), "HttpJob",data: data);
+           await _quartzInvoker.start("*/5 * * * * ?", new Quartz.JobKey("test", "my"), "Yi.Framework.Job", "HttpJob",data: data);
             return Result.Success();
         }
 

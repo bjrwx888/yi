@@ -9,7 +9,8 @@
           > </template
         >
          <v-divider></v-divider>
-        <app-btn class="ma-4" @click="setMenu">确定分配</app-btn
+            <app-btn  dark class="ma-4" @click="showAll"> 展开全部</app-btn>
+        <app-btn class="my-4 mr-4" @click="setMenu">确定分配</app-btn
         >
         
         <app-btn class="my-4"  color="secondary" @click="clear">清空选择</app-btn></material-card
@@ -20,6 +21,8 @@
     <v-col cols="12" md="4" lg="4">
       <v-card class="mx-auto" width="100%">
         <v-treeview
+        
+         
           selectable
           :items="RoleItems"
           v-model="selectionRole"
@@ -35,6 +38,7 @@
     <v-col cols="12" md="8" lg="8">
       <v-card class="mx-auto" width="100%">
         <v-treeview
+        ref="tree"
           open-on-click
           selectable
           :items="Menuitems"
@@ -73,6 +77,9 @@ export default {
     },
   },
   methods: {
+    showAll(){
+  this.$refs.tree.updateAll(true);
+},
     clear() {
       this.selectionMenu = [];
       this.selectionRole = [];

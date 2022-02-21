@@ -66,7 +66,7 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="router"></param>
         /// <returns></returns>
-        Task<List<menu>> GetAxiosByRouter(string router,int userId, List<int> menuIds);
+        Task<List<menu>> GetAxiosByRouter(string router, List<int> menuIds);
 
 
         /// <summary>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
@@ -12,33 +14,27 @@ namespace Yi.Framework.Service
 {
    public partial class MenuService:BaseService<menu>, IMenuService
     {
-        short Normal = (short)Common.Enum.DelFlagEnum.Normal;
+        short Normal = (short)DelFlagEnum.Normal;
         public async Task<menu> AddChildrenMenu(int menu_id, menu _children)
         {
-            var menu_data = await _DbRead.Set<menu>().Include(u => u.children).Where(u => u.id == menu_id).FirstOrDefaultAsync();
-            _children.is_top = (short)Common.Enum.TopFlagEnum.Children;          
-            menu_data.children.Add(_children);
-            await UpdateAsync(menu_data);
-            return menu_data;
+            _children.parentId = menu_id;
+            _children.is_top = (short)TopFlagEnum.Children;
+            _children.is_delete = (short)DelFlagEnum.Normal;
+            await AddAsync(_children);
+            return _children;
         }
 
         public async Task<bool> AddTopMenu(menu _menu)
         {
-            _menu.is_top = (short)Common.Enum.TopFlagEnum.Children;
+            _menu.is_top = (short)TopFlagEnum.Children;
 
             return await AddAsync(_menu);
         }
 
         public async Task<menu> GetMenuInMould()
         {
-            var menu_data= await _DbRead.Set<menu>().Include(u=>u.mould)
-               .Include(u => u.children).ThenInclude(u => u.mould).OrderByDescending(u => u.sort)
-               .Include(u=>u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
-               .Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
-               .Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
-               .Where(u =>u.is_delete == Normal && u.is_show == (short)Common.Enum.ShowFlagEnum.Show && u.is_top == (short)Common.Enum.TopFlagEnum.Top)
-               .FirstOrDefaultAsync();
-         return  TreeMenuBuild.Sort(TreeMenuBuild.Normal(menu_data)); 
+            var menu_data = await _DbRead.Set<menu>().Include(u => u.mould).Where(u=>u.is_delete==(short)DelFlagEnum.Normal).ToListAsync();
+            return TreeHelper.SetTree(menu_data, null)[0]; ; 
         }
 
 
@@ -52,7 +48,7 @@ namespace Yi.Framework.Service
             var menu_data = await _DbRead.Set<menu>().Include(u => u.mould).Where(u => u.id == id1).FirstOrDefaultAsync();
             var mould_data = await _DbRead.Set<mould>().Where(u => u.id == id1).FirstOrDefaultAsync();
             menu_data.mould = mould_data;
-              _Db.Update(menu_data);
+            _Db.Update(menu_data);
             return menu_data;
         }
 

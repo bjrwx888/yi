@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
@@ -49,28 +50,21 @@ namespace Yi.Framework.Service
         /// <returns></returns>
         public async Task<user> GetUserById(int userId)
         {
-            return await _DbRead.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.children).ThenInclude(u => u.mould).Where(u => u.id == userId).FirstOrDefaultAsync();
+            var user_data = await _DbRead.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.mould).Where(u => u.id == userId).FirstOrDefaultAsync();
+            return user_data;
 
         }
-        public async Task<List<menu>> GetAxiosByRouter(string router, int userId, List<int> menuIds)
+        public async Task<List<menu>> GetAxiosByRouter(string router, List<int> menuIds)
         {
-            var user_data = await GetUserById(userId);
-            List<menu> menuList = new();
-            foreach (var item in user_data.roles)
-            {
-                var m = item.menus.Where(u => u?.router?.ToUpper() == router.ToUpper()).FirstOrDefault();
-                if (m == null) { break; }
-                menuList = m.children?.Where(u => menuIds.Contains(u.id) && u.is_delete == Normal).ToList();
-
-            }
-            return menuList;
+           var menu_data= await _DbRead.Set<menu>().Where(u => u.router.Trim().ToUpper() == router.Trim().ToUpper() && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            return await _DbRead.Set<menu>().Include(u=>u.mould).Where(u => u.parentId == menu_data.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
         }
 
         public async Task<menu> GetMenuByHttpUser(List<int> allMenuIds)
         {
-            var topMenu = await _DbRead.Set<menu>().Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).Where(u => u.is_top == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
+            var topMenu = await _DbRead.Set<menu>().Where(u => allMenuIds.Contains(u.id)&& u.is_show == (short)Common.Enum.ShowFlagEnum.Show && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
             //现在要开始关联菜单了
-            return TreeMenuBuild.Sort(TreeMenuBuild.ShowFormat(topMenu, allMenuIds)); ;
+            return TreeHelper.SetTree(topMenu)[0];
         }
         public async Task<user> GetUserInRolesByHttpUser(int userId)
         {
@@ -109,11 +103,11 @@ namespace Yi.Framework.Service
 
         public bool SaveUserApi(int userId, List<menuDto> menus)
         {
-            return _cacheClientDB.Set(RedisConst.userMenusApi+":"+userId.ToString(),menus,new TimeSpan(0,30,0));
+            return _cacheClientDB.Set(RedisConst.userMenusApi + ":" + userId.ToString(), menus, new TimeSpan(0, 30, 0));
         }
         public List<int> GetCurrentMenuInfo(int userId)
         {
-           return _cacheClientDB.Get<List<menuDto>>(RedisConst.userMenusApi+":"+userId).Select(u=>u.id).ToList();
+            return _cacheClientDB.Get<List<menuDto>>(RedisConst.userMenusApi + ":" + userId).Select(u => u.id).ToList();
         }
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Yi.Framework.Model.Migrations
 {
     public partial class yi1 : Migration
@@ -109,27 +111,20 @@ namespace Yi.Framework.Model.Migrations
                     menu_name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     mouldid = table.Column<int>(type: "int", nullable: true),
-                    menuid = table.Column<int>(type: "int", nullable: true),
                     is_delete = table.Column<int>(type: "int", nullable: false),
                     is_top = table.Column<int>(type: "int", nullable: false),
                     sort = table.Column<int>(type: "int", nullable: false),
-                    is_show = table.Column<int>(type: "int", nullable: false)
+                    is_show = table.Column<int>(type: "int", nullable: false),
+                    parentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_menu", x => x.id);
                     table.ForeignKey(
-                        name: "FK_menu_menu_menuid",
-                        column: x => x.menuid,
-                        principalTable: "menu",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_menu_mould_mouldid",
                         column: x => x.mouldid,
                         principalTable: "mould",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -182,11 +177,6 @@ namespace Yi.Framework.Model.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_menu_menuid",
-                table: "menu",
-                column: "menuid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_menu_mouldid",
