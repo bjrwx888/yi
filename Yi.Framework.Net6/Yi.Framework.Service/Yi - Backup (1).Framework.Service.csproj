@@ -9,6 +9,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="T4Service.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4Service.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
     <ProjectReference Include="..\Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj" />
     <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />

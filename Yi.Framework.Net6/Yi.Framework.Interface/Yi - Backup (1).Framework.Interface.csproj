@@ -1,23 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="T4DaraContext.cs" />
+    <Compile Remove="T4Service.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+    <None Include="T4Iservice.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4Iservice.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj" />
-    <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="T4Service.tt">
-      <LastGenOutput>T4Service.cs</LastGenOutput>
+    <None Update="T4IService.tt">
+      <LastGenOutput>T4Iservice.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
   </ItemGroup>
@@ -27,10 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="T4Service.cs">
+    <Compile Update="T4IService.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>T4Service.tt</DependentUpon>
+      <DependentUpon>T4IService.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
