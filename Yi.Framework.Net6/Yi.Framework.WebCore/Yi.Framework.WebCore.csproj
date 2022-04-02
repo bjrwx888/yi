@@ -32,4 +32,8 @@
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Init\" />
+  </ItemGroup>
+
 </Project>

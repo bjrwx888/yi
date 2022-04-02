@@ -7,7 +7,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Core;
-using Yi.Framework.DTOModel;
 using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.WebCore.AuthorizationPolicy
@@ -45,15 +44,15 @@ namespace Yi.Framework.WebCore.AuthorizationPolicy
             //现在只需要登录的时候把用户的api路径添加到redis去
             //每次访问的时候进行redis判断一下即可
             //注意一下，redis不能一直保存，和jwt一样搞一个期限
-             var menuList=_cacheClientDB.Get<List<menuDto>>(RedisConst.userMenusApi+":"+currentUserId);
-            foreach (var k in menuList)
-            {
-                if (k.mould != null)
-                {
-                    dicMenueDictionary.Add(k.mould?.id.ToString(), "/api"+ k.mould?.url);
-                }
+             //var menuList=_cacheClientDB.Get<List<menuDto>>(RedisConst.userMenusApi+":"+currentUserId);
+            //foreach (var k in menuList)
+            //{
+            //    if (k.mould != null)
+            //    {
+            //        dicMenueDictionary.Add(k.mould?.id.ToString(), "/api"+ k.mould?.url);
+            //    }
            
-            }
+            //}
 
             if (dicMenueDictionary.ContainsValue(httpcontext.Request.Path))
             {

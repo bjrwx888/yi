@@ -13,7 +13,9 @@ namespace Yi.Framework.Common.Helper
         /// <returns></returns>
         public static string MD5Encrypt16(string password)
         {
+#pragma warning disable SYSLIB0021 // 类型或成员已过时
             var md5 = new MD5CryptoServiceProvider();
+#pragma warning restore SYSLIB0021 // 类型或成员已过时
             string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(password)), 4, 8);
             t2 = t2.Replace("-", string.Empty);
             return t2;

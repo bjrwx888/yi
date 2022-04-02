@@ -12,7 +12,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Yi.Framework.Job;
-using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.WebCore.Utility;
 using Module = Autofac.Module;
 
@@ -35,7 +34,7 @@ namespace Yi.Framework.WebCore.Utility
         protected override void Load(ContainerBuilder containerBuilder)
         {
 
-            containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
+            //containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
 
             containerBuilder.RegisterType< HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 

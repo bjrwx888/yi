@@ -5,15 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="NEST" Version="7.16.0" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.4" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +16,6 @@
     <None Update="T4DaraContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4DaraContext.cs</LastGenOutput>
-    </None>
-    <None Update="T4DataContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4DataContext.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -41,11 +29,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>T4DaraContext.tt</DependentUpon>
     </Compile>
-    <Compile Update="T4DataContext.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>T4DataContext.tt</DependentUpon>
-    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BaseModels\" />
+    <Folder Include="ModelFactory\" />
   </ItemGroup>
 
 </Project>

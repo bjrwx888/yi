@@ -14,7 +14,9 @@ namespace Yi.Framework.Common.Helper
     {
         public static string HttpGet(string Url, string postDataStr="")
         {
+#pragma warning disable SYSLIB0014 // 类型或成员已过时
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url + (postDataStr == "" ? "" : "?") + postDataStr);
+#pragma warning restore SYSLIB0014 // 类型或成员已过时
             request.Method = "GET";
             request.ContentType = "text/html;charset=UTF-8";
 
@@ -52,7 +54,9 @@ namespace Yi.Framework.Common.Helper
         public static string HttpPost(string Url, string postDataStr="")
         {
             CookieContainer cookie = new CookieContainer();
+#pragma warning disable SYSLIB0014 // 类型或成员已过时
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+#pragma warning restore SYSLIB0014 // 类型或成员已过时
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = Encoding.UTF8.GetByteCount(postDataStr);

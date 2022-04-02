@@ -1,10 +1,10 @@
 using Autofac.Extensions.DependencyInjection;
 using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.Core;
-using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Yi.Framework.WebCore.Utility;
 using Autofac;
+using Yi.Framework.Common.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,10 +70,6 @@ builder.Services.AddJwtService();
 #endregion
 builder.Services.AddAuthorizationService();
 #region
-//数据库配置
-#endregion
-builder.Services.AddDbService();
-#region
 //Redis服务配置
 #endregion
 builder.Services.AddRedisService();
@@ -95,6 +91,11 @@ builder.Services.AddSMSService();
 builder.Services.AddCAPService<Program>();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
+
+#region
+//服务容器
+#endregion
+ServiceLocator.Instance = app.Services;
 //if (app.Environment.IsDevelopment())
 {
     #region
@@ -110,7 +111,6 @@ var app = builder.Build();
 //错误抓取反馈注入
 #endregion
 app.UseErrorHandlingService();
-
 #region
 //静态文件注入
 #endregion
@@ -143,10 +143,6 @@ app.UseAuthorization();
 //Consul服务注入
 #endregion
 app.UseConsulService();
-#region
-//数据库种子注入
-#endregion
-app.UseDbSeedInitService(app.Services.GetService<IDbContextFactory>());
 #region
 //redis种子注入
 #endregion

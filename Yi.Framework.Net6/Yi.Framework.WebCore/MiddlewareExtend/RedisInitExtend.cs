@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core;
-using Yi.Framework.Model.ModelFactory;
-using Yi.Framework.WebCore.Init;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -24,7 +22,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 
                 try
                 {
-                    RedisInit.Seed(_cacheClientDB);
+                    //RedisInit.Seed(_cacheClientDB);
                 }
                 catch (Exception e)
                 {

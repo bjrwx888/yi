@@ -1,70 +1,90 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.Extensions.Localization;
+using Yi.Framework.Common.Models.Enum;
+using Yi.Framework.Language;
 
 namespace Yi.Framework.Common.Models
 {
-    /// <summary>
-    /// 结果数据
-    /// </summary>
     public class Result
     {
+        public static IStringLocalizer<LocalLanguage> _local;
+        public ResultCode code { get; set; }
+
         public bool status { get; set; }
-        public int code { get; set; }
-        public string msg { get; set; }
+        public string message { get; set; }
         public object data { get; set; }
-        public static Result Instance(bool status, string msg)
+        public static Result Expire(ResultCode code, string msg="")
         {
-            return new Result() { status = status, code = 500, msg = msg };
+            return new Result() {  code = code, status=false,  message = Get(msg, "token_expiration") };
         }
-        public static Result Error(string msg = "fail")
+        public static Result Error(string msg = "")
         {
-            return new Result() { status = false, code = 500, msg = msg };
+            return new Result() { code = ResultCode.NotSuccess,status=false,  message =Get(msg, "fail") };
         }
-        public static Result Success(string msg = "succeed")
+        public static Result Success(string msg = "")
         {
-            return new Result() { status = true, code = 200, msg = msg };
+            return new Result() {  code = ResultCode.Success,status=true, message =Get( msg, "succeed" )};
         }
-        public static Result UnAuthorize(string msg = "unAuthorize")
+        public static Result SuccessError(string msg = "")
         {
-            return new Result() { status = false, code = 401, msg = msg };
+            return new Result() { code = ResultCode.Success, status = false, message = Get(msg, "fail") };
         }
 
+
+        public static Result UnAuthorize(string msg = "")
+        {
+            return new Result() {  code = ResultCode.NoPermission,status=false, message = Get(msg, "unAuthorize") };
+        }
+        public Result SetStatus(bool _status)
+        {
+            this.status = _status;
+            return this;
+        }
         public Result SetData(object obj)
         {
             this.data = obj;
             return this;
         }
-        public Result SetCode(int Code)
+        public Result SetCode(ResultCode Code)
         {
             this.code = Code;
             return this;
         }
+        public Result StatusFalse()
+        {
+            this.status = false;
+            return this;
+        }
+        public Result StatusTrue()
+        {
+            this.status = true;
+            return this;
+        }
+
+        public static string Get(string msg,string msg2)
+        {
+            if (msg=="")
+            {
+                msg = _local[msg2];
+            }
+            return msg;
+        }
     }
     public class Result<T>
     {
-        public bool status { get; set; }
-        public int code { get; set; }
-        public string msg { get; set; }
+        public ResultCode code { get; set; }
+        public string message { get; set; }
         public T data { get; set; }
-
-        public static Result<T> Instance(bool status, string msg)
-        {
-            return new Result<T>() { status = status, code = 500, msg = msg };
-        }
         public static Result<T> Error(string msg = "fail")
         {
-            return new Result<T> { status = false, code = 500, msg = msg };
+            return new Result<T>() { code = ResultCode.NotSuccess, message = msg };
         }
         public static Result<T> Success(string msg = "succeed")
         {
-            return new Result<T> { status = true, code = 200, msg = msg };
+            return new Result<T>() { code = ResultCode.Success, message = msg };
         }
-
         public static Result<T> UnAuthorize(string msg = "unAuthorize")
         {
-            return new Result<T>{ status = false, code = 401, msg = msg };
+            return new Result<T>() { code = ResultCode.NoPermission, message = msg };
         }
 
         public Result<T> SetData(T TValue)
@@ -72,6 +92,11 @@ namespace Yi.Framework.Common.Models
             this.data = TValue;
             return this;
         }
-    }
 
+        public Result<T> SetCode(ResultCode Code)
+        {
+            this.code = Code;
+            return this;
+        }
+    }
 }
