@@ -13,15 +13,15 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static IServiceCollection AddAuthorizationService(this IServiceCollection services)
         {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(PolicyName.Menu, polic =>
-                {
-                    polic.AddRequirements(new CustomAuthorizationRequirement(PolicyEnum.MenuPermissions));
-                });
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(PolicyName.Menu, polic =>
+            //    {
+            //        polic.AddRequirements(new CustomAuthorizationRequirement(PolicyEnum.MenuPermissions));
+            //    });
+            //});
 
-            services.AddSingleton<IAuthorizationHandler, CustomAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, CustomAuthorizationHandler>();
             return services;
         }
     }

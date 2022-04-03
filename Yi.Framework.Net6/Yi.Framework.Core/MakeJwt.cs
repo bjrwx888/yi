@@ -16,7 +16,7 @@ namespace Yi.Framework.Core
 
     public class JwtUser
     { 
-        public User user { get; set; }
+        public UserEntity user { get; set; }
     
     }
 
@@ -34,7 +34,7 @@ namespace Yi.Framework.Core
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"));
-            claims.Add(new Claim(ClaimTypes.Name, _user.user.Username));
+            claims.Add(new Claim(ClaimTypes.Name, _user.user.Name));
             claims.Add(new Claim(ClaimTypes.Sid, _user.user.Id.ToString()));
             //现在不存放在jwt中，而存放在redis中
             //foreach (var k in _user?.menuIds)

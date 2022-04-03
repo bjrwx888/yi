@@ -17,7 +17,8 @@ namespace Yi.Framework.Repository
         public static SqlSugarScope Db = new SqlSugarScope(new ConnectionConfig()
         {
             DbType = SqlSugar.DbType.MySql,
-            //ConnectionString = Appsettings.app("ConnectionStrings","mysqlConnection") ,
+            //ConnectionString = Appsettings.app("ConnectionStrings", "mysqlConnection"),
+            ConnectionString= "server=119.91.207.67;port=3306;database=yi-sqlsugar-dev;user id=root;password=Qz52013142020.",
             IsAutoCloseConnection = true
         },
             db =>

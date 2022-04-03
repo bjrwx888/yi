@@ -15,7 +15,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -31,6 +30,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> Get()
         {
             return Result.Success().SetData(await _iUserService.GetListAsync());
+        }
+        [HttpPost]
+        public async Task<Result> Add(UserEntity userEntity)
+        {
+            return Result.Success().SetData(await _iUserService.InsertAsync(userEntity));
         }
     }
 }

@@ -30,32 +30,20 @@ namespace Yi.Framework.WebCore
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static User GetCurrentUserInfo(this HttpContext httpContext, out List<int> menuIds)
+        public static UserEntity GetCurrentUserEntityInfo(this HttpContext httpContext, out List<Guid> menuIds)
         {
             IEnumerable<Claim> claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
 
-            Int32.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value, out int resId);
+      var resId=   new Guid (claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value);
 
 
-            menuIds = claimlist.Where(u => u.Type == "menuIds").ToList().Select(u => Convert.ToInt32(u.Value)).ToList();
+            menuIds = claimlist.Where(u => u.Type == "menuIds").ToList().Select(u => new Guid(u.Value)).ToList();
 
 
-            return new User()
+            return new UserEntity()
             {
                 Id = resId,
-                Username = claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value ?? "匿名"
-            };
-        }
-        public static User GetCurrentUserInfo(this HttpContext httpContext)
-        {
-            IEnumerable<Claim> claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
-
-            Int32.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value, out int resId);
-
-            return new User()
-            {
-                Id = resId,
-                Username = claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value ?? "匿名"
+                Name = claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value 
             };
         }
     }

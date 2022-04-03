@@ -5,9 +5,12 @@ using Yi.Framework.WebCore.MiddlewareExtend;
 using Yi.Framework.WebCore.Utility;
 using Autofac;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Language;
+using Microsoft.Extensions.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration.AddCommandLine(args);
+builder.WebHost.UseUrls(builder.Configuration.GetValue<string>("StartUrl"));
 builder.Host.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
  {
      configurationBuilder.AddCommandLine(args);
@@ -29,7 +32,8 @@ builder.Host.ConfigureLogging(loggingBuilder =>
                 {
                     loggingBuilder.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.Warning);
                     loggingBuilder.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.Warning);
-                    loggingBuilder.AddLog4Net();
+                    loggingBuilder.AddLog4Net("./Config/Log4net.config");
+                   
                 });
 #region
 //配置类配置
@@ -89,6 +93,11 @@ builder.Services.AddSMSService();
 //CAP服务配置
 #endregion
 builder.Services.AddCAPService<Program>();
+
+#region
+//国际化配置
+#endregion
+builder.Services.AddLocalizerService();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 
@@ -110,11 +119,17 @@ ServiceLocator.Instance = app.Services;
 #region
 //错误抓取反馈注入
 #endregion
-app.UseErrorHandlingService();
+//app.UseErrorHandlingService();
 #region
 //静态文件注入
 #endregion
 //app.UseStaticFiles();
+
+#region
+//多语言国际化注入
+#endregion
+app.UseLocalizerService();
+
 #region
 //HttpsRedirection注入
 #endregion
