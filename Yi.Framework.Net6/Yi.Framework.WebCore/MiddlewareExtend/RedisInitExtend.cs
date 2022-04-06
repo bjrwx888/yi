@@ -1,11 +1,13 @@
 ﻿using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
@@ -13,12 +15,12 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
   public static class RedisInitExtend
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(RedisInitExtend));
-        public  static  void UseRedisSeedInitService(this IApplicationBuilder app, CacheClientDB _cacheClientDB)
+        public  static  void UseRedisSeedInitService(this IApplicationBuilder app )
         {
 
             if (Appsettings.appBool("RedisSeed_Enabled"))
             {
-                if (app == null) throw new ArgumentNullException(nameof(app));
+                var _cacheClientDB = ServiceLocator.Instance.GetService<CacheClientDB>();
 
                 try
                 {

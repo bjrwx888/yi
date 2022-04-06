@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Init\**" />
+    <EmbeddedResource Remove="Init\**" />
+    <None Remove="Init\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
@@ -30,10 +36,6 @@
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
     <ProjectReference Include="..\Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Init\" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@ using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
@@ -20,12 +21,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     {
         public UserController(ILogger<UserEntity> logger, IUserService iUserService) : base(logger, iUserService)
         {
-          
         }
         [HttpGet]
-        public async Task<IActionResult> Test()
+        [Permission("user:query:list")]
+        public async Task<Result> PermissionTest()
         {
-            return Ok(await _iRepository.GetListAsync());
+            return Result.Success().SetData( await _iRepository.GetListAsync());
+        
         }
     }
 }

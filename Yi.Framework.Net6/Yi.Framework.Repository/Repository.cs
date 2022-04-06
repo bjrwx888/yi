@@ -1,6 +1,7 @@
 ﻿using SqlSugar;
 using System.Data;
 using System.Linq.Expressions;
+using Yi.Framework.Common.Models;
 using Yi.Framework.Model.Query;
 
 /***这里面写的代码不会给覆盖,如果要重新生成请删除 Repository.cs ***/
@@ -17,12 +18,8 @@ namespace Yi.Framework.Repository
         /// 构造函数
         /// </summary>
         /// <param name="context"></param>
-        public Repository(ISqlSugarClient context = null) : base(context)//注意这里要有默认值等于null
+        public Repository(ISqlSugarClient context) : base(context)//注意这里要有默认值等于null
         {
-            if (context == null)
-            {
-                base.Context = Db;
-            }
         }
 
 
@@ -52,9 +49,9 @@ namespace Yi.Framework.Repository
         /// 仓储扩展方法:单表查询通用分页 
         /// </summary>
         /// <returns></returns>
-        public object CommonPage(QueryCondition pars)
+        public  async Task<PageModel<List<T>>> CommonPage(QueryCondition pars)
         {
-            int tolCount = 0;
+            RefAsync<int> tolCount = 0;
             var sugarParamters = pars.Parameters.Select(it => (IConditionalModel)new ConditionalModel()
             {
                 ConditionalType = it.ConditionalType,
@@ -66,14 +63,15 @@ namespace Yi.Framework.Repository
             {
                 foreach (var item in pars.OrderBys)
                 {
-                    query.OrderBy(item.ToSqlFilter());//格式 id asc或者 id desc
+                    query.OrderBy(item.ToSqlFilter());
                 }
             }
-            var result = query.Where(sugarParamters).ToPageList(pars.Index, pars.Size, ref tolCount);
-            return new
+            var result =await query.Where(sugarParamters).ToPageListAsync(pars.Index, pars.Size, tolCount);
+          
+            return new PageModel<List<T>>
             {
-                count = tolCount,
-                data = result
+                Total = tolCount.Value,
+                Data = result
             };
         }
     }

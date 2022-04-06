@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 using Yi.Framework.Model.Query;
 
 namespace Yi.Framework.Repository
@@ -13,6 +14,6 @@ namespace Yi.Framework.Repository
     {
         public Task<T> InsertReturnEntityAsync(T entity);
         public Task<List<S>> StoreAsync<S>(string storeName, object para);
-        public object CommonPage(QueryCondition queryCondition);
+        public Task<PageModel<List<T>>> CommonPage(QueryCondition pars);
     }
 }

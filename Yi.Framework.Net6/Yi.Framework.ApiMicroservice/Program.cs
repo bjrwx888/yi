@@ -7,6 +7,7 @@ using Autofac;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Language;
 using Microsoft.Extensions.Localization;
+using Yi.Framework.WebCore.AttributeExtend;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -48,6 +49,10 @@ builder.Host.ConfigureLogging(loggingBuilder =>
 #endregion
 builder.Services.AddIocService(builder.Configuration);
 #region
+//Sqlsugar上下文注入
+#endregion
+builder.Services.AddSqlsugarServer();
+#region
 //Quartz任务调度配置
 #endregion
 builder.Services.AddQuartzService();
@@ -55,8 +60,12 @@ builder.Services.AddQuartzService();
 //控制器+过滤器配置
 #endregion
 builder.Services.AddControllers(optios => {
-    //optios.Filters.Add(typeof(CustomExceptionFilterAttribute));
+    //optios.Filters.Add<PermissionAttribute>();
 }).AddJsonFileService();
+#region
+//权限过滤器
+#endregion
+builder.Services.AddSingleton<PermissionAttribute>();
 #region
 //Swagger服务配置
 #endregion
@@ -92,8 +101,7 @@ builder.Services.AddSMSService();
 #region
 //CAP服务配置
 #endregion
-builder.Services.AddCAPService<Program>();
-
+builder.Services.AddCAPService();
 #region
 //国际化配置
 #endregion
@@ -119,17 +127,15 @@ ServiceLocator.Instance = app.Services;
 #region
 //错误抓取反馈注入
 #endregion
-//app.UseErrorHandlingService();
+app.UseErrorHandlingService();
 #region
 //静态文件注入
 #endregion
-//app.UseStaticFiles();
-
+app.UseStaticFiles();
 #region
 //多语言国际化注入
 #endregion
 app.UseLocalizerService();
-
 #region
 //HttpsRedirection注入
 #endregion
@@ -161,7 +167,7 @@ app.UseConsulService();
 #region
 //redis种子注入
 #endregion
-app.UseRedisSeedInitService(app.Services.GetService<CacheClientDB>());
+app.UseRedisSeedInitService();
 #region
 //Endpoints注入
 #endregion

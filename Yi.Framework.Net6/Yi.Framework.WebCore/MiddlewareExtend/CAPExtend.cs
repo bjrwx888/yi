@@ -12,7 +12,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 {
     public static class CAPExtend
     {
-        public static IServiceCollection AddCAPService<T>(this IServiceCollection services)
+        public static IServiceCollection AddCAPService(this IServiceCollection services)
         {
             if (Appsettings.appBool("CAP_Enabled"))
             {
@@ -31,9 +31,9 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                     x.FailedRetryInterval = 60;//second
                     x.FailedThresholdCallback = failed =>
                     {
-                        var logger = failed.ServiceProvider.GetService<ILogger<T>>();
-                        logger.LogError($@"MessageType {failed.MessageType} 失败了， 重试了 {x.FailedRetryCount} 次, 
-                        消息名称: {failed.Message.GetName()}");//do anything
+                        //var logger = failed.ServiceProvider.GetService<ILogger<T>>();
+                        //logger.LogError($@"MessageType {failed.MessageType} 失败了， 重试了 {x.FailedRetryCount} 次, 
+                        //消息名称: {failed.Message.GetName()}");//do anything
                     };
                     if (Appsettings.appBool("CAPDashboard_Enabled"))
                     {

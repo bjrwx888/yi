@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Common.Models
 {
-   public  class PageModel
-    {
 
+    public class PageModel<T>
+    {
+        public int Total { get; set; }
+        public T Data { get; set; }
+    }
+
+    public class PageModel : PageModel<object>
+    {
     }
 }
