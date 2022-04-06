@@ -1,4 +1,5 @@
 ﻿using SqlSugar;
+using Yi.Framework.Common.Models;
 
 namespace Yi.Framework.Repository
 {
