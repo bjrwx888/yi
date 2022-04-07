@@ -17,9 +17,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class UserController : BaseCrudController<UserEntity>
+    public class TenantController : BaseCrudController<TenantEntity>
     {
-        public UserController(ILogger<UserEntity> logger, IUserService iUserService) : base(logger, iUserService)
+        public TenantController(ILogger<TenantEntity> logger, ITenantService iTenantService) : base(logger, iTenantService)
         {
         }
     }
