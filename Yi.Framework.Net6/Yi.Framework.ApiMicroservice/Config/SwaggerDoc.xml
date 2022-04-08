@@ -10,13 +10,6 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.#ctor(Microsoft.Extensions.Logging.ILogger{`0},Yi.Framework.Repository.IRepository{`0})">
-            <summary>
-            jb
-            </summary>
-            <param name="logger"></param>
-            <param name="iRepository"></param>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Get(System.Object)">
             <summary>
             主键查询
@@ -24,13 +17,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.GetList">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.GetList(Yi.Framework.Model.Query.QueryCondition)">
             <summary>
             列表查询
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Page(Yi.Framework.Model.Query.QueryCondition)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Page(Yi.Framework.Model.Query.QueryPageCondition)">
             <summary>
             条件分页查询
             </summary>
@@ -51,7 +44,7 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.DeleteList(System.Object[])">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.DeleteList(System.Collections.Generic.List{System.Guid})">
             <summary>
             列表删除
             </summary>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
@@ -21,9 +22,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class AccountController :ControllerBase
     {
         private  IUserService _iUserService;
-        public AccountController(ILogger<UserEntity> logger, IUserService iUserService)
+        private JwtInvoker _jwtInvoker;
+        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker)
         {
             _iUserService = iUserService;
+            _jwtInvoker = jwtInvoker;
         }
 
         [AllowAnonymous]
@@ -32,8 +35,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             UserEntity user=new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password,o=> user=o))
-            { 
-                return Result.Success("登录成功！").SetData(user);
+            {
+                return Result.Success("登录成功！").SetData(new { user, token = _jwtInvoker.GetAccessToken(user)});
             }
             return Result.SuccessError("登录失败！用户名或者密码错误！");
         }

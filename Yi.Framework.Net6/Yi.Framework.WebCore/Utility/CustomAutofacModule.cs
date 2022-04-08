@@ -11,7 +11,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yi.Framework.Interface;
 using Yi.Framework.Job;
+using Yi.Framework.Repository;
+using Yi.Framework.Service;
 using Yi.Framework.WebCore.Utility;
 using Module = Autofac.Module;
 
@@ -38,16 +41,16 @@ namespace Yi.Framework.WebCore.Utility
 
             containerBuilder.RegisterType< HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 
-
-
+            containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope();
             ///反射注入服务层及接口层     
             var assemblysServices = GetDll( "Yi.Framework.Service.dll");
             containerBuilder.RegisterAssemblyTypes(assemblysServices)
                      .AsImplementedInterfaces()
-                     .InstancePerDependency()
+                     .InstancePerLifetimeScope()
                      .EnableInterfaceInterceptors();
 
-///反射注册任务调度层
+            ///反射注册任务调度层
             var assemblysJob = GetDll("Yi.Framework.Job.dll");
             containerBuilder.RegisterAssemblyTypes(assemblysJob)
                      .InstancePerDependency();

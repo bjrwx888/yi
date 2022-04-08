@@ -12,7 +12,7 @@ namespace Yi.Framework.Service
     {
         public async Task<bool> Exist(Guid id, Action<UserEntity> userAction = null)
         {
-            var user = await GetByIdAsync(id);
+            var user = await _repository.GetByIdAsync(id);
             userAction.Invoke(user);
             if (user == null)
             {
@@ -22,7 +22,7 @@ namespace Yi.Framework.Service
         }
         public async Task<bool> Exist(string userName, Action<UserEntity> userAction = null)
         {
-            var user = await GetFirstAsync(u=>u.UserName== userName);
+            var user = await _repository.GetFirstAsync(u=>u.UserName== userName);
             if (userAction != null)
             {
                 userAction.Invoke(user);
@@ -55,7 +55,7 @@ namespace Yi.Framework.Service
                 user.UserName= userEntity.UserName;
                 user.Salt = Common.Helper.MD5Helper.GenerateSalt();
                 user.Password = Common.Helper.MD5Helper.SHA2Encode(userEntity.Password,user.Salt);
-                userAction.Invoke(await InsertReturnEntityAsync(user));
+                userAction.Invoke(await _repository.InsertReturnEntityAsync(user));
                 return true;
             }
             return false;

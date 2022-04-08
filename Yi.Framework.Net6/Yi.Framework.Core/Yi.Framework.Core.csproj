@@ -23,22 +23,4 @@
     <ProjectReference Include="..\Yi.Framework.Task\Yi.Framework.Job.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
-      <HintPath>Library\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>Library\ServiceStack.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>Library\ServiceStack.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Redis">
-      <HintPath>Library\ServiceStack.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>Library\ServiceStack.Text.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

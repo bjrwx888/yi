@@ -8,6 +8,7 @@ using System.Text;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.IOCOptions;
+using Yi.Framework.Core;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -19,7 +20,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         public static IServiceCollection AddJwtService(this IServiceCollection services)
         {
             services.Configure<JWTTokenOptions>(Appsettings.appConfiguration("JwtAuthorize"));
-
+            services.AddTransient<JwtInvoker>();
             var jwtOptions = Appsettings.app<JWTTokenOptions>("JwtAuthorize");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                              .AddJwtBearer(options =>

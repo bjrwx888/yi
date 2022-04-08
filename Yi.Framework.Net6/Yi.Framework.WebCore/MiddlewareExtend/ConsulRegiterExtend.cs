@@ -37,6 +37,8 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                      c.Datacenter = consulClientOption.Datacenter;
                  }))
                 {
+
+                    client.Agent.ServiceDeregister($"{consulRegisterOption.IP}-{consulRegisterOption.Port}-{Guid.NewGuid()}");
                     client.Agent.ServiceRegister(new AgentServiceRegistration()
                     {
                         ID = $"{consulRegisterOption.IP}-{consulRegisterOption.Port}-{Guid.NewGuid()}",//唯一Id

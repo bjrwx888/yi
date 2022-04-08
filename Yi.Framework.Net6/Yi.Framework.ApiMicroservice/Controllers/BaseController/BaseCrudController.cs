@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Interface;
+using Yi.Framework.Model.Models;
 using Yi.Framework.Model.Query;
 using Yi.Framework.Repository;
 using Yi.Framework.WebCore.AttributeExtend;
@@ -12,19 +14,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// <typeparam name="T"></typeparam>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class BaseCrudController<T> : ControllerBase where T : class,new()
+    public class BaseCrudController<T> : ControllerBase where T : BaseModelEntity,new()
     {
-        private readonly ILogger<T> _logger;
-        public IRepository<T> _iRepository;
-        /// <summary>
-        /// jb
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="iRepository"></param>
-        public BaseCrudController(ILogger<T> logger, IRepository<T> iRepository)
+        public readonly ILogger<T> _logger;
+        public IBaseService<T> _baseService;
+        public IRepository<T> _repository;
+
+        public BaseCrudController(ILogger<T> logger, IBaseService<T> iBaseService)
         {
             _logger = logger;
-            _iRepository = iRepository;
+            _baseService = iBaseService;
+            _repository = iBaseService._repository;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> Get(object id)
         {
-            return Result.Success().SetData(await _iRepository.GetByIdAsync(id));
+            return Result.Success().SetData(await _repository.GetByIdAsync(id));
         }
 
         /// <summary>
@@ -44,10 +44,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:list")]
-        [HttpGet]
-        public async Task<Result> GetList()
+        [HttpPost]
+        public async Task<Result> GetList(QueryCondition queryCondition)
         {
-            return Result.Success().SetData(await _iRepository.GetListAsync());
+            return Result.Success().SetData(await _repository.GetListAsync(queryCondition));
         }
 
         /// <summary>
@@ -57,9 +57,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:page")]
         [HttpPost]
-        public async  Task<Result> Page(QueryCondition queryCondition)
+        public async  Task<Result> Page(QueryPageCondition queryCondition)
         {
-            return Result.Success().SetData(await _iRepository.CommonPage(queryCondition));
+            return Result.Success().SetData(await _repository.CommonPage(queryCondition));
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Add(T entity)
         {
-            return Result.Success().SetData(await _iRepository.InsertReturnEntityAsync(entity));
+            return Result.Success().SetData(await _repository.InsertReturnEntityAsync(entity));
         }
         
         /// <summary>
@@ -83,7 +83,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> Update(T entity)
         {
-            return Result.Success().SetStatus(await _iRepository.UpdateAsync(entity));
+            return Result.Success().SetStatus(await _repository.UpdateAsync(entity));
         }
 
         /// <summary>
@@ -93,9 +93,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:delete:list")]
         [HttpDelete]
-        public async Task<Result> DeleteList(object[] ids)
+        public async Task<Result> DeleteList(List<Guid> ids)
         {
-            return Result.Success().SetStatus(await _iRepository.DeleteByIdsAsync(ids));
+            return Result.Success().SetStatus(await _repository.DeleteByLogic(ids));
         }
     }
 }

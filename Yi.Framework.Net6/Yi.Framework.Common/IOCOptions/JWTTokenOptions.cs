@@ -11,8 +11,6 @@ namespace Yi.Framework.Common.IOCOptions
 
         public string Issuer { get; set; }
 
-        public string SecurityKey { get; set; }
-
         public string DefaultScheme { get; set; }
         public int Expiration { get; set; }
 

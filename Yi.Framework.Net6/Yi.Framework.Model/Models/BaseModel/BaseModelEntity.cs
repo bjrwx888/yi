@@ -41,16 +41,6 @@ namespace Yi.Framework.Model.Models
         [SugarColumn(ColumnName = "ModifyTime")]
         public DateTime? ModifyTime { get; set; }
         /// <summary>
-        /// 删除者 
-        ///</summary>
-        [SugarColumn(ColumnName = "DeleteUser")]
-        public Guid? DeleteUser { get; set; }
-        /// <summary>
-        /// 删除时间 
-        ///</summary>
-        [SugarColumn(ColumnName = "DeleteTime")]
-        public DateTime? DeleteTime { get; set; }
-        /// <summary>
         /// 是否删除 
         ///</summary>
         [SugarColumn(ColumnName = "IsDeleted")]

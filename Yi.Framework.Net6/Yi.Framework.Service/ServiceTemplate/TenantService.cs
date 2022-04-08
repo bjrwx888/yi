@@ -5,9 +5,9 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Service
 {
-    public partial class TenantService : Repository<TenantEntity>, ITenantService
+    public partial class TenantService : BaseService<TenantEntity>, ITenantService
     {
-        public TenantService(ISqlSugarClient context) : base(context)
+        public TenantService(IRepository<TenantEntity> repository) : base(repository)
         {
         }
     }

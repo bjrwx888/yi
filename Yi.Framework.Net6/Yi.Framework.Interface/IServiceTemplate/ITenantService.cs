@@ -3,7 +3,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-   public partial interface ITenantService: IRepository<TenantEntity>
+   public partial interface ITenantService:IBaseService<TenantEntity>
     {   
     }
 }

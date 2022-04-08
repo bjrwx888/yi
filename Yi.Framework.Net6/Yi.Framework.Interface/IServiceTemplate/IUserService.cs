@@ -3,7 +3,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-   public partial interface IUserService: IRepository<UserEntity>
+   public partial interface IUserService:IBaseService<UserEntity>
     {   
     }
 }
