@@ -8,14 +8,8 @@ namespace Yi.Framework.Model.Models
     /// 用户表
     ///</summary>
     [SugarTable("User")]
-    public partial class UserEntity
+    public partial class UserEntity:BaseModelEntity
     {
-        public UserEntity()
-        {
-            this.Id = Guid.NewGuid();
-            this.IsDeleted=false;
-            this.CreateTime = DateTime.Now;
-        }
         /// <summary>
         /// 1 
         ///</summary>

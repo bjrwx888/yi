@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq.Expressions;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Model.Models;
 using Yi.Framework.Model.Query;
 
 /***这里面写的代码不会给覆盖,如果要重新生成请删除 Repository.cs ***/
@@ -11,7 +12,7 @@ namespace Yi.Framework.Repository
     /// 仓储模式
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Repository<T> : DataContext<T>, IRepository<T> where T : class, new()
+    public class Repository<T> : DataContext<T>, IRepository<T> where T : BaseModelEntity,new()
     {
 
         /// <summary>

@@ -6,11 +6,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Model.Models;
 using Yi.Framework.Model.Query;
 
 namespace Yi.Framework.Repository
 {
-    public interface IRepository<T> : ISimpleClient<T> where T : class, new()
+    public interface IRepository<T> : ISimpleClient<T> where T : BaseModelEntity,new()
     {
         public Task<T> InsertReturnEntityAsync(T entity);
         public Task<List<S>> StoreAsync<S>(string storeName, object para);
