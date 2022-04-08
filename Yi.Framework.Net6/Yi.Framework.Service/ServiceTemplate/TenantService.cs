@@ -5,9 +5,9 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Service
 {
-    public partial class UserService : Repository<UserEntity>, IUserService
+    public partial class TenantService : Repository<TenantEntity>, ITenantService
     {
-        public UserService(ISqlSugarClient context) : base(context)
+        public TenantService(ISqlSugarClient context) : base(context)
         {
         }
     }

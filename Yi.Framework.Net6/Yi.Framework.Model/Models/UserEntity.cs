@@ -55,5 +55,20 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="TenantId"    )]
          public Guid? TenantId { get; set; }
+        /// <summary>
+        /// 账户 
+        ///</summary>
+         [SugarColumn(ColumnName="UserName"    )]
+         public string UserName { get; set; }
+        /// <summary>
+        /// 密码 
+        ///</summary>
+         [SugarColumn(ColumnName="Password"    )]
+         public string Password { get; set; }
+        /// <summary>
+        /// 加密盐值 
+        ///</summary>
+         [SugarColumn(ColumnName="Salt"    )]
+         public string Salt { get; set; }
     }
 }

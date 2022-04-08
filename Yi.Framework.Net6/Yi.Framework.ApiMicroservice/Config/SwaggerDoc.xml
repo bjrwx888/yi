@@ -4,5 +4,59 @@
         <name>Yi.Framework.ApiMicroservice</name>
     </assembly>
     <members>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
+            <summary>
+            6666
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.#ctor(Microsoft.Extensions.Logging.ILogger{`0},Yi.Framework.Repository.IRepository{`0})">
+            <summary>
+            jb
+            </summary>
+            <param name="logger"></param>
+            <param name="iRepository"></param>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Get(System.Object)">
+            <summary>
+            主键查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.GetList">
+            <summary>
+            列表查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Page(Yi.Framework.Model.Query.QueryCondition)">
+            <summary>
+            条件分页查询
+            </summary>
+            <param name="queryCondition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Update(`0)">
+            <summary>
+            修改
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.DeleteList(System.Object[])">
+            <summary>
+            列表删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
