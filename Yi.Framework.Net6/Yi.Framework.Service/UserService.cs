@@ -50,7 +50,7 @@ namespace Yi.Framework.Service
         public async Task<bool> Register(UserEntity userEntity, Action<UserEntity> userAction = null)
         {
             var user = new UserEntity();
-            if (!await Exist(user.Name))
+            if (!await Exist(userEntity.UserName))
             {
                 user.UserName= userEntity.UserName;
                 user.Salt = Common.Helper.MD5Helper.GenerateSalt();

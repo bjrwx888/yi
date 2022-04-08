@@ -34,9 +34,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 
                          if (entityInfo.PropertyName == "TenantId")
                          {
-                             //现在不能直接给了，要根据判断一下租户等级，如果租户等级是1，不给，需要自己去赋值，如果租户等级是0，就执行下面的。
                              //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["TenantId"].ToString()));
-                             //查询的时候，也需要判断一下，如果是租户等级，不要租户条件，如果是超级租户，就返回所有
                          }
                          break;
                      case DataFilterType.UpdateByObject:
@@ -50,22 +48,18 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                          }
                          break;
                  }
-                 //inset生效
 
              };
-             //如果用单例配置要统一写在这儿
              db.Aop.OnLogExecuting = (s, p) =>
              {
 
                  Console.WriteLine("_______________________________________________");
-                 Console.WriteLine(s);
+                 Console.WriteLine("执行SQL:"+s.ToString());
+                 Console.WriteLine("_______________________________________________");
              };
 
          });
             services.AddSingleton<ISqlSugarClient>(sqlSugar);//这边是SqlSugarScope用AddSingleton
-
-
-
         }
     }
 
