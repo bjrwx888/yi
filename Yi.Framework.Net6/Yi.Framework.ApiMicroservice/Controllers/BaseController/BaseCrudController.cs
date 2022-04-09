@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
+using Yi.Framework.Language;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Model.Query;
 using Yi.Framework.Repository;
@@ -19,7 +21,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public readonly ILogger<T> _logger;
         public IBaseService<T> _baseService;
         public IRepository<T> _repository;
-
         public BaseCrudController(ILogger<T> logger, IBaseService<T> iBaseService)
         {
             _logger = logger;
@@ -34,7 +35,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:one")]
         [HttpGet]
-        public async Task<Result> Get(object id)
+        public async Task<Result> Get(long id)
         {
             return Result.Success().SetData(await _repository.GetByIdAsync(id));
         }
@@ -71,7 +72,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Add(T entity)
         {
-            return Result.Success().SetData(await _repository.InsertReturnEntityAsync(entity));
+            return Result.Success().SetData(await _repository.InsertReturnSnowflakeIdAsync(entity));
         }
         
         /// <summary>
@@ -93,7 +94,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:delete:list")]
         [HttpDelete]
-        public async Task<Result> DeleteList(List<Guid> ids)
+        public async Task<Result> DeleteList(List<long> ids)
         {
             return Result.Success().SetStatus(await _repository.DeleteByLogic(ids));
         }

@@ -37,11 +37,10 @@ namespace Yi.Framework.Core
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddMinutes(minutes)).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()));
-            //claims.Add(new Claim("TenantId", userRoleMenuEntity.user.TenantId.ToString()));
-            //claims.Add(new Claim("TenantName", userRoleMenuEntity.tenant.TenantName.ToString()));
-            //claims.Add(new Claim("Id", userRoleMenuEntity.user.Id.ToString()));
-            //claims.Add(new Claim("Name", userRoleMenuEntity.user.Name));
-            //claims.Add(new Claim("TenantLevel", userRoleMenuEntity.tenant.TenantLevel.ToString()));
+
+            //-----------------------------以下从user的权限表中添加权限-----------------------例如：
+            claims.Add(new Claim("permission", "userentity:get:list"));
+            claims.Add(new Claim("permission", "userentity:get:one"));
 
             if (isRefresh)
             {

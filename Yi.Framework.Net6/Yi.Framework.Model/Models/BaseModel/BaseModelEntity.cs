@@ -11,7 +11,6 @@ namespace Yi.Framework.Model.Models
     {
         public BaseModelEntity()
         {
-            this.Id = Guid.NewGuid();
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
@@ -19,17 +18,17 @@ namespace Yi.Framework.Model.Models
         /// 1 
         ///</summary>
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// 创建者
         /// </summary>
         [SugarColumn(ColumnName = "CreateUser")]
-        public Guid? CreateUser { get; set; }
+        public long? CreateUser { get; set; }
         /// <summary>
         /// 修改者 
         ///</summary>
         [SugarColumn(ColumnName = "ModifyUser")]
-        public Guid? ModifyUser { get; set; }
+        public long? ModifyUser { get; set; }
         /// <summary>
         /// 创建时间 
         ///</summary>

@@ -17,6 +17,6 @@ namespace Yi.Framework.Repository
         public Task<List<S>> StoreAsync<S>(string storeName, object para);
         public Task<PageModel<List<T>>> CommonPage(QueryPageCondition pars);
         public  Task<List<T>> GetListAsync(QueryCondition pars);
-        public Task<bool> DeleteByLogic(List<Guid> ids);
+        public Task<bool> DeleteByLogic(List<long> ids);
     }
 }

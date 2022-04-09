@@ -31,6 +31,7 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<T> InsertReturnEntityAsync(T entity)
         {
+            entity.Id =SnowFlakeSingle.instance.getID();
             return await Db.Insertable(entity).ExecuteReturnEntityAsync();
         }
 
@@ -38,7 +39,7 @@ namespace Yi.Framework.Repository
         /// 逻辑多删除
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> DeleteByLogic(List<Guid> ids)
+        public async Task<bool> DeleteByLogic(List<long> ids)
         {
             var entitys = await Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
             entitys.ForEach(u=>u.IsDeleted=true);

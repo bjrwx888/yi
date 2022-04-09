@@ -33,9 +33,8 @@ namespace Yi.Framework.WebCore
         public static UserEntity GetCurrentUserEntityInfo(this HttpContext httpContext, out List<Guid> menuIds)
         {
             IEnumerable<Claim> claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
-
-      var resId=   new Guid (claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value);
-
+              
+       long.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value,out var resId)  ;
 
             menuIds = claimlist.Where(u => u.Type == "menuIds").ToList().Select(u => new Guid(u.Value)).ToList();
 

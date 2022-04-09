@@ -12,11 +12,36 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static void AddSqlsugarServer(this IServiceCollection services)
         {
+            DbType dbType;
+            var slavaConFig = new List<SlaveConnectionConfig>();
+            if (Appsettings.appBool("MutiDB_Enabled"))
+            {
+                var readCon = Appsettings.app<List<string>>("DbConn", "ReadUrl");
+              
+                readCon.ForEach(s => {
+                    slavaConFig.Add(new SlaveConnectionConfig() { ConnectionString = s });
+                });
+            }
+           
+            switch (Appsettings.app("DbSelect"))
+            {
+                case "Mysql": dbType = DbType.MySql; break;
+                case "Sqlite": dbType = DbType.Sqlite; break;
+                case "Sqlserver": dbType = DbType.SqlServer; break;
+                case "Oracle": dbType = DbType.Oracle; break;
+                default:throw new Exception("DbSelect配置写的TM是个什么东西？");
+            }
             SqlSugarScope sqlSugar = new SqlSugarScope(new ConnectionConfig()
             {
-                DbType = SqlSugar.DbType.MySql,
+                DbType = dbType,
                 ConnectionString = Appsettings.app("DbConn", "WriteUrl"),
-                IsAutoCloseConnection = true
+                IsAutoCloseConnection = true,
+                MoreSettings = new ConnMoreSettings()
+                {
+                    DisableNvarchar = true 
+                },
+                SlaveConnectionConfigs = slavaConFig,
+               
             },
          db =>
          {
@@ -31,7 +56,6 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                          {
                              //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["Id"].ToString()));
                          }
-
                          if (entityInfo.PropertyName == "TenantId")
                          {
                              //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["TenantId"].ToString()));

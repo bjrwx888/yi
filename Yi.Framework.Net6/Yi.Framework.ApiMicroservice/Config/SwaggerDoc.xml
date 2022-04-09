@@ -10,7 +10,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Get(System.Object)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Get(System.Int64)">
             <summary>
             主键查询
             </summary>
@@ -44,11 +44,29 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.DeleteList(System.Collections.Generic.List{System.Guid})">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.DeleteList(System.Collections.Generic.List{System.Int64})">
             <summary>
             列表删除
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.LocalTest">
+            <summary>
+            国际化测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.PermissionTest">
+            <summary>
+            权限测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.AutnTest">
+            <summary>
+            策略授权测试
+            </summary>
             <returns></returns>
         </member>
     </members>

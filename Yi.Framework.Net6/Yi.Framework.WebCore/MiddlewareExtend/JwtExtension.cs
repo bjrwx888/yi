@@ -27,11 +27,9 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                              {
                                  options.TokenValidationParameters = new TokenValidationParameters
                                  {
-                                     ValidateIssuer = true,//是否验证Issuer
+                                 ValidateIssuer = true,//是否验证Issuer
                                  ValidateAudience = true,//是否验证Audience
                                  ValidateLifetime = true,//是否验证失效时间
-
-
                                  ValidateIssuerSigningKey = true,//是否验证SecurityKey
                                  ValidAudience = jwtOptions.Audience,//Audience
                                  ValidIssuer = jwtOptions.Issuer,//Issuer，这两项和前面签发jwt的设置一致

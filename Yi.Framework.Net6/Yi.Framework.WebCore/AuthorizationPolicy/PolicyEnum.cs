@@ -15,6 +15,6 @@ namespace Yi.Framework.WebCore.AuthorizationPolicy
     }
     public static class PolicyName
     {
-        public const  string Menu = "Menu";
+        public const  string Sid = "Sid";
     }
 }

@@ -108,7 +108,6 @@ builder.Services.AddCAPService();
 builder.Services.AddLocalizerService();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
-
 #region
 //·þÎñÈÝÆ÷
 #endregion
