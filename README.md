@@ -2,21 +2,27 @@
  
 <h1 align="center"><img align="left" height="100px" src="https://user-images.githubusercontent.com/68722157/138828506-f58b7c57-5e10-4178-8f7d-5d5e12050113.png"> Yi框架</h1>
 <h4 align="center">一套与SqlSugar一样爽的.Net6低代码开源框架</h4>
-<h4 align="center">终究轮子，集大成者</h4>
+<h2 align="center">集大成者，终究轮子</h2>
 
 [English](README-en.md) | 简体中文
 
 ![sdk](https://img.shields.io/badge/sdk-6.0.1-d.svg)![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)
 
 ****
-#### 简介:
+### 简介:
 **中文：意框架**（和他的名字一样“简易”）
 
 **英文：YiFramework**
 
-分支：
+Yi框架-一套与SqlSugar一样爽的.Net6低代码开源框架。
+与Sqlsugar理念一致，以用户体验出发。
+无业务代码、采用微软风格原生框架封装、WebFrist开发。
+适合.Net6学习、Sqlsugar学习 、项目二次开发。
+集大成者，终究轮子
 
-（本项目由EFCore版本历经3年不断迭代至Sqlsugar版本，现EFcore版本已弃用）
+**分支**：
+
+（本项目由EFCore版本历经3年不断迭代至Sqlsugar版本，现EFcore版本已弃用，目前sqlsugar不带任何业务，之后会更新业务功能）
 
 **SqlSugar**:.Net6 DDD领域驱动设计分层微服务架构
 
@@ -24,7 +30,7 @@
 
 ****
 
-#### 演示地址：
+### 演示地址：
 
 废话少说直接上地址，**请不要**更改里面的数据
 
@@ -32,7 +38,7 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 
 网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~
 
-#### 支持:
+### 支持:
 
 - [x] 完全支持单体应用架构
 - [x] 完全支持分布式应用架构
@@ -40,7 +46,7 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 - [ ] 即将支持网格服务架构（我们将在后续版本加入dapr）
 
 ****
-#### 软件架构:
+### 软件架构:
 
 **架构**：后端.NET6(Asp.NetCore 6)、WebFirst代码生成器~~与.NET5(Asp.NetCore 5)、前端Vue（2.0）~~
 
@@ -59,7 +65,7 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 **封装**：Json处理模块，滑动验证码模块，base64图片处理模块，异常捕捉模块、邮件处理模块、linq封装模块、随机数模块、统一接口模块、基于策略的jwt验证、过滤器、数据库连接、跨域、初始化种子数据、Base32、Console输出、日期处理、文件传输、html筛选、http请求、ip过滤、md5加密、Rsa加密、序列化、雪花算法、字符串处理、编码处理、地址处理、xml处理、心跳检查。。。
 
 ****
-#### 支持模块:
+### 支持模块:
 
 大致如图：
 
@@ -70,7 +76,7 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 (删除线代表已实现功能还未迁移过来)
 - [x] 支持大致`DDD领域驱动设计`进行分层，支持微服务扩展
 - [x] 支持采用`异步`开发awit/async
-- [ ] 支持数据库主从`读写分离`
+- [x] 支持数据库主从`读写分离`
 - [x] 支持功能替换，无需改动代码，只需配置`json文件`进行装配即可
 - [x] ~~-支持采用DbFirst开发方式，使用`T4模板代码生成器`，自动映射模型一键生成Service及IService所有代码~~
 - [x] 支持WebFirst，无需改动代码，自动生成全套代码与数据库，只需点点点
@@ -78,7 +84,7 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 - [x] 支持`Aop封装`，FilterAop、IocAop、LogAop、SqlAop
 - [x] 支持`Log4Net日志`记录，自动生成至bin目录下的logs文件夹
 - [x] 支持`DbSeed数据库种子数据`接入
-- [x] ~~-支持主流`数据库随意切换`，Mysql/Sqlite/Sqlserver/Oracle~~
+- [x] 支持主流`数据库随意切换`，Mysql/Sqlite/Sqlserver/Oracle
 - [x] 支持上海杰哥官方`SqlSugar ORM`封装
 - [x] 支持新版`SwaggerWebAPI`，jwt身份认证接入
 - [x] 支持`Cors`跨域
@@ -107,7 +113,7 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 - [x] 支持 太多了忘了
 
 ****
-#### 目录结构:
+### 目录结构:
 
 ![图片](https://s1.ax1x.com/2022/04/09/LCTleH.png)
 
@@ -120,27 +126,27 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 - MicroServiceInstance：服务层（微服务）
 
 ****
-#### 安装教程:
+### 安装教程:
 
 我们将在之后更新教程手册！
 
 1.  下载全部源码，默认使用sqlite数据库，已经生成
-2.  使用Visual Studio 2022在windows环境中打开CC.Yi.sln文件即可
+2.  直接点击sln文件运行即可，没有其他依赖
 
 ****
-#### 使用说明:
+### 使用说明:
 1.  导入使用仓库中的WebFirst数据库
 2.  使用WebFirst添加实体、同步实体、修改地址并生成方案
 
- 没了，恭喜你已经成功启动了项目，并且已经具备大部分通用场景业务
+ 没了，恭喜你已经成功完成了项目，并且已经具备大部分通用场景业务
 是不是一个字？爽！
 到此为止，你无需写任何一个代码！
 我们将使用说明转移至我们的官方论坛中，正在制作中，尽情期待！
 
 ****
-#### 感谢以下人员对框架开发的大力支持：
+### 感谢：
 
-**国内.Net行业领头人物**： Eleven神、sqlsugar上海杰哥、Gerry、哲学的老张
+**大力支持**： Eleven神、Sqlsugar上海杰哥、Gerry、哲学的老张
 
 [橙子]https://ccnetcore.com
 
@@ -148,17 +154,21 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 
 [朝夕教育]https://www.zhaoxiedu.net
 
-[sqlsugar]https://www.donet5.com/Home/Doc
+[Sqlsugar]https://www.donet5.com/Home/Doc
+
+[RuYiAdmin]https://gitee.com/pang-mingjun/RuYiAdmin
+
+[ZrAdminNetCore]https://gitee.com/izory/ZrAdminNetCore
 
 ****
-#### 联系我们：
+### 联系我们：
 
 作者QQ：454313500
 
 官方网址：正在建设
 
 ****
-#### FQA:
+### FQA:
 
 问1：为什么不采用EFcore？
 
@@ -178,5 +188,5 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 
 问5：为何不出版一个详细的说明书呢？
 
-答5：暂时不会了，之后可能会，代码都是基于Asp.Netcore框架，适用于新手不用造轮子，整个框架较为简单，阅读源码后，基本能自定义改造使用了，过难也已经封装完毕，别忘了，其意义是为了开发更加简易！建议添加作者好友，这里人人都是顾问。
+答5：暂时不会了，之后可能会，代码都是基于Asp.NetCore框架，适用于新手不用造轮子，整个框架较为简单，阅读源码后，基本能自定义改造使用了，过难也已经封装完毕，别忘了，其意义是为了开发更加简易！建议添加作者好友，这里人人都是顾问。
 
