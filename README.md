@@ -119,6 +119,8 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 
 我们大致依照DDD领域驱动设计分层
 
+什么？感觉太复杂了？用户只需关注Api、Service其他都是轮子啊！
+
 ~~- BackGround：后台进程（目前可以无视，等待更新）~~
 - Client：客户端（测试、客户端）
 - Domain：领域层（Dto、服务接口层、模型层、仓储层、服务层）
