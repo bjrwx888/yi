@@ -22,19 +22,8 @@ namespace Yi.Framework.Core
         {
             this._RedisOptions = redisConnOptions.CurrentValue;
         }
-        //public CSRedisClient GetClient()
-        //{
-        //    return client;
-        //}
-        //private CSRedisClient client=null;
-
-        // 为了以后全链路做准备
-
         private T TryCatch<T>(MyAction<T> action)
         {
-            //Stopwatch sw = Stopwatch.StartNew();
-            ////Exception ex = null;
-            ////bool isError = false;
             var client2 = new CSRedisClient($"{_RedisOptions.Host}:{_RedisOptions.Prot},password={_RedisOptions.Password},defaultDatabase ={ _RedisOptions.DB }");
             T result;
             try
@@ -45,9 +34,7 @@ namespace Yi.Framework.Core
             {
                 object p = null;
                 result = (T)p;
-                //isError = true;
                 Console.WriteLine(exinfo);
-
             }
             finally
             {
@@ -80,6 +67,10 @@ namespace Yi.Framework.Core
         public bool Set<T>(string key, T data)
         {
             return this.TryCatch<bool>((u) => u.Set(key, data));
+        }
+        public bool AddHash<T>(string key,string field, T data)
+        {
+            return this.TryCatch<bool>((u)=>u.HSet(key ,field,data));
         }
     }
 }
