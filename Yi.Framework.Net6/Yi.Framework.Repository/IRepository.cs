@@ -15,8 +15,9 @@ namespace Yi.Framework.Repository
     {
         public Task<T> InsertReturnEntityAsync(T entity);
         public Task<List<S>> StoreAsync<S>(string storeName, object para);
-        public Task<PageModel<List<T>>> CommonPage(QueryPageCondition pars);
+        public Task<PageModel<List<T>>> CommonPageAsync(QueryPageCondition pars);
         public  Task<List<T>> GetListAsync(QueryCondition pars);
-        public Task<bool> DeleteByLogic(List<long> ids);
+        public Task<bool> DeleteByLogicAsync(List<long> ids);
+        public  Task<bool> UpdateIgnoreNullAsync(T entity);
     }
 }

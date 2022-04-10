@@ -36,10 +36,21 @@ namespace Yi.Framework.Repository
         }
 
         /// <summary>
+        /// 更新忽略空值
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateIgnoreNullAsync(T entity)
+        {
+            return await Db.Updateable(entity).IgnoreColumns(true).ExecuteCommandAsync()>0;
+        }
+
+
+        /// <summary>
         /// 逻辑多删除
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> DeleteByLogic(List<long> ids)
+        public async Task<bool> DeleteByLogicAsync(List<long> ids)
         {
             var entitys = await Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
             entitys.ForEach(u=>u.IsDeleted=true);
@@ -74,7 +85,7 @@ namespace Yi.Framework.Repository
         /// 仓储扩展方法:单表查询通用分页 
         /// </summary>
         /// <returns></returns>
-        public  async Task<PageModel<List<T>>> CommonPage(QueryPageCondition pars)
+        public  async Task<PageModel<List<T>>> CommonPageAsync(QueryPageCondition pars)
         {
             RefAsync<int> tolCount = 0;
             var result = await  QueryConditionHandler(new QueryCondition() {OrderBys=pars.OrderBys,Parameters=pars.Parameters } ).ToPageListAsync(pars.Index, pars.Size, tolCount);

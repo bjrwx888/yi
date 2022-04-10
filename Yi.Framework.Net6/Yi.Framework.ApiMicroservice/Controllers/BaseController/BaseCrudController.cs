@@ -60,7 +60,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async  Task<Result> Page(QueryPageCondition queryCondition)
         {
-            return Result.Success().SetData(await _repository.CommonPage(queryCondition));
+            return Result.Success().SetData(await _repository.CommonPageAsync(queryCondition));
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> Update(T entity)
         {
-            return Result.Success().SetStatus(await _repository.UpdateAsync(entity));
+            return Result.Success().SetStatus(await _repository.UpdateIgnoreNullAsync(entity));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpDelete]
         public async Task<Result> DeleteList(List<long> ids)
         {
-            return Result.Success().SetStatus(await _repository.DeleteByLogic(ids));
+            return Result.Success().SetStatus(await _repository.DeleteByLogicAsync(ids));
         }
     }
 }
