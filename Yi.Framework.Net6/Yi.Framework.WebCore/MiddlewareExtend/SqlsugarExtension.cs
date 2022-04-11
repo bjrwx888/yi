@@ -33,6 +33,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             }
             SqlSugarScope sqlSugar = new SqlSugarScope(new ConnectionConfig()
             {
+                //准备添加分表分库
                 DbType = dbType,
                 ConnectionString = Appsettings.app("DbConn", "WriteUrl"),
                 IsAutoCloseConnection = true,
