@@ -22,10 +22,24 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class TestController : ControllerBase
     {
         private IStringLocalizer<LocalLanguage> _local;
+        private IUserService _iUserService;
         public TestController(ILogger<UserEntity> logger, IUserService iUserService, IStringLocalizer<LocalLanguage> local) 
         {
             _local = local;
+            _iUserService = iUserService;
         }
+
+        /// <summary>
+        /// 仓储上下文对象测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        /// 特点：仓储代理上下文对象，用起来就是爽
+        public async Task<Result> DbTest()
+        {
+            return Result.Success().SetData(await _iUserService.DbTest());
+        }
+
         /// <summary>
         /// 国际化测试
         /// </summary>

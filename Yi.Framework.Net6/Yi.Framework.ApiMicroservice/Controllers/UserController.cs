@@ -19,8 +19,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     [Route("api/[controller]/[action]")]
     public class UserController : BaseCrudController<UserEntity>
     {
+        private IUserService _iUserService;
         public UserController(ILogger<UserEntity> logger, IUserService iUserService) : base(logger, iUserService)
         {
+            _iUserService = iUserService;
         }
     }
 }

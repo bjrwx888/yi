@@ -11,7 +11,7 @@ using Yi.Framework.WebCore.AttributeExtend;
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
     /// <summary>
-    /// 6666
+    /// Json To Sql 类比模式，通用模型
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [ApiController]
@@ -35,7 +35,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:one")]
         [HttpGet]
-        public async Task<Result> Get(long id)
+        public async Task<Result> GetById(long id)
         {
             return Result.Success().SetData(await _repository.GetByIdAsync(id));
         }
@@ -58,7 +58,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:page")]
         [HttpPost]
-        public async  Task<Result> Page(QueryPageCondition queryCondition)
+        public async  Task<Result> PageList(QueryPageCondition queryCondition)
         {
             return Result.Success().SetData(await _repository.CommonPageAsync(queryCondition));
         }

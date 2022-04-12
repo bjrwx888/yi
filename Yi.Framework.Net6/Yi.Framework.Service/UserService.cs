@@ -1,5 +1,6 @@
 ﻿using SqlSugar;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Yi.Framework.Interface;
@@ -10,6 +11,10 @@ namespace Yi.Framework.Service
 {
     public partial class UserService
     {
+        public async Task<List<UserEntity>> DbTest()
+        {
+            return await _repository._Db.Queryable<UserEntity>().ToListAsync();
+        }
         public async Task<bool> Exist(Guid id, Action<UserEntity> userAction = null)
         {
             var user = await _repository.GetByIdAsync(id);
