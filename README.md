@@ -24,7 +24,7 @@ Yi框架-一套与SqlSugar一样爽的.Net6低代码开源框架。
 
 （本项目由EFCore版本历经3年不断迭代至Sqlsugar版本，现EFcore版本已弃用，目前sqlsugar不带任何业务，之后会更新业务功能）
 
-**SqlSugar**:.Net6 DDD领域驱动设计分层微服务架构
+**SqlSugar**:.Net6 DDD领域驱动设计 简单分层微服务架构
 
 **ec**:EFcore完整电商项目
 
@@ -37,6 +37,16 @@ Yi框架-一套与SqlSugar一样爽的.Net6低代码开源框架。
 API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：admin 、 123~~
 
 网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~
+
+WebFirst开发：所有代码生成器已经配置完成，无需任何操作数据库及任何代码，只需要网页表格上点点点即可
+
+[https://www.donet5.com/Doc/11](https://www.donet5.com/Doc/11)
+
+谁能把持的住Sqlsugar作者自己都依赖成瘾的东西呢？这是继DbFirst、CodeFirst下一代的划时代产品！无脑爽！
+
+![](vx_images/34944228879.png =1000x)
+
+（首次添加实体后，生成代码记得修改对应的路径哦~~）
 
 ### 支持:
 
@@ -137,8 +147,9 @@ API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：a
 
 ****
 ### 使用说明:
+
 1.  导入使用仓库中的WebFirst数据库
-2.  使用WebFirst添加实体、同步实体、修改地址并生成方案
+2.  使用WebFirst添加实体、同步实体、修改模板生成路径并生成方案
 
  没了，恭喜你已经成功完成了项目，并且已经具备大部分通用场景业务
 是不是一个字？爽！
