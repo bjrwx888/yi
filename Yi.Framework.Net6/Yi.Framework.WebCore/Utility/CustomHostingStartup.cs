@@ -8,13 +8,17 @@ using System.Linq;
 using System.Threading.Tasks;
 
 [assembly: HostingStartup(typeof(Yi.Framework.WebCore.Utility.CustomHostingStartup))]
+//这里放上启动类下的dll，即自动侵入了，当然我们现在不会这样做。
 namespace Yi.Framework.WebCore.Utility
 {
     /// <summary>
     /// 必须实现IHostingStartup接口
     /// 必须标记HostingStartup特性
     /// 
-    /// 就像木马一样
+    /// 你小子！还是被你发现了啊，教你一招骚操作！这是一个屌的东西！
+    /// 
+    /// 我们称它为： 无侵注入！ 它彻头彻尾就是一个木马病毒！
+    /// 
     /// </summary>
     public class CustomHostingStartup : IHostingStartup
     {

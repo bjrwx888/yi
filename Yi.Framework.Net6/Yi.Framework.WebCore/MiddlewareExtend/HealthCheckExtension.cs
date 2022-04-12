@@ -20,7 +20,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         /// <param name="app"></param>
         /// <param name="checkPath">默认是/Health</param>
         /// <returns></returns>
-        public static void UseHealthCheckMiddleware(this IApplicationBuilder app, string checkPath = "/Health")
+        public static void UseHealthCheckService(this IApplicationBuilder app, string checkPath = "/Health")
         {
             if (Appsettings.appBool("HealthCheck_Enabled"))
             {

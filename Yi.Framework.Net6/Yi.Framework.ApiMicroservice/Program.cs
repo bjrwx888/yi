@@ -57,6 +57,10 @@ builder.Services.AddSqlsugarServer();
 #endregion
 builder.Services.AddQuartzService();
 #region
+//AutoMapper注入
+#endregion
+builder.Services.AddAutoMapperService();
+#region
 //控制器+过滤器配置
 #endregion
 builder.Services.AddControllers(optios => {
@@ -150,7 +154,7 @@ app.UseCorsService();
 #region
 //健康检查注入
 #endregion
-app.UseHealthCheckMiddleware();
+app.UseHealthCheckService();
 #region
 //鉴权注入
 #endregion

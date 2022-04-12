@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using Yi.Framework.WebCore.Mapper;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -10,9 +11,9 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     /// </summary>
     public static class AutoMapperExtension
     {
-        public static IServiceCollection AddAutoMapperExtensionService(this IServiceCollection services,Type type)
+        public static IServiceCollection AddAutoMapperService(this IServiceCollection services)
         {
-            services.AddAutoMapper(type);
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             return services;
         }
     }
