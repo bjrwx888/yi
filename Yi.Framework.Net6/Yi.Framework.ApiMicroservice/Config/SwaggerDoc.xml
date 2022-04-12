@@ -6,11 +6,11 @@
     <members>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
             <summary>
-            6666
+            Json To Sql 类比模式，通用模型
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Get(System.Int64)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.GetById(System.Int64)">
             <summary>
             主键查询
             </summary>
@@ -23,7 +23,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.Page(Yi.Framework.Model.Query.QueryPageCondition)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.PageList(Yi.Framework.Model.Query.QueryPageCondition)">
             <summary>
             条件分页查询
             </summary>
@@ -49,6 +49,12 @@
             列表删除
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.DbTest">
+            <summary>
+            仓储上下文对象测试
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.LocalTest">
