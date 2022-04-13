@@ -24,6 +24,18 @@ namespace Yi.Framework.Repository
             _Db = context;
         }
 
+        /// <summary>
+        /// 异步事务
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public async Task<bool> UseTranAsync(Func<Task> func)
+        {
+            var res = await Db.AsTenant().UseTranAsync(func);
+            return res.IsSuccess;
+
+        }
+
 
         /// <summary>
         /// 添加返回实体

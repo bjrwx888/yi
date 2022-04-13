@@ -75,5 +75,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.TranTest">
+            <summary>
+            异步事务测试
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

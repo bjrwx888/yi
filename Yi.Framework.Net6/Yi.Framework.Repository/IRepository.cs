@@ -14,6 +14,7 @@ namespace Yi.Framework.Repository
     public interface IRepository<T> : ISimpleClient<T> where T : BaseModelEntity,new()
     {
         public ISqlSugarClient _Db { get; set; }
+        public Task<bool> UseTranAsync(Func<Task> func);
         public Task<T> InsertReturnEntityAsync(T entity);
         public Task<List<S>> StoreAsync<S>(string storeName, object para);
         public Task<PageModel<List<T>>> CommonPageAsync(QueryPageCondition pars);
