@@ -57,6 +57,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.SqlTest">
+            <summary>
+            执行sql返回对应Dto
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.LocalTest">
             <summary>
             国际化测试

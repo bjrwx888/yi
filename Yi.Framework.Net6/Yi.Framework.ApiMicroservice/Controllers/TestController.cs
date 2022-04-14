@@ -36,28 +36,39 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         // 特点：化繁为简！意框架仓储代理上下文对象，用起来就是爽，但最好按规范来爽！
-        // 规范：控制器建议不要使用切换仓储方法，控制器严禁使用DB上下文对象，其它怎么爽怎么来！
+        // 规范：控制器严禁使用切换仓储方法，控制器严禁使用DB上下文对象，其它怎么爽怎么来！
         public async Task<Result> DbTest()
         {
             //非常好，使用UserService的特有方法
             await _iUserService.DbTest();
 
-            //非常好，依赖注入使用其他Service的特有方法(就tm一张表，自己注入自己)
+            //非常好，依赖注入使用其他Service的特有方法(就tm一张表，现在自己注入自己)
             await _iUserService.DbTest();
 
             //很核理，使用仓储的通用方法
             await _iUserService._repository.GetListAsync();
 
-            //挺不错，依赖注入其他仓储(就tm一张表，自己注入自己)
+            //挺不错，依赖注入其他仓储(就tm一张表，现在自己注入自己)
             await _iUserService._repository.GetListAsync();
 
-            //不建议，但爽了再说，直接切换其他仓储(就tm一张表，自己切换自己)
+            //严禁操作，直接切换其他仓储(就tm一张表，现在自己切换自己)
             await _iUserService._repository.ChangeRepository<Repository<UserEntity>>().GetListAsync();
 
             //恭喜你已经毕业了！此后将有一天，接手到这个的软件的程序员将破口大骂。
             await _iUserService._repository._Db.Queryable<UserEntity>().ToListAsync();
 
             return Result.Success().SetData(await _iUserService.DbTest());
+        }
+
+        /// <summary>
+        /// 执行Sql返回对应Dto
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //简单语句不推荐！
+        public async Task<Result> SqlTest()
+        {
+            return Result.Success().SetData(await _iUserService._repository.UseSqlAsync<UserEntity>("select * from User"));
         }
 
         /// <summary>

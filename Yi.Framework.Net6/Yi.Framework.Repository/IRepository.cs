@@ -21,5 +21,8 @@ namespace Yi.Framework.Repository
         public  Task<List<T>> GetListAsync(QueryCondition pars);
         public Task<bool> DeleteByLogicAsync(List<long> ids);
         public  Task<bool> UpdateIgnoreNullAsync(T entity);
+        public  Task<List<S>> UseSqlAsync<S>(string sql);
+        public  Task<bool> UseSqlAsync(string sql);
+
     }
 }
