@@ -59,7 +59,7 @@
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.SqlTest">
             <summary>
-            执行sql返回对应Dto
+            执行Sql返回
             </summary>
             <returns></returns>
         </member>
@@ -75,7 +75,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.AutnTest">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.AuthTest">
             <summary>
             策略授权测试
             </summary>
