@@ -30,5 +30,12 @@ namespace Yi.Framework.Interface
         /// <param name="userAction"></param>
         /// <returns></returns>
         public Task<bool> Register(UserEntity userEntity, Action<UserEntity> userAction = null);
+
+
+        /// <summary>
+        /// 导航属性关联角色
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<UserEntity>> GetListInRole();
     }
 }

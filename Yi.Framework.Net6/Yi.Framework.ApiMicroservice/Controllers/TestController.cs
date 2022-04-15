@@ -23,11 +23,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     {
         private IStringLocalizer<LocalLanguage> _local;
         private IUserService _iUserService;
+        private IRoleService _iRoleService;
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
-        public TestController(ILogger<UserEntity> logger, IUserService iUserService, IStringLocalizer<LocalLanguage> local)
+        public TestController(ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local)
         {
             _local = local;
             _iUserService = iUserService;
+            _iRoleService = iRoleService;
         }
 
         /// <summary>
@@ -42,19 +44,19 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //非常好，使用UserService的特有方法
             await _iUserService.DbTest();
 
-            //非常好，依赖注入使用其他Service的特有方法(就tm一张表，现在自己注入自己)
-            await _iUserService.DbTest();
+            //非常好，依赖注入使用其他Service的特有方法
+            await _iRoleService.DbTest();
 
             //很核理，使用仓储的通用方法
             await _iUserService._repository.GetListAsync();
 
-            //挺不错，依赖注入其他仓储(就tm一张表，现在自己注入自己)
-            await _iUserService._repository.GetListAsync();
+            //挺不错，依赖注入其他仓储
+            await _iRoleService._repository.GetListAsync();
 
-            //不建议操作，直接切换其他仓储(就tm一张表，现在自己切换自己)
-            await _iUserService._repository.ChangeRepository<Repository<UserEntity>>().GetListAsync();
+            //不建议操作，直接切换其他仓储
+            await _iUserService._repository.ChangeRepository<Repository<RoleEntity>>().GetListAsync();
 
-            //恭喜你已经毕业了！此后将有一天，接手到这个的软件的程序员将破口大骂。
+            //直接操作Db对象？？？恭喜你已经毕业了！此后将有一天，接手到这个的软件的程序员将破口大骂。
             await _iUserService._repository._Db.Queryable<UserEntity>().ToListAsync();
 
             return Result.Success().SetData(await _iUserService.DbTest());
@@ -132,6 +134,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
         }
 
-        //emmmm，看来一张表已经满足不了，接下来将要大更新一波
+        /// <summary>
+        /// 极爽导航属性
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //Sqlsugar精髓之一！必学！最新版本
+        public async Task<Result> IncludeTest()
+        {
+            return Result.Success().SetData(await _iUserService.GetListInRole());
+        }
     }
 }

@@ -65,5 +65,11 @@ namespace Yi.Framework.Service
             }
             return false;
         }
+
+        public async Task<List<UserEntity>> GetListInRole()
+        {
+            return await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles).ToListAsync();
+
+        }
     }
 }

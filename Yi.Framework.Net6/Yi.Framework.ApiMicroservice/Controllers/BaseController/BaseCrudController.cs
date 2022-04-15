@@ -15,12 +15,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [ApiController]
-    [Route("api/[controller]/[action]")]
     public class BaseCrudController<T> : ControllerBase where T : BaseModelEntity,new()
     {
-        public readonly ILogger<T> _logger;
-        public IBaseService<T> _baseService;
-        public IRepository<T> _repository;
+        private readonly ILogger<T> _logger;
+        private IBaseService<T> _baseService;
+        private IRepository<T> _repository;
         public BaseCrudController(ILogger<T> logger, IBaseService<T> iBaseService)
         {
             _logger = logger;

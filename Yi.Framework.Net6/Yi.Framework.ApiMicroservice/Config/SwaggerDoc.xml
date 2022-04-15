@@ -87,5 +87,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.IncludeTest">
+            <summary>
+            极爽导航属性
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.ContextTest">
+            <summary>
+            自由导航属性
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>
