@@ -62,16 +62,16 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                     }, Array.Empty<string>() }
                 });
 
-                c.AddServer(new OpenApiServer()
-                {
-                    Url = "https://ccnetcore.com",
-                    Description = "Yi-Framework"
-                });
-                c.CustomOperationIds(apiDesc =>
-                {
-                    var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
-                    return controllerAction.ActionName;
-                });
+                //c.AddServer(new OpenApiServer()
+                //{
+                //    Url = "https://ccnetcore.com",
+                //    Description = "Yi-Framework"
+                //});
+                //c.CustomOperationIds(apiDesc =>
+                //{
+                //    var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
+                //    return controllerAction.ActionName;
+                //});
             });
             #endregion
 
@@ -85,27 +85,12 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             app.UseSwagger();
 
 
-            app.UseKnife4UI(c =>
-            {
-                c.RoutePrefix = "swagger"; // serve the UI at root
-                if (swaggerModels.Length == 0)
-                {
-                    c.SwaggerEndpoint("/v1/swagger.json", "Yi.Framework");
-                }
-                else
-                {
-                    foreach (var k in swaggerModels)
-                    {
-                        c.SwaggerEndpoint(k.url, k.name);
-                    }
-                }
-            });
-
-            //app.UseSwaggerUI(c =>
+            //app.UseKnife4UI(c =>
             //{
+            //    c.RoutePrefix = "swagger"; // serve the UI at root
             //    if (swaggerModels.Length == 0)
             //    {
-            //        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
+            //        c.SwaggerEndpoint("/v1/swagger.json", "Yi.Framework");
             //    }
             //    else
             //    {
@@ -114,10 +99,25 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             //            c.SwaggerEndpoint(k.url, k.name);
             //        }
             //    }
+            //});
 
-            //}
+            app.UseSwaggerUI(c =>
+            {
+                if (swaggerModels.Length == 0)
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
+                }
+                else
+                {
+                    foreach (var k in swaggerModels)
+                    {
+                        c.SwaggerEndpoint(k.url, k.name);
+                    }
+                }
 
-            //);
+            }
+
+            );
         }
 
     }
