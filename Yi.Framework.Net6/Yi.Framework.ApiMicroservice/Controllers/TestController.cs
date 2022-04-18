@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Language;
 using Yi.Framework.Model.Models;
@@ -24,12 +26,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private IStringLocalizer<LocalLanguage> _local;
         private IUserService _iUserService;
         private IRoleService _iRoleService;
+        private QuartzInvoker _quartzInvoker;
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
-        public TestController(ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local)
+        public TestController(ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local, QuartzInvoker quartzInvoker)
         {
             _local = local;
             _iUserService = iUserService;
             _iRoleService = iRoleService;
+            _quartzInvoker = quartzInvoker;
         }
 
         /// <summary>
@@ -143,6 +147,34 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> IncludeTest()
         {
             return Result.Success().SetData(await _iUserService.GetListInRole());
+        }
+
+        /// <summary>
+        /// 启动一个定时任务
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //每5秒访问一次百度，可查看控制台
+        public async Task<Result> JobTest()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {JobConst.method,"get" },
+                {JobConst.url,"https://www.baidu.com" }
+            };
+            await _quartzInvoker.start("*/5 * * * * ?", new Quartz.JobKey("test", "my"), "Yi.Framework.Job", "HttpJob", data: data);
+            return Result.Success();
+        }
+
+        /// <summary>
+        /// 停止任务
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> stopJob()
+        {
+            await _quartzInvoker.Stop(new Quartz.JobKey("test", "my"));
+            return Result.Success();
         }
     }
 }

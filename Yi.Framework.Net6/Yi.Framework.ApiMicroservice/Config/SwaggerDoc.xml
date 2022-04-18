@@ -93,5 +93,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.JobTest">
+            <summary>
+            启动一个定时任务，每5秒访问一次百度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.stopJob">
+            <summary>
+            停止任务
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>
