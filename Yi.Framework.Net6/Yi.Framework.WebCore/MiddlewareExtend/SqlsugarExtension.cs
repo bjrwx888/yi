@@ -12,6 +12,9 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static void AddSqlsugarServer(this IServiceCollection services)
         {
+
+           
+
             DbType dbType;
             var slavaConFig = new List<SlaveConnectionConfig>();
             if (Appsettings.appBool("MutiDB_Enabled"))
@@ -42,7 +45,19 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                     DisableNvarchar = true 
                 },
                 SlaveConnectionConfigs = slavaConFig,
-               
+                //设置codefirst非空值判断
+                ConfigureExternalServices = new ConfigureExternalServices
+                {
+                    EntityService = (c, p) =>
+                    {
+                        // int?  decimal?这种 isnullable=true
+                        if (c.PropertyType.IsGenericType &&
+                        c.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        {
+                            p.IsNullable = true;
+                        }
+                    }
+                }
             },
          db =>
          {
@@ -80,6 +95,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 
                  Console.WriteLine("_______________________________________________");
                  Console.WriteLine("执行SQL:"+s.ToString());
+                 foreach (var i in p)
+                 {
+                     Console.WriteLine("参数:" +i.ParameterName+",参数值"+i.Value);
+                 }
                  Console.WriteLine("_______________________________________________");
              };
 

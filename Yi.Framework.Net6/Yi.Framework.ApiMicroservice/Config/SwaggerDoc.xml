@@ -51,6 +51,18 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.LogController.Add">
+            <summary>
+            自动分表，日志添加
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.LogController.GetList">
+            <summary>
+            查询近20年与21年的日志表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.DbTest">
             <summary>
             仓储上下文对象测试
@@ -95,7 +107,7 @@
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.JobTest">
             <summary>
-            启动一个定时任务，每5秒访问一次百度
+            启动一个定时任务
             </summary>
             <returns></returns>
         </member>
