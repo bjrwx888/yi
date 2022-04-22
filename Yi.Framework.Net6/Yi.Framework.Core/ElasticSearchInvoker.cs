@@ -16,7 +16,7 @@ namespace Yi.Framework.Core
         public ElasticSearchInvoker(IOptionsMonitor<ElasticSearchOptions> optionsMonitor)
         {
             _elasticSearchOptions = optionsMonitor.CurrentValue;
-            var settings = new ConnectionSettings(new Uri(_elasticSearchOptions.Url)).DefaultIndex(this._elasticSearchOptions.IndexName);
+            var settings = new ConnectionSettings(new Uri(_elasticSearchOptions.Url)).DefaultIndex(this._elasticSearchOptions.IndexName).BasicAuthentication(this._elasticSearchOptions.UserName, this._elasticSearchOptions.PassWord); ;
             Client = new ElasticClient(settings);
         }
         private ElasticClient Client;
