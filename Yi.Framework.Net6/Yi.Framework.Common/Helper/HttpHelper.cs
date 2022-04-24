@@ -61,6 +61,7 @@ namespace Yi.Framework.Common.Helper
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = Encoding.UTF8.GetByteCount(postDataStr);
             request.CookieContainer = cookie;
+
             Stream myRequestStream = request.GetRequestStream();
             StreamWriter myStreamWriter = new StreamWriter(myRequestStream, Encoding.GetEncoding("gb2312"));
             myStreamWriter.Write(postDataStr);

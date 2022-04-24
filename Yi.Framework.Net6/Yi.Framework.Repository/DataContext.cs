@@ -1,9 +1,10 @@
 ﻿using SqlSugar;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Repository
 {
-    public class DataContext<T> : SimpleClient<T> where T : class, new()
+    public class DataContext<T> : SimpleClient<T> where T : class, BaseModelEntity, new()
     {
         public DataContext(ISqlSugarClient context) : base(context)
         {
