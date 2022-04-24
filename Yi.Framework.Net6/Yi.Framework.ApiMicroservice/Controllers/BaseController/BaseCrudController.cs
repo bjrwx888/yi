@@ -15,7 +15,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [ApiController]
-    public class BaseCrudController<T> : ControllerBase where T : BaseModelEntity,new()
+    public class BaseCrudController<T> : ControllerBase where T : class, IBaseModelEntity,new()
     {
         private readonly ILogger<T> _logger;
         private IBaseService<T> _baseService;

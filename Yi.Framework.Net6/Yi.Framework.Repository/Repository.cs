@@ -12,7 +12,7 @@ namespace Yi.Framework.Repository
     /// 仓储模式
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Repository<T> : DataContext<T>, IRepository<T> where T : BaseModelEntity,new()
+    public class Repository<T> : DataContext<T>, IRepository<T> where T : class, IBaseModelEntity, new()
     {
         public ISqlSugarClient _Db { get; set; }
         /// <summary>

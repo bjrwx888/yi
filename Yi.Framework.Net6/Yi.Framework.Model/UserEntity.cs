@@ -4,7 +4,7 @@ using System.Linq;
 using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
-    public partial class UserEntity:BaseModelEntity
+    public partial class UserEntity
     {
         /// <summary>
         ///  看好啦！ORM精髓，导航属性

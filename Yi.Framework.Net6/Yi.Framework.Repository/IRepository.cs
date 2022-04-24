@@ -11,7 +11,7 @@ using Yi.Framework.Model.Query;
 
 namespace Yi.Framework.Repository
 {
-    public interface IRepository<T> : ISimpleClient<T> where T : BaseModelEntity,new()
+    public interface IRepository<T> : ISimpleClient<T> where T : class, IBaseModelEntity, new()
     {
         public ISqlSugarClient _Db { get; set; }
         public Task<bool> UseTranAsync(Func<Task> func);

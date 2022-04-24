@@ -8,7 +8,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-    public interface IBaseService<T> where T:BaseModelEntity,new()
+    public interface IBaseService<T> where T: class, IBaseModelEntity,new()
     {
         public IRepository<T> _repository { get; set; }
     }

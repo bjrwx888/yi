@@ -9,7 +9,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Service
 {
-    public class BaseService<T>:IBaseService<T> where T:BaseModelEntity,new()
+    public class BaseService<T>:IBaseService<T> where T:class, IBaseModelEntity,new()
     {
         public IRepository<T> _repository { get; set; }
         public BaseService(IRepository<T> iRepository)

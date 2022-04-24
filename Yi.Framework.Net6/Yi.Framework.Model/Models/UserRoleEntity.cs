@@ -10,7 +10,7 @@ namespace Yi.Framework.Model.Models
     [SugarTable("UserRole")]
     public partial class UserRoleEntity:IBaseModelEntity
     {
-        public BaseModelEntity()
+        public UserRoleEntity()
         {
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
