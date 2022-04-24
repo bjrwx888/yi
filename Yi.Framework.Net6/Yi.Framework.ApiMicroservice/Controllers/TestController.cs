@@ -19,6 +19,9 @@ using Yi.Framework.WebCore.AuthorizationPolicy;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
+    /// <summary>
+    /// 测试控制器
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class TestController : ControllerBase

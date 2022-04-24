@@ -5,7 +5,7 @@ using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
-    /// 
+    /// 角色表
     ///</summary>
     [SugarTable("Role")]
     public partial class RoleEntity:IBaseModelEntity

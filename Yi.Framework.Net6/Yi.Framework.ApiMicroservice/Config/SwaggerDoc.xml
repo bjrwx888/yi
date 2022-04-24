@@ -4,6 +4,11 @@
         <name>Yi.Framework.ApiMicroservice</name>
     </assembly>
     <members>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.AccountController">
+            <summary>
+            账户控制器
+            </summary>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
             <summary>
             Json To Sql 类比模式，通用模型
@@ -62,6 +67,11 @@
             查询近20年与21年的日志表
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
+            <summary>
+            测试控制器
+            </summary>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.DbTest">
             <summary>

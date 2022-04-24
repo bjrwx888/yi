@@ -130,7 +130,7 @@ ServiceLocator.Instance = app.Services;
 #region
 //错误抓取反馈注入
 #endregion
-//app.UseErrorHandlingService();
+app.UseErrorHandlingService();
 #region
 //静态文件注入
 #endregion

@@ -5,9 +5,9 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Service
 {
-    public partial class UserRoleService : BaseService<UserRoleEntity>, IUserRoleService
+    public partial class MenuService : BaseService<MenuEntity>, IMenuService
     {
-        public UserRoleService(IRepository<UserRoleEntity> repository) : base(repository)
+        public MenuService(IRepository<MenuEntity> repository) : base(repository)
         {
         }
     }
