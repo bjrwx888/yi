@@ -132,11 +132,9 @@ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数
 ****
 ### 目录结构:
 
-![图片](https://s1.ax1x.com/2022/04/09/LCTleH.png)
-
-![图片](https://s1.ax1x.com/2022/04/24/L4qlSs.png)
-
-![图片](https://s1.ax1x.com/2022/04/24/L4q1ln.png)
+![image](https://s1.ax1x.com/2022/04/09/LCTleH.png)
+![image](https://s1.ax1x.com/2022/04/24/L4qlSs.png)
+![image](https://s1.ax1x.com/2022/04/24/L4q1ln.png)
 
 我们大致依照DDD领域驱动设计分层
 
