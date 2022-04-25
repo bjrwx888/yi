@@ -27,7 +27,7 @@ namespace Yi.Framework.Service
         }
         public async Task<bool> Exist(string userName, Action<UserEntity> userAction = null)
         {
-            var user = await _repository.GetFirstAsync(u=>u.UserName== userName);
+            var user = await _repository.GetFirstAsync(u => u.UserName == userName);
             if (userAction != null)
             {
                 userAction.Invoke(user);
@@ -38,18 +38,18 @@ namespace Yi.Framework.Service
             }
             return true;
         }
-        public async Task<bool> Login(string userName, string password,Action<UserEntity> userAction = null)
+        public async Task<bool> Login(string userName, string password, Action<UserEntity> userAction = null)
         {
-           var user=new UserEntity();
+            var user = new UserEntity();
             if (await Exist(userName, o => user = o))
             {
                 userAction.Invoke(user);
-                if (user.Password== Common.Helper.MD5Helper.SHA2Encode(password, user.Salt))
+                if (user.Password == Common.Helper.MD5Helper.SHA2Encode(password, user.Salt))
                 {
                     return true;
                 }
             }
-          return false;
+            return false;
         }
 
         public async Task<bool> Register(UserEntity userEntity, Action<UserEntity> userAction = null)
@@ -57,9 +57,9 @@ namespace Yi.Framework.Service
             var user = new UserEntity();
             if (!await Exist(userEntity.UserName))
             {
-                user.UserName= userEntity.UserName;
+                user.UserName = userEntity.UserName;
                 user.Salt = Common.Helper.MD5Helper.GenerateSalt();
-                user.Password = Common.Helper.MD5Helper.SHA2Encode(userEntity.Password,user.Salt);
+                user.Password = Common.Helper.MD5Helper.SHA2Encode(userEntity.Password, user.Salt);
                 userAction.Invoke(await _repository.InsertReturnEntityAsync(user));
                 return true;
             }
@@ -69,7 +69,33 @@ namespace Yi.Framework.Service
         public async Task<List<UserEntity>> GetListInRole()
         {
             return await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles).ToListAsync();
+        }
 
+        public async Task<bool> GiveUserSetRole(List<long> userIds, List<long> roleIds)
+        {
+            var _repositoryUserRole = _repository.ChangeRepository<Repository<UserRoleEntity>>();
+
+            //多次操作，需要事务确保原子性
+            return await _repositoryUserRole.UseTranAsync(async () =>
+             {
+
+                //遍历用户
+                foreach (var userId in userIds)
+                {
+                    //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+                    await _repositoryUserRole.DeleteAsync(u => u.UserId == userId);
+
+                    //添加新的关系
+                    List<UserRoleEntity> userRoleEntities = new();
+                     foreach (var roleId in roleIds)
+                     {
+                         userRoleEntities.Add(new UserRoleEntity() { UserId = userId, RoleId = roleId });
+                     }
+
+                    //一次性批量添加
+                    await _repositoryUserRole.InsertRangeAsync(userRoleEntities);
+                 }
+             });
         }
     }
 }

@@ -5,7 +5,8 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-    public partial interface IMenuService : IBaseService<MenuEntity>
+   public partial interface IMenuService:IBaseService<MenuEntity>
     {
+        Task<List<MenuEntity>> GetMenuTreeAsync();
     }
 }
