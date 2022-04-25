@@ -1,11 +1,5 @@
 <template>
-  <v-list-group
-   
-:group="group"
-    :prepend-icon="item.icon"
-    eager
-    v-bind="$attrs"
-  >
+  <v-list-group :group="group" :prepend-icon="item.icon" eager v-bind="$attrs">
     <template v-slot:activator>
       <v-list-item-icon
         v-if="!item.icon && !item.avatar"
@@ -41,51 +35,49 @@
 </template>
 
 <script>
-  // Utilities
-  // import { get } from 'vuex-pathify'
+// Utilities
+// import { get } from 'vuex-pathify'
 
-  export default {
-    name: 'DefaultListGroup',
+export default {
+  name: "DefaultListGroup",
 
-    components: {
-      DefaultListItem: () => import('./ListItem'),
+  components: {
+    DefaultListItem: () => import("./ListItem"),
+  },
+
+  props: {
+    item: {
+      type: Object,
+      default: () => ({}),
     },
+  },
 
-    props: {
-      item: {
-        type: Object,
-        default: () => ({}),
-      },
+  computed: {
+    group() {
+      return this.genGroup(this.item.children);
     },
-
-    computed: {
- 
-      group () {
-        return this.genGroup(this.item.children)
-      },
-      title () {
-        const matches = this.item.menu_name.match(/\b(\w)/g)
-if(matches!=null)
-{
-        return matches.join('')
-}
-      },
+    title() {
+      const matches = this.item.menu_name.match(/\b(\w)/g);
+      if (matches != null) {
+        return matches.join("");
+      }
     },
+  },
 
-    methods: {
-      genGroup (items) {
-        return items.reduce((acc, cur) => {
-          if (!cur.router) return acc
+  methods: {
+    genGroup(items) {
+      return items
+        .reduce((acc, cur) => {
+          if (!cur.router) return acc;
 
           acc.push(
-            cur.children
-              ? this.genGroup(cur.children)
-              : cur.router.slice(1, -1),
-          )
+            cur.children ? this.genGroup(cur.children) : cur.router.slice(1, -1)
+          );
 
-          return acc
-        }, []).join('|')
-      },
+          return acc;
+        }, [])
+        .join("|");
     },
-  }
+  },
+};
 </script>

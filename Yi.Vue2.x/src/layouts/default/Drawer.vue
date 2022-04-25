@@ -58,9 +58,8 @@ export default {
       });
     },
     logout() {
-      this.$store.dispatch("Logout").then((resp) => {
-        this.$router.push({ path: "/login" });
-      });
+      this.$store.dispatch("Logout");
+         this.$router.push({ path: "/login" });
     },
   },
   created() {
