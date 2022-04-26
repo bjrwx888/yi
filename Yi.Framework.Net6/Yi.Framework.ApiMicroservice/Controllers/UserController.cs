@@ -30,6 +30,23 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
+        /// 添加用户，去重，密码加密
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        [Permission($"{nameof(UserEntity)}:add")]
+        [HttpPost]
+        public  override async Task<Result> Add(UserEntity entity)
+        {
+            if (!await _iUserService.Exist(entity.UserName))
+            {
+                entity.BuildPassword();
+                return Result.Success().SetData(await _iUserService._repository.InsertReturnSnowflakeIdAsync(entity));
+            }
+            return Result.SuccessError("用户已存在");
+        }
+
+        /// <summary>
         /// 给多用户设置多角色
         /// </summary>
         /// <param name="giveUserSetRoleDto"></param>
@@ -37,7 +54,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> GiveUserSetRole(GiveUserSetRoleDto giveUserSetRoleDto)
         {
-           return Result.Success().SetStatus(await _iUserService.GiveUserSetRole(giveUserSetRoleDto.UserIds,giveUserSetRoleDto.RoleIds));
+            return Result.Success().SetStatus(await _iUserService.GiveUserSetRole(giveUserSetRoleDto.UserIds, giveUserSetRoleDto.RoleIds));
+        }
+
+
+        /// <summary>
+        /// 通过用户id得到角色列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetRoleListByUserId(long userId)
+        {
+            return Result.Success().SetData(await _iUserService.GetRoleListByUserId(userId));
         }
     }
 }

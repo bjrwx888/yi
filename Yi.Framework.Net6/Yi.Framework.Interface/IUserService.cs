@@ -44,5 +44,20 @@ namespace Yi.Framework.Interface
         /// <param name="roleIds"></param>
         /// <returns></returns>
         Task<bool> GiveUserSetRole(List<long> userIds, List<long> roleIds);
+
+        /// <summary>
+        /// 判断用户名是否存在，如果存在可返回该用户
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="userAction"></param>
+        /// <returns></returns>
+        Task<bool> Exist(string userName, Action<UserEntity> userAction = null);
+
+        /// <summary>
+        /// 通过用户id得到角色列表
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<List<RoleEntity>> GetRoleListByUserId(long userId);
     }
 }

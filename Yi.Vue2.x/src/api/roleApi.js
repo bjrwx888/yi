@@ -19,11 +19,6 @@ export default {
             method: 'get'
 
         })
-    },
-    GetRolesByUserId(userId) {
-        return myaxios({
-            url: `/Role/GetRolesByUserId?userId=${userId}`,
-            method: 'get'
-        })
-    },
+    }
+
 }

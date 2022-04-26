@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
@@ -15,10 +16,8 @@ namespace Yi.Framework.Model.Models
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
-        /// <summary>
-        /// 1 
-        ///</summary>
-         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
+        [JsonConverter(typeof(ValueToStringConverter))]
+        [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
         ///  

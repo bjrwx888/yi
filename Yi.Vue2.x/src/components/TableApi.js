@@ -3,7 +3,20 @@ export default {
     getItem(url) {
         return myaxios({
             url: url,
-            method: 'get'
+            method: 'post',
+            data: {
+                parameters: [
+                    {
+                        key: "isDeleted",
+                        value: "0",
+                        type: 0
+
+                    }
+                ],
+                orderBys: [
+                    "id"
+                ]
+            }
         })
     },
     addItem(url, data) {

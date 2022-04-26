@@ -12,17 +12,18 @@
   </material-card>
 </template>
 <script>
-import userApi from "../api/userApi"
 export default {
   created() {
     this.init();
   },
   methods: {
     init() {
-     userApi.GetAxiosByRouter(this.$route.path).then(resp=>{
-       this.axiosUrls=resp.data;
-     })
-      
+     this.axiosUrls = {
+        get: "/role/GetList",
+        update: "/role/Update",
+        del: "/role/DeleteList",
+        add: "/role/Add",
+      };
     }
   },
   data: () => ({
@@ -31,9 +32,9 @@ export default {
     },
     headers: [
       { text: "编号", align: "start", value: "id" },
-      { text: "角色名", value: "role_name", sortable: false },
-            { text: "云盘地址", value: "file_path", sortable: false },
-      { text: "简介", value: "introduce", sortable: false },
+      { text: "角色名", value: "roleName", sortable: false },
+      // { text: "云盘地址", value: "file_path", sortable: false },
+      // { text: "简介", value: "introduce", sortable: false },
       { text: "操作", value: "actions", sortable: false },
     ],
     defaultItem: {

@@ -10,6 +10,6 @@ namespace Yi.Framework.Model.Models
     public partial class MenuEntity
     {
         [SqlSugar.SugarColumn(IsIgnore = true)]
-        public List<MenuEntity> Childs { get; set; }
+        public List<MenuEntity> Children { get; set; }
     }
 }

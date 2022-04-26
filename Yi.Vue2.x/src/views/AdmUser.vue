@@ -27,7 +27,6 @@
 </template>
 <script>
 import userApi from "../api/userApi";
-import roleApi from "../api/roleApi";
 export default {
   created() {
     this.init();
@@ -36,12 +35,14 @@ export default {
   methods: {
     async showItem(item) {
       var strInfo = "";
-      roleApi.GetRolesByUserId(item.id).then(async (resp) => {
-        const roleData = resp.data;
+      userApi.GetRoleListByUserId(item.id).then(async (resp) => {
+        var roleData = resp.data;
         strInfo += "拥有的角色:<br>";
-        roleData.forEach((u) => {
-          strInfo += u.role_name + "<br>";
-        });
+        if (roleData != null) {
+          roleData.forEach((u) => {
+            strInfo += u.roleName + "<br>";
+          });
+        }
 
         strInfo += "<hr>";
         Object.keys(item).forEach(async function (key) {
@@ -58,12 +59,16 @@ export default {
       });
     },
     init() {
-      userApi.GetAxiosByRouter(this.$route.path).then((resp) => {
-        this.axiosUrls = resp.data;
-      });
-      roleApi.getRole().then((resp) => {
-        this.roleItems = resp.data;
-      });
+      this.axiosUrls = {
+        get: "/user/GetList",
+        update: "/user/Update",
+        del: "/user/DeleteList",
+        add: "/user/Add",
+      };
+
+      // roleApi.getRole().then((resp) => {
+      //   this.roleItems = resp.data;
+      // });
     },
     setRole() {
       var userIds = [];
@@ -95,8 +100,7 @@ export default {
     roleItems: [],
     axiosUrls: {},
     headers: [
-      { text: "编号", align: "start", value: "id" },
-      { text: "用户名", value: "username", sortable: false },
+      { text: "用户名", value: "userName", sortable: false },
       { text: "密码", value: "password", sortable: false },
       { text: "图标", value: "icon", sortable: false },
       { text: "昵称", value: "nick", sortable: true },
@@ -110,11 +114,11 @@ export default {
     defaultItem: {
       username: "test",
       password: "123",
-      icon: "mdi-lock",
+      icon: "",
       nick: "橙子",
       age: 18,
       address: "中国",
-      phone: "",
+      phone: "123456789",
     },
   }),
 };

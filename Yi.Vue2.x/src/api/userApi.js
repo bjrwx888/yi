@@ -22,10 +22,10 @@ export default {
             method: 'get'
         })
     },
-    GetAxiosByRouter(router) {
+    GetRoleListByUserId(userId) {
         return myaxios({
-            url: `/User/GetAxiosByRouter?router=${router}`,
+            url: `/User/GetRoleListByUserId?userId=${userId}`,
             method: 'get'
         })
-    }
+    },
 }

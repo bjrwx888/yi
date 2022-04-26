@@ -15,7 +15,7 @@ namespace Yi.Framework.Service
         {
             return await _repository._Db.Queryable<UserEntity>().ToListAsync();
         }
-        public async Task<bool> Exist(Guid id, Action<UserEntity> userAction = null)
+        public async Task<bool> Exist(long id, Action<UserEntity> userAction = null)
         {
             var user = await _repository.GetByIdAsync(id);
             userAction.Invoke(user);
@@ -58,8 +58,7 @@ namespace Yi.Framework.Service
             if (!await Exist(userEntity.UserName))
             {
                 user.UserName = userEntity.UserName;
-                user.Salt = Common.Helper.MD5Helper.GenerateSalt();
-                user.Password = Common.Helper.MD5Helper.SHA2Encode(userEntity.Password, user.Salt);
+                user.BuildPassword();
                 userAction.Invoke(await _repository.InsertReturnEntityAsync(user));
                 return true;
             }
@@ -79,23 +78,29 @@ namespace Yi.Framework.Service
             return await _repositoryUserRole.UseTranAsync(async () =>
              {
 
-                //遍历用户
-                foreach (var userId in userIds)
-                {
-                    //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
-                    await _repositoryUserRole.DeleteAsync(u => u.UserId == userId);
+                 //遍历用户
+                 foreach (var userId in userIds)
+                 {
+                     //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+                     await _repositoryUserRole.DeleteAsync(u => u.UserId == userId);
 
-                    //添加新的关系
-                    List<UserRoleEntity> userRoleEntities = new();
+                     //添加新的关系
+                     List<UserRoleEntity> userRoleEntities = new();
                      foreach (var roleId in roleIds)
                      {
                          userRoleEntities.Add(new UserRoleEntity() { UserId = userId, RoleId = roleId });
                      }
 
-                    //一次性批量添加
-                    await _repositoryUserRole.InsertRangeAsync(userRoleEntities);
+                     //一次性批量添加
+                     await _repositoryUserRole.InsertRangeAsync(userRoleEntities);
                  }
              });
+        }
+
+
+        public async Task<List<RoleEntity>> GetRoleListByUserId(long userId)
+        {
+            return (await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles).InSingleAsync(userId)).Roles;
         }
     }
 }

@@ -155,11 +155,24 @@
             用户管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.Model.Models.UserEntity)">
+            <summary>
+            添加用户，去重，密码加密
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DTOModel.GiveUserSetRoleDto)">
             <summary>
             给多用户设置多角色
             </summary>
             <param name="giveUserSetRoleDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRoleListByUserId(System.Int64)">
+            <summary>
+            通过用户id得到角色列表
+            </summary>
             <returns></returns>
         </member>
     </members>

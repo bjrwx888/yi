@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '../store/index'
 import vm from '../main'
+import JsonBig from 'json-bigint'
 // import VuetifyDialogPlugin from 'vuetify-dialog/nuxt/index';
 const myaxios = axios.create({
         // baseURL:'/'// 
@@ -9,6 +10,13 @@ const myaxios = axios.create({
         headers: {
             'Authorization': 'Bearer ' + ""
         },
+        //雪花id精度问题
+        transformResponse: [ data => {
+            const json = JsonBig({
+              storeAsString: true
+            })
+            return json.parse(data)
+          }],
     })
     // 请求拦截器
 myaxios.interceptors.request.use(function(config) {
