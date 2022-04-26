@@ -1,8 +1,8 @@
 import myaxios from '@/util/myaxios'
 export default {
-    GetMenuInMould() {
+    getMenuTree() {
         return myaxios({
-            url: '/Menu/GetMenuInMould',
+            url: '/Menu/getMenuTree',
             method: 'get'
         })
     },
@@ -34,13 +34,7 @@ export default {
             data: data
         })
     },
-    SetMouldByMenu(menuId, mouldId) {
-        return myaxios({
-            url: '/Menu/SetMouldByMenu',
-            method: 'post',
-            data: { id1: menuId, id2: mouldId }
-        })
-    },
+
     GetTopMenusByHttpUser() {
         return myaxios({
             url: '/Menu/GetTopMenusByHttpUser',

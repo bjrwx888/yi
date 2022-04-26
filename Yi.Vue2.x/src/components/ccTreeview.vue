@@ -1,14 +1,11 @@
 <template>
   <div>
     <v-divider></v-divider>
-    <app-btn  dark class="ma-4" @click="showAll"> 展开全部</app-btn>
-    <app-btn  dark class="my-4 mr-4" @click="dialog = true"> 添加新项 </app-btn>
-    <app-btn dark class="my-4"  color="secondary" @click="deleteItem(null)">
+    <app-btn dark class="ma-4" @click="showAll"> 展开全部</app-btn>
+    <app-btn dark class="my-4 mr-4" @click="dialog = true"> 添加新项 </app-btn>
+    <app-btn dark class="my-4" color="secondary" @click="deleteItem(null)">
       删除所选
     </app-btn>
-   
-
- 
 
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
@@ -53,15 +50,16 @@
       return-object
       open-all
       hoverable
-      item-text="menu_name"
+      item-text="menuName"
     >
       <template v-slot:append="{ item }">
         <v-btn class="mr-2">编号:{{ item.id }}</v-btn>
-        <v-btn class="mr-2">图标:{{ item.icon }}</v-btn>
-        <v-btn class="mr-2">路由:{{ item.router }}</v-btn>
-        <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>
-        <v-btn  v-if="item.mould" class="mr-2" color="secondary">接口地址:{{ item.mould.url }}</v-btn>
-        <ccCombobox
+        <v-btn class="mr-2">权限:{{ item.permissionCode }}</v-btn>
+        <!-- <v-btn class="mr-2">图标:{{ item.icon }}</v-btn> -->
+        <!-- <v-btn class="mr-2">路由:{{ item.router }}</v-btn> -->
+        <!-- <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>
+        <v-btn  v-if="item.mould" class="mr-2" color="secondary">接口地址:{{ item.mould.url }}</v-btn> -->
+        <!-- <ccCombobox
           headers="设置接口权限"
           itemText="url"
           :items="mouldList"
@@ -72,8 +70,8 @@
               保存</v-btn
             >
           </template>
-        </ccCombobox>
-         <app-btn
+        </ccCombobox> -->
+        <app-btn
           @click="
             parentId = item.id;
             dialog = true;
@@ -81,9 +79,10 @@
           >添加子菜单</app-btn
         >
         <app-btn class="mx-2" @click="editItem(item)">编辑</app-btn>
-        
-        <app-btn color="secondary" class="mr-2" @click="deleteItem(item)">删除</app-btn>
-       
+
+        <app-btn color="secondary" class="mr-2" @click="deleteItem(item)"
+          >删除</app-btn
+        >
       </template>
     </v-treeview>
   </div>
@@ -108,7 +107,7 @@ export default {
       icon: "mdi-start",
       router: "test",
       menu_name: "测试",
-      is_show:1
+      is_show: 1,
     },
   }),
   computed: {
@@ -120,19 +119,19 @@ export default {
     this.init();
   },
   methods: {
-showAll(){
-  this.$refs.tree.updateAll(true);
-},
-
-    setMould(item) {
-      menuApi.SetMouldByMenu(item.id, this.mouldSelect[0].id).then((resp) => {
-        this.$dialog.notify.info(resp.msg, {
-          position: "top-right",
-          timeout: 5000,
-        });
-               this.init();
-      });
+    showAll() {
+      this.$refs.tree.updateAll(true);
     },
+
+    // setMould(item) {
+    //   menuApi.SetMouldByMenu(item.id, this.mouldSelect[0].id).then((resp) => {
+    //     this.$dialog.notify.info(resp.msg, {
+    //       position: "top-right",
+    //       timeout: 5000,
+    //     });
+    //     this.init();
+    //   });
+    // },
 
     getSelect(data) {
       this.mouldSelect = data;
@@ -173,20 +172,17 @@ showAll(){
     },
     init() {
       this.parentId = 0;
-      mouldApi.getMould().then((resp) => {
-        this.mouldList = resp.data;
-      });
+      // mouldApi.getMould().then((resp) => {
+      //   this.mouldList = resp.data;
+      // });
 
-      menuApi.GetMenuInMould().then((resp) => {
-        this.desserts =[ resp.data];
+      menuApi.getMenuTree().then((resp) => {
+        this.desserts = resp.data;
       });
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
-
-
-      
     },
     editItem(item) {
       this.editedIndex = item.id;

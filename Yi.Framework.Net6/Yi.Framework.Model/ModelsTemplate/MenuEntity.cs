@@ -32,7 +32,7 @@ namespace Yi.Framework.Model.Models
         /// <summary>
         ///  
         ///</summary>
-         [SugarColumn(ColumnName="MenuCode"    )]
+         [SugarColumn(ColumnName= "PermissionCode")]
          public string PermissionCode { get; set; }
         /// <summary>
         ///  
