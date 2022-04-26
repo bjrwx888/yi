@@ -12,7 +12,7 @@ namespace Yi.Framework.Interface
         /// 测试仓储的上下文对象
         /// </summary>
         /// <returns></returns>
-        public Task<List<UserEntity>> DbTest();
+        Task<List<UserEntity>> DbTest();
 
         /// <summary>
         /// 登录方法
@@ -21,7 +21,7 @@ namespace Yi.Framework.Interface
         /// <param name="password"></param>
         /// <param name="userAction"></param>
         /// <returns></returns>
-        public Task<bool> Login(string userName, string password, Action<UserEntity> userAction = null);
+        Task<bool> Login(string userName, string password, Action<UserEntity> userAction = null);
 
         /// <summary>
         /// 注册方法
@@ -29,13 +29,35 @@ namespace Yi.Framework.Interface
         /// <param name="userEntity"></param>
         /// <param name="userAction"></param>
         /// <returns></returns>
-        public Task<bool> Register(UserEntity userEntity, Action<UserEntity> userAction = null);
-
+        Task<bool> Register(UserEntity userEntity, Action<UserEntity> userAction = null);
 
         /// <summary>
         /// 导航属性关联角色
         /// </summary>
         /// <returns></returns>
-        public Task<List<UserEntity>> GetListInRole();
+        Task<List<UserEntity>> GetListInRole();
+
+        /// <summary>
+        /// 给用户设置角色，多用户，多角色
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        Task<bool> GiveUserSetRole(List<long> userIds, List<long> roleIds);
+
+        /// <summary>
+        /// 判断用户名是否存在，如果存在可返回该用户
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="userAction"></param>
+        /// <returns></returns>
+        Task<bool> Exist(string userName, Action<UserEntity> userAction = null);
+
+        /// <summary>
+        /// 通过用户id得到角色列表
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<List<RoleEntity>> GetRoleListByUserId(long userId);
     }
 }

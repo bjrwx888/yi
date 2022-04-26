@@ -15,6 +15,9 @@ using Yi.Framework.WebCore.AuthorizationPolicy;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
+    /// <summary>
+    /// 菜单管理
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class MenuController : BaseCrudController<MenuEntity>
@@ -23,6 +26,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public MenuController(ILogger<MenuEntity> logger, IMenuService iMenuService) : base(logger, iMenuService)
         {
             _iMenuService = iMenuService;
+        }
+
+        /// <summary>
+        /// 得到树形菜单
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //暂未制作逻辑删除与多租户的过滤
+        public async Task<List<MenuEntity>> GetMenuTree()
+        { 
+             return await _iMenuService.GetMenuTreeAsync();
         }
     }
 }

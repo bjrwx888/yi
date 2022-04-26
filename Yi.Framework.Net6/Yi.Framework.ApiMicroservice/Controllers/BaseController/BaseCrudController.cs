@@ -34,7 +34,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:one")]
         [HttpGet]
-        public async Task<Result> GetById(long id)
+        public virtual async Task<Result> GetById(long id)
         {
             return Result.Success().SetData(await _repository.GetByIdAsync(id));
         }
@@ -45,7 +45,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:list")]
         [HttpPost]
-        public async Task<Result> GetList(QueryCondition queryCondition)
+        public virtual async Task<Result> GetList(QueryCondition queryCondition)
         {
             return Result.Success().SetData(await _repository.GetListAsync(queryCondition));
         }
@@ -57,7 +57,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:get:page")]
         [HttpPost]
-        public async  Task<Result> PageList(QueryPageCondition queryCondition)
+        public virtual async  Task<Result> PageList(QueryPageCondition queryCondition)
         {
             return Result.Success().SetData(await _repository.CommonPageAsync(queryCondition));
         }
@@ -69,7 +69,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:add")]
         [HttpPost]
-        public async Task<Result> Add(T entity)
+        public  virtual async Task<Result> Add(T entity)
         {
             return Result.Success().SetData(await _repository.InsertReturnSnowflakeIdAsync(entity));
         }
@@ -81,7 +81,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:update")]
         [HttpPut]
-        public async Task<Result> Update(T entity)
+        public virtual async Task<Result> Update(T entity)
         {
             return Result.Success().SetStatus(await _repository.UpdateIgnoreNullAsync(entity));
         }
@@ -93,7 +93,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:delete:list")]
         [HttpDelete]
-        public async Task<Result> DeleteList(List<long> ids)
+        public virtual async Task<Result> DeleteList(List<long> ids)
         {
             return Result.Success().SetStatus(await _repository.DeleteByLogicAsync(ids));
         }

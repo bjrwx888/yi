@@ -6,7 +6,7 @@
     <members>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.AccountController">
             <summary>
-            账户控制器
+            账户管理
             </summary>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
@@ -68,6 +68,29 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.MenuController">
+            <summary>
+            菜单管理
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetMenuTree">
+            <summary>
+            得到树形菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.RoleController">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GiveRoleSetMenu(Yi.Framework.DTOModel.GiveRoleSetMenuDto)">
+            <summary>
+            给多用户设置多角色
+            </summary>
+            <param name="giveRoleSetMenuDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>
             测试控制器
@@ -124,6 +147,31 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.stopJob">
             <summary>
             停止任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.Model.Models.UserEntity)">
+            <summary>
+            添加用户，去重，密码加密
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DTOModel.GiveUserSetRoleDto)">
+            <summary>
+            给多用户设置多角色
+            </summary>
+            <param name="giveUserSetRoleDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRoleListByUserId(System.Int64)">
+            <summary>
+            通过用户id得到角色列表
             </summary>
             <returns></returns>
         </member>

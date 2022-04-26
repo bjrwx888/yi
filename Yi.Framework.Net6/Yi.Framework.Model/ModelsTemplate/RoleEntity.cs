@@ -1,35 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
-    /// 角色菜单关系表
+    /// 角色表
     ///</summary>
-    [SugarTable("RoleMenu")]
-    public partial class RoleMenuEntity:IBaseModelEntity
+    [SugarTable("Role")]
+    public partial class RoleEntity:IBaseModelEntity
     {
-        public RoleMenuEntity()
+        public RoleEntity()
         {
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
-        /// <summary>
-        /// 1 
-        ///</summary>
-         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
+        [JsonConverter(typeof(ValueToStringConverter))]
+        [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
         ///  
         ///</summary>
-         [SugarColumn(ColumnName="RoleId"    )]
-         public long? RoleId { get; set; }
-        /// <summary>
-        ///  
-        ///</summary>
-         [SugarColumn(ColumnName="MenuId"    )]
-         public long? MenuId { get; set; }
+         [SugarColumn(ColumnName="RoleName"    )]
+         public string RoleName { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -40,11 +34,6 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="CreateTime"    )]
          public DateTime? CreateTime { get; set; }
-        /// <summary>
-        /// 修改者 
-        ///</summary>
-         [SugarColumn(ColumnName="ModifyUser"    )]
-         public long? ModifyUser { get; set; }
         /// <summary>
         /// 修改时间 
         ///</summary>
@@ -60,5 +49,10 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="TenantId"    )]
          public long? TenantId { get; set; }
+        /// <summary>
+        /// 修改者 
+        ///</summary>
+         [SugarColumn(ColumnName="ModifyUser"    )]
+         public long? ModifyUser { get; set; }
     }
 }

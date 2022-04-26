@@ -11,6 +11,14 @@ namespace Yi.Framework.Interface
         /// DbTest
         /// </summary>
         /// <returns></returns>
-        public Task<List<RoleEntity>> DbTest();
+        Task<List<RoleEntity>> DbTest();
+
+        /// <summary>
+        /// 给角色设置菜单，多角色，多菜单
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <param name="menuIds"></param>
+        /// <returns></returns>
+        Task<bool> GiveRoleSetMenu(List<long> roleIds, List<long> menuIds);
     }
 }

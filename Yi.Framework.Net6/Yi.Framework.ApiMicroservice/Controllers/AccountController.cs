@@ -18,7 +18,7 @@ using Yi.Framework.WebCore.AuthorizationPolicy;
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
     /// <summary>
-    /// 账户控制器
+    /// 账户管理
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]

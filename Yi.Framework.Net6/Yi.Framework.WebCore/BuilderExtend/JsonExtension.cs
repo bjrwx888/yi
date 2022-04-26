@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace Yi.Framework.WebCore.BuilderExtend
              {
                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                  options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm";
+ 
+                 //options.SerializerSettings.Converters.Add(new ValueToStringConverter());
              });
 
         }
