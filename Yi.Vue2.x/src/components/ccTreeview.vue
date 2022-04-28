@@ -73,7 +73,7 @@
         </ccCombobox> -->
         <app-btn
           @click="
-            parentId = item.id;
+            editedItem.parentId = item.id;
             dialog = true;
           "
           >添加子菜单</app-btn
@@ -88,7 +88,6 @@
   </div>
 </template>
 <script>
-import mouldApi from "../api/mouldApi";
 import menuApi from "../api/menuApi";
 export default {
   name: "ccTreeview",
@@ -102,12 +101,12 @@ export default {
     dialog: false,
     editedItem: {},
     editedIndex: -1,
-    parentId: 0,
     defaultItem: {
-      icon: "mdi-start",
-      router: "test",
-      menu_name: "测试",
-      is_show: 1,
+      // icon: "mdi-start",
+      permissionCode: "test",
+      menuName: "管理",
+      parentId: 0,
+      MenuType:0
     },
   }),
   computed: {
@@ -137,7 +136,7 @@ export default {
       this.mouldSelect = data;
     },
     async deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = 1;
       this.editedItem = Object.assign({}, item);
       var p = await this.$dialog.warning({
         text: "你确定要删除此条记录吗？?",
@@ -160,7 +159,7 @@ export default {
           Ids.push(item.id);
         });
       }
-      menuApi.DelListMenu(Ids).then(() => this.init());
+      menuApi.DeleteList(Ids).then(() => this.init());
     },
 
     close() {
@@ -172,9 +171,6 @@ export default {
     },
     init() {
       this.parentId = 0;
-      // mouldApi.getMould().then((resp) => {
-      //   this.mouldList = resp.data;
-      // });
 
       menuApi.getMenuTree().then((resp) => {
         this.desserts = resp.data;
@@ -192,17 +188,11 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        menuApi.UpdateMenu(this.editedItem).then(() => this.init());
+        menuApi.Update(this.editedItem).then(() => this.init());
       } else {
-        if (this.parentId == 0) {
-          menuApi.AddTopMenu(this.editedItem).then(() => {
+        menuApi.Add(this.editedItem).then(() => {
             this.init();
           });
-        } else {
-          menuApi.addChildrenMenu(this.parentId, this.editedItem).then(() => {
-            this.init();
-          });
-        }
       }
       this.close();
     },

@@ -6,30 +6,23 @@ export default {
             method: 'get'
         })
     },
-    addChildrenMenu(id, data) {
+    Update(data) {
         return myaxios({
-            url: '/Menu/addChildrenMenu',
-            method: 'post',
-            data: { parentId: id, data }
-        })
-    },
-    UpdateMenu(data) {
-        return myaxios({
-            url: '/Menu/UpdateMenu',
+            url: '/Menu/Update',
             method: 'put',
             data: data
         })
     },
-    DelListMenu(ids) {
+    DeleteList(ids) {
         return myaxios({
-            url: '/Menu/DelListMenu',
+            url: '/Menu/DeleteList',
             method: 'delete',
             data: ids
         })
     },
-    AddTopMenu(data) {
+    Add(data) {
         return myaxios({
-            url: '/Menu/AddTopMenu',
+            url: '/Menu/Add',
             method: 'post',
             data: data
         })

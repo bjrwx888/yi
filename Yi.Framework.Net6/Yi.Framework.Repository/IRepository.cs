@@ -23,6 +23,6 @@ namespace Yi.Framework.Repository
         public  Task<bool> UpdateIgnoreNullAsync(T entity);
         public  Task<List<S>> UseSqlAsync<S>(string sql);
         public  Task<bool> UseSqlAsync(string sql);
-
+        ISugarQueryable<T> QueryConditionHandler(QueryCondition pars);
     }
 }

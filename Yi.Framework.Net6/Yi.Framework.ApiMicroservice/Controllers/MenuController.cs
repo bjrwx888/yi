@@ -36,7 +36,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         //暂未制作逻辑删除与多租户的过滤
         public async Task<Result> GetMenuTree()
         { 
-             return Result.Success().SetData(await _iMenuService.GetMenuTreeAsync());
+             return Result.Success().SetData(await _iMenuService. GetMenuTreeAsync());
         }
     }
 }

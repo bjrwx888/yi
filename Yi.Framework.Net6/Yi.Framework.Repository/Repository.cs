@@ -134,7 +134,7 @@ namespace Yi.Framework.Repository
 
 
 
-        private ISugarQueryable<T> QueryConditionHandler(QueryCondition pars)
+        public ISugarQueryable<T> QueryConditionHandler(QueryCondition pars)
         {
             var sugarParamters = pars.Parameters.Select(it => (IConditionalModel)new ConditionalModel()
             {
