@@ -14,6 +14,13 @@ namespace Yi.Framework.Interface
         Task<List<RoleEntity>> DbTest();
 
         /// <summary>
+        /// 通过角色id获取角色实体包含菜单
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<RoleEntity> GetInMenuByRoleId(long roleId);
+
+        /// <summary>
         /// 给角色设置菜单，多角色，多菜单
         /// </summary>
         /// <param name="roleIds"></param>

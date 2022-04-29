@@ -91,6 +91,12 @@
             <param name="giveRoleSetMenuDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetInMenuByRoleId(System.Int64)">
+            <summary>
+            通过角色id来获取菜单列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>
             测试控制器

@@ -40,6 +40,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetStatus(await _iRoleService.GiveRoleSetMenu(giveRoleSetMenuDto.RoleIds, giveRoleSetMenuDto.MenuIds));
         }
 
-
+        /// <summary>
+        /// 通过角色id来获取菜单列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetInMenuByRoleId(long RoleId)
+        {
+            return Result.Success().SetData(await _iRoleService.GetInMenuByRoleId(RoleId));
+        }
     }
 }

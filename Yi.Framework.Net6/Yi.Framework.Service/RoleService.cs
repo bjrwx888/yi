@@ -15,8 +15,7 @@ namespace Yi.Framework.Service
         }
         public async Task<bool> GiveRoleSetMenu(List<long> roleIds, List<long> menuIds)
         {
-            var _repositoryRoleMenu = _repository.ChangeRepository<Repository<RoleMenuEntity>>();
-
+          var _repositoryRoleMenu=  _repository.ChangeRepository<Repository<RoleMenuEntity>>();
             //多次操作，需要事务确保原子性
             return await _repositoryRoleMenu.UseTranAsync(async () =>
             {
@@ -35,12 +34,17 @@ namespace Yi.Framework.Service
                     }
 
                     //一次性批量添加
-                    await _repositoryRoleMenu.InsertRangeAsync(roleMenuEntity);
+                    await _repositoryRoleMenu.InsertReturnSnowflakeIdAsync(roleMenuEntity);
                 }
             });
 
 
         }
 
+        public async Task<RoleEntity> GetInMenuByRoleId(long roleId)
+        {
+            return await _repository._Db.Queryable<RoleEntity>().Includes(u => u.Menus).InSingleAsync(roleId);
+        
+        }
     }
 }

@@ -1,16 +1,15 @@
-﻿using SqlSugar;
-using Yi.Framework.Common.Models;
-using Yi.Framework.Model.Models;
+﻿//using SqlSugar;
+//using Yi.Framework.Common.Models;
+//using Yi.Framework.Model.Models;
 
-namespace Yi.Framework.Repository
-{
-    public class DataContext<T> : SimpleClient<T> where T : class, IBaseModelEntity, new()
-    {
-        public DataContext(ISqlSugarClient context) : base(context)
-        {
-            Db =base.Context;
-        }
+//namespace Yi.Framework.Repository
+//{
+//    public class DataContext<T> : SimpleClient<T> where T : class, IBaseModelEntity, new()
+//    {
+//        public DataContext(ISqlSugarClient context) : base(context)
+//        {
+//        }
         
-        public ISqlSugarClient Db;
-    }
-}
+//    }
+//}
+//简化已被弃用

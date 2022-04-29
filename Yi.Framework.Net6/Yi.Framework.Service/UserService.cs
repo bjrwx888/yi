@@ -92,7 +92,7 @@ namespace Yi.Framework.Service
                      }
 
                      //一次性批量添加
-                     await _repositoryUserRole.InsertRangeAsync(userRoleEntities);
+                     await _repositoryUserRole.InsertReturnSnowflakeIdAsync(userRoleEntities);
                  }
              });
         }

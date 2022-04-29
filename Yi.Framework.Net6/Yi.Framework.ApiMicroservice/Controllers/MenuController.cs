@@ -28,6 +28,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iMenuService = iMenuService;
         }
 
+
+
         /// <summary>
         /// 得到树形菜单
         /// </summary>
