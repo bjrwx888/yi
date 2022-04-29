@@ -1,23 +1,36 @@
 import myaxios from '@/util/myaxios'
 export default {
-    getRole() {
+    getList() {
         return myaxios({
-            url: '/Role/getRole',
-            method: 'get'
-        })
-    },
-    setMenuByRole(roleList, menuList) {
-        return myaxios({
-            url: '/Role/setMenuByRole',
+            url: '/Role/GetList',
             method: 'post',
-            data: { ids1: roleList, ids2: menuList }
+            data: {
+                parameters: [
+                    {
+                        key: "isDeleted",
+                        value: "0",
+                        type: 0
+
+                    }
+                ],
+                orderBys: [
+                    "id"
+                ]
+            }
         })
     },
-    GetTopMenusByRoleId(roleId) {
+    giveRoleSetMenu(roleList, menuList) {
         return myaxios({
-            url: `/Role/GetTopMenusByRoleId?roleId=${roleId}`,
-            method: 'get'
+            url: '/Role/GiveRoleSetMenu',
+            method: 'put',
+            data: { RoleIds: roleList, menuIds: menuList }
+        })
+    },
 
+    getInMenuByRoleId(roleId) {
+        return myaxios({
+            url: `/Role/GetInMenuByRoleId?roleId=${roleId}`,
+            method: 'get'
         })
     }
 

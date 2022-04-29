@@ -12,7 +12,7 @@ namespace Yi.Framework.Repository
     /// 仓储模式
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Repository<T> : DataContext<T>, IRepository<T> where T : class, IBaseModelEntity, new()
+    public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, IBaseModelEntity, new()
     {
         public ISqlSugarClient _Db { get; set; }
         /// <summary>
@@ -31,7 +31,8 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<bool> UseTranAsync(Func<Task> func)
         {
-            var res = await Db.AsTenant().UseTranAsync(func);
+            var con = Context;
+            var res = await _Db.AsTenant().UseTranAsync(func);
             return res.IsSuccess;
 
         }
@@ -44,7 +45,7 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<List<S>> UseSqlAsync<S>(string sql)
         {
-            return await Db.Ado.SqlQueryAsync<S>(sql);
+            return await _Db.Ado.SqlQueryAsync<S>(sql);
         }
 
 
@@ -55,7 +56,7 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<bool> UseSqlAsync(string sql)
         {
-            return await Db.Ado.ExecuteCommandAsync(sql)>0;
+            return await _Db.Ado.ExecuteCommandAsync(sql)>0;
         }
 
 
@@ -68,7 +69,7 @@ namespace Yi.Framework.Repository
         public async Task<T> InsertReturnEntityAsync(T entity)
         {
             entity.Id =SnowFlakeSingle.instance.getID();
-            return await Db.Insertable(entity).ExecuteReturnEntityAsync();
+            return await _Db.Insertable(entity).ExecuteReturnEntityAsync();
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<bool> UpdateIgnoreNullAsync(T entity)
         {
-            return await Db.Updateable(entity).IgnoreColumns(true).ExecuteCommandAsync()>0;
+            return await _Db.Updateable(entity).IgnoreColumns(true).ExecuteCommandAsync()>0;
         }
 
 
@@ -88,9 +89,9 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<bool> DeleteByLogicAsync(List<long> ids)
         {
-            var entitys = await Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
+            var entitys = await _Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
             entitys.ForEach(u=>u.IsDeleted=true);
-            return await Db.Updateable(entitys).ExecuteCommandAsync()>0;
+            return await _Db.Updateable(entitys).ExecuteCommandAsync()>0;
         }
 
 
@@ -103,7 +104,7 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<List<S>> StoreAsync<S>(string storeName, object para)
         {
-            return await Db.Ado.UseStoredProcedure().SqlQueryAsync<S>(storeName, para);
+            return await _Db.Ado.UseStoredProcedure().SqlQueryAsync<S>(storeName, para);
         }
 
 
@@ -142,7 +143,7 @@ namespace Yi.Framework.Repository
                 FieldName = it.Key,
                 FieldValue = it.Value
             }).ToList();
-            var query = Db.Queryable<T>();
+            var query = _Db.Queryable<T>();
             if (pars.OrderBys != null)
             {
                 foreach (var item in pars.OrderBys)

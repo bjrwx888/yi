@@ -63,7 +63,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //不建议操作，直接切换其他仓储
             await _iUserService._repository.ChangeRepository<Repository<RoleEntity>>().GetListAsync();
 
-            //直接操作Db对象？？？恭喜你已经毕业了！此后将有一天，接手到这个的软件的程序员将破口大骂。
+            //最好不要直接操作Db对象
             await _iUserService._repository._Db.Queryable<UserEntity>().ToListAsync();
 
             return Result.Success().SetData(await _iUserService.DbTest());

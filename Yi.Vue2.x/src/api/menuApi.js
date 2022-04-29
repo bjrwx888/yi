@@ -26,12 +26,5 @@ export default {
             method: 'post',
             data: data
         })
-    },
-
-    GetTopMenusByHttpUser() {
-        return myaxios({
-            url: '/Menu/GetTopMenusByHttpUser',
-            method: 'get'
-        })
     }
 }
