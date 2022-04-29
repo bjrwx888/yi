@@ -14,14 +14,13 @@ namespace Yi.Framework.Repository
     /// <typeparam name="T"></typeparam>
     public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, IBaseModelEntity, new()
     {
-        public ISqlSugarClient _Db { get; set; }
+        public ISqlSugarClient _Db { get { return base.Context; } set { } }
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="context"></param>
         public Repository(ISqlSugarClient context) : base(context)//注意这里要有默认值等于null
         {
-            _Db = context;
         }
 
         /// <summary>
