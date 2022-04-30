@@ -16,9 +16,7 @@ namespace Yi.Framework.Model.Models
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
-
-
-        [Newtonsoft.Json.JsonConverter(typeof(ValueToStringConverter))]
+        [JsonConverter(typeof(ValueToStringConverter))]
         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
@@ -106,5 +104,10 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Phone"    )]
          public string Phone { get; set; }
+        /// <summary>
+        ///  
+        ///</summary>
+         [SugarColumn(ColumnName="Introduction"    )]
+         public string Introduction { get; set; }
     }
 }
