@@ -16,7 +16,7 @@
 
     <v-list :tile="false" flat nav>
       <app-bar-item to="/"
-        ><v-list-item-title v-text="'用户名：'+$store.state.user.user.username"
+        ><v-list-item-title v-text="'用户名：'+$store.state.user.user.userName"
       /></app-bar-item>
       <app-bar-item to="/"
         ><v-list-item-title v-text="'称号：'+$store.state.user.user.nick"
@@ -27,7 +27,7 @@
       <template v-for="(p, i) in profile">
         <v-divider v-if="p.divider" :key="`divider-${i}`" class="mb-2 mt-2" />
 
-        <app-bar-item v-else :key="`item-${i}`" to="/">
+        <app-bar-item v-else :key="`item-${i}`" :to="p.router">
           <v-list-item-title v-text="p.title" />
         </app-bar-item>
       </template>
@@ -40,10 +40,10 @@ export default {
   name: "DefaultAccount",
     data: () => ({
       profile: [
-        { title: "用户信息" },
+        { title: "用户信息",router:"/userInfo" },
         { title: "设置" },
         { divider: true },
-        { title: "登出" },
+        { title: "登出",router:"/login" },
       ],
     }),
 };

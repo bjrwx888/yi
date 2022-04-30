@@ -41,6 +41,13 @@ export default {
             method: 'put',
             data: { user, newPassword }
         })
+    },
+    getUserAllInfo()
+    {
+        return myaxios({
+            url: `/Account/getUserAllInfo`,
+            method: 'get'
+        })  
     }
 
 }

@@ -7,7 +7,7 @@
 
           <v-card-text class="text-center">
             <h6 class="text-h6 mb-2 text--secondary">
-              {{ userInfo.username }}
+              {{ userInfo.userName }}
             </h6>
 
             <h4 class="text-h4 mb-3 text--primary">{{ userInfo.nick }}</h4>
@@ -61,7 +61,7 @@
                         <v-text-field
                           color="purple"
                           label="用户名"
-                          v-model="editInfo.username"
+                          v-model="editInfo.userName"
                           disabled
                         />
                       </v-col>
@@ -154,12 +154,12 @@
                               <v-list-item-subtitle>
                                 <v-row>
                                   <v-col
-                                    v-for="item in editInfo.roles"
+                                    v-for="item in roleInfo"
                                     :key="item.id"
                                     cols="6"
                                     sm="3"
                                     md="1"
-                                    >{{ item.role_name }}</v-col
+                                    >{{ item.roleName }}</v-col
                                   >
                                 </v-row>
                               </v-list-item-subtitle>
@@ -178,7 +178,7 @@
                                     cols="6"
                                     sm="3"
                                     md="1"
-                                    >{{ item.menu_name }}</v-col
+                                    >{{ item.menuName }}</v-col
                                   >
                                 </v-row>
                               </v-list-item-subtitle>
@@ -264,7 +264,6 @@
 <script>
 import fileApi from "../api/fileApi";
 import userApi from "../api/userApi";
-import menuApi from "../api/menuApi";
 import accountApi from "../api/accountApi";
 export default {
   name: "UserProfileView",
@@ -274,6 +273,7 @@ export default {
     editInfo: {},
     newPassword: "",
     dis_newPassword: true,
+       roleInfo:[],
     menuInfo: [],
   }),
   created() {
@@ -313,18 +313,13 @@ export default {
     },
     init() {
       this.newPassword = "";
-      userApi.GetUserInRolesByHttpUser().then((resp) => {
-        this.userInfo = resp.data;
+      accountApi.getUserAllInfo().then((resp) => {
+        this.userInfo = resp.data.user;
         this.userInfo.password = "";
         this.editInfo = Object.assign({}, this.userInfo);
+        this.roleInfo=resp.data.roles;
+        this.menuInfo = resp.data.menus;
         this.$store.commit('SET_USER',this.userInfo)
-      });
-
-
-
-
-      menuApi.GetTopMenusByHttpUser().then((resp) => {
-        this.menuInfo = resp.data;
       });
     },
 choiceImg() {
