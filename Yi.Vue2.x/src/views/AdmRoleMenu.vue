@@ -48,7 +48,7 @@
           item-text="menuName"
         >
           <template v-slot:append="{ item }">
-            <v-btn>id:{{ item.id }}</v-btn>
+            <v-btn>权限:{{ item.permissionCode }}</v-btn>
           </template>
         </v-treeview>
       </v-card></v-col

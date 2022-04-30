@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
 
@@ -59,5 +60,12 @@ namespace Yi.Framework.Interface
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<List<RoleEntity>> GetRoleListByUserId(long userId);
+
+        /// <summary>
+        /// 获取当前登录用户的所有信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<UserRoleMenuDto> GetUserAllInfo(long userId);
     }
 }

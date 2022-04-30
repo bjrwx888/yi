@@ -55,5 +55,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             }
             return Result.SuccessError("注册失败！用户名已存在！");
         }
+
+
+
+        /// <summary>
+        /// 通过已登录的用户获取用户信息及菜单
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetUserAllInfo()
+        {
+           //通过鉴权jwt获取到用户的id
+          var userId=HttpContext.GetCurrentUserEntityInfo(out _).Id;
+
+            return Result.Success().SetData(await _iUserService.GetUserAllInfo(userId));
+        }
     }
 }

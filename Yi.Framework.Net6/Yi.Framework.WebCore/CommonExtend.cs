@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Model.Models;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Yi.Framework.WebCore
 {
@@ -32,9 +33,21 @@ namespace Yi.Framework.WebCore
         /// <returns></returns>
         public static UserEntity GetCurrentUserEntityInfo(this HttpContext httpContext, out List<Guid> menuIds)
         {
-            IEnumerable<Claim> claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
-              
-       long.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value,out var resId)  ;
+            IEnumerable<Claim> claimlist = null;
+            long resId = 0;
+            try
+            {
+
+                claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
+                resId = Convert.ToInt64(claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid).Value);
+
+            }
+            catch
+            {
+                throw new Exception("未授权，Token鉴权失败！");
+            }
+
+
 
             menuIds = claimlist.Where(u => u.Type == "menuIds").ToList().Select(u => new Guid(u.Value)).ToList();
 
@@ -42,7 +55,7 @@ namespace Yi.Framework.WebCore
             return new UserEntity()
             {
                 Id = resId,
-                Name = claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value 
+                //Name = claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name).Value
             };
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
@@ -101,6 +102,38 @@ namespace Yi.Framework.Service
         public async Task<List<RoleEntity>> GetRoleListByUserId(long userId)
         {
             return (await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles).InSingleAsync(userId)).Roles;
+        }
+
+        public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
+        {
+
+            var userRoleMenu = new UserRoleMenuDto();
+            //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
+
+            //得到用户
+            var user = await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles, r => r.Menus).InSingleAsync(userId);
+
+            //得到角色集合
+            var roleList = user.Roles;
+
+            //得到菜单集合
+            foreach (var role in roleList)
+            {
+                foreach (var menu in role.Menus)
+                {
+                    userRoleMenu.Menus.Add(menu);
+                }
+                //刚好可以去除一下多余的导航属性
+                role.Menus = null;
+                userRoleMenu.Roles.Add(role);
+            }
+
+            user.Roles = null;
+            userRoleMenu.User = user;
+
+            return userRoleMenu;
+
+
         }
     }
 }

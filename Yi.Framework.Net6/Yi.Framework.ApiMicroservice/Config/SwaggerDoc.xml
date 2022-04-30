@@ -9,6 +9,12 @@
             账户管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetUserAllInfo">
+            <summary>
+            通过已登录的用户获取用户信息及菜单
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
             <summary>
             Json To Sql 类比模式，通用模型
