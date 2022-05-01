@@ -3,7 +3,10 @@
     <v-row justify="center">
       <v-col cols="12" md="4">
         <app-card class="mt-4 text-center">
- <ccAvatar :size="128" class="rounded-circle elevation-6 mt-n12 d-inline-block"></ccAvatar>
+          <ccAvatar
+            :size="128"
+            class="rounded-circle elevation-6 mt-n12 d-inline-block"
+          ></ccAvatar>
 
           <v-card-text class="text-center">
             <h6 class="text-h6 mb-2 text--secondary">
@@ -13,13 +16,19 @@
             <h4 class="text-h4 mb-3 text--primary">{{ userInfo.nick }}</h4>
 
             <p class="text--secondary">{{ userInfo.introduction }}</p>
-                  <input
-                    type="file"
-                    ref="imgFile"
-                    @change="uploadImage()"
-                    class="d-none"
-                  />
-            <v-btn class="mr-4" @click="choiceImg" color="primary" min-width="100" rounded>
+            <input
+              type="file"
+              ref="imgFile"
+              @change="uploadImage()"
+              class="d-none"
+            />
+            <v-btn
+              class="mr-4"
+              @click="choiceImg"
+              color="primary"
+              min-width="100"
+              rounded
+            >
               编辑头像
             </v-btn>
             <v-btn color="primary" min-width="100" rounded> 绑定QQ </v-btn>
@@ -230,7 +239,7 @@
                       <v-text-field
                         style="width: 80%"
                         label="原密码"
-                        v-model="editInfo.password"
+                        v-model="oldPassword"
                         outlined
                         clearable
                       ></v-text-field>
@@ -272,17 +281,18 @@ export default {
     userInfo: {},
     editInfo: {},
     newPassword: "",
+    oldPassword: "",
     dis_newPassword: true,
-       roleInfo:[],
+    roleInfo: [],
     menuInfo: [],
   }),
   created() {
     this.init();
   },
   watch: {
-    editInfo: {
+    oldPassword: {
       handler(val, oldVal) {
-        if (val.password.length > 0) {
+        if (val != "") {
           this.dis_newPassword = false;
         } else {
           this.dis_newPassword = true;
@@ -294,50 +304,56 @@ export default {
 
   methods: {
     save() {
-      accountApi
-        .changePassword(this.editInfo, this.newPassword)
-        .then((resp) => {
-          if (resp.status) {
-            this.$dialog.notify.error(resp.msg, {
-              position: "top-right",
-              timeout: 5000,
-            });
-          } else {
-            this.$dialog.notify.success(resp.msg, {
-              position: "top-right",
-              timeout: 5000,
-            });
-          }
+      if (this.newPassword != "") {
+        accountApi
+          .updatePassword(this.oldPassword, this.newPassword)
+          .then((resp) => {
+            if (resp.status) {
+              this.$dialog.notify.success(resp.message, {
+                position: "top-right",
+                timeout: 5000,
+              });
+            } else {
+              this.$dialog.notify.error(resp.message, {
+                position: "top-right",
+                timeout: 5000,
+              });
+            }
+            this.init();
+          });
+      } else {
+        accountApi.updateUserByHttp(this.editInfo).then((resp) => {
           this.init();
         });
+      }
     },
     init() {
       this.newPassword = "";
+      this.oldPassword = "";
       accountApi.getUserAllInfo().then((resp) => {
         this.userInfo = resp.data.user;
         this.userInfo.password = "";
         this.editInfo = Object.assign({}, this.userInfo);
-        this.roleInfo=resp.data.roles;
+        this.roleInfo = resp.data.roles;
         this.menuInfo = resp.data.menus;
-        this.$store.commit('SET_USER',this.userInfo)
+        this.$store.commit("SET_USER", this.userInfo);
       });
     },
-choiceImg() {
+    choiceImg() {
       this.$refs.imgFile.dispatchEvent(new MouseEvent("click"));
     },
     uploadImage() {
       const file = this.$refs.imgFile.files[0];
       let formData = new FormData();
       formData.append("file", file);
-      fileApi.EditIcon(formData).then(resp=>{
+      fileApi.EditIcon(formData).then((resp) => {
         this.init();
-                  this.$dialog.notify.success(resp.msg, {
-            position: "top-right",
-            timeout: 5000,
-          });
-     })
+        this.$dialog.notify.success(resp.msg, {
+          position: "top-right",
+          timeout: 5000,
+        });
+      });
     },
-
   },
 };
 </script>

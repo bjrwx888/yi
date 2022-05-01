@@ -36,6 +36,14 @@ namespace Yi.Framework.Common.Models
         }
         public Result SetStatus(bool _status)
         {
+            if (_status)
+            {
+                this.message = "操作成功";
+            }
+            else
+            {
+                this.message = "操作失败";
+            }
             this.status = _status;
             return this;
         }

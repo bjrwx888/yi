@@ -35,11 +35,11 @@ export default {
             method: 'post',
         })
     },
-    changePassword(user, newPassword) {
+    updatePassword(oldPassword, newPassword) {
         return myaxios({
-            url: `/Account/changePassword`,
+            url: `/Account/updatePassword`,
             method: 'put',
-            data: { user, newPassword }
+            data: { oldPassword, newPassword }
         })
     },
     getUserAllInfo()
@@ -47,6 +47,15 @@ export default {
         return myaxios({
             url: `/Account/getUserAllInfo`,
             method: 'get'
+        })  
+    },
+    updateUserByHttp(user)
+    {
+
+        return myaxios({
+            url: `/Account/updateUserByHttp`,
+            method: 'put',
+            data:user
         })  
     }
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
@@ -22,9 +23,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class AccountController :ControllerBase
+    public class AccountController : ControllerBase
     {
-        private  IUserService _iUserService;
+        private IUserService _iUserService;
         private JwtInvoker _jwtInvoker;
         public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker)
         {
@@ -32,18 +33,28 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _jwtInvoker = jwtInvoker;
         }
 
+        /// <summary>
+        /// 没啥说，登录
+        /// </summary>
+        /// <param name="loginDto"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<Result> Login(LoginDto loginDto)
         {
-            UserEntity user=new();
-            if (await _iUserService.Login(loginDto.UserName, loginDto.Password,o=> user=o))
+            UserEntity user = new();
+            if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
-                return Result.Success("登录成功！").SetData(new { user, token = _jwtInvoker.GetAccessToken(user)});
+                return Result.Success("登录成功！").SetData(new { user, token = _jwtInvoker.GetAccessToken(user) });
             }
             return Result.SuccessError("登录失败！用户名或者密码错误！");
         }
 
+        /// <summary>
+        /// 没啥说，注册
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<Result> Register(RegisterDto registerDto)
@@ -65,10 +76,49 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetUserAllInfo()
         {
-           //通过鉴权jwt获取到用户的id
-          var userId=HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            //通过鉴权jwt获取到用户的id
+            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
 
             return Result.Success().SetData(await _iUserService.GetUserAllInfo(userId));
+        }
+
+
+        /// <summary>
+        /// 更新登录的用户密码
+        /// </summary>
+        /// <param name="updatePasswordDto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdatePassword(UpdatePasswordDto updatePasswordDto)
+        {
+            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            var userEntiy = await _iUserService._repository.GetByIdAsync(userId);
+
+            //判断输入的老密码是否和原密码相同
+            if (_iUserService.JudgePassword(userEntiy, updatePasswordDto.OldPassword))
+            {
+                userEntiy.Password = updatePasswordDto.NewPassword;
+                userEntiy.BuildPassword();
+                return Result.Success().SetStatus(await _iUserService._repository.UpdateAsync(userEntiy));
+            }
+            return Result.SuccessError("原密码错误！");
+        }
+
+        /// <summary>
+        /// 更新已登录用户的用户信息
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdateUserByHttp(UserEntity user)
+        {
+            //当然，密码是不能给他修改的
+            user.Password = null;
+            user.Salt = null;
+
+            //修改需要赋值上主键哦
+            user.Id = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
         }
     }
 }

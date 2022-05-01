@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
@@ -132,8 +133,15 @@ namespace Yi.Framework.Service
             userRoleMenu.User = user;
 
             return userRoleMenu;
+        }
 
-
+        public bool JudgePassword(UserEntity user,string password)
+        {
+            if (user.Password == MD5Helper.SHA2Encode(password, user.Salt))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

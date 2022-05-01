@@ -9,10 +9,38 @@
             账户管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DTOModel.LoginDto)">
+            <summary>
+            没啥说，登录
+            </summary>
+            <param name="loginDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Register(Yi.Framework.DTOModel.RegisterDto)">
+            <summary>
+            没啥说，注册
+            </summary>
+            <param name="registerDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetUserAllInfo">
             <summary>
             通过已登录的用户获取用户信息及菜单
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdatePassword(Yi.Framework.DTOModel.UpdatePasswordDto)">
+            <summary>
+            更新登录的用户密码
+            </summary>
+            <param name="updatePasswordDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdateUserByHttp(Yi.Framework.Model.Models.UserEntity)">
+            <summary>
+            更新已登录用户的用户信息
+            </summary>
+            <param name="user"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">

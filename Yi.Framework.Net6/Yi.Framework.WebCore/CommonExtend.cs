@@ -37,21 +37,14 @@ namespace Yi.Framework.WebCore
             long resId = 0;
             try
             {
-
                 claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
                 resId = Convert.ToInt64(claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid).Value);
-
             }
             catch
             {
                 throw new Exception("未授权，Token鉴权失败！");
             }
-
-
-
             menuIds = claimlist.Where(u => u.Type == "menuIds").ToList().Select(u => new Guid(u.Value)).ToList();
-
-
             return new UserEntity()
             {
                 Id = resId,

@@ -67,5 +67,13 @@ namespace Yi.Framework.Interface
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<UserRoleMenuDto> GetUserAllInfo(long userId);
+
+        /// <summary>
+        /// 判断用户密码是否和原密码相同
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        bool JudgePassword(UserEntity user, string password);
     }
 }
