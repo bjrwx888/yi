@@ -1,8 +1,8 @@
 import myaxios from '@/util/myaxios'
 export default {
-    EditIcon(file) {
+    UploadImage(file) {
         return myaxios({
-            url: '/File/EditIcon',
+            url: '/Upload/image',
             method: 'post',
             headers: { "Content-Type": "multipart/form-data" },
             data: file

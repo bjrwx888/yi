@@ -78,7 +78,7 @@ namespace Yi.Framework.Model.Models
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Icon"    )]
-         public long? Icon { get; set; }
+         public string Icon { get; set; }
         /// <summary>
         ///  
         ///</summary>

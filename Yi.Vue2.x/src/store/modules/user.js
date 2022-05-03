@@ -38,6 +38,7 @@ const mutations = { //变化//载荷
     },
     SET_USER(state, user) {
         state.user = user
+        console.log(user)
         setUser(user)
     },
     SetGradient(state, gradient) {
@@ -50,7 +51,7 @@ const mutations = { //变化//载荷
 
 //在action中可以配合axios进行权限判断
 const actions = { //动作
-    setIcon({ commit, state }, icon) {
+    SetIcon({ commit, state }, icon) {
         state.user.icon = icon
         commit('SET_USER', state.user)
     },

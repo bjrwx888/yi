@@ -272,7 +272,6 @@
 
 <script>
 import fileApi from "../api/fileApi";
-import userApi from "../api/userApi";
 import accountApi from "../api/accountApi";
 export default {
   name: "UserProfileView",
@@ -343,15 +342,19 @@ export default {
       this.$refs.imgFile.dispatchEvent(new MouseEvent("click"));
     },
     uploadImage() {
+      //修改头像，需要先上传头像，修改editInfo的头像信息即可
       const file = this.$refs.imgFile.files[0];
       let formData = new FormData();
       formData.append("file", file);
-      fileApi.EditIcon(formData).then((resp) => {
-        this.init();
-        this.$dialog.notify.success(resp.msg, {
+
+
+      fileApi.UploadImage(formData).then((resp) => {
+        this.editInfo.icon=resp.data
+        this.$dialog.notify.success("头像加载成功，点击保存以设置", {
           position: "top-right",
           timeout: 5000,
         });
+         this.$store.dispatch("SetIcon",  this.editInfo.icon)
       });
     },
   },
