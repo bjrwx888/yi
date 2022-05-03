@@ -133,7 +133,7 @@ export default {
       };
     },
     login() {
-         this.loader = "true";
+         this.loader = true;
       this.btn_dis=true;
       this.$store.dispatch("Login", this.form).then((resp) => {
         if (resp.status) {

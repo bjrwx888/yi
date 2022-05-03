@@ -59,6 +59,9 @@ export default {
       });
     },
     init() {
+
+//这里可以遍历后台的菜单code，根据对应的菜单code来给axiosUrls的增删改查赋值即可
+
       this.axiosUrls = {
         get: "/user/GetList",
         update: "/user/Update",

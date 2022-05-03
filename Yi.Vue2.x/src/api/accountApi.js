@@ -51,7 +51,6 @@ export default {
     },
     updateUserByHttp(user)
     {
-
         return myaxios({
             url: `/Account/updateUserByHttp`,
             method: 'put',

@@ -27,10 +27,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     {
         private IUserService _iUserService;
         private JwtInvoker _jwtInvoker;
+       private ILogger _logger;
         public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
+           _logger = logger;
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
-                return Result.Success("登录成功！").SetData(new { user, token = _jwtInvoker.GetAccessToken(user) });
+                return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(user) });
             }
             return Result.SuccessError("登录失败！用户名或者密码错误！");
         }
@@ -67,7 +69,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.SuccessError("注册失败！用户名已存在！");
         }
 
-
+        [HttpPost]
+        public  Result Logout()
+        {
+            return Result.Success("安全登出成功！");
+        }
 
         /// <summary>
         /// 通过已登录的用户获取用户信息及菜单

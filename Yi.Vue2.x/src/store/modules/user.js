@@ -1,8 +1,9 @@
-import { getToken, setToken, getUser, setUser, removeToken } from '../../util/usertoken'
+import { getPer, setPer, getToken, setToken, getUser, setUser, removeToken } from '../../util/usertoken'
 import accountApi from "@/api/accountApi"
 
 //再导入axion请求
 const state = { //状态
+    per: getPer(),
     token: getToken(),
     user: getUser(),
     dark: false,
@@ -20,13 +21,17 @@ const state = { //状态
         'https://s1.ax1x.com/2022/03/26/qdNnbD.jpg',
         'https://s1.ax1x.com/2022/03/26/qdNMUH.jpg',
         'https://s1.ax1x.com/2022/03/26/qdNKVe.jpg',
-      'https://s1.ax1x.com/2022/03/26/qdNmDO.jpg'
+        'https://s1.ax1x.com/2022/03/26/qdNmDO.jpg'
     ],
     notifications: [],
     rtl: false
 }
 
 const mutations = { //变化//载荷
+    SET_PER(state, per) {
+        state.per = per
+        setPer(per)
+    },
     SET_TOKEN(state, token) {
         state.token = token
         setToken(token)
@@ -78,9 +83,22 @@ const actions = { //动作
             accountApi.login(form.username.trim(), form.password.trim()).then(resp => {
                 if (resp.status) {
                     commit('SET_TOKEN', resp.data.token)
-                    commit('SET_USER', resp.data.user)
+     
+
+                    accountApi.getUserAllInfo().then(resp2=>{
+                        commit('SET_USER', resp2.data.user)
+
+                        var code=[];
+                        resp2.data.menus.forEach(element => {
+                            code.push(element.permissionCode)
+                        });
+                        commit('SET_PER', code)
+                        resolv(resp)
+                    })
+
+
                 }
-                resolv(resp)
+           
             }).catch(error => {
                 reject(error)
             })
