@@ -53,8 +53,7 @@
       item-text="menuName"
     >
       <template v-slot:append="{ item }">
-        <v-btn class="mr-2">编号:{{ item.id }}</v-btn>
-        <v-btn class="mr-2">权限:{{ item.permissionCode }}</v-btn>
+        <v-btn v-show="item.menuType==1" class="mr-2">权限:{{ item.permissionCode }}</v-btn>
         <!-- <v-btn class="mr-2">图标:{{ item.icon }}</v-btn> -->
         <!-- <v-btn class="mr-2">路由:{{ item.router }}</v-btn> -->
         <!-- <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>

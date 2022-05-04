@@ -1,22 +1,11 @@
 import myaxios from '@/util/myaxios'
+import {objctToDic} from '@/util/objctHandle'
 export default {
     getItem(url) {
         return myaxios({
             url: url,
             method: 'post',
-            data: {
-                parameters: [
-                    {
-                        key: "isDeleted",
-                        value: "0",
-                        type: 0
-
-                    }
-                ],
-                orderBys: [
-                    "id"
-                ]
-            }
+            data: objctToDic()
         })
     },
     addItem(url, data) {

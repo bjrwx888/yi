@@ -8,6 +8,11 @@ export function deepCopy(obj) {
 
 //转换数据,0是相等，1是模糊查询
 export function objctToDic(object, isByPage) {
+    if (object == undefined) {
+
+        object = {};
+    }
+
     if (isByPage) {
         var paramPage = {
             "index": object.pageIndex,
@@ -19,8 +24,8 @@ export function objctToDic(object, isByPage) {
         var newData = deepCopy(object);
         delete newData.pageIndex;
         delete newData.pageSize;
-    
-       var newList = [Object.keys(newData).map(val => {
+
+        var newList = [Object.keys(newData).map(val => {
             return {
                 key: val,
                 value: object[val],
@@ -30,11 +35,9 @@ export function objctToDic(object, isByPage) {
 
         //过滤封装
         newList[0].forEach((item, index) => {
-            if(item.value.length>0)
-            {
-                if(item.key=='isDeleted')
-                {
-                    item.type=0;
+            if (item.value.length > 0) {
+                if (item.key == 'isDeleted') {
+                    item.type = 0;
                 }
                 paramPage.parameters.push(item);
             }
@@ -55,11 +58,9 @@ export function objctToDic(object, isByPage) {
             }
         })]
         thisList[0].forEach((item, index) => {
-            if(item.value.length>0)
-            {
-                if(item.key=='isDeleted')
-                {
-                    item.type=0;
+            if (item.value.length > 0) {
+                if (item.key == 'isDeleted') {
+                    item.type = 0;
                 }
                 params.parameters.push(item);
             }

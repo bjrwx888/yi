@@ -23,15 +23,15 @@ namespace Yi.Framework.Core
         }
         public string GetRefreshToken(UserEntity user)
         {
-            return this.GetToken(_JWTTokenOptions.ReExpiration, user, true);
+            return this.GetToken(_JWTTokenOptions.ReExpiration, user,null, true);
         }
 
-        public string GetAccessToken(UserEntity user)
+        public string GetAccessToken(UserEntity user,HashSet<MenuEntity> menus)
         {
-            return this.GetToken(_JWTTokenOptions.Expiration, user);
+            return this.GetToken(_JWTTokenOptions.Expiration, user, menus);
         }
 
-        private string GetToken(int minutes, UserEntity user, bool isRefresh = false)
+        private string GetToken(int minutes, UserEntity user, HashSet<MenuEntity> menus,bool isRefresh = false)
         {
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"));
@@ -39,8 +39,11 @@ namespace Yi.Framework.Core
             claims.Add(new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()));
 
             //-----------------------------以下从user的权限表中添加权限-----------------------例如：
-            claims.Add(new Claim("permission", "userentity:get:list"));
-            claims.Add(new Claim("permission", "userentity:get:one"));
+
+            foreach (var m in menus)
+            {
+                claims.Add(new Claim("permission", m.PermissionCode));
+            }
 
             if (isRefresh)
             {
