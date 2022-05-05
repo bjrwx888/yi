@@ -47,7 +47,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
-                return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(user) });
+             var userRoleMenu= await  _iUserService.GetUserAllInfo(user.Id);
+                return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User,userRoleMenu.Menus) });
             }
             return Result.SuccessError("登录失败！用户名或者密码错误！");
         }
@@ -80,6 +81,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<Result> GetUserAllInfo()
         {
             //通过鉴权jwt获取到用户的id

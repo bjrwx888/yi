@@ -1,22 +1,11 @@
 import myaxios from '@/util/myaxios'
+import {objctToDic} from '@/util/objctHandle'
 export default {
     getList() {
         return myaxios({
             url: '/Role/GetList',
             method: 'post',
-            data: {
-                parameters: [
-                    {
-                        key: "isDeleted",
-                        value: "0",
-                        type: 0
-
-                    }
-                ],
-                orderBys: [
-                    "id"
-                ]
-            }
+            data: objctToDic()
         })
     },
     giveRoleSetMenu(roleList, menuList) {

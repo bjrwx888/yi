@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Yi.Framework.WebCore.AttributeExtend
@@ -40,11 +41,21 @@ namespace Yi.Framework.WebCore.AttributeExtend
             var perList = context.HttpContext.User.Claims.Where(u => u.Type == "permission").Select(u=> u.Value.ToString().ToLower()). ToList();
             //判断权限是否存在Redis中,或者jwt中
 
-            //if (perList.Contains(permission.ToLower()))
-            //{
-            //    result = true;
-            //}
-             result = true;
+            //进行正则表达式的匹配，以code开头
+            Regex regex = new Regex($"^{permission.ToLower()}");
+            foreach (var p in perList)
+            {
+                if (regex.IsMatch(p))
+                {
+                    result = true;
+                    break;
+                }
+            }
+            //用户的增删改查直接可以user:*即可
+
+
+            //这里暂时全部放行即可
+            result = true;
 
 
             if (!result)
