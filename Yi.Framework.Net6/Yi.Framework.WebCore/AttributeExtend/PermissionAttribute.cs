@@ -41,8 +41,8 @@ namespace Yi.Framework.WebCore.AttributeExtend
             var perList = context.HttpContext.User.Claims.Where(u => u.Type == "permission").Select(u=> u.Value.ToString().ToLower()). ToList();
             //判断权限是否存在Redis中,或者jwt中
 
-            //进行正则表达式的匹配
-            Regex regex = new Regex($"{permission.ToLower()}");
+            //进行正则表达式的匹配，以code开头
+            Regex regex = new Regex($"^{permission.ToLower()}");
             foreach (var p in perList)
             {
                 //过滤多余的标签
