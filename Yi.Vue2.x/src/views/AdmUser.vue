@@ -104,7 +104,7 @@ export default {
     axiosUrls: {},
     headers: [
       { text: "用户名", value: "userName", sortable: false },
-      { text: "密码", value: "password", sortable: false },
+
       { text: "图标", value: "icon", sortable: false },
       { text: "昵称", value: "nick", sortable: true },
       { text: "邮箱", value: "email", sortable: true },
