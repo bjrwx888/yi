@@ -45,6 +45,9 @@ namespace Yi.Framework.WebCore.AttributeExtend
             Regex regex = new Regex($"{permission.ToLower()}");
             foreach (var p in perList)
             {
+                //过滤多余的标签
+                p.Replace("Entity","");
+                p.Replace("entity","");
                 if (regex.IsMatch(p))
                 {
                     result = true;
