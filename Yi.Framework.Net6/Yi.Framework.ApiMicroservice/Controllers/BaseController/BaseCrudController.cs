@@ -32,7 +32,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get:one")]
+        [Permission($"{nameof(T)}:get:list")]
         [HttpGet]
         public virtual async Task<Result> GetById(long id)
         {
@@ -55,7 +55,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="queryCondition"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get:page")]
+        [Permission($"{nameof(T)}:get:list")]
         [HttpPost]
         public virtual async  Task<Result> PageList(QueryPageCondition queryCondition)
         {
@@ -91,7 +91,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:delete:list")]
+        [Permission($"{nameof(T)}:del")]
         [HttpDelete]
         public virtual async Task<Result> DeleteList(List<long> ids)
         {
