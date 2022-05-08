@@ -38,7 +38,6 @@ const mutations = { //变化//载荷
     },
     SET_USER(state, user) {
         state.user = user
-        console.log(user)
         setUser(user)
     },
     SetGradient(state, gradient) {
@@ -87,19 +86,21 @@ const actions = { //动作
      
 
                     accountApi.getUserAllInfo().then(resp2=>{
-                        commit('SET_USER', resp2.data.user)
+                        commit('SET_USER', resp2.data)
 
                         var code=[];
                         resp2.data.menus.forEach(element => {
                             code.push(element.permissionCode)
                         });
                         commit('SET_PER', code)
+
                         resolv(resp)
                     })
-
-
                 }
-           
+                else
+                {
+                    resolv(resp)
+                }
             }).catch(error => {
                 reject(error)
             })

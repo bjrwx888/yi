@@ -1,6 +1,7 @@
 ﻿using SqlSugar;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Helper;
@@ -112,7 +113,7 @@ namespace Yi.Framework.Service
             //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
 
             //得到用户
-            var user = await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles, r => r.Menus).InSingleAsync(userId);
+            var user = await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles.Where(r=>r.IsDeleted==false).ToList(), r => r.Menus.Where(m=>m.IsDeleted==false).ToList()).InSingleAsync(userId);
 
             //得到角色集合
             var roleList = user.Roles;

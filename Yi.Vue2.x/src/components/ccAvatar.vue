@@ -2,7 +2,7 @@
         <v-avatar  :size="size" >
               <!-- <img src="https://z3.ax1x.com/2021/05/09/gJadhD.jpg" /> -->
               <img
-                :src="baseurl +'/image/'+$store.state.user.user.icon"
+                :src="baseurl +'/image/'+$store.state.user.user.user.icon"
               />
             </v-avatar>
 </template>

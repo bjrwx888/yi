@@ -31,14 +31,14 @@ myaxios.interceptors.request.use(function(config) {
 // 响应拦截器
 myaxios.interceptors.response.use(async function(response) {
     const resp = response.data
-    if (resp.code == undefined && resp.msg == undefined) {
+    if (resp.code == undefined && resp.message == undefined) {
         vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
             position: "top-right",
             timeout: 5000,
         });
     } else if (resp.code == 401) {
         const res = await vm.$dialog.error({
-            text: `错误代码：${resp.code}，原因：${resp.msg}<br>是否重新进行登录？`,
+            text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
             title: '错误',
             actions: {
                 'false': '取消',
@@ -50,7 +50,7 @@ myaxios.interceptors.response.use(async function(response) {
         }
 
     } else if (resp.code !== 200) {
-        vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.msg}`, {
+        vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
             position: "top-right",
             timeout: 5000,
         });
@@ -60,14 +60,14 @@ myaxios.interceptors.response.use(async function(response) {
     return resp;
 }, async function(error) {
     const resp = error.response.data
-    if (resp.code == undefined && resp.msg == undefined) {
+    if (resp.code == undefined && resp.message == undefined) {
         vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
             position: "top-right",
             timeout: 5000,
         });
     } else if (resp.code == 401) {
         const res = await vm.$dialog.error({
-            text: `错误代码：${resp.code}，原因：${resp.msg}<br>是否重新进行登录？`,
+            text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
             title: '错误',
             actions: {
                 'false': '取消',
@@ -81,7 +81,7 @@ myaxios.interceptors.response.use(async function(response) {
         }
 
     } else if (resp.code !== 200) {
-        vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.msg}`, {
+        vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
             position: "top-right",
             timeout: 5000,
         });

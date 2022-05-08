@@ -42,7 +42,7 @@ namespace Yi.Framework.Core
 
             foreach (var m in menus)
             {
-                claims.Add(new Claim("permission", m.PermissionCode));
+                claims.Add(new Claim("permission", m.PermissionCode.ToString()));
             }
 
             if (isRefresh)

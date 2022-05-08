@@ -52,7 +52,16 @@
           <a href="javascript:void(0)" class="mt-1"> 忘记密码? </a>
         </div>
 
-        <v-btn block color="primary" @click="login" class="mt-6" :loading="loader" :disabled="btn_dis"> 登录 </v-btn>
+        <v-btn
+          block
+          color="primary"
+          @click="login"
+          class="mt-6"
+          :loading="loader"
+          :disabled="btn_dis"
+        >
+          登录
+        </v-btn>
       </v-form>
     </v-card-text>
 
@@ -70,7 +79,7 @@
     </v-card-text>
 
     <!-- social links -->
-    <v-card-actions class="d-flex justify-center ">
+    <v-card-actions class="d-flex justify-center">
       <v-btn v-for="link in socialLink" :key="link.icon" icon class="ms-1">
         <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
           {{ link.icon }}
@@ -81,11 +90,11 @@
 </template>
 <script>
 export default {
-  created(){
+  created() {
     this.enterSearch();
   },
   data: () => ({
-        btn_dis:false,
+    btn_dis: false,
     loader: null,
     socialLink: [
       {
@@ -122,8 +131,7 @@ export default {
     },
   }),
   methods: {
-      enterSearch() {
-     
+    enterSearch() {
       document.onkeydown = (e) => {
         //13表示回车键，baseURI是当前页面的地址，为了更严谨，也可以加别的，可以打印e看一下
         if (e.keyCode === 13 && e.target.baseURI.match("/")) {
@@ -133,20 +141,29 @@ export default {
       };
     },
     login() {
-         this.loader = true;
-      this.btn_dis=true;
-      this.$store.dispatch("Login", this.form).then((resp) => {
-        if (resp.status) {
-          this.$router.push("/");
-        } else {
-                  this.loader=null;
-             this.btn_dis=false;
-          this.$dialog.notify.error(resp.msg, {
-            position: "top-right",
-            timeout: 5000,
-          });
-        }
-      });
+      this.loader = true;
+      this.btn_dis = true;
+      this.$store
+        .dispatch("Login", this.form)
+        .then((resp) => {
+          if (resp.status) {
+           
+            this.$router.push("/");
+          } else {
+
+            this.loader = null;
+            this.btn_dis = false;
+            this.$dialog.notify.error(resp.message, {
+              position: "top-right",
+              timeout: 5000,
+            });
+          }
+        })
+        .catch((error) => {
+                
+          this.loader = false;
+          this.btn_dis = false;
+        });
     },
   },
 };

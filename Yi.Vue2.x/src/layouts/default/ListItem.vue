@@ -11,7 +11,7 @@
     v-on="$listeners"
   >
     <v-list-item-icon
-      v-if="!item.icon"
+      v-if="!item.menuIcon"
       class="text-caption text-uppercase justify-center ml-1 my-2 align-self-center"
     >
       {{ title }}
@@ -22,14 +22,14 @@
     </v-list-item-avatar>
 
     <v-list-item-icon
-      v-if="item.icon"
+      v-if="item.menuIcon"
       class="my-2 align-self-center"
     >
-      <v-icon v-text="item.icon" />
+      <v-icon v-text="item.menuIcon" />
     </v-list-item-icon>
 
-    <v-list-item-content v-if="item.menu_name">
-      <v-list-item-title v-text="item.menu_name" />
+    <v-list-item-content v-if="item.menuName">
+      <v-list-item-title v-text="item.menuName" />
     </v-list-item-content>
   </v-list-item>
 </template>
@@ -47,7 +47,7 @@
 
     computed: {
       title () {
-        const matches = this.item.menu_name.match(/\b(\w)/g)
+        const matches = this.item.menuName.match(/\b(\w)/g)
 if(matches!=null)
 {
         return matches.join('')

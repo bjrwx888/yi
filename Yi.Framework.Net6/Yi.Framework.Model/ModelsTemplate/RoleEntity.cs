@@ -54,5 +54,10 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="ModifyUser"    )]
          public long? ModifyUser { get; set; }
+        /// <summary>
+        ///  
+        ///</summary>
+         [SugarColumn(ColumnName="RoleCode"    )]
+         public string RoleCode { get; set; }
     }
 }
