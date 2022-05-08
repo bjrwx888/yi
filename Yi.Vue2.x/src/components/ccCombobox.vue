@@ -58,6 +58,8 @@ export default {
   watch:{
      select:{//深度监听，可监听到对象、数组的变化
          handler(val, oldVal){
+             console.log(oldVal)
+           console.log(val)
               this.$emit("select",val);
          },
          deep:true

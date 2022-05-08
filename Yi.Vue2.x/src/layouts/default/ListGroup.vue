@@ -1,8 +1,8 @@
 <template>
-  <v-list-group :group="group" :prepend-icon="item.icon" eager v-bind="$attrs">
+  <v-list-group :group="group" :prepend-icon="item.menuIcon" eager v-bind="$attrs">
     <template v-slot:activator>
       <v-list-item-icon
-        v-if="!item.icon && !item.avatar"
+        v-if="!item.menuIcon && !item.avatar"
         class="text-caption text-uppercase text-center my-2 align-self-center"
         style="margin-top: 14px"
       >
@@ -13,8 +13,8 @@
         <v-img :src="item.avatar" />
       </v-list-item-avatar>
 
-      <v-list-item-content v-if="item.menu_name">
-        <v-list-item-title v-text="item.menu_name" />
+      <v-list-item-content v-if="item.menuName">
+        <v-list-item-title v-text="item.menuName" />
       </v-list-item-content>
     </template>
 
@@ -57,7 +57,7 @@ export default {
       return this.genGroup(this.item.children);
     },
     title() {
-      const matches = this.item.menu_name.match(/\b(\w)/g);
+      const matches = this.item.menuName.match(/\b(\w)/g);
       if (matches != null) {
         return matches.join("");
       }

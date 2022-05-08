@@ -7,7 +7,7 @@
       headers="设置角色"
       :items="roleItems"
       @select="getSelect"
-      itemText="role_name"
+      itemText="roleName"
     >
       <template v-slot:save>
         <v-btn @click="setRole" color="blue darken-1" text> 保存</v-btn>
@@ -27,6 +27,7 @@
 </template>
 <script>
 import userApi from "../api/userApi";
+import roleApi from "../api/roleApi";
 export default {
   created() {
     this.init();
@@ -59,8 +60,7 @@ export default {
       });
     },
     init() {
-
-//这里可以遍历后台的菜单code，根据对应的菜单code来给axiosUrls的增删改查赋值即可
+      //这里可以遍历后台的菜单code，根据对应的菜单code来给axiosUrls的增删改查赋值即可
 
       this.axiosUrls = {
         get: "/user/GetList",
@@ -69,9 +69,10 @@ export default {
         add: "/user/Add",
       };
 
-      // roleApi.getRole().then((resp) => {
-      //   this.roleItems = resp.data;
-      // });
+      roleApi.getList().then((resp) => {
+        console.log(resp.data)
+        this.roleItems=JSON.parse(JSON.stringify(resp.data));
+      });
     },
     setRole() {
       var userIds = [];
@@ -82,8 +83,8 @@ export default {
       this.select.forEach((item) => {
         roleIds.push(item.id);
       });
-      userApi.SetRoleByUser(userIds, roleIds).then((resp) => {
-        this.$dialog.notify.success(resp.msg, {
+      userApi.GiveUserSetRole(userIds, roleIds).then((resp) => {
+        this.$dialog.notify.success(resp.message, {
           position: "top-right",
           timeout: 5000,
         });

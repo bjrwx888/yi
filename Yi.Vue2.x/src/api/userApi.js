@@ -19,4 +19,12 @@ export default {
             method: 'get'
         })
     },
+    GiveUserSetRole(UserIds,RoleIds)
+    {
+        return myaxios({
+            url: `/User/GiveUserSetRole`,
+            method: 'put',
+            data:{UserIds,RoleIds}
+        })
+    }
 }

@@ -31,7 +31,8 @@ export default {
     axiosUrls: {
     },
     headers: [
-      { text: "编号", align: "start", value: "id" },
+      // { text: "编号", align: "start", value: "id" },
+           { text: "角色编号", value: "roleCode", sortable: false },
       { text: "角色名", value: "roleName", sortable: false },
       // { text: "云盘地址", value: "file_path", sortable: false },
       // { text: "简介", value: "introduce", sortable: false },

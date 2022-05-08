@@ -52,10 +52,15 @@
       hoverable
       item-text="menuName"
     >
+        <template v-slot:prepend="{ item }">
+      <v-icon>
+        {{ item.menuIcon }}
+      </v-icon>
+    </template>
       <template v-slot:append="{ item }">
         <v-btn v-show="item.menuType==1" class="mr-2">权限:{{ item.permissionCode }}</v-btn>
         <!-- <v-btn class="mr-2">图标:{{ item.icon }}</v-btn> -->
-        <!-- <v-btn class="mr-2">路由:{{ item.router }}</v-btn> -->
+        <v-btn v-show="item.menuType!=1" class="mr-2">路由:{{ item.router }}</v-btn>
         <!-- <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>
         <v-btn  v-if="item.mould" class="mr-2" color="secondary">接口地址:{{ item.mould.url }}</v-btn> -->
         <!-- <ccCombobox
@@ -101,9 +106,10 @@ export default {
     editedItem: {},
     editedIndex: -1,
     defaultItem: {
-      // icon: "mdi-start",
+      menuIcon: "mdi-view-dashboard",
       permissionCode: "test",
       menuName: "管理",
+      router:"/",
       parentId: 0,
       MenuType:0
     },
@@ -121,21 +127,16 @@ export default {
       this.$refs.tree.updateAll(true);
     },
 
-    // setMould(item) {
-    //   menuApi.SetMouldByMenu(item.id, this.mouldSelect[0].id).then((resp) => {
-    //     this.$dialog.notify.info(resp.msg, {
-    //       position: "top-right",
-    //       timeout: 5000,
-    //     });
-    //     this.init();
-    //   });
-    // },
 
     getSelect(data) {
       this.mouldSelect = data;
     },
     async deleteItem(item) {
-      this.editedIndex = 1;
+      if(item!=null)
+      {
+   this.editedIndex = 1;
+      }
+   
       this.editedItem = Object.assign({}, item);
       var p = await this.$dialog.warning({
         text: "你确定要删除此条记录吗？?",
@@ -154,7 +155,7 @@ export default {
       if (this.editedIndex > -1) {
         Ids.push(this.editedItem.id);
       } else {
-        this.selection.forEach(function (item) {
+        this.selection.forEach( (item) =>{
           Ids.push(item.id);
         });
       }
@@ -200,6 +201,7 @@ export default {
     selection: {
       //深度监听，可监听到对象、数组的变化
       handler(val, oldVal) {
+
         this.$emit("selection", val);
       },
       deep: true,

@@ -32,7 +32,7 @@ namespace Yi.Framework.Model.Models
         /// <summary>
         ///  
         ///</summary>
-         [SugarColumn(ColumnName= "PermissionCode")]
+         [SugarColumn(ColumnName="PermissionCode"    )]
          public string PermissionCode { get; set; }
         /// <summary>
         ///  
@@ -69,5 +69,15 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="TenantId"    )]
          public long? TenantId { get; set; }
+        /// <summary>
+        ///  
+        ///</summary>
+         [SugarColumn(ColumnName="MenuIcon"    )]
+         public string MenuIcon { get; set; }
+        /// <summary>
+        ///  
+        ///</summary>
+         [SugarColumn(ColumnName="Router"    )]
+         public string Router { get; set; }
     }
 }
