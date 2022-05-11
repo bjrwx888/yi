@@ -34,7 +34,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                 var apiXmlPath = Path.Combine(basePath, @"SwaggerDoc.xml");//控制器层注释
                 //var entityXmlPath = Path.Combine(basePath, @"SwaggerDoc.xml");//实体注释
                 //c.IncludeXmlComments(apiXmlPath, true);//true表示显示控制器注释
-                c.IncludeXmlComments(apiXmlPath,true);
+                c.IncludeXmlComments(apiXmlPath, true);
 
                 //添加控制器注释
                 //c.DocumentFilter<SwaggerDocTag>();
@@ -42,25 +42,40 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                 //添加header验证信息
                 //c.OperationFilter<SwaggerHeader>();
                 //var security = new Dictionary<string, IEnumerable<string>> { { "Bearer", new string[] { } }, };
-
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                c.AddSecurityDefinition("JwtBearer", new OpenApiSecurityScheme()
                 {
-                    Description = "文本框里输入从服务器获取的Token。格式为：Bearer + 空格+token",//JWT授权(数据将在请求头中进行传输) 参数结构: \"Authorization: Bearer {token}\"
-                    Name = "Authorization",////jwt默认的参数名称
-                    In = ParameterLocation.Header,////jwt默认存放Authorization信息的位置(请求头中)
-                    Type = SecuritySchemeType.ApiKey,
+                    Description = "直接输入Token即可",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer"
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                var scheme = new OpenApiSecurityScheme()
                 {
-                    { new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference()
-                        {
-                            Id = "Bearer",
-                            Type = ReferenceType.SecurityScheme
-                        }
-                    }, Array.Empty<string>() }
+                    Reference = new OpenApiReference() { Type = ReferenceType.SecurityScheme, Id = "JwtBearer" }
+                };
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    [scheme] = new string[0]
                 });
+                //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                //{
+                //    Description = "文本框里输入从服务器获取的Token。格式为：Bearer + 空格+token",//JWT授权(数据将在请求头中进行传输) 参数结构: \"Authorization: Bearer {token}\"
+                //    Name = "Authorization",////jwt默认的参数名称
+                //    In = ParameterLocation.Header,////jwt默认存放Authorization信息的位置(请求头中)
+                //    Type = SecuritySchemeType.ApiKey,
+                //});
+                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                //{
+                //    { new OpenApiSecurityScheme
+                //    {
+                //        Reference = new OpenApiReference()
+                //        {
+                //            Id = "Bearer",
+                //            Type = ReferenceType.SecurityScheme
+                //        }
+                //    }, Array.Empty<string>() }
+                //});
 
                 //c.AddServer(new OpenApiServer()
                 //{
