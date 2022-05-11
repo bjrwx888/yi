@@ -21,6 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="yi-sqlsugar-dev.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="yi-sqlsugar-dev.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj" />
     <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />

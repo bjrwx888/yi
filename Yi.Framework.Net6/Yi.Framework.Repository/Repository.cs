@@ -42,23 +42,20 @@ namespace Yi.Framework.Repository
         /// <typeparam name="S"></typeparam>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<List<S>> UseSqlAsync<S>(string sql)
+        public async Task<List<S>> UseSqlAsync<S>(string sql, object parameters = null)
         {
-            return await _Db.Ado.SqlQueryAsync<S>(sql);
+            return await _Db.Ado.SqlQueryAsync<S>(sql, parameters);
         }
-
 
         /// <summary>
         /// 执行增删改sql返回状态
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<bool> UseSqlAsync(string sql)
+        public async Task<bool> UseSqlAsync(string sql, object parameters)
         {
-            return await _Db.Ado.ExecuteCommandAsync(sql)>0;
+            return await _Db.Ado.ExecuteCommandAsync(sql,  parameters) >0;
         }
-
-
 
         /// <summary>
         /// 添加返回实体
