@@ -3,22 +3,13 @@
     <template #title>
       用户管理 — <small class="text-body-1">用户可拥有多个角色</small>
     </template>
-    <ccCombobox
-      headers="设置角色"
-      :items="roleItems"
-      @select="getSelect"
-      itemText="roleName"
-    >
+    <ccCombobox headers="设置角色" :items="roleItems" @select="getSelect" itemText="roleName">
       <template v-slot:save>
         <v-btn @click="setRole" color="blue darken-1" text> 保存</v-btn>
       </template>
     </ccCombobox>
-    <ccTable
-      :defaultItem="defaultItem"
-      :headers="headers"
-      :axiosUrls="axiosUrls"
-      @selected="getTableSelect"
-    >
+    <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" :btnEnable="btnEnable"
+      @selected="getTableSelect">
       <template v-slot:action="{ item }">
         <v-icon small class="mr-2" @click="showItem(item)"> mdi-eye </v-icon>
       </template>
@@ -28,6 +19,7 @@
 <script>
 import userApi from "../api/userApi";
 import roleApi from "../api/roleApi";
+import { getBtn } from "../util/btnHandle";
 export default {
   created() {
     this.init();
@@ -61,7 +53,7 @@ export default {
     },
     init() {
       //这里可以遍历后台的菜单code，根据对应的菜单code来给axiosUrls的增删改查赋值即可
-
+      this.btnEnable = getBtn("user")
       this.axiosUrls = {
         get: "/user/GetList",
         update: "/user/Update",
@@ -70,8 +62,7 @@ export default {
       };
 
       roleApi.getList().then((resp) => {
-        console.log(resp.data)
-        this.roleItems=JSON.parse(JSON.stringify(resp.data));
+        this.roleItems = JSON.parse(JSON.stringify(resp.data));
       });
     },
     setRole() {
@@ -99,6 +90,7 @@ export default {
     },
   },
   data: () => ({
+    btnEnable: [],
     TableSelect: [],
     select: [],
     roleItems: [],

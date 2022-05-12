@@ -1,15 +1,6 @@
 <template>
-  <v-navigation-drawer
-    id="default-drawer"
-    v-model="$store.state.home.drawer"
-    :dark="dark"
-    :right="$vuetify.rtl"
-    :src="drawerImage ? image : ''"
-    :mini-variant.sync="$store.state.home.mini"
-    mini-variant-width="80"
-    app
-    width="260"
-  >
+  <v-navigation-drawer id="default-drawer" v-model="$store.state.home.drawer" :dark="dark" :right="$vuetify.rtl"
+    :src="drawerImage ? image : ''" :mini-variant.sync="$store.state.home.mini" mini-variant-width="80" app width="260">
     <template v-if="drawerImage" #img="props">
       <v-img :key="image" :gradient="gradient" v-bind="props" />
     </template>
@@ -24,13 +15,7 @@
 
     <template #append>
       <div class="pa-4 text-center">
-        <app-btn
-          class="text-none mb-4"
-          color="white"
-          href="https://vuetifyjs.com"
-          small
-          text
-        >
+        <app-btn class="text-none mb-4" color="white" href="https://vuetifyjs.com" small text>
           Documentation
         </app-btn>
 
@@ -54,11 +39,14 @@ import { toTree } from "@/util/menuHandle";
 export default {
   methods: {
     init() {
-      this.items=toTree( store.state.user.user.menus);
+      const menus = store.state.user.user.menus.filter((m) => {
+        return m.menuType == 0;
+      });
+      this.items = toTree(menus);
     },
     logout() {
       this.$store.dispatch("Logout")
-   this.$router.push({ path: "/login/" });
+      this.$router.push({ path: "/login/" });
     },
   },
   created() {

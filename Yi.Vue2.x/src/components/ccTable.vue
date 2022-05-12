@@ -24,7 +24,7 @@
         ></v-text-field>
 
         <v-btn
-          v-if="axiosUrls.add != null"
+          v-if="btnEnable.add==true"
           color="primary"
           dark
           class="mb-2 mx-2"
@@ -35,7 +35,7 @@
 
         <!-- 添加提示框 -->
         <v-dialog
-          v-if="axiosUrls.add != null"
+          v-if="btnEnable.add ==true"
           v-model="dialog"
           max-width="500px"
         >
@@ -72,7 +72,7 @@
         </v-dialog>
 
         <v-btn
-          v-if="axiosUrls.del != null"
+          v-if="btnEnable.del == true"
           color="secondary"
           class="mb-2"
           @click="deleteItem(null)"
@@ -87,14 +87,14 @@
       <slot name="action" :item="item"></slot>
 
       <v-icon
-        v-if="axiosUrls.update != null"
+        v-if="btnEnable.update ==true"
         small
         class="mr-2"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
-      <v-icon v-if="axiosUrls.del != null" small @click="deleteItem(item)">
+      <v-icon v-if="btnEnable.del ==true" small @click="deleteItem(item)">
         mdi-delete
       </v-icon>
     </template>
@@ -117,6 +117,9 @@ export default {
       type: Array,
     },
     axiosUrls: {
+      type: Object,
+    },
+    btnEnable: {
       type: Object,
     },
   },
@@ -166,7 +169,7 @@ export default {
       });
     },
     initialize() {
-      if(this.axiosUrls.get!=undefined && this.axiosUrls.get!=null )
+      if(this.btnEnable.get==true )
       {
          this.dataInit(this.axiosUrls.get)
       }

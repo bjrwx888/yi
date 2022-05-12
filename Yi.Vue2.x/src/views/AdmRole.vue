@@ -7,17 +7,20 @@
       :defaultItem="defaultItem"
       :headers="headers"
       :axiosUrls="axiosUrls"
+      :btnEnable="btnEnable"
     >
     </ccTable>
   </material-card>
 </template>
 <script>
+import { getBtn } from "../util/btnHandle";
 export default {
   created() {
     this.init();
   },
   methods: {
     init() {
+            this.btnEnable = getBtn("user")
      this.axiosUrls = {
         get: "/role/GetList",
         update: "/role/Update",
@@ -30,6 +33,7 @@ export default {
     start: true,
     axiosUrls: {
     },
+    btnEnable:{},
     headers: [
       // { text: "编号", align: "start", value: "id" },
            { text: "角色编号", value: "roleCode", sortable: false },

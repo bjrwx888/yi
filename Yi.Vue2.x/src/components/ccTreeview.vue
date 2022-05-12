@@ -107,9 +107,9 @@ export default {
     editedIndex: -1,
     defaultItem: {
       menuIcon: "mdi-view-dashboard",
-      permissionCode: "test",
-      menuName: "管理",
-      router:"/",
+      permissionCode: "",
+      menuName: "",
+      router:"",
       parentId: 0,
       MenuType:0
     },

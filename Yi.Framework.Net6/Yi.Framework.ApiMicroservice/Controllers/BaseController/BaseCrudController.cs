@@ -32,7 +32,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get:list")]
+        [Permission($"{nameof(T)}:get")]
         [HttpGet]
         public virtual async Task<Result> GetById(long id)
         {
@@ -43,7 +43,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 列表查询
         /// </summary>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get:list")]
+        [Permission($"{nameof(T)}:get")]
         [HttpPost]
         public virtual async Task<Result> GetList(QueryCondition queryCondition)
         {
@@ -55,7 +55,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="queryCondition"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get:list")]
+        [Permission($"{nameof(T)}:get")]
         [HttpPost]
         public virtual async  Task<Result> PageList(QueryPageCondition queryCondition)
         {
