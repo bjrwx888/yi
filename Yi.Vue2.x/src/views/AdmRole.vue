@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     init() {
-            this.btnEnable = getBtn("user")
+            this.btnEnable = getBtn("role")
      this.axiosUrls = {
         get: "/role/GetList",
         update: "/role/Update",

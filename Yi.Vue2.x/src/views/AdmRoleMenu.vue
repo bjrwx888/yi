@@ -48,7 +48,8 @@
           item-text="menuName"
         >
           <template v-slot:append="{ item }">
-            <v-btn>权限:{{ item.permissionCode }}</v-btn>
+              <app-btn v-if="item.menuType==0">路由:{{ item.router }}</app-btn>
+            <app-btn v-if="item.menuType==1" color="secondary">权限:{{ item.permissionCode }}</app-btn>
           </template>
         </v-treeview>
       </v-card></v-col
