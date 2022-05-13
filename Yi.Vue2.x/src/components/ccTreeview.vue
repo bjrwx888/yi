@@ -58,9 +58,9 @@
       </v-icon>
     </template>
       <template v-slot:append="{ item }">
-        <v-btn v-show="item.menuType==1" class="mr-2">权限:{{ item.permissionCode }}</v-btn>
+        <app-btn v-show="item.menuType==1" class="mr-2" color="secondary"> 权限:{{ item.permissionCode }}</app-btn>
         <!-- <v-btn class="mr-2">图标:{{ item.icon }}</v-btn> -->
-        <v-btn v-show="item.menuType!=1" class="mr-2">路由:{{ item.router }}</v-btn>
+        <app-btn v-show="item.menuType==0" class="mr-2" >路由:{{ item.router }}</app-btn>
         <!-- <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>
         <v-btn  v-if="item.mould" class="mr-2" color="secondary">接口地址:{{ item.mould.url }}</v-btn> -->
         <!-- <ccCombobox

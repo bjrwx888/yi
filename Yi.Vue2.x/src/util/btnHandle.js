@@ -31,6 +31,7 @@ function getBtn(par) {
             });
             break;
         case "role":
+            per.forEach(p => {
             if(p=="role:get")
             {
                 axiosEnable.get=true;
@@ -46,9 +47,11 @@ function getBtn(par) {
             else if(p=="role:add")
             {
                 axiosEnable.add=true;
-            }    
+            }   
+        }) 
         break;
         case "menu":
+            per.forEach(p => {
             if(p=="menu:get")
             {
                 axiosEnable.get=true;
@@ -65,6 +68,7 @@ function getBtn(par) {
             {
                 axiosEnable.add=true;
             }    
+        })
         break;
 
 
