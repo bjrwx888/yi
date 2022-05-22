@@ -40,6 +40,11 @@ const mutations = { //变化//载荷
         state.user = user
         setUser(user)
     },
+    SET_NEW_USER(state, userInfo) {
+        state.user.user = userInfo
+        setUser(state.user)
+    },
+
     SetGradient(state, gradient) {
         state.drawer.gradient = gradient
     },
@@ -90,7 +95,11 @@ const actions = { //动作
 
                         var code=[];
                         resp2.data.menus.forEach(element => {
-                            code.push(element.permissionCode)
+                            if(element.permissionCode!="")
+                            {
+                                code.push(element.permissionCode)
+                            }
+                       
                         });
                         commit('SET_PER', code)
 

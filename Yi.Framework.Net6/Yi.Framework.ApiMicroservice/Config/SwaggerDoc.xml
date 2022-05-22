@@ -23,6 +23,12 @@
             <param name="registerDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Logout">
+            <summary>
+            没啥说，登出
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetUserAllInfo">
             <summary>
             通过已登录的用户获取用户信息及菜单
