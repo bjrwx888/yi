@@ -47,6 +47,11 @@
           hoverable
           item-text="menuName"
         >
+                <template v-slot:prepend="{ item }">
+      <v-icon>
+        {{ item.menuIcon }}
+      </v-icon>
+    </template>
           <template v-slot:append="{ item }">
               <app-btn v-if="item.menuType==0">路由:{{ item.router }}</app-btn>
             <app-btn v-if="item.menuType==1" color="secondary">权限:{{ item.permissionCode }}</app-btn>

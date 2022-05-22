@@ -335,7 +335,7 @@ export default {
         this.editInfo = Object.assign({}, this.userInfo);
         this.roleInfo = resp.data.roles;
         this.menuInfo = resp.data.menus;
-        this.$store.commit("SET_USER", this.userInfo);
+        this.$store.commit("SET_NEW_USER", this.userInfo);
       });
     },
     choiceImg() {

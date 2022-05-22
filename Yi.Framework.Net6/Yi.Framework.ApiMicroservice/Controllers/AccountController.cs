@@ -70,6 +70,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.SuccessError("注册失败！用户名已存在！");
         }
 
+        /// <summary>
+        /// 没啥说，登出
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public  Result Logout()
         {
