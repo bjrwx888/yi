@@ -14,12 +14,15 @@ namespace Yi.Framework.Model.Query
         public List<QueryParameter> Parameters { get; set; } = new List<QueryParameter>();
         public List<string> OrderBys { get; set; } = new List<string>();
 
+        public bool IsAsc { get; set; } = false;
     }
 
     public class QueryCondition
     {
         public List<QueryParameter> Parameters { get; set; } = new List<QueryParameter>();
         public List<string> OrderBys { get; set; } = new List<string>();
+
+        public bool IsAsc { get; set; } = false;
 
     }
 }
