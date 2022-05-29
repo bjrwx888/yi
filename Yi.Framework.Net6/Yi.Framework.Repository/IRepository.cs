@@ -24,5 +24,6 @@ namespace Yi.Framework.Repository
         public  Task<List<S>> UseSqlAsync<S>(string sql, object parameters = null);
         public  Task<bool> UseSqlAsync(string sql, object parameters = null);
         ISugarQueryable<T> QueryConditionHandler(QueryCondition pars);
+        Task<bool> UpdateSuperSaveAsync(T data, Expression<Func<T, object>> columns);
     }
 }
