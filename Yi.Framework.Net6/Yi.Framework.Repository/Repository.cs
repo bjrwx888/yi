@@ -144,10 +144,50 @@ namespace Yi.Framework.Repository
             {
                 foreach (var item in pars.OrderBys)
                 {
-                    query.OrderBy(item.ToSqlFilter());
+                    if (pars.IsAsc)
+                    {
+                        query.OrderBy(item.ToSqlFilter() + " asc");
+                    }
+                    else
+                    {
+                        query.OrderBy(item.ToSqlFilter() + " desc");
+                    }
                 }
             }
             return query.Where(sugarParamters);
+        }
+
+
+        /// <summary>
+        /// 更新高级保存，验证重复
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="columns"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateSuperSaveAsync(T data, Expression<Func<T, object>> columns)
+        {
+            var x = _Db.Storageable(data)
+                           .SplitError(it => it.Any())
+                           .SplitUpdate(it => true)
+                           .WhereColumns(columns)//这里用name作为数据库查找条件
+                           .ToStorage();
+            return await x.AsInsertable.ExecuteCommandAsync() > 0;//插入可插入部分
+        }
+
+        /// <summary>
+        /// 添加高级保存，验证重复
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="columns"></param>
+        /// <returns></returns>
+        public async Task<bool> InsertSuperSaveAsync(T data, Expression<Func<T, object>> columns)
+        {
+            var x = _Db.Storageable(data)
+                           .SplitError(it => it.Any())
+                           .SplitInsert(it => true)
+                           .WhereColumns(columns)//这里用name作为数据库查找条件
+                           .ToStorage();
+            return await x.AsInsertable.ExecuteCommandAsync() > 0;//插入可插入部分
         }
 
     }
