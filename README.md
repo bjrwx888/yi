@@ -74,7 +74,7 @@ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数
 
 **身份验证**：JWT、IdentityServer4
 
-**组件**：~~EFcore~~SqlSugar、Autofac、Castle、Swagger、Log4Net、Redis、RabbitMq、ES、Quartz.net、~~T4~~
+**组件**：SqlSugar、Autofac、Castle、Swagger、Log4Net、Redis、RabbitMq、ES、Quartz.net、~~T4~~
 
 **分布式**：CAP、Lock
 
@@ -96,9 +96,8 @@ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数
 - [x] 支持采用`异步`开发awit/async
 - [x] 支持数据库主从`读写分离`
 - [x] 支持功能替换，无需改动代码，只需配置`json文件`进行装配即可
-- [x] ~~-支持采用DbFirst开发方式，使用`T4模板代码生成器`，自动映射模型一键生成Service及IService所有代码~~
 - [x] 支持WebFirst，无需改动代码，自动生成全套代码与数据库，只需点点点
-- [x] ~~-支持`用户-角色-菜单-接口`以及vue2.0前端全部逻辑代码，下载无需修改直接使用~~
+- [x] 支持`用户-角色-菜单-接口`以及vue2.0前端全部逻辑代码，下载无需修改直接使用
 - [x] 支持`Aop封装`，FilterAop、IocAop、LogAop、SqlAop
 - [x] 支持`Log4Net日志`记录，自动生成至bin目录下的logs文件夹
 - [x] 支持`DbSeed数据库种子数据`接入
@@ -114,7 +113,6 @@ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数
 - [x] 支持`Ocelot`网关，路由、服务聚合、服务发现、认证、鉴权、限流、熔断、缓存、Header头传递
 - [x] 支持`Apollo`全局配置中心;
 - [x] 支持`docker`镜像制作
-- [x] ~~-支持页面`静态化处理`，将动态页面生成静态页面~~
 - [x] 支持`Quartz.net`任务调度，实现任意接口被调度
 - [x] 支持`ELK`，log4net+kafka+es+logstach+kibana
 - [x] 支持`IdentityService4`授权中心
@@ -124,7 +122,7 @@ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数
 - [x] 支持`Docker+k8s`部署
 - [x] 支持`Jenkins+CI/CD`
 - [x] 支持`AutoMapper`模块映射
-- [ ] 支持`微信支付`（没账号）
+- [x] 支持`微信支付`
 - [x] 支持`单表多租户`常用功能
 - [x] 支持`逻辑删除`常用功能
 - [x] 支持`操作日志`常用功能
