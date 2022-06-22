@@ -74,7 +74,7 @@ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数
 
 **身份验证**：JWT、IdentityServer4
 
-**组件**：~~EFcore~~SqlSugar、Autofac、Castle、Swagger、Log4Net、Redis、RabbitMq、ES、Quartz.net、~~T4~~
+**组件**：SqlSugar、Autofac、Castle、Swagger、Log4Net、Redis、RabbitMq、ES、Quartz.net、~~T4~~
 
 **分布式**：CAP、Lock
 
