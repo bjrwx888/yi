@@ -189,7 +189,23 @@ namespace Yi.Framework.Repository
                            .ToStorage();
             return await x.AsInsertable.ExecuteCommandAsync() > 0;//插入可插入部分
         }
+        /// <summary>
+        /// 方法重载，多条件获取第一个值
+        /// </summary>
+        /// <returns></returns>
+        public async Task<T> GetFirstAsync(Expression<Func<T, bool>> where, Expression<Func<T, object>> order, OrderByType orderByType = OrderByType.Desc)
+        {
+            return await _Db.Queryable<T>().Where(where).OrderBy(order, orderByType).FirstAsync();
+        }
 
+        /// <summary>
+        /// 方法重载，多条件获取范围
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> where, Expression<Func<T, object>> order, OrderByType orderByType = OrderByType.Desc)
+        {
+            return await _Db.Queryable<T>().Where(where).OrderBy(order, orderByType).ToListAsync();
+        }
     }
 
    

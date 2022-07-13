@@ -10,7 +10,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 {
     public static class SqlsugarExtension
     {
-        public static void AddSqlsugarServer(this IServiceCollection services)
+        public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient> action = null)
         {
 
            
@@ -61,6 +61,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             },
          db =>
          {
+             if (action.IsNotNull())
+             {
+                 action(db);
+             }
 
              db.Aop.DataExecuting = (oldValue, entityInfo) =>
              {

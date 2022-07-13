@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Model.Models;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 
 namespace Yi.Framework.WebCore
 {
@@ -50,6 +51,43 @@ namespace Yi.Framework.WebCore
                 Id = resId,
                 //Name = claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name).Value
             };
+        }
+
+        public static void FileInlineHandle(this HttpContext httpContext, string fileName)
+        {
+            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.GetEncoding("UTF-8"));
+            httpContext.Response.Headers.Add("Content-Disposition", "inline;filename=" + encodeFilename);
+
+        }
+        public static void FileAttachmentHandle(this HttpContext httpContext, string fileName)
+        {
+            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.GetEncoding("UTF-8"));
+            httpContext.Response.Headers.Add("Content-Disposition", "attachment;filename=" + encodeFilename);
+
+        }
+        public static string GetLanguage(this HttpContext httpContext)
+        {
+            string res = "zh-CN";
+            var str = httpContext.Request.Headers["Accept-Language"].FirstOrDefault();
+            if (str.IsNotNull())
+            {
+                res = str.Split(",")[0];
+            }
+            return res;
+
+        }
+
+        public static string GetBody(this HttpContext httpContext)
+        {
+            if (httpContext.Request.Body != null)
+            {
+                httpContext.Request.EnableBuffering();
+                httpContext.Request.Body.Position = 0;
+                StreamReader stream = new StreamReader(httpContext.Request.Body);
+                return stream.ReadToEndAsync().GetAwaiter().GetResult();
+            }
+            return "";
+
         }
     }
 }

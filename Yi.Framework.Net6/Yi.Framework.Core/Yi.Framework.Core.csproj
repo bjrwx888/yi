@@ -18,8 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Common\Yi.Framework.Common.csproj" />
-    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
     <ProjectReference Include="..\Yi.Framework.Task\Yi.Framework.Job.csproj" />
   </ItemGroup>
 
