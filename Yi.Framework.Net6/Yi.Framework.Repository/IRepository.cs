@@ -25,5 +25,7 @@ namespace Yi.Framework.Repository
         public  Task<bool> UseSqlAsync(string sql, object parameters = null);
         ISugarQueryable<T> QueryConditionHandler(QueryCondition pars);
         Task<bool> UpdateSuperSaveAsync(T data, Expression<Func<T, object>> columns);
+        Task<List<T>> GetListAsync(Expression<Func<T, bool>> where, Expression<Func<T, object>> order, OrderByType orderByType = OrderByType.Desc);
+        Task<T> GetFirstAsync(Expression<Func<T, bool>> where, Expression<Func<T, object>> order, OrderByType orderByType = OrderByType.Desc);
     }
 }
