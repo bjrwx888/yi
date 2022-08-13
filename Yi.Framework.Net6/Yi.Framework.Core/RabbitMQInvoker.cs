@@ -246,7 +246,7 @@ namespace Yi.Framework.Core
                                          autoAck: false,//不ACK
                                          consumer: consumer);
                     Console.WriteLine($" Register Consumer To {rabbitMQConsumerMode.ExchangeName}-{rabbitMQConsumerMode.QueueName}");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     Console.WriteLine($" After Register Consumer To {rabbitMQConsumerMode.ExchangeName}-{rabbitMQConsumerMode.QueueName}");
                 }
             });
