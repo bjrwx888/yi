@@ -18,7 +18,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             if (Appsettings.appBool("Redis_Enabled"))
             {
                 services.Configure<RedisConnOptions>(Appsettings.appConfiguration("RedisConnOptions"));
-                services.AddTransient<CacheClientDB>();
+                services.AddSingleton<CacheClientDB>();
             }
             return services;
         }

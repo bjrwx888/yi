@@ -18,41 +18,33 @@ namespace Yi.Framework.Core
         public delegate T MyAction<T>(CSRedisClient client);
 
         private readonly RedisConnOptions _RedisOptions;
+
+        private CSRedisClient Client { get; set; }
+
+        public CSRedisClient _Db { get { return Client; } set { } }
         public CacheClientDB(IOptionsMonitor<RedisConnOptions> redisConnOptions)
         {
             this._RedisOptions = redisConnOptions.CurrentValue;
+            Client = new CSRedisClient($"{_RedisOptions.Host}:{_RedisOptions.Prot},password={_RedisOptions.Password},defaultDatabase ={ _RedisOptions.DB }");
         }
-        //public CSRedisClient GetClient()
-        //{
-        //    return client;
-        //}
-        //private CSRedisClient client=null;
-
-        // 为了以后全链路做准备
 
         private T TryCatch<T>(MyAction<T> action)
         {
-            //Stopwatch sw = Stopwatch.StartNew();
-            ////Exception ex = null;
-            ////bool isError = false;
-            var client2 = new CSRedisClient($"{_RedisOptions.Host}:{_RedisOptions.Prot},password={_RedisOptions.Password},defaultDatabase ={ _RedisOptions.DB }");
-            T result;
+
+
+            T result = default(T);
             try
             {
-                result = action(client2);
+                result = action(Client);
             }
             catch (Exception exinfo)
             {
-                object p = null;
-                result = (T)p;
-                //isError = true;
                 Console.WriteLine(exinfo);
-
             }
-            finally
-            {
-                client2.Dispose();
-            }
+            //finally
+            //{
+            //    Client.Dispose();
+            //}
 
             return result;
         }

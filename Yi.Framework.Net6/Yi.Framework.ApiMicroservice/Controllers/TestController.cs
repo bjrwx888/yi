@@ -165,7 +165,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 {JobConst.method,"get" },
                 {JobConst.url,"https://www.baidu.com" }
             };
-            await _quartzInvoker.start("*/5 * * * * ?", new Quartz.JobKey("test", "my"), "Yi.Framework.Job", "HttpJob", data: data);
+            await _quartzInvoker.StartAsync("*/5 * * * * ?", "HttpJob",jobName:"test",jobGroup:"my",  data: data);
             return Result.Success();
         }
 
@@ -176,7 +176,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> stopJob()
         {
-            await _quartzInvoker.Stop(new Quartz.JobKey("test", "my"));
+            await _quartzInvoker.StopAsync(new Quartz.JobKey("test", "my"));
             return Result.Success();
         }
     }
