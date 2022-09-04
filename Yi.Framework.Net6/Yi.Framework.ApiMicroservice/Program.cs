@@ -8,6 +8,7 @@ using Yi.Framework.Common.Models;
 using Yi.Framework.Language;
 using Microsoft.Extensions.Localization;
 using Yi.Framework.WebCore.AttributeExtend;
+using Yi.Framework.WebCore.SignalRHub;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -110,6 +111,10 @@ builder.Services.AddCAPService();
 //国际化配置
 #endregion
 builder.Services.AddLocalizerService();
+#region
+//添加signalR
+#endregion
+builder.Services.AddSignalR();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region
@@ -172,10 +177,13 @@ app.UseConsulService();
 #endregion
 app.UseRedisSeedInitService();
 #region
-//Endpoints注入
+//SignalR配置
 #endregion
+app.MapHub<MainHub>("/hub/main");
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
 app.Run();
