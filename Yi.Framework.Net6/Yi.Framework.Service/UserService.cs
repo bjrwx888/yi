@@ -30,7 +30,7 @@ namespace Yi.Framework.Service
         }
         public async Task<bool> Exist(string userName, Action<UserEntity> userAction = null)
         {
-            var user = await _repository.GetFirstAsync(u => u.UserName == userName);
+            var user = await _repository.GetFirstAsync(u => u.UserName == userName&& u.IsDeleted==false);
             if (userAction != null)
             {
                 userAction.Invoke(user);
