@@ -229,6 +229,14 @@
             用户管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateStatus(System.Int64,System.Boolean)">
+            <summary>
+            更改用户状态
+            </summary>
+            <param name="userId"></param>
+            <param name="isDel"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.Model.Models.UserEntity)">
             <summary>
             添加用户，去重，密码加密

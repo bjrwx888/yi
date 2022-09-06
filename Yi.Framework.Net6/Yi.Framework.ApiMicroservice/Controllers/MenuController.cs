@@ -20,12 +20,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MenuController : BaseCrudController<MenuEntity>
+    public class MenuController 
     {
         private IMenuService _iMenuService;
-        public MenuController(ILogger<MenuEntity> logger, IMenuService iMenuService) : base(logger, iMenuService)
+        public MenuController(ILogger<MenuEntity> logger, IMenuService iMenuService)
         {
             _iMenuService = iMenuService;
+        }
+
+        [HttpGet]
+        public async Task<Result> GetList()
+        {
+            return Result.Success().SetData(await _iMenuService._repository.GetListAsync());
         }
 
 
@@ -35,7 +41,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //暂未制作逻辑删除与多租户的过滤
         public async Task<Result> GetMenuTree()
         { 
              return Result.Success().SetData(await _iMenuService. GetMenuTreeAsync());

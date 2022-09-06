@@ -29,6 +29,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iRoleService = iRoleService;
         }
 
+        [HttpGet]
+        public async Task<Result> PageList()
+        {
+            return Result.Success().SetData(await _iRoleService._repository.GetListAsync());
+        }
+
         /// <summary>
         /// 给多用户设置多角色
         /// </summary>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Common.Models.Enum
+namespace Yi.Framework.Common.Enum
 {
-    public enum ResultCode
+    public enum ResultCodeEnum
     {
         /// <summary>
         /// 操作成功。

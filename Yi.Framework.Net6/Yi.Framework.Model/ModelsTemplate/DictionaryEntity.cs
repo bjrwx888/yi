@@ -6,12 +6,12 @@ using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
-    /// 菜单表
+    /// 字典表
     ///</summary>
-    [SugarTable("Menu")]
-    public partial class MenuEntity:IBaseModelEntity
+    [SugarTable("Dictionary")]
+    public partial class DictionaryEntity:IBaseModelEntity
     {
-        public MenuEntity()
+        public DictionaryEntity()
         {
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
@@ -20,25 +20,25 @@ namespace Yi.Framework.Model.Models
         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
-        ///  
+        /// 字典类型 
         ///</summary>
-         [SugarColumn(ColumnName="MenuName"    )]
-         public string MenuName { get; set; }
+         [SugarColumn(ColumnName="DictType"    )]
+         public string DictType { get; set; }
         /// <summary>
-        ///  
+        /// 字典标签 
         ///</summary>
-         [SugarColumn(ColumnName="MenuType"    )]
-         public int? MenuType { get; set; }
+         [SugarColumn(ColumnName="DictLabel"    )]
+         public string DictLabel { get; set; }
         /// <summary>
-        ///  
+        /// 字典值 
         ///</summary>
-         [SugarColumn(ColumnName="PermissionCode"    )]
-         public string PermissionCode { get; set; }
+         [SugarColumn(ColumnName="DictValue"    )]
+         public string DictValue { get; set; }
         /// <summary>
-        ///  
+        /// 是否为该类型的默认值 
         ///</summary>
-         [SugarColumn(ColumnName="ParentId"    )]
-         public long? ParentId { get; set; }
+         [SugarColumn(ColumnName="IsDefault"    )]
+         public bool? IsDefault { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -69,30 +69,5 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="TenantId"    )]
          public long? TenantId { get; set; }
-        /// <summary>
-        /// 菜单图标 
-        ///</summary>
-         [SugarColumn(ColumnName="MenuIcon"    )]
-         public string MenuIcon { get; set; }
-        /// <summary>
-        /// 菜单组件路由 
-        ///</summary>
-         [SugarColumn(ColumnName="Router"    )]
-         public string Router { get; set; }
-        /// <summary>
-        /// 是否为外部链接 
-        ///</summary>
-         [SugarColumn(ColumnName="IsLink"    )]
-         public bool? IsLink { get; set; }
-        /// <summary>
-        /// 是否缓存 
-        ///</summary>
-         [SugarColumn(ColumnName="IsCache"    )]
-         public bool? IsCache { get; set; }
-        /// <summary>
-        /// 是否显示 
-        ///</summary>
-         [SugarColumn(ColumnName="IsShow"    )]
-         public bool? IsShow { get; set; }
     }
 }

@@ -29,6 +29,26 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iUserService = iUserService;
         }
 
+        [HttpGet]
+        public async Task<Result> PageList()
+        {
+            return Result.Success().SetData(await _iUserService._repository.GetListAsync());
+        }
+
+        /// <summary>
+        /// 更改用户状态
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="isDel"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdateStatus(long userId,bool isDel)
+        {
+            return Result.Success().SetData(await _iUserService._repository.UpdateIgnoreNullAsync(new UserEntity() { Id = userId, IsDeleted = isDel }));
+        
+        }
+
+
         /// <summary>
         /// 添加用户，去重，密码加密
         /// </summary>
