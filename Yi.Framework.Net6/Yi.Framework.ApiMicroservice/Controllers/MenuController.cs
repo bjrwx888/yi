@@ -35,7 +35,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
 
-
         /// <summary>
         /// 得到树形菜单
         /// </summary>

@@ -30,9 +30,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         [HttpGet]
-        public async Task<Result> PageList()
+        public async Task<Result> PageList([FromQuery]UserEntity user,  [FromQuery] PageParModel page)
         {
-            return Result.Success().SetData(await _iUserService._repository.GetListAsync());
+            return Result.Success().SetData(new PageModel(await _iUserService._repository.GetListAsync(),100)  );
         }
 
         /// <summary>

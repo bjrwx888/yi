@@ -44,13 +44,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(LoginDto loginDto)
         {
+
+            //跳过
+            //先效验验证码和UUID
+
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
              var userRoleMenu= await  _iUserService.GetUserAllInfo(user.Id);
                 return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User,userRoleMenu.Menus) });
             }
-            return Result.SuccessError("登录失败！用户名或者密码错误！");
+            return Result.Error("登录失败！用户名或者密码错误！");
         }
 
         /// <summary>
@@ -90,9 +94,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             //通过鉴权jwt获取到用户的id
             var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
-
-            return Result.Success().SetData(await _iUserService.GetUserAllInfo(userId));
+            var data = await _iUserService.GetUserAllInfo(userId);
+            data.Menus.Clear();
+            return Result.Success().SetData(data);
         }
+
 
 
         /// <summary>

@@ -13,5 +13,7 @@ namespace Yi.Framework.DTOModel
         public HashSet<RoleEntity> Roles { get; set; } = new();
         public HashSet<MenuEntity> Menus { get; set; }=new();
 
+        public List<string> RoleCodes { get; set; } =new();
+        public List<string> PermissionCodes { get; set; } = new();
     }
 }
