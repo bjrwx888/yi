@@ -181,7 +181,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// 树形结构测试
+        /// 树形结构构建测试
         /// </summary>
         /// <returns></returns>
         [HttpGet]
