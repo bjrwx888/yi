@@ -165,7 +165,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 {JobConst.method,"get" },
                 {JobConst.url,"https://www.baidu.com" }
             };
-            await _quartzInvoker.StartAsync("*/5 * * * * ?", "HttpJob",jobName:"test",jobGroup:"my",  data: data);
+            await _quartzInvoker.StartAsync("*/5 * * * * ?", "HttpJob", jobName: "test", jobGroup: "my", data: data);
             return Result.Success();
         }
 
@@ -174,10 +174,27 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public async Task<Result> stopJob()
+        public async Task<Result> StopJob()
         {
             await _quartzInvoker.StopAsync(new Quartz.JobKey("test", "my"));
             return Result.Success();
+        }
+
+        /// <summary>
+        /// 树形结构测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public Result TreeTest()
+        {
+            List<VueRouterModel> vueRouterModels = new()
+            {
+                new VueRouterModel { Id = 1, Sort = 1, ParentId = 0, Name = "001" },
+                new VueRouterModel { Id = 2, Sort = 1, ParentId = 1, Name = "001001" },
+                new VueRouterModel { Id = 3, Sort = 1, ParentId = 1, Name = "001002" }
+            };
+            var treeData = Common.Helper.TreeHelper.SetTree(vueRouterModels);
+            return Result.Success().SetData(treeData);
         }
     }
 }

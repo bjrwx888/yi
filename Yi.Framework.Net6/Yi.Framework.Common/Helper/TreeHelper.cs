@@ -14,8 +14,8 @@ namespace Yi.Framework.Common.Helper
             if (list != null && list.Count > 0)
             {
                 IList<T> result = new List<T>();
-                long pid = list.Min(m => (m as ITreeModel<T>).parentId);
-                IList<T> t = list.Where(m => (m as ITreeModel<T>).parentId == pid).ToList();
+                long pid = list.Min(m => (m as ITreeModel<T>).ParentId);
+                IList<T> t = list.Where(m => (m as ITreeModel<T>).ParentId == pid).ToList();
                 foreach (T model in t)
                 {
                     if (action != null)
@@ -24,35 +24,35 @@ namespace Yi.Framework.Common.Helper
                     }
                     result.Add(model);
                     var item = (model as ITreeModel<T>);
-                    IList<T> children = list.Where(m => (m as ITreeModel<T>).parentId == item.id).ToList();
+                    IList<T> children = list.Where(m => (m as ITreeModel<T>).ParentId == item.Id).ToList();
                     if (children.Count > 0)
                     {
                         SetTreeChildren(list, children, model, action);
                     }
                 }
-                return result.OrderBy(m => (m as ITreeModel<T>).sort).ToList();
+                return result.OrderBy(m => (m as ITreeModel<T>).Sort).ToList();
             }
             return null;
         }
         private static void SetTreeChildren<T>(IList<T> list, IList<T> children, T model, Action<T> action = null)
         {
             var mm = (model as ITreeModel<T>);
-            mm.children = new List<T>();
+            mm.Children = new List<T>();
             foreach (T item in children)
             {
                 if (action != null)
                 {
                     action(item);
                 }
-                mm.children.Add(item);
+                mm.Children.Add(item);
                 var _item = (item as ITreeModel<T>);
-                IList<T> _children = list.Where(m => (m as ITreeModel<T>).parentId == _item.id).ToList();
+                IList<T> _children = list.Where(m => (m as ITreeModel<T>).ParentId == _item.Id).ToList();
                 if (_children.Count > 0)
                 {
                     SetTreeChildren(list, _children, item, action);
                 }
             }
-            mm.children = mm.children.OrderBy(m => (m as ITreeModel<T>).sort).ToList();
+            mm.Children = mm.Children.OrderBy(m => (m as ITreeModel<T>).Sort).ToList();
         }
     }
 }
