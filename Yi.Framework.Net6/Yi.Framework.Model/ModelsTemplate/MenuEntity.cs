@@ -104,5 +104,15 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
          public string Remark { get; set; }
+        /// <summary>
+        /// 组件路径 
+        ///</summary>
+         [SugarColumn(ColumnName="Component"    )]
+         public string Component { get; set; }
+        /// <summary>
+        /// 路由参数 
+        ///</summary>
+         [SugarColumn(ColumnName="Query"    )]
+         public string Query { get; set; }
     }
 }

@@ -37,7 +37,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetList([FromQuery] MenuEntity menu)
         {
-            return Result.Success().SetData(await _iMenuService.SelctGetList(menu));
+           var p= await _iMenuService.SelctGetList(menu);
+            p.ForEach(m => m.Children = new List<MenuEntity>());
+            return Result.Success().SetData(p);
+        }
+
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> Add(MenuEntity menu)
+        {
+            return Result.Success().SetData(await _iMenuService._repository.InsertReturnSnowflakeIdAsync(menu));
         }
 
 

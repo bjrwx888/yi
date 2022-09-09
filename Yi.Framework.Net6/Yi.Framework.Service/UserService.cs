@@ -124,14 +124,22 @@ namespace Yi.Framework.Service
             {
                 userRoleMenu.RoleCodes.Add(role.RoleCode);
 
-                foreach (var menu in role.Menus)
+                if (role.Menus.IsNotNull())
                 {
-                    if (!string.IsNullOrEmpty(menu.PermissionCode))
+                    foreach (var menu in role.Menus)
                     {
-                        userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
-                        userRoleMenu.Menus.Add(menu);
+
+                 
+                            if (!string.IsNullOrEmpty(menu.PermissionCode))
+                            {
+                                userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
+                                userRoleMenu.Menus.Add(menu);
+                            }
+                   
+
                     }
                 }
+
                 //刚好可以去除一下多余的导航属性
                 role.Menus = null;
                 userRoleMenu.Roles.Add(role);

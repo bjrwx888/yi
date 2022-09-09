@@ -157,6 +157,7 @@ export function mergeRecursive(source, target) {
  * @param {*} children 孩子节点字段 默认 'children'
  */
 export function handleTree(data, id, parentId, children) {
+
   let config = {
     id: id || 'id',
     parentId: parentId || 'parentId',

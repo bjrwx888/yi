@@ -106,8 +106,8 @@
                      <el-tree-select
                         v-model="form.parentId"
                         :data="menuOptions"
-                        :props="{ value: 'menuId', label: 'menuName', children: 'children' }"
-                        value-key="menuId"
+                        :props="{ value: 'id', label: 'menuName', children: 'children' }"
+                        value-key="id"
                         placeholder="选择上级菜单"
                         check-strictly
                      />
@@ -122,8 +122,8 @@
                      </el-radio-group>
                   </el-form-item>
                </el-col>
-               <el-col :span="24" v-if="form.menuType != 1">
-                  <el-form-item label="菜单图标" prop="icon">
+               <el-col :span="24" v-if="form.menuType != 2">
+                  <el-form-item label="菜单图标" prop="menuIcon">
                      <el-popover
                         placement="bottom-start"
                         :width="540"
@@ -132,11 +132,11 @@
                         @show="showSelectIcon"
                      >
                         <template #reference>
-                           <el-input v-model="form.icon" placeholder="点击选择图标" @click="showSelectIcon" v-click-outside="hideSelectIcon" readonly>
+                           <el-input v-model="form.menuIcon" placeholder="点击选择图标" @click="showSelectIcon" v-click-outside="hideSelectIcon" readonly>
                               <template #prefix>
                                  <svg-icon
-                                    v-if="form.icon"
-                                    :icon-class="form.icon"
+                                    v-if="form.menuIcon"
+                                    :icon-class="form.menuIcon"
                                     class="el-input__icon"
                                     style="height: 32px;width: 16px;"
                                  />
@@ -167,14 +167,16 @@
                            </el-tooltip>是否外链
                         </span>
                      </template>
-                     <el-radio-group v-model="form.isFrame">
-                        <el-radio label="0">是</el-radio>
-                        <el-radio label="1">否</el-radio>
+                     <el-radio-group v-model="form.isLink">
+                        <el-radio :label=true>是</el-radio>
+                        <el-radio :label=false>否</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
+
+        
                <el-col :span="12" v-if="form.menuType != 1">
-                  <el-form-item prop="path">
+                  <el-form-item prop="router">
                      <template #label>
                         <span>
                            <el-tooltip content="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头" placement="top">
@@ -183,7 +185,7 @@
                            路由地址
                         </span>
                      </template>
-                     <el-input v-model="form.path" placeholder="请输入路由地址" />
+                     <el-input v-model="form.router" placeholder="请输入路由地址" />
                   </el-form-item>
                </el-col>
                <el-col :span="12" v-if="form.menuType == 2">
@@ -201,7 +203,7 @@
                </el-col>
                <el-col :span="12" v-if="form.menuType != 0">
                   <el-form-item>
-                     <el-input v-model="form.perms" placeholder="请输入权限标识" maxlength="100" />
+                     <el-input v-model="form.permissionCode" placeholder="请输入权限标识" maxlength="100" />
                      <template #label>
                         <span>
                            <el-tooltip content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasPermi('system:user:list')`)" placement="top">
@@ -236,8 +238,8 @@
                         </span>
                      </template>
                      <el-radio-group v-model="form.isCache">
-                        <el-radio label="0">缓存</el-radio>
-                        <el-radio label="1">不缓存</el-radio>
+                        <el-radio :label=true>缓存</el-radio>
+                        <el-radio :label=false>不缓存</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
@@ -251,7 +253,7 @@
                            显示状态
                         </span>
                      </template>
-                     <el-radio-group v-model="form.visible">
+                     <el-radio-group v-model="form.isShow">
                         <el-radio
                            v-for="dict in sys_show_hide"
                            :key="dict.value"
@@ -270,7 +272,7 @@
                            菜单状态
                         </span>
                      </template>
-                     <el-radio-group v-model="form.status">
+                     <el-radio-group v-model="form.isDeleted">
                         <el-radio
                            v-for="dict in sys_normal_disable"
                            :key="dict.value"
@@ -320,7 +322,7 @@ const data = reactive({
   rules: {
     menuName: [{ required: true, message: "菜单名称不能为空", trigger: "blur" }],
     orderNum: [{ required: true, message: "菜单顺序不能为空", trigger: "blur" }],
-    path: [{ required: true, message: "路由地址不能为空", trigger: "blur" }]
+    router: [{ required: true, message: "路由地址不能为空", trigger: "blur" }]
   },
 });
 
@@ -354,13 +356,13 @@ function reset() {
     menuId: undefined,
     parentId: 0,
     menuName: undefined,
-    icon: undefined,
-    menuType: "M",
-    orderNum: undefined,
-    isFrame: "1",
-    isCache: "0",
-    visible: "0",
-    isDeleted: "0"
+    menuIcon: undefined,
+    menuType: 0,
+    orderNum: 0,
+    isLink: false,
+    isCache: false,
+    isShow: true,
+    isDeleted: false
   };
   proxy.resetForm("menuRef");
 }
@@ -371,7 +373,7 @@ function showSelectIcon() {
 }
 /** 选择图标 */
 function selected(name) {
-  form.value.icon = name;
+  form.value.menuIcon = name;
   showChooseIcon.value = false;
 }
 /** 图标外层点击隐藏下拉列表 */
@@ -395,8 +397,8 @@ function resetQuery() {
 function handleAdd(row) {
   reset();
   getTreeselect();
-  if (row != null && row.menuId) {
-    form.value.parentId = row.menuId;
+  if (row != null && row.id) {
+    form.value.parentId = row.id;
   } else {
     form.value.parentId = 0;
   }
