@@ -165,7 +165,7 @@ namespace Yi.Framework.Service
                      .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
                      .Where(u => u.IsDeleted == false)
-                    .OrderBy(u => u.OrderNum)
+                    .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 
             return new PageModel<List<UserEntity>>(data, total);

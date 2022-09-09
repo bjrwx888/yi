@@ -9,8 +9,8 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="菜单状态" clearable>
+         <el-form-item label="状态" prop="isDeleted">
+            <el-select v-model="queryParams.isDeleted" placeholder="菜单状态" clearable>
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
@@ -63,7 +63,7 @@
          <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
          <el-table-column prop="permissionCode" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
          <el-table-column prop="router" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-         <el-table-column prop="isDe" label="状态" width="80">
+         <el-table-column prop="isDeleted" label="状态" width="80">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
             </template>
@@ -360,7 +360,7 @@ function reset() {
     isFrame: "1",
     isCache: "0",
     visible: "0",
-    status: "0"
+    isDeleted: "0"
   };
   proxy.resetForm("menuRef");
 }

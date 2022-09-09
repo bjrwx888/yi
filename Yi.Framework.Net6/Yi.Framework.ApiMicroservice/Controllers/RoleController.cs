@@ -29,11 +29,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iRoleService = iRoleService;
         }
 
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList()
+        public async Task<Result> PageList([FromQuery] RoleEntity role, [FromQuery] PageParModel page)
         {
-            return Result.Success().SetData(await _iRoleService._repository.GetListAsync());
+            return Result.Success().SetData(await _iRoleService.SelctPageList(role, page));
         }
+
 
         /// <summary>
         /// 给多用户设置多角色

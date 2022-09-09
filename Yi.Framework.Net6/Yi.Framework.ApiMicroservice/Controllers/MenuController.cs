@@ -20,7 +20,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MenuController 
+    public class MenuController
     {
         private IMenuService _iMenuService;
         public MenuController(ILogger<MenuEntity> logger, IMenuService iMenuService)
@@ -28,10 +28,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iMenuService = iMenuService;
         }
 
+
+        /// <summary>
+        /// 动态条件查询全部
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetList()
+        public async Task<Result> GetList([FromQuery] MenuEntity menu)
         {
-            return Result.Success().SetData(await _iMenuService._repository.GetListAsync());
+            return Result.Success().SetData(await _iMenuService.SelctGetList(menu));
         }
 
 
@@ -41,8 +47,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetMenuTree()
-        { 
-             return Result.Success().SetData(await _iMenuService. GetMenuTreeAsync());
+        {
+            return Result.Success().SetData(await _iMenuService.GetMenuTreeAsync());
         }
     }
 }

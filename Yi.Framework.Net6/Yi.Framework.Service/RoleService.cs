@@ -1,6 +1,8 @@
 ﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
@@ -45,6 +47,22 @@ namespace Yi.Framework.Service
         {
             return await _repository._Db.Queryable<RoleEntity>().Includes(u => u.Menus).InSingleAsync(roleId);
         
+        }
+
+
+
+        public async Task<PageModel<List<RoleEntity>>> SelctPageList(RoleEntity role, PageParModel page)
+        {
+            RefAsync<int> total = 0;
+            var data = await _repository._Db.Queryable<RoleEntity>()
+                    .WhereIF(!string.IsNullOrEmpty(role.RoleName), u => u.RoleName.Contains(role.RoleName))
+                     .WhereIF(!string.IsNullOrEmpty(role.RoleCode), u => u.RoleCode.Contains(role.RoleCode))
+                    .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
+                     .Where(u => u.IsDeleted == role.IsDeleted)
+                    .OrderBy(u => u.OrderNum, OrderByType.Desc)
+                    .ToPageListAsync(page.PageNum, page.PageSize, total);
+
+            return new PageModel<List<RoleEntity>>(data, total);
         }
     }
 }

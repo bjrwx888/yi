@@ -141,6 +141,13 @@
             菜单管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetList(Yi.Framework.Model.Models.MenuEntity)">
+            <summary>
+            动态条件查询全部
+            </summary>
+            <param name="menu"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetMenuTree">
             <summary>
             得到树形菜单
@@ -151,6 +158,12 @@
             <summary>
             角色管理
             </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.PageList(Yi.Framework.Model.Models.RoleEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GiveRoleSetMenu(Yi.Framework.DTOModel.GiveRoleSetMenuDto)">
             <summary>

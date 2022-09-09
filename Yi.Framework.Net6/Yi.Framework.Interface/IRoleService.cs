@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
 
@@ -27,5 +28,6 @@ namespace Yi.Framework.Interface
         /// <param name="menuIds"></param>
         /// <returns></returns>
         Task<bool> GiveRoleSetMenu(List<long> roleIds, List<long> menuIds);
+        Task<PageModel<List<RoleEntity>>> SelctPageList(RoleEntity role, PageParModel page);
     }
 }

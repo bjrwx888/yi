@@ -10,18 +10,18 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="权限字符" prop="roleKey">
+         <el-form-item label="权限字符" prop="roleCode">
             <el-input
-               v-model="queryParams.roleKey"
+               v-model="queryParams.roleCode"
                placeholder="请输入权限字符"
                clearable
                style="width: 240px"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="status">
+         <el-form-item label="状态" prop="isDeleted">
             <el-select
-               v-model="queryParams.status"
+               v-model="queryParams.isDeleted"
                placeholder="角色状态"
                clearable
                style="width: 240px"
@@ -96,8 +96,8 @@
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="角色编号" prop="roleCode" width="120" />
          <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" width="150" />
-         <el-table-column label="权限字符" prop="roleKey" :show-overflow-tooltip="true" width="150" />
-         <el-table-column label="显示顺序" prop="roleSort" width="100" />
+         <el-table-column label="权限字符" prop="roleCode" :show-overflow-tooltip="true" width="150" />
+         <el-table-column label="显示顺序" prop="orderNum" width="100" />
          <el-table-column label="状态" align="center" width="100">
             <template #default="scope">
                <el-switch
@@ -304,13 +304,13 @@ const data = reactive({
     pageNum: 1,
     pageSize: 10,
     roleName: undefined,
-    roleKey: undefined,
-    status: undefined
+    roleCode: undefined,
+    isDeleted: undefined
   },
   rules: {
     roleName: [{ required: true, message: "角色名称不能为空", trigger: "blur" }],
-    roleKey: [{ required: true, message: "权限字符不能为空", trigger: "blur" }],
-    roleSort: [{ required: true, message: "角色顺序不能为空", trigger: "blur" }]
+    roleCode: [{ required: true, message: "权限字符不能为空", trigger: "blur" }],
+    orderNum: [{ required: true, message: "角色顺序不能为空", trigger: "blur" }]
   },
 });
 
@@ -320,8 +320,8 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listRole(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    roleList.value = response.data;
-    total.value = response.total;
+    roleList.value = response.data.data;
+    total.value = response.data.total;
     loading.value = false;
   });
 }
