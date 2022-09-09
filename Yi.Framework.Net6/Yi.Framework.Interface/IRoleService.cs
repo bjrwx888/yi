@@ -28,6 +28,13 @@ namespace Yi.Framework.Interface
         /// <param name="menuIds"></param>
         /// <returns></returns>
         Task<bool> GiveRoleSetMenu(List<long> roleIds, List<long> menuIds);
+
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <param name="role"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         Task<PageModel<List<RoleEntity>>> SelctPageList(RoleEntity role, PageParModel page);
     }
 }

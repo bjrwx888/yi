@@ -13,6 +13,7 @@ namespace Yi.Framework.Repository
 {
     public interface IRepository<T> : ISimpleClient<T> where T : class, IBaseModelEntity, new()
     {
+        public ISugarQueryable<T> _DbQueryable { get; set; }
         public ISqlSugarClient _Db { get; set; }
         public Task<bool> UseTranAsync(Func<Task> func);
         public Task<T> InsertReturnEntityAsync(T entity);

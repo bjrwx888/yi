@@ -25,6 +25,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iDictionaryService = iDictionaryService;
         }
 
+
+        [HttpGet]
+        public async Task<Result> PageList([FromQuery] DictionaryEntity dic, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iDictionaryService.SelctPageList(dic, page));
+        }
+
         [HttpGet]
         [Route("{type}")]
         public async Task<Result> GetListByType([FromRoute] string type)

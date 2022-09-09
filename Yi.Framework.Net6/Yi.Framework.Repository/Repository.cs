@@ -14,6 +14,8 @@ namespace Yi.Framework.Repository
     /// <typeparam name="T"></typeparam>
     public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, IBaseModelEntity, new()
     {
+        public ISugarQueryable<T> _DbQueryable { get { return base.Context.Queryable<T>(); } set { } }
+
         public ISqlSugarClient _Db { get { return base.Context; } set { } }
         /// <summary>
         /// 构造函数
