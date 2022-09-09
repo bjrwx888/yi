@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
@@ -75,5 +76,13 @@ namespace Yi.Framework.Interface
         /// <param name="password"></param>
         /// <returns></returns>
         bool JudgePassword(UserEntity user, string password);
+
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page);
     }
 }

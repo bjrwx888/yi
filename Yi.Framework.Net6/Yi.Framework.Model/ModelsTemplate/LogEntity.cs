@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
     /// 日志表
     ///</summary>
+
     public partial class LogEntity:IBaseModelEntity
     {
         public LogEntity()
@@ -14,22 +16,15 @@ namespace Yi.Framework.Model.Models
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
-        /// <summary>
-        /// 1 
-        ///</summary>
-         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
+        [JsonConverter(typeof(ValueToStringConverter))]
+        [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
-
         /// <summary>
         /// 创建者 
         ///</summary>
          [SugarColumn(ColumnName="CreateUser"    )]
          public long? CreateUser { get; set; }
-        /// <summary>
-        /// 创建时间 
-        ///</summary>
-         [SugarColumn(ColumnName="CreateTime"    )]
-         public DateTime? CreateTime { get; set; }
+
         /// <summary>
         /// 修改者 
         ///</summary>
@@ -55,5 +50,15 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Message"    )]
          public string Message { get; set; }
+        /// <summary>
+        /// 排序字段 
+        ///</summary>
+         [SugarColumn(ColumnName="OrderNum"    )]
+         public int? OrderNum { get; set; }
+        /// <summary>
+        /// 描述 
+        ///</summary>
+         [SugarColumn(ColumnName="Remark"    )]
+         public string Remark { get; set; }
     }
 }

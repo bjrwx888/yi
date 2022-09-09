@@ -224,10 +224,24 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.TreeTest">
+            <summary>
+            树形结构构建测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">
             <summary>
             用户管理
             </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="user"></param>
+            <param name="page"></param>
+            <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateStatus(System.Int64,System.Boolean)">
             <summary>

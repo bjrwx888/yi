@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Helper;
+using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
@@ -30,7 +31,7 @@ namespace Yi.Framework.Service
         }
         public async Task<bool> Exist(string userName, Action<UserEntity> userAction = null)
         {
-            var user = await _repository.GetFirstAsync(u => u.UserName == userName&& u.IsDeleted==false);
+            var user = await _repository.GetFirstAsync(u => u.UserName == userName && u.IsDeleted == false);
             if (userAction != null)
             {
                 userAction.Invoke(user);
@@ -113,7 +114,7 @@ namespace Yi.Framework.Service
             //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
 
             //得到用户
-            var user = await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles.Where(r=>r.IsDeleted==false).ToList(), r => r.Menus.Where(m=>m.IsDeleted==false).ToList()).InSingleAsync(userId);
+            var user = await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles.Where(r => r.IsDeleted == false).ToList(), r => r.Menus.Where(m => m.IsDeleted == false).ToList()).InSingleAsync(userId);
 
             //得到角色集合
             var roleList = user.Roles;
@@ -140,18 +141,34 @@ namespace Yi.Framework.Service
             userRoleMenu.User = user;
 
 
-       
+
 
             return userRoleMenu;
         }
 
-        public bool JudgePassword(UserEntity user,string password)
+        public bool JudgePassword(UserEntity user, string password)
         {
             if (user.Password == MD5Helper.SHA2Encode(password, user.Salt))
             {
                 return true;
             }
             return false;
+        }
+
+
+        public async Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page)
+        {
+            RefAsync<int> total = 0;
+            var data = await _repository._Db.Queryable<UserEntity>()
+                    .WhereIF(!string.IsNullOrEmpty(user.UserName), u => u.UserName.Contains(user.UserName))
+                     .WhereIF(!string.IsNullOrEmpty(user.Name), u => u.Name.Contains(user.Name))
+                     .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
+                    .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
+                     .Where(u => u.IsDeleted == false)
+                    .OrderBy(u => u.OrderNum)
+                    .ToPageListAsync(page.PageNum, page.PageSize, total);
+
+            return new PageModel<List<UserEntity>>(data, total);
         }
     }
 }

@@ -6,12 +6,12 @@ using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
-    /// 角色表
+    /// 字典信息表
     ///</summary>
-    [SugarTable("Role")]
-    public partial class RoleEntity:IBaseModelEntity
+    [SugarTable("DictionaryInfo")]
+    public partial class DictionaryInfoEntity:IBaseModelEntity
     {
-        public RoleEntity()
+        public DictionaryInfoEntity()
         {
             this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
@@ -20,10 +20,25 @@ namespace Yi.Framework.Model.Models
         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
-        ///  
+        /// 字典类型 
         ///</summary>
-         [SugarColumn(ColumnName="RoleName"    )]
-         public string RoleName { get; set; }
+         [SugarColumn(ColumnName="DictType"    )]
+         public string DictType { get; set; }
+        /// <summary>
+        /// 字典标签 
+        ///</summary>
+         [SugarColumn(ColumnName="DictLabel"    )]
+         public string DictLabel { get; set; }
+        /// <summary>
+        /// 字典值 
+        ///</summary>
+         [SugarColumn(ColumnName="DictValue"    )]
+         public string DictValue { get; set; }
+        /// <summary>
+        /// 是否为该类型的默认值 
+        ///</summary>
+         [SugarColumn(ColumnName="IsDefault"    )]
+         public bool? IsDefault { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -34,6 +49,11 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="CreateTime"    )]
          public DateTime? CreateTime { get; set; }
+        /// <summary>
+        /// 修改者 
+        ///</summary>
+         [SugarColumn(ColumnName="ModifyUser"    )]
+         public long? ModifyUser { get; set; }
         /// <summary>
         /// 修改时间 
         ///</summary>
@@ -49,16 +69,6 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="TenantId"    )]
          public long? TenantId { get; set; }
-        /// <summary>
-        /// 修改者 
-        ///</summary>
-         [SugarColumn(ColumnName="ModifyUser"    )]
-         public long? ModifyUser { get; set; }
-        /// <summary>
-        ///  
-        ///</summary>
-         [SugarColumn(ColumnName="RoleCode"    )]
-         public string RoleCode { get; set; }
         /// <summary>
         /// 排序字段 
         ///</summary>

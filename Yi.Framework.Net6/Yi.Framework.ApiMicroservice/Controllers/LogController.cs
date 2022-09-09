@@ -35,10 +35,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             Random random = new Random();
             var logList = new List<LogEntity>() {
-                new LogEntity() { LogCreateTime = Convert.ToDateTime("2019-12-1"), Message = "jack"+random.Next() } ,
-                new LogEntity() { LogCreateTime = Convert.ToDateTime("2022-02-1"), Message = "jack"+random.Next() },
-                new LogEntity() { LogCreateTime = Convert.ToDateTime("2020-02-1"), Message = "jack"+random.Next() },
-                new LogEntity() { LogCreateTime = Convert.ToDateTime("2021-12-1"), Message = "jack"+random.Next() } };
+                new LogEntity() { CreateTime = Convert.ToDateTime("2019-12-1"), Message = "jack"+random.Next() } ,
+                new LogEntity() { CreateTime = Convert.ToDateTime("2022-02-1"), Message = "jack"+random.Next() },
+                new LogEntity() { CreateTime = Convert.ToDateTime("2020-02-1"), Message = "jack"+random.Next() },
+                new LogEntity() { CreateTime = Convert.ToDateTime("2021-12-1"), Message = "jack"+random.Next() } };
             return Result.Success().SetData(await _iLogService.AddListTest(logList));
         }
   

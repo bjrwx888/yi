@@ -3,7 +3,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-   public partial interface ILogService:IBaseService<LogEntity>
+   public partial interface IUserRoleService:IBaseService<UserRoleEntity>
     {   
     }
 }

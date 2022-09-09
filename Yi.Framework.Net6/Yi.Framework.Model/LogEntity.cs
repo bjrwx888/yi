@@ -12,7 +12,11 @@ namespace Yi.Framework.Model.Models
     public  partial class LogEntity
     {
         [SplitField] //分表字段 在插入的时候会根据这个字段插入哪个表，在更新删除的时候用这个字段找出相关表
-        public DateTime? LogCreateTime { get; set; }
+        /// <summary>
+        /// 创建时间 
+        ///</summary>
+        [SugarColumn(ColumnName = "CreateTime")]
+        public DateTime? CreateTime { get; set; }
 
     }
 }

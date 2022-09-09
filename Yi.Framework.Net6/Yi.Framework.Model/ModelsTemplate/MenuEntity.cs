@@ -94,5 +94,15 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="IsShow"    )]
          public bool? IsShow { get; set; }
+        /// <summary>
+        /// 排序字段 
+        ///</summary>
+         [SugarColumn(ColumnName="OrderNum"    )]
+         public int? OrderNum { get; set; }
+        /// <summary>
+        /// 描述 
+        ///</summary>
+         [SugarColumn(ColumnName="Remark"    )]
+         public string Remark { get; set; }
     }
 }

@@ -29,10 +29,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iUserService = iUserService;
         }
 
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery]UserEntity user,  [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] UserEntity user, [FromQuery] PageParModel page)
         {
-            return Result.Success().SetData(new PageModel(await _iUserService._repository.GetListAsync(),100)  );
+            return Result.Success().SetData(await _iUserService.SelctPageList(user, page));
         }
 
         /// <summary>
@@ -42,10 +48,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="isDel"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<Result> UpdateStatus(long userId,bool isDel)
+        public async Task<Result> UpdateStatus(long userId, bool isDel)
         {
             return Result.Success().SetData(await _iUserService._repository.UpdateIgnoreNullAsync(new UserEntity() { Id = userId, IsDeleted = isDel }));
-        
+
         }
 
 
@@ -56,7 +62,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(UserEntity)}:add")]
         [HttpPost]
-        public  override async Task<Result> Add(UserEntity entity)
+        public override async Task<Result> Add(UserEntity entity)
         {
             if (!await _iUserService.Exist(entity.UserName))
             {

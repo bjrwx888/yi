@@ -37,18 +37,18 @@
                     @keyup.enter="handleQuery"
                  />
               </el-form-item>
-              <el-form-item label="手机号码" prop="phonenumber">
+              <el-form-item label="手机号码" prop="phone">
                  <el-input
-                    v-model="queryParams.phonenumber"
+                    v-model="queryParams.phone"
                     placeholder="请输入手机号码"
                     clearable
                     style="width: 240px"
                     @keyup.enter="handleQuery"
                  />
               </el-form-item>
-              <el-form-item label="状态" prop="status">
+              <el-form-item label="状态" prop="isDeleted">
                  <el-select
-                    v-model="queryParams.status"
+                    v-model="queryParams.isDeleted"
                     placeholder="用户状态"
                     clearable
                     style="width: 240px"
@@ -403,8 +403,8 @@ const data = reactive({
    pageNum: 1,
    pageSize: 10,
    userName: undefined,
-   phonenumber: undefined,
-   status: undefined,
+   phone: undefined,
+   isDeleted: undefined,
    deptId: undefined
  },
  rules: {

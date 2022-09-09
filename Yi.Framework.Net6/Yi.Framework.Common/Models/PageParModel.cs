@@ -11,5 +11,8 @@ namespace Yi.Framework.Common.Models
     {
         public int PageNum { get; set; }
         public int PageSize { get; set; }
+
+        public DateTime? StartTime {get;set;}
+        public DateTime? EndTime { get; set; }
     }
 }
