@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
@@ -129,13 +130,13 @@ namespace Yi.Framework.Service
                     foreach (var menu in role.Menus)
                     {
 
-                 
-                            if (!string.IsNullOrEmpty(menu.PermissionCode))
-                            {
-                                userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
-                                userRoleMenu.Menus.Add(menu);
-                            }
-                   
+
+                        if (!string.IsNullOrEmpty(menu.PermissionCode))
+                        {
+                            userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
+                            userRoleMenu.Menus.Add(menu);
+                        }
+
 
                     }
                 }
@@ -177,6 +178,49 @@ namespace Yi.Framework.Service
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 
             return new PageModel<List<UserEntity>>(data, total);
+        }
+
+
+        public List<VueRouterModel> RouterBuild(List<MenuEntity> menus)
+        {
+            menus = menus.Where(m => m.MenuType != null && m.MenuType != MenuTypeEnum.Component.GetHashCode()).ToList();
+            List<VueRouterModel> routers = new();
+            foreach (var m in menus)
+            {
+                var r = new VueRouterModel();
+                var routerName = m.Router.Split("/").LastOrDefault();
+                //开头大写
+                r.Name = routerName.First().ToString().ToUpper() + routerName.Substring(1);
+                r.Path = m.Router;
+                r.Hidden = (bool)!m.IsShow;
+
+
+                if (m.MenuType == MenuTypeEnum.Catalogue.GetHashCode())
+                {
+                    r.Redirect = "noRedirect";
+                    r.AlwaysShow = true;
+                    r.Component = "Layout";
+                }
+                if (m.MenuType == MenuTypeEnum.Menu.GetHashCode())
+                {
+                    r.Component = m.Component;
+                }
+
+
+                r.Meta = new Meta
+                {
+                    Title = m.MenuName,
+                    Icon = m.MenuIcon,
+                    NoCache = (bool)!m.IsCache
+                };
+                if ((bool)m.IsLink)
+                {
+                    r.Meta.link = m.Router;
+                }
+
+                routers.Add(r);
+            }
+            return routers;
         }
     }
 }

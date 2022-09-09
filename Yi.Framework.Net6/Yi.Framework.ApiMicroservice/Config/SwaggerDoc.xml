@@ -31,7 +31,13 @@
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetUserAllInfo">
             <summary>
-            通过已登录的用户获取用户信息及菜单
+            通过已登录的用户获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetRouterInfo">
+            <summary>
+            获取当前登录用户的前端路由
             </summary>
             <returns></returns>
         </member>

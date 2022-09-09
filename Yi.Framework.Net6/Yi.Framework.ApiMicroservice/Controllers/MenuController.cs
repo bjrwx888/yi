@@ -37,9 +37,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetList([FromQuery] MenuEntity menu)
         {
-           var p= await _iMenuService.SelctGetList(menu);
-            p.ForEach(m => m.Children = new List<MenuEntity>());
-            return Result.Success().SetData(p);
+            return Result.Success().SetData(await _iMenuService.SelctGetList(menu));
         }
 
         /// <summary>

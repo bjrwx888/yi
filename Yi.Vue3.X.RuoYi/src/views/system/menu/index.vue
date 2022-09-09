@@ -158,7 +158,7 @@
                      <el-input-number v-model="form.orderNum" controls-position="right" :min="0" />
                   </el-form-item>
                </el-col>
-               <el-col :span="12" v-if="form.menuType != 1">
+               <el-col :span="12" v-if="form.menuType != 2">
                   <el-form-item>
                      <template #label>
                         <span>
@@ -175,7 +175,7 @@
                </el-col>
 
         
-               <el-col :span="12" v-if="form.menuType != 1">
+               <el-col :span="12" v-if="form.menuType != 2">
                   <el-form-item prop="router">
                      <template #label>
                         <span>
@@ -188,7 +188,7 @@
                      <el-input v-model="form.router" placeholder="请输入路由地址" />
                   </el-form-item>
                </el-col>
-               <el-col :span="12" v-if="form.menuType == 2">
+               <el-col :span="12" v-if="form.menuType == 1">
                   <el-form-item prop="component">
                      <template #label>
                         <span>
@@ -214,7 +214,7 @@
                      </template>
                   </el-form-item>
                </el-col>
-               <el-col :span="12" v-if="form.menuType == 2">
+               <el-col :span="12" v-if="form.menuType == 1">
                   <el-form-item>
                      <el-input v-model="form.query" placeholder="请输入路由参数" maxlength="255" />
                      <template #label>
@@ -227,7 +227,7 @@
                      </template>
                   </el-form-item>
                </el-col>
-               <el-col :span="12" v-if="form.menuType == 2">
+               <el-col :span="12" v-if="form.menuType == 1">
                   <el-form-item>
                      <template #label>
                         <span>
@@ -243,7 +243,7 @@
                      </el-radio-group>
                   </el-form-item>
                </el-col>
-               <el-col :span="12" v-if="form.menuType != 1">
+               <el-col :span="12" v-if="form.menuType != 2">
                   <el-form-item>
                      <template #label>
                         <span>
@@ -262,7 +262,7 @@
                      </el-radio-group>
                   </el-form-item>
                </el-col>
-               <el-col :span="12" v-if="form.menuType != 1">
+               <el-col :span="12" v-if="form.menuType != 2">
                   <el-form-item>
                      <template #label>
                         <span>

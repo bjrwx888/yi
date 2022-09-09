@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
@@ -27,12 +28,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     {
         private IUserService _iUserService;
         private JwtInvoker _jwtInvoker;
-       private ILogger _logger;
+        private ILogger _logger;
         public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
-           _logger = logger;
+            _logger = logger;
         }
 
         /// <summary>
@@ -51,11 +52,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
-             var userRoleMenu= await  _iUserService.GetUserAllInfo(user.Id);
-                return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User,userRoleMenu.Menus) });
+                var userRoleMenu = await _iUserService.GetUserAllInfo(user.Id);
+                return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User, userRoleMenu.Menus) });
             }
             return Result.Error("登录失败！用户名或者密码错误！");
         }
+
+
 
         /// <summary>
         /// 没啥说，注册
@@ -79,13 +82,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public  Result Logout()
+        public Result Logout()
         {
             return Result.Success("安全登出成功！");
         }
 
         /// <summary>
-        /// 通过已登录的用户获取用户信息及菜单
+        /// 通过已登录的用户获取用户信息
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -99,6 +102,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(data);
         }
 
+        /// <summary>
+        /// 获取当前登录用户的前端路由
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetRouterInfo()
+        {
+            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            var data = await _iUserService.GetUserAllInfo(userId);
+           
+            //将后端菜单转换成前端路由，组件级别需要过滤
+            List<VueRouterModel> routers = _iUserService.RouterBuild(data.Menus.ToList());
+            return Result.Success().SetData(routers);
+        }
 
 
         /// <summary>

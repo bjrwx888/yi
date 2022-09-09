@@ -27,7 +27,7 @@ namespace Yi.Framework.Common.Models
     {
         public string Title { get; set; }
         public string Icon { get; set; }
-        public string NoCache { get; set; }
+        public bool NoCache { get; set; }
         public string link { get; set; }
     }
 }

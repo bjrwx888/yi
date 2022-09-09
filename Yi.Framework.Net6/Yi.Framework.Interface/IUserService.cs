@@ -84,5 +84,12 @@ namespace Yi.Framework.Interface
         /// <param name="page"></param>
         /// <returns></returns>
         Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page);
+
+        /// <summary>
+        /// 菜单构建前端路由
+        /// </summary>
+        /// <param name="menus"></param>
+        /// <returns></returns>
+        List<VueRouterModel> RouterBuild(List<MenuEntity> menus);
     }
 }
