@@ -6,7 +6,8 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-    public partial interface IDictionaryInfoService : IBaseService<DictionaryInfoEntity>
+   public partial interface IDictionaryInfoService:IBaseService<DictionaryInfoEntity>
     {
+        Task<PageModel<List<DictionaryInfoEntity>>> SelctPageList(DictionaryInfoEntity dicInfo, PageParModel page);
     }
 }

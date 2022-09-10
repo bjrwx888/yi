@@ -5,7 +5,7 @@
             <el-select v-model="queryParams.dictType">
                <el-option
                   v-for="item in typeOptions"
-                  :key="item.dictId"
+                  :key="item.id"
                   :label="item.dictName"
                   :value="item.dictType"
                />
@@ -87,7 +87,7 @@
 
       <el-table v-loading="loading" :data="dataList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="字典编码" align="center" prop="dictCode" />
+         <el-table-column label="字典编码" align="center" prop="id" />
          <el-table-column label="字典标签" align="center" prop="dictLabel">
             <template #default="scope">
                <span v-if="scope.row.listClass == '' || scope.row.listClass == 'default'">{{ scope.row.dictLabel }}</span>
@@ -95,10 +95,10 @@
             </template>
          </el-table-column>
          <el-table-column label="字典键值" align="center" prop="dictValue" />
-         <el-table-column label="字典排序" align="center" prop="dictSort" />
-         <el-table-column label="状态" align="center" prop="status">
+         <el-table-column label="字典排序" align="center" prop="orderNum" />
+         <el-table-column label="状态" align="center" prop="isDeleted">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
             </template>
          </el-table-column>
          <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
@@ -221,12 +221,12 @@ const data = reactive({
     pageSize: 10,
     dictName: undefined,
     dictType: undefined,
-    status: undefined
+    isDeleted: undefined
   },
   rules: {
     dictLabel: [{ required: true, message: "数据标签不能为空", trigger: "blur" }],
     dictValue: [{ required: true, message: "数据键值不能为空", trigger: "blur" }],
-    dictSort: [{ required: true, message: "数据顺序不能为空", trigger: "blur" }]
+    orderNum: [{ required: true, message: "数据顺序不能为空", trigger: "blur" }]
   }
 });
 
@@ -251,8 +251,8 @@ function getTypeList() {
 function getList() {
   loading.value = true;
   listData(queryParams.value).then(response => {
-    dataList.value = response.rows;
-    total.value = response.total;
+    dataList.value = response.data.data;
+    total.value = response.data.total;
     loading.value = false;
   });
 }
@@ -264,13 +264,13 @@ function cancel() {
 /** 表单重置 */
 function reset() {
   form.value = {
-    dictCode: undefined,
+    id: undefined,
     dictLabel: undefined,
     dictValue: undefined,
     cssClass: undefined,
     listClass: "default",
-    dictSort: 0,
-    status: "0",
+    orderNum: 0,
+    isDeleted: false,
     remark: undefined
   };
   proxy.resetForm("dataRef");
@@ -300,15 +300,15 @@ function handleAdd() {
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.dictCode);
+  ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  const dictCode = row.dictCode || ids.value;
-  getData(dictCode).then(response => {
+  const id = row.id || ids.value;
+  getData(id).then(response => {
     form.value = response.data;
     open.value = true;
     title.value = "修改字典数据";
@@ -318,7 +318,7 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["dataRef"].validate(valid => {
     if (valid) {
-      if (form.value.dictCode != undefined) {
+      if (form.value.id != undefined) {
         updateData(form.value).then(response => {
           useDictStore().removeDict(queryParams.value.dictType);
           proxy.$modal.msgSuccess("修改成功");
@@ -338,9 +338,9 @@ function submitForm() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const dictCodes = row.dictCode || ids.value;
-  proxy.$modal.confirm('是否确认删除字典编码为"' + dictCodes + '"的数据项？').then(function() {
-    return delData(dictCodes);
+  const dictIds = row.id || ids.value;
+  proxy.$modal.confirm('是否确认删除字典编码为"' + dictIds + '"的数据项？').then(function() {
+    return delData(dictIds);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");

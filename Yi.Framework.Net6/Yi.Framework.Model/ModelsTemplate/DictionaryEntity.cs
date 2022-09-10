@@ -22,8 +22,8 @@ namespace Yi.Framework.Model.Models
         /// <summary>
         /// 字典名称 
         ///</summary>
-         [SugarColumn(ColumnName="DicName"    )]
-         public string DicName { get; set; }
+         [SugarColumn(ColumnName= "DictName")]
+         public string DictName { get; set; }
         /// <summary>
         /// 字典类型 
         ///</summary>

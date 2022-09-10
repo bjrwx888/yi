@@ -15,7 +15,7 @@ namespace Yi.Framework.Service
         {
             RefAsync<int> total = 0;
             var data = await _repository._DbQueryable
-                    .WhereIF(!string.IsNullOrEmpty(dic.DicName), u => u.DicName.Contains(dic.DicName))
+                    .WhereIF(!string.IsNullOrEmpty(dic.DictName), u => u.DictName.Contains(dic.DictName))
                      .WhereIF(!string.IsNullOrEmpty(dic.DictType), u => u.DictType.Contains(dic.DictType))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
                      .Where(u => u.IsDeleted == false)

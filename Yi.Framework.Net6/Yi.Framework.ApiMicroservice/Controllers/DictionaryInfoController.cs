@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
@@ -18,11 +19,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class DictionaryController 
+    public class DictionaryInfoController
     {
         private IDictionaryService _iDictionaryService;
         private IDictionaryInfoService _iDictionaryInfoService;
-        public DictionaryController(ILogger<DictionaryEntity> logger, IDictionaryService iDictionaryService, IDictionaryInfoService iDictionaryInfoService)
+        public DictionaryInfoController(ILogger<DictionaryEntity> logger, IDictionaryService iDictionaryService, IDictionaryInfoService iDictionaryInfoService)
         {
             _iDictionaryService = iDictionaryService;
             _iDictionaryInfoService = iDictionaryInfoService;
@@ -31,47 +32,49 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 动态条件分页查询
         /// </summary>
-        /// <param name="dic"></param>
+        /// <param name="dicInfo"></param>
         /// <param name="page"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] DictionaryEntity dic, [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] DictionaryInfoEntity dicInfo, [FromQuery] PageParModel page)
         {
-            return Result.Success().SetData(await _iDictionaryService.SelctPageList(dic, page));
+            return Result.Success().SetData(await _iDictionaryInfoService.SelctPageList(dicInfo, page));
         }
 
         /// <summary>
-        /// 添加字典表
+        /// 添加字典信息表
         /// </summary>
-        /// <param name="dic"></param>
+        /// <param name="dicInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Result> Add(DictionaryEntity dic)
+        public async Task<Result> Add(DictionaryInfoEntity dicInfo)
         {
-            return Result.Success().SetData(await _iDictionaryService._repository.InsertReturnSnowflakeIdAsync(dic));
+            return Result.Success().SetData(await _iDictionaryInfoService._repository.InsertReturnSnowflakeIdAsync(dicInfo));
         }
 
         /// <summary>
-        /// 根据字典id获取字典表
+        /// 根据字典类别获取字典信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id}")]
-        public async Task<Result> GetById(long id)
+        [Route("{type}")]
+        public async Task<Result> GetListByType([FromRoute] string type)
         {
-            return Result.Success().SetData(await _iDictionaryService._repository.GetByIdAsync(id));
+            return Result.Success().SetData(await _iDictionaryInfoService._repository.GetListAsync(u=>u.DictType==type&&u.IsDeleted==false));
         }
-
 
         /// <summary>
-        /// 获取全部字典表
+        /// id范围删除
         /// </summary>
+        /// <param name="ids"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<Result> GetList()
+        [HttpDelete]
+        
+        public async Task<Result> DelList(List<long> ids)
         {
-            return Result.Success().SetData(await _iDictionaryService._repository.GetListAsync());
+            return Result.Success().SetStatus(await _iDictionaryInfoService._repository.DeleteByIdsAsync(ids.ToDynamicArray()));
         }
+
     }
 }
