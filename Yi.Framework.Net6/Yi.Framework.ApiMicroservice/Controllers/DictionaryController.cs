@@ -9,6 +9,7 @@ using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
+using Yi.Framework.Service;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
@@ -30,6 +31,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> PageList([FromQuery] DictionaryEntity dic, [FromQuery] PageParModel page)
         {
             return Result.Success().SetData(await _iDictionaryService.SelctPageList(dic, page));
+        }
+
+        [HttpPost]
+        public async Task<Result> Add(DictionaryEntity dic)
+        {
+            return Result.Success().SetData(await _iDictionaryService._repository.InsertReturnSnowflakeIdAsync(dic));
         }
 
         [HttpGet]
