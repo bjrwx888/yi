@@ -34,8 +34,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Permission($"{nameof(T)}:get")]
+        [Route("{id}")]
         [HttpGet]
-        public virtual async Task<Result> GetById(long id)
+        public virtual async Task<Result> GetById([FromRoute]long id)
         {
             return Result.Success().SetData(await _repository.GetByIdAsync(id));
         }
@@ -45,7 +46,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [Permission($"{nameof(T)}:get")]
-        [HttpPost]
+        [HttpGet]
         public virtual async Task<Result> GetList()
         {
             return Result.Success().SetData(await _repository.GetListAsync());

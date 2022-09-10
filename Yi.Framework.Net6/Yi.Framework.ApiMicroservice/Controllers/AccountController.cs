@@ -92,7 +92,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<Result> GetUserAllInfo()
         {
             //通过鉴权jwt获取到用户的id
@@ -111,7 +111,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
             var data = await _iUserService.GetUserAllInfo(userId);
-           
+            
             //将后端菜单转换成前端路由，组件级别需要过滤
             List<VueRouterModel> routers = _iUserService.RouterBuild(data.Menus.ToList());
             return Result.Success().SetData(routers);

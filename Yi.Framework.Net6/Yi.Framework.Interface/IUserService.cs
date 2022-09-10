@@ -11,6 +11,12 @@ namespace Yi.Framework.Interface
    public partial interface IUserService
     {
         /// <summary>
+        /// 关联角色测试
+        /// </summary>
+        /// <returns></returns>
+        Task<List<UserEntity>> GetListInRole();
+
+        /// <summary>
         /// 测试仓储的上下文对象
         /// </summary>
         /// <returns></returns>
@@ -34,10 +40,10 @@ namespace Yi.Framework.Interface
         Task<bool> Register(UserEntity userEntity, Action<UserEntity> userAction = null);
 
         /// <summary>
-        /// 导航属性关联角色
+        /// 导航属性关联角色、部门、岗位
         /// </summary>
         /// <returns></returns>
-        Task<List<UserEntity>> GetListInRole();
+        Task<UserEntity> GetInfoById(long userId);
 
         /// <summary>
         /// 给用户设置角色，多用户，多角色
@@ -54,13 +60,6 @@ namespace Yi.Framework.Interface
         /// <param name="userAction"></param>
         /// <returns></returns>
         Task<bool> Exist(string userName, Action<UserEntity> userAction = null);
-
-        /// <summary>
-        /// 通过用户id得到角色列表
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        Task<List<RoleEntity>> GetRoleListByUserId(long userId);
 
         /// <summary>
         /// 获取当前登录用户的所有信息

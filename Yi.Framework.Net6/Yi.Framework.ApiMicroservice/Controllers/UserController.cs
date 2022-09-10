@@ -21,7 +21,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class UserController : BaseCrudController<UserEntity>
+    public class UserController : BaseSimpleCrudController<UserEntity>
     {
         private IUserService _iUserService;
         public UserController(ILogger<UserEntity> logger, IUserService iUserService) : base(logger, iUserService)
@@ -85,13 +85,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
 
         /// <summary>
-        /// 通过用户id得到角色列表
+        /// 通过用户id得到用户信息关联部门、岗位、角色
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetRoleListByUserId(long userId)
+        [Route("{id}")]
+        public override async Task<Result> GetById(long id)
         {
-            return Result.Success().SetData(await _iUserService.GetRoleListByUserId(userId));
+            return Result.Success().SetData(await _iUserService.GetInfoById(id));
         }
     }
 }

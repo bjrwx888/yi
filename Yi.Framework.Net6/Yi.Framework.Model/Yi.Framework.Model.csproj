@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="NEST" Version="7.16.0" />
-    <PackageReference Include="SqlSugarCore" Version="5.1.2.7" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.2.8-preview04" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,7 +21,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class RoleController : BaseCrudController<RoleEntity>
+    public class RoleController : BaseSimpleCrudController<RoleEntity>
     {
         private IRoleService _iRoleService;
         public RoleController(ILogger<RoleEntity> logger, IRoleService iRoleService) : base(logger, iRoleService)

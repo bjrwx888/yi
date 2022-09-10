@@ -115,7 +115,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.GetList(Yi.Framework.Model.Query.QueryCondition)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.GetList">
             <summary>
             全部列表查询
             </summary>
@@ -150,40 +150,6 @@
             <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.Add(Yi.Framework.Model.Models.DictionaryEntity)">
-            <summary>
-            添加字典表
-            </summary>
-            <param name="dic"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.GetById(System.Int64)">
-            <summary>
-            根据字典id获取字典表
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.GetList">
-            <summary>
-            获取全部字典表
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.DelList(System.Collections.Generic.List{System.Int64})">
-            <summary>
-            id范围删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.Update(Yi.Framework.Model.Models.DictionaryEntity)">
-            <summary>
-            更新
-            </summary>
-            <param name="dic"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.PageList(Yi.Framework.Model.Models.DictionaryInfoEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
@@ -192,39 +158,11 @@
             <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.Add(Yi.Framework.Model.Models.DictionaryInfoEntity)">
-            <summary>
-            添加字典信息表
-            </summary>
-            <param name="dicInfo"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.GetListByType(System.String)">
             <summary>
             根据字典类别获取字典信息
             </summary>
             <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.DelList(System.Collections.Generic.List{System.Int64})">
-            <summary>
-            id范围删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.Update(Yi.Framework.Model.Models.DictionaryInfoEntity)">
-            <summary>
-            更新
-            </summary>
-            <param name="dicInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.GetById(System.Int64)">
-            <summary>
-            根据字典id获取字典信息表
-            </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.FileController">
@@ -416,9 +354,9 @@
             <param name="giveUserSetRoleDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRoleListByUserId(System.Int64)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetById(System.Int64)">
             <summary>
-            通过用户id得到角色列表
+            通过用户id得到用户信息关联部门、岗位、角色
             </summary>
             <returns></returns>
         </member>

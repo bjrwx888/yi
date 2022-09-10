@@ -16,6 +16,10 @@ namespace Yi.Framework.Service
 {
     public partial class UserService
     {
+        public async Task<List<UserEntity>> GetListInRole()
+        {
+            return await _repository._DbQueryable.Includes(u => u.Roles).ToListAsync();
+        }
         public async Task<List<UserEntity>> DbTest()
         {
             return await _repository._Db.Queryable<UserEntity>().ToListAsync();
@@ -64,21 +68,10 @@ namespace Yi.Framework.Service
             {
                 user.UserName = userEntity.UserName;
                 user.BuildPassword();
-                //等待老杰哥更新，杰哥漏了雪花id呀，嘿嘿
-                //var entity = await _repository.InsertReturnSnowflakeEntityAsync(user);
-                //userAction.Invoke(await _repository.GetByIdAsync(entity));
-
-                //await _repository.InsertReturnSnowflakeEntityAsync(user);
-                //userAction.Invoke(await _repository.GetByIdAsync(user));
-
+                userAction.Invoke(await _repository.InsertReturnEntityAsync(user));
                 return true;
             }
             return false;
-        }
-
-        public async Task<List<UserEntity>> GetListInRole()
-        {
-            return await _repository._DbQueryable.Includes(u => u.Roles).ToListAsync();
         }
 
         public async Task<bool> GiveUserSetRole(List<long> userIds, List<long> roleIds)
@@ -109,9 +102,9 @@ namespace Yi.Framework.Service
         }
 
 
-        public async Task<List<RoleEntity>> GetRoleListByUserId(long userId)
+        public async Task<UserEntity> GetInfoById(long userId)
         {
-            return (await _repository._DbQueryable.Includes(u => u.Roles).InSingleAsync(userId)).Roles;
+            return await _repository._DbQueryable.Includes(u => u.Roles).InSingleAsync(userId);
         }
 
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
@@ -179,7 +172,8 @@ namespace Yi.Framework.Service
                      .WhereIF(!string.IsNullOrEmpty(user.Name), u => u.Name.Contains(user.Name))
                      .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
-                     .Where(u => u.IsDeleted == false)
+                     .Where(u => u.IsDeleted == user.IsDeleted)
+                     .Includes(u => u.Roles)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 
