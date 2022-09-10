@@ -54,7 +54,7 @@ namespace Yi.Framework.Service
         public async Task<PageModel<List<RoleEntity>>> SelctPageList(RoleEntity role, PageParModel page)
         {
             RefAsync<int> total = 0;
-            var data = await _repository._Db.Queryable<RoleEntity>()
+            var data = await _repository._DbQueryable
                     .WhereIF(!string.IsNullOrEmpty(role.RoleName), u => u.RoleName.Contains(role.RoleName))
                      .WhereIF(!string.IsNullOrEmpty(role.RoleCode), u => u.RoleCode.Contains(role.RoleCode))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)

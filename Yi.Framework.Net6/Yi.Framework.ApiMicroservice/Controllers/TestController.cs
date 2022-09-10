@@ -63,8 +63,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //还行，直接切换其他仓储，怎么爽怎么来
             await _iUserService._repository.ChangeRepository<Repository<RoleEntity>>().GetListAsync();
 
-            //最好不要直接操作Db对象
+            //最好不要在控制器直接操作Db对象
             await _iUserService._repository._Db.Queryable<UserEntity>().ToListAsync();
+            await _iUserService._repository._DbQueryable.ToListAsync();
 
             return Result.Success().SetData(await _iUserService.DbTest());
         }

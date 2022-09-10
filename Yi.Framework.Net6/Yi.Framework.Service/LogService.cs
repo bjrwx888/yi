@@ -17,7 +17,7 @@ namespace Yi.Framework.Service
 
         public async Task<List<LogEntity>> GetListTest()
         {
-            return await _repository._Db.Queryable<LogEntity>().SplitTable(tas => tas.Where(u => u.TableName.Contains("2020") || u.TableName.Contains("2021"))).ToListAsync();
+            return await _repository._DbQueryable.SplitTable(tas => tas.Where(u => u.TableName.Contains("2020") || u.TableName.Contains("2021"))).ToListAsync();
         }
     }
 }

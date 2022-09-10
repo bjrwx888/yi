@@ -12,7 +12,7 @@ namespace Yi.Framework.Service
     {
         public async Task<List<MenuEntity>> SelctGetList(MenuEntity menu)
         {
-            var data = await _repository._Db.Queryable<MenuEntity>()
+            var data = await _repository._DbQueryable
                     .WhereIF(!string.IsNullOrEmpty(menu.MenuName), u => u.MenuName.Contains(menu.MenuName))
                      .Where(u => u.IsDeleted == false)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)

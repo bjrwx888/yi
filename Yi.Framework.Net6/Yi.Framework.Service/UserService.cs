@@ -72,7 +72,7 @@ namespace Yi.Framework.Service
 
         public async Task<List<UserEntity>> GetListInRole()
         {
-            return await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles).ToListAsync();
+            return await _repository._DbQueryable.Includes(u => u.Roles).ToListAsync();
         }
 
         public async Task<bool> GiveUserSetRole(List<long> userIds, List<long> roleIds)
@@ -105,7 +105,7 @@ namespace Yi.Framework.Service
 
         public async Task<List<RoleEntity>> GetRoleListByUserId(long userId)
         {
-            return (await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles).InSingleAsync(userId)).Roles;
+            return (await _repository._DbQueryable.Includes(u => u.Roles).InSingleAsync(userId)).Roles;
         }
 
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
@@ -115,7 +115,7 @@ namespace Yi.Framework.Service
             //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
 
             //得到用户
-            var user = await _repository._Db.Queryable<UserEntity>().Includes(u => u.Roles.Where(r => r.IsDeleted == false).ToList(), r => r.Menus.Where(m => m.IsDeleted == false).ToList()).InSingleAsync(userId);
+            var user = await _repository._DbQueryable.Includes(u => u.Roles.Where(r => r.IsDeleted == false).ToList(), r => r.Menus.Where(m => m.IsDeleted == false).ToList()).InSingleAsync(userId);
 
             //得到角色集合
             var roleList = user.Roles;
@@ -168,7 +168,7 @@ namespace Yi.Framework.Service
         public async Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page)
         {
             RefAsync<int> total = 0;
-            var data = await _repository._Db.Queryable<UserEntity>()
+            var data = await _repository._DbQueryable
                     .WhereIF(!string.IsNullOrEmpty(user.UserName), u => u.UserName.Contains(user.UserName))
                      .WhereIF(!string.IsNullOrEmpty(user.Name), u => u.Name.Contains(user.Name))
                      .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
