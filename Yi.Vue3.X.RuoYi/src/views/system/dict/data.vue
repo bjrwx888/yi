@@ -221,7 +221,7 @@ const data = reactive({
     pageSize: 10,
     dictName: undefined,
     dictType: undefined,
-    isDeleted: undefined
+    isDeleted: false
   },
   rules: {
     dictLabel: [{ required: true, message: "数据标签不能为空", trigger: "blur" }],

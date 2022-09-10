@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
@@ -72,6 +73,30 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetList()
         {
             return Result.Success().SetData(await _iDictionaryService._repository.GetListAsync());
+        }
+
+
+        /// <summary>
+        /// id范围删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpDelete]
+
+        public async Task<Result> DelList(List<long> ids)
+        {
+            return Result.Success().SetStatus(await _iDictionaryService._repository.DeleteByIdsAsync(ids.ToDynamicArray()));
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> Update(DictionaryEntity dic)
+        {
+            return Result.Success().SetStatus(await _iDictionaryService._repository.UpdateIgnoreNullAsync(dic));
         }
     }
 }

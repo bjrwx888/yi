@@ -76,5 +76,29 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetStatus(await _iDictionaryInfoService._repository.DeleteByIdsAsync(ids.ToDynamicArray()));
         }
 
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="dicInfo"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> Update(DictionaryInfoEntity dicInfo)
+        {
+            return Result.Success().SetStatus(await _iDictionaryInfoService._repository.UpdateIgnoreNullAsync(dicInfo));
+        }
+
+
+        /// <summary>
+        /// 根据字典id获取字典信息表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Result> GetById(long id)
+        {
+            return Result.Success().SetData(await _iDictionaryInfoService._repository.GetByIdAsync(id));
+        }
     }
 }

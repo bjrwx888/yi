@@ -19,9 +19,9 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="status">
+         <el-form-item label="状态" prop="isDeleted">
             <el-select
-               v-model="queryParams.status"
+               v-model="queryParams.isDeleted"
                placeholder="字典状态"
                clearable
                style="width: 240px"
@@ -206,7 +206,7 @@ const data = reactive({
     pageSize: 10,
     dictName: undefined,
     dictType: undefined,
-    isDeleted: undefined
+    isDeleted: false
   },
   rules: {
     dictName: [{ required: true, message: "字典名称不能为空", trigger: "blur" }],
@@ -233,7 +233,7 @@ function cancel() {
 /** 表单重置 */
 function reset() {
   form.value = {
-    Id: undefined,
+    id: undefined,
     dictName: undefined,
     dictType: undefined,
     isDeleted: false,
@@ -260,14 +260,14 @@ function handleAdd() {
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.dictId);
+  ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  const dictId = row.dictId || ids.value;
+  const dictId = row.id || ids.value;
   getType(dictId).then(response => {
     form.value = response.data;
     open.value = true;
@@ -278,7 +278,7 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["dictRef"].validate(valid => {
     if (valid) {
-      if (form.value.dictId != undefined) {
+      if (form.value.id != undefined) {
         updateType(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
@@ -296,7 +296,7 @@ function submitForm() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const dictIds = row.dictId || ids.value;
+  const dictIds = row.id || ids.value;
   proxy.$modal.confirm('是否确认删除字典编号为"' + dictIds + '"的数据项？').then(function() {
     return delType(dictIds);
   }).then(() => {

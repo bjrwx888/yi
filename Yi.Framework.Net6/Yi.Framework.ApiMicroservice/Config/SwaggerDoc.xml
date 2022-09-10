@@ -130,6 +130,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.DelList(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            id范围删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.Update(Yi.Framework.Model.Models.DictionaryEntity)">
+            <summary>
+            更新
+            </summary>
+            <param name="dic"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.PageList(Yi.Framework.Model.Models.DictionaryInfoEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
@@ -157,6 +171,20 @@
             id范围删除
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.Update(Yi.Framework.Model.Models.DictionaryInfoEntity)">
+            <summary>
+            更新
+            </summary>
+            <param name="dicInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.GetById(System.Int64)">
+            <summary>
+            根据字典id获取字典信息表
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.FileController">
