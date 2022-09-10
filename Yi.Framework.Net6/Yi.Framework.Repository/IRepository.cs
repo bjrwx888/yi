@@ -11,16 +11,16 @@ using Yi.Framework.Model.Query;
 
 namespace Yi.Framework.Repository
 {
-    public interface IRepository<T> : ISimpleClient<T> where T : class, IBaseModelEntity, new()
+    public interface IRepository<T> : ISimpleClient<T> where T : class, new()
     {
         public ISugarQueryable<T> _DbQueryable { get; set; }
         public ISqlSugarClient _Db { get; set; }
         public Task<bool> UseTranAsync(Func<Task> func);
-        public Task<T> InsertReturnEntityAsync(T entity);
+        //public Task<T> InsertReturnEntityAsync(T entity);
         public Task<List<S>> StoreAsync<S>(string storeName, object para);
         public Task<PageModel<List<T>>> CommonPageAsync(QueryPageCondition pars);
         public  Task<List<T>> GetListAsync(QueryCondition pars);
-        public Task<bool> DeleteByLogicAsync(List<long> ids);
+        //public Task<bool> DeleteByLogicAsync(List<long> ids);
         public  Task<bool> UpdateIgnoreNullAsync(T entity);
         public  Task<List<S>> UseSqlAsync<S>(string sql, object parameters = null);
         public  Task<bool> UseSqlAsync(string sql, object parameters = null);

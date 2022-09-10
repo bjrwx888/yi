@@ -12,7 +12,7 @@ namespace Yi.Framework.Repository
     /// 仓储模式
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, IBaseModelEntity, new()
+    public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
         public ISugarQueryable<T> _DbQueryable { get { return base.Context.Queryable<T>(); } set { } }
 
@@ -59,16 +59,16 @@ namespace Yi.Framework.Repository
             return await _Db.Ado.ExecuteCommandAsync(sql,  parameters) >0;
         }
 
-        /// <summary>
-        /// 添加返回实体
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public async Task<T> InsertReturnEntityAsync(T entity)
-        {
-            entity.Id =SnowFlakeSingle.instance.getID();
-            return await _Db.Insertable(entity).ExecuteReturnEntityAsync();
-        }
+        ///// <summary>
+        ///// 添加返回实体
+        ///// </summary>
+        ///// <param name="entity"></param>
+        ///// <returns></returns>
+        //public async Task<T> InsertReturnEntityAsync(T entity)
+        //{
+        //    entity.Id =SnowFlakeSingle.instance.getID();
+        //    return await _Db.Insertable(entity).ExecuteReturnEntityAsync();
+        //}
 
         /// <summary>
         /// 更新忽略空值
@@ -81,16 +81,16 @@ namespace Yi.Framework.Repository
         }
 
 
-        /// <summary>
-        /// 逻辑多删除
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> DeleteByLogicAsync(List<long> ids)
-        {
-            var entitys = await _Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
-            entitys.ForEach(u=>u.IsDeleted=true);
-            return await _Db.Updateable(entitys).ExecuteCommandAsync()>0;
-        }
+        ///// <summary>
+        ///// 逻辑多删除
+        ///// </summary>
+        ///// <returns></returns>
+        //public async Task<bool> DeleteByLogicAsync(List<long> ids)
+        //{
+        //    var entitys = await _Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
+        //    entitys.ForEach(u=>u.IsDeleted=true);
+        //    return await _Db.Updateable(entitys).ExecuteCommandAsync()>0;
+        //}
 
 
         /// <summary>

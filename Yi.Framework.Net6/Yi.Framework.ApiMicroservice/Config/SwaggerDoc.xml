@@ -102,6 +102,46 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1">
+            <summary>
+            Json To Sql 类比模式，通用模型
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.GetById(System.Int64)">
+            <summary>
+            主键查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.GetList(Yi.Framework.Model.Query.QueryCondition)">
+            <summary>
+            全部列表查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.Update(`0)">
+            <summary>
+            修改
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1.DelList(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            列表删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询

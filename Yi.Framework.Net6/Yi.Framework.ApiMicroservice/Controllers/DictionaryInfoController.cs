@@ -19,13 +19,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class DictionaryInfoController
+    public class DictionaryInfoController:BaseSimpleCrudController<DictionaryInfoEntity>
     {
-        private IDictionaryService _iDictionaryService;
         private IDictionaryInfoService _iDictionaryInfoService;
-        public DictionaryInfoController(ILogger<DictionaryEntity> logger, IDictionaryService iDictionaryService, IDictionaryInfoService iDictionaryInfoService)
+        public DictionaryInfoController(ILogger<DictionaryInfoEntity> logger, IDictionaryInfoService iDictionaryInfoService):base(logger, iDictionaryInfoService)
         {
-            _iDictionaryService = iDictionaryService;
             _iDictionaryInfoService = iDictionaryInfoService;
         }
 
@@ -42,17 +40,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// 添加字典信息表
-        /// </summary>
-        /// <param name="dicInfo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<Result> Add(DictionaryInfoEntity dicInfo)
-        {
-            return Result.Success().SetData(await _iDictionaryInfoService._repository.InsertReturnSnowflakeIdAsync(dicInfo));
-        }
-
-        /// <summary>
         /// 根据字典类别获取字典信息
         /// </summary>
         /// <param name="type"></param>
@@ -62,43 +49,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetListByType([FromRoute] string type)
         {
             return Result.Success().SetData(await _iDictionaryInfoService._repository.GetListAsync(u=>u.DictType==type&&u.IsDeleted==false));
-        }
-
-        /// <summary>
-        /// id范围删除
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        
-        public async Task<Result> DelList(List<long> ids)
-        {
-            return Result.Success().SetStatus(await _iDictionaryInfoService._repository.DeleteByIdsAsync(ids.ToDynamicArray()));
-        }
-
-
-        /// <summary>
-        /// 更新
-        /// </summary>
-        /// <param name="dicInfo"></param>
-        /// <returns></returns>
-        [HttpPut]
-        public async Task<Result> Update(DictionaryInfoEntity dicInfo)
-        {
-            return Result.Success().SetStatus(await _iDictionaryInfoService._repository.UpdateIgnoreNullAsync(dicInfo));
-        }
-
-
-        /// <summary>
-        /// 根据字典id获取字典信息表
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<Result> GetById(long id)
-        {
-            return Result.Success().SetData(await _iDictionaryInfoService._repository.GetByIdAsync(id));
         }
     }
 }

@@ -16,12 +16,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [ApiController]
-    public class BaseCrudController<T> : ControllerBase where T : class,new()
+    public class BaseSimpleCrudController<T> : ControllerBase where T : class, new()
     {
         private readonly ILogger<T> _logger;
         private IBaseService<T> _baseService;
         private IRepository<T> _repository;
-        public BaseCrudController(ILogger<T> logger, IBaseService<T> iBaseService)
+        public BaseSimpleCrudController(ILogger<T> logger, IBaseService<T> iBaseService)
         {
             _logger = logger;
             _baseService = iBaseService;
@@ -41,26 +41,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// 列表查询
+        /// 全部列表查询
         /// </summary>
         /// <returns></returns>
         [Permission($"{nameof(T)}:get")]
         [HttpPost]
-        public virtual async Task<Result> GetList(QueryCondition queryCondition)
+        public virtual async Task<Result> GetList()
         {
-            return Result.Success().SetData(await _repository.GetListAsync(queryCondition));
-        }
-
-        /// <summary>
-        /// 条件分页查询
-        /// </summary>
-        /// <param name="queryCondition"></param>
-        /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
-        [HttpPost]
-        public virtual async  Task<Result> PageList(QueryPageCondition queryCondition)
-        {
-            return Result.Success().SetData(await _repository.CommonPageAsync(queryCondition));
+            return Result.Success().SetData(await _repository.GetListAsync());
         }
 
         /// <summary>
@@ -75,6 +63,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(await _repository.InsertReturnSnowflakeIdAsync(entity));
         }
         
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -94,9 +83,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Permission($"{nameof(T)}:del")]
         [HttpDelete]
-        public virtual async Task<Result> DeleteList(List<long> ids)
+        public virtual async Task<Result> DelList(List<long> ids)
         {
-            return Result.Success().SetStatus(await _repository.DeleteByIdAsync(ids.ToDynamicArray()));
+            return Result.Success().SetStatus(await _repository.DeleteByIdsAsync(ids.ToDynamicArray()));
         }
     }
 }

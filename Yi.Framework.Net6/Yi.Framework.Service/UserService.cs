@@ -64,7 +64,13 @@ namespace Yi.Framework.Service
             {
                 user.UserName = userEntity.UserName;
                 user.BuildPassword();
-                userAction.Invoke(await _repository.InsertReturnEntityAsync(user));
+                //等待老杰哥更新，杰哥漏了雪花id呀，嘿嘿
+                //var entity = await _repository.InsertReturnSnowflakeEntityAsync(user);
+                //userAction.Invoke(await _repository.GetByIdAsync(entity));
+
+                //await _repository.InsertReturnSnowflakeEntityAsync(user);
+                //userAction.Invoke(await _repository.GetByIdAsync(user));
+
                 return true;
             }
             return false;
