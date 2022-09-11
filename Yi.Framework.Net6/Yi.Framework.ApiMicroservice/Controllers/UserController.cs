@@ -21,7 +21,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class UserController : BaseSimpleCrudController<UserEntity>
+    public class UserController : BaseSimpleRdController<UserEntity>
     {
         private IUserService _iUserService;
         public UserController(ILogger<UserEntity> logger, IUserService iUserService) : base(logger, iUserService)
@@ -55,22 +55,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
 
-        /// <summary>
-        /// 添加用户，去重，密码加密
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        [Permission($"{nameof(UserEntity)}:add")]
-        [HttpPost]
-        public override async Task<Result> Add(UserEntity entity)
-        {
-            if (!await _iUserService.Exist(entity.UserName))
-            {
-                entity.BuildPassword();
-                return Result.Success().SetData(await _iUserService._repository.InsertReturnSnowflakeIdAsync(entity));
-            }
-            return Result.SuccessError("用户已存在");
-        }
+        ///// <summary>
+        ///// 添加用户，去重，密码加密
+        ///// </summary>
+        ///// <param name="entity"></param>
+        ///// <returns></returns>
+        //[Permission($"{nameof(UserEntity)}:add")]
+        //[HttpPost]
+        //public  async Task<Result> Add(UserEntity entity)
+        //{
+        //    if (!await _iUserService.Exist(entity.UserName))
+        //    {
+        //        entity.BuildPassword();
+        //        return Result.Success().SetData(await _iUserService._repository.InsertReturnSnowflakeIdAsync(entity));
+        //    }
+        //    return Result.SuccessError("用户已存在");
+        //}
 
         /// <summary>
         /// 给多用户设置多角色
@@ -87,21 +87,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 通过用户id得到用户信息关联部门、岗位、角色
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public override async Task<Result> GetById(long id)
+        public override async Task<Result> GetById([FromRoute] long id)
         {
             return Result.Success().SetData(await _iUserService.GetInfoById(id));
         }
 
-
         /// <summary>
         /// 更新用户信息
         /// </summary>
+        /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<Result> UpdateInfo(UserInfoDto userDto)
+        public async Task<Result> Update(UserInfoDto userDto)
         {
             return Result.Success().SetStatus(await _iUserService.UpdateInfo(userDto));
         }
@@ -109,13 +110,19 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 添加用户
         /// </summary>
+        /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Result> AddInfo(UserInfoDto userDto)
+        public async Task<Result> Add(UserInfoDto userDto)
         { 
             return Result.Success().SetStatus(await _iUserService.AddInfo(userDto));
         }
 
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<Result> RestPassword(UserEntity user)
         {

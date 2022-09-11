@@ -142,6 +142,32 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleRdController`1">
+            <summary>
+            Json To Sql 类比模式，通用模型
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleRdController`1.GetById(System.Int64)">
+            <summary>
+            主键查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleRdController`1.GetList">
+            <summary>
+            全部列表查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleRdController`1.DelList(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            列表删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
@@ -255,20 +281,14 @@
             <param name="giveRoleSetMenuDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetInMenuByRoleId(System.Int64)">
-            <summary>
-            通过角色id来获取菜单列表
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.AddInfo(Yi.Framework.DTOModel.RoleInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Add(Yi.Framework.DTOModel.RoleInfoDto)">
             <summary>
             添加角色包含菜单
             </summary>
             <param name="roleDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateInfo(Yi.Framework.DTOModel.RoleInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Update(Yi.Framework.DTOModel.RoleInfoDto)">
             <summary>
             更新角色信息
             </summary>
@@ -360,13 +380,6 @@
             <param name="isDel"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.Model.Models.UserEntity)">
-            <summary>
-            添加用户，去重，密码加密
-            </summary>
-            <param name="entity"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DTOModel.GiveUserSetRoleDto)">
             <summary>
             给多用户设置多角色
@@ -378,18 +391,28 @@
             <summary>
             通过用户id得到用户信息关联部门、岗位、角色
             </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateInfo(Yi.Framework.DTOModel.UserInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DTOModel.UserInfoDto)">
             <summary>
             更新用户信息
             </summary>
+            <param name="userDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.AddInfo(Yi.Framework.DTOModel.UserInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.DTOModel.UserInfoDto)">
             <summary>
             添加用户
             </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.RestPassword(Yi.Framework.Model.Models.UserEntity)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="user"></param>
             <returns></returns>
         </member>
     </members>

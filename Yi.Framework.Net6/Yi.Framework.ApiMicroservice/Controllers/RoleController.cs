@@ -22,7 +22,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class RoleController : BaseSimpleCrudController<RoleEntity>
+    public class RoleController : BaseSimpleRdController<RoleEntity>
     {
         private IRoleService _iRoleService;
         public RoleController(ILogger<RoleEntity> logger, IRoleService iRoleService) : base(logger, iRoleService)
@@ -52,15 +52,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetStatus(await _iRoleService.GiveRoleSetMenu(giveRoleSetMenuDto.RoleIds, giveRoleSetMenuDto.MenuIds));
         }
 
-        /// <summary>
-        /// 通过角色id来获取菜单列表
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Result> GetInMenuByRoleId(long RoleId)
-        {
-            return Result.Success().SetData(await _iRoleService.GetInMenuByRoleId(RoleId));
-        }
 
         /// <summary>
         /// 添加角色包含菜单
@@ -69,7 +60,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public async Task<Result> AddInfo(RoleInfoDto roleDto)
+        public async Task<Result> Add(RoleInfoDto roleDto)
         {
             return Result.Success().SetData(await _iRoleService.AddInfo(roleDto));
         }
@@ -79,7 +70,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public async Task<Result> UpdateInfo(RoleInfoDto roleDto)
+        public async Task<Result> Update(RoleInfoDto roleDto)
         {
             return Result.Success().SetStatus(await _iRoleService.UpdateInfo(roleDto));
         }
