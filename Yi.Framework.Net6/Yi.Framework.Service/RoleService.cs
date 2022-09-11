@@ -75,5 +75,13 @@ namespace Yi.Framework.Service
             var res2 = await GiveRoleSetMenu(new List<long> { res1 }, roleDto.MenuIds);
             return !0.Equals(res1) && res2;
         }
+
+
+        public async Task<bool> UpdateInfo(RoleInfoDto roleDto)
+        {
+            var res1 = await _repository.UpdateIgnoreNullAsync(roleDto.Role);
+            var res2 = await GiveRoleSetMenu(new List<long> { roleDto.Role.Id }, roleDto.MenuIds);
+            return res1 && res2;
+        }
     }
 }

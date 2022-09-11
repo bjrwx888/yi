@@ -188,7 +188,7 @@ const total = ref(0);
 const title = ref("");
 const dateRange = ref([]);
 const menuOptions = ref([]);
-const menuExpand = ref(false);
+const menuExpand = ref(true);
 const menuNodeAll = ref(false);
 const deptExpand = ref(true);
 const deptNodeAll = ref(false);
@@ -302,7 +302,6 @@ function getMenuTreeselect() {
       options.push({ id: m.id, label: m.menuName, parentId: m.parentId, children: m.children })
     })
     menuOptions.value = proxy.handleTree(options);
-
   })
 }
 /** 所有部门节点数据 */
@@ -352,145 +351,152 @@ function handleAdd() {
 function handleUpdate(row) {
   reset();
   const roleId = row.id || ids.value;
-  const roleMenu = getRoleMenuTreeselect(roleId);
+  getRoleMenuTreeselect(roleId);
   getRole(roleId).then(response => {
-    form.value = response.data;
-    form.value.orderNum = Number(form.value.orderNum);
+    form.value.role = response.data;
+    form.value.role.orderNum = Number(form.value.role.orderNum);
     open.value = true;
-    nextTick(() => {
-      roleMenu.then((res) => {
-        let checkedKeys = res.checkedKeys;
-        checkedKeys.forEach((v) => {
-          nextTick(() => {
-            menuRef.value.setChecked(v, true, false);
-          });
-        });
-      });
-    });
     title.value = "修改角色";
   });
 }
 /** 根据角色ID查询菜单树结构 */
 function getRoleMenuTreeselect(roleId) {
-  return roleMenuTreeselect(roleId).then(response => {
-    menuOptions.value = response.menus;
-    return response;
+  //1：获取该角色下的全部菜单id
+  //2：获取全量菜单
+  getMenuTreeselect();
+
+  roleMenuTreeselect(roleId).then(response => {
+
+    const menuIds = [];
+    response.data.forEach(m => {
+      menuIds.push(m.id)
+    })
+
+    menuIds.forEach((v) => {
+      nextTick(() => {
+        menuRef.value.setChecked(v, true, false);
+      });
+
+      //这里是要一个当前用户已拥有的菜单的id
+    })
+
   });
-}
+
+  }
 /** 根据角色ID查询部门树结构 */
 function getDeptTree(roleId) {
-  return deptTreeSelect(roleId).then(response => {
-    deptOptions.value = response.depts;
-    return response;
-  });
-}
+      return deptTreeSelect(roleId).then(response => {
+        deptOptions.value = response.depts;
+        return response;
+      });
+    }
 /** 树权限（展开/折叠）*/
 function handleCheckedTreeExpand(value, type) {
-  if (type == "menu") {
-    let treeList = menuOptions.value;
-    for (let i = 0; i < treeList.length; i++) {
-      menuRef.value.store.nodesMap[treeList[i].id].expanded = value;
+      if (type == "menu") {
+        let treeList = menuOptions.value;
+        for (let i = 0; i < treeList.length; i++) {
+          menuRef.value.store.nodesMap[treeList[i].id].expanded = value;
+        }
+      } else if (type == "dept") {
+        let treeList = deptOptions.value;
+        for (let i = 0; i < treeList.length; i++) {
+          deptRef.value.store.nodesMap[treeList[i].id].expanded = value;
+        }
+      }
     }
-  } else if (type == "dept") {
-    let treeList = deptOptions.value;
-    for (let i = 0; i < treeList.length; i++) {
-      deptRef.value.store.nodesMap[treeList[i].id].expanded = value;
-    }
-  }
-}
 /** 树权限（全选/全不选） */
 function handleCheckedTreeNodeAll(value, type) {
-  if (type == "menu") {
-    menuRef.value.setCheckedNodes(value ? menuOptions.value : []);
-  } else if (type == "dept") {
-    deptRef.value.setCheckedNodes(value ? deptOptions.value : []);
-  }
-}
+      if (type == "menu") {
+        menuRef.value.setCheckedNodes(value ? menuOptions.value : []);
+      } else if (type == "dept") {
+        deptRef.value.setCheckedNodes(value ? deptOptions.value : []);
+      }
+    }
 /** 树权限（父子联动） */
 function handleCheckedTreeConnect(value, type) {
-  if (type == "menu") {
-    form.value.menuCheckStrictly = value ? true : false;
-  } else if (type == "dept") {
-    form.value.deptCheckStrictly = value ? true : false;
-  }
-}
+      if (type == "menu") {
+        form.value.menuCheckStrictly = value ? true : false;
+      } else if (type == "dept") {
+        form.value.deptCheckStrictly = value ? true : false;
+      }
+    }
 /** 所有菜单节点数据 */
 function getMenuAllCheckedKeys() {
-  // 目前被选中的菜单节点
-  let checkedKeys = menuRef.value.getCheckedKeys();
-  // 半选中的菜单节点
-  let halfCheckedKeys = menuRef.value.getHalfCheckedKeys();
-  checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
-  return checkedKeys;
-}
+      // 目前被选中的菜单节点
+      let checkedKeys = menuRef.value.getCheckedKeys();
+      // 半选中的菜单节点
+      let halfCheckedKeys = menuRef.value.getHalfCheckedKeys();
+      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
+      return checkedKeys;
+    }
 /** 提交按钮 */
 function submitForm() {
-  proxy.$refs["roleRef"].validate(valid => {
-    if (valid) {
-      if (form.value.role.id != undefined) {
-        form.value.menuIds = getMenuAllCheckedKeys();
-        updateRole(form.value).then(response => {
-          proxy.$modal.msgSuccess("修改成功");
-          open.value = false;
-          getList();
+      proxy.$refs["roleRef"].validate(valid => {
+        if (valid) {
+          if (form.value.role.id != undefined) {
+            form.value.menuIds = getMenuAllCheckedKeys();
+            updateRole(form.value).then(response => {
+              proxy.$modal.msgSuccess("修改成功");
+              open.value = false;
+              getList();
+            });
+          } else {
+            form.value.menuIds = getMenuAllCheckedKeys();
+            addRole(form.value).then(response => {
+              proxy.$modal.msgSuccess("新增成功");
+              open.value = false;
+              getList();
+            });
+          }
+        }
+      });
+    }
+/** 取消按钮 */
+function cancel() {
+      open.value = false;
+      reset();
+    }
+/** 选择角色权限范围触发 */
+function dataScopeSelectChange(value) {
+      if (value !== "2") {
+        deptRef.value.setCheckedKeys([]);
+      }
+    }
+/** 分配数据权限操作 */
+function handleDataScope(row) {
+      reset();
+      const deptTreeSelect = getDeptTree(row.id);
+      getRole(row.id).then(response => {
+        form.value = response.data;
+        openDataScope.value = true;
+        nextTick(() => {
+          deptTreeSelect.then(res => {
+            nextTick(() => {
+              if (deptRef.value) {
+                deptRef.value.setCheckedKeys(res.checkedKeys);
+              }
+            });
+          });
         });
-      } else {
-        form.value.menuIds = getMenuAllCheckedKeys();
-        addRole(form.value).then(response => {
-          proxy.$modal.msgSuccess("新增成功");
-          open.value = false;
+        title.value = "分配数据权限";
+      });
+    }
+/** 提交按钮（数据权限） */
+function submitDataScope() {
+      if (form.value.id != undefined) {
+        form.value.deptIds = getDeptAllCheckedKeys();
+        dataScope(form.value).then(response => {
+          proxy.$modal.msgSuccess("修改成功");
+          openDataScope.value = false;
           getList();
         });
       }
     }
-  });
-}
-/** 取消按钮 */
-function cancel() {
-  open.value = false;
-  reset();
-}
-/** 选择角色权限范围触发 */
-function dataScopeSelectChange(value) {
-  if (value !== "2") {
-    deptRef.value.setCheckedKeys([]);
-  }
-}
-/** 分配数据权限操作 */
-function handleDataScope(row) {
-  reset();
-  const deptTreeSelect = getDeptTree(row.id);
-  getRole(row.id).then(response => {
-    form.value = response.data;
-    openDataScope.value = true;
-    nextTick(() => {
-      deptTreeSelect.then(res => {
-        nextTick(() => {
-          if (deptRef.value) {
-            deptRef.value.setCheckedKeys(res.checkedKeys);
-          }
-        });
-      });
-    });
-    title.value = "分配数据权限";
-  });
-}
-/** 提交按钮（数据权限） */
-function submitDataScope() {
-  if (form.value.id != undefined) {
-    form.value.deptIds = getDeptAllCheckedKeys();
-    dataScope(form.value).then(response => {
-      proxy.$modal.msgSuccess("修改成功");
-      openDataScope.value = false;
-      getList();
-    });
-  }
-}
 /** 取消按钮（数据权限）*/
 function cancelDataScope() {
-  openDataScope.value = false;
-  reset();
-}
+      openDataScope.value = false;
+      reset();
+    }
 
 getList();
 </script>

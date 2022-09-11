@@ -44,5 +44,13 @@ namespace Yi.Framework.Interface
         /// <param name="roleDto"></param>
         /// <returns></returns>
        Task<bool> AddInfo(RoleInfoDto roleDto);
+
+
+        /// <summary>
+        /// 更新角色关联菜单
+        /// </summary>
+        /// <param name="roleDto"></param>
+        /// <returns></returns>
+        Task<bool> UpdateInfo(RoleInfoDto roleDto);
     }
 }

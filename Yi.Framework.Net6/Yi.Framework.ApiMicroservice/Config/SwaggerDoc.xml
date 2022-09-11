@@ -230,6 +230,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetListByRoleId(System.Int64)">
+            <summary>
+            根据角色id获取该角色下全部菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.RoleController">
             <summary>
             角色管理
@@ -259,6 +266,12 @@
             添加角色包含菜单
             </summary>
             <param name="roleDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateInfo(Yi.Framework.DTOModel.RoleInfoDto)">
+            <summary>
+            更新角色信息
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">

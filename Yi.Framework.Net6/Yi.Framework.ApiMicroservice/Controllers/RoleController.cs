@@ -10,6 +10,7 @@ using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
+using Yi.Framework.Service;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
@@ -71,6 +72,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> AddInfo(RoleInfoDto roleDto)
         {
             return Result.Success().SetData(await _iRoleService.AddInfo(roleDto));
+        }
+
+        /// <summary>
+        /// 更新角色信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdateInfo(RoleInfoDto roleDto)
+        {
+            return Result.Success().SetStatus(await _iRoleService.UpdateInfo(roleDto));
         }
     }
 }

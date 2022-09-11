@@ -25,5 +25,11 @@ namespace Yi.Framework.Service
             //复杂查询直接使用db代理
             return await _repository._Db.Queryable<MenuEntity>().Where(u => u.IsDeleted == false).ToTreeAsync(it => it.Children, it => it.ParentId, 0);
         }
+
+
+        public async Task<List<MenuEntity>> GetListByRoleId(long roleId)
+        {
+            return (await _repository._Db.Queryable<RoleEntity>().Includes(r => r.Menus).SingleAsync(r=>r.Id==roleId)).Menus;
+        }
     }
 }

@@ -31,7 +31,7 @@ export function addRole(data) {
 // 修改角色
 export function updateRole(data) {
   return request({
-    url: '/system/role',
+    url: '/role/updateInfo',
     method: 'put',
     data: data
   })
@@ -130,4 +130,5 @@ export function roleOptionselect() {
     url: '/role/getList',
     method: 'get'
   })
+
 }

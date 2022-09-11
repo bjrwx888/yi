@@ -10,5 +10,12 @@ namespace Yi.Framework.Interface
     {
         Task<List<MenuEntity>> GetMenuTreeAsync();
         Task<List<MenuEntity>> SelctGetList(MenuEntity menu);
+
+        /// <summary>
+        /// 获取该角色id下的所有菜单
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<List<MenuEntity>> GetListByRoleId(long roleId);
     }
 }
