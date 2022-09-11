@@ -235,5 +235,17 @@ namespace Yi.Framework.Service
             var res2 = await GiveUserSetRole(new List<long> { res1 }, userDto.RoleIds);
             return !0.Equals(res1) && res2;
         }
+
+        public async Task<bool> RestPassword(long userId, string password)
+        {
+            var user = new UserEntity();
+            user.Id = userId;
+            user.Password = password;
+            user.BuildPassword();
+
+            return await _repository.UpdateIgnoreNullAsync(user);
+
+
+        }
     }
 }

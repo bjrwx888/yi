@@ -98,5 +98,13 @@ namespace Yi.Framework.Interface
         /// <param name="userDto"></param>
         /// <returns></returns>
         Task<bool> AddInfo(UserInfoDto userDto);
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        Task<bool> RestPassword(long userId,string password );
     }
 }

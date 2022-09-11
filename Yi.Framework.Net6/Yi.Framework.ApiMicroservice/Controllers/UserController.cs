@@ -115,5 +115,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         { 
             return Result.Success().SetStatus(await _iUserService.AddInfo(userDto));
         }
+
+        [HttpPut]
+        public async Task<Result> RestPassword(UserEntity user)
+        {
+            return Result.Success().SetStatus(await _iUserService.RestPassword(user.Id, user.Password));
+        }
     }
 }
