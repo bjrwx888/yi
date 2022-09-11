@@ -87,7 +87,7 @@
 
     <!-- 添加或修改角色配置对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="roleRef" :model="form" :rules="rules" label-width="100px">
+      <el-form ref="roleRef" :model="form.role" :rules="rules" label-width="100px">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="form.role.roleName" placeholder="请输入角色名称" />
         </el-form-item>
@@ -216,9 +216,9 @@ const data = reactive({
     isDeleted: undefined
   },
   rules: {
-    // roleName: [{ required: true, message: "角色名称不能为空", trigger: "blur" }],
-    // roleCode: [{ required: true, message: "权限字符不能为空", trigger: "blur" }],
-    // orderNum: [{ required: true, message: "角色顺序不能为空", trigger: "blur" }]
+    roleName: [{ required: true, message: "角色名称不能为空", trigger: "blur" }],
+    roleCode: [{ required: true, message: "权限字符不能为空", trigger: "blur" }],
+    orderNum: [{ required: true, message: "角色顺序不能为空", trigger: "blur" }]
   },
 });
 

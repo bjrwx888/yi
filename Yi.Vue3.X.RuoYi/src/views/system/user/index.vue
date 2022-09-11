@@ -114,7 +114,7 @@
 
       <!-- 添加或修改用户配置对话框 -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
-         <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
+         <el-form :model="form.user" :rules="rules" ref="userRef" label-width="80px">
             <el-row>
                <el-col :span="12">
                   <el-form-item label="用户昵称" prop="nick">
@@ -296,11 +296,11 @@ const data = reactive({
       deptId: undefined
    },
    rules: {
-      // userName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
-      // nick: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-      // // password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
-      // email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
-      // phone: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
+      userName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
+      nick: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+      // password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
+      email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
+      phone: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
    }
 });
 
@@ -457,18 +457,14 @@ function reset() {
    };
    proxy.resetForm("userRef");
 
-// console.log(postOptions.value==[],123)
-// console.log( JSON.stringify(postOptions.value) =='{}',456)
-
-   // //如果有任何下拉框为空直接重置获取
-   // if(postOptions.value=={}||roleOptions.value=={})
-   // {
+   if(postOptions.value.length==0||roleOptions.value.length==0)
+   {
       roleOptionselect().then(response=>{
       //岗位从另一个接口获取全量
       postOptions.value = [];
       roleOptions.value = response.data;
    })
-   // }
+   }
 
 
 };
@@ -485,13 +481,6 @@ function handleAdd() {
 
    open.value = true;
       title.value = "添加用户";
-   // getUser().then(response => {
-   //    postOptions.value = response.posts;
-   //    roleOptions.value = response.roles;
-   //    open.value = true;
-   //    title.value = "添加用户";
-   //    form.value.password = initPassword.value;
-   // });
 };
 /** 修改按钮操作 */
 function handleUpdate(row) {

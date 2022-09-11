@@ -13,7 +13,6 @@ namespace Yi.Framework.Model.Models
     {
         public MenuEntity()
         {
-            this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]

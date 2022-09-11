@@ -20,10 +20,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MenuController
+    public class MenuController: BaseSimpleRdController<MenuEntity>
     {
         private IMenuService _iMenuService;
-        public MenuController(ILogger<MenuEntity> logger, IMenuService iMenuService)
+        public MenuController(ILogger<MenuEntity> logger, IMenuService iMenuService):base(logger,iMenuService)
         {
             _iMenuService = iMenuService;
         }
@@ -35,7 +35,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="menu"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetList([FromQuery] MenuEntity menu)
+        public async Task<Result> SelctGetList([FromQuery] MenuEntity menu)
         {
             return Result.Success().SetData(await _iMenuService.SelctGetList(menu));
         }
@@ -49,6 +49,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> Add(MenuEntity menu)
         {
             return Result.Success().SetData(await _iMenuService._repository.InsertReturnSnowflakeIdAsync(menu));
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> Update(MenuEntity menu)
+        {
+            //注意，这里如果是主目录，还需要判断/，需要以/开头
+            return Result.Success().SetData(await _iMenuService._repository.UpdateIgnoreNullAsync(menu));
         }
 
 

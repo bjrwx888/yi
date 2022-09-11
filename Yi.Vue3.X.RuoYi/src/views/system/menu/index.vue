@@ -62,7 +62,8 @@
          </el-table-column>
          <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
          <el-table-column prop="permissionCode" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
-         <el-table-column prop="router" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
+         <el-table-column prop="router" label="路由" :show-overflow-tooltip="true"></el-table-column>
+         <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
          <el-table-column prop="isDeleted" label="状态" width="80">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
@@ -353,7 +354,7 @@ function cancel() {
 /** 表单重置 */
 function reset() {
   form.value = {
-    menuId: undefined,
+    id: undefined,
     parentId: 0,
     menuName: undefined,
     menuIcon: undefined,
@@ -427,7 +428,7 @@ async function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["menuRef"].validate(valid => {
     if (valid) {
-      if (form.value.menuId != undefined) {
+      if (form.value.id != undefined) {
         updateMenu(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
@@ -446,7 +447,7 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   proxy.$modal.confirm('是否确认删除名称为"' + row.menuName + '"的数据项?').then(function() {
-    return delMenu(row.menuId);
+    return delMenu(row.id);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");

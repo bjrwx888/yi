@@ -236,7 +236,7 @@
             菜单管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetList(Yi.Framework.Model.Models.MenuEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.SelctGetList(Yi.Framework.Model.Models.MenuEntity)">
             <summary>
             动态条件查询全部
             </summary>
@@ -246,6 +246,13 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.Add(Yi.Framework.Model.Models.MenuEntity)">
             <summary>
             插入
+            </summary>
+            <param name="menu"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.Update(Yi.Framework.Model.Models.MenuEntity)">
+            <summary>
+            更新
             </summary>
             <param name="menu"></param>
             <returns></returns>

@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询菜单列表
 export function listMenu(query) {
   return request({
-    url: '/menu/getList',
+    url: '/menu/selctGetList',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listMenu(query) {
 // 查询菜单详细
 export function getMenu(menuId) {
   return request({
-    url: '/system/menu/' + menuId,
+    url: '/menu/getById/' + menuId,
     method: 'get'
   })
 }
@@ -45,7 +45,7 @@ export function addMenu(data) {
 // 修改菜单
 export function updateMenu(data) {
   return request({
-    url: '/system/menu',
+    url: '/menu/update',
     method: 'put',
     data: data
   })
@@ -53,8 +53,13 @@ export function updateMenu(data) {
 
 // 删除菜单
 export function delMenu(menuId) {
+  if("string"==typeof(menuId))
+  {
+    menuId=[menuId];
+  }
   return request({
-    url: '/system/menu/' + menuId,
-    method: 'delete'
+    url: '/menu/delList',
+    method: 'delete',
+    data:menuId
   })
 }
