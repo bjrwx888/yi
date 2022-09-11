@@ -294,6 +294,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateStatus(System.Int64,System.Boolean)">
+            <summary>
+            更改角色状态
+            </summary>
+            <param name="roleId"></param>
+            <param name="isDel"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>
             测试控制器

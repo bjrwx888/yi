@@ -8,10 +8,10 @@ namespace Yi.Framework.Common.Models
 {
     public interface ITreeModel<T>
     {
-        public int Id { get; set; }
-        public int ParentId { get; set; }
-        public int Sort { get; set; }
+        public long Id { get; set; }
+        public long ParentId { get; set; }
+        public int OrderNum { get; set; }
 
-        public IList<T> Children { get; set; }
+        public List<T> Children { get; set; }
     }
 }

@@ -8,9 +8,9 @@ namespace Yi.Framework.Common.Models
 {
     public class VueRouterModel : ITreeModel<VueRouterModel>
     {
-        public int Id { get; set; }
-        public int ParentId { get; set; }
-        public int Sort { get; set; }
+        public long Id { get; set; }
+        public long ParentId { get; set; }
+        public int OrderNum { get; set; }
 
         public string Name { get; set; }
         public string Path { get; set; }
@@ -19,7 +19,7 @@ namespace Yi.Framework.Common.Models
         public string Component { get; set; }
         public bool AlwaysShow { get; set; }
         public Meta Meta { get; set; }
-        public IList<VueRouterModel> Children { get; set; }
+        public List<VueRouterModel> Children { get; set; }
     }
 
 

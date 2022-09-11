@@ -60,7 +60,7 @@ namespace Yi.Framework.Service
                     .WhereIF(!string.IsNullOrEmpty(role.RoleName), u => u.RoleName.Contains(role.RoleName))
                      .WhereIF(!string.IsNullOrEmpty(role.RoleCode), u => u.RoleCode.Contains(role.RoleCode))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
-                     .Where(u => u.IsDeleted == role.IsDeleted)
+                     .WhereIF(role.IsDeleted.IsNotNull(),  u => u.IsDeleted == role.IsDeleted)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 

@@ -132,10 +132,10 @@ namespace Yi.Framework.Service
                         if (!string.IsNullOrEmpty(menu.PermissionCode))
                         {
                             userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
-                            userRoleMenu.Menus.Add(menu);
+                            
                         }
 
-
+                        userRoleMenu.Menus.Add(menu);
                     }
                 }
 
@@ -164,7 +164,7 @@ namespace Yi.Framework.Service
                      .WhereIF(!string.IsNullOrEmpty(user.Name), u => u.Name.Contains(user.Name))
                      .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
-                     .Where(u => u.IsDeleted == user.IsDeleted)
+                     .WhereIF(user.IsDeleted.IsNotNull(),u => u.IsDeleted == user.IsDeleted)
                      .Includes(u => u.Roles)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
@@ -179,8 +179,12 @@ namespace Yi.Framework.Service
             List<VueRouterModel> routers = new();
             foreach (var m in menus)
             {
+               
                 var r = new VueRouterModel();
                 var routerName = m.Router.Split("/").LastOrDefault();
+                r.Id = m.Id;
+                r.ParentId = (long)m.ParentId;
+              
                 //开头大写
                 r.Name = routerName.First().ToString().ToUpper() + routerName.Substring(1);
                 r.Path = m.Router;
@@ -195,6 +199,9 @@ namespace Yi.Framework.Service
                 }
                 if (m.MenuType == MenuTypeEnum.Menu.GetHashCode())
                 {
+
+                    r.Redirect = "noRedirect";
+                    r.AlwaysShow = true;
                     r.Component = m.Component;
                 }
 
@@ -212,7 +219,7 @@ namespace Yi.Framework.Service
 
                 routers.Add(r);
             }
-            return routers;
+            return Common.Helper.TreeHelper.SetTree(routers) ;
         }
 
         public async Task<bool> UpdateInfo(UserInfoDto userDto)

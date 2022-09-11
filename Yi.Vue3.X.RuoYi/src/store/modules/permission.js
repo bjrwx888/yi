@@ -35,8 +35,8 @@ const usePermissionStore = defineStore(
       generateRoutes(roles) {
         return new Promise(resolve => {
           // 向后端请求路由数据
-          // getRouters().then(res => {
-
+//           getRouters().then(response => {
+// const res=response.data;
 const res=[
   {
       "name": "System",
@@ -344,6 +344,7 @@ const res=[
   }
 ];
 
+
             const sdata = JSON.parse(JSON.stringify(res))
             const rdata = JSON.parse(JSON.stringify(res))
             const defaultData = JSON.parse(JSON.stringify(res))
@@ -357,7 +358,10 @@ const res=[
             this.setDefaultRoutes(sidebarRoutes)
             this.setTopbarRoutes(defaultRoutes)
             resolve(rewriteRoutes)
-    //       })
+
+
+
+                      // })
         })
       }
     }

@@ -190,9 +190,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             List<VueRouterModel> vueRouterModels = new()
             {
-                new VueRouterModel { Id = 1, Sort = 1, ParentId = 0, Name = "001" },
-                new VueRouterModel { Id = 2, Sort = 1, ParentId = 1, Name = "001001" },
-                new VueRouterModel { Id = 3, Sort = 1, ParentId = 1, Name = "001002" }
+                new VueRouterModel { Id = 1, OrderNum = 1, ParentId = 0, Name = "001" },
+                new VueRouterModel { Id = 2, OrderNum = 1, ParentId = 1, Name = "001001" },
+                new VueRouterModel { Id = 3, OrderNum = 1, ParentId = 1, Name = "001002" }
             };
             var treeData = Common.Helper.TreeHelper.SetTree(vueRouterModels);
             return Result.Success().SetData(treeData);

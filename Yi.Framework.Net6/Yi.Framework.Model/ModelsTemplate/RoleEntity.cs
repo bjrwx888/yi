@@ -13,7 +13,7 @@ namespace Yi.Framework.Model.Models
     {
         public RoleEntity()
         {
-            this.IsDeleted = false;
+            //this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]

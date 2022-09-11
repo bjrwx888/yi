@@ -9,7 +9,7 @@ namespace Yi.Framework.Common.Helper
 {
     public static class TreeHelper
     {
-        public static IList<T> SetTree<T>(IList<T> list, Action<T> action = null)
+        public static List<T> SetTree<T>(List<T> list, Action<T> action = null)
         {
             if (list != null && list.Count > 0)
             {
@@ -30,7 +30,7 @@ namespace Yi.Framework.Common.Helper
                         SetTreeChildren(list, children, model, action);
                     }
                 }
-                return result.OrderBy(m => (m as ITreeModel<T>).Sort).ToList();
+                return result.OrderBy(m => (m as ITreeModel<T>).OrderNum).ToList();
             }
             return null;
         }
@@ -52,7 +52,7 @@ namespace Yi.Framework.Common.Helper
                     SetTreeChildren(list, _children, item, action);
                 }
             }
-            mm.Children = mm.Children.OrderBy(m => (m as ITreeModel<T>).Sort).ToList();
+            mm.Children = mm.Children.OrderBy(m => (m as ITreeModel<T>).OrderNum).ToList();
         }
     }
 }

@@ -66,8 +66,8 @@
 
             <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                <el-table-column type="selection" width="50" align="center" />
-               <el-table-column label="用户账号" align="center" key="userName" prop="userName" v-if="columns[0].visible" />
-               <el-table-column label="用户名称" align="center" key="name" prop="name" v-if="columns[1].visible"
+               <el-table-column label="用户编号" align="center" key="id" prop="id" v-if="columns[0].visible" />
+               <el-table-column label="用户账号" align="center" key="userName" prop="userName" v-if="columns[1].visible"
                   :show-overflow-tooltip="true" />
                <el-table-column label="用户昵称" align="center" key="nick" prop="nick" v-if="columns[2].visible"
                   :show-overflow-tooltip="true" />
@@ -177,7 +177,7 @@
                   <el-form-item label="岗位">
                      <el-select v-model="form.postIds" multiple placeholder="请选择">
                         <el-option v-for="item in postOptions" :key="item.postId" :label="item.postName"
-                           :value="item.postId" :disabled="item.status == 1"></el-option>
+                           :value="item.postId" :disabled="item.isDeleted == true"></el-option>
                      </el-select>
                   </el-form-item>
                </el-col>

@@ -74,5 +74,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             return Result.Success().SetStatus(await _iRoleService.UpdateInfo(roleDto));
         }
+
+        /// <summary>
+        /// 更改角色状态
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="isDel"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdateStatus(long roleId, bool isDel)
+        {
+            return Result.Success().SetData(await _iRoleService._repository.UpdateIgnoreNullAsync(new RoleEntity() { Id = roleId, IsDeleted = isDel }));
+
+        }
     }
 }
