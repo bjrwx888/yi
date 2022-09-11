@@ -21,7 +21,7 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/system/user',
+    url: '/user/addInfo',
     method: 'post',
     data: data
   })
@@ -30,7 +30,7 @@ export function addUser(data) {
 // 修改用户
 export function updateUser(data) {
   return request({
-    url: '/system/user',
+    url: '/user/updateInfo',
     method: 'put',
     data: data
   })
@@ -38,9 +38,14 @@ export function updateUser(data) {
 
 // 删除用户
 export function delUser(userId) {
+  if("string"==typeof(userId))
+  {
+    userId=[userId];
+  }
   return request({
-    url: '/system/user/' + userId,
-    method: 'delete'
+    url: '/user/delList',
+    method: 'delete',
+    data:userId
   })
 }
 

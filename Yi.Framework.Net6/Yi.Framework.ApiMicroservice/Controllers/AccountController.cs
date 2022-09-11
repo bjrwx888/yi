@@ -130,7 +130,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var userEntiy = await _iUserService._repository.GetByIdAsync(userId);
 
             //判断输入的老密码是否和原密码相同
-            if (_iUserService.JudgePassword(userEntiy, updatePasswordDto.OldPassword))
+            if (userEntiy.JudgePassword(updatePasswordDto.OldPassword))
             {
                 userEntiy.Password = updatePasswordDto.NewPassword;
                 userEntiy.BuildPassword();

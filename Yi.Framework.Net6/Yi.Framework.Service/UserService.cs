@@ -81,13 +81,12 @@ namespace Yi.Framework.Service
             //多次操作，需要事务确保原子性
             return await _repositoryUserRole.UseTranAsync(async () =>
              {
+                 //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+                 await _repositoryUserRole.DeleteAsync(u => userIds.Contains((long)u.UserId));
 
                  //遍历用户
                  foreach (var userId in userIds)
                  {
-                     //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
-                     await _repositoryUserRole.DeleteAsync(u => u.UserId == userId);
-
                      //添加新的关系
                      List<UserRoleEntity> userRoleEntities = new();
                      foreach (var roleId in roleIds)
@@ -154,14 +153,7 @@ namespace Yi.Framework.Service
             return userRoleMenu;
         }
 
-        public bool JudgePassword(UserEntity user, string password)
-        {
-            if (user.Password == MD5Helper.SHA2Encode(password, user.Salt))
-            {
-                return true;
-            }
-            return false;
-        }
+
 
 
         public async Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page)
@@ -221,6 +213,27 @@ namespace Yi.Framework.Service
                 routers.Add(r);
             }
             return routers;
+        }
+
+        public async Task<bool> UpdateInfo(UserInfoDto userDto)
+        {
+            //未填写密码，可不更新
+            userDto.User.Salt = null;
+            if (userDto.User.Password.IsNotNull())
+            {
+                userDto.User.BuildPassword();
+            }
+            var res1 = await _repository.UpdateIgnoreNullAsync(userDto.User);
+            var res2 = await GiveUserSetRole(new List<long> { userDto.User.Id }, userDto.RoleIds);
+            return res1 && res2;
+        }
+
+        public async Task<bool> AddInfo(UserInfoDto userDto)
+        {
+            userDto.User.BuildPassword();
+            var res1 = await _repository.InsertReturnSnowflakeIdAsync(userDto.User);
+            var res2 = await GiveUserSetRole(new List<long> { res1 }, userDto.RoleIds);
+            return !0.Equals(res1) && res2;
         }
     }
 }

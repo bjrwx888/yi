@@ -88,19 +88,19 @@
                </el-table-column>
                <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
                   <template #default="scope">
-                     <el-tooltip content="修改" placement="top" v-if="scope.row.userId !== 1">
+                     <el-tooltip content="修改" placement="top" v-if="scope.row.userName !== 'cc'">
                         <el-button type="text" icon="Edit" @click="handleUpdate(scope.row)"
                            v-hasPermi="['system:user:edit']"></el-button>
                      </el-tooltip>
-                     <el-tooltip content="删除" placement="top" v-if="scope.row.userId !== 1">
+                     <el-tooltip content="删除" placement="top" v-if="scope.row.userName !== 'cc'">
                         <el-button type="text" icon="Delete" @click="handleDelete(scope.row)"
                            v-hasPermi="['system:user:remove']"></el-button>
                      </el-tooltip>
-                     <el-tooltip content="重置密码" placement="top" v-if="scope.row.userId !== 1">
+                     <el-tooltip content="重置密码" placement="top" v-if="scope.row.userName !== 'cc'">
                         <el-button type="text" icon="Key" @click="handleResetPwd(scope.row)"
                            v-hasPermi="['system:user:resetPwd']"></el-button>
                      </el-tooltip>
-                     <el-tooltip content="分配角色" placement="top" v-if="scope.row.userId !== 1">
+                     <el-tooltip content="分配角色" placement="top" v-if="scope.row.userName !== 'cc'">
                         <el-button type="text" icon="CircleCheck" @click="handleAuthRole(scope.row)"
                            v-hasPermi="['system:user:edit']"></el-button>
                      </el-tooltip>
@@ -143,12 +143,12 @@
             </el-row>
             <el-row>
                <el-col :span="12">
-                  <el-form-item v-if="form.userId == undefined" label="用户名称" prop="userName">
+                  <el-form-item v-if="form.id == undefined" label="用户名称" prop="userName">
                      <el-input v-model="form.user.userName" placeholder="请输入用户名称" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item v-if="form.userId == undefined" label="用户密码" prop="password">
+                  <el-form-item v-if="form.id == undefined" label="用户密码" prop="password">
                      <el-input v-model="form.user.password" placeholder="请输入用户密码" type="password" maxlength="20"
                         show-password />
                   </el-form-item>
@@ -296,11 +296,11 @@ const data = reactive({
       deptId: undefined
    },
    rules: {
-      userName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
-      nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-      password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
-      email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
-      phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
+      // userName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
+      // nick: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+      // // password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
+      // email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
+      // phone: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
    }
 });
 
@@ -349,7 +349,7 @@ function resetQuery() {
 };
 /** 删除按钮操作 */
 function handleDelete(row) {
-   const userIds = row.userId || ids.value;
+   const userIds = row.id || ids.value;
    proxy.$modal.confirm('是否确认删除用户编号为"' + userIds + '"的数据项？').then(function () {
       return delUser(userIds);
    }).then(() => {
@@ -389,7 +389,7 @@ function handleCommand(command, row) {
 };
 /** 跳转角色分配 */
 function handleAuthRole(row) {
-   const userId = row.userId;
+   const userId = row.id;
    router.push("/system/user-auth/role/" + userId);
 };
 /** 重置密码按钮操作 */
@@ -401,14 +401,14 @@ function handleResetPwd(row) {
       inputPattern: /^.{5,20}$/,
       inputErrorMessage: "用户密码长度必须介于 5 和 20 之间",
    }).then(({ value }) => {
-      resetUserPwd(row.userId, value).then(response => {
+      resetUserPwd(row.id, value).then(response => {
          proxy.$modal.msgSuccess("修改成功，新密码是：" + value);
       });
    }).catch(() => { });
 };
 /** 选择条数  */
 function handleSelectionChange(selection) {
-   ids.value = selection.map(item => item.userId);
+   ids.value = selection.map(item => item.id);
    single.value = selection.length != 1;
    multiple.value = !selection.length;
 };
@@ -456,36 +456,47 @@ function reset() {
       deptId: undefined
    };
    proxy.resetForm("userRef");
+
+// console.log(postOptions.value==[],123)
+// console.log( JSON.stringify(postOptions.value) =='{}',456)
+
+   // //如果有任何下拉框为空直接重置获取
+   // if(postOptions.value=={}||roleOptions.value=={})
+   // {
+      roleOptionselect().then(response=>{
+      //岗位从另一个接口获取全量
+      postOptions.value = [];
+      roleOptions.value = response.data;
+   })
+   // }
+
+
 };
 /** 取消按钮 */
 function cancel() {
    open.value = false;
    reset();
 };
+
+
 /** 新增按钮操作 */
 function handleAdd() {
    reset();
-   getUser().then(response => {
-      postOptions.value = response.posts;
-      roleOptions.value = response.roles;
-      open.value = true;
+
+   open.value = true;
       title.value = "添加用户";
-      form.value.password = initPassword.value;
-   });
+   // getUser().then(response => {
+   //    postOptions.value = response.posts;
+   //    roleOptions.value = response.roles;
+   //    open.value = true;
+   //    title.value = "添加用户";
+   //    form.value.password = initPassword.value;
+   // });
 };
 /** 修改按钮操作 */
 function handleUpdate(row) {
    reset();
    const userId = row.id || ids.value;
-   roleOptionselect().then(response=>{
-      //岗位从另一个接口获取全量
-      postOptions.value = [];
-      roleOptions.value = response.data;
-   })
-
-
-
-
    getUser(userId).then(response => {
       form.value.user = response.data;
       form.value.postIds = [];
@@ -494,14 +505,14 @@ function handleUpdate(row) {
       });
       open.value = true;
       title.value = "修改用户";
-      form.password = "";
+      form.value.user.password = null;
    });
 };
 /** 提交按钮 */
 function submitForm() {
    proxy.$refs["userRef"].validate(valid => {
       if (valid) {
-         if (form.value.userId != undefined) {
+         if (form.value.user.id != undefined) {
             updateUser(form.value).then(response => {
                proxy.$modal.msgSuccess("修改成功");
                open.value = false;

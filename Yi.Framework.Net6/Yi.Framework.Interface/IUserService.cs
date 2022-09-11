@@ -68,13 +68,7 @@ namespace Yi.Framework.Interface
         /// <returns></returns>
         Task<UserRoleMenuDto> GetUserAllInfo(long userId);
 
-        /// <summary>
-        /// 判断用户密码是否和原密码相同
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        bool JudgePassword(UserEntity user, string password);
+
 
         /// <summary>
         /// 动态条件分页查询
@@ -90,5 +84,19 @@ namespace Yi.Framework.Interface
         /// <param name="menus"></param>
         /// <returns></returns>
         List<VueRouterModel> RouterBuild(List<MenuEntity> menus);
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
+        Task<bool> UpdateInfo(UserInfoDto userDto);
+
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
+        Task<bool> AddInfo(UserInfoDto userDto);
     }
 }

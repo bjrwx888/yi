@@ -94,5 +94,26 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             return Result.Success().SetData(await _iUserService.GetInfoById(id));
         }
+
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdateInfo(UserInfoDto userDto)
+        {
+            return Result.Success().SetStatus(await _iUserService.UpdateInfo(userDto));
+        }
+
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> AddInfo(UserInfoDto userDto)
+        { 
+            return Result.Success().SetStatus(await _iUserService.AddInfo(userDto));
+        }
     }
 }

@@ -360,5 +360,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateInfo(Yi.Framework.DTOModel.UserInfoDto)">
+            <summary>
+            更新用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.AddInfo(Yi.Framework.DTOModel.UserInfoDto)">
+            <summary>
+            添加用户
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>
