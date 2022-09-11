@@ -254,6 +254,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.AddInfo(Yi.Framework.DTOModel.RoleInfoDto)">
+            <summary>
+            添加角色包含菜单
+            </summary>
+            <param name="roleDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>
             测试控制器

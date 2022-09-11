@@ -9,10 +9,12 @@ export function listRole(query) {
   })
 }
 
+
+
 // 查询角色详细
 export function getRole(roleId) {
   return request({
-    url: '/system/role/' + roleId,
+    url: '/role/getById/' + roleId,
     method: 'get'
   })
 }
@@ -20,7 +22,7 @@ export function getRole(roleId) {
 // 新增角色
 export function addRole(data) {
   return request({
-    url: '/system/role',
+    url: '/role/addInfo',
     method: 'post',
     data: data
   })
@@ -59,9 +61,14 @@ export function changeRoleStatus(roleId, status) {
 
 // 删除角色
 export function delRole(roleId) {
+  if("string"==typeof(roleId))
+  {
+    roleId=[roleId];
+  }
   return request({
-    url: '/system/role/' + roleId,
-    method: 'delete'
+    url: '/role/delList',
+    method: 'delete',
+    data:roleId
   })
 }
 

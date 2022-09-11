@@ -1,8 +1,10 @@
 ﻿using SqlSugar;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
@@ -20,13 +22,13 @@ namespace Yi.Framework.Service
           var _repositoryRoleMenu=  _repository.ChangeRepository<Repository<RoleMenuEntity>>();
             //多次操作，需要事务确保原子性
             return await _repositoryRoleMenu.UseTranAsync(async () =>
-            {
+            {   //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+                await _repositoryRoleMenu.DeleteAsync(u => roleIds.Contains((long)u.RoleId) );
 
                 //遍历用户
                 foreach (var roleId in roleIds)
                 {
-                    //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
-                    await _repositoryRoleMenu.DeleteAsync(u => u.RoleId==roleId);
+                 
 
                     //添加新的关系
                     List<RoleMenuEntity> roleMenuEntity = new();
@@ -63,6 +65,15 @@ namespace Yi.Framework.Service
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 
             return new PageModel<List<RoleEntity>>(data, total);
+        }
+
+
+
+        public async Task<bool> AddInfo(RoleInfoDto roleDto)
+        {
+            var res1 = await _repository.InsertReturnSnowflakeIdAsync(roleDto.Role);
+            var res2 = await GiveRoleSetMenu(new List<long> { res1 }, roleDto.MenuIds);
+            return !0.Equals(res1) && res2;
         }
     }
 }

@@ -60,5 +60,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             return Result.Success().SetData(await _iRoleService.GetInMenuByRoleId(RoleId));
         }
+
+        /// <summary>
+        /// 添加角色包含菜单
+        /// </summary>
+        /// <param name="roleDto"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<Result> AddInfo(RoleInfoDto roleDto)
+        {
+            return Result.Success().SetData(await _iRoleService.AddInfo(roleDto));
+        }
     }
 }

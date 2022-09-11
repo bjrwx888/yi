@@ -11,7 +11,7 @@ namespace Yi.Framework.DTOModel
     {
         public UserEntity User { get; set; }
         public List<long> RoleIds { get; set; }
-        public List<long> PostId { get; set; }
+        public List<long> PostIds { get; set; }
         public long? DeptId { get; set; }
     }
 }

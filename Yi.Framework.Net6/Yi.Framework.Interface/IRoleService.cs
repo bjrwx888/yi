@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
 
@@ -36,5 +37,12 @@ namespace Yi.Framework.Interface
         /// <param name="page"></param>
         /// <returns></returns>
         Task<PageModel<List<RoleEntity>>> SelctPageList(RoleEntity role, PageParModel page);
+
+        /// <summary>
+        /// 添加角色关联菜单
+        /// </summary>
+        /// <param name="roleDto"></param>
+        /// <returns></returns>
+       Task<bool> AddInfo(RoleInfoDto roleDto);
     }
 }
