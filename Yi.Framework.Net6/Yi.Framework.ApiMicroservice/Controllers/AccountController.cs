@@ -113,7 +113,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var data = await _iUserService.GetUserAllInfo(userId);
             
             //将后端菜单转换成前端路由，组件级别需要过滤
-            List<VueRouterModel> routers = _iUserService.RouterBuild(data.Menus.ToList());
+            List<VueRouterModel> routers = MenuEntity.RouterBuild(data.Menus.ToList());
             return Result.Success().SetData(routers);
         }
 

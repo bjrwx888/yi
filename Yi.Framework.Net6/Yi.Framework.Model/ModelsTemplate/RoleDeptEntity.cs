@@ -26,8 +26,8 @@ namespace Yi.Framework.Model.Models
         /// <summary>
         /// 部门id 
         ///</summary>
-         [SugarColumn(ColumnName="Dept"    )]
-         public long? Dept { get; set; }
+         [SugarColumn(ColumnName="DeptId"    )]
+         public long? DeptId { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>

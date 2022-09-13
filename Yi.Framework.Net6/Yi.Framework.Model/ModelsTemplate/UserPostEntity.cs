@@ -26,8 +26,8 @@ namespace Yi.Framework.Model.Models
         /// <summary>
         /// 岗位id 
         ///</summary>
-         [SugarColumn(ColumnName="Post"    )]
-         public long? Post { get; set; }
+         [SugarColumn(ColumnName= "PostId")]
+         public long? PostId { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>

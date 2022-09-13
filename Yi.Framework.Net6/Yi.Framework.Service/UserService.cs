@@ -101,6 +101,34 @@ namespace Yi.Framework.Service
         }
 
 
+        public async Task<bool> GiveUserSetPost(List<long> userIds, List<long> postIds)
+        {
+            var _repositoryUserPost = _repository.ChangeRepository<Repository<UserPostEntity>>();
+
+            //多次操作，需要事务确保原子性
+            return await _repositoryUserPost.UseTranAsync(async () =>
+            {
+                //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+                await _repositoryUserPost.DeleteAsync(u => userIds.Contains((long)u.UserId));
+
+                //遍历用户
+                foreach (var userId in userIds)
+                {
+                    //添加新的关系
+                    List<UserPostEntity> userPostEntities = new();
+                    foreach (var post in postIds)
+                    {
+                        userPostEntities.Add(new UserPostEntity() { UserId = userId,PostId = post });
+                    }
+
+                    //一次性批量添加
+                    await _repositoryUserPost.InsertReturnSnowflakeIdAsync(userPostEntities);
+                }
+            });
+        }
+
+
+
         public async Task<UserEntity> GetInfoById(long userId)
         {
             return await _repository._DbQueryable.Includes(u => u.Roles).InSingleAsync(userId);
@@ -173,54 +201,7 @@ namespace Yi.Framework.Service
         }
 
 
-        public List<VueRouterModel> RouterBuild(List<MenuEntity> menus)
-        {
-            menus = menus.Where(m => m.MenuType != null && m.MenuType != MenuTypeEnum.Component.GetHashCode()).ToList();
-            List<VueRouterModel> routers = new();
-            foreach (var m in menus)
-            {
-               
-                var r = new VueRouterModel();
-                var routerName = m.Router.Split("/").LastOrDefault();
-                r.Id = m.Id;
-                r.ParentId = (long)m.ParentId;
-              
-                //开头大写
-                r.Name = routerName.First().ToString().ToUpper() + routerName.Substring(1);
-                r.Path = m.Router;
-                r.Hidden = (bool)!m.IsShow;
 
-
-                if (m.MenuType == MenuTypeEnum.Catalogue.GetHashCode())
-                {
-                    r.Redirect = "noRedirect";
-                    r.AlwaysShow = true;
-                    r.Component = "Layout";
-                }
-                if (m.MenuType == MenuTypeEnum.Menu.GetHashCode())
-                {
-
-                    r.Redirect = "noRedirect";
-                    r.AlwaysShow = true;
-                    r.Component = m.Component;
-                }
-
-
-                r.Meta = new Meta
-                {
-                    Title = m.MenuName,
-                    Icon = m.MenuIcon,
-                    NoCache = (bool)!m.IsCache
-                };
-                if ((bool)m.IsLink)
-                {
-                    r.Meta.link = m.Router;
-                }
-
-                routers.Add(r);
-            }
-            return Common.Helper.TreeHelper.SetTree(routers) ;
-        }
 
         public async Task<bool> UpdateInfo(UserInfoDto userDto)
         {
@@ -230,9 +211,11 @@ namespace Yi.Framework.Service
             {
                 userDto.User.BuildPassword();
             }
+            userDto.User.DeptId = userDto.DeptId;
             var res1 = await _repository.UpdateIgnoreNullAsync(userDto.User);
             var res2 = await GiveUserSetRole(new List<long> { userDto.User.Id }, userDto.RoleIds);
-            return res1 && res2;
+            var res3 = await GiveUserSetPost(new List<long> { userDto.User.Id }, userDto.PostIds);
+            return res1 && res2&& res3;
         }
 
         public async Task<bool> AddInfo(UserInfoDto userDto)
@@ -240,7 +223,8 @@ namespace Yi.Framework.Service
             userDto.User.BuildPassword();
             var res1 = await _repository.InsertReturnSnowflakeIdAsync(userDto.User);
             var res2 = await GiveUserSetRole(new List<long> { res1 }, userDto.RoleIds);
-            return !0.Equals(res1) && res2;
+            var res3 = await GiveUserSetPost(new List<long> { res1 }, userDto.PostIds);
+            return !0.Equals(res1) && res2&& res3;
         }
 
         public async Task<bool> RestPassword(long userId, string password)

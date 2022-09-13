@@ -78,12 +78,6 @@ namespace Yi.Framework.Interface
         /// <returns></returns>
         Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page);
 
-        /// <summary>
-        /// 菜单构建前端路由
-        /// </summary>
-        /// <param name="menus"></param>
-        /// <returns></returns>
-        List<VueRouterModel> RouterBuild(List<MenuEntity> menus);
 
         /// <summary>
         /// 更新用户信息
@@ -106,5 +100,6 @@ namespace Yi.Framework.Interface
         /// <param name="password"></param>
         /// <returns></returns>
         Task<bool> RestPassword(long userId,string password );
+        Task<bool> GiveUserSetPost(List<long> userIds, List<long> postIds);
     }
 }

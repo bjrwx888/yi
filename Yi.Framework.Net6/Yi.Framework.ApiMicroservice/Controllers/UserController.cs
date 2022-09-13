@@ -54,24 +54,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
         }
 
-
-        ///// <summary>
-        ///// 添加用户，去重，密码加密
-        ///// </summary>
-        ///// <param name="entity"></param>
-        ///// <returns></returns>
-        //[Permission($"{nameof(UserEntity)}:add")]
-        //[HttpPost]
-        //public  async Task<Result> Add(UserEntity entity)
-        //{
-        //    if (!await _iUserService.Exist(entity.UserName))
-        //    {
-        //        entity.BuildPassword();
-        //        return Result.Success().SetData(await _iUserService._repository.InsertReturnSnowflakeIdAsync(entity));
-        //    }
-        //    return Result.SuccessError("用户已存在");
-        //}
-
         /// <summary>
         /// 给多用户设置多角色
         /// </summary>

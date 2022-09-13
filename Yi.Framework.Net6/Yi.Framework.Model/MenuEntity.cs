@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using SqlSugar;
+using Yi.Framework.Common.Enum;
+using Yi.Framework.Common.Models;
+
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
@@ -11,5 +14,56 @@ namespace Yi.Framework.Model.Models
     {
         [SqlSugar.SugarColumn(IsIgnore = true)]
         public List<MenuEntity> Children { get; set; }
+
+
+        public static List<VueRouterModel> RouterBuild(List<MenuEntity> menus)
+        {
+            menus = menus.Where(m => m.MenuType != null && m.MenuType != MenuTypeEnum.Component.GetHashCode()).ToList();
+            List<VueRouterModel> routers = new();
+            foreach (var m in menus)
+            {
+
+                var r = new VueRouterModel();
+                var routerName = m.Router.Split("/").LastOrDefault();
+                r.Id = m.Id;
+                r.ParentId = (long)m.ParentId;
+
+                //开头大写
+                r.Name = routerName.First().ToString().ToUpper() + routerName.Substring(1);
+                r.Path = m.Router;
+                r.Hidden = (bool)!m.IsShow;
+
+
+                if (m.MenuType == MenuTypeEnum.Catalogue.GetHashCode())
+                {
+                    r.Redirect = "noRedirect";
+                    r.AlwaysShow = true;
+                    r.Component = "Layout";
+                }
+                if (m.MenuType == MenuTypeEnum.Menu.GetHashCode())
+                {
+
+                    r.Redirect = "noRedirect";
+                    r.AlwaysShow = true;
+                    r.Component = m.Component;
+                }
+
+
+                r.Meta = new Meta
+                {
+                    Title = m.MenuName,
+                    Icon = m.MenuIcon,
+                    NoCache = (bool)!m.IsCache
+                };
+                if ((bool)m.IsLink)
+                {
+                    r.Meta.link = m.Router;
+                }
+
+                routers.Add(r);
+            }
+            return Common.Helper.TreeHelper.SetTree(routers);
+        }
+
     }
 }
