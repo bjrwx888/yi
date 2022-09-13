@@ -118,7 +118,7 @@ namespace Yi.Framework.Service
                     List<UserPostEntity> userPostEntities = new();
                     foreach (var post in postIds)
                     {
-                        userPostEntities.Add(new UserPostEntity() { UserId = userId,PostId = post });
+                        userPostEntities.Add(new UserPostEntity() { UserId = userId, PostId = post });
                     }
 
                     //一次性批量添加
@@ -131,7 +131,7 @@ namespace Yi.Framework.Service
 
         public async Task<UserEntity> GetInfoById(long userId)
         {
-            return await _repository._DbQueryable.Includes(u => u.Roles).Includes(u=>u.Posts).Includes(u=>u.Dept).InSingleAsync(userId);
+            return await _repository._DbQueryable.Includes(u => u.Roles).Includes(u => u.Posts).Includes(u => u.Dept).InSingleAsync(userId);
         }
 
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
@@ -160,7 +160,7 @@ namespace Yi.Framework.Service
                         if (!string.IsNullOrEmpty(menu.PermissionCode))
                         {
                             userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
-                            
+
                         }
 
                         userRoleMenu.Menus.Add(menu);
@@ -184,21 +184,29 @@ namespace Yi.Framework.Service
 
 
 
-        public async Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page)
+        public async Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page, long? deptId)
         {
-            RefAsync<int> total = 0;
-            var data = await _repository._DbQueryable
-                    .WhereIF(!string.IsNullOrEmpty(user.UserName), u => u.UserName.Contains(user.UserName))
-                     .WhereIF(!string.IsNullOrEmpty(user.Name), u => u.Name.Contains(user.Name))
-                     .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
-                    .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
-                     .WhereIF(user.IsDeleted.IsNotNull(),u => u.IsDeleted == user.IsDeleted)
-                     .Includes(u => u.Roles)
-                     .Includes(u=>u.Posts)
-                     .Includes(u=>u.Dept)
-                    .OrderBy(u => u.OrderNum, OrderByType.Desc)
-                    .ToPageListAsync(page.PageNum, page.PageSize, total);
 
+            RefAsync<int> total = 0;
+            List<UserEntity> data = null;
+            var query = _repository._DbQueryable
+                        .WhereIF(!string.IsNullOrEmpty(user.UserName), u => u.UserName.Contains(user.UserName))
+                        .WhereIF(!string.IsNullOrEmpty(user.Name), u => u.Name.Contains(user.Name))
+                        .WhereIF(!string.IsNullOrEmpty(user.Phone), u => u.Phone.Contains(user.Phone))
+                        .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
+                        .WhereIF(user.IsDeleted.IsNotNull(), u => u.IsDeleted == user.IsDeleted)
+                        .Includes(u => u.Roles)
+                        .Includes(u => u.Posts)
+                        .Includes(u => u.Dept);
+            if (deptId is not null)
+            {
+                //如果deptId不为空，部门id以下及自己都可以
+                List<long> deptIds = (await _repository._Db.Queryable<DeptEntity>().ToChildListAsync(it => it.ParentId, deptId)).Select(d => d.Id).ToList();
+                query = query.Where(u => u.DeptId!=null&& deptIds.Contains((long)u.DeptId));
+            }
+
+            data = await query.OrderBy(u => u.OrderNum, OrderByType.Desc)
+             .ToPageListAsync(page.PageNum, page.PageSize, total);
             return new PageModel<List<UserEntity>>(data, total);
         }
 
@@ -217,7 +225,7 @@ namespace Yi.Framework.Service
             var res1 = await _repository.UpdateIgnoreNullAsync(userDto.User);
             var res2 = await GiveUserSetRole(new List<long> { userDto.User.Id }, userDto.RoleIds);
             var res3 = await GiveUserSetPost(new List<long> { userDto.User.Id }, userDto.PostIds);
-            return res1 && res2&& res3;
+            return res1 && res2 && res3;
         }
 
         public async Task<bool> AddInfo(UserInfoDto userDto)
@@ -226,7 +234,7 @@ namespace Yi.Framework.Service
             var res1 = await _repository.InsertReturnSnowflakeIdAsync(userDto.User);
             var res2 = await GiveUserSetRole(new List<long> { res1 }, userDto.RoleIds);
             var res3 = await GiveUserSetPost(new List<long> { res1 }, userDto.PostIds);
-            return !0.Equals(res1) && res2&& res3;
+            return !0.Equals(res1) && res2 && res3;
         }
 
         public async Task<bool> RestPassword(long userId, string password)

@@ -394,12 +394,13 @@
             用户管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel,System.Nullable{System.Int64})">
             <summary>
             动态条件分页查询
             </summary>
             <param name="user"></param>
             <param name="page"></param>
+            <param name="deptId"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateStatus(System.Int64,System.Boolean)">

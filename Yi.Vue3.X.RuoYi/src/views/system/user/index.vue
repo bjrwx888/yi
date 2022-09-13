@@ -165,8 +165,10 @@
                </el-col>
                <el-col :span="12">
                   <el-form-item label="状态">
+                     {{form.user.isDeleted}}
                      <el-radio-group v-model="form.user.isDeleted">
-                        <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value">{{ dict.label
+             
+                        <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value">{{dict.value+ dict.label
                         }}</el-radio>
                      </el-radio-group>
                   </el-form-item>
@@ -353,7 +355,6 @@ function handleQuery() {
 };
 /** 重置按钮操作 */
 function resetQuery() {
-   dateRange.value = [];
    proxy.resetForm("queryRef");
    handleQuery();
 };

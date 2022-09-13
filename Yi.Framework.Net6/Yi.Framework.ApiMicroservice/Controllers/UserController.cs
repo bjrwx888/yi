@@ -34,11 +34,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <param name="page"></param>
+        /// <param name="deptId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] UserEntity user, [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] UserEntity user, [FromQuery] PageParModel page,[FromQuery] long? deptId)
         {
-            return Result.Success().SetData(await _iUserService.SelctPageList(user, page));
+            return Result.Success().SetData(await _iUserService.SelctPageList(user, page, deptId));
         }
 
         /// <summary>

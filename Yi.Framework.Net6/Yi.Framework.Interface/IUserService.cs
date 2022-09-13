@@ -76,7 +76,7 @@ namespace Yi.Framework.Interface
         /// <param name="user"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page);
+        Task<PageModel<List<UserEntity>>> SelctPageList(UserEntity user, PageParModel page,long ? deptId);
 
 
         /// <summary>
