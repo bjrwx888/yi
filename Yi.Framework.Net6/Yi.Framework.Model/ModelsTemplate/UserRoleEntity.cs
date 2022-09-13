@@ -13,7 +13,6 @@ namespace Yi.Framework.Model.Models
     {
         public UserRoleEntity()
         {
-            this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
@@ -40,6 +39,11 @@ namespace Yi.Framework.Model.Models
          [SugarColumn(ColumnName="CreateTime"    )]
          public DateTime? CreateTime { get; set; }
         /// <summary>
+        /// 修改者 
+        ///</summary>
+         [SugarColumn(ColumnName="ModifyUser"    )]
+         public long? ModifyUser { get; set; }
+        /// <summary>
         /// 修改时间 
         ///</summary>
          [SugarColumn(ColumnName="ModifyTime"    )]
@@ -54,10 +58,5 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="TenantId"    )]
          public long? TenantId { get; set; }
-        /// <summary>
-        /// 修改者 
-        ///</summary>
-         [SugarColumn(ColumnName="ModifyUser"    )]
-         public long? ModifyUser { get; set; }
     }
 }

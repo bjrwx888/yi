@@ -6,12 +6,12 @@ using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
-    /// 租户表
+    /// 用户岗位表
     ///</summary>
-    [SugarTable("Tenant")]
-    public partial class TenantEntity:IBaseModelEntity
+    [SugarTable("UserPost")]
+    public partial class UserPostEntity:IBaseModelEntity
     {
-        public TenantEntity()
+        public UserPostEntity()
         {
             this.CreateTime = DateTime.Now;
         }
@@ -19,10 +19,15 @@ namespace Yi.Framework.Model.Models
         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
-        ///  
+        /// 用户id s
         ///</summary>
-         [SugarColumn(ColumnName="TenantName"    )]
-         public string TenantName { get; set; }
+         [SugarColumn(ColumnName="UserId"    )]
+         public long? UserId { get; set; }
+        /// <summary>
+        /// 岗位id 
+        ///</summary>
+         [SugarColumn(ColumnName="Post"    )]
+         public long? Post { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>

@@ -5,15 +5,10 @@ using System.Text.Json.Serialization;
 using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
-    /// <summary>
-    /// 日志表
-    ///</summary>
-
     public partial class LogEntity:IBaseModelEntity
     {
         public LogEntity()
         {
-            this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
@@ -24,7 +19,6 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="CreateUser"    )]
          public long? CreateUser { get; set; }
-
         /// <summary>
         /// 修改者 
         ///</summary>

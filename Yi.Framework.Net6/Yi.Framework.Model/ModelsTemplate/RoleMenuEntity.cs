@@ -13,7 +13,6 @@ namespace Yi.Framework.Model.Models
     {
         public RoleMenuEntity()
         {
-            this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]

@@ -3,7 +3,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-   public partial interface IDictionaryInfoService:IBaseService<DictionaryInfoEntity>
+   public partial interface IPostService:IBaseService<PostEntity>
     {   
     }
 }

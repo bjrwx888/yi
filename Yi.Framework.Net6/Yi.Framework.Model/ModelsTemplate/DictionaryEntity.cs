@@ -13,7 +13,6 @@ namespace Yi.Framework.Model.Models
     {
         public DictionaryEntity()
         {
-            this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
@@ -22,7 +21,7 @@ namespace Yi.Framework.Model.Models
         /// <summary>
         /// 字典名称 
         ///</summary>
-         [SugarColumn(ColumnName= "DictName")]
+         [SugarColumn(ColumnName="DictName"    )]
          public string DictName { get; set; }
         /// <summary>
         /// 字典类型 

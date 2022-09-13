@@ -118,5 +118,10 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
          public string Remark { get; set; }
+        /// <summary>
+        /// 部门id 
+        ///</summary>
+         [SugarColumn(ColumnName="DeptId"    )]
+         public long? DeptId { get; set; }
     }
 }

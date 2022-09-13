@@ -168,6 +168,14 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.PageList(Yi.Framework.Model.Models.DeptEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="dept"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
@@ -268,6 +276,14 @@
             根据角色id获取该角色下全部菜单
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.PostController.PageList(Yi.Framework.Model.Models.PostEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="post"></param>
+            <param name="page"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.RoleController">

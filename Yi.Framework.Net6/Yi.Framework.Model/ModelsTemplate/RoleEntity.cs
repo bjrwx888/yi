@@ -13,7 +13,6 @@ namespace Yi.Framework.Model.Models
     {
         public RoleEntity()
         {
-            //this.IsDeleted = false;
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
@@ -55,7 +54,7 @@ namespace Yi.Framework.Model.Models
          [SugarColumn(ColumnName="ModifyUser"    )]
          public long? ModifyUser { get; set; }
         /// <summary>
-        ///  
+        /// 角色编码 
         ///</summary>
          [SugarColumn(ColumnName="RoleCode"    )]
          public string RoleCode { get; set; }
@@ -69,5 +68,10 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
          public string Remark { get; set; }
+        /// <summary>
+        /// 角色数据范围 
+        ///</summary>
+         [SugarColumn(ColumnName="DataScope"    )]
+         public int? DataScope { get; set; }
     }
 }
