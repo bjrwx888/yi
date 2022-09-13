@@ -47,3 +47,12 @@ export function delPost(postId) {
     data:postId
   })
 }
+
+// 获取角色选择框列表
+export function postOptionselect() {
+  return request({
+    url: '/post/getList',
+    method: 'get'
+  })
+
+}

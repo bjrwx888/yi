@@ -176,16 +176,16 @@
                <el-col :span="12">
                   <el-form-item label="岗位">
                      <el-select v-model="form.postIds" multiple placeholder="请选择">
-                        <el-option v-for="item in postOptions" :key="item.postId" :label="item.postName"
-                           :value="item.postId" :disabled="item.isDeleted == true"></el-option>
+                        <el-option v-for="item in postOptions" :key="item.id" :label="item.postName"
+                           :value="item.id" :disabled="item.isDeleted == true"></el-option>
                      </el-select>
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="角色">
                      <el-select v-model="form.roleIds" multiple placeholder="请选择">
-                        <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName"
-                           :value="item.id" :disabled="item.isDeleted ==true"></el-option>
+                        <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName" :value="item.id"
+                           :disabled="item.isDeleted ==true"></el-option>
                      </el-select>
                   </el-form-item>
                </el-col>
@@ -240,7 +240,10 @@
 import { getToken } from "@/utils/auth";
 import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser } from "@/api/system/user";
 import { roleOptionselect } from "@/api/system/role";
-import { listDept} from "@/api/system/dept";
+import { postOptionselect } from "@/api/system/post";
+import { listDept } from "@/api/system/dept";
+
+
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable, sys_user_sex } = proxy.useDict("sys_normal_disable", "sys_user_sex");
@@ -319,11 +322,11 @@ watch(deptName, val => {
 /** 查询部门下拉树结构 */
 function getDeptTree() {
    listDept().then(response => {
-      const selectList=[];
-      response.data.forEach(res=>{
-         selectList.push({id:res.id,label:res.deptName,parentId:res.parentId,orderNum:res.orderNum, children:[]})
+      const selectList = [];
+      response.data.forEach(res => {
+         selectList.push({ id: res.id, label: res.deptName, parentId: res.parentId, orderNum: res.orderNum, children: [] })
       }
-    
+
       )
       deptOptions.value = proxy.handleTree(selectList, "id");;
    });
@@ -450,7 +453,7 @@ function reset() {
    form.value = {
       user: {
          userName: undefined,
-         nick:undefined,
+         nick: undefined,
          password: undefined,
          phone: undefined,
          email: undefined,
@@ -464,14 +467,21 @@ function reset() {
    };
    proxy.resetForm("userRef");
 
-   if(postOptions.value.length==0||roleOptions.value.length==0)
-   {
-      roleOptionselect().then(response=>{
-      //岗位从另一个接口获取全量
-      postOptions.value = [];
-      roleOptions.value = response.data;
-   })
+   if (postOptions.value.length == 0 || roleOptions.value.length == 0) {
+      roleOptionselect().then(response => {
+         //岗位从另一个接口获取全量
+         roleOptions.value = response.data;
+      })
+      postOptionselect().then(response => {
+         postOptions.value = response.data;
+
+      }
+
+      )
+
    }
+
+
 
 
 };
@@ -487,7 +497,7 @@ function handleAdd() {
    reset();
 
    open.value = true;
-      title.value = "添加用户";
+   title.value = "添加用户";
 };
 /** 修改按钮操作 */
 function handleUpdate(row) {
