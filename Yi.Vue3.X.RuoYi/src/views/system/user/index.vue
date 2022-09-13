@@ -71,7 +71,7 @@
                   :show-overflow-tooltip="true" />
                <el-table-column label="用户昵称" align="center" key="nick" prop="nick" v-if="columns[2].visible"
                   :show-overflow-tooltip="true" />
-               <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible"
+               <el-table-column label="部门" align="center" key="dept.deptName" prop="dept.deptName" v-if="columns[3].visible"
                   :show-overflow-tooltip="true" />
                <el-table-column label="手机号码" align="center" key="phone" prop="phone" v-if="columns[4].visible"
                   width="120" />
@@ -504,14 +504,25 @@ function handleUpdate(row) {
    reset();
    const userId = row.id || ids.value;
    getUser(userId).then(response => {
+     
+
       form.value.user = response.data;
-      form.value.postIds = [];
-      response.data.roles.forEach(role => {
-         form.value.roleIds.push(role.id)
-      });
-      open.value = true;
-      title.value = "修改用户";
-      form.value.user.password = null;
+
+response.data.posts.forEach(post => {
+   form.value.postIds.push(post.id)
+});
+
+form.value.deptId= response.data.deptId;
+
+response.data.roles.forEach(role => {
+   form.value.roleIds.push(role.id)
+});
+open.value = true;
+title.value = "修改用户";
+form.value.user.password = null;
+
+
+
    });
 };
 /** 提交按钮 */

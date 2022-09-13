@@ -14,6 +14,11 @@ namespace Yi.Framework.Model.Models
         [Navigate(typeof(UserRoleEntity), nameof(UserRoleEntity.UserId), nameof(UserRoleEntity.RoleId))]
         public List<RoleEntity> Roles { get; set; }
 
+        [Navigate(typeof(UserPostEntity), nameof(UserPostEntity.UserId), nameof(UserPostEntity.PostId))]
+        public List<PostEntity> Posts { get; set; }
+
+        [Navigate( NavigateType.OneToOne,nameof(DeptId))]
+        public DeptEntity Dept { get; set; }
 
         /// <summary>
         /// 构建密码，MD5盐值加密

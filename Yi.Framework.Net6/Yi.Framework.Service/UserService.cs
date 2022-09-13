@@ -131,7 +131,7 @@ namespace Yi.Framework.Service
 
         public async Task<UserEntity> GetInfoById(long userId)
         {
-            return await _repository._DbQueryable.Includes(u => u.Roles).InSingleAsync(userId);
+            return await _repository._DbQueryable.Includes(u => u.Roles).Includes(u=>u.Posts).Includes(u=>u.Dept).InSingleAsync(userId);
         }
 
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
@@ -194,6 +194,8 @@ namespace Yi.Framework.Service
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
                      .WhereIF(user.IsDeleted.IsNotNull(),u => u.IsDeleted == user.IsDeleted)
                      .Includes(u => u.Roles)
+                     .Includes(u=>u.Posts)
+                     .Includes(u=>u.Dept)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 
