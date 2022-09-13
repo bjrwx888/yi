@@ -238,8 +238,9 @@
 
 <script setup name="User">
 import { getToken } from "@/utils/auth";
-import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser, deptTreeSelect } from "@/api/system/user";
+import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser } from "@/api/system/user";
 import { roleOptionselect } from "@/api/system/role";
+import { listDept} from "@/api/system/dept";
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable, sys_user_sex } = proxy.useDict("sys_normal_disable", "sys_user_sex");
@@ -317,8 +318,14 @@ watch(deptName, val => {
 });
 /** 查询部门下拉树结构 */
 function getDeptTree() {
-   deptTreeSelect().then(response => {
-      deptOptions.value = response.data;
+   listDept().then(response => {
+      const selectList=[];
+      response.data.forEach(res=>{
+         selectList.push({id:res.id,label:res.deptName,parentId:res.parentId,orderNum:res.orderNum, children:[]})
+      }
+    
+      )
+      deptOptions.value = proxy.handleTree(selectList, "id");;
    });
 };
 /** 查询用户列表 */

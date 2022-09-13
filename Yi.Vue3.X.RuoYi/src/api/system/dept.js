@@ -3,19 +3,19 @@ import request from '@/utils/request'
 // 查询部门列表
 export function listDept(query) {
   return request({
-    url: '/dept/pageList',
+    url: '/dept/SelctGetList',
     method: 'get',
     params: query
   })
 }
 
-// 查询部门列表（排除节点）
-export function listDeptExcludeChild(deptId) {
-  return request({
-    url: '/system/dept/list/exclude/' + deptId,
-    method: 'get'
-  })
-}
+// // 查询部门列表（排除节点）
+// export function listDeptExcludeChild(deptId) {
+//   return request({
+//     url: '/system/dept/list/exclude/' + deptId,
+//     method: 'get'
+//   })
+// }
 
 // 查询部门详细
 export function getDept(deptId) {
@@ -52,6 +52,6 @@ export function delDept(deptId) {
   return request({
     url: '/dept/delList',
     method: 'delete',
-    data:postId
+    data:deptId
   })
 }

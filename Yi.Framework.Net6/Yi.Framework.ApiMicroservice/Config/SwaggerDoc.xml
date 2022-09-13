@@ -168,12 +168,11 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.PageList(Yi.Framework.Model.Models.DeptEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.SelctGetList(Yi.Framework.Model.Models.DeptEntity)">
             <summary>
-            动态条件分页查询
+            动态条件查询
             </summary>
             <param name="dept"></param>
-            <param name="page"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">

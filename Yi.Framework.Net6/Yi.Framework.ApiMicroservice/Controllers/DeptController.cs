@@ -26,15 +26,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// 动态条件分页查询
+        /// 动态条件查询
         /// </summary>
         /// <param name="dept"></param>
-        /// <param name="page"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] DeptEntity dept, [FromQuery] PageParModel page)
+        public async Task<Result> SelctGetList([FromQuery] DeptEntity dept)
         {
-            return Result.Success().SetData(await _iDeptService.SelctPageList(dept, page));
+            return Result.Success().SetData(await _iDeptService.SelctGetList(dept));
         }
 
 

@@ -9,18 +9,17 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Service
 {
-    public partial class DeptService : BaseService<DeptEntity>, IDeptService
+    public partial class DeptService
     {
-        public async Task<PageModel<List<DeptEntity>>> SelctPageList(DeptEntity dept, PageParModel page)
+        public async Task<List<DeptEntity>> SelctGetList(DeptEntity dept)
         {
-            RefAsync<int> total = 0;
             var data = await _repository._DbQueryable
                     .WhereIF(!string.IsNullOrEmpty(dept.DeptName), u => u.DeptName.Contains(dept.DeptName))
                      .WhereIF(dept.IsDeleted.IsNotNull(), u => u.IsDeleted == dept.IsDeleted)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
-                    .ToPageListAsync(page.PageNum, page.PageSize, total);
+                   .ToListAsync();
 
-            return new PageModel<List<DeptEntity>>(data, total);
+            return data;
         }
     }
 }

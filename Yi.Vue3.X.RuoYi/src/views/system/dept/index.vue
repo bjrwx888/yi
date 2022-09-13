@@ -9,8 +9,8 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="部门状态" clearable>
+         <el-form-item label="状态" prop="isDeleted">
+            <el-select v-model="queryParams.isDeleted" placeholder="部门状态" clearable>
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
@@ -50,15 +50,15 @@
          v-if="refreshTable"
          v-loading="loading"
          :data="deptList"
-         row-key="deptId"
+         row-key="id"
          :default-expand-all="isExpandAll"
          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
          <el-table-column prop="deptName" label="部门名称" width="260"></el-table-column>
          <el-table-column prop="orderNum" label="排序" width="200"></el-table-column>
-         <el-table-column prop="status" label="状态" width="100">
+         <el-table-column prop="isDeleted" label="状态" width="100">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
             </template>
          </el-table-column>
          <el-table-column label="创建时间" align="center" prop="createTime" width="200">
@@ -100,8 +100,8 @@
                      <el-tree-select
                         v-model="form.parentId"
                         :data="deptOptions"
-                        :props="{ value: 'deptId', label: 'deptName', children: 'children' }"
-                        value-key="deptId"
+                        :props="{ value: 'id', label: 'deptName', children: 'children' }"
+                        value-key="id"
                         placeholder="选择上级部门"
                         check-strictly
                      />
@@ -134,7 +134,7 @@
                </el-col>
                <el-col :span="12">
                   <el-form-item label="部门状态">
-                     <el-radio-group v-model="form.status">
+                     <el-radio-group v-model="form.isDeleted">
                         <el-radio
                            v-for="dict in sys_normal_disable"
                            :key="dict.value"
@@ -156,7 +156,7 @@
 </template>
 
 <script setup name="Dept">
-import { listDept, getDept, delDept, addDept, updateDept, listDeptExcludeChild } from "@/api/system/dept";
+import { listDept, getDept, delDept, addDept, updateDept} from "@/api/system/dept";
 
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
@@ -174,7 +174,7 @@ const data = reactive({
   form: {},
   queryParams: {
     deptName: undefined,
-    status: undefined
+    isDeleted: undefined
   },
   rules: {
     parentId: [{ required: true, message: "上级部门不能为空", trigger: "blur" }],
@@ -191,7 +191,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listDept(queryParams.value).then(response => {
-    deptList.value = proxy.handleTree(response.data, "deptId");
+    deptList.value = proxy.handleTree(response.data, "id");
     loading.value = false;
   });
 }
@@ -203,14 +203,14 @@ function cancel() {
 /** 表单重置 */
 function reset() {
   form.value = {
-    deptId: undefined,
+    id: undefined,
     parentId: undefined,
     deptName: undefined,
     orderNum: 0,
     leader: undefined,
     phone: undefined,
     email: undefined,
-    status: "0"
+    isDeleted: false
   };
   proxy.resetForm("deptRef");
 }
@@ -227,10 +227,10 @@ function resetQuery() {
 function handleAdd(row) {
   reset();
   listDept().then(response => {
-    deptOptions.value = proxy.handleTree(response.data, "deptId");
+    deptOptions.value = proxy.handleTree(response.data, "id");
   });
   if (row != undefined) {
-    form.value.parentId = row.deptId;
+    form.value.parentId = row.id;
   }
   open.value = true;
   title.value = "添加部门";
@@ -246,10 +246,16 @@ function toggleExpandAll() {
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  listDeptExcludeChild(row.deptId).then(response => {
-    deptOptions.value = proxy.handleTree(response.data, "deptId");
+//   listDeptExcludeChild(row.id).then(response => {
+//     deptOptions.value = proxy.handleTree(response.data, "id");
+//   });
+  listDept().then(response => {
+   //前端排除自己
+   
+    deptOptions.value = proxy.handleTree(response.data.filter(i=>i.id!=row.id), "id");
   });
-  getDept(row.deptId).then(response => {
+
+  getDept(row.id).then(response => {
     form.value = response.data;
     open.value = true;
     title.value = "修改部门";
@@ -259,7 +265,7 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["deptRef"].validate(valid => {
     if (valid) {
-      if (form.value.deptId != undefined) {
+      if (form.value.id != undefined) {
         updateDept(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
@@ -278,7 +284,7 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   proxy.$modal.confirm('是否确认删除名称为"' + row.deptName + '"的数据项?').then(function() {
-    return delDept(row.deptId);
+    return delDept(row.id);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
