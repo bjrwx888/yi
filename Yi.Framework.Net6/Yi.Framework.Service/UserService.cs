@@ -202,7 +202,7 @@ namespace Yi.Framework.Service
             {
                 //如果deptId不为空，部门id以下及自己都可以
                 List<long> deptIds = (await _repository._Db.Queryable<DeptEntity>().ToChildListAsync(it => it.ParentId, deptId)).Select(d => d.Id).ToList();
-                query = query.Where(u => u.DeptId!=null&& deptIds.Contains((long)u.DeptId));
+                query = query.Where(u => u.DeptId != null && deptIds.Contains((long)u.DeptId));
             }
 
             data = await query.OrderBy(u => u.OrderNum, OrderByType.Desc)
@@ -247,6 +247,26 @@ namespace Yi.Framework.Service
             return await _repository.UpdateIgnoreNullAsync(user);
 
 
+        }
+
+
+        public async Task<bool> UpdatePassword(UpdatePasswordDto dto, long userId)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+
+            if (dto.OldPassword.Equals(dto.NewPassword))
+            {
+                return false;
+            }
+            if (!user.JudgePassword(dto.OldPassword))
+            {
+                return false;
+            }
+            var newUser = new UserEntity();
+            newUser.Password = dto.NewPassword;
+            newUser.Id = userId;
+            newUser.BuildPassword();
+            return await _repository.UpdateIgnoreNullAsync(newUser);
         }
     }
 }

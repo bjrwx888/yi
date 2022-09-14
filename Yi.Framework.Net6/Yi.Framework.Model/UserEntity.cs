@@ -41,6 +41,7 @@ namespace Yi.Framework.Model.Models
         /// <returns></returns>
         public bool JudgePassword(string password)
         {
+            var p = MD5Helper.SHA2Encode(password, this.Salt);
             if (this.Password == MD5Helper.SHA2Encode(password, this.Salt))
             {
                 return true;

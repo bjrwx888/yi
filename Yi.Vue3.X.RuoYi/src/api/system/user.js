@@ -75,7 +75,7 @@ export function changeUserStatus(userId, isDel) {
 // 查询用户个人信息
 export function getUserProfile() {
   return request({
-    url: '/system/user/profile',
+    url: '/account/getUserAllInfo',
     method: 'get'
   })
 }
@@ -96,9 +96,9 @@ export function updateUserPwd(oldPassword, newPassword) {
     newPassword
   }
   return request({
-    url: '/system/user/profile/updatePwd',
+    url: '/account/UpdatePassword',
     method: 'put',
-    params: data
+    data: data
   })
 }
 

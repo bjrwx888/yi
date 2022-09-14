@@ -111,32 +111,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
             var data = await _iUserService.GetUserAllInfo(userId);
-            
+
             //将后端菜单转换成前端路由，组件级别需要过滤
             List<VueRouterModel> routers = MenuEntity.RouterBuild(data.Menus.ToList());
             return Result.Success().SetData(routers);
-        }
-
-
-        /// <summary>
-        /// 更新登录的用户密码
-        /// </summary>
-        /// <param name="updatePasswordDto"></param>
-        /// <returns></returns>
-        [HttpPut]
-        public async Task<Result> UpdatePassword(UpdatePasswordDto updatePasswordDto)
-        {
-            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
-            var userEntiy = await _iUserService._repository.GetByIdAsync(userId);
-
-            //判断输入的老密码是否和原密码相同
-            if (userEntiy.JudgePassword(updatePasswordDto.OldPassword))
-            {
-                userEntiy.Password = updatePasswordDto.NewPassword;
-                userEntiy.BuildPassword();
-                return Result.Success().SetStatus(await _iUserService._repository.UpdateAsync(userEntiy));
-            }
-            return Result.SuccessError("原密码错误！");
         }
 
         /// <summary>
@@ -154,6 +132,23 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //修改需要赋值上主键哦
             user.Id = HttpContext.GetCurrentUserEntityInfo(out _).Id;
             return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
+        }
+
+        /// <summary>
+        /// 自己更新密码
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<Result> UpdatePassword(UpdatePasswordDto dto)
+        {
+            long userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+         
+            if (await _iUserService.UpdatePassword(dto, userId))
+            {
+                return Result.Success();
+            }
+            return Result.Error("更新失败！");
         }
     }
 }

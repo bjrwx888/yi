@@ -68,8 +68,6 @@ namespace Yi.Framework.Interface
         /// <returns></returns>
         Task<UserRoleMenuDto> GetUserAllInfo(long userId);
 
-
-
         /// <summary>
         /// 动态条件分页查询
         /// </summary>
@@ -100,6 +98,23 @@ namespace Yi.Framework.Interface
         /// <param name="password"></param>
         /// <returns></returns>
         Task<bool> RestPassword(long userId,string password );
+
+
+        /// <summary>
+        /// 给用户设置岗位
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <param name="postIds"></param>
+        /// <returns></returns>
         Task<bool> GiveUserSetPost(List<long> userIds, List<long> postIds);
+
+
+        /// <summary>
+        /// 更新密码
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<bool> UpdatePassword(UpdatePasswordDto dto, long userId);
     }
 }

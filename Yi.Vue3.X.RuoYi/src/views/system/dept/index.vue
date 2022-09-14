@@ -135,11 +135,7 @@
                <el-col :span="12">
                   <el-form-item label="部门状态">
                      <el-radio-group v-model="form.isDeleted">
-                        <el-radio
-                           v-for="dict in sys_normal_disable"
-                           :key="dict.value"
-                           :label="dict.value"
-                        >{{ dict.label }}</el-radio>
+                        <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="JSON.parse(dict.value)">{{dict.label}}</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
