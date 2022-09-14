@@ -84,19 +84,25 @@ namespace Yi.Framework.Service
                  //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
                  await _repositoryUserRole.DeleteAsync(u => userIds.Contains((long)u.UserId));
 
-                 //遍历用户
-                 foreach (var userId in userIds)
+                 if (roleIds is not null)
                  {
-                     //添加新的关系
-                     List<UserRoleEntity> userRoleEntities = new();
-                     foreach (var roleId in roleIds)
+                     //遍历用户
+                     foreach (var userId in userIds)
                      {
-                         userRoleEntities.Add(new UserRoleEntity() { UserId = userId, RoleId = roleId });
-                     }
+                         //添加新的关系
+                         List<UserRoleEntity> userRoleEntities = new();
 
-                     //一次性批量添加
-                     await _repositoryUserRole.InsertReturnSnowflakeIdAsync(userRoleEntities);
+                         foreach (var roleId in roleIds)
+                         {
+                             userRoleEntities.Add(new UserRoleEntity() { UserId = userId, RoleId = roleId });
+                         }
+
+                         //一次性批量添加
+                         await _repositoryUserRole.InsertReturnSnowflakeIdAsync(userRoleEntities);
+                     }
                  }
+
+
              });
         }
 
@@ -110,19 +116,22 @@ namespace Yi.Framework.Service
             {
                 //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
                 await _repositoryUserPost.DeleteAsync(u => userIds.Contains((long)u.UserId));
-
-                //遍历用户
-                foreach (var userId in userIds)
+                if (postIds is not null)
                 {
-                    //添加新的关系
-                    List<UserPostEntity> userPostEntities = new();
-                    foreach (var post in postIds)
+                    //遍历用户
+                    foreach (var userId in userIds)
                     {
-                        userPostEntities.Add(new UserPostEntity() { UserId = userId, PostId = post });
+                        //添加新的关系
+                        List<UserPostEntity> userPostEntities = new();
+                        foreach (var post in postIds)
+                        {
+                            userPostEntities.Add(new UserPostEntity() { UserId = userId, PostId = post });
+                        }
+
+                        //一次性批量添加
+                        await _repositoryUserPost.InsertReturnSnowflakeIdAsync(userPostEntities);
                     }
 
-                    //一次性批量添加
-                    await _repositoryUserPost.InsertReturnSnowflakeIdAsync(userPostEntities);
                 }
             });
         }
@@ -131,7 +140,10 @@ namespace Yi.Framework.Service
 
         public async Task<UserEntity> GetInfoById(long userId)
         {
-            return await _repository._DbQueryable.Includes(u => u.Roles).Includes(u => u.Posts).Includes(u => u.Dept).InSingleAsync(userId);
+            var data = await _repository._DbQueryable.Includes(u => u.Roles).Includes(u => u.Posts).Includes(u => u.Dept).InSingleAsync(userId);
+            data.Password = null;
+            data.Salt = null;
+            return data;
         }
 
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
@@ -142,7 +154,8 @@ namespace Yi.Framework.Service
 
             //得到用户
             var user = await _repository._DbQueryable.Includes(u => u.Roles.Where(r => r.IsDeleted == false).ToList(), r => r.Menus.Where(m => m.IsDeleted == false).ToList()).InSingleAsync(userId);
-
+            user.Password = null;
+            user.Salt = null;
             //得到角色集合
             var roleList = user.Roles;
 
@@ -207,6 +220,9 @@ namespace Yi.Framework.Service
 
             data = await query.OrderBy(u => u.OrderNum, OrderByType.Desc)
              .ToPageListAsync(page.PageNum, page.PageSize, total);
+
+
+            data.ForEach(u => { u.Password = null; u.Salt = null; });
             return new PageModel<List<UserEntity>>(data, total);
         }
 
@@ -268,5 +284,15 @@ namespace Yi.Framework.Service
             newUser.BuildPassword();
             return await _repository.UpdateIgnoreNullAsync(newUser);
         }
+
+
+        public async Task<bool> UpdateProfile(UserInfoDto userDto)
+        {
+            userDto.User.Salt = null;
+            userDto.User.Password = null;
+            userDto.User.DeptId = null;
+            return await _repository.UpdateIgnoreNullAsync(userDto.User);
+        }
+        
     }
 }

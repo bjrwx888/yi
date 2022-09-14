@@ -116,5 +116,12 @@ namespace Yi.Framework.Interface
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<bool> UpdatePassword(UpdatePasswordDto dto, long userId);
+
+        /// <summary>
+        /// 个人中心信息更新
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
+        Task<bool> UpdateProfile(UserInfoDto userDto);
     }
 }

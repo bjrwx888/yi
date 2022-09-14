@@ -9,6 +9,12 @@
             账户管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.RestCC">
+            <summary>
+             重置管理员CC的密码
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DTOModel.LoginDto)">
             <summary>
             没啥说，登录
@@ -428,6 +434,13 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DTOModel.UserInfoDto)">
             <summary>
             更新用户信息
+            </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateProfile(Yi.Framework.DTOModel.UserInfoDto)">
+            <summary>
+            更新个人中心信息
             </summary>
             <param name="userDto"></param>
             <returns></returns>

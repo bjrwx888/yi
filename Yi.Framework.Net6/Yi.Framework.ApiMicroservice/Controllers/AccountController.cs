@@ -37,6 +37,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
+        ///  重置管理员CC的密码
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> RestCC()
+        {
+           var user= await _iUserService._repository.GetFirstAsync(u => u.UserName == "cc");
+            user.Password = "123456";
+            user.BuildPassword();
+            await _iUserService._repository.UpdateIgnoreNullAsync(user);
+            return Result.Success();
+        }
+
+        /// <summary>
         /// 没啥说，登录
         /// </summary>
         /// <param name="loginDto"></param>

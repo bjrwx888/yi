@@ -37,15 +37,18 @@ const useUserStore = defineStore(
             const res=response.data;
             const user = res.user
             const avatar = (user.avatar == "" || user.avatar == null) ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
-
+    
             if (res.roleCodes && res.roleCodes.length > 0) { // 验证返回的roles是否是一个非空数组
               // this.roles = res.roleCodes
               // this.permissions = res.permissionCodes
               this.roles = ["admin"];
               this.permissions=["*:*:*"]
+
             } else {
               this.roles = ['ROLE_DEFAULT']
             }
+            this.roles = ["admin"];
+            this.permissions=["*:*:*"]
             this.name = user.userName
             this.avatar = avatar;
             resolve(res)
