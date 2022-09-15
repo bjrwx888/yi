@@ -38,7 +38,7 @@ namespace Yi.Framework.WebCore
             long resId = 0;
             try
             {
-                claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
+                claimlist = httpContext.User.Claims;
                 resId = Convert.ToInt64(claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid).Value);
             }
             catch

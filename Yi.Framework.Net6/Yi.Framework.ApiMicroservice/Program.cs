@@ -1,3 +1,4 @@
+global using System;
 using Autofac.Extensions.DependencyInjection;
 using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.Core;
@@ -9,7 +10,6 @@ using Yi.Framework.Language;
 using Microsoft.Extensions.Localization;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.SignalRHub;
-
 
 
 var builder = WebApplication.CreateBuilder(args);
