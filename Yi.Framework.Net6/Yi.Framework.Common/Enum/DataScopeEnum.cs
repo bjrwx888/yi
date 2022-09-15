@@ -8,10 +8,10 @@ namespace Yi.Framework.Common.Enum
 {
     public enum DataScopeEnum
     {
-        All = 0,
-        Custom = 1,
-        Dept = 2,
-        DeptAndUnder = 3,
-        User = 4
+        ALL = 0,
+        CUSTOM = 1,
+        DEPT = 2,
+        DEPT_FOLLOW = 3,
+        USER = 4
     }
 }
