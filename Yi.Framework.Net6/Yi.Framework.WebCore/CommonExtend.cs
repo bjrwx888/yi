@@ -26,13 +26,19 @@ namespace Yi.Framework.WebCore
             return "XMLHttpRequest".Equals(header);
         }
 
+
+        public static long GetUserIdInfo(this HttpContext httpContext)
+        {
+            return Convert.ToInt64(httpContext.User.Claims.FirstOrDefault(u => u.Type== JwtRegisteredClaimNames.Sid));
+        }
+
         /// <summary>
         /// 基于HttpContext,当前鉴权方式解析，获取用户信息
         /// 现在使用redis作为缓存，不需要将菜单存放至jwt中了
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static UserEntity GetCurrentUserEntityInfo(this HttpContext httpContext, out List<Guid> menuIds)
+        public static UserEntity GetUserEntityInfo(this HttpContext httpContext, out List<Guid> menuIds)
         {
             IEnumerable<Claim> claimlist = null;
             long resId = 0;

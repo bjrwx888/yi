@@ -110,7 +110,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetUserAllInfo()
         {
             //通过鉴权jwt获取到用户的id
-            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            var userId = HttpContext.GetUserIdInfo();
             var data = await _iUserService.GetUserAllInfo(userId);
             data.Menus.Clear();
             return Result.Success().SetData(data);
@@ -123,7 +123,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetRouterInfo()
         {
-            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            var userId = HttpContext.GetUserIdInfo();
             var data = await _iUserService.GetUserAllInfo(userId);
 
             //将后端菜单转换成前端路由，组件级别需要过滤
@@ -144,7 +144,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             user.Salt = null;
 
             //修改需要赋值上主键哦
-            user.Id = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            user.Id = HttpContext.GetUserIdInfo();
             return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
         }
 
@@ -156,7 +156,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> UpdatePassword(UpdatePasswordDto dto)
         {
-            long userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            long userId = HttpContext.GetUserIdInfo();
          
             if (await _iUserService.UpdatePassword(dto, userId))
             {
