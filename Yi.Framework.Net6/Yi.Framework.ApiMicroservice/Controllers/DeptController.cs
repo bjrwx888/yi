@@ -37,15 +37,36 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
 
-
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public override async Task<Result> Add(DeptEntity entity)
         {
             return await base.Add(entity);
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public override async Task<Result> Update(DeptEntity entity)
         {
             return await base.Update(entity);
+        }
+
+        /// <summary>
+        /// 根据角色id获取该角色下全部部门
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Result> GetListByRoleId(long id)
+        {
+            return Result.Success().SetData(await _iDeptService.GetListByRoleId(id));
         }
     }
 }

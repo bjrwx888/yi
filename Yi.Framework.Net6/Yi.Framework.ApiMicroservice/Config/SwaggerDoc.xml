@@ -181,6 +181,27 @@
             <param name="dept"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Add(Yi.Framework.Model.Models.DeptEntity)">
+            <summary>
+            添加
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Update(Yi.Framework.Model.Models.DeptEntity)">
+            <summary>
+            更新
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.GetListByRoleId(System.Int64)">
+            <summary>
+            根据角色id获取该角色下全部部门
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询

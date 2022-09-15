@@ -55,3 +55,12 @@ export function delDept(deptId) {
     data:deptId
   })
 }
+
+
+// 根据角色ID查询菜单下拉树结构
+export function roleDeptTreeselect(roleId) {
+  return request({
+    url: '/dept/getListByRoleId/' + roleId,
+    method: 'get'
+  })
+}

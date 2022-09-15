@@ -137,18 +137,18 @@
     <el-dialog :title="title" v-model="openDataScope" width="500px" append-to-body>
       <el-form :model="form" label-width="80px">
         <el-form-item label="角色名称">
-          <el-input v-model="form.role.roleName" :disabled="true" />
+          <el-input v-model="form.roleName" :disabled="true" />
         </el-form-item>
         <el-form-item label="权限字符">
-          <el-input v-model="form.role.roleCode" :disabled="true" />
+          <el-input v-model="form.roleCode" :disabled="true" />
         </el-form-item>
         <el-form-item label="权限范围">
-          <el-select v-model="form.role.dataScope" @change="dataScopeSelectChange">
+          <el-select v-model="form.dataScope" @change="dataScopeSelectChange">
             <el-option v-for="item in dataScopeOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="数据权限" v-show="form.role.dataScope == 2">
+        <el-form-item label="数据权限" v-show="form.dataScope == 1">
           <el-checkbox v-model="deptExpand" @change="handleCheckedTreeExpand($event, 'dept')">展开/折叠</el-checkbox>
           <el-checkbox v-model="deptNodeAll" @change="handleCheckedTreeNodeAll($event, 'dept')">全选/全不选</el-checkbox>
           <el-checkbox v-model="form.deptCheckStrictly" @change="handleCheckedTreeConnect($event, 'dept')">父子联动
@@ -165,13 +165,14 @@
         </div>
       </template>
     </el-dialog>
+    
   </div>
 </template>
 
 <script setup name="Role">
-import { addRole, changeRoleStatus, dataScope, delRole, getRole, listRole, updateRole, deptTreeSelect } from "@/api/system/role";
+import { addRole, changeRoleStatus, dataScope, delRole, getRole, listRole, updateRole } from "@/api/system/role";
 import { roleMenuTreeselect, treeselect as menuTreeselect, listMenu } from "@/api/system/menu";
-
+import { listDept,roleDeptTreeselect } from "@/api/system/dept";
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
@@ -198,11 +199,11 @@ const deptRef = ref(null);
 
 /** 数据范围选项*/
 const dataScopeOptions = ref([
-  { value: "1", label: "全部数据权限" },
-  { value: "2", label: "自定数据权限" },
-  { value: "3", label: "本部门数据权限" },
-  { value: "4", label: "本部门及以下数据权限" },
-  { value: "5", label: "仅本人数据权限" }
+  { value: 0, label: "全部数据权限" },
+  { value: 1, label: "自定数据权限" },
+  { value: 2, label: "本部门数据权限" },
+  { value: 3, label: "本部门及以下数据权限" },
+  { value: 4, label: "仅本人数据权限" }
 ]);
 
 const data = reactive({
@@ -330,7 +331,8 @@ function reset() {
       IsDeleted: false,
       menuCheckStrictly: false,
       deptCheckStrictly: false,
-      remark: undefined
+      remark: undefined,
+      dataScope:0
     },
     menuIds: [],
     deptIds: []
@@ -370,7 +372,6 @@ function getRoleMenuTreeselect(roleId) {
     response.data.forEach(m => {
       menuIds.push(m.id)
     })
-
     menuIds.forEach((v) => {
       nextTick(() => {
         menuRef.value.setChecked(v, true, false);
@@ -384,9 +385,30 @@ function getRoleMenuTreeselect(roleId) {
   }
 /** 根据角色ID查询部门树结构 */
 function getDeptTree(roleId) {
-      return deptTreeSelect(roleId).then(response => {
-        deptOptions.value = response.depts;
-        return response;
+      return listDept().then(response => {
+    
+        const selectList = [];
+      response.data.forEach(res => {
+         selectList.push({ id: res.id, label: res.deptName, parentId: res.parentId, orderNum: res.orderNum, children: [] })
+      }
+
+      )
+      deptOptions.value = proxy.handleTree(selectList, "id");
+
+      const deptIds=[];
+      roleDeptTreeselect(roleId).then(response=>{
+        response.data.forEach(d=>{
+
+          deptIds.push(d.id)
+        })
+      
+
+      })
+      nextTick(() => {
+              if (deptRef.value) {
+                deptRef.value.setCheckedKeys(deptIds);
+              }
+            });
       });
     }
 /** 树权限（展开/折叠）*/
@@ -464,19 +486,10 @@ function dataScopeSelectChange(value) {
 /** 分配数据权限操作 */
 function handleDataScope(row) {
       reset();
-      const deptTreeSelect = getDeptTree(row.id);
+     getDeptTree(row.id);
       getRole(row.id).then(response => {
         form.value = response.data;
-        openDataScope.value = true;
-        nextTick(() => {
-          deptTreeSelect.then(res => {
-            nextTick(() => {
-              if (deptRef.value) {
-                deptRef.value.setCheckedKeys(res.checkedKeys);
-              }
-            });
-          });
-        });
+        openDataScope.value = true;    
         title.value = "分配数据权限";
       });
     }

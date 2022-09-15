@@ -14,5 +14,13 @@ namespace Yi.Framework.Interface
         /// <param name="dept"></param>
         /// <returns></returns>
         Task<List<DeptEntity>> SelctGetList(DeptEntity dept);
+
+
+        /// <summary>
+        /// 根据角色id获取该角色的部门权限
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<List<DeptEntity>> GetListByRoleId(long roleId);
     }
 }

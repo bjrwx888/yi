@@ -87,5 +87,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(await _iRoleService._repository.UpdateIgnoreNullAsync(new RoleEntity() { Id = roleId, IsDeleted = isDel }));
 
         }
+
+      
     }
 }
