@@ -37,4 +37,8 @@
     <ProjectReference Include="..\Yi.Framework.Service\Yi.Framework.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BuilderExtend\OptionsWritable\" />
+  </ItemGroup>
+
 </Project>

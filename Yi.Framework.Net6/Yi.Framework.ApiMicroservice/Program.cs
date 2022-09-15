@@ -10,6 +10,8 @@ using Microsoft.Extensions.Localization;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.SignalRHub;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
 builder.WebHost.UseUrls(builder.Configuration.GetValue<string>("StartUrl"));

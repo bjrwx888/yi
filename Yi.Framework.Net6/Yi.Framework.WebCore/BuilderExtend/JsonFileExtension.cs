@@ -16,14 +16,14 @@ namespace Yi.Framework.WebCore.BuilderExtend
                 string[] myJsonFile = new string[] { "appsettings.json", "Config/configuration.json" };
                 foreach (var item in myJsonFile)
                 {
-                    builder.AddJsonFile(item, optional: true, reloadOnChange: false);
+                    builder.AddJsonFile(item, optional: true, reloadOnChange: true);
                 }
             }
             else
             {
                 foreach (var item in JsonFile)
                 {
-                    builder.AddJsonFile(item, optional: true, reloadOnChange: false);
+                    builder.AddJsonFile(item, optional: true, reloadOnChange: true);
                 }
             }
 
