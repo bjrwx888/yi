@@ -23,6 +23,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// 账户管理
     /// </summary>
     [ApiController]
+    [Authorize]
     [Route("api/[controller]/[action]")]
     public class AccountController : ControllerBase
     {
@@ -41,6 +42,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<Result> RestCC()
         {
            var user= await _iUserService._repository.GetFirstAsync(u => u.UserName == "cc");
@@ -96,6 +98,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [AllowAnonymous]
         public Result Logout()
         {
             return Result.Success("安全登出成功！");

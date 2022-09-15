@@ -29,7 +29,8 @@ namespace Yi.Framework.WebCore
 
         public static long GetUserIdInfo(this HttpContext httpContext)
         {
-            return Convert.ToInt64(httpContext.User.Claims.FirstOrDefault(u => u.Type== JwtRegisteredClaimNames.Sid));
+            var p = httpContext;
+            return Convert.ToInt64(httpContext .User.Claims.FirstOrDefault(u => u.Type== JwtRegisteredClaimNames.Sid).Value);
         }
 
         /// <summary>
