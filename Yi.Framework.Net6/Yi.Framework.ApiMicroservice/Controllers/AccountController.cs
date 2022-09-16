@@ -167,5 +167,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             }
             return Result.Error("更新失败！");
         }
+
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<Result> CaptchaImage()
+        {
+            return  Result.Success().SetData(new { uuid=123,img="dasdas"});
+        }
     }
 }

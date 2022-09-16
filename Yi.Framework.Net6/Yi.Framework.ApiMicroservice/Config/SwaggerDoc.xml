@@ -61,6 +61,12 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.CaptchaImage">
+            <summary>
+            验证码
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
             <summary>
             Json To Sql 类比模式，通用模型
