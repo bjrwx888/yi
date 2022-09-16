@@ -601,9 +601,9 @@ function getRoleMenuTreeselect(roleId) {
     response.data.forEach((m) => {
       menuIds.push(m.id);
     });
-  
-      nextTick(() => {
-        menuIds.forEach((v) => {
+
+    nextTick(() => {
+      menuIds.forEach((v) => {
         menuRef.value.setChecked(v, true, false);
       });
 
@@ -626,17 +626,15 @@ function getDeptTree(roleId) {
     });
     deptOptions.value = proxy.handleTree(selectList, "id");
 
-    const deptIds = [];
+    let deptIds = [];
     roleDeptTreeselect(roleId).then((response) => {
-
-      deptIds=  response.data.map((x) => x.id)
+      deptIds = response.data.map((x) => x.id);
+      // nextTick(() => {
+        if (deptRef.value) {
+          deptRef.value.setCheckedKeys(deptIds);
+        }
+      // });
     });
-
-    nextTick(() => {
-      if (deptRef.value) {
-        deptRef.value.setCheckedKeys(deptIds);
-      }
-     });
   });
 }
 /** 树权限（展开/折叠）*/
