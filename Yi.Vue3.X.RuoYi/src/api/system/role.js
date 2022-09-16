@@ -40,7 +40,7 @@ export function updateRole(data) {
 // 角色数据权限
 export function dataScope(data) {
   return request({
-    url: '/system/role/dataScope',
+    url: '/role/UpdateDataScpoce',
     method: 'put',
     data: data
   })

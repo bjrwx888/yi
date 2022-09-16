@@ -351,6 +351,12 @@
             <param name="isDel"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateDataScpoce(Yi.Framework.DTOModel.RoleInfoDto)">
+             <summary>
+            更改角色数据权限
+             </summary>
+             <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>
             测试控制器
