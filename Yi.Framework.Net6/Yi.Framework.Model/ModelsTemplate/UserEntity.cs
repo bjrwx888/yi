@@ -123,5 +123,10 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="DeptId"    )]
          public long? DeptId { get; set; }
+        /// <summary>
+        /// 性别 
+        ///</summary>
+         [SugarColumn(ColumnName="Sex"    )]
+         public int? Sex { get; set; }
     }
 }
