@@ -176,7 +176,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> CaptchaImage()
         {
-            return  Result.Success().SetData(new { uuid=123,img="dasdas"});
+            return  Result.Success().SetData(new { uuid=123,img="123456789"});
         }
     }
 }
