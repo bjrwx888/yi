@@ -10,7 +10,7 @@ using Yi.Framework.Language;
 using Microsoft.Extensions.Localization;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.SignalRHub;
-
+using Hei.Captcha;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -117,6 +117,8 @@ builder.Services.AddLocalizerService();
 //添加signalR
 #endregion
 builder.Services.AddSignalR();
+
+builder.Services.AddHeiCaptcha();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region
@@ -138,6 +140,7 @@ ServiceLocator.Instance = app.Services;
 //错误抓取反馈注入
 #endregion
 //app.UseErrorHandlingService();
+
 #region
 //静态文件注入
 #endregion
