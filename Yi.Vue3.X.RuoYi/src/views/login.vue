@@ -129,8 +129,8 @@ function getCode() {
   getCodeImg().then(res => {
     captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled;
     if (captchaEnabled.value) {
-      codeUrl.value = "data:image/gif;base64," + res.img;
-      loginForm.value.uuid = res.uuid;
+      codeUrl.value = "data:image/gif;base64," + res.data.img;
+      loginForm.value.uuid = res.data.uuid;
     }
   });
 }
@@ -188,10 +188,13 @@ getCookie();
   color: #bfbfbf;
 }
 .login-code {
+
   width: 33%;
   height: 40px;
   float: right;
+
   img {
+
     cursor: pointer;
     vertical-align: middle;
   }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Hei.Captcha;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,11 +31,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private IUserService _iUserService;
         private JwtInvoker _jwtInvoker;
         private ILogger _logger;
-        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker)
+        private SecurityCodeHelper _securityCode;
+        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
             _logger = logger;
+            _securityCode = securityCode;
         }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [AllowAnonymous]
         public async Task<Result> RestCC()
         {
-           var user= await _iUserService._repository.GetFirstAsync(u => u.UserName == "cc");
+            var user = await _iUserService._repository.GetFirstAsync(u => u.UserName == "cc");
             user.Password = "123456";
             user.BuildPassword();
             await _iUserService._repository.UpdateIgnoreNullAsync(user);
@@ -160,7 +163,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> UpdatePassword(UpdatePasswordDto dto)
         {
             long userId = HttpContext.GetUserIdInfo();
-         
+
             if (await _iUserService.UpdatePassword(dto, userId))
             {
                 return Result.Success();
@@ -174,9 +177,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
-        public async Task<Result> CaptchaImage()
+        public Result CaptchaImage()
         {
-            return  Result.Success().SetData(new { uuid=123,img="123456789"});
+            var uuid = Guid.NewGuid();
+            var code = _securityCode.GetRandomEnDigitalText(4);
+            //将uuid与code中心化保存起来，登录根据uuid比对即可
+            var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
+            return Result.Success().SetData(new { uuid = uuid, img = imgbyte });
         }
     }
 }
