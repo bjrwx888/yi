@@ -64,10 +64,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(LoginDto loginDto)
         {
-
-            //跳过
+            //跳过，需要redis缓存获取uuid与code的关系，进行比较即可
             //先效验验证码和UUID
-
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
@@ -181,7 +179,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             var uuid = Guid.NewGuid();
             var code = _securityCode.GetRandomEnDigitalText(4);
-            //将uuid与code中心化保存起来，登录根据uuid比对即可
+            //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
             var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
             return Result.Success().SetData(new { uuid = uuid, img = imgbyte });
         }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.Localization;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.SignalRHub;
 using Hei.Captcha;
+using Yi.Framework.WebCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -52,9 +54,10 @@ builder.Host.ConfigureLogging(loggingBuilder =>
 #endregion
 builder.Services.AddIocService(builder.Configuration);
 #region
-//Sqlsugar上下文注入
+//Sqlsugar上下文注入,是否开启数据权限功能，开启需要Redis缓存
 #endregion
 builder.Services.AddSqlsugarServer();
+//builder.Services.AddSqlsugarServer(DbFiterExtend.Data);
 #region
 //Quartz任务调度配置
 #endregion
@@ -117,8 +120,14 @@ builder.Services.AddLocalizerService();
 //添加signalR
 #endregion
 builder.Services.AddSignalR();
-
+#region
+//添加验证码
+#endregion
 builder.Services.AddHeiCaptcha();
+#region
+//添加Http上下文
+#endregion
+builder.Services.AddHttpContextAccessor();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region

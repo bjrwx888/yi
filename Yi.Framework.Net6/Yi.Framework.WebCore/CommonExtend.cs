@@ -26,13 +26,49 @@ namespace Yi.Framework.WebCore
             return "XMLHttpRequest".Equals(header);
         }
 
-
+        /// <summary>
+        /// 通过鉴权完的token获取用户id
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public static long GetUserIdInfo(this HttpContext httpContext)
         {
             var p = httpContext;
-            return Convert.ToInt64(httpContext .User.Claims.FirstOrDefault(u => u.Type== JwtRegisteredClaimNames.Sid).Value);
+            return Convert.ToInt64(httpContext.User.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid).Value);
         }
 
+        /// <summary>
+        /// 通过鉴权完的token获取用户名
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static string GetUserNameInfo(this HttpContext httpContext)
+        {
+            var p = httpContext;
+            return httpContext.User.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name).Value;
+        }
+
+        /// <summary>
+        /// 通过鉴权完的token获取用户部门
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static string GetDeptIdInfo(this HttpContext httpContext)
+        {
+            var p = httpContext;
+            return httpContext.User.Claims.FirstOrDefault(u => u.Type == "deptId").Value;
+        }
+
+        /// <summary>
+        /// 通过鉴权完的token获取权限code
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static string GetPermissionInfo(this HttpContext httpContext)
+        {
+            var p = httpContext;
+            return httpContext.User.Claims.FirstOrDefault(u => u.Type == "permission").Value;
+        }
         /// <summary>
         /// 基于HttpContext,当前鉴权方式解析，获取用户信息
         /// 现在使用redis作为缓存，不需要将菜单存放至jwt中了
