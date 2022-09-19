@@ -13,6 +13,7 @@ using Yi.Framework.WebCore.SignalRHub;
 using Hei.Captcha;
 using Yi.Framework.WebCore;
 using Microsoft.Extensions.DependencyInjection;
+using Yi.Framework.WebCore.DbExtend;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -186,6 +187,11 @@ app.UseAuthorization();
 //Consul服务注入
 #endregion
 app.UseConsulService();
+
+#region
+//数据库种子注入
+#endregion
+app.UseDbSeedInitService();
 #region
 //redis种子注入
 #endregion
