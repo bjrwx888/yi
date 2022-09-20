@@ -118,8 +118,53 @@ namespace Yi.Framework.Model.SeedData
             };
             Entitys.Add(role);
 
+            MenuEntity roleQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "角色查询",
+                PermissionCode = "system:role:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = user.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(roleQuery);
 
+            MenuEntity roleAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "角色新增",
+                PermissionCode = "system:role:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = user.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(roleAdd);
 
+            MenuEntity roleEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "角色修改",
+                PermissionCode = "system:role:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = user.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(roleEdit);
+
+            MenuEntity roleRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "角色删除",
+                PermissionCode = "system:role:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = user.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(roleRemove);
             return Entitys;
         }
     }
