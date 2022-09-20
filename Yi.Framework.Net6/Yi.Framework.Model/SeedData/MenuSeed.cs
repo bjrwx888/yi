@@ -18,7 +18,7 @@ namespace Yi.Framework.Model.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "系统管理",
-                PermissionCode = "*:*:*",
+                //PermissionCode = "*:*:*",
                 MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
                 Router = "/system",
                 IsShow = true,
@@ -98,7 +98,6 @@ namespace Yi.Framework.Model.SeedData
             Entitys.Add(userRemove);
 
 
-
             //角色管理
             MenuEntity role = new MenuEntity()
             {
@@ -165,6 +164,280 @@ namespace Yi.Framework.Model.SeedData
                 IsDeleted = false
             };
             Entitys.Add(roleRemove);
+
+
+            //菜单管理
+            MenuEntity menu = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "菜单管理",
+                PermissionCode = "system:menu:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "menu",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "system/menu/index",
+                MenuIcon = "tree-table",
+                OrderNum = 100,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(menu);
+
+            MenuEntity menuQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "菜单查询",
+                PermissionCode = "system:menu:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = menu.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(menuQuery);
+
+            MenuEntity menuAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "菜单新增",
+                PermissionCode = "system:menu:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = menu.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(menuAdd);
+
+            MenuEntity menuEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "菜单修改",
+                PermissionCode = "system:menu:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = menu.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(menuEdit);
+
+            MenuEntity menuRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "菜单删除",
+                PermissionCode = "system:menu:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = menu.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(menuRemove);
+  
+            //部门管理
+            MenuEntity dept = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "部门管理",
+                PermissionCode = "system:dept:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "dept",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "system/dept/index",
+                MenuIcon = "tree",
+                OrderNum = 100,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(dept);
+
+            MenuEntity deptQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "部门查询",
+                PermissionCode = "system:dept:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dept.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(deptQuery);
+
+            MenuEntity deptAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "部门新增",
+                PermissionCode = "system:dept:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dept.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(deptAdd);
+
+            MenuEntity deptEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "部门修改",
+                PermissionCode = "system:dept:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dept.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(deptEdit);
+
+            MenuEntity deptRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "部门删除",
+                PermissionCode = "system:dept:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dept.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(deptRemove);
+
+
+
+            //岗位管理
+            MenuEntity post = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "岗位管理",
+                PermissionCode = "system:post:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "post",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "system/post/index",
+                MenuIcon = "post",
+                OrderNum = 100,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(post);
+
+            MenuEntity postQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "岗位查询",
+                PermissionCode = "system:post:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = post.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(postQuery);
+
+            MenuEntity postAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "岗位新增",
+                PermissionCode = "system:post:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = post.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(postAdd);
+
+            MenuEntity postEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "岗位修改",
+                PermissionCode = "system:post:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = post.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(postEdit);
+
+            MenuEntity postRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "岗位删除",
+                PermissionCode = "system:post:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = post.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(postRemove);
+
+            //字典管理
+            MenuEntity dic = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "字典管理",
+                PermissionCode = "system:dic:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "dic",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "system/dic/index",
+                MenuIcon = "dict",
+                OrderNum = 100,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(dic);
+
+            MenuEntity dicQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "字典查询",
+                PermissionCode = "system:dic:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dic.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(dicQuery);
+
+            MenuEntity dicAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "字典新增",
+                PermissionCode = "system:dic:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dic.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(dicAdd);
+
+            MenuEntity dicEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "字典修改",
+                PermissionCode = "system:dic:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dic.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(dicEdit);
+
+            MenuEntity dicRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "字典删除",
+                PermissionCode = "system:dic:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = dic.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(dicRemove);
+
+
+
             return Entitys;
         }
     }
