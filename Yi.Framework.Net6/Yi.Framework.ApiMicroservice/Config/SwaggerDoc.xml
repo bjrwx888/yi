@@ -180,6 +180,14 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ConfigController.PageList(Yi.Framework.Model.Models.ConfigEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="dic"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.SelctGetList(Yi.Framework.Model.Models.DeptEntity)">
             <summary>
             动态条件查询
