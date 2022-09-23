@@ -78,5 +78,15 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
          public string Remark { get; set; }
+        /// <summary>
+        /// tag类型 
+        ///</summary>
+         [SugarColumn(ColumnName="ListClass"    )]
+         public string ListClass { get; set; }
+        /// <summary>
+        /// tagClass 
+        ///</summary>
+         [SugarColumn(ColumnName="CssClass"    )]
+         public string CssClass { get; set; }
     }
 }
