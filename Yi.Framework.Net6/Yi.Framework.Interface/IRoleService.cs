@@ -52,5 +52,20 @@ namespace Yi.Framework.Interface
         /// <param name="roleDto"></param>
         /// <returns></returns>
         Task<bool> UpdateInfo(RoleInfoDto roleDto);
+
+        /// <summary>
+        /// 给角色设置部门
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <param name="deptIds"></param>
+        /// <returns></returns>
+        Task<bool> GiveRoleSetDept(List<long> roleIds, List<long> deptIds);
+
+        /// <summary>
+        /// 更新角色数据权限
+        /// </summary>
+        /// <param name="roleDto"></param>
+        /// <returns></returns>
+        Task<bool> UpdateDataScpoce(RoleInfoDto roleDto);
     }
 }

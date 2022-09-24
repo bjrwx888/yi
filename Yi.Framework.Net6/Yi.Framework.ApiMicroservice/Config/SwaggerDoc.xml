@@ -61,6 +61,12 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.CaptchaImage">
+            <summary>
+            验证码
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
             <summary>
             Json To Sql 类比模式，通用模型
@@ -174,11 +180,40 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ConfigController.PageList(Yi.Framework.Model.Models.ConfigEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="dic"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.SelctGetList(Yi.Framework.Model.Models.DeptEntity)">
             <summary>
             动态条件查询
             </summary>
             <param name="dept"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Add(Yi.Framework.Model.Models.DeptEntity)">
+            <summary>
+            添加
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Update(Yi.Framework.Model.Models.DeptEntity)">
+            <summary>
+            更新
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.GetListByRoleId(System.Int64)">
+            <summary>
+            根据角色id获取该角色下全部部门
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
@@ -329,6 +364,12 @@
             <param name="roleId"></param>
             <param name="isDel"></param>
             <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateDataScpoce(Yi.Framework.DTOModel.RoleInfoDto)">
+             <summary>
+            更改角色数据权限
+             </summary>
+             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>

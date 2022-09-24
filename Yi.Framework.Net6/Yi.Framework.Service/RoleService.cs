@@ -28,8 +28,6 @@ namespace Yi.Framework.Service
                 //遍历用户
                 foreach (var roleId in roleIds)
                 {
-                 
-
                     //添加新的关系
                     List<RoleMenuEntity> roleMenuEntity = new();
                     foreach (var menu in menuIds)
@@ -76,12 +74,46 @@ namespace Yi.Framework.Service
             return !0.Equals(res1) && res2;
         }
 
+        public async Task<bool> GiveRoleSetDept(List<long> roleIds,List<long> deptIds)
+        {
+            var _repositoryRoleDept = _repository.ChangeRepository<Repository<RoleDeptEntity>>();
+            //多次操作，需要事务确保原子性
+            return await _repositoryRoleDept.UseTranAsync(async () =>
+            {   //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+                await _repositoryRoleDept.DeleteAsync(u => roleIds.Contains((long)u.RoleId));
+
+                //遍历角色
+                foreach (var roleId in roleIds)
+                {
+                    //添加新的关系
+                    List<RoleDeptEntity> roleDeptEntity = new();
+                    foreach (var dept in deptIds)
+                    {
+                        roleDeptEntity.Add(new RoleDeptEntity() { RoleId = roleId, DeptId = dept });
+                    }
+
+                    //一次性批量添加
+                    await _repositoryRoleDept.InsertReturnSnowflakeIdAsync(roleDeptEntity);
+                }
+            });
+        }
 
         public async Task<bool> UpdateInfo(RoleInfoDto roleDto)
         {
             var res1 = await _repository.UpdateIgnoreNullAsync(roleDto.Role);
             var res2 = await GiveRoleSetMenu(new List<long> { roleDto.Role.Id }, roleDto.MenuIds);
-            return res1 && res2;
+            var res3 = await GiveRoleSetDept(new List<long> { roleDto.Role.Id }, roleDto.DeptIds);
+            return res1 && res2&& res3;
+        }
+
+        public async Task<bool> UpdateDataScpoce(RoleInfoDto roleDto)
+        {
+           var role= new RoleEntity();
+            role.Id = roleDto.Role.Id;
+            role.DataScope = roleDto.Role.DataScope;
+            var res1 = await _repository.UpdateIgnoreNullAsync(role);
+            var res3 = await GiveRoleSetDept(new List<long> { roleDto.Role.Id }, roleDto.DeptIds);
+            return res1 && res3;
         }
     }
 }

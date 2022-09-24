@@ -37,7 +37,8 @@ namespace Yi.Framework.Core
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddMinutes(minutes)).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()));
-
+            claims.Add(new Claim(JwtRegisteredClaimNames.Name, user.UserName));
+            claims.Add(new Claim("deptId", user.DeptId.ToString()));
             //-----------------------------以下从user的权限表中添加权限-----------------------例如：
 
             foreach (var m in menus)
@@ -47,12 +48,6 @@ namespace Yi.Framework.Core
                     claims.Add(new Claim("permission", m.PermissionCode.ToString()));
                 }
             }
-
-            if (isRefresh)
-            {
-                claims.Add(new Claim("Re", "true"));
-            }
-
             var creds = new SigningCredentials(new RsaSecurityKey(Common.Helper.RSAFileHelper.GetKey()), SecurityAlgorithms.RsaSha256);
             var token = new JwtSecurityToken(
                 issuer: _JWTTokenOptions.Issuer,

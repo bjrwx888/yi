@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Hei.Captcha;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,17 +24,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// 账户管理
     /// </summary>
     [ApiController]
+    [Authorize]
     [Route("api/[controller]/[action]")]
     public class AccountController : ControllerBase
     {
         private IUserService _iUserService;
         private JwtInvoker _jwtInvoker;
         private ILogger _logger;
-        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker)
+        private SecurityCodeHelper _securityCode;
+        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
             _logger = logger;
+            _securityCode = securityCode;
         }
 
         /// <summary>
@@ -41,9 +45,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<Result> RestCC()
         {
-           var user= await _iUserService._repository.GetFirstAsync(u => u.UserName == "cc");
+            var user = await _iUserService._repository.GetFirstAsync(u => u.UserName == "cc");
             user.Password = "123456";
             user.BuildPassword();
             await _iUserService._repository.UpdateIgnoreNullAsync(user);
@@ -59,10 +64,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(LoginDto loginDto)
         {
-
-            //跳过
+            //跳过，需要redis缓存获取uuid与code的关系，进行比较即可
             //先效验验证码和UUID
-
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
@@ -96,6 +99,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [AllowAnonymous]
         public Result Logout()
         {
             return Result.Success("安全登出成功！");
@@ -110,7 +114,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetUserAllInfo()
         {
             //通过鉴权jwt获取到用户的id
-            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            var userId = HttpContext.GetUserIdInfo();
             var data = await _iUserService.GetUserAllInfo(userId);
             data.Menus.Clear();
             return Result.Success().SetData(data);
@@ -123,7 +127,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetRouterInfo()
         {
-            var userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            var userId = HttpContext.GetUserIdInfo();
             var data = await _iUserService.GetUserAllInfo(userId);
 
             //将后端菜单转换成前端路由，组件级别需要过滤
@@ -144,7 +148,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             user.Salt = null;
 
             //修改需要赋值上主键哦
-            user.Id = HttpContext.GetCurrentUserEntityInfo(out _).Id;
+            user.Id = HttpContext.GetUserIdInfo();
             return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
         }
 
@@ -156,13 +160,28 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> UpdatePassword(UpdatePasswordDto dto)
         {
-            long userId = HttpContext.GetCurrentUserEntityInfo(out _).Id;
-         
+            long userId = HttpContext.GetUserIdInfo();
+
             if (await _iUserService.UpdatePassword(dto, userId))
             {
                 return Result.Success();
             }
             return Result.Error("更新失败！");
+        }
+
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
+        public Result CaptchaImage()
+        {
+            var uuid = Guid.NewGuid();
+            var code = _securityCode.GetRandomEnDigitalText(4);
+            //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
+            var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
+            return Result.Success().SetData(new { uuid = uuid, img = imgbyte });
         }
     }
 }

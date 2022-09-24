@@ -90,6 +90,8 @@
     {
         #region 一般类型
 
+
+
         public static Guid TryToGuid(this string guid)
         {
             if (Guid.TryParse(guid, out var guid1))

@@ -8,9 +8,11 @@ namespace Yi.Framework.Model.Models
 
     public partial class RoleEntity
     {
-        //[Navigate(typeof(UserRoleEntity), nameof(UserRoleEntity.RoleId), nameof(UserRoleEntity.UserId))]
-        //public List<UserEntity> Users { get; set; }
+
         [Navigate(typeof(RoleMenuEntity),nameof(RoleMenuEntity.RoleId),nameof(RoleMenuEntity.MenuId))]
         public List<MenuEntity> Menus { get; set; }
+
+        [Navigate(typeof(RoleDeptEntity), nameof(RoleDeptEntity.RoleId), nameof(RoleDeptEntity.DeptId))]
+        public List<DeptEntity> Depts { get; set; }
     }
 }

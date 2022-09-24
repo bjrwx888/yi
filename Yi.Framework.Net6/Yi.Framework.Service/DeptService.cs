@@ -21,5 +21,10 @@ namespace Yi.Framework.Service
 
             return data;
         }
+
+        public async Task<List<DeptEntity>> GetListByRoleId(long roleId)
+        {
+            return (await _repository._Db.Queryable<RoleEntity>().Includes(r => r.Depts).SingleAsync(r => r.Id == roleId)).Depts;
+        }
     }
 }

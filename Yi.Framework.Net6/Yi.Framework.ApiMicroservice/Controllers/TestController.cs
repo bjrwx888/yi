@@ -197,5 +197,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var treeData = Common.Helper.TreeHelper.SetTree(vueRouterModels);
             return Result.Success().SetData(treeData);
         }
+
+        [Authorize]
+        [HttpGet]
+        public Result AuthorizeTest()
+        { 
+            return Result.Success();
+        }
     }
 }

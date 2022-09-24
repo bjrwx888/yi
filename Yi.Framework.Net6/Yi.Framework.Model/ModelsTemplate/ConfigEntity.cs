@@ -6,12 +6,12 @@ using SqlSugar;
 namespace Yi.Framework.Model.Models
 {
     /// <summary>
-    /// 字典信息表
+    /// 配置表
     ///</summary>
-    [SugarTable("DictionaryInfo")]
-    public partial class DictionaryInfoEntity:IBaseModelEntity
+    [SugarTable("Config")]
+    public partial class ConfigEntity:IBaseModelEntity
     {
-        public DictionaryInfoEntity()
+        public ConfigEntity()
         {
             this.CreateTime = DateTime.Now;
         }
@@ -19,25 +19,25 @@ namespace Yi.Framework.Model.Models
         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
          public long Id { get; set; }
         /// <summary>
-        /// 字典类型 
+        /// 配置名称 
         ///</summary>
-         [SugarColumn(ColumnName="DictType"    )]
-         public string DictType { get; set; }
+         [SugarColumn(ColumnName="ConfigName"    )]
+         public string ConfigName { get; set; }
         /// <summary>
-        /// 字典标签 
+        /// 配置键 
         ///</summary>
-         [SugarColumn(ColumnName="DictLabel"    )]
-         public string DictLabel { get; set; }
+         [SugarColumn(ColumnName="ConfigKey"    )]
+         public string ConfigKey { get; set; }
         /// <summary>
-        /// 字典值 
+        /// 配置值 
         ///</summary>
-         [SugarColumn(ColumnName="DictValue"    )]
-         public string DictValue { get; set; }
+         [SugarColumn(ColumnName="ConfigValue"    )]
+         public string ConfigValue { get; set; }
         /// <summary>
-        /// 是否为该类型的默认值 
+        /// 配置类别 
         ///</summary>
-         [SugarColumn(ColumnName="IsDefault"    )]
-         public bool? IsDefault { get; set; }
+         [SugarColumn(ColumnName="ConfigType"    )]
+         public string ConfigType { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -78,15 +78,5 @@ namespace Yi.Framework.Model.Models
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
          public string Remark { get; set; }
-        /// <summary>
-        /// tag类型 
-        ///</summary>
-         [SugarColumn(ColumnName="ListClass"    )]
-         public string ListClass { get; set; }
-        /// <summary>
-        /// tagClass 
-        ///</summary>
-         [SugarColumn(ColumnName="CssClass"    )]
-         public string CssClass { get; set; }
     }
 }
