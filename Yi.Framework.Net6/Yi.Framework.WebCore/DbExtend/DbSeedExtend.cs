@@ -13,20 +13,20 @@ namespace Yi.Framework.WebCore.DbExtend
 {
     public static class DbSeedExtend
     {
-        public static void UseDbSeedInitService(this IApplicationBuilder app)
+        public static bool Invoer(ISqlSugarClient _Db)
         {
-
-            if (Appsettings.appBool("DbSeed_Enabled"))
+            bool res = false;
+            var users = SeedFactory.GetUserSeed();
+            var roles = SeedFactory.GetRoleSeed();
+            var menus = SeedFactory.GetMenuSeed();
+            var dicts = SeedFactory.GetDictionarySeed();
+            var posts = SeedFactory.GetPostSeed();
+            var dictinfos = SeedFactory.GetDictionaryInfoSeed();
+            var depts = SeedFactory.GetDeptSeed();
+            try
             {
-              
-                var _Db = app.ApplicationServices.GetService<ISqlSugarClient>();
-                var users = SeedFactory.GetUserSeed();
-                var roles = SeedFactory.GetRoleSeed();
-                var menus = SeedFactory.GetMenuSeed();
-                var dicts= SeedFactory.GetDictionarySeed();
-                var posts = SeedFactory.GetPostSeed();
-                var dictinfos= SeedFactory.GetDictionaryInfoSeed();
-                var depts = SeedFactory.GetDeptSeed();
+                _Db.AsTenant().BeginTran();
+
                 if (!_Db.Queryable<UserEntity>().Any())
                 {
                     _Db.Insertable(users).ExecuteCommand();
@@ -54,8 +54,6 @@ namespace Yi.Framework.WebCore.DbExtend
                 {
                     _Db.Insertable(dictinfos).ExecuteCommand();
                 }
-
-
                 if (!_Db.Queryable<DeptEntity>().Any())
                 {
                     _Db.Insertable(depts).ExecuteCommand();
@@ -70,8 +68,27 @@ namespace Yi.Framework.WebCore.DbExtend
                 {
                     _Db.Insertable(SeedFactory.GetRoleMenuSeed(roles, menus)).ExecuteCommand();
                 }
+                _Db.AsTenant().CommitTran();
+                res = true;
+            }
+            catch (Exception ex)
+            {
+                _Db.AsTenant().RollbackTran();//数据回滚
+                Console.WriteLine(ex);
+
+            }
+            return res;
+        }
+
+        public static void UseDbSeedInitService(this IApplicationBuilder app)
+        {
 
 
+            if (Appsettings.appBool("DbSeed_Enabled"))
+            {
+
+                var _Db = app.ApplicationServices.GetService<ISqlSugarClient>();
+                Invoer(_Db);
             }
 
         }

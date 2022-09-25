@@ -376,6 +376,12 @@
             测试控制器
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.Swagger">
+            <summary>
+            swagger跳转
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.DbTest">
             <summary>
             仓储上下文对象测试
@@ -433,6 +439,24 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.TreeTest">
             <summary>
             树形结构构建测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.AuthorizeTest">
+            <summary>
+            授权测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.ClearDb">
+            <summary>
+            清空数据库
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.SeedDb">
+            <summary>
+            种子数据
             </summary>
             <returns></returns>
         </member>

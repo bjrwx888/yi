@@ -38,10 +38,12 @@ namespace Yi.Framework.Common.Models
         {
             if (_status)
             {
+                this.code = ResultCodeEnum.Success;
                 this.message = "操作成功";
             }
             else
             {
+                this.code = code = ResultCodeEnum.NotSuccess;
                 this.message = "操作失败";
             }
             this.status = _status;

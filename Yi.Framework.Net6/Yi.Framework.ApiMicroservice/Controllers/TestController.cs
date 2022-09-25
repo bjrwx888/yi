@@ -16,6 +16,7 @@ using Yi.Framework.Repository;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
+using Yi.Framework.WebCore.DbExtend;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -37,6 +38,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iUserService = iUserService;
             _iRoleService = iRoleService;
             _quartzInvoker = quartzInvoker;
+        }
+
+        /// <summary>
+        /// swagger跳转
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/")]
+        public IActionResult Swagger()
+        {
+            return Redirect("/Swagger");
         }
 
         /// <summary>
@@ -198,6 +210,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(treeData);
         }
 
+        /// <summary>
+        /// 授权测试
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet]
         public Result AuthorizeTest()
@@ -205,6 +221,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
         }
 
+        /// <summary>
+        /// 清空数据库
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<Result> ClearDb()
         {
@@ -223,6 +243,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 await rep.ChangeRepository<Repository<DeptEntity>>().DeleteAsync(u => true);
             }));
 
+        }
+
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public  Result SeedDb()
+        {
+            var rep = _iUserService._repository;
+            return Result.Success().SetStatus(DbSeedExtend.Invoer(rep._Db));
         }
     }
 }
