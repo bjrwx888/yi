@@ -48,8 +48,6 @@ namespace Yi.Framework.Model.Models
                     r.Component = m.Component;
                     r.AlwaysShow = false;
                 }
-
-
                 r.Meta = new Meta
                 {
                     Title = m.MenuName,
@@ -59,6 +57,7 @@ namespace Yi.Framework.Model.Models
                 if ((bool)m.IsLink)
                 {
                     r.Meta.link = m.Router;
+                    r.AlwaysShow = false;
                 }
 
                 routers.Add(r);

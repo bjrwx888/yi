@@ -24,6 +24,9 @@ namespace Yi.Framework.WebCore.DbExtend
                 var roles = SeedFactory.GetRoleSeed();
                 var menus = SeedFactory.GetMenuSeed();
                 var dicts= SeedFactory.GetDictionarySeed();
+                var posts = SeedFactory.GetPostSeed();
+                var dictinfos= SeedFactory.GetDictionaryInfoSeed();
+                var depts = SeedFactory.GetDeptSeed();
                 if (!_Db.Queryable<UserEntity>().Any())
                 {
                     _Db.Insertable(users).ExecuteCommand();
@@ -42,6 +45,20 @@ namespace Yi.Framework.WebCore.DbExtend
                 if (!_Db.Queryable<DictionaryEntity>().Any())
                 {
                     _Db.Insertable(dicts).ExecuteCommand();
+                }
+                if (!_Db.Queryable<PostEntity>().Any())
+                {
+                    _Db.Insertable(posts).ExecuteCommand();
+                }
+                if (!_Db.Queryable<DictionaryInfoEntity>().Any())
+                {
+                    _Db.Insertable(dictinfos).ExecuteCommand();
+                }
+
+
+                if (!_Db.Queryable<DeptEntity>().Any())
+                {
+                    _Db.Insertable(depts).ExecuteCommand();
                 }
 
                 if (!_Db.Queryable<UserRoleEntity>().Any())

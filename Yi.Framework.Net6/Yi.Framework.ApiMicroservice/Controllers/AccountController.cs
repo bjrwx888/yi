@@ -116,6 +116,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //通过鉴权jwt获取到用户的id
             var userId = HttpContext.GetUserIdInfo();
             var data = await _iUserService.GetUserAllInfo(userId);
+            //系统用户数据被重置，老前端访问重新授权
+            if (data is null)
+            {
+                return Result.UnAuthorize();
+            }
+
             data.Menus.Clear();
             return Result.Success().SetData(data);
         }

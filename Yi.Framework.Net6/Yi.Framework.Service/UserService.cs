@@ -154,6 +154,10 @@ namespace Yi.Framework.Service
 
             //得到用户
             var user = await _repository._DbQueryable.Includes(u => u.Roles.Where(r => r.IsDeleted == false).ToList(), r => r.Menus.Where(m => m.IsDeleted == false).ToList()).InSingleAsync(userId);
+            if (user is null)
+            {
+                return null;
+            }
             user.Password = null;
             user.Salt = null;
             //得到角色集合
@@ -293,6 +297,6 @@ namespace Yi.Framework.Service
             userDto.User.DeptId = null;
             return await _repository.UpdateIgnoreNullAsync(userDto.User);
         }
-        
+
     }
 }

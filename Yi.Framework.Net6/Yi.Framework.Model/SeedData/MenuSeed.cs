@@ -18,7 +18,6 @@ namespace Yi.Framework.Model.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "系统管理",
-                //PermissionCode = "*:*:*",
                 MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
                 Router = "/system",
                 IsShow = true,
@@ -29,6 +28,55 @@ namespace Yi.Framework.Model.SeedData
                 IsDeleted = false
             };
             Entitys.Add(system);
+
+            //系统监控
+            MenuEntity monitoring = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "系统监控",
+                MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
+                Router = "/monitor",
+                IsShow = true,
+                IsLink = false,
+                MenuIcon = "monitor",
+                OrderNum = 99,
+                ParentId = 0,
+                IsDeleted = false
+            };
+            Entitys.Add(monitoring);
+
+            //系统工具
+            MenuEntity tool = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "系统工具",
+                MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
+                Router = "/tool",
+                IsShow = true,
+                IsLink = false,
+                MenuIcon = "tool",
+                OrderNum = 98,
+                ParentId = 0,
+                IsDeleted = false
+            };
+            Entitys.Add(tool);
+
+            //Yi框架
+            MenuEntity guide = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "Yi框架",
+                MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
+                Router = "https://gitee.com/ccnetcore/yi",
+                IsShow = true,
+                IsLink = true,
+                MenuIcon = "guide",
+                OrderNum = 90,
+                ParentId = 0,
+                IsDeleted = false,
+            };
+            Entitys.Add(guide);
+
 
             //用户管理
             MenuEntity user = new MenuEntity()
@@ -436,6 +484,73 @@ namespace Yi.Framework.Model.SeedData
             };
             Entitys.Add(dictRemove);
 
+
+            //参数设置
+            MenuEntity config = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "参数设置",
+                PermissionCode = "system:config:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "config",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "system/config/index",
+                MenuIcon = "edit",
+                OrderNum = 100,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(config);
+
+            MenuEntity configQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "参数查询",
+                PermissionCode = "system:config:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = config.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(configQuery);
+
+            MenuEntity configAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "参数新增",
+                PermissionCode = "system:config:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = config.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(configAdd);
+
+            MenuEntity configEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "参数修改",
+                PermissionCode = "system:config:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = config.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(configEdit);
+
+            MenuEntity configRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "参数删除",
+                PermissionCode = "system:config:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = config.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(configRemove);
 
 
             return Entitys;

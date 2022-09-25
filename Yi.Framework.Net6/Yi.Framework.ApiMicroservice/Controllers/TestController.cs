@@ -219,6 +219,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 await rep.ChangeRepository<Repository<DictionaryEntity>>().DeleteAsync(u => true);
                 await rep.ChangeRepository<Repository<DictionaryInfoEntity>>().DeleteAsync(u => true);
                 await rep.ChangeRepository<Repository<ConfigEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<PostEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<DeptEntity>>().DeleteAsync(u => true);
             }));
 
         }
