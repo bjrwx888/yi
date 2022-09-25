@@ -124,7 +124,7 @@ namespace Yi.Framework.Model.SeedData
                 PermissionCode = "system:role:query",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = user.Id,
+                ParentId = role.Id,
                 IsDeleted = false
             };
             Entitys.Add(roleQuery);
@@ -136,7 +136,7 @@ namespace Yi.Framework.Model.SeedData
                 PermissionCode = "system:role:add",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = user.Id,
+                ParentId = role.Id,
                 IsDeleted = false
             };
             Entitys.Add(roleAdd);
@@ -148,7 +148,7 @@ namespace Yi.Framework.Model.SeedData
                 PermissionCode = "system:role:edit",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = user.Id,
+                ParentId = role.Id,
                 IsDeleted = false
             };
             Entitys.Add(roleEdit);
@@ -160,7 +160,7 @@ namespace Yi.Framework.Model.SeedData
                 PermissionCode = "system:role:remove",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = user.Id,
+                ParentId = role.Id,
                 IsDeleted = false
             };
             Entitys.Add(roleRemove);
@@ -370,71 +370,71 @@ namespace Yi.Framework.Model.SeedData
             Entitys.Add(postRemove);
 
             //字典管理
-            MenuEntity dic = new MenuEntity()
+            MenuEntity dict = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "字典管理",
-                PermissionCode = "system:dic:list",
+                PermissionCode = "system:dict:list",
                 MenuType = MenuTypeEnum.Menu.GetHashCode(),
-                Router = "dic",
+                Router = "dict",
                 IsShow = true,
                 IsLink = false,
                 IsCache = true,
-                Component = "system/dic/index",
+                Component = "system/dict/index",
                 MenuIcon = "dict",
                 OrderNum = 100,
                 ParentId = system.Id,
                 IsDeleted = false
             };
-            Entitys.Add(dic);
+            Entitys.Add(dict);
 
-            MenuEntity dicQuery = new MenuEntity()
+            MenuEntity dictQuery = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "字典查询",
-                PermissionCode = "system:dic:query",
+                PermissionCode = "system:dict:query",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = dic.Id,
+                ParentId = dict.Id,
                 IsDeleted = false
             };
-            Entitys.Add(dicQuery);
+            Entitys.Add(dictQuery);
 
-            MenuEntity dicAdd = new MenuEntity()
+            MenuEntity dictAdd = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "字典新增",
-                PermissionCode = "system:dic:add",
+                PermissionCode = "system:dict:add",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = dic.Id,
+                ParentId = dict.Id,
                 IsDeleted = false
             };
-            Entitys.Add(dicAdd);
+            Entitys.Add(dictAdd);
 
-            MenuEntity dicEdit = new MenuEntity()
+            MenuEntity dictEdit = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "字典修改",
-                PermissionCode = "system:dic:edit",
+                PermissionCode = "system:dict:edit",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = dic.Id,
+                ParentId = dict.Id,
                 IsDeleted = false
             };
-            Entitys.Add(dicEdit);
+            Entitys.Add(dictEdit);
 
-            MenuEntity dicRemove = new MenuEntity()
+            MenuEntity dictRemove = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "字典删除",
-                PermissionCode = "system:dic:remove",
+                PermissionCode = "system:dict:remove",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
-                ParentId = dic.Id,
+                ParentId = dict.Id,
                 IsDeleted = false
             };
-            Entitys.Add(dicRemove);
+            Entitys.Add(dictRemove);
 
 
 

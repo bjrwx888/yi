@@ -18,7 +18,7 @@ namespace Yi.Framework.Common.Models
         public string Redirect { get; set; }
         public string Component { get; set; }
         public bool AlwaysShow { get; set; }
-        public Meta Meta { get; set; }
+        public Meta Meta { get; set; } = new Meta();
         public List<VueRouterModel> Children { get; set; }
     }
 

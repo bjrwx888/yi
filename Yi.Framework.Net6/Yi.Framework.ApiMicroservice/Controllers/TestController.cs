@@ -201,8 +201,26 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [Authorize]
         [HttpGet]
         public Result AuthorizeTest()
-        { 
+        {
             return Result.Success();
+        }
+
+        [HttpGet]
+        public async Task<Result> ClearDb()
+        {
+            var rep = _iUserService._repository;
+            return Result.Success().SetStatus(await rep.UseTranAsync(async () =>
+            {
+                await rep.DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<MenuEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<RoleEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<RoleMenuEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<UserRoleEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<DictionaryEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<DictionaryInfoEntity>>().DeleteAsync(u => true);
+                await rep.ChangeRepository<Repository<ConfigEntity>>().DeleteAsync(u => true);
+            }));
+
         }
     }
 }

@@ -46,6 +46,7 @@ namespace Yi.Framework.Model.Models
                     r.Redirect = "noRedirect";
                     r.AlwaysShow = true;
                     r.Component = m.Component;
+                    r.AlwaysShow = false;
                 }
 
 

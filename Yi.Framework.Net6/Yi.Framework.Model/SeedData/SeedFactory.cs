@@ -22,6 +22,10 @@ namespace Yi.Framework.Model.SeedData
         {
             return new MenuSeed().GetSeed();
         }
+        public static List<DictionaryEntity> GetDictionarySeed()
+        {
+            return new DictionarySeed().GetSeed();
+        }
         public static List<UserRoleEntity> GetUserRoleSeed(List<UserEntity> users, List<RoleEntity> roles)
         {
             List<UserRoleEntity> userRoleEntities = new();
