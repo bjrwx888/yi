@@ -87,6 +87,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> Update(UserInfoDto userDto)
         {
+            if (await _iUserService._repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)&&!userDto.User.Id.Equals(u.Id)))
+            {
+                return Result.Error("用户名已存在，修改失败！");
+            }
             return Result.Success().SetStatus(await _iUserService.UpdateInfo(userDto));
         }
 
@@ -109,7 +113,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> Add(UserInfoDto userDto)
-        { 
+        {
+            if (await _iUserService._repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)))
+            {
+                return Result.Error("用户已经存在，添加失败！");
+            }
+
             return Result.Success().SetStatus(await _iUserService.AddInfo(userDto));
         }
 
