@@ -352,6 +352,10 @@ function handleQuery() {
 /** 重置按钮操作 */
 function resetQuery() {
    proxy.resetForm("queryRef");
+
+
+   // console.log(proxy.$refs["deptTreeRef"])
+   queryParams.value.deptId=undefined;
    handleQuery();
 };
 /** 删除按钮操作 */
