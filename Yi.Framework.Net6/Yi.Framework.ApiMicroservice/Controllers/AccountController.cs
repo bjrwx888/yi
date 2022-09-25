@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
@@ -135,9 +136,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             var userId = HttpContext.GetUserIdInfo();
             var data = await _iUserService.GetUserAllInfo(userId);
+            var menus = data.Menus.ToList();
 
+            //为超级管理员直接给全部路由
+            if (SystemConst.Admin.Equals(data.User.UserName))
+            {
+                menus = await _iUserService._repository.ChangeRepository<Repository<MenuEntity>>().GetListAsync();
+            }
             //将后端菜单转换成前端路由，组件级别需要过滤
-            List<VueRouterModel> routers = MenuEntity.RouterBuild(data.Menus.ToList());
+            List<VueRouterModel> routers = MenuEntity.RouterBuild(menus);
             return Result.Success().SetData(routers);
         }
 

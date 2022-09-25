@@ -39,12 +39,12 @@
     </el-row>
     <el-row :gutter="20">
       <el-col :sm="24" :lg="12" style="padding-left: 20px">
-        <h2>若依后台管理框架</h2>
+        <h2>意框架-若依后台管理框架</h2>
         <p>
-          一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了若依管理系统，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。所有前端后台代码封装过后十分精简易上手，出错概率低。同时支持移动客户端访问。系统会陆续更新一些实用功能。
+         Ruoyi:一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了若依管理系统，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。所有前端后台代码封装过后十分精简易上手，出错概率低。同时支持移动客户端访问。系统会陆续更新一些实用功能。
         </p>
         <p>
-          <b>当前版本:</b> <span>v{{ version }}</span>
+          <b>当前Ruoyi版本:</b> <span>v{{ version }}</span>
         </p>
         <p>
           <el-tag type="danger">&yen;免费开源</el-tag>
@@ -76,12 +76,12 @@
           <el-col :span="6">
             <h4>后端技术</h4>
             <ul>
-              <li>SpringBoot</li>
-              <li>Spring Security</li>
+              <li>.Net6</li>
+              <li>WebFirst</li>
               <li>JWT</li>
-              <li>MyBatis</li>
-              <li>Druid</li>
-              <li>Fastjson</li>
+              <li>Sqlsugar</li>
+              <li>Redis</li>
+              <li>json</li>
               <li>...</li>
             </ul>
           </el-col>
@@ -111,14 +111,34 @@
           </template>
           <div class="body">
             <p>
-              <i class="el-icon-s-promotion"></i> 官网：<el-link
+              <i class="el-icon-s-promotion"></i> Sqlsugar官网地址：<el-link
+                href="https://www.donet5.com/"
+                target="_blank"
+                >https://www.donet5.com/</el-link
+              >
+            </p>
+            <p>
+              <i class="el-icon-s-promotion"></i> Yi意框架地址：<el-link
+                href="https://gitee.com/ccnetcore/yi"
+                target="_blank"
+                >https://gitee.com/ccnetcore/yi</el-link
+              >
+            </p>
+            <p>
+              <i class="el-icon-s-promotion"></i> Ruoyi官网：<el-link
                 href="http://www.ruoyi.vip"
                 target="_blank"
                 >http://www.ruoyi.vip</el-link
               >
             </p>
             <p>
-              <i class="el-icon-user-solid"></i> QQ群：<s>满937441</s> <s>满887144332</s>
+              <i class="el-icon-user-solid"></i> Yi框架 QQ群：<s>官方一群已满</s> <s>官方二群已满</s>
+              <a href="https://jq.qq.com/?_wv=1027&k=0fsNiYZt" target="_blank">
+                官方三群：160110482</a
+              >
+            </p>
+            <p>
+              <i class="el-icon-user-solid"></i> Ruoyi QQ群：<s>满937441</s> <s>满887144332</s>
               <s>满180251782</s> <s>满104180207</s> <s>满186866453</s> <s>满201396349</s>
               <s>满101456076</s> <s>满101539465</s> <s>满264312783</s> <s>满167385320</s> 
               <s>满104748341</s> <a href="https://jq.qq.com/?_wv=1027&k=0fsNiYZt" target="_blank">
@@ -814,7 +834,7 @@
         <el-card class="update-log">
           <template v-slot:header>
             <div class="clearfix">
-              <span>捐赠支持</span>
+              <span>RuoYi捐赠支持</span>
             </div>
           </template>
           <div class="body">

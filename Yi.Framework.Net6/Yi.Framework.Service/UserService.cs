@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
@@ -53,7 +54,7 @@ namespace Yi.Framework.Service
             if (await Exist(userName, o => user = o))
             {
                 userAction.Invoke(user);
-                if (user.Password == Common.Helper.MD5Helper.SHA2Encode(password, user.Salt))
+                if (user.Password ==MD5Helper.SHA2Encode(password, user.Salt))
                 {
                     return true;
                 }
@@ -149,6 +150,7 @@ namespace Yi.Framework.Service
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
         {
 
+
             var userRoleMenu = new UserRoleMenuDto();
             //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
 
@@ -160,6 +162,18 @@ namespace Yi.Framework.Service
             }
             user.Password = null;
             user.Salt = null;
+
+            //超级管理员特殊处理
+            if (SystemConst.Admin.Equals(user.UserName))
+            {
+                userRoleMenu.User = user;
+                userRoleMenu.RoleCodes.Add(SystemConst.AdminRolesCode);
+                userRoleMenu.PermissionCodes.Add(SystemConst.AdminPermissionCode);
+                return userRoleMenu;
+            }
+
+
+
             //得到角色集合
             var roleList = user.Roles;
 
