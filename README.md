@@ -1,7 +1,7 @@
 
 
 <h1 align="center"><img align="left" height="100px" src="https://user-images.githubusercontent.com/68722157/138828506-f58b7c57-5e10-4178-8f7d-5d5e12050113.png"> Yi框架</h1>
-<h4 align="center">一套与SqlSugar一样爽的.Net6低代码开源框架</h4>
+<h4 align="center">一套与SqlSugar一样爽的.Net6开源框架</h4>
 <h2 align="center">集大成者，终究轮子</h2>
 
 [English](README-en.md) | 简体中文
@@ -10,11 +10,11 @@
 
 ****
 ### 简介:
-**中文：意框架**（和他的名字一样“简易”，同时接入java耳熟能详的Ruoyi Vue3.0前端）
+**中文：意框架**（和他的名字一样“简易”，同时接入Java的Ruoyi Vue3.0前端）
 
 模块分化较多，可根据业务自行引用或抛弃，集大成者，大而全乎，也许你能从中学习到一些独特见解
 
-正在持续更进业务模块，正在接入ruoyi
+正在持续更进业务模块，已接入ruoyi
 
 **英文：YiFramework**
 
