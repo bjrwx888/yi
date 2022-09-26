@@ -127,7 +127,7 @@ builder.Services.AddSignalR();
 builder.Services.AddHeiCaptcha();
 #region
 //添加Http上下文
-#endregionv
+#endregion
 
 builder.Services.AddHttpContextAccessor();
 //-----------------------------------------------------------------------------------------------------------
