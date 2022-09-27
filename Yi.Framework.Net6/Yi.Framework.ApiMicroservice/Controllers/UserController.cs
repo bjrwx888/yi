@@ -67,8 +67,21 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
 
-
-
+        /// <summary>
+        /// 导入数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Import()
+        {
+            throw null;
+            //var users = await _iUserService._repository.GetListAsync();
+            //var fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + nameof(UserEntity) + PathConst.DataExport;
+            //var path = ExcelHelper.ExportExcel(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Temp.ToString()));
+            //var file = System.IO.File.OpenRead(path);
+            //return File(file, "text/plain", $"{ fileName }.xlsx");
+        }
 
         /// <summary>
         /// 动态条件分页查询
