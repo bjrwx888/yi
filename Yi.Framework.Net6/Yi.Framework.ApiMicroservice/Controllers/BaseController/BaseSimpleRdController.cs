@@ -33,7 +33,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [Route("{id}")]
         [HttpGet]
         public virtual async Task<Result> GetById([FromRoute]long id)
@@ -45,7 +44,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 全部列表查询
         /// </summary>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [HttpGet]
         public virtual async Task<Result> GetList()
         {
@@ -57,7 +55,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:del")]
         [HttpDelete]
         public virtual async Task<Result> DelList(List<long> ids)
         {

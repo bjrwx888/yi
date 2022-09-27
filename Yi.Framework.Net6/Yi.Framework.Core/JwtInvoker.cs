@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Model.Models;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -45,9 +46,14 @@ namespace Yi.Framework.Core
             {
                 if (!string.IsNullOrEmpty(m.PermissionCode))
                 {
-                    claims.Add(new Claim("permission", m.PermissionCode.ToString()));
+                    claims.Add(new Claim(SystemConst.PermissionClaim, m.PermissionCode.ToString()));
                 }
             }
+            if (SystemConst.Admin.Equals(user.UserName))
+            {
+                claims.Add(new Claim(SystemConst.PermissionClaim, SystemConst.AdminPermissionCode));
+            }
+
             var creds = new SigningCredentials(new RsaSecurityKey(Common.Helper.RSAFileHelper.GetKey()), SecurityAlgorithms.RsaSha256);
             var token = new JwtSecurityToken(
                 issuer: _JWTTokenOptions.Issuer,

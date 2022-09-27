@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,11 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     public class ErrorHandExtension
     {
         private readonly RequestDelegate next;
-
-        public ErrorHandExtension(RequestDelegate next)
+        private ILogger<ErrorHandExtension> _logger;
+        public ErrorHandExtension(RequestDelegate next,ILogger<ErrorHandExtension> logger)
         {
             this.next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -34,6 +36,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                 {
                     statusCode = 200;
                 }
+                _logger.LogError($"中间件抓取错误\r\n错误信息：{ex.Message}\r\n堆栈信息“{ex.StackTrace}");
                 await HandleExceptionAsync(context, statusCode, ex.Message);
             }
             finally

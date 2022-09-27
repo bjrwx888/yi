@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
 
 namespace Yi.Framework.WebCore.AttributeExtend
 {
@@ -25,12 +26,13 @@ namespace Yi.Framework.WebCore.AttributeExtend
         /// <exception cref="Exception"></exception>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            base.OnActionExecuting(context);
+
 
             if (string.IsNullOrEmpty(permission))
             {
                 throw new Exception("权限不能为空！");
             }
+
             var result = false;
 
 
@@ -38,16 +40,20 @@ namespace Yi.Framework.WebCore.AttributeExtend
             var sid = context.HttpContext.User.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid);
 
             //jwt存在的权限列表
-            var perList = context.HttpContext.User.Claims.Where(u => u.Type == "permission").Select(u=> u.Value.ToString().ToLower()). ToList();
+            var perList = context.HttpContext.User.Claims.Where(u => u.Type == SystemConst.PermissionClaim).Select(u => u.Value.ToString().ToLower()).ToList();
             //判断权限是否存在Redis中,或者jwt中
 
             //进行正则表达式的匹配，以code开头
             Regex regex = new Regex($"^{permission.ToLower()}");
             foreach (var p in perList)
             {
-                //过滤多余的标签
-                p.Replace("Entity","");
-                p.Replace("entity","");
+                //如果存在超级管理员权限，直接放行
+                if (SystemConst.AdminPermissionCode.Equals(p))
+                {
+                    result = true;
+                    break;
+                }
+
                 if (regex.IsMatch(p))
                 {
                     result = true;
@@ -55,11 +61,6 @@ namespace Yi.Framework.WebCore.AttributeExtend
                 }
             }
             //用户的增删改查直接可以user:*即可
-
-
-            //这里暂时全部放行即可
-            result = true;
-
 
             if (!result)
             {

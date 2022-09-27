@@ -33,7 +33,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [HttpGet]
         public virtual async Task<Result> GetById(long id)
         {
@@ -44,7 +43,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 列表查询
         /// </summary>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [HttpPost]
         public virtual async Task<Result> GetList(QueryCondition queryCondition)
         {
@@ -56,7 +54,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="queryCondition"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [HttpPost]
         public virtual async  Task<Result> PageList(QueryPageCondition queryCondition)
         {
@@ -68,7 +65,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:add")]
         [HttpPost]
         public  virtual async Task<Result> Add(T entity)
         {
@@ -80,7 +76,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:update")]
         [HttpPut]
         public virtual async Task<Result> Update(T entity)
         {
@@ -92,7 +87,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:del")]
         [HttpDelete]
         public virtual async Task<Result> DeleteList(List<long> ids)
         {

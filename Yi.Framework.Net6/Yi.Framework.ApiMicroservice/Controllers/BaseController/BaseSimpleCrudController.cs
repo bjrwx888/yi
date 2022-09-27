@@ -45,7 +45,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 全部列表查询
         /// </summary>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [HttpGet]
         public virtual async Task<Result> GetList()
         {
@@ -57,7 +56,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:add")]
         [HttpPost]
         public  virtual async Task<Result> Add(T entity)
         {
@@ -70,7 +68,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:update")]
         [HttpPut]
         public virtual async Task<Result> Update(T entity)
         {
@@ -82,7 +79,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:del")]
         [HttpDelete]
         public virtual async Task<Result> DelList(List<long> ids)
         {

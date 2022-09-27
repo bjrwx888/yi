@@ -11,5 +11,6 @@ namespace Yi.Framework.Common.Const
         public const string Admin = "cc";
         public const string AdminRolesCode = "admin";
         public const string AdminPermissionCode = "*:*:*";
+        public const string PermissionClaim = "permission";
     }
 }

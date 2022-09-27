@@ -20,6 +20,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// 用户管理
     /// </summary>
     [ApiController]
+    [Authorize]
     [Route("api/[controller]/[action]")]
     public class UserController : BaseSimpleRdController<UserEntity>
     {
@@ -37,6 +38,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="deptId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Permission("system:user:query")]
         public async Task<Result> PageList([FromQuery] UserEntity user, [FromQuery] PageParModel page,[FromQuery] long? deptId)
         {
             return Result.Success().SetData(await _iUserService.SelctPageList(user, page, deptId));
@@ -49,6 +51,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="isDel"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:user:edit")]
         public async Task<Result> UpdateStatus(long userId, bool isDel)
         {
             return Result.Success().SetData(await _iUserService._repository.UpdateIgnoreNullAsync(new UserEntity() { Id = userId, IsDeleted = isDel }));
@@ -61,6 +64,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="giveUserSetRoleDto"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:user:edit")]
         public async Task<Result> GiveUserSetRole(GiveUserSetRoleDto giveUserSetRoleDto)
         {
             return Result.Success().SetStatus(await _iUserService.GiveUserSetRole(giveUserSetRoleDto.UserIds, giveUserSetRoleDto.RoleIds));
@@ -74,6 +78,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
+        [Permission("system:user:query")]
         public override async Task<Result> GetById([FromRoute] long id)
         {
             return Result.Success().SetData(await _iUserService.GetInfoById(id));
@@ -85,6 +90,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:user:edit")]
         public async Task<Result> Update(UserInfoDto userDto)
         {
             if (await _iUserService._repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)&&!userDto.User.Id.Equals(u.Id)))
@@ -101,6 +107,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:user:edit")]
         public async Task<Result> UpdateProfile(UserInfoDto userDto)
         {
             return Result.Success().SetStatus(await _iUserService.UpdateProfile(userDto));
@@ -112,6 +119,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPost]
+        [Permission("system:user:add2")]
         public async Task<Result> Add(UserInfoDto userDto)
         {
             if (await _iUserService._repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)))
@@ -128,9 +136,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:user:edit")]
         public async Task<Result> RestPassword(UserEntity user)
         {
             return Result.Success().SetStatus(await _iUserService.RestPassword(user.Id, user.Password));
+        }
+        [Permission("system:user:query")]
+        public override Task<Result> GetList()
+        {
+            return base.GetList();
+        }
+        [Permission("system:user:remove")]
+        public override Task<Result> DelList(List<long> ids)
+        {
+            return base.DelList(ids);
         }
     }
 }
