@@ -7,6 +7,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+/// <summary>
+/// 此处来源于ZrAdmin
+/// </summary>
 namespace Yi.Framework.Common.Helper
 {
     public class ExcelHelper
@@ -18,7 +23,7 @@ namespace Yi.Framework.Common.Helper
         /// <param name="list"></param>
         /// <param name="sheetName"></param>
         /// <param name="fileName"></param>
-        public static string ExportExcel<T>(List<T> list, string sheetName, string fileName,string path)
+        public static string ExportExcel<T>(List<T> list, string fileName,string path,string sheetName= "default")
         {
             string sFileName = $"{fileName}.xlsx";
             string newFileName = Path.Combine(path, sFileName);
@@ -47,16 +52,25 @@ namespace Yi.Framework.Common.Helper
         /// <param name="stream"></param>
         /// <param name="fileName">下载文件名</param>
         /// <returns></returns>
-        protected string DownloadImportTemplate<T>(List<T> list, Stream stream, string fileName,string path)
+        public static string DownloadImportTemplate<T>(List<T> list, string fileName,string path)
         {
             string sFileName = $"{fileName}.xlsx";
             string newFileName = Path.Combine(path, sFileName);
+
+            //如果文件存在，直接返回即可
+            if (File.Exists(newFileName))
+            {
+                return newFileName;
+            }
             //调试模式需要加上
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             if (!Directory.Exists(newFileName))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(newFileName)!);
             }
+
+
+            Stream stream = new FileStream(newFileName, FileMode.OpenOrCreate);
             using (ExcelPackage package = new(new FileInfo(newFileName)))
             {
                 // 添加worksheet
@@ -67,8 +81,9 @@ namespace Yi.Framework.Common.Helper
                 worksheet.Cells.LoadFromCollection(list, true, OfficeOpenXml.Table.TableStyles.Light13);
                 package.SaveAs(stream);
             }
-
-            return sFileName;
+            stream.Dispose();
+           
+            return newFileName;
         }
 
 

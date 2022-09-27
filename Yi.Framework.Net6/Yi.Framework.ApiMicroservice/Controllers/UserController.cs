@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
+using Yi.Framework.Common.Enum;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
@@ -25,10 +28,47 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class UserController : BaseSimpleRdController<UserEntity>
     {
         private IUserService _iUserService;
+
         public UserController(ILogger<UserEntity> logger, IUserService iUserService) : base(logger, iUserService)
         {
             _iUserService = iUserService;
+
         }
+
+        /// <summary>
+        /// 下载模板
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Template()
+        {
+            List<UserEntity> users = new();
+            var fileName = nameof(UserEntity) + PathConst.DataTemplate;
+            var path = ExcelHelper.DownloadImportTemplate(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Excel.ToString()));
+            var file = System.IO.File.OpenRead(path);
+            return File(file, "text/plain", $"{DateTime.Now.ToString("yyyyMMddHHmmssffff") + fileName }.xlsx");
+        }
+
+
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Export()
+        {
+            var users = await _iUserService._repository.GetListAsync();
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + nameof(UserEntity) + PathConst.DataExport;
+            var path = ExcelHelper.ExportExcel(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Temp.ToString()));
+            var file = System.IO.File.OpenRead(path);
+            return File(file, "text/plain", $"{ fileName }.xlsx");
+        }
+
+
+
+
 
         /// <summary>
         /// 动态条件分页查询
@@ -39,7 +79,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         [Permission("system:user:query")]
-        public async Task<Result> PageList([FromQuery] UserEntity user, [FromQuery] PageParModel page,[FromQuery] long? deptId)
+        public async Task<Result> PageList([FromQuery] UserEntity user, [FromQuery] PageParModel page, [FromQuery] long? deptId)
         {
             return Result.Success().SetData(await _iUserService.SelctPageList(user, page, deptId));
         }
@@ -93,7 +133,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [Permission("system:user:edit")]
         public async Task<Result> Update(UserInfoDto userDto)
         {
-            if (await _iUserService._repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)&&!userDto.User.Id.Equals(u.Id)))
+            if (await _iUserService._repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName) && !userDto.User.Id.Equals(u.Id)))
             {
                 return Result.Error("用户名已存在，修改失败！");
             }

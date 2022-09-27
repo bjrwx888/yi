@@ -250,3 +250,10 @@ export async function blobValidate(data) {
     return true;
   }
 }
+
+// 通用下载方法
+export function download(url) {
+  // window.location.href = baseURL + "/common/download?fileName=" + encodeURI(fileName) + "&delete=" + true;
+  // window.open(baseURL + "/common/download?fileName=" + encodeURI(fileName) + "&delete=" + true)
+  window.open(import.meta.env.VITE_APP_BASE_API + url)
+}

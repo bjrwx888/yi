@@ -370,9 +370,7 @@ function handleDelete(row) {
 };
 /** 导出按钮操作 */
 function handleExport() {
-   proxy.download("system/user/export", {
-      ...queryParams.value,
-   }, `user_${new Date().getTime()}.xlsx`);
+   proxy.download("user/export");
 };
 /** 用户状态修改  */
 function handleStatusChange(row) {
@@ -430,8 +428,7 @@ function handleImport() {
 };
 /** 下载模板操作 */
 function importTemplate() {
-   proxy.download("system/user/importTemplate", {
-   }, `user_template_${new Date().getTime()}.xlsx`);
+   proxy.download("user/template");
 };
 /**文件上传中处理 */
 const handleFileUploadProgress = (event, file, fileList) => {
