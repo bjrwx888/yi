@@ -114,6 +114,24 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseExcelController`1.Template">
+            <summary>
+            下载模板
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseExcelController`1.Export">
+            <summary>
+            导出数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseExcelController`1.Import(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            导入数据
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseSimpleCrudController`1">
             <summary>
             Json To Sql 类比模式，通用模型
@@ -464,18 +482,6 @@
             <summary>
             用户管理
             </summary>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Template">
-            <summary>
-            下载模板
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Export">
-            <summary>
-            导出数据
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel,System.Nullable{System.Int64})">
             <summary>

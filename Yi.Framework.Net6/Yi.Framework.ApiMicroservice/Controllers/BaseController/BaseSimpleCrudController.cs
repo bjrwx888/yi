@@ -16,16 +16,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [ApiController]
-    public class BaseSimpleCrudController<T> : ControllerBase where T : class, new()
+    public class BaseSimpleCrudController<T> : BaseExcelController<T> where T : class, new()
     {
-        private readonly ILogger<T> _logger;
-        private IBaseService<T> _baseService;
-        private IRepository<T> _repository;
-        public BaseSimpleCrudController(ILogger<T> logger, IBaseService<T> iBaseService)
+        protected readonly ILogger<T> _logger;
+        protected IBaseService<T> _baseService;
+        public BaseSimpleCrudController(ILogger<T> logger, IBaseService<T> iBaseService):base(iBaseService._repository)
         {
             _logger = logger;
             _baseService = iBaseService;
-            _repository = iBaseService._repository;
         }
 
         /// <summary>
