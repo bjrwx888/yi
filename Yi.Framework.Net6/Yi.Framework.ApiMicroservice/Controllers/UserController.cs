@@ -75,14 +75,19 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Import()
+        public async Task<Result> Import([FromForm(Name = "file")] IFormFile formFile)
         {
-            throw null;
-            //var users = await _iUserService._repository.GetListAsync();
-            //var fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + nameof(UserEntity) + PathConst.DataExport;
-            //var path = ExcelHelper.ExportExcel(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Temp.ToString()));
-            //var file = System.IO.File.OpenRead(path);
-            //return File(file, "text/plain", $"{ fileName }.xlsx");
+            List<UserEntity> users = ExcelHelper.ImportData<UserEntity>(formFile.OpenReadStream());
+
+            var _repository = _iUserService._repository;
+
+            //全量删除在重新插入
+            var res = await _repository.UseTranAsync(async () =>
+            {
+                await _repository.DeleteAsync(u => true);
+                await _repository.InsertRangeAsync(users);
+            });
+            return Result.Success().SetStatus(res);
         }
 
         /// <summary>
