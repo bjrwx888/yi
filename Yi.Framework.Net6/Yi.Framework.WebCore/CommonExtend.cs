@@ -132,5 +132,24 @@ namespace Yi.Framework.WebCore
             return "";
 
         }
+
+
+        public static string GetRequestValue(this HttpContext context, string reqMethod)
+        {
+            string param;
+
+            if (HttpMethods.IsPost(reqMethod) || HttpMethods.IsPut(reqMethod))
+            {
+                context.Request.Body.Seek(0, SeekOrigin.Begin);
+                using var reader = new StreamReader(context.Request.Body, Encoding.UTF8);
+                //需要使用异步方式才能获取
+                param = reader.ReadToEndAsync().Result;
+            }
+            else
+            {
+                param = context.Request.QueryString.Value.ToString();
+            }
+            return param;
+        }
     }
 }
