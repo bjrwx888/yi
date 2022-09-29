@@ -26,8 +26,6 @@ namespace Yi.Framework.WebCore.AttributeExtend
         /// <exception cref="Exception"></exception>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-
-
             if (string.IsNullOrEmpty(permission))
             {
                 throw new Exception("权限不能为空！");

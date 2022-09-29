@@ -40,7 +40,6 @@ builder.Host.ConfigureLogging(loggingBuilder =>
                     loggingBuilder.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.Warning);
                     loggingBuilder.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.Warning);
                     loggingBuilder.AddLog4Net("./Config/Log4net.config");
-                   
                 });
 #region
 //配置类配置
@@ -71,12 +70,16 @@ builder.Services.AddAutoMapperService();
 //控制器+过滤器配置
 #endregion
 builder.Services.AddControllers(optios => {
-    //optios.Filters.Add<PermissionAttribute>();
+    //注册全局
+    optios.Filters.Add<GlobalLogAttribute>();
 }).AddJsonFileService();
 #region
 //权限过滤器
 #endregion
+//权限
 builder.Services.AddSingleton<PermissionAttribute>();
+//日志
+builder.Services.AddSingleton<GlobalLogAttribute>();
 #region
 //Swagger服务配置
 #endregion

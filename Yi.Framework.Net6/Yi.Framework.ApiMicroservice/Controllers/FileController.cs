@@ -80,16 +80,5 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 return Result.Error();
             }
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> ExportFile()
-        //{
-        //    var userdata = await _userService.GetAllEntitiesTrueAsync();
-        //    var userList = userdata.ToList();
-        //    List<string> header = new() { "用户", "密码", "头像", "昵称", "邮箱", "ip", "年龄", "个人介绍", "地址", "手机", "角色" };
-        //    var filename = Common.Helper.ExcelHelper.CreateExcelFromList(userList, header, _env.ContentRootPath.ToString());
-        //    var MimeType = Common.Helper.MimeHelper.GetMimeMapping(filename);
-        //    return new FileStreamResult(new FileStream(Path.Combine(_env.ContentRootPath+@"/wwwroot/excel", filename), FileMode.Open),MimeType);
-        //}
     }
 }
