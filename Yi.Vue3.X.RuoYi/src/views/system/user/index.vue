@@ -207,7 +207,7 @@
       <!-- 用户导入对话框 -->
       <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
          <el-upload ref="uploadRef" :limit="1" accept=".xlsx, .xls" :headers="upload.headers"
-            :action="upload.url + '?updateSupport=' + upload.updateSupport" :disabled="upload.isUploading"
+            :action="upload.url" :disabled="upload.isUploading"
             :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess" :auto-upload="false" drag>
             <el-icon class="el-icon--upload">
                <upload-filled />
@@ -215,9 +215,9 @@
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             <template #tip>
                <div class="el-upload__tip text-center">
-                  <div class="el-upload__tip">
+                  <!-- <div class="el-upload__tip">
                      <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据
-                  </div>
+                  </div> -->
                   <span>仅允许导入xls、xlsx格式文件。</span>
                   <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;"
                      @click="importTemplate">下载模板</el-link>
@@ -274,7 +274,7 @@ const upload = reactive({
    // 设置上传的请求头部
    headers: { Authorization: "Bearer " + getToken() },
    // 上传的地址
-   url: import.meta.env.VITE_APP_BASE_API + "/system/user/importData"
+   url: import.meta.env.VITE_APP_BASE_API + "/user/import"
 });
 // 列显隐信息
 const columns = ref([

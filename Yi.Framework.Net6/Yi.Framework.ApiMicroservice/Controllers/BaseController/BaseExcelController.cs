@@ -60,7 +60,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<Result> Import(IFormFile formFile)
+        public async Task<Result> Import([FromForm(Name = "file")]IFormFile formFile)
         {
             List<T> datas = ExcelHelper.ImportData<T>(formFile.OpenReadStream());
 
