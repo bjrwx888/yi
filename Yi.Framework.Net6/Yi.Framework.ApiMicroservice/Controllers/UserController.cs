@@ -35,61 +35,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
         }
 
-        //数据导入导出将会被写入到基类
-
-        ///// <summary>
-        ///// 下载模板
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult Template()
-        //{
-        //    List<UserEntity> users = new();
-        //    var fileName = nameof(UserEntity) + PathConst.DataTemplate;
-        //    var path = ExcelHelper.DownloadImportTemplate(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Excel.ToString()));
-        //    var file = System.IO.File.OpenRead(path);
-        //    return File(file, "text/plain", $"{DateTime.Now.ToString("yyyyMMddHHmmssffff") + fileName }.xlsx");
-        //}
-
-
-        ///// <summary>
-        ///// 导出数据
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Export()
-        //{
-        //    var users = await _iUserService._repository.GetListAsync();
-        //    var fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + nameof(UserEntity) + PathConst.DataExport;
-        //    var path = ExcelHelper.ExportExcel(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Temp.ToString()));
-        //    var file = System.IO.File.OpenRead(path);
-        //    return File(file, "text/plain", $"{ fileName }.xlsx");
-        //}
-
-
-        ///// <summary>
-        ///// 导入数据
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<Result> Import(IFormFile formFile)
-        //{
-        //    List<UserEntity> users = ExcelHelper.ImportData<UserEntity>(formFile.OpenReadStream());
-
-        //    var _repository = _iUserService._repository;
-
-        //    //全量删除在重新插入
-        //    var res = await _repository.UseTranAsync(async () =>
-        //    {
-        //        await _repository.DeleteAsync(u => true);
-        //        await _repository.InsertRangeAsync(users);
-        //    });
-        //    return Result.Success().SetStatus(res);
-        //}
-
         /// <summary>
         /// 动态条件分页查询
         /// </summary>
