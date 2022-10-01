@@ -230,27 +230,104 @@ namespace Yi.Framework.Model.SeedData
             DictionaryInfoEntity dictInfo18 = new DictionaryInfoEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
-                DictLabel = "正常",
-                DictValue = "0",
+                DictLabel = "新增",
+                DictValue = "1",
                 DictType = "sys_oper_type",
                 OrderNum = 100,
-                Remark = "正常状态",
+                Remark = "新增操作",
                 IsDeleted = false,
             };
             Entitys.Add(dictInfo18);
             DictionaryInfoEntity dictInfo19 = new DictionaryInfoEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
-                DictLabel = "关闭",
-                DictValue = "1",
+                DictLabel = "修改",
+                DictValue = "2",
                 DictType = "sys_oper_type",
                 OrderNum = 99,
-                Remark = "关闭状态",
+                Remark = "修改操作",
+                IsDeleted = false,
+            };
+            Entitys.Add(dictInfo19);
+            DictionaryInfoEntity dictInfo22 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "删除",
+                DictValue = "3",
+                DictType = "sys_oper_type",
+                OrderNum = 98,
+                Remark = "删除操作",
                 IsDeleted = false,
                 ListClass = "danger"
             };
-            Entitys.Add(dictInfo19);
-
+            Entitys.Add(dictInfo22);
+            DictionaryInfoEntity dictInfo23 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "授权",
+                DictValue = "4",
+                DictType = "sys_oper_type",
+                OrderNum = 97,
+                Remark = "授权操作",
+                IsDeleted = false,
+            };
+            Entitys.Add(dictInfo23);
+            DictionaryInfoEntity dictInfo24 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "导出",
+                DictValue = "5",
+                DictType = "sys_oper_type",
+                OrderNum = 96,
+                Remark = "导出操作",
+                IsDeleted = false,
+            };
+            Entitys.Add(dictInfo24);
+            DictionaryInfoEntity dictInfo25 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "导入",
+                DictValue = "6",
+                DictType = "sys_oper_type",
+                OrderNum = 95,
+                Remark = "导入操作",
+                IsDeleted = false,
+            };
+            Entitys.Add(dictInfo25);
+            DictionaryInfoEntity dictInfo26 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "强退",
+                DictValue = "7",
+                DictType = "sys_oper_type",
+                OrderNum = 94,
+                Remark = "强退操作",
+                IsDeleted = false,
+            };
+            Entitys.Add(dictInfo26);
+            DictionaryInfoEntity dictInfo27 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "生成代码",
+                DictValue = "8",
+                DictType = "sys_oper_type",
+                OrderNum = 93,
+                Remark = "生成代码操作",
+                IsDeleted = false,
+            };
+            Entitys.Add(dictInfo27);
+            DictionaryInfoEntity dictInfo28 = new DictionaryInfoEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                DictLabel = "清空数据",
+                DictValue = "9",
+                DictType = "sys_oper_type",
+                OrderNum = 92,
+                Remark = "清空数据操作",
+                IsDeleted = false,
+                ListClass = "danger"
+            };
+            Entitys.Add(dictInfo28);
 
 
 
