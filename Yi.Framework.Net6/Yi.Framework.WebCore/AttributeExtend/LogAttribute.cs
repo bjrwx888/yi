@@ -13,11 +13,30 @@ namespace Yi.Framework.WebCore.AttributeExtend
     [AttributeUsage(AttributeTargets.Method)]
     public class LogAttribute : Attribute
     {
-        private OperationEnum OperationType { get; set; }
+        /// <summary>
+        /// 操作类型
+        /// </summary>
+        public OperEnum OperType { get; set; }
 
-        public LogAttribute(OperationEnum operationType)
+        /// <summary>
+        /// 日志标题（模块）
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 是否保存请求数据
+        /// </summary>
+        public bool IsSaveRequestData { get; set; } = true;
+
+        /// <summary>
+        /// 是否保存返回数据
+        /// </summary>
+        public bool IsSaveResponseData { get; set; } = true;
+
+        public LogAttribute(string title, OperEnum operationType)
         {
-            this.OperationType = operationType;
+            this.Title = title;
+            this.OperType = operationType;
         }
     }
 }

@@ -336,6 +336,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.OperationLogController.PageList(Yi.Framework.Model.Models.OperationLogEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="operationLog"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.PostController.PageList(Yi.Framework.Model.Models.PostEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
@@ -476,6 +484,13 @@
             <summary>
             种子数据
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.LogTest(System.Collections.Generic.List{System.String})">
+            <summary>
+            操作日志测试
+            </summary>
+            <param name="par"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">

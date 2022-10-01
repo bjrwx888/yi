@@ -221,6 +221,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
         }
 
+
         /// <summary>
         /// 清空数据库
         /// </summary>
@@ -255,6 +256,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             var rep = _iUserService._repository;
             return Result.Success().SetStatus(DbSeedExtend.Invoer(rep._Db));
+        }
+
+        /// <summary>
+        /// 操作日志测试
+        /// </summary>
+        /// <param name="par"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Log("测试模块", Common.Enum.OperEnum.Insert)]
+        public Result LogTest(List<string> par)
+        {
+            return Result.Success().SetData(par);
         }
     }
 }

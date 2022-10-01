@@ -15,12 +15,12 @@ internal class JsonOptionsWritable<TOptions> : FileOptionsWritableBase<TOptions>
 
     public override void Update(Action<TOptions> configuration)
     {
-        JObject? jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(this.FileName));
+        JObject jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(this.FileName));
         if (jObject != null)
         {
             TOptions option = this.Monitor.CurrentValue ?? new TOptions();
 
-            if (jObject.TryGetValue(this.Section, out JToken? jtoken))
+            if (jObject.TryGetValue(this.Section, out JToken jtoken))
             {
                 option = JsonConvert.DeserializeObject<TOptions>(jtoken.ToString()) ?? new TOptions();
                 configuration?.Invoke(option);

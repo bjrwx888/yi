@@ -335,7 +335,7 @@ namespace Yi.Framework.Model.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 DictLabel = "成功",
-                DictValue = "0",
+                DictValue = "false",
                 DictType = "sys_common_status",
                 OrderNum = 100,
                 Remark = "正常状态",
@@ -346,7 +346,7 @@ namespace Yi.Framework.Model.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 DictLabel = "失败",
-                DictValue = "1",
+                DictValue = "true",
                 DictType = "sys_common_status",
                 OrderNum = 99,
                 Remark = "失败状态",

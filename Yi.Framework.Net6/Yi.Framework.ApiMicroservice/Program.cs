@@ -163,6 +163,11 @@ app.UseStaticFiles();
 //多语言国际化注入
 #endregion
 app.UseLocalizerService();
+
+#region
+//上下文请求body
+#endregion
+app.UseHttpBodyService();
 #region
 //HttpsRedirection注入
 #endregion
