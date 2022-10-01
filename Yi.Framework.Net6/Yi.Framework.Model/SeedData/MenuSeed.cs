@@ -553,6 +553,110 @@ namespace Yi.Framework.Model.SeedData
             Entitys.Add(configRemove);
 
 
+
+
+            //日志管理
+            MenuEntity log = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "日志管理",
+                MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
+                Router = "log",
+                IsShow = true,
+                IsLink = false,
+                MenuIcon = "log",
+                OrderNum = 100,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(log);
+
+            //操作日志
+            MenuEntity operationLog = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "操作日志",
+                PermissionCode = "monitor:operlog:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "operlog",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "monitor/operlog/index",
+                MenuIcon = "form",
+                OrderNum = 100,
+                ParentId = log.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(operationLog);
+
+            MenuEntity operationLogQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "操作查询",
+                PermissionCode = "monitor:operlog:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = operationLog.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(operationLogQuery);
+
+            MenuEntity operationLogRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "操作删除",
+                PermissionCode = "monitor:operlog:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = operationLog.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(operationLogRemove);
+
+
+            //登录日志
+            MenuEntity loginLog = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "登录日志",
+                PermissionCode = "monitor:logininfor:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "logininfor",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "monitor/logininfor/index",
+                MenuIcon = "logininfor",
+                OrderNum = 100,
+                ParentId = log.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(loginLog);
+
+            MenuEntity loginLogQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "登录查询",
+                PermissionCode = "monitor:logininfor:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = loginLog.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(loginLogQuery);
+
+            MenuEntity loginLogRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "登录删除",
+                PermissionCode = "monitor:logininfor:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = loginLog.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(loginLogRemove);
             return Entitys;
         }
     }

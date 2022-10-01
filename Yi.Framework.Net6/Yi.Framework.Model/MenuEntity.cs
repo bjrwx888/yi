@@ -38,7 +38,16 @@ namespace Yi.Framework.Model.Models
                 {
                     r.Redirect = "noRedirect";
                     r.AlwaysShow = true;
-                    r.Component = "Layout";
+
+                    //判断是否为最顶层的路由
+                    if (0==m.ParentId)
+                    {
+                        r.Component = "Layout";
+                    }
+                    else
+                    {
+                        r.Component = "ParentView";
+                    }                  
                 }
                 if (m.MenuType == MenuTypeEnum.Menu.GetHashCode())
                 {
