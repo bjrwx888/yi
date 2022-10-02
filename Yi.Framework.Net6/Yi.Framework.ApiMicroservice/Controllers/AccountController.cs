@@ -33,12 +33,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private JwtInvoker _jwtInvoker;
         private ILogger _logger;
         private SecurityCodeHelper _securityCode;
+        private IRepository<UserEntity> _repository;
         public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
             _logger = logger;
             _securityCode = securityCode;
+            _repository = iUserService._repository;
         }
 
         /// <summary>
@@ -67,13 +69,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             //跳过，需要redis缓存获取uuid与code的关系，进行比较即可
             //先效验验证码和UUID
+            //登录还需要进行登录日志的落库
+
+            var loginInfo = HttpContext.GetLoginLogInfo();
+            loginInfo.LoginUser = loginDto.UserName;
+            loginInfo.LogMsg = "登录成功！";
+            var loginLogRepository = _repository.ChangeRepository<Repository<LoginLogEntity>>();
             UserEntity user = new();
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
                 var userRoleMenu = await _iUserService.GetUserAllInfo(user.Id);
-                return Result.Success("登录成功！").SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User, userRoleMenu.Menus) });
+                await loginLogRepository.InsertReturnSnowflakeIdAsync(loginInfo);
+                return Result.Success(loginInfo.LogMsg).SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User, userRoleMenu.Menus) });
             }
-            return Result.Error("登录失败！用户名或者密码错误！");
+            loginInfo.LogMsg = "登录失败！用户名或者密码错误！";
+            await loginLogRepository.InsertReturnSnowflakeIdAsync(loginInfo);
+            return Result.Error(loginInfo.LogMsg);
         }
 
 

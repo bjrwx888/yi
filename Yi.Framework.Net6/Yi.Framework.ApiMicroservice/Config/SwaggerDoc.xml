@@ -297,6 +297,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.LoginLogController.PageList(Yi.Framework.Model.Models.LoginLogEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="loginLog"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.MenuController">
             <summary>
             菜单管理

@@ -17,12 +17,25 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class LoginLogController : BaseCrudController<LoginLogEntity>
+    public class LoginLogController : BaseSimpleCrudController<LoginLogEntity>
     {
         private ILoginLogService _iLoginLogService;
         public LoginLogController(ILogger<LoginLogEntity> logger, ILoginLogService iLoginLogService) : base(logger, iLoginLogService)
         {
             _iLoginLogService = iLoginLogService;
         }
+
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <param name="loginLog"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> PageList([FromQuery] LoginLogEntity loginLog, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iLoginLogService.SelctPageList(loginLog, page));
+        }
+
     }
 }

@@ -6,8 +6,8 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Interface
 {
-    public partial interface ILoginLogService : IBaseService<LoginLogEntity>
+   public partial interface ILoginLogService:IBaseService<LoginLogEntity>
     {
-      
+        Task<PageModel<List<LoginLogEntity>>> SelctPageList(LoginLogEntity loginLog, PageParModel page);
     }
 }

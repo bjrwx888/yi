@@ -19,7 +19,7 @@ namespace Yi.Framework.Service
                         .WhereIF(!string.IsNullOrEmpty(operationLog.OperUser), u => u.OperUser.Contains(operationLog.OperUser))
                         .WhereIF(operationLog.OperType is not null, u => u.OperType==operationLog.OperType.GetHashCode())
                      .WhereIF(operationLog.IsDeleted.IsNotNull(), u => u.IsDeleted == operationLog.IsDeleted)
-
+                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 

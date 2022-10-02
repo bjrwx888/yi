@@ -1,27 +1,27 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="登录地址" prop="ipaddr">
+         <el-form-item label="登录Ip" prop="loginIp">
             <el-input
-               v-model="queryParams.ipaddr"
-               placeholder="请输入登录地址"
+               v-model="queryParams.loginIp"
+               placeholder="请输入登录Ip"
                clearable
                style="width: 240px;"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="用户名称" prop="userName">
+         <el-form-item label="用户名称" prop="loginUser">
             <el-input
-               v-model="queryParams.userName"
+               v-model="queryParams.loginUser"
                placeholder="请输入用户名称"
                clearable
                style="width: 240px;"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="status">
+         <el-form-item label="状态" prop="isDeleted">
             <el-select
-               v-model="queryParams.status"
+               v-model="queryParams.isDeleted"
                placeholder="登录状态"
                clearable
                style="width: 240px"
@@ -94,21 +94,21 @@
 
       <el-table ref="logininforRef" v-loading="loading" :data="logininforList" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="访问编号" align="center" prop="infoId" />
-         <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
-         <el-table-column label="地址" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
+         <el-table-column label="访问编号" align="center" prop="id" />
+         <el-table-column label="用户名称" align="center" prop="loginUser" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
+         <el-table-column label="地址" align="center" prop="loginIp" :show-overflow-tooltip="true" />
          <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
          <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
          <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
-         <el-table-column label="登录状态" align="center" prop="status">
+         <el-table-column label="登录状态" align="center" prop="isDeleted">
             <template #default="scope">
-               <dict-tag :options="sys_common_status" :value="scope.row.status" />
+               <dict-tag :options="sys_common_status" :value="scope.row.isDeleted" />
             </template>
          </el-table-column>
          <el-table-column label="描述" align="center" prop="msg" />
-         <el-table-column label="访问时间" align="center" prop="loginTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
+         <el-table-column label="访问时间" align="center" prop="createTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.loginTime) }}</span>
+               <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
       </el-table>
@@ -138,15 +138,15 @@ const multiple = ref(true);
 const selectName = ref("");
 const total = ref(0);
 const dateRange = ref([]);
-const defaultSort = ref({ prop: "loginTime", order: "descending" });
+const defaultSort = ref({ prop: "createTime", order: "descending" });
 
 // 查询参数
 const queryParams = ref({
   pageNum: 1,
   pageSize: 10,
-  ipaddr: undefined,
-  userName: undefined,
-  status: undefined,
+  loginIp: undefined,
+  loginUser: undefined,
+  isDeleted: undefined,
   orderByColumn: undefined,
   isAsc: undefined
 });
@@ -155,8 +155,8 @@ const queryParams = ref({
 function getList() {
   loading.value = true;
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    logininforList.value = response.rows;
-    total.value = response.total;
+    logininforList.value = response.data.data;
+    total.value = response.data.total;
     loading.value = false;
   });
 }
@@ -174,10 +174,10 @@ function resetQuery() {
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.infoId);
+  ids.value = selection.map(item => item.id);
   multiple.value = !selection.length;
   single.value = selection.length != 1;
-  selectName.value = selection.map(item => item.userName);
+  selectName.value = selection.map(item => item.loginUser);
 }
 /** 排序触发事件 */
 function handleSortChange(column, prop, order) {
@@ -187,7 +187,7 @@ function handleSortChange(column, prop, order) {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const infoIds = row.infoId || ids.value;
+  const infoIds = row.id || ids.value;
   proxy.$modal.confirm('是否确认删除访问编号为"' + infoIds + '"的数据项?').then(function () {
     return delLogininfor(infoIds);
   }).then(() => {
@@ -206,11 +206,11 @@ function handleClean() {
 }
 /** 解锁按钮操作 */
 function handleUnlock() {
-  const username = selectName.value;
-  proxy.$modal.confirm('是否确认解锁用户"' + username + '"数据项?').then(function () {
-    return unlockLogininfor(username);
+  const loginUser = selectName.value;
+  proxy.$modal.confirm('是否确认解锁用户"' + loginUser + '"数据项?').then(function () {
+    return unlockLogininfor(loginUser);
   }).then(() => {
-    proxy.$modal.msgSuccess("用户" + username + "解锁成功");
+    proxy.$modal.msgSuccess("用户" + loginUser + "解锁成功");
   }).catch(() => {});
 }
 /** 导出按钮操作 */

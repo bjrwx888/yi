@@ -11,6 +11,7 @@ using Yi.Framework.Model.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Text.RegularExpressions;
+using UAParser;
 
 namespace Yi.Framework.WebCore
 {
@@ -165,6 +166,19 @@ namespace Yi.Framework.WebCore
             return param;
         }
 
+        /// <summary>
+        /// 获取客户端信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ClientInfo GetClientInfo(this HttpContext context)
+        {
+            var str = GetUserAgent(context);
+            var uaParser = Parser.GetDefault();
+            ClientInfo c = uaParser.Parse(str);
+            return c;
+        }
+
 
         /// <summary>
         /// 获取客户端IP
@@ -189,6 +203,42 @@ namespace Yi.Framework.WebCore
 
             result = regResult ? result : "127.0.0.1";
             return result;
+        }
+
+        /// <summary>
+        /// 获取浏览器标识
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static string GetUserAgent(this HttpContext context)
+        {
+            return context.Request.Headers["User-Agent"];
+        }
+
+
+        /// <summary>
+        /// 记录用户登陆信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static LoginLogEntity GetLoginLogInfo(this HttpContext context)
+        {
+            var ipAddr = context.GetClientIp();
+            //var ip_info = IpTool.Search(ipAddr);
+            //var location = "广州" + "-" + "深圳";
+            ClientInfo clientInfo = context.GetClientInfo();
+            LoginLogEntity entity = new()
+            {
+                Browser = clientInfo.Device.Family,
+                Os = clientInfo.OS.ToString(),
+                LoginIp = ipAddr,
+                //登录是没有token的，所有是获取不到用户名，需要在控制器赋值
+                //LoginUser = context.GetUserNameInfo(),
+                LoginLocation = "广州" + "-" + "深圳",
+                IsDeleted = false
+            };
+
+            return entity;
         }
 
     }
