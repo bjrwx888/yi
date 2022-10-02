@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -12,27 +13,25 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient> action = null)
         {
-
-           
-
             DbType dbType;
             var slavaConFig = new List<SlaveConnectionConfig>();
             if (Appsettings.appBool("MutiDB_Enabled"))
             {
                 var readCon = Appsettings.app<List<string>>("DbConn", "ReadUrl");
-              
-                readCon.ForEach(s => {
+
+                readCon.ForEach(s =>
+                {
                     slavaConFig.Add(new SlaveConnectionConfig() { ConnectionString = s });
                 });
             }
-           
+
             switch (Appsettings.app("DbSelect"))
             {
                 case "Mysql": dbType = DbType.MySql; break;
                 case "Sqlite": dbType = DbType.Sqlite; break;
                 case "Sqlserver": dbType = DbType.SqlServer; break;
                 case "Oracle": dbType = DbType.Oracle; break;
-                default:throw new Exception("DbSelect配置写的TM是个什么东西？");
+                default: throw new Exception("DbSelect配置写的TM是个什么东西？");
             }
             SqlSugarScope sqlSugar = new SqlSugarScope(new ConnectionConfig()
             {
@@ -42,7 +41,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                 IsAutoCloseConnection = true,
                 MoreSettings = new ConnMoreSettings()
                 {
-                    DisableNvarchar = true 
+                    DisableNvarchar = true
                 },
                 SlaveConnectionConfigs = slavaConFig,
                 //设置codefirst非空值判断
@@ -96,14 +95,17 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
              };
              db.Aop.OnLogExecuting = (s, p) =>
              {
+                 var _logger = ServiceLocator.Instance.GetService<ILogger<SqlSugarClient>>();
 
-                 Console.WriteLine("_______________________________________________");
-                 Console.WriteLine("执行SQL:"+s.ToString());
+                 StringBuilder sb = new StringBuilder();
+                 sb.Append("执行SQL:" + s.ToString());
                  foreach (var i in p)
                  {
-                     Console.WriteLine("参数:" +i.ParameterName+",参数值"+i.Value);
+                     sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
                  }
-                 Console.WriteLine("_______________________________________________");
+
+                 _logger.LogInformation(sb.ToString());
+
              };
 
          });
