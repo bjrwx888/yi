@@ -22,7 +22,7 @@ onMounted(() => {
 //这里还需要监视token的变化，重新进行signalr连接
 watch(()=>token.value,async (newValue,oldValue)=>{
   console.log("重新连接");
-  await signalR.close();
+  // await signalR.close();
   await signalR.start();
 })
 

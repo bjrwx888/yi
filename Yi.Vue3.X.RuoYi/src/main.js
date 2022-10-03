@@ -79,7 +79,8 @@ app.use(ElementPlus, {
   size: Cookies.get('size') || 'default'
 })
 // app.prototype.signalr = signalR
-signalR.init("http://localhost:19001/api/hub/main");
-signalR.start();
+
+signalR.init(`${import.meta.env.VITE_APP_BASE_WS}/hub/main`);
+// signalR.start();
 app.mount('#app')
 

@@ -28,13 +28,23 @@ export default defineConfig(({ mode, command }) => {
       port: 18000,
       host: true,
       open: true,
+
+      
       proxy: {
         // https://cn.vitejs.dev/config/#server-proxy
         '/dev-api': {
           target: VITE_APP_BASE_URL,
           changeOrigin: true,
-          rewrite: (p) => p.replace(/^\/dev-api/, '')
+          rewrite: (p) => p.replace(/^\/dev-api/, ''),
+        },
+
+        '/dev-ws': {
+          target: VITE_APP_BASE_URL,
+          changeOrigin: true,
+          rewrite: (p) => p.replace(/^\/dev-ws/, ''),
+          ws: true
         }
+
       }
     },
     //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
