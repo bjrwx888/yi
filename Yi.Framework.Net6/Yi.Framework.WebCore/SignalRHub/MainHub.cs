@@ -13,6 +13,9 @@ namespace Yi.Framework.WebCore.SignalRHub
 {
     public class MainHub : Hub
     {
+        public static readonly List<OnlineUser> clientUsers = new();
+
+
         private HttpContext _httpContext;
         private ILogger<MainHub> _logger;
         public MainHub(IHttpContextAccessor httpContextAccessor,ILogger<MainHub> logger)
@@ -21,7 +24,7 @@ namespace Yi.Framework.WebCore.SignalRHub
             _logger = logger;
         }
 
-        private static readonly List<OnlineUser> clientUsers = new();
+     
 
         /// <summary>
         /// 成功连接
@@ -30,17 +33,19 @@ namespace Yi.Framework.WebCore.SignalRHub
         public override Task OnConnectedAsync()
         {
             var name = _httpContext.GetUserNameInfo();
-            var ip = _httpContext.GetClientIp();
-            var ip_info = IpTool.Search(ip);
-
-            var loginUser = _httpContext.GetUserEntityInfo(out _);
+            var loginUser = _httpContext.GetLoginLogInfo();
             var user = clientUsers.Any(u => u.ConnnectionId == Context.ConnectionId);
             //判断用户是否存在，否则添加集合
             if (!user && Context.User.Identity.IsAuthenticated)
             {
-                OnlineUser users = new(Context.ConnectionId, name, loginUser.Id, ip)
+                OnlineUser users = new(Context.ConnectionId)
                 {
-                    Location = ip_info.City
+                    Browser= loginUser.Browser,
+                    LoginLocation = loginUser.LoginLocation,
+                    Ipaddr= loginUser.LoginIp,
+                    LoginTime=DateTime.Now,
+                    Os=loginUser.Os,
+                    UserName= name
                 };
                 clientUsers.Add(users);
                 _logger.LogInformation($"{DateTime.Now}：{name},{Context.ConnectionId}连接服务端success，当前已连接{clientUsers.Count}个");
@@ -67,7 +72,7 @@ namespace Yi.Framework.WebCore.SignalRHub
                 clientUsers.Remove(user);
                 Clients.All.SendAsync(HubTypeEnum.onlineNum.ToString(), clientUsers.Count);
                 //Clients.All.SendAsync(HubsConstant.OnlineUser, clientUsers);
-                _logger.LogInformation($"用户{user?.Name}离开了，当前已连接{clientUsers.Count}个");
+                _logger.LogInformation($"用户{user?.UserName}离开了，当前已连接{clientUsers.Count}个");
             }
             return base.OnDisconnectedAsync(exception);
         }

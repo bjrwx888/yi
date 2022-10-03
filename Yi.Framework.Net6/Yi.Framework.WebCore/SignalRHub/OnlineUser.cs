@@ -6,26 +6,32 @@ namespace Yi.Framework.WebCore.SignalRHub
 {
     public class OnlineUser
     {
+
+        public OnlineUser()
+        {
+          
+        }
+        public OnlineUser(string connnectionId)
+        {
+            this.ConnnectionId = connnectionId;
+        }
+
         /// <summary>
         /// 客户端连接Id
         /// </summary>
-        public string ConnnectionId { get; set; }
+        public string ConnnectionId { get; }
         /// <summary>
         /// 用户id
         /// </summary>
-        public long? Userid { get; set; }
-        public string Name { get; set; }
+        public long? UserId { get; set; }
+        public string UserName { get; set; }
         public DateTime LoginTime { get; set; }
-        public string UserIP { get; set; }
-        public string Location { get; set; }
+        public string Ipaddr { get; set; }
+        public string LoginLocation { get; set; }
 
-        public OnlineUser(string clientid, string name, long? userid, string userip)
-        {
-            ConnnectionId = clientid;
-            Name = name;
-            LoginTime = DateTime.Now;
-            Userid = userid;
-            UserIP = userip;
-        }
+        public string Os { get; set; }
+        public string Browser { get; set; }
+
+
     }
 }

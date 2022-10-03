@@ -8,7 +8,14 @@ namespace Yi.Framework.Common.Enum
 {
     public enum HubTypeEnum
     {
+       /// <summary>
+       /// 在线总数
+       /// </summary>
         onlineNum,
 
+        /// <summary>
+        /// 强制退出
+        /// </summary>
+        forceOut
     }
 }

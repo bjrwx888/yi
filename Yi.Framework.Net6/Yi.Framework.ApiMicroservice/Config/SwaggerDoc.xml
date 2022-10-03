@@ -344,6 +344,26 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.OnlineController">
+            <summary>
+            在线管理
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.OnlineController.PageList(Yi.Framework.WebCore.SignalRHub.OnlineUser,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件获取当前在线用户
+            </summary>
+            <param name="online"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.OnlineController.ForceOut(System.String)">
+            <summary>
+            强制退出用户
+            </summary>
+            <param name="connnectionId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.OperationLogController.PageList(Yi.Framework.Model.Models.OperationLogEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询

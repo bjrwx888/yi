@@ -2,7 +2,8 @@
 import * as signalR from '@microsoft/signalr'
 import useSocketStore from '@/store/modules/socket'
 import { getToken } from '@/utils/auth'
-
+import useUserStore from '@/store/modules/user'
+import { ElMessage } from 'element-plus'
 
 export default {
   // signalR对象
@@ -36,6 +37,12 @@ export default {
    * 调用 this.signalR.start().then(async () => { await this.SR.invoke("method")})
    * @returns 
    */
+async close(){
+  var that = this;
+  await this.SR.stop();
+},
+
+
   async start() {
     var that = this;
 
@@ -61,6 +68,12 @@ export default {
     connection.on("onlineNum", (data) => {
       const socketStore = useSocketStore();
       socketStore.setOnlineNum(data)
+    });
+    connection.on("forceOut", (msg) => {
+      useUserStore().logOut().then(() => {
+        ElMessage.error(msg);
+        location.href = '/index';
+      })
     });
     // connection.on("onlineNum", (data) => {
     //   store.dispatch("socket/changeOnlineNum", data);

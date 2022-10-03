@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" label-width="68px">
-         <el-form-item label="登录地址" prop="ipaddr">
+         <el-form-item label="登录ip" prop="ipaddr">
             <el-input
                v-model="queryParams.ipaddr"
-               placeholder="请输入登录地址"
+               placeholder="请输入登录ip"
                clearable
                @keyup.enter="handleQuery"
             />
@@ -24,17 +24,16 @@
       </el-form>
       <el-table
          v-loading="loading"
-         :data="onlineList.slice((pageNum - 1) * pageSize, pageNum * pageSize)"
+         :data="onlineList.slice((queryParams.pageNum - 1) * queryParams.pageSize, queryParams.pageNum * queryParams.pageSize)"
          style="width: 100%;"
       >
          <el-table-column label="序号" width="50" type="index" align="center">
             <template #default="scope">
-               <span>{{ (pageNum - 1) * pageSize + scope.$index + 1 }}</span>
+               <span>{{ (queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="会话编号" align="center" prop="tokenId" :show-overflow-tooltip="true" />
+         <el-table-column label="会话编号" align="center" prop="connnectionId" :show-overflow-tooltip="true" />
          <el-table-column label="登录名称" align="center" prop="userName" :show-overflow-tooltip="true" />
-         <el-table-column label="所属部门" align="center" prop="deptName" :show-overflow-tooltip="true" />
          <el-table-column label="主机" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
          <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
          <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
@@ -56,7 +55,7 @@
          </el-table-column>
       </el-table>
 
-      <pagination v-show="total > 0" :total="total" v-model:page="pageNum" v-model:limit="pageSize" />
+      <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" />
    </div>
 </template>
 
@@ -68,10 +67,12 @@ const { proxy } = getCurrentInstance();
 const onlineList = ref([]);
 const loading = ref(true);
 const total = ref(0);
-const pageNum = ref(1);
-const pageSize = ref(10);
+// const pageNum = ref(1);
+// const pageSize = ref(10);
 
 const queryParams = ref({
+   pageNum: 1,
+    pageSize: 10,
   ipaddr: undefined,
   userName: undefined
 });
@@ -80,14 +81,14 @@ const queryParams = ref({
 function getList() {
   loading.value = true;
   initData(queryParams.value).then(response => {
-    onlineList.value = response.rows;
-    total.value = response.total;
+    onlineList.value = response.data.data;
+    total.value = response.data.total;
     loading.value = false;
   });
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  pageNum.value = 1;
+   queryParams.value.pageNum = 1;
   getList();
 }
 /** 重置按钮操作 */
@@ -98,7 +99,7 @@ function resetQuery() {
 /** 强退按钮操作 */
 function handleForceLogout(row) {
     proxy.$modal.confirm('是否确认强退名称为"' + row.userName + '"的用户?').then(function () {
-  return forceLogout(row.tokenId);
+  return forceLogout(row.connnectionId);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");

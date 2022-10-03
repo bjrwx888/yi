@@ -45,6 +45,29 @@ namespace Yi.Framework.Model.SeedData
             };
             Entitys.Add(monitoring);
 
+
+            //在线用户
+            MenuEntity online = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "在线用户",
+                PermissionCode = "monitor:online:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "online",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "monitor/online/index",
+                MenuIcon = "online",
+                OrderNum = 100,
+                ParentId = monitoring.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(online);
+
+
+
+
             //系统工具
             MenuEntity tool = new MenuEntity()
             {
