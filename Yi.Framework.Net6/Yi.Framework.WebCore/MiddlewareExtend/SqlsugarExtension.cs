@@ -95,16 +95,21 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
              };
              db.Aop.OnLogExecuting = (s, p) =>
              {
-                 var _logger = ServiceLocator.Instance.GetService<ILogger<SqlSugarClient>>();
-
-                 StringBuilder sb = new StringBuilder();
-                 sb.Append("执行SQL:" + s.ToString());
-                 foreach (var i in p)
+                 //暂时先关闭sql打印
+                 if (false)
                  {
-                     sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
-                 }
+                     var _logger = ServiceLocator.Instance.GetService<ILogger<SqlSugarClient>>();
 
-                 _logger.LogInformation(sb.ToString());
+                     StringBuilder sb = new StringBuilder();
+                     sb.Append("执行SQL:" + s.ToString());
+                     foreach (var i in p)
+                     {
+                         sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
+                     }
+
+                     _logger.LogInformation(sb.ToString());
+                 }
+         
 
              };
 

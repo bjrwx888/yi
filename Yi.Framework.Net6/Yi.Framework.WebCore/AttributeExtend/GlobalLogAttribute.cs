@@ -51,8 +51,8 @@ namespace Yi.Framework.WebCore.AttributeExtend
 
                 //根据ip获取地址
 
-                //var ipTool = IpTool.Search(ip);
-                //string location = ipTool.Province + " " + ipTool.City;
+                var ipTool = IpTool.Search(ip);
+                string location = ipTool.Province + " " + ipTool.City;
 
                 //日志服务插入一条操作记录即可
 
@@ -66,6 +66,7 @@ namespace Yi.Framework.WebCore.AttributeExtend
                 logEntity.Method = context.HttpContext.Request.Path.Value;
                 logEntity.IsDeleted = false;
                 logEntity.OperUser= context.HttpContext.GetUserNameInfo();
+                logEntity.OperLocation = location;
                 if (logAttribute.IsSaveResponseData)
                 {
                     if (context.Result is ContentResult result && result.ContentType == "application/json")

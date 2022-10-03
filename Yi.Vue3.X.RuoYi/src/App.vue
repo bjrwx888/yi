@@ -12,4 +12,6 @@ onMounted(() => {
     handleThemeStyle(useSettingsStore().theme)
   })
 })
+
+//这里还需要监视token的变化，重新进行signalr连接
 </script>

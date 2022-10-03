@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Text.RegularExpressions;
 using UAParser;
+using IPTools.Core;
 
 namespace Yi.Framework.WebCore
 {
@@ -86,7 +87,7 @@ namespace Yi.Framework.WebCore
             try
             {
                 claimlist = httpContext.User.Claims;
-                resId = Convert.ToInt64(claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid).Value);
+                resId = Convert.ToInt64(claimlist.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sid)?.Value);
             }
             catch
             {
@@ -224,8 +225,7 @@ namespace Yi.Framework.WebCore
         public static LoginLogEntity GetLoginLogInfo(this HttpContext context)
         {
             var ipAddr = context.GetClientIp();
-            //var ip_info = IpTool.Search(ipAddr);
-            //var location = "广州" + "-" + "深圳";
+            var location = IpTool.Search(ipAddr);
             ClientInfo clientInfo = context.GetClientInfo();
             LoginLogEntity entity = new()
             {
@@ -234,7 +234,7 @@ namespace Yi.Framework.WebCore
                 LoginIp = ipAddr,
                 //登录是没有token的，所有是获取不到用户名，需要在控制器赋值
                 //LoginUser = context.GetUserNameInfo(),
-                LoginLocation = "广州" + "-" + "深圳",
+                LoginLocation = location.Province + "-" + location.City,
                 IsDeleted = false
             };
 

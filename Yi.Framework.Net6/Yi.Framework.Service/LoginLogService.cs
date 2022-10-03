@@ -19,7 +19,7 @@ namespace Yi.Framework.Service
                         .WhereIF(!string.IsNullOrEmpty(loginLog.LoginUser), u => u.LoginUser.Contains(loginLog.LoginUser))
                      .WhereIF(loginLog.IsDeleted.IsNotNull(), u => u.IsDeleted == loginLog.IsDeleted)
                      .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
-                    .OrderBy(u => u.OrderNum, OrderByType.Desc)
+                    .OrderBy(u => u.CreateTime, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
             return new PageModel<List<LoginLogEntity>>(data, total);
         }

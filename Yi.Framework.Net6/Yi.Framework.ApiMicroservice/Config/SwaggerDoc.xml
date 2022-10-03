@@ -410,6 +410,17 @@
             测试控制器
             </summary>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.Model.Models.UserEntity},Yi.Framework.Interface.IRoleService,Yi.Framework.Interface.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.QuartzInvoker)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="hub"></param>
+            <param name="logger"></param>
+            <param name="iRoleService"></param>
+            <param name="iUserService"></param>
+            <param name="local"></param>
+            <param name="quartzInvoker"></param>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.Swagger">
             <summary>
             swagger跳转
@@ -499,6 +510,13 @@
             操作日志测试
             </summary>
             <param name="par"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.SignalrTest(System.Int32)">
+            <summary>
+            Signalr实时推送测试
+            </summary>
+            <param name="msg"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">

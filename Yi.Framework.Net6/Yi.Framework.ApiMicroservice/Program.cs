@@ -14,6 +14,7 @@ using Hei.Captcha;
 using Yi.Framework.WebCore;
 using Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.WebCore.DbExtend;
+using IPTools.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -205,13 +206,13 @@ app.UseDbSeedInitService();
 //redis÷÷◊”◊¢»Î
 #endregion
 app.UseRedisSeedInitService();
-#region
-//SignalR≈‰÷√
-#endregion
-app.MapHub<MainHub>("/hub/main");
 
 app.UseEndpoints(endpoints =>
 {
+    #region
+    //SignalR≈‰÷√
+    #endregion
+    endpoints.MapHub<MainHub>("/api/hub/main");
     endpoints.MapControllers();
 });
 

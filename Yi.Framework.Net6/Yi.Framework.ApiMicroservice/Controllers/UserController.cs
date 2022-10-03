@@ -57,6 +57,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPut]
         [Permission("system:user:edit")]
+        [Log("用户模块", OperEnum.Update)]
         public async Task<Result> UpdateStatus(long userId, bool isDel)
         {
             return Result.Success().SetData(await _repository.UpdateIgnoreNullAsync(new UserEntity() { Id = userId, IsDeleted = isDel }));
@@ -69,6 +70,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPut]
         [Permission("system:user:edit")]
+        [Log("用户模块", OperEnum.Update)]
         public async Task<Result> GiveUserSetRole(GiveUserSetRoleDto giveUserSetRoleDto)
         {
             return Result.Success().SetStatus(await _iUserService.GiveUserSetRole(giveUserSetRoleDto.UserIds, giveUserSetRoleDto.RoleIds));
@@ -95,6 +97,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPut]
         [Permission("system:user:edit")]
+        [Log("用户模块", OperEnum.Update)]
         public async Task<Result> Update(UserInfoDto userDto)
         {
             if (await _repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName) && !userDto.User.Id.Equals(u.Id)))
@@ -112,6 +115,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPut]
         [Permission("system:user:edit")]
+        [Log("用户模块", OperEnum.Update)]
         public async Task<Result> UpdateProfile(UserInfoDto userDto)
         {
             return Result.Success().SetStatus(await _iUserService.UpdateProfile(userDto));
@@ -123,9 +127,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPost]
-        [Permission("system:user:add2")]
+        [Permission("system:user:add")]
+        [Log("用户模块", OperEnum.Insert)]
         public async Task<Result> Add(UserInfoDto userDto)
         {
+            if (string.IsNullOrEmpty(userDto.User.Password))
+            {
+                return Result.Error("密码为空，添加失败！");
+            }
             if (await _repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)))
             {
                 return Result.Error("用户已经存在，添加失败！");
@@ -141,6 +150,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPut]
         [Permission("system:user:edit")]
+        [Log("用户模块", OperEnum.Update)]
         public async Task<Result> RestPassword(UserEntity user)
         {
             return Result.Success().SetStatus(await _iUserService.RestPassword(user.Id, user.Password));
@@ -151,6 +161,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return base.GetList();
         }
         [Permission("system:user:remove")]
+        [Log("用户模块", OperEnum.Delete)]
         public override Task<Result> DelList(List<long> ids)
         {
             return base.DelList(ids);

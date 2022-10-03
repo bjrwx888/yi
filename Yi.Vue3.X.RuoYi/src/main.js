@@ -21,6 +21,7 @@ import { download } from '@/utils/ruoyi.js'
 import 'virtual:svg-icons-register'
 import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
+import signalR from '@/utils/signalR'
 
 import './permission' // permission control
 
@@ -77,5 +78,8 @@ app.use(ElementPlus, {
   // 支持 large、default、small
   size: Cookies.get('size') || 'default'
 })
-
+// app.prototype.signalr = signalR
+signalR.init("http://localhost:19001/api/hub/main");
+signalR.start();
 app.mount('#app')
+

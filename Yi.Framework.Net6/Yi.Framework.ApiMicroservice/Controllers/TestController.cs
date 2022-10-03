@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,6 +18,7 @@ using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
 using Yi.Framework.WebCore.DbExtend;
+using Yi.Framework.WebCore.SignalRHub;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -31,13 +33,23 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private IUserService _iUserService;
         private IRoleService _iRoleService;
         private QuartzInvoker _quartzInvoker;
+        private IHubContext<MainHub> _hub;
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
-        public TestController(ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local, QuartzInvoker quartzInvoker)
+        /// <summary>
+        /// 依赖注入
+        /// </summary>
+        /// <param name="hub"></param>
+        /// <param name="logger"></param>
+        /// <param name="iRoleService"></param>
+        /// <param name="iUserService"></param>
+        /// <param name="local"></param>
+        /// <param name="quartzInvoker"></param>
+        public TestController(IHubContext<MainHub> hub , ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local, QuartzInvoker quartzInvoker)
         {
-            _local = local;
             _iUserService = iUserService;
             _iRoleService = iRoleService;
             _quartzInvoker = quartzInvoker;
+            _hub = hub;
         }
 
         /// <summary>
@@ -268,6 +280,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public Result LogTest(List<string> par)
         {
             return Result.Success().SetData(par);
+        }
+
+        /// <summary>
+        /// Signalr实时推送测试
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async  Task<Result> SignalrTest(int msg)
+        {
+            await _hub.Clients.All.SendAsync("onlineNum", msg);
+            return Result.Success("向所有连接客户端发送一个消息");
         }
     }
 }
