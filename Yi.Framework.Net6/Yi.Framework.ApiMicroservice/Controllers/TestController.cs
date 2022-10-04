@@ -293,5 +293,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             await _hub.Clients.All.SendAsync("onlineNum", msg);
             return Result.Success("向所有连接客户端发送一个消息");
         }
+        //job任务与公告管理
     }
 }
