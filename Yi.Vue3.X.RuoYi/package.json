@@ -31,7 +31,7 @@
     "typeface-roboto": "^1.1.13",
     "vue": "3.2.37",
     "vue-cropper": "1.0.3",
-    "vue-router": "4.0.14"
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.3.3",
