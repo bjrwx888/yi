@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
+import 'vant/es/image-preview/style';
 import router from './router'
 import App from './App.vue'
 
