@@ -1,5 +1,5 @@
 <template>
-    <app-tab class="tabs"/>
+    <app-tab />
 </template>
 <script setup lang="ts">
     import { ref } from 'vue'
@@ -7,11 +7,6 @@
 
 </script>
 <style scoped>
-.tabs{
-position: absolute;
-top: 0;
-left: 0;
 
-}
 </style>
     

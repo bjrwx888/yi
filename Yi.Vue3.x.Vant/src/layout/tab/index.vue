@@ -1,22 +1,38 @@
 <template > 
-  <van-tabs   v-model:active="active" offset-top="0" :sticky="true" class="tabs">
-    <van-tab title="关注" to="/follow"></van-tab>
-    <van-tab title="推荐" to="/recommend"></van-tab>
-    <van-tab title="广场"></van-tab>
-    <van-tab title="视频"></van-tab>
-
-    <router-view />
+<van-sticky :offset-top="0">
+<van-row class="row"  >
+  <van-col span="4" class="icon"><van-icon name="sign" size="1.6rem"/></van-col>
+<van-col span="16">
+  <van-tabs   v-model:active="active"  class="tabs" sticky >
+    <van-tab title="关注" to="/follow" class="tab" ></van-tab>
+    <van-tab title="推荐" to="/recommend" class="tab" ></van-tab>
+    <van-tab title="广场" to="/square" class="tab" ></van-tab>
   </van-tabs>
+</van-col>
+<van-col span="4"  class="icon"><van-icon name="search" size="1.6rem" /></van-col>
+</van-row>
+</van-sticky>
+
+
+<router-view />
+<div style="min-height: 100rem;"></div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
 const active = ref(1);
 </script>
 <style scoped>
-.tabs{
-  width: 25rem;
+.row{
+  background-color: #FFFFFF;
+  min-width: 24rem;
 }
-.view{
-  margin: auto;
+.tab{
+
+}
+.icon{
+ padding-top: 0.6rem;
+}
+.tabs {
+  width: 100%;
 }
 </style>

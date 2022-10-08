@@ -30,6 +30,12 @@ export const constantRoutes = [
               component: () => import('@/view/main/follow.vue'),
               name: 'Follow',
             },
+            {
+              path: '/square',
+              component: () => import('@/view/main/square.vue'),
+              name: 'Square',
+            },
+            
           ]
         }
       ]

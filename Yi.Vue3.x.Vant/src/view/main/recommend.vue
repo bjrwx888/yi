@@ -23,7 +23,7 @@
           <span class="subtitle">一小时前</span>
         </van-col>
 
-        <van-col span="6">
+        <van-col span="6" class="down">
           <van-icon name="arrow-down" @click="show = true" />
         </van-col>
 
@@ -143,11 +143,14 @@ const onRefresh = () => {
   padding-top: 1rem;
   margin-bottom: 1rem;
   padding-left: 1rem;
+  padding-right: 1rem;
 }
 .rowBody {
   text-align: left;
   background-color: white;
   min-height: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .title {
   padding-top: 1rem;
@@ -175,5 +178,10 @@ color: #CBCBCB;
 }
 .bottomRow{
   color: #979797;
+}
+.down
+{
+  text-align: right;
+  padding-right: 0.5rem;
 }
 </style>
