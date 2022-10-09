@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.IdentityModel.JsonWebTokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,10 @@ using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 
-namespace Yi.Framework.WebCore.AttributeExtend
+namespace Yi.Framework.Common.Attribute
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class LogAttribute : Attribute
+    public class LogAttribute : System.Attribute
     {
         /// <summary>
         /// 操作类型

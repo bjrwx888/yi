@@ -31,10 +31,15 @@ builder.Host.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
+    
     #region
     //交由Module依赖注入
     #endregion
     containerBuilder.RegisterModule<CustomAutofacModule>();
+    #region
+    //使用AppService特性优雅的进行自动依赖注入,仓储与基类服务便是使用该种方式自动注入
+    #endregion
+    containerBuilder.AddAutoIocService("Yi.Framework.Repository", "Yi.Framework.Service");
 });
 builder.Host.ConfigureLogging(loggingBuilder =>
                 {

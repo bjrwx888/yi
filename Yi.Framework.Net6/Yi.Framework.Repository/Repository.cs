@@ -1,6 +1,7 @@
 ﻿using SqlSugar;
 using System.Data;
 using System.Linq.Expressions;
+using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Model.Query;
@@ -12,6 +13,7 @@ namespace Yi.Framework.Repository
     /// 仓储模式
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [AppService]
     public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
         public ISugarQueryable<T> _DbQueryable { get { return base.Context.Queryable<T>(); } set { } }

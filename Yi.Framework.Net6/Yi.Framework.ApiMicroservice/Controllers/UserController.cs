@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;

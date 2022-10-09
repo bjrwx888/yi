@@ -19,7 +19,7 @@ namespace Yi.Framework.Job
 
         public Task Execute(IJobExecutionContext context)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 var jobData = context.JobDetail.JobDataMap;
                  string method= jobData[Common.Const.JobConst.method].ToString();
@@ -28,10 +28,10 @@ namespace Yi.Framework.Job
                 switch (method)
                 {
                     case "post":
-                        data = Common.Helper.HttpHelper.HttpPost(url);
+                        data =await  Common.Helper.HttpHelper.Post(url);
                         break;
                     case "get":
-                         data = Common.Helper.HttpHelper.HttpGet(url);
+                         data =await Common.Helper.HttpHelper.Get(url);
                         break;
                 }
 

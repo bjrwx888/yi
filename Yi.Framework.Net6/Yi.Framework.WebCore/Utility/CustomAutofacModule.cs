@@ -41,8 +41,8 @@ namespace Yi.Framework.WebCore.Utility
 
             containerBuilder.RegisterType< HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 
-            containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-            containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope();
+            //containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            //containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope();
             ///反射注入服务层及接口层     
             var assemblysServices = GetDll( "Yi.Framework.Service.dll");
             containerBuilder.RegisterAssemblyTypes(assemblysServices)
@@ -58,6 +58,9 @@ namespace Yi.Framework.WebCore.Utility
 
 
             containerBuilder.Register(c => new CustomAutofacAop());//AOP注册
+
+
+
 
 
             //containerBuilder.RegisterType<A>().As<IA>().EnableInterfaceInterceptors();开启Aop
