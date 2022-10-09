@@ -7,7 +7,7 @@
       finished-text="没有更多了"
       @load="onLoad"
     >
-      <van-row v-for="item in list" :key="item" class="row">
+      <van-row v-for="item in list" class="row">
         <van-col span="4" class="leftCol">
           <van-image
             round
@@ -63,7 +63,6 @@
     v-model:show="show"
     :actions="actions"
     cancel-text="取消"
-    description="这是一段描述信息"
     close-on-click-action
   />
 
@@ -102,9 +101,9 @@ const refreshing = ref(false);
 
 const show = ref(false);
 const actions = [
-  { name: "选项一" },
-  { name: "选项二" },
-  { name: "选项三", subname: "描述信息" },
+  { name: "取消关注" },
+  { name: "将TA拉黑" },
+  { name: "举报"}
 ];
 const onLoad = () => {
   setTimeout(() => {
@@ -121,7 +120,7 @@ const onLoad = () => {
     if (list.value.length >= 40) {
       finished.value = true;
     }
-  }, 1000);
+  }, 100);
 };
 
 const onRefresh = () => {

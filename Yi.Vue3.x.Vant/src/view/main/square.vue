@@ -3,7 +3,7 @@
 
   <van-row class="test ">
     <van-col span="24">
-      <!-- <div class="test">这里是广场页面</div> -->
+      这里是广场页面
     </van-col>
 
   </van-row>

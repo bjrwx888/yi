@@ -17,10 +17,10 @@
 <van-action-sheet v-model:show="show" >
 
 
-    <van-button class="btn1 btn " type="primary" >发图文</van-button>
-  <van-button class="btn" type="primary">发视频</van-button>
-  <van-button class="btn" type="primary">发文章</van-button>
-  <van-button class="btn" type="primary">发二手</van-button>
+  <router-link to="/imageText"> <van-button class="btn1 btn " style="background-color: #5FBC76;" >发图文</van-button></router-link>
+  <van-button class="btn" style="background-color: #FF689B;">(暂未开放)发视频</van-button>
+  <van-button class="btn" style="background-color: #F7A63A;">(暂未开放)发文章</van-button>
+  <van-button class="btn" style="background-color: #6AB5EE;">(暂未开放)发二手</van-button>
 
 
   
@@ -44,6 +44,7 @@ const show = ref(false);
   height: 4rem;
   width:90%;
 margin: 0.5rem 1rem 0.5rem 1rem;
+color: #FFFFFF;
 }
   .content {
     padding: 16px 16px 160px;

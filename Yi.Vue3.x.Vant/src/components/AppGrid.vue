@@ -3,7 +3,7 @@
         <van-col span="24">
           <p >  {{data.head}}</p>
         </van-col>
-        <van-col class="col-body" span="6"  v-for="item in data.body"><van-icon name="chat-o" size="2rem" /> <br>{{item.title}}</van-col>
+        <van-col class="col-body" span="6"  v-for="item in data.body"><van-icon :name="item.icon" size="2rem" /> <br>{{item.title}}</van-col>
     </van-row>
 
 </template>
@@ -25,7 +25,7 @@ text-align: center;
 }
 p{
 font-size: large;
-font-weight: 545;
+font-weight:bold;
 }
 </style>
 

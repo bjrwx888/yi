@@ -13,8 +13,6 @@ export const constantRoutes = [
           component: () => import('@/view/my.vue'),
           name: 'My',
         },
-
-
         {
           path: '/main',
           component: () => import('@/layout/main/index.vue'),
@@ -40,7 +38,16 @@ export const constantRoutes = [
         }
       ]
     },
-  
+    {
+      path: '/imageText',
+      component: () => import('@/view/send/imageText.vue'),
+      name: 'ImageText',
+    },
+    {
+      path: '/login',
+      component: () => import('@/view/Login.vue'),
+      name: 'Login',
+    },
   ];
 
   const router = createRouter({
