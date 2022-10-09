@@ -29,9 +29,46 @@
             <van-col span="12" >   <van-button class="btn" type="primary">我的签到</van-button></van-col>
         </van-row>
           </van-col >
+
+
+          <AppGrid class="grid" :data='data'></AppGrid>
+          <AppGrid class="grid" :data='data'></AppGrid>
+          <AppGrid class="grid" :data='data'></AppGrid>
     </van-row>
+
+
+
 </template>
+<script setup lang="ts">
+import AppGrid from '@/components/AppGrid.vue'
+import {AppGridData} from '@/type/class/AppGridData.ts'
+let data :AppGridData={
+  head:"你好压抑",
+  body:[
+  {
+    title:"你好",
+    icon:"123"
+  },
+  {
+    title:"你好2",
+    icon:"123"
+  },
+  {
+    title:"你好2",
+    icon:"123"
+  },
+  {
+    title:"你好2",
+    icon:"123"
+  },
+]
+};
+</script>
 <style scoped>
+.grid{
+    width: 100%;
+    margin-top: 1rem;
+}
 .headRow{
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
