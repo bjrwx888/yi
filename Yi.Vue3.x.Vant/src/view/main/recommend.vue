@@ -1,5 +1,5 @@
 <template>
-  <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+  
     <van-list
       class="list"
       v-model:loading="loading"
@@ -7,7 +7,8 @@
       finished-text="没有更多了"
       @load="onLoad"
     >
-      <van-row v-for="item in list" class="row">
+
+      <van-row v-for="(item,index) in articleList" :key="index" class="row">
         <van-col span="4" class="leftCol">
           <van-image
             round
@@ -20,7 +21,7 @@
         <van-col span="14" class="centerTitle">
        <span class="justtitle">   大白</span>
           <br />
-          <span class="subtitle">一小时前</span>
+        <app-createTime :time="item.createTime"/>
         </van-col>
 
         <van-col span="6" class="down">
@@ -28,21 +29,19 @@
         </van-col>
 
         <van-col class="rowBody" span="24"
-          >这是第:{{
-            item
-          }}个,不要害怕重新开始，因为这一次你不是从头开始，而是从经验开始</van-col
+          >{{item.content}}</van-col
         >
 
         <van-col
           span="8"
-          v-for="item of 9"
-          :key="item"
+          v-for="(image,imageIndex) in item.images"
+          :key="imageIndex"
           class="imageCol"
-          @click="imageShow = true"
+          @click="openImage(item.images)"
           ><van-image
             width="100%"
             height="7rem"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            :src="url+image"
             radius="5"
           />
         </van-col>
@@ -56,7 +55,7 @@
         </van-col>
       </van-row>
     </van-list>
-  </van-pull-refresh>
+
 
   <!-- 功能页面 -->
   <van-action-sheet
@@ -69,27 +68,40 @@
   <!-- 图片预览 -->
   <van-image-preview
     v-model:show="imageShow"
-    :images="images"
+    :images="imagesPreview"
     @change="onChange"
     :closeable=true
   >
-    <template v-slot:index>第{{ index }}页</template>
+    <template v-slot:index>第{{ index+1 }}页</template>
   </van-image-preview>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref ,onMounted,reactive, toRefs} from "vue";
 import { ImagePreview, Toast } from "vant";
-
+import AppCreateTime from '@/components/AppCreateTime.vue'
+import articleApi from "@/api/articleApi.ts";
+import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
 const VanImagePreview = ImagePreview.Component;
+const url=`${import.meta.env.VITE_APP_BASE_API}/file/image/`
+const data=reactive({
 
+  queryParams:{
+    pageNum: 1,
+    pageSize: 10,
+    // dictName: undefined,
+    // dictType: undefined,
+    isDeleted: false
+  }
+});
+const {queryParams} =toRefs(data);
 
+const articleList=ref<ArticleEntity[]>([]);
+const totol=ref<Number>(0);
 const imageShow = ref(false);
 const index = ref(0);
-const images = [
-  "https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg",
-  "https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg",
-];
+let imagesPreview =ref<string[]>([]);
+
 const onChange = (newIndex: any) => {
   index.value = newIndex;
 };
@@ -105,24 +117,40 @@ const actions = [
   { name: "将TA拉黑" },
   { name: "举报"}
 ];
-const onLoad = () => {
-  setTimeout(() => {
-    if (refreshing.value) {
-      list.value = [];
-      refreshing.value = false;
-    }
+// const onLoad = () => {
+ 
+//     if (refreshing.value) {
+//       articleList.value = [];
+//       refreshing.value = false;
+//       queryParams.value.pageNum=0;
+//     }
 
-    for (let i = 0; i < 10; i++) {
-      list.value.push(list.value.length + 1);
-    }
-    loading.value = false;
+//     queryParams.value.pageNum+=1;
+//     getList();
 
-    if (list.value.length >= 40) {
-      finished.value = true;
-    }
-  }, 100);
-};
+//     loading.value = false;
 
+//     if (articleList.value.length >= 40) {
+//       finished.value = true;
+//     }
+
+// };
+const onLoad = async() => {
+      // 异步更新数据
+      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+      setTimeout(async() => {
+        console.log("执行")
+        // await getList();
+        // queryParams.value.pageNum+=1
+        // 加载状态结束
+        loading.value = false;
+
+        // 数据全部加载完成
+        if (list.value.length >= 4000) {
+          finished.value = true;
+        }
+      }, 1000);
+    };
 const onRefresh = () => {
   // 清空列表数据
   finished.value = false;
@@ -130,8 +158,23 @@ const onRefresh = () => {
   // 重新加载数据
   // 将 loading 设置为 true，表示处于加载状态
   loading.value = true;
-  onLoad();
+  // onLoad();
 };
+const openImage=(imagesUrl :string[])=>{
+  imagesPreview.value=imagesUrl.map(i=>url+i);
+  imageShow.value=true;
+}
+onMounted(()=>{
+  articleList.value=[];
+  getList();
+})
+
+const getList=()=>{
+  articleApi.pageList(queryParams.value).then((response:any)=>{
+    articleList.value.push(...response.data.data as ArticleEntity[]);
+    totol.value=response.data.totol;
+  })
+}
 </script>
 <style scoped>
 .list {

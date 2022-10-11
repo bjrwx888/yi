@@ -15,7 +15,7 @@
 
 
 <router-view />
-<div style="min-height: 100rem;"></div>
+<div style=""></div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";

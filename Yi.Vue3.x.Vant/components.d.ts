@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AppCreateTime: typeof import('./src/components/AppCreateTime.vue')['default']
     AppGrid: typeof import('./src/components/AppGrid.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.WebCore;
@@ -39,10 +41,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="type"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        [Route("/api/{type}/{fileName}")]
+        [Route("/api/file/{type}/{fileName}")]
         [HttpGet]
         public IActionResult Get(string type, string fileName)
         {
+            type = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(type.ToLower());
+            if (!Enum.IsDefined(typeof(PathEnum), type))
+            {
+                return new NotFoundResult();
+            }
             try
             {
                 var path = Path.Combine($"wwwroot/{type}", fileName);
@@ -64,8 +71,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Route("/api/Upload/{type}")]
         [HttpPost]
-        public async Task<Result> Upload(string type, IFormFile file)
+        public async Task<Result> Upload(string type,IFormFile file)
         {
+            type = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(type.ToLower());
+            if (!Enum.IsDefined(typeof(PathEnum), type))
+            {
+                return Result.Error("上传失败！文件类型不存在！");
+            }
             try
             {
                 string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
