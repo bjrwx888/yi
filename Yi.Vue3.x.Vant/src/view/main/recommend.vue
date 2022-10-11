@@ -1,5 +1,5 @@
 <template>
-  
+  <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list
       class="list"
       v-model:loading="loading"
@@ -7,8 +7,7 @@
       finished-text="没有更多了"
       @load="onLoad"
     >
-
-      <van-row v-for="(item,index) in articleList" :key="index" class="row">
+      <van-row v-for="(item, index) in articleList" :key="index" class="row">
         <van-col span="4" class="leftCol">
           <van-image
             round
@@ -19,29 +18,27 @@
         </van-col>
 
         <van-col span="14" class="centerTitle">
-       <span class="justtitle">   大白</span>
+          <span class="justtitle"> 大白</span>
           <br />
-        <app-createTime :time="item.createTime"/>
+          <app-createTime :time="item.createTime" />
         </van-col>
 
         <van-col span="6" class="down">
           <van-icon name="arrow-down" @click="show = true" />
         </van-col>
 
-        <van-col class="rowBody" span="24"
-          >{{item.content}}</van-col
-        >
+        <van-col class="rowBody" span="24">{{ item.content }}</van-col>
 
         <van-col
           span="8"
-          v-for="(image,imageIndex) in item.images"
+          v-for="(image, imageIndex) in item.images"
           :key="imageIndex"
           class="imageCol"
           @click="openImage(item.images)"
           ><van-image
             width="100%"
             height="7rem"
-            :src="url+image"
+            :src="url + image"
             radius="5"
           />
         </van-col>
@@ -55,8 +52,7 @@
         </van-col>
       </van-row>
     </van-list>
-
-
+  </van-pull-refresh>
   <!-- 功能页面 -->
   <van-action-sheet
     v-model:show="show"
@@ -70,37 +66,36 @@
     v-model:show="imageShow"
     :images="imagesPreview"
     @change="onChange"
-    :closeable=true
+    :closeable="true"
   >
-    <template v-slot:index>第{{ index+1 }}页</template>
+    <template v-slot:index>第{{ index + 1 }}页</template>
   </van-image-preview>
 </template>
 
 <script setup lang="ts">
-import { ref ,onMounted,reactive, toRefs} from "vue";
+import { ref, onMounted, reactive, toRefs } from "vue";
 import { ImagePreview, Toast } from "vant";
-import AppCreateTime from '@/components/AppCreateTime.vue'
+import AppCreateTime from "@/components/AppCreateTime.vue";
 import articleApi from "@/api/articleApi.ts";
 import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
 const VanImagePreview = ImagePreview.Component;
-const url=`${import.meta.env.VITE_APP_BASE_API}/file/image/`
-const data=reactive({
-
-  queryParams:{
+const url = `${import.meta.env.VITE_APP_BASE_API}/file/image/`;
+const data = reactive({
+  queryParams: {
     pageNum: 1,
     pageSize: 10,
     // dictName: undefined,
     // dictType: undefined,
-    isDeleted: false
-  }
+    isDeleted: false,
+  },
 });
-const {queryParams} =toRefs(data);
+const { queryParams } = toRefs(data);
 
-const articleList=ref<ArticleEntity[]>([]);
-const totol=ref<Number>(0);
+const articleList = ref<ArticleEntity[]>([]);
+const totol = ref<Number>(0);
 const imageShow = ref(false);
 const index = ref(0);
-let imagesPreview =ref<string[]>([]);
+let imagesPreview = ref<string[]>([]);
 
 const onChange = (newIndex: any) => {
   index.value = newIndex;
@@ -112,69 +107,55 @@ const finished = ref(false);
 const refreshing = ref(false);
 
 const show = ref(false);
-const actions = [
-  { name: "取消关注" },
-  { name: "将TA拉黑" },
-  { name: "举报"}
-];
-// const onLoad = () => {
- 
-//     if (refreshing.value) {
-//       articleList.value = [];
-//       refreshing.value = false;
-//       queryParams.value.pageNum=0;
-//     }
+const actions = [{ name: "取消关注" }, { name: "将TA拉黑" }, { name: "举报" }];
 
-//     queryParams.value.pageNum+=1;
-//     getList();
+const onLoad = async () => {
+  if (refreshing.value) {
+    articleList.value = [];
+    refreshing.value = false;
+  }
+  // 异步更新数据
+  // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+  articleApi.pageList(queryParams.value).then((response: any) => {
+    if (response.data.data.length == 0) {
+      console.log("结束");
+      finished.value = true;
+    } else {
+      console.log("执行");
+      articleList.value.push(...(response.data.data as ArticleEntity[]));
+      totol.value = response.data.totol;
+      queryParams.value.pageNum += 1;
+    }
 
-//     loading.value = false;
+    loading.value = false;
 
-//     if (articleList.value.length >= 40) {
-//       finished.value = true;
-//     }
-
-// };
-const onLoad = async() => {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      setTimeout(async() => {
-        console.log("执行")
-        // await getList();
-        // queryParams.value.pageNum+=1
-        // 加载状态结束
-        loading.value = false;
-
-        // 数据全部加载完成
-        if (list.value.length >= 4000) {
-          finished.value = true;
-        }
-      }, 1000);
-    };
+    console.log(loading.value);
+  });
+};
 const onRefresh = () => {
-  // 清空列表数据
   finished.value = false;
 
   // 重新加载数据
   // 将 loading 设置为 true，表示处于加载状态
   loading.value = true;
-  // onLoad();
+  queryParams.value.pageNum = 1;
+  onLoad();
 };
-const openImage=(imagesUrl :string[])=>{
-  imagesPreview.value=imagesUrl.map(i=>url+i);
-  imageShow.value=true;
-}
-onMounted(()=>{
-  articleList.value=[];
-  getList();
-})
+const openImage = (imagesUrl: string[]) => {
+  imagesPreview.value = imagesUrl.map((i) => url + i);
+  imageShow.value = true;
+};
+onMounted(() => {
+  articleList.value = [];
+  // getList();
+});
 
-const getList=()=>{
-  articleApi.pageList(queryParams.value).then((response:any)=>{
-    articleList.value.push(...response.data.data as ArticleEntity[]);
-    totol.value=response.data.totol;
-  })
-}
+const getList = () => {
+  articleApi.pageList(queryParams.value).then((response: any) => {
+    articleList.value.push(...(response.data.data as ArticleEntity[]));
+    totol.value = response.data.totol;
+  });
+};
 </script>
 <style scoped>
 .list {
@@ -210,19 +191,17 @@ const getList=()=>{
 .imageCol {
   padding: 0.1rem 0.1rem 0.1rem 0.1rem;
 }
-.subtitle{
-color: #CBCBCB;
-
+.subtitle {
+  color: #cbcbcb;
 }
 
-.justtitle{
+.justtitle {
   font-size: large;
 }
-.bottomRow{
+.bottomRow {
   color: #979797;
 }
-.down
-{
+.down {
   text-align: right;
   padding-right: 0.5rem;
 }
