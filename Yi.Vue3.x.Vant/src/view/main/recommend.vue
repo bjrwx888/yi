@@ -79,7 +79,7 @@ import AppCreateTime from "@/components/AppCreateTime.vue";
 import articleApi from "@/api/articleApi.ts";
 import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
 const VanImagePreview = ImagePreview.Component;
-const url = `${import.meta.env.VITE_APP_BASE_API}/file/image/`;
+const url = `${import.meta.env.VITE_APP_BASE_API}/file/`;
 const data = reactive({
   queryParams: {
     pageNum: 1,

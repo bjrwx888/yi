@@ -66,13 +66,25 @@ onMounted(() => {
   visible.value = true;
 });
 const afterRead = (file: any) => {
+
   file.status = "uploading";
   file.message = "上传中...";
   var formData = new FormData();
-  formData.append("file", file.file);
+  //一个文件
+  if(file.length==undefined)
+  {
+    formData.append("file", file.file);
+  }
+else
+{
+//多个文件
+file.forEach((f:any) => {
+  formData.append("file", f.file);
+});
+}
   fileApi.upload("image", formData)
     .then((response: any) => {
-      images.value.push(response.data);
+      images.value.push(...response.data);
       file.status = "done";
       file.message = "成功";
     })

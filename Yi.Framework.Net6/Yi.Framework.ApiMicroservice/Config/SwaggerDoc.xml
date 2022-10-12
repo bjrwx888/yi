@@ -277,27 +277,27 @@
             文件
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.#ctor(Yi.Framework.Interface.IUserService,Microsoft.Extensions.Hosting.IHostEnvironment)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.#ctor(Yi.Framework.Interface.IFileService,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
-            使用本地存储，未进行数据库记录
+            文件上传下载
             </summary>
-            <param name="iUserService"></param>
+            <param name="iFileService"></param>
             <param name="env"></param>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Get(System.String,System.String)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Get(System.Int64)">
             <summary>
-            文件下载
+            文件下载,只需用文件code即可
             </summary>
-            <param name="type"></param>
-            <param name="fileName"></param>
+            <param name="code"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Upload(System.String,Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Upload(System.String,Microsoft.AspNetCore.Http.IFormFileCollection,System.String)">
             <summary>
-            文件上传
+            多文件上传,type可空，默认上传至File文件夹下，swagger返回雪花id精度是有问题的
             </summary>
-            <param name="type"></param>
-            <param name="file"></param>
+            <param name="type">文件类型，可空</param>
+            <param name="file">多文件表单</param>
+            <param name="remark">描述</param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.LogController.Add">

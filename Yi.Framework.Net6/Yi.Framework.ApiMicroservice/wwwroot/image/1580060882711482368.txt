@@ -1,0 +1,60 @@
+全套CI持续集成流程
+1、用户在cf-site前端文本框输入必要信息
+
+2、cf-site前端调用git-cli接口
+
+3、检测用户是否存在，如果不存在就创建git用户
+
+4、创建对应仓库并附上对应组织关系
+
+5、创建仓库附上dev，test，main等分支
+
+6、给git用户附上对应权限
+
+7、本地服务器git秘钥进行存储
+
+8、 进入临时代码文件夹： cd 临时文件
+
+9、克隆远程空仓库：git clone git@gitlab.hymson.com.cn:root/test1.git
+
+10、进入仓库项目目录：cd 进入项目
+
+11、选择分支：git switch -c dev
+
+12、远程调用cf-cli脚手架将模板文件cli生成
+
+13、解压模板文件并将文件以特定格式移动到特定位置
+
+14、本地上载全部更新：git add .
+
+15、添加上传描述：git commit -m "building"
+
+16、更新远程仓库git push -u origin main
+
+17、删除临时文件夹
+
+18、返回前端仓库地址
+
+全套CD持续部署流程
+1、密钥连接jenkins
+
+2、远程调用cf-cli Job模板生文件
+
+3、cf-cli 根据ci的流程返回的参数来Job生成模板
+
+4、修改仓库url
+
+5、修改job的name
+
+6、修改job的启动项目文件
+
+7、创建Cd jenkins job在对应视图中
+
+8、上传特定job
+
+9、触发job
+
+10、浏览线上网址
+
+
+CI合并CD，最终返回 仓库地址+线上地址 、 Consul服务注册发现地址，确认服务存活状态
