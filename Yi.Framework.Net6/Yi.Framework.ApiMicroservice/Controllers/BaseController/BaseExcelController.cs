@@ -31,7 +31,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public IActionResult Template()
         {
             List<T> users = new();
-            var fileName = nameof(T) + PathConst.DataTemplate;
+            var fileName = typeof(T).Name + PathConst.DataTemplate;
             var path = ExcelHelper.DownloadImportTemplate(users, fileName, Path.Combine(PathConst.wwwroot, PathEnum.Excel.ToString()));
             var file = System.IO.File.OpenRead(path);
             return File(file, "text/plain", $"{DateTime.Now.ToString("yyyyMMddHHmmssffff") + fileName }.xlsx");

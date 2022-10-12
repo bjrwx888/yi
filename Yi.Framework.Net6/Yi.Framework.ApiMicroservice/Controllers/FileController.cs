@@ -116,7 +116,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
                     //落盘文件，文件名为雪花id+自己的扩展名
                     string filename = data.Id.ToString() + Path.GetExtension(f.FileName);
-                    using (var stream = new FileStream(Path.Combine($"{PathConst.wwwroot}/{type}", filename), FileMode.CreateNew, FileAccess.Write))
+                    string typePath = $"{PathConst.wwwroot}/{type}";
+                    if (!Directory.Exists(typePath))
+                    { 
+                        Directory.CreateDirectory(typePath);
+                    }
+                    using (var stream = new FileStream(Path.Combine(typePath, filename), FileMode.CreateNew, FileAccess.Write))
                     {
                         await f.CopyToAsync(stream);
                     }

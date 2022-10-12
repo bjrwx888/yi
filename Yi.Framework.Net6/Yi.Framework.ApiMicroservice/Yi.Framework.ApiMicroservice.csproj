@@ -25,12 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\excel\" />
-    <Folder Include="wwwroot\file\" />
-    <Folder Include="wwwroot\image\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Config\SwaggerDoc.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
