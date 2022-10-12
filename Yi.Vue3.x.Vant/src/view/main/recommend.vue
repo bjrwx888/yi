@@ -1,5 +1,6 @@
 <template>
-  <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list
       class="list"
       v-model:loading="loading"
