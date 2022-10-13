@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppCreateTime: typeof import('./src/components/AppCreateTime.vue')['default']
     AppGrid: typeof import('./src/components/AppGrid.vue')['default']
+    AppUserIcon: typeof import('./src/components/AppUserIcon.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

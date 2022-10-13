@@ -23,6 +23,7 @@ namespace Yi.Framework.WebCore.DbExtend
             var posts = SeedFactory.GetPostSeed();
             var dictinfos = SeedFactory.GetDictionaryInfoSeed();
             var depts = SeedFactory.GetDeptSeed();
+            var files = SeedFactory.GetFileSeed();
             try
             {
                 _Db.AsTenant().BeginTran();
@@ -68,6 +69,12 @@ namespace Yi.Framework.WebCore.DbExtend
                 {
                     _Db.Insertable(SeedFactory.GetRoleMenuSeed(roles, menus)).ExecuteCommand();
                 }
+
+                if (!_Db.Queryable<FileEntity>().Any())
+                {
+                    _Db.Insertable(files).ExecuteCommand();
+                }
+
                 _Db.AsTenant().CommitTran();
                 res = true;
             }

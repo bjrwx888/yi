@@ -9,12 +9,7 @@
 
   <van-row class="bodyRow">
     <van-col span="6" class="leftCol">
-      <van-image
-        round
-        width="4rem"
-        height="4rem"
-        src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-      />
+    <AppUserIcon width="4rem" height="4rem" :src="user.icon"></AppUserIcon>
     </van-col>
     <van-col span="12" class="title"><span>{{user.nick}}</span></van-col>
     <van-col span="6" class="subtitle"
@@ -100,6 +95,7 @@ import { ref } from "vue";
 import { Dialog } from "vant";
 import useUserStore from "@/store/modules/user";
 import { storeToRefs } from 'pinia';
+import   AppUserIcon from "@/components/AppUserIcon.vue";
 const show = ref<boolean>(false);
 let data1: AppGridData = {
   head: "个人中心",

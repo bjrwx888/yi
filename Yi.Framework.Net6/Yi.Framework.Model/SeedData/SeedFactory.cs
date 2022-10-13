@@ -40,6 +40,11 @@ namespace Yi.Framework.Model.SeedData
         {
             return new DeptSeed().GetSeed();
         }
+
+        public static List<FileEntity> GetFileSeed()
+        {
+            return new FileSeed().GetSeed();
+        }
         public static List<UserRoleEntity> GetUserRoleSeed(List<UserEntity> users, List<RoleEntity> roles)
         {
             List<UserRoleEntity> userRoleEntities = new();

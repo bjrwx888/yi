@@ -10,12 +10,7 @@
     >
       <van-row v-for="(item, index) in articleList" :key="index" class="row">
         <van-col span="4" class="leftCol">
-          <van-image
-            round
-            width="3rem"
-            height="3rem"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-          />
+    <AppUserIcon width="3rem" height="3rem" :src="item.user==null?null:(item.user.icon)"/>
         </van-col>
 
         <van-col span="14" class="centerTitle">
@@ -77,6 +72,7 @@
 import { ref, onMounted, reactive, toRefs } from "vue";
 import { ImagePreview, Toast } from "vant";
 import AppCreateTime from "@/components/AppCreateTime.vue";
+import   AppUserIcon from "@/components/AppUserIcon.vue";
 import articleApi from "@/api/articleApi.ts";
 import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
 const VanImagePreview = ImagePreview.Component;
@@ -172,7 +168,7 @@ const getList = () => {
 .rowBody {
   text-align: left;
   background-color: white;
-  min-height: 2rem;
+
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
