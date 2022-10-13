@@ -14,6 +14,7 @@ namespace Yi.Framework.Service
         {
             RefAsync<int> total = 0;
             var data = await _repository._DbQueryable
+                .Includes(x => x.User)
                        //.WhereIF(!string.IsNullOrEmpty(config.ConfigName), u => u.ConfigName.Contains(config.ConfigName))
                        //.WhereIF(!string.IsNullOrEmpty(config.ConfigKey), u => u.ConfigKey.Contains(config.ConfigKey))
                        .WhereIF(page.StartTime is not null && page.EndTime is not null, u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)

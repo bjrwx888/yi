@@ -16,7 +16,7 @@
         src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
       />
     </van-col>
-    <van-col span="12" class="title"><span>大白不在家</span></van-col>
+    <van-col span="12" class="title"><span>{{user.nick}}</span></van-col>
     <van-col span="6" class="subtitle"
       ><span>个人主页<van-icon name="arrow" /></span
     ></van-col>
@@ -99,6 +99,7 @@ import { AppGridData } from "@/type/class/AppGridData.ts";
 import { ref } from "vue";
 import { Dialog } from "vant";
 import useUserStore from "@/store/modules/user";
+import { storeToRefs } from 'pinia';
 const show = ref<boolean>(false);
 let data1: AppGridData = {
   head: "个人中心",
@@ -159,13 +160,15 @@ let data3: AppGridData = {
     },
   ],
 };
+const userStore=useUserStore();
+const {user}=storeToRefs(useUserStore());
 const outLog = () => {
   Dialog.confirm({
     title: "提示",
     message: "确定退出当前用户吗？",
   })
     .then(() => {
-      useUserStore()
+      userStore
         .logOut()
         .then((response: any) => {
           location.href = "/";
@@ -175,6 +178,7 @@ const outLog = () => {
       // on cancel
     });
 };
+
 </script>
 <style scoped>
 .grid {

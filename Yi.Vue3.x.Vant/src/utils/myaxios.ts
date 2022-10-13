@@ -5,6 +5,7 @@ import JsonBig from 'json-bigint'
 import { getToken } from '@/utils/auth'
 import { useRouter } from "vue-router";
 import useUserStore from '@/store/modules/user'
+import { Notify } from 'vant';
 // import VuetifyDialogPlugin from 'vuetify-dialog/nuxt/index';
 export let isRelogin = { show: false };
 const myaxios = axios.create({
@@ -40,37 +41,7 @@ myaxios.interceptors.request.use(function(config) {
 myaxios.interceptors.response.use(async function(response) {
 //成功
     const resp = response.data
-    // if (resp.code == undefined && resp.message == undefined) {
-    //     alert("直接爆炸")
-    //     // vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
-    //     //     position: "top-right",
-    //     //     timeout: 5000,
-    //     // });
-    // } else if (resp.code == 401) {
-    //     alert("登录过期！重新登录");
-
-    //     const router = useRouter();
-    //     router.push({ path:"/login" });
-
-    //     // const res = await vm.$dialog.error({
-    //     //     text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
-    //     //     title: '错误',
-    //     //     actions: {
-    //     //         'false': '取消',
-    //     //         'true': '跳转'
-    //     //     }
-    //     // });
-    //     // if (res) {
-    //     //     vm.$router.push({ path: "/login" });
-    //     // }
-
-    // } else if (resp.code !== 200) {
-    //     // vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
-    //     //     position: "top-right",
-    //     //     timeout: 5000,
-    //     // });
-    // }
-
+  
     // store.dispatch("closeLoad");
     return resp;
 }, async function(error) {
@@ -79,17 +50,13 @@ const resp = error.response.data
 
 
 if (resp.code == undefined && resp.message == undefined) {
-    alert("直接爆炸")
-    // vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
-    //     position: "top-right",
-    //     timeout: 5000,
-    // });
+    Notify({ type: 'danger', message: '未知错误' });
 } else if (resp.code == 401) {
     if (!isRelogin.show) {
 
      
 
-    alert("登录过期！重新登录");
+      Notify({ type: 'warning', message: '登录过期' });
     //登出
     useUserStore().logOut().then(() => {
         location.href = '/';
@@ -113,7 +80,7 @@ if (resp.code == undefined && resp.message == undefined) {
     // }
 
 } else if (resp.code !== 200) {
-    alert("服务器内部错误")
+    Notify({ type: 'danger', message: `错误代码：${resp.code}，原因：${resp.message}` });
     // vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
     //     position: "top-right",
     //     timeout: 5000,

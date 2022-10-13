@@ -856,7 +856,7 @@
 
 <script setup name="Index">
 import useSocketStore from '@/store/modules/socket'
-import { ref } from 'vue-demi';
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 const socketStore=useSocketStore();
 const {onlineNum}=storeToRefs(socketStore);

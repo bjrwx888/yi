@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.DTOModel;
+using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.WebCore.Mapper
 {
@@ -12,7 +14,8 @@ namespace Yi.Framework.WebCore.Mapper
         // 添加你的实体映射关系. 
         public AutoMapperProfile()
         {
-            //CreateMap<DBPoundSheet, PoundSheetViewModel>();
+            CreateMap<ArticleEntity, ArticleVo > ();
+            CreateMap<UserEntity, UserVo>();
         }
     }
 
