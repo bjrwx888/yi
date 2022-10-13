@@ -159,22 +159,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(routers);
         }
 
-        /// <summary>
-        /// 更新已登录用户的用户信息
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        [HttpPut]
-        public async Task<Result> UpdateUserByHttp(UserEntity user)
-        {
-            //当然，密码是不能给他修改的
-            user.Password = null;
-            user.Salt = null;
+        ///// <summary>
+        ///// 更新已登录用户的用户信息
+        ///// </summary>
+        ///// <param name="user"></param>
+        ///// <returns></returns>
+        //[HttpPut]
+        //public async Task<Result> UpdateUserByHttp(UserEntity user)
+        //{
+        //    //当然，密码是不能给他修改的
+        //    user.Password = null;
+        //    user.Salt = null;
 
-            //修改需要赋值上主键哦
-            user.Id = HttpContext.GetUserIdInfo();
-            return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
-        }
+        //    //修改需要赋值上主键哦
+        //    user.Id = HttpContext.GetUserIdInfo();
+        //    return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
+        //}
 
         /// <summary>
         /// 自己更新密码

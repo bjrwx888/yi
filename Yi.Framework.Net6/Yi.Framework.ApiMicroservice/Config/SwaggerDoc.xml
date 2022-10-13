@@ -47,13 +47,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdateUserByHttp(Yi.Framework.Model.Models.UserEntity)">
-            <summary>
-            更新已登录用户的用户信息
-            </summary>
-            <param name="user"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdatePassword(Yi.Framework.DTOModel.UpdatePasswordDto)">
             <summary>
             自己更新密码

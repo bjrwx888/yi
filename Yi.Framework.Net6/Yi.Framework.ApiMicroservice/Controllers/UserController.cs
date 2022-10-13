@@ -119,6 +119,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [Log("用户模块", OperEnum.Update)]
         public async Task<Result> UpdateProfile(UserInfoDto userDto)
         {
+            //修改需要赋值上主键哦
+            userDto.User.Id = HttpContext.GetUserIdInfo();
             return Result.Success().SetStatus(await _iUserService.UpdateProfile(userDto));
         }
 

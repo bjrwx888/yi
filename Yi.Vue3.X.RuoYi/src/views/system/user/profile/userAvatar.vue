@@ -44,7 +44,7 @@
         <el-button icon="RefreshRight" @click="rotateRight()"></el-button>
       </el-col>
       <el-col :lg="{span: 2, offset: 6}" :md="2">
-        <el-button type="primary" @click="uploadImg()">提 交</el-button>
+        <el-button type="primary" @click="uploadImg()">上传</el-button>
       </el-col>
     </el-row>
   </el-dialog>
@@ -53,7 +53,8 @@
 <script setup>
 import "vue-cropper/dist/index.css";
 import { VueCropper } from "vue-cropper";
-import { uploadAvatar } from "@/api/system/user";
+import { upload } from "@/api/file";
+import { updateUserProfile } from "@/api/system/user";
 import useUserStore from '@/store/modules/user'
 
 const userStore = useUserStore()
@@ -107,19 +108,32 @@ function beforeUpload(file) {
     reader.onload = () => {
       options.img = reader.result;
     };
+    
   }
 };
 /** 上传图片 */
 function uploadImg() {
   proxy.$refs.cropper.getCropBlob(data => {
     let formData = new FormData();
-    formData.append("avatarfile", data);
-    uploadAvatar(formData).then(response => {
+    formData.append("file", data);
+    upload("image",formData).then(response => {
       open.value = false;
-      options.img = import.meta.env.VITE_APP_BASE_API + response.imgUrl;
+      options.img = import.meta.env.VITE_APP_BASE_API +"/file/"+response.data[0];
       userStore.avatar = options.img;
-      proxy.$modal.msgSuccess("修改成功");
+
+
+
+      updateUserProfile({icon:response.data[0]}).then(response2=>{
+        proxy.$modal.msgSuccess("修改成功");
       visible.value = false;
+      })
+
+
+
+
+
+
+
     });
   });
 };
