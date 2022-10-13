@@ -10,11 +10,12 @@ round
 <script setup lang="ts">
 import { type } from 'os';
 import { ref } from 'vue'
-defineProps<{ src: {type:string,default:'null',required:false},
-width:{type:string,default:'3rem',required:false},
-height:{type:string,default:'3rem',required:false},
+const props= defineProps({ 
+src: {type:String,default:'null',required:false},
+width:{type:String,default:'3rem',required:false},
+height:{type:String,default:'3rem',required:false}
+})
 
-}>()
 const url = `${import.meta.env.VITE_APP_BASE_API}/file/`;
 </script>
 <style scoped>

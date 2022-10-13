@@ -1,6 +1,6 @@
 <template>
   <div class="div-top">
-    <span class="title">农夫山泉</span>
+    <span class="title">大白荟</span>
     <br />
     <span class="subtitle">农夫山泉有点甜</span>
   </div>
@@ -16,18 +16,20 @@
       class="van-field-password"
       v-model="loginForm.password"
       label="密码"
+      type="password"
       placeholder="请输入密码"
     />
-    <van-button type="primary" @click="login">进入农夫山泉</van-button>
+    <van-button type="primary" @click="login">进入大白荟</van-button>
     <p>其他方式登录<van-icon name="arrow" /></p>
 
-    <van-row style="margin-top: 6rem">
+    <van-row class="row-bottom" style="margin-top: 6rem">
       <van-col span="24"><p>第三方登录</p></van-col>
-      <van-col span="3"></van-col>
-      <van-col span="6"><van-icon name="like" size="2rem" /></van-col>
-      <van-col span="6"><van-icon name="like" size="2rem" /></van-col>
-      <van-col span="6"><van-icon name="like" size="2rem" /></van-col>
-      <van-col span="3"></van-col>
+      <van-col span="2"></van-col>
+      <van-col span="5"><van-icon name="smile-o" size="2rem" /></van-col>
+      <van-col span="5"><van-icon name="smile-o" size="2rem" /></van-col>
+      <van-col span="5"><van-icon name="smile-o" size="2rem" /></van-col>
+      <van-col span="5"><van-icon name="smile-o" size="2rem" /></van-col>
+      <van-col span="2"></van-col>
     </van-row>
   </div>
 </template>
@@ -59,6 +61,7 @@ const login = () => {
       router.push({ path: redirect.value || "/" });
     })
     .catch((response:any) => {
+      loginForm.value.password="";
       Toast({
         message: response.message,
         position: "bottom",
@@ -73,7 +76,7 @@ const login = () => {
 </script>
 <style scoped>
 .div-top {
-  background-color: aqua;
+  background-color: #FF689B;
   position: absolute;
   top: 0;
   left: 0;
@@ -81,7 +84,7 @@ const login = () => {
   bottom: 60%;
 }
 .div-bottom {
-  background-color: bisque;
+  background-color: #FFFFFF;
   position: absolute;
   top: 25%;
   left: 0;
@@ -98,12 +101,14 @@ const login = () => {
   transform: translateX(-50%);
   font-size: 1.8rem;
   font-weight: bolder;
+  color: #FFFFFF;
 }
 .subtitle {
   transform: translateX(-50%);
   position: absolute;
   top: 30%;
   font-weight: lighter;
+  color: #FFFFFF;
 }
 .van-field-username {
   margin-top: 2rem;
@@ -113,17 +118,21 @@ const login = () => {
 }
 h5 {
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bolder;
 }
 .div-bottom .van-button {
   margin-top: 1rem;
   width: 100%;
   border-radius: 0.4rem;
+  background-color: #FF689B;
+  border: 0;
 }
 .div-bottom p {
   text-align: center;
+  color: #666666;
 }
 .row-bottom {
+  color:  #FF689B;
 }
 </style>

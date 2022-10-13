@@ -9,7 +9,7 @@
             </router-link>
           </van-col>
           <van-col span="18"><span>发图文</span></van-col>
-          <van-col span="3" @click="send">发布</van-col>
+          <van-col span="3" @click="send" :style="{color: isSend?'#FE70A0':'#979797'}">发布</van-col>
         </van-row>
       </van-sticky>
 
@@ -22,7 +22,7 @@
           label-width="0"
           :show-word-limit="true"
           maxlength="500"
-          placeholder="每一天，都是为了下一天"
+          placeholder="大于5字，每一天，都是为了下一天"
         />
       </van-cell-group>
       <van-row class="body-row">
@@ -31,7 +31,7 @@
         </van-col>
         <van-col span="4"></van-col>
         <van-col span="10"
-          ><span>选择更多人看到</span>
+          ><span class="right-span">选择更多人看到</span>
           <van-icon name="arrow" size="1.2rem" />
         </van-col>
       </van-row>
@@ -46,10 +46,11 @@
   </transition>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, reactive, toRefs } from "vue";
+import { ref, onMounted, reactive, toRefs,watch } from "vue";
 import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
 import fileApi from "@/api/fileApi.ts";
 import articleApi from "@/api/articleApi.ts";
+import { Toast } from "vant";
 import { useRouter } from 'vue-router'
 const router = useRouter();
 const form = reactive<ArticleEntity>({
@@ -59,6 +60,7 @@ const form = reactive<ArticleEntity>({
   isDeleted: false,
 });
 
+const isSend=ref(false)
 const { images, content } = toRefs(form);
 const fileList = ref([]);
 const visible = ref<boolean>(false);
@@ -91,17 +93,39 @@ file.forEach((f:any) => {
 };
 
 const send = () => {
+  if(form.content.length<5)
+  {
+    Toast({
+        message: "请输入至少5个字符",
+        position: "bottom",
+      });
+  }
+  else
+  {
     articleApi.add(form).then((response:any)=>{
       router.push({ path: '/recommend'});
     })
+  }
 
 };
+
+watch(()=>form.content,(newValue,oldValue)=>{
+ if(newValue.length<5)
+ {
+  isSend.value=false
+ }
+ else
+ {
+  isSend.value=true
+ }
+ console.log(isSend.value?'#FFF':'#111')
+})
 </script>
 <style scoped>
 .head-row {
   background-color: #f8f8f8;
 
-  padding: 2rem 1rem 1.5rem 1rem;
+  padding: 1.2rem 1rem 0.8rem 1rem;
 }
 
 .head-row span {
@@ -134,5 +158,9 @@ const send = () => {
 
 .img-col {
   text-align: left;
+}
+.right-span
+{
+  color: #979797;
 }
 </style>

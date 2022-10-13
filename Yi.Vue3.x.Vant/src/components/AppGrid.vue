@@ -17,10 +17,13 @@ const count = ref(0)
 .col-body
 {
 text-align: center;
-
+font-size: small;
 }
 .col-body .van-icon
 {
+
+  color: #FF689B;
+
     margin-bottom: 0.6rem;
 }
 p{

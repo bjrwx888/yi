@@ -156,14 +156,15 @@ const getList = () => {
 </script>
 <style scoped>
 .list {
-  background-color: #efefef;
+  background-color: #F4F4F4;
+
 }
 .row {
   background-color: white;
   padding-top: 1rem;
-  margin-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-bottom: 0.6rem;
 }
 .rowBody {
   text-align: left;
@@ -196,7 +197,7 @@ const getList = () => {
   font-size: large;
 }
 .bottomRow {
-  color: #979797;
+  color: #999999;
 }
 .down {
   text-align: right;

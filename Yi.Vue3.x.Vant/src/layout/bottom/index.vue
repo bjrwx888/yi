@@ -1,17 +1,14 @@
 <template>
-    <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
-  <van-tabbar-item icon="home-o" to="/">主页</van-tabbar-item>
-  <van-tabbar-item icon="search">发现</van-tabbar-item>
-
+    <van-tabbar v-model="active" active-color="#FF689B" inactive-color="#9C9C9C" @change="onChange" z-index="100">
+  <van-tabbar-item  v-for="item in tabbar.slice(0,2)" :to="item.to" :icon="item.icon">{{item.title}}</van-tabbar-item>
   <van-tabbar-item @click="show = true">
     <template #icon="props">
-        <van-icon class="add" name="add-square" color="#1989fa" size="3rem" />
+        <van-icon class="add" name="add-square" color="#FF689B" size="3rem" />
       <!-- <img :src="props.active ? icon.active : icon.inactive" /> -->
     </template>
   </van-tabbar-item>
 
-  <van-tabbar-item icon="friends-o">商城</van-tabbar-item>
-  <van-tabbar-item icon="setting-o" to="/my">我的</van-tabbar-item>
+  <van-tabbar-item  v-for="item in tabbar.slice(3)" :to="item.to" :icon="item.icon">{{item.title}}</van-tabbar-item>
 </van-tabbar>
 
 <van-action-sheet v-model:show="show" >
@@ -33,6 +30,25 @@
 import { ref } from 'vue'
 const active = ref(0);
 const show = ref(false);
+
+let tabbar=ref([
+  {icon:"wap-home",to:"/",title:"主页"},
+  {icon:"location-o",to:"",title:"发现"},
+  {icon:"",to:"",title:""},
+  {icon:"friends-o",to:"",title:"商城"},
+  {icon:"setting-o",to:"/my",title:"我的"},
+])
+const onChange=(index:number)=>{
+  tabbar.value=[
+  {icon:"wap-home-o",to:"/",title:"主页"},
+  {icon:"location-o",to:"",title:"发现"},
+  {icon:"",to:"",title:""},
+  {icon:"friends-o",to:"",title:"商城"},
+  {icon:"setting-o",to:"/my",title:"我的"},
+];
+  tabbar.value[index].icon=tabbar.value[index].icon.replace("-o","")
+
+}
 </script>
 <style>
 .btn1

@@ -33,14 +33,14 @@
       <van-row class="btnRow">
         <van-col span="12">
           <van-button class="btn">
-            <van-icon name="bag" size="1.8rem" /> 我的购物<van-icon
+            <van-icon name="bag" size="1.8rem" /> <span>我的购物</span><van-icon
               name="arrow"
               size="1.2rem" /></van-button
         ></van-col>
 
         <van-col span="12">
           <van-button class="btn"
-            ><van-icon name="send-gift" size="1.8rem" />我的签到<van-icon
+            ><van-icon name="send-gift" size="1.8rem" /> <span>我的签到</span><van-icon
               name="arrow"
               size="1.2rem" /></van-button
         ></van-col>
@@ -177,6 +177,22 @@ const outLog = () => {
 
 </script>
 <style scoped>
+.bodyCol
+{
+  color: #9B9B9B;
+}
+.bodyCol span{
+  color: black;
+  font-size:larger;
+  font-weight: 500;
+}
+.btn .van-icon{
+  color: #FF689B;
+}
+.btn span{
+  font-size:medium;
+  font-weight:600;
+}
 .grid {
   width: 100%;
   margin-top: 1rem;
@@ -198,7 +214,7 @@ const outLog = () => {
 }
 .subtitle {
   line-height: 4rem;
-  color: #cbcbcb;
+  color: #9B9B9B;
 }
 .bodyCol {
   text-align: center;
@@ -212,6 +228,7 @@ const outLog = () => {
   background-color: #ffffff;
   border: none;
   color: black;
+
 }
 .btnRow {
   margin-top: 1.5rem;
