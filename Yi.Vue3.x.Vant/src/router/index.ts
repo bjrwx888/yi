@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import Layout from '@/layout/index.vue';
 
 export const constantRoutes = [
+  
     {
       name:'Layout',
       path: '/',
@@ -45,7 +46,7 @@ export const constantRoutes = [
     },
     {
       path: '/login',
-      component: () => import('@/view/Login.vue'),
+      component: () => import('@/view/login.vue'),
       name: 'Login',
     },
   ];

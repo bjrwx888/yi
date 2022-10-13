@@ -2,7 +2,8 @@
   "profiles": {
     "Yi.Framework.ApiMicroservice": {
       "commandName": "Project",
-      "launchBrowser": true,
+      //开发环境根据情况是否自动启动浏览器，个人感觉开开关关比较麻烦
+      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

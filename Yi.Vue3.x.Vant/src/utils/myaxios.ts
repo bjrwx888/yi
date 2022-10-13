@@ -3,7 +3,10 @@ import axios from 'axios'
 // import vm from '../main'
 import JsonBig from 'json-bigint'
 import { getToken } from '@/utils/auth'
+import { useRouter } from "vue-router";
+import useUserStore from '@/store/modules/user'
 // import VuetifyDialogPlugin from 'vuetify-dialog/nuxt/index';
+export let isRelogin = { show: false };
 const myaxios = axios.create({
         // baseURL:'/'// 
         baseURL: import.meta.env.VITE_APP_BASE_API, // /dev-apis
@@ -35,64 +38,88 @@ myaxios.interceptors.request.use(function(config) {
 
 // 响应拦截器
 myaxios.interceptors.response.use(async function(response) {
+//成功
     const resp = response.data
-    if (resp.code == undefined && resp.message == undefined) {
-        // vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
-        //     position: "top-right",
-        //     timeout: 5000,
-        // });
-    } else if (resp.code == 401) {
-        // const res = await vm.$dialog.error({
-        //     text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
-        //     title: '错误',
-        //     actions: {
-        //         'false': '取消',
-        //         'true': '跳转'
-        //     }
-        // });
-        // if (res) {
-        //     vm.$router.push({ path: "/login" });
-        // }
+    // if (resp.code == undefined && resp.message == undefined) {
+    //     alert("直接爆炸")
+    //     // vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
+    //     //     position: "top-right",
+    //     //     timeout: 5000,
+    //     // });
+    // } else if (resp.code == 401) {
+    //     alert("登录过期！重新登录");
 
-    } else if (resp.code !== 200) {
-        // vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
-        //     position: "top-right",
-        //     timeout: 5000,
-        // });
-    }
+    //     const router = useRouter();
+    //     router.push({ path:"/login" });
+
+    //     // const res = await vm.$dialog.error({
+    //     //     text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
+    //     //     title: '错误',
+    //     //     actions: {
+    //     //         'false': '取消',
+    //     //         'true': '跳转'
+    //     //     }
+    //     // });
+    //     // if (res) {
+    //     //     vm.$router.push({ path: "/login" });
+    //     // }
+
+    // } else if (resp.code !== 200) {
+    //     // vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
+    //     //     position: "top-right",
+    //     //     timeout: 5000,
+    //     // });
+    // }
 
     // store.dispatch("closeLoad");
     return resp;
 }, async function(error) {
-    // const resp = error.response.data
-    // if (resp.code == undefined && resp.message == undefined) {
-    //     vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
-    //         position: "top-right",
-    //         timeout: 5000,
-    //     });
-    // } else if (resp.code == 401) {
-    //     const res = await vm.$dialog.error({
-    //         text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
-    //         title: '错误',
-    //         actions: {
-    //             'false': '取消',
-    //             'true': '跳转'
-    //         }
-    //     });
-    //     if (res) {
-    //         vm.$store.dispatch("Logout").then((resp) => {
-    //             vm.$router.push({ path: "/login" });
-    //         });
-    //     }
+//未授权、失败
+const resp = error.response.data
 
-    // } else if (resp.code !== 200) {
-    //     vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
-    //         position: "top-right",
-    //         timeout: 5000,
-    //     });
+
+if (resp.code == undefined && resp.message == undefined) {
+    alert("直接爆炸")
+    // vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
+    //     position: "top-right",
+    //     timeout: 5000,
+    // });
+} else if (resp.code == 401) {
+    if (!isRelogin.show) {
+
+     
+
+    alert("登录过期！重新登录");
+    //登出
+    useUserStore().logOut().then(() => {
+        location.href = '/';
+      })
+
+      isRelogin.show = false;
+    }
+    // const router = useRouter();
+    // router.push({ path:"/login" });
+
+    // const res = await vm.$dialog.error({
+    //     text: `错误代码：${resp.code}，原因：${resp.message}<br>是否重新进行登录？`,
+    //     title: '错误',
+    //     actions: {
+    //         'false': '取消',
+    //         'true': '跳转'
+    //     }
+    // });
+    // if (res) {
+    //     vm.$router.push({ path: "/login" });
     // }
 
-    // store.dispatch("closeLoad");
+} else if (resp.code !== 200) {
+    alert("服务器内部错误")
+    // vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.message}`, {
+    //     position: "top-right",
+    //     timeout: 5000,
+    // });
+}
+
     return Promise.reject(error);
 });
 export default myaxios

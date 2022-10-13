@@ -30,7 +30,7 @@
 
         <van-col class="rowBody" span="24">{{ item.content }}</van-col>
 
-        <van-col
+        <!-- <van-col
           span="8"
           v-for="(image, imageIndex) in item.images"
           :key="imageIndex"
@@ -42,7 +42,7 @@
             :src="url + image"
             radius="5"
           />
-        </van-col>
+        </van-col> -->
 
         <van-col span="24" class="bottomRow">
           <van-grid direction="horizontal" :column-num="3">
