@@ -93,7 +93,6 @@ namespace Yi.Framework.WebCore.DbExtend
 
             if (Appsettings.appBool("DbSeed_Enabled"))
             {
-
                 var _Db = app.ApplicationServices.GetService<ISqlSugarClient>();
                 Invoer(_Db);
             }

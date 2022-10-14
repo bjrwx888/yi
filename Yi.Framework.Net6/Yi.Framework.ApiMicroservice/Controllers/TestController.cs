@@ -51,6 +51,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _iRoleService = iRoleService;
             _quartzInvoker = quartzInvoker;
             _hub = hub;
+            _local = local;
         }
 
         /// <summary>

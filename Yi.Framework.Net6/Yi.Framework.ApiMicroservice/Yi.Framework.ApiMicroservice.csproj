@@ -25,6 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\Image\0.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Config\SwaggerDoc.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

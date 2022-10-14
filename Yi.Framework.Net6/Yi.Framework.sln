@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Language", "Yi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.WeChatPay", "Yi.Framework.WeChatPay\Yi.Framework.WeChatPay.csproj", "{C307189D-C42C-4C09-BB65-5A386C9F182B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Template", "Yi.Framework.Template\Yi.Framework.Template.csproj", "{A51E9091-3745-461A-A3CB-32598BF0DC77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{C307189D-C42C-4C09-BB65-5A386C9F182B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C307189D-C42C-4C09-BB65-5A386C9F182B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C307189D-C42C-4C09-BB65-5A386C9F182B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A51E9091-3745-461A-A3CB-32598BF0DC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A51E9091-3745-461A-A3CB-32598BF0DC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A51E9091-3745-461A-A3CB-32598BF0DC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A51E9091-3745-461A-A3CB-32598BF0DC77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +149,7 @@ Global
 		{DA96B62F-2D4C-4AFB-937C-5AEA1119A129} = {DB2506F5-05FD-4E76-940E-41D7AA148550}
 		{3047069B-4084-461F-BC9F-023BC60401D1} = {9ABAF6B1-6C02-498A-90A2-ABC1140CF89A}
 		{C307189D-C42C-4C09-BB65-5A386C9F182B} = {9ABAF6B1-6C02-498A-90A2-ABC1140CF89A}
+		{A51E9091-3745-461A-A3CB-32598BF0DC77} = {9ABAF6B1-6C02-498A-90A2-ABC1140CF89A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1ED77A6E-377F-4EEF-A3D0-D65C94657DAF}
