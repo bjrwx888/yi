@@ -149,7 +149,7 @@ onMounted(() => {
 
 const getList = () => {
   articleApi.pageList(queryParams.value).then((response: any) => {
-    articleList.value.push(...(response.data.data));
+    articleList.value.unshift(...(response.data.data));
     totol.value = response.data.totol;
   });
 };

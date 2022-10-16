@@ -19,7 +19,7 @@ namespace Yi.Framework.Service
                        //.WhereIF(!string.IsNullOrEmpty(config.ConfigKey), u => u.ConfigKey.Contains(config.ConfigKey))
                        .WhereIF(page.StartTime is not null && page.EndTime is not null, u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
                      .WhereIF(entity.IsDeleted is not null, u => u.IsDeleted == entity.IsDeleted)
-                    .OrderBy(u => u.CreateTime, OrderByType.Asc)
+                    .OrderBy(u => u.CreateTime, OrderByType.Desc)
                           .ToPageListAsync(page.PageNum, page.PageSize, total);
 
             return new PageModel<List<ArticleEntity>>(data, total);
