@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="vue3-ruoyi\view.vue">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>view.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="vue3-ruoyi\view.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
