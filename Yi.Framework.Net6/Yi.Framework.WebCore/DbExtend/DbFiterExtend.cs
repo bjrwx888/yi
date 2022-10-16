@@ -35,7 +35,7 @@ namespace Yi.Framework.Core
 
             //这里可以优化一下
             //根据缓存获取全部用户信息
-            var userRoleMenu = ServiceLocator.Instance.GetService<CacheClientDB>().Get<UserRoleMenuDto>("用户id");
+            var userRoleMenu = ServiceLocator.Instance.GetService<CacheInvoker>().Get<UserRoleMenuDto>("用户id");
 
 
             var roles = userRoleMenu.Roles;

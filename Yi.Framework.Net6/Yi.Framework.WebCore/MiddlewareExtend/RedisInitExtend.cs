@@ -20,7 +20,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 
             if (Appsettings.appBool("RedisSeed_Enabled"))
             {
-                var _cacheClientDB = app.ApplicationServices.GetService<CacheClientDB>();
+                var _cacheClientDB = app.ApplicationServices.GetService<CacheInvoker>();
 
                 try
                 {

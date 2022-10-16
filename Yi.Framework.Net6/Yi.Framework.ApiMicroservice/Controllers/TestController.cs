@@ -35,6 +35,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private IRoleService _iRoleService;
         private QuartzInvoker _quartzInvoker;
         private IHubContext<MainHub> _hub;
+        private ThumbnailSharpInvoer _thumbnailSharpInvoer;
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
         /// <summary>
         /// 依赖注入
@@ -45,13 +46,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="iUserService"></param>
         /// <param name="local"></param>
         /// <param name="quartzInvoker"></param>
-        public TestController(IHubContext<MainHub> hub , ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local, QuartzInvoker quartzInvoker)
+        /// <param name="thumbnailSharpInvoer"></param>
+        public TestController(IHubContext<MainHub> hub, ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local, QuartzInvoker quartzInvoker, ThumbnailSharpInvoer thumbnailSharpInvoer)
         {
             _iUserService = iUserService;
             _iRoleService = iRoleService;
             _quartzInvoker = quartzInvoker;
             _hub = hub;
             _local = local;
+            _thumbnailSharpInvoer = thumbnailSharpInvoer;
         }
 
         /// <summary>
@@ -266,7 +269,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public  Result SeedDb()
+        public Result SeedDb()
         {
             var rep = _iUserService._repository;
             return Result.Success().SetStatus(DbSeedExtend.Invoer(rep._Db));
@@ -290,11 +293,33 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="msg"></param>
         /// <returns></returns>
         [HttpGet]
-        public async  Task<Result> SignalrTest(int msg)
+        public async Task<Result> SignalrTest(int msg)
         {
             await _hub.Clients.All.SendAsync("onlineNum", msg);
             return Result.Success("向所有连接客户端发送一个消息");
         }
         //job任务与公告管理
+
+        /// <summary>
+        /// 缩略图测试,需要生成前及生成后的路径
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public Result ThumbnailTest()
+        {
+            try
+            {
+                var path = @"D:\App\test11.jpg";
+                var result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
+                   imageStream: new FileStream(path, FileMode.Open, FileAccess.ReadWrite),
+                   imageFormat: Format.Jpeg);
+                System.IO.File.WriteAllBytes(@"D:\App\test222.jpg", result);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(ex.Message);
+            }
+            return Result.Success();
+        }
     }
 }

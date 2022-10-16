@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace Yi.Framework.Common.Helper
     {
 
         private bool _alreadyDispose = false;
+
+
 
         #region 构造函数
         public FileHelper()
@@ -391,5 +394,19 @@ namespace Yi.Framework.Common.Helper
             }
         }
         #endregion
+
+        /// <summary>
+        /// 获取目录下全部文件名
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static List<string> GetAllFileNames(string path, string pattern = "*")
+        {
+            List<FileInfo> folder = new DirectoryInfo(path).GetFiles(pattern).ToList();
+
+            return folder.Select(x => x.Name).ToList();
+        }
+
     }
 }

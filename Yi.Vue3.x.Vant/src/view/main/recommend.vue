@@ -36,7 +36,7 @@
           fit="cover"
             width="100%"
             height="7rem"
-            :src="url + image"
+            :src="url + image+'/true'"
             radius="5"
           />
           <template v-slot:loading>

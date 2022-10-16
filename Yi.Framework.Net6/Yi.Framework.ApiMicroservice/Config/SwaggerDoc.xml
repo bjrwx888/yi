@@ -270,27 +270,35 @@
             文件
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.#ctor(Yi.Framework.Interface.IFileService,Microsoft.Extensions.Hosting.IHostEnvironment)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.#ctor(Yi.Framework.Interface.IFileService,Microsoft.Extensions.Hosting.IHostEnvironment,Yi.Framework.Core.ThumbnailSharpInvoer)">
             <summary>
             文件上传下载
             </summary>
             <param name="iFileService"></param>
             <param name="env"></param>
+            <param name="thumbnailSharpInvoer"></param>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Get(System.Int64)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Get(System.Int64,System.Nullable{System.Boolean})">
             <summary>
-            文件下载,只需用文件code即可
+            文件下载,只需用文件code即可,可选择是否为缩略图
             </summary>
             <param name="code"></param>
+            <param name="isThumbnail"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Upload(System.String,Microsoft.AspNetCore.Http.IFormFileCollection,System.String)">
             <summary>
-            多文件上传,type可空，默认上传至File文件夹下，swagger返回雪花id精度是有问题的
+            多文件上传,type可空，默认上传至File文件夹下，swagger返回雪花id精度是有问题的，同时如果时图片类型，还需要进行缩略图制作
             </summary>
             <param name="type">文件类型，可空</param>
             <param name="file">多文件表单</param>
             <param name="remark">描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.ThumbnailSync">
+            <summary>
+            一键同步图片到缩略图
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.LogController.Add">
@@ -438,7 +446,7 @@
             测试控制器
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.Model.Models.UserEntity},Yi.Framework.Interface.IRoleService,Yi.Framework.Interface.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.QuartzInvoker)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.Model.Models.UserEntity},Yi.Framework.Interface.IRoleService,Yi.Framework.Interface.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer)">
             <summary>
             依赖注入
             </summary>
@@ -448,6 +456,7 @@
             <param name="iUserService"></param>
             <param name="local"></param>
             <param name="quartzInvoker"></param>
+            <param name="thumbnailSharpInvoer"></param>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.Swagger">
             <summary>
@@ -545,6 +554,12 @@
             Signalr实时推送测试
             </summary>
             <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.ThumbnailTest">
+            <summary>
+            缩略图测试,需要生成前及生成后的路径
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">

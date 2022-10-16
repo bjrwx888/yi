@@ -12,7 +12,7 @@ using CSRedis;
 
 namespace Yi.Framework.Core
 {
-    public class CacheClientDB
+    public class CacheInvoker
     {
 
         public delegate T MyAction<T>(CSRedisClient client);
@@ -22,7 +22,7 @@ namespace Yi.Framework.Core
         private CSRedisClient Client { get; set; }
 
         public CSRedisClient _Db { get { return Client; } set { } }
-        public CacheClientDB(IOptionsMonitor<RedisConnOptions> redisConnOptions)
+        public CacheInvoker(IOptionsMonitor<RedisConnOptions> redisConnOptions)
         {
             this._RedisOptions = redisConnOptions.CurrentValue;
             Client = new CSRedisClient($"{_RedisOptions.Host}:{_RedisOptions.Prot},password={_RedisOptions.Password},defaultDatabase ={ _RedisOptions.DB }");

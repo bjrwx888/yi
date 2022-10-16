@@ -37,7 +37,7 @@ namespace Yi.Framework.OcelotGateway.Builder
 
         public HttpContext? Context { get; set; }
 
-        public CacheClientDB? DB { get; set; }
+        public CacheInvoker? DB { get; set; }
 
     }
 }

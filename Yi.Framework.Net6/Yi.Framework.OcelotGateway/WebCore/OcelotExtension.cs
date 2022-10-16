@@ -12,8 +12,8 @@ namespace Yi.Framework.OcelotGateway.WebCore
     public class OcelotMiddleware
     {
         private readonly RequestDelegate next;
-        private CacheClientDB _cacheClientDB;
-        public OcelotMiddleware(RequestDelegate next, CacheClientDB cacheClientDB)
+        private CacheInvoker _cacheClientDB;
+        public OcelotMiddleware(RequestDelegate next, CacheInvoker cacheClientDB)
         {
             this.next = next;
             this._cacheClientDB = cacheClientDB;

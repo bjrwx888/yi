@@ -11,7 +11,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.WebCore;
@@ -27,26 +29,30 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     {
         private IFileService _iFileService;
         private readonly IHostEnvironment _env;
+        private ThumbnailSharpInvoer _thumbnailSharpInvoer;
 
         /// <summary>
         /// 文件上传下载
         /// </summary>
         /// <param name="iFileService"></param>
         /// <param name="env"></param>
-        public FileController(IFileService iFileService, IHostEnvironment env)
+        /// <param name="thumbnailSharpInvoer"></param>
+        public FileController(IFileService iFileService, IHostEnvironment env, ThumbnailSharpInvoer thumbnailSharpInvoer)
         {
             _iFileService = iFileService;
             _env = env;
+            _thumbnailSharpInvoer = thumbnailSharpInvoer;
         }
 
         /// <summary>
-        /// 文件下载,只需用文件code即可
+        /// 文件下载,只需用文件code即可,可选择是否为缩略图
         /// </summary>
         /// <param name="code"></param>
+        /// <param name="isThumbnail"></param>
         /// <returns></returns>
-        [Route("/api/file/{code}")]
+        [Route("/api/file/{code}/{isThumbnail?}")]
         [HttpGet]
-        public async Task<IActionResult> Get(long code)
+        public async Task<IActionResult> Get(long code, bool? isThumbnail)
         {
             var file = await _iFileService._repository.GetByIdAsync(code);
             if (file is null)
@@ -55,6 +61,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             }
             try
             {
+                //如果为缩略图
+                if (isThumbnail is true)
+                {
+                    file.FilePath = PathEnum.Thumbnail.ToString();
+                }
                 //路径为： 文件路径/文件id+文件扩展名
                 var path = Path.Combine($"{PathConst.wwwroot}/{file.FilePath}", file.Id.ToString() + Path.GetExtension(file.FileName));
                 var stream = System.IO.File.OpenRead(path);
@@ -68,7 +79,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// 多文件上传,type可空，默认上传至File文件夹下，swagger返回雪花id精度是有问题的
+        /// 多文件上传,type可空，默认上传至File文件夹下，swagger返回雪花id精度是有问题的，同时如果时图片类型，还需要进行缩略图制作
         /// </summary>
         /// <param name="type">文件类型，可空</param>
         /// <param name="file">多文件表单</param>
@@ -117,10 +128,30 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                     {
                         Directory.CreateDirectory(typePath);
                     }
-                    using (var stream = new FileStream(Path.Combine(typePath, filename), FileMode.CreateNew, FileAccess.Write))
+
+                    //生成文件
+                    using (var stream = new FileStream(Path.Combine(typePath, filename), FileMode.CreateNew, FileAccess.ReadWrite))
                     {
                         await f.CopyToAsync(stream);
-                    }
+
+                        //如果是图片类型，还需要生成缩略图
+                        if (PathEnum.Image.ToString().Equals(type))
+                        {
+                            //保存至缩略图路径
+                            var result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
+                               imageStream: stream,
+                               imageFormat: Format.Jpeg);
+                            string thumbnailPath = $"{PathConst.wwwroot}/{PathEnum.Thumbnail}";
+                            if (!Directory.Exists(thumbnailPath))
+                            {
+                                Directory.CreateDirectory(thumbnailPath);
+                            }
+                            await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
+                        }
+
+
+                    };
+
                     //将文件信息添加到数据库
                     datas.Add(data);
                     codes.Add(data.Id);
@@ -131,6 +162,45 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             {
                 return Result.Error();
             }
+        }
+
+        /// <summary>
+        /// 一键同步图片到缩略图
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> ThumbnailSync()
+        {
+            string typePath = $"{PathConst.wwwroot}/{PathEnum.Image}";
+            string thumbnailPath = $"{PathConst.wwwroot}/{PathEnum.Thumbnail}";
+            List<string> fileNames =FileHelper. GetAllFileNames(typePath);
+            foreach (var filename in fileNames)
+            {
+                if (System.IO.File.Exists(Path.Combine(thumbnailPath, filename)))
+                {
+                    //如果缩略图存在，直接跳过
+                    continue;
+                }
+                if (!Directory.Exists(typePath))
+                {
+                    Directory.CreateDirectory(typePath);
+                }
+                using (var stream = new FileStream(Path.Combine(typePath, filename), FileMode.Open, FileAccess.ReadWrite))
+                {
+                    //保存至缩略图路径
+                    var result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
+                       imageStream: stream,
+                       imageFormat: Format.Jpeg);
+
+                    if (!Directory.Exists(thumbnailPath))
+                    {
+                        Directory.CreateDirectory(thumbnailPath);
+                    }
+                    await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
+                };
+
+            }
+            return Result.Success();
         }
     }
 }

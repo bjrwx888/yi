@@ -137,8 +137,11 @@ builder.Services.AddHeiCaptcha();
 #region
 //添加Http上下文
 #endregion
-
 builder.Services.AddHttpContextAccessor();
+#region
+//添加缩略图
+#endregion
+builder.Services.AddSingleton<ThumbnailSharpInvoer>();
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region

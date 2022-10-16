@@ -11,6 +11,7 @@ namespace Yi.Framework.Common.Enum
         Excel,
         File,
         Image,
+        Thumbnail,
         Temp
     }
 }
