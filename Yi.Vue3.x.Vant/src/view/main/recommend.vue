@@ -30,13 +30,18 @@
           v-for="(image, imageIndex) in item.images"
           :key="imageIndex"
           class="imageCol"
-          @click="openImage(item.images)"
+          @click="openImage(item.images,imageIndex)"
           ><van-image
+          lazy-load
+          fit="cover"
             width="100%"
             height="7rem"
             :src="url + image"
             radius="5"
           />
+          <template v-slot:loading>
+    <van-loading type="spinner" size="20" />
+  </template>
         </van-col> 
 
         <van-col span="24" class="bottomRow">
@@ -61,6 +66,7 @@
   <van-image-preview
     v-model:show="imageShow"
     :images="imagesPreview"
+    :startPosition="startIndex"
     @change="onChange"
     :closeable="true"
   >
@@ -102,7 +108,7 @@ const list = ref<Number[]>([]);
 const loading = ref(false);
 const finished = ref(false);
 const refreshing = ref(false);
-
+const startIndex=ref(0)
 const show = ref(false);
 const actions = [{ name: "取消关注" }, { name: "将TA拉黑" }, { name: "举报" }];
 
@@ -138,8 +144,9 @@ const onRefresh = () => {
   queryParams.value.pageNum = 1;
   onLoad();
 };
-const openImage = (imagesUrl: string[]) => {
+const openImage = (imagesUrl: string[],imageIndex:any) => {
   imagesPreview.value = imagesUrl.map((i) => url + i);
+  startIndex.value=imageIndex;
   imageShow.value = true;
 };
 onMounted(() => {
@@ -149,7 +156,7 @@ onMounted(() => {
 
 const getList = () => {
   articleApi.pageList(queryParams.value).then((response: any) => {
-    articleList.value.unshift(...(response.data.data));
+    articleList.value.push(...(response.data.data));
     totol.value = response.data.totol;
   });
 };

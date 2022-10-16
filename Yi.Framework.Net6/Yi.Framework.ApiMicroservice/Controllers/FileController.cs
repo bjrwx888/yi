@@ -56,10 +56,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             try
             {
                 //路径为： 文件路径/文件id+文件扩展名
-                var path = Path.Combine($"{PathConst.wwwroot}/{file.FilePath}", file.Id.ToString()+ Path.GetExtension(file.FileName));
+                var path = Path.Combine($"{PathConst.wwwroot}/{file.FilePath}", file.Id.ToString() + Path.GetExtension(file.FileName));
                 var stream = System.IO.File.OpenRead(path);
                 var MimeType = Common.Helper.MimeHelper.GetMimeMapping(file.FileName);
-                return  File(stream, MimeType, file.FileName);
+                return File(stream, MimeType, file.FileName);
             }
             catch
             {
@@ -76,21 +76,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [Route("/api/file/Upload/{type?}")]
         [HttpPost]
-        public async Task<Result> Upload([FromRoute] string? type, [FromForm] IFormFileCollection file,[FromQuery] string? remark)
+        public async Task<Result> Upload([FromRoute] string? type, [FromForm] IFormFileCollection file, [FromQuery] string? remark)
         {
-            if (type is null)
+            type = type ?? PathEnum.File.ToString();
+
+            type = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(type.ToLower());
+            if (!Enum.IsDefined(typeof(PathEnum), type))
             {
-                type = PathEnum.File.ToString();
+                //后续类型可从字典表中获取
+                return Result.Error("上传失败！文件类型不支持！");
             }
-            else
-            {
-                type = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(type!.ToLower());
-                if (!Enum.IsDefined(typeof(PathEnum), type))
-                {
-                    //后续类型可从字典表中获取
-                    return Result.Error("上传失败！文件类型不支持！");
-                }
-            }
+
 
             if (file.Count() == 0)
             {
@@ -118,7 +114,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                     string filename = data.Id.ToString() + Path.GetExtension(f.FileName);
                     string typePath = $"{PathConst.wwwroot}/{type}";
                     if (!Directory.Exists(typePath))
-                    { 
+                    {
                         Directory.CreateDirectory(typePath);
                     }
                     using (var stream = new FileStream(Path.Combine(typePath, filename), FileMode.CreateNew, FileAccess.Write))

@@ -7,9 +7,11 @@ import 'vant/es/notify/style';
 import router from './router'
 import store from './store'
 import './permission'
+import { Lazyload } from 'vant';
 import App from './App.vue'
 
 const app=createApp(App)
 app.use(router)
 app.use(store)
+app.use(Lazyload);
 app.mount('#app');

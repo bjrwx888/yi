@@ -11,14 +11,14 @@ namespace Yi.Framework.Common.Helper
     {
         public static List<T> SetTree<T>(List<T> list, Action<T> action = null)
         {
-            if (list != null && list.Count > 0)
+            if (list is not null && list.Count > 0)
             {
                 IList<T> result = new List<T>();
                 long pid = list.Min(m => (m as ITreeModel<T>).ParentId);
                 IList<T> t = list.Where(m => (m as ITreeModel<T>).ParentId == pid).ToList();
                 foreach (T model in t)
                 {
-                    if (action != null)
+                    if (action is not null)
                     {
                         action(model);
                     }
@@ -40,7 +40,7 @@ namespace Yi.Framework.Common.Helper
             mm.Children = new List<T>();
             foreach (T item in children)
             {
-                if (action != null)
+                if (action is not null)
                 {
                     action(item);
                 }

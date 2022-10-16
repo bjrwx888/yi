@@ -53,12 +53,11 @@ import articleApi from "@/api/articleApi";
 import { Toast } from "vant";
 import { useRouter } from 'vue-router'
 const router = useRouter();
-const form = reactive<ArticleEntity>({
+const form = reactive<any>({
   title: "",
   content: "",
   images: [],
-  isDeleted: false,
-  createTime:""
+  isDeleted: false
 });
 
 const isSend=ref(false)
