@@ -13,7 +13,7 @@ const useUserStore = defineStore(
     }),
     actions: {
       // 登录
-      login(userInfo) {
+      login(userInfo:any ) {
         const username = userInfo.username.trim()
         const password = userInfo.password
         const code = userInfo.code
@@ -48,7 +48,7 @@ const useUserStore = defineStore(
               // this.permissions=["*:*:*"]
 
             } else {
-              this.roles = ['ROLE_DEFAULT']
+              this.roles = ["ROLE_DEFAULT"] as never[]
             }
             // this.roles = ["admin"];
             // this.permissions=["*:*:*"]
@@ -67,7 +67,8 @@ const useUserStore = defineStore(
       // 退出系统
       logOut() {
         return new Promise((resolve, reject) => {
-          logout(this.token).then((response) => {
+          //this.token
+          logout().then((response) => {
             this.token = ''
             this.roles = []
             this.permissions = []

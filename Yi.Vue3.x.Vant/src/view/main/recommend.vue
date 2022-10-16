@@ -73,8 +73,8 @@ import { ref, onMounted, reactive, toRefs } from "vue";
 import { ImagePreview, Toast } from "vant";
 import AppCreateTime from "@/components/AppCreateTime.vue";
 import   AppUserIcon from "@/components/AppUserIcon.vue";
-import articleApi from "@/api/articleApi.ts";
-import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
+import articleApi from "@/api/articleApi";
+import { ArticleEntity } from "@/type/interface/ArticleEntity";
 const VanImagePreview = ImagePreview.Component;
 const url = `${import.meta.env.VITE_APP_BASE_API}/file/`;
 const data = reactive({
@@ -88,7 +88,7 @@ const data = reactive({
 });
 const { queryParams } = toRefs(data);
 
-const articleList = ref<ArticleEntity[]>([]);
+const articleList = ref<any[]>([]);
 const totol = ref<Number>(0);
 const imageShow = ref(false);
 const index = ref(0);
@@ -119,7 +119,7 @@ const onLoad = async () => {
       finished.value = true;
     } else {
       console.log("执行");
-      articleList.value.push(...(response.data.data as ArticleEntity[]));
+      articleList.value.push(...(response.data.data));
       totol.value = response.data.totol;
       queryParams.value.pageNum += 1;
     }
@@ -149,7 +149,7 @@ onMounted(() => {
 
 const getList = () => {
   articleApi.pageList(queryParams.value).then((response: any) => {
-    articleList.value.push(...(response.data.data as ArticleEntity[]));
+    articleList.value.push(...(response.data.data));
     totol.value = response.data.totol;
   });
 };

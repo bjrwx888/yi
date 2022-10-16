@@ -39,7 +39,7 @@
       <van-divider />
       <van-row>
         <van-col class="img-col" span="24">
-          <van-uploader :after-read="afterRead" v-model="fileList" multiple />
+          <van-uploader  accept="image/*" :after-read="afterRead" v-model="fileList" multiple />
         </van-col>
       </van-row>
     </div>
@@ -47,9 +47,9 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted, reactive, toRefs,watch } from "vue";
-import { ArticleEntity } from "@/type/interface/ArticleEntity.ts";
-import fileApi from "@/api/fileApi.ts";
-import articleApi from "@/api/articleApi.ts";
+import { ArticleEntity } from "@/type/interface/ArticleEntity";
+import fileApi from "@/api/fileApi";
+import articleApi from "@/api/articleApi";
 import { Toast } from "vant";
 import { useRouter } from 'vue-router'
 const router = useRouter();
@@ -58,6 +58,7 @@ const form = reactive<ArticleEntity>({
   content: "",
   images: [],
   isDeleted: false,
+  createTime:""
 });
 
 const isSend=ref(false)
@@ -68,7 +69,6 @@ onMounted(() => {
   visible.value = true;
 });
 const afterRead = (file: any) => {
-
   file.status = "uploading";
   file.message = "上传中...";
   var formData = new FormData();
@@ -83,12 +83,20 @@ else
 file.forEach((f:any) => {
   formData.append("file", f.file);
 });
+Toast({
+        message: "全部文件正在上传",
+        position: "bottom",
+      });
 }
   fileApi.upload("image", formData)
     .then((response: any) => {
       images.value.push(...response.data);
       file.status = "done";
       file.message = "成功";
+      Toast({
+        message: "文件上传成功",
+        position: "bottom",
+      });
     })
 };
 
@@ -118,7 +126,6 @@ watch(()=>form.content,(newValue,oldValue)=>{
  {
   isSend.value=true
  }
- console.log(isSend.value?'#FFF':'#111')
 })
 </script>
 <style scoped>

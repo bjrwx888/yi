@@ -1,4 +1,4 @@
-import myaxios from '@/utils/myaxios.ts'
+import myaxios from '@/utils/myaxios'
 
 export default{
    upload(type:string,data:any){

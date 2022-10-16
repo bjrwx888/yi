@@ -90,7 +90,7 @@
 </template>
 <script setup lang="ts">
 import AppGrid from "@/components/AppGrid.vue";
-import { AppGridData } from "@/type/class/AppGridData.ts";
+import { AppGridData } from "@/type/class/AppGridData";
 import { ref } from "vue";
 import { Dialog } from "vant";
 import useUserStore from "@/store/modules/user";

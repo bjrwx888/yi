@@ -1,4 +1,4 @@
-import myaxios from '@/utils/myaxios.ts'
+import myaxios from '@/utils/myaxios'
 
 // 登录方法
 export function login(username:string, password:string, code:string, uuid:string) {

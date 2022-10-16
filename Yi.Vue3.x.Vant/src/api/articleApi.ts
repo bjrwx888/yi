@@ -1,8 +1,8 @@
-import myaxios from '@/utils/myaxios.ts'
+import myaxios from '@/utils/myaxios'
 import { ArticleEntity } from '@/type/interface/ArticleEntity'
 
 export default {
-    add(data: ArticleEntity) {
+    add(data:any) {
         console.log(data)
         return myaxios({
             url: `/article/add`,
@@ -10,7 +10,7 @@ export default {
             data: data
         })
     },
-    pageList(data:ArticleEntity) {
+    pageList(data:any) {
         return myaxios({
           url: '/article/pageList',
           method: 'get',

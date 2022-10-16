@@ -7,7 +7,6 @@ import 'vant/es/notify/style';
 import router from './router'
 import store from './store'
 import './permission'
-
 import App from './App.vue'
 
 const app=createApp(App)

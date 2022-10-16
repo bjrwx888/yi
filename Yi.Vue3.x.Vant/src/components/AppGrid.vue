@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import {AppGridData} from '@/type/class/AppGridData.ts'
+import {AppGridData} from '@/type/class/AppGridData'
 defineProps<{ data: AppGridData }>()
 const count = ref(0)
 </script>

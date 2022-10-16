@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 // import store from '../store/index'
 // import vm from '../main'
@@ -24,12 +25,12 @@ const myaxios = axios.create({
           }],
     })
     // 请求拦截器
-myaxios.interceptors.request.use(function(config) {
+myaxios.interceptors.request.use(function(config:any) {
     const isToken = (config.headers || {}).isToken === false
     // 是否需要防止数据重复提交
     const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
     if (getToken() && !isToken) {
-        config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+        config.headers['Authorization'] = 'Bearer ' + getToken()
       }
     // store.dispatch("openLoad");
     return config;
