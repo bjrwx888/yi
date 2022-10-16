@@ -38,8 +38,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> PageList([FromQuery] ArticleEntity entity, [FromQuery] PageParModel page)
         {
-           var pageData= await _iArticleService.SelctPageList(entity, page);
-            return Result.Success().SetData(new PageModel() { Data = _mapper.Map<List<ArticleVo>>(pageData.Data), Total = pageData.Total }) ;
+            var pageData = await _iArticleService.SelctPageList(entity, page);
+            return Result.Success().SetData(new PageModel() { Data = _mapper.Map<List<ArticleVo>>(pageData.Data), Total = pageData.Total });
         }
 
         /// <summary>
@@ -49,6 +49,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         public override Task<Result> Add(ArticleEntity entity)
         {
+            //如果标题为空，默认为内容的前20个字符
+            entity.Title = entity.Title ?? entity.Content.Substring(0, 20);
             entity.UserId = HttpContext.GetUserIdInfo();
             return base.Add(entity);
         }
