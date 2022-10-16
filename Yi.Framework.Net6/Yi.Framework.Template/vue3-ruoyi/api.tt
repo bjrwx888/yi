@@ -49,6 +49,6 @@ export function delData(code) {
   return request({
     url: '/<#= entityName #>/delList',
     method: 'delete',
-    data:"string"==typeof(code)?code:[code]
+    data:"string"==typeof(code)?[code]:code
   })
 }

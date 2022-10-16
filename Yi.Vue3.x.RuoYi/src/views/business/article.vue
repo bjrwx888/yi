@@ -373,11 +373,11 @@ function submitForm() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const ids = row.id || ids.value;
+  const delIds = row.id || ids.value;
   proxy.$modal
-    .confirm('是否确认删除字典编号为"' + ids + '"的数据项？')
+    .confirm('是否确认删除字典编号为"' + delIds + '"的数据项？')
     .then(function () {
-      return delData(ids);
+      return delData(delIds);
     })
     .then(() => {
       getList();

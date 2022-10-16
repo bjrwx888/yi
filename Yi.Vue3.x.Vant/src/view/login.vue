@@ -2,7 +2,7 @@
   <div class="div-top">
     <span class="title">大白荟</span>
     <br />
-    <span class="subtitle">农夫山泉有点甜</span>
+    <span class="subtitle">有幸相遇、不负未来</span>
   </div>
   <div class="div-bottom">
     <h5>密码登录</h5>
@@ -42,8 +42,8 @@ import { Toast } from "vant";
 const router = useRouter();
 const redirect = ref(undefined);
 const loginForm = ref({
-  username: "cc",
-  password: "123456",
+  username: "",
+  password: "",
   rememberMe: false,
   code: "",
   uuid: "",

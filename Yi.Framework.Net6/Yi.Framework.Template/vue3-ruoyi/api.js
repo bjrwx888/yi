@@ -40,6 +40,6 @@ export function delData(code) {
   return request({
     url: '/article/delList',
     method: 'delete',
-    data:"string"==typeof(code)?code:[code]
+    data:"string"==typeof(code)?[code]:code
   })
 }

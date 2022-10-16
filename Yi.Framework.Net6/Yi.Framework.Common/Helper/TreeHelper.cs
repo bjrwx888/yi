@@ -30,7 +30,7 @@ namespace Yi.Framework.Common.Helper
                         SetTreeChildren(list, children, model, action);
                     }
                 }
-                return result.OrderBy(m => (m as ITreeModel<T>).OrderNum).ToList();
+                return result.OrderByDescending(m => (m as ITreeModel<T>).OrderNum).ToList();
             }
             return null;
         }
@@ -52,7 +52,7 @@ namespace Yi.Framework.Common.Helper
                     SetTreeChildren(list, _children, item, action);
                 }
             }
-            mm.Children = mm.Children.OrderBy(m => (m as ITreeModel<T>).OrderNum).ToList();
+            mm.Children = mm.Children.OrderByDescending(m => (m as ITreeModel<T>).OrderNum).ToList();
         }
     }
 }

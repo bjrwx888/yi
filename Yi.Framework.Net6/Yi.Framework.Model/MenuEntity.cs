@@ -24,6 +24,7 @@ namespace Yi.Framework.Model.Models
             {
 
                 var r = new VueRouterModel();
+                r.OrderNum = m.OrderNum ?? 0;
                 var routerName = m.Router.Split("/").LastOrDefault();
                 r.Id = m.Id;
                 r.ParentId = (long)m.ParentId;
@@ -40,14 +41,14 @@ namespace Yi.Framework.Model.Models
                     r.AlwaysShow = true;
 
                     //判断是否为最顶层的路由
-                    if (0==m.ParentId)
+                    if (0 == m.ParentId)
                     {
                         r.Component = "Layout";
                     }
                     else
                     {
                         r.Component = "ParentView";
-                    }                  
+                    }
                 }
                 if (m.MenuType == MenuTypeEnum.Menu.GetHashCode())
                 {
