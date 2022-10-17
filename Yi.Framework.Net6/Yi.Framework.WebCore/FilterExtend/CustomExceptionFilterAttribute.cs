@@ -15,7 +15,7 @@ namespace Yi.Framework.WebCore.FilterExtend
     /// </summary>
     public class CustomExceptionFilterAttribute : IExceptionFilter
     {
-        private ILogger<CustomExceptionFilterAttribute> _logger = null;
+        private ILogger<CustomExceptionFilterAttribute> _logger;
         public CustomExceptionFilterAttribute(ILogger<CustomExceptionFilterAttribute> logger)
         {
             this._logger = logger;

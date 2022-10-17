@@ -50,7 +50,7 @@ namespace Yi.Framework.WebCore
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static string GetUserNameInfo(this HttpContext httpContext)
+        public static string? GetUserNameInfo(this HttpContext httpContext)
         {
             var p = httpContext;
             return httpContext.User.Claims.FirstOrDefault(u => u.Type == "userName")?.Value;
@@ -61,10 +61,10 @@ namespace Yi.Framework.WebCore
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static string GetDeptIdInfo(this HttpContext httpContext)
+        public static string? GetDeptIdInfo(this HttpContext httpContext)
         {
             var p = httpContext;
-            return httpContext.User.Claims.FirstOrDefault(u => u.Type == "deptId").Value;
+            return httpContext.User.Claims.FirstOrDefault(u => u.Type == "deptId")?.Value;
         }
 
         /// <summary>
@@ -72,10 +72,10 @@ namespace Yi.Framework.WebCore
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static string GetPermissionInfo(this HttpContext httpContext)
+        public static string? GetPermissionInfo(this HttpContext httpContext)
         {
             var p = httpContext;
-            return httpContext.User.Claims.FirstOrDefault(u => u.Type == "permission").Value;
+            return httpContext.User.Claims.FirstOrDefault(u => u.Type == "permission")?.Value;
         }
 
 
@@ -87,7 +87,7 @@ namespace Yi.Framework.WebCore
         /// <returns></returns>
         public static UserEntity GetUserEntityInfo(this HttpContext httpContext, out List<Guid> menuIds)
         {
-            IEnumerable<Claim> claimlist = null;
+            IEnumerable<Claim>? claimlist = null;
             long resId = 0;
             try
             {
@@ -139,7 +139,7 @@ namespace Yi.Framework.WebCore
         {
             string res = "zh-CN";
             var str = httpContext.Request.Headers["Accept-Language"].FirstOrDefault();
-            if (str.IsNotNull())
+            if (str is not null)
             {
                 res = str.Split(",")[0];
             }
@@ -167,7 +167,7 @@ namespace Yi.Framework.WebCore
             }
             else
             {
-                param = context.Request.QueryString.Value.ToString();
+                param = context.Request.QueryString.Value is null?"": context.Request.QueryString.Value.ToString();
             }
             return param;
         }

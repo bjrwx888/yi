@@ -11,7 +11,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 {
     public static class SqlsugarExtension
     {
-        public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient> action = null)
+        public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient>? action = null)
         {
             DbType dbType;
             var slavaConFig = new List<SlaveConnectionConfig>();
@@ -60,7 +60,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             },
          db =>
          {
-             if (action.IsNotNull())
+             if (action is not null)
              {
                  action(db);
              }

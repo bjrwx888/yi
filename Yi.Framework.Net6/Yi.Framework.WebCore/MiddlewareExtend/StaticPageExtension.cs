@@ -31,7 +31,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         {
             if (this._supportDelete && "Delete".Equals(context.Request.Query["ActionHeader"]))
             {
-                this.DeleteHmtl(context.Request.Path.Value);
+                this.DeleteHmtl(context.Request.Path.Value??"");
                 context.Response.StatusCode = 200;
             }
             else if (this._supportWarmup && "ClearAll".Equals(context.Request.Query["ActionHeader"]))
@@ -52,7 +52,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                     copyStream.Position = 0;
                     var reader = new StreamReader(copyStream);
                     var content = await reader.ReadToEndAsync();
-                    string url = context.Request.Path.Value;
+                    string url = context.Request.Path.Value??"";
 
                     this.SaveHmtl(url, content);
 

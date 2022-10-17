@@ -35,6 +35,7 @@ let tabbar=ref([
   {icon:"wap-home",to:"/",title:"主页"},
   {icon:"location-o",to:"",title:"发现"},
   {icon:"",to:"",title:""},
+  // {icon:"friends-o",to:"/shopIndex",title:"商城"},
   {icon:"friends-o",to:"",title:"商城"},
   {icon:"setting-o",to:"/my",title:"我的"},
 ])
@@ -43,6 +44,7 @@ const onChange=(index:number)=>{
   {icon:"wap-home-o",to:"/",title:"主页"},
   {icon:"location-o",to:"",title:"发现"},
   {icon:"",to:"",title:""},
+  // {icon:"friends-o",to:"/shopIndex",title:"商城"},
   {icon:"friends-o",to:"",title:"商城"},
   {icon:"setting-o",to:"/my",title:"我的"},
 ];

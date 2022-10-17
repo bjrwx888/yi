@@ -44,12 +44,13 @@ namespace Yi.Framework.Core
                 roles = new();
             }
             //先测试部门就是LEBG
-            long deptId = (long)userRoleMenu.User.DeptId;
+            long deptId = userRoleMenu.User.DeptId??-1;
             long userId = httpContext.GetUserIdInfo();
             //根据角色的数据范围，来添加相对于的数据权限
             foreach (var role in roles)
             {
-                DataScopeEnum dataScope = (DataScopeEnum)role.DataScope;
+                //默认为全部
+                DataScopeEnum dataScope = (DataScopeEnum)(role.DataScope?? DataScopeEnum.ALL.GetHashCode());
                 switch (dataScope)
                 {
                     case DataScopeEnum.ALL:
@@ -71,8 +72,9 @@ namespace Yi.Framework.Core
                     case DataScopeEnum.DEPT_FOLLOW:
                         //放行自己部门及以下
                         var allChildDepts = db.Queryable<DeptEntity>().ToChildList(it => it.ParentId, deptId);
+                
+                        var filter1 = new TableFilterItem<UserEntity>(it => allChildDepts.Select(f => f.Id).ToList().Contains(it.DeptId??-1), true);
 
-                        var filter1 = new TableFilterItem<UserEntity>(it => allChildDepts.Select(f => f.Id).ToList().Contains((long)it.DeptId), true);
                         db.QueryFilter.Add(filter1);
 
                         //部门无需过滤
