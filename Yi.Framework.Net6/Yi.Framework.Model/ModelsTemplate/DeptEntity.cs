@@ -22,17 +22,17 @@ namespace Yi.Framework.Model.Models
         /// 部门名称 
         ///</summary>
          [SugarColumn(ColumnName="DeptName"    )]
-         public string DeptName { get; set; }
+         public string? DeptName { get; set; }
         /// <summary>
         /// 部门编码 
         ///</summary>
          [SugarColumn(ColumnName="DeptCode"    )]
-         public string DeptCode { get; set; }
+         public string? DeptCode { get; set; }
         /// <summary>
         /// 负责人 
         ///</summary>
          [SugarColumn(ColumnName="Leader"    )]
-         public string Leader { get; set; }
+         public string? Leader { get; set; }
         /// <summary>
         /// 父级id 
         ///</summary>
@@ -77,6 +77,6 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
     }
 }

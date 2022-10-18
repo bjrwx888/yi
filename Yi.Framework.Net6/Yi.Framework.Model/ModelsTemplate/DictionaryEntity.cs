@@ -22,12 +22,12 @@ namespace Yi.Framework.Model.Models
         /// 字典名称 
         ///</summary>
          [SugarColumn(ColumnName="DictName"    )]
-         public string DictName { get; set; }
+         public string? DictName { get; set; }
         /// <summary>
         /// 字典类型 
         ///</summary>
          [SugarColumn(ColumnName="DictType"    )]
-         public string DictType { get; set; }
+         public string? DictType { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -67,6 +67,6 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
     }
 }

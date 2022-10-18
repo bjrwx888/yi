@@ -22,12 +22,12 @@ namespace Yi.Framework.Model.Models
         /// 文章标题 
         ///</summary>
          [SugarColumn(ColumnName="Title"    )]
-         public string Title { get; set; }
+         public string? Title { get; set; }
         /// <summary>
         /// 文章内容 
         ///</summary>
          [SugarColumn(ColumnName="Content"    )]
-         public string Content { get; set; }
+         public string? Content { get; set; }
         /// <summary>
         /// 用户id 
         ///</summary>
@@ -72,7 +72,7 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// 图片列表 
         ///</summary>

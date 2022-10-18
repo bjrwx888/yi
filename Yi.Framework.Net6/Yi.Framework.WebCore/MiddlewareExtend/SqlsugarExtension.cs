@@ -4,6 +4,7 @@ using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
@@ -50,9 +51,16 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                 {
                     EntityService = (c, p) =>
                     {
-                        // int?  decimal?这种 isnullable=true
-                        if (c.PropertyType.IsGenericType &&
-                        c.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        //// int?  decimal?这种 isnullable=true
+                        //if (c.PropertyType.IsGenericType &&
+                        //c.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        //{
+                        //    p.IsNullable = true;
+                        //}
+
+                        //高版C#写法 支持string?和string  
+                        if (new NullabilityInfoContext()
+                        .Create(c).WriteState is NullabilityState.Nullable)
                         {
                             p.IsNullable = true;
                         }
