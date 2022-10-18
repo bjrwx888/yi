@@ -7,14 +7,14 @@ namespace Yi.Framework.WebCore
 {
     public static class ServiceLocator
     {
-        public static IServiceProvider Instance { get; set; }
+        public static IServiceProvider? Instance { get; set; }
 
         public static string Admin { get; set; } = "cc";
 
-        public static bool GetHttp(out HttpContext httpContext)
+        public static bool GetHttp(out HttpContext? httpContext)
         {
             httpContext = null;
-            var httpContextAccessor = Instance.GetService<IHttpContextAccessor>();
+            var httpContextAccessor = Instance?.GetService<IHttpContextAccessor>();
             if (httpContextAccessor is null)
             {
                 return false;

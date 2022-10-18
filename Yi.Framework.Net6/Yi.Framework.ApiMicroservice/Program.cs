@@ -142,6 +142,11 @@ builder.Services.AddHttpContextAccessor();
 //添加缩略图
 #endregion
 builder.Services.AddSingleton<ThumbnailSharpInvoer>();
+
+#region
+//全局配置初始化值
+#endregion
+GobalModel.SqlLogEnable = Appsettings.appBool("SqlLog_Enable");
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region

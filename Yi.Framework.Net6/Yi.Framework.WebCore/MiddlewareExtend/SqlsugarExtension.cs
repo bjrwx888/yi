@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -95,10 +96,9 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
              };
              db.Aop.OnLogExecuting = (s, p) =>
              {
-                 //暂时先关闭sql打印
-                 if (false)
+                 if (GobalModel.SqlLogEnable)
                  {
-                     var _logger = ServiceLocator.Instance.GetService<ILogger<SqlSugarClient>>();
+                     var _logger = ServiceLocator.Instance?.GetRequiredService<ILogger<SqlSugarClient>>();
 
                      StringBuilder sb = new StringBuilder();
                      sb.Append("执行SQL:" + s.ToString());
@@ -106,8 +106,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                      {
                          sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
                      }
-
-                     _logger.LogInformation(sb.ToString());
+                     _logger?.LogInformation(sb.ToString());
                  }
          
 

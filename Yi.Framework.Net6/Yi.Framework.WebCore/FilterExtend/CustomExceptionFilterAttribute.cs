@@ -27,8 +27,8 @@ namespace Yi.Framework.WebCore.FilterExtend
             {
                 context.Result = new JsonResult(
                     Result.Error("操作失败").SetData(context.Exception.Message));
-                string url = context.HttpContext.Request.Path.Value;
-                string actionName = context.ActionDescriptor.DisplayName;
+                string? url = context.HttpContext.Request.Path.Value;
+                string? actionName = context.ActionDescriptor.DisplayName;
 
                 var logModel = new LogModel()
                 {

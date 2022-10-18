@@ -40,11 +40,11 @@ namespace Yi.Framework.WebCore.SignalRHub
             {
                 OnlineUser users = new(Context.ConnectionId)
                 {
-                    Browser= loginUser.Browser,
-                    LoginLocation = loginUser.LoginLocation,
-                    Ipaddr= loginUser.LoginIp,
+                    Browser= loginUser?.Browser,
+                    LoginLocation = loginUser?.LoginLocation,
+                    Ipaddr= loginUser?.LoginIp,
                     LoginTime=DateTime.Now,
-                    Os=loginUser.Os,
+                    Os=loginUser?.Os,
                     UserName= name??""
                 };
                 clientUsers.Add(users);

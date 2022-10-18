@@ -52,10 +52,14 @@ namespace Yi.Framework.WebCore.BuilderExtend
                 {
                     var property = apolloProvider.GetType().BaseType?.GetProperty("Data", BindingFlags.Instance | BindingFlags.NonPublic);
                     var data = property?.GetValue(apolloProvider) as IDictionary<string, string>;
-                    foreach (var item in data)
+                    if (data is not null)
                     {
-                        Console.WriteLine($"key {item.Key}   value {item.Value}");
+                        foreach (var item in data)
+                        {
+                            Console.WriteLine($"key {item.Key}   value {item.Value}");
+                        }
                     }
+
                 }
             });
         }

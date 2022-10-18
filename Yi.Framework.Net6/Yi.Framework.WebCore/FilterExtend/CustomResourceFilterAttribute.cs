@@ -12,7 +12,7 @@ namespace Yi.Framework.WebCore.FilterExtend
     /// </summary>
     public class CustomResourceFilterAttribute : Attribute, IResourceFilter, IFilterMetadata
     {
-        private static Dictionary<string, IActionResult> CustomCache = new Dictionary<string, IActionResult>();
+        private static Dictionary<string, IActionResult?> CustomCache = new Dictionary<string, IActionResult?>();
         /// <summary>
         /// 发生在其他动作之前
         /// </summary>

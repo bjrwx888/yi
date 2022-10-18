@@ -84,9 +84,9 @@ namespace Yi.Framework.WebCore
         }
 
 
-        public static IConfiguration appConfiguration(params string[] sections)
+        public static IConfiguration? appConfiguration(params string[] sections)
         {
-            return Configuration.GetSection(string.Join(":", sections));
+            return Configuration?.GetSection(string.Join(":", sections));
         }
     }
 }
