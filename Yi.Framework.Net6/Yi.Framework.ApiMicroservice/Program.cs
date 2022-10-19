@@ -139,7 +139,7 @@ builder.Services.AddHeiCaptcha();
 #endregion
 builder.Services.AddHttpContextAccessor();
 #region
-//添加缩略图
+//添加缩略图，引入了System.Drawing，linu需要插件支持
 #endregion
 builder.Services.AddSingleton<ThumbnailSharpInvoer>();
 
