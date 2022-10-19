@@ -77,6 +77,6 @@ namespace Yi.Framework.Model.Models
         /// 图片列表 
         ///</summary>
          [SugarColumn(ColumnName="Images",IsJson = true)]
-         public List<string> Images { get; set; }
+         public List<string>? Images { get; set; }
     }
 }

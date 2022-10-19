@@ -25,14 +25,14 @@ namespace Yi.Framework.Model.Models
 
                 var r = new VueRouterModel();
                 r.OrderNum = m.OrderNum ?? 0;
-                var routerName = m.Router.Split("/").LastOrDefault();
+                var routerName = m.Router?.Split("/").LastOrDefault();
                 r.Id = m.Id;
-                r.ParentId = (long)m.ParentId;
+                r.ParentId = m.ParentId??-1;
 
                 //开头大写
-                r.Name = routerName.First().ToString().ToUpper() + routerName.Substring(1);
+                r.Name = routerName?.First().ToString().ToUpper() + routerName?.Substring(1);
                 r.Path = m.Router;
-                r.Hidden = (bool)!m.IsShow;
+                r.Hidden =!m.IsShow??false;
 
 
                 if (m.MenuType == MenuTypeEnum.Catalogue.GetHashCode())
@@ -62,9 +62,9 @@ namespace Yi.Framework.Model.Models
                 {
                     Title = m.MenuName,
                     Icon = m.MenuIcon,
-                    NoCache = (bool)!m.IsCache
+                    NoCache = !m.IsCache??true
                 };
-                if ((bool)m.IsLink)
+                if (m.IsLink??false)
                 {
                     r.Meta.link = m.Router;
                     r.AlwaysShow = false;

@@ -10,9 +10,9 @@ namespace Yi.Framework.Model.Models
     {
 
         [Navigate(typeof(RoleMenuEntity),nameof(RoleMenuEntity.RoleId),nameof(RoleMenuEntity.MenuId))]
-        public List<MenuEntity> Menus { get; set; }
+        public List<MenuEntity>? Menus { get; set; }
 
         [Navigate(typeof(RoleDeptEntity), nameof(RoleDeptEntity.RoleId), nameof(RoleDeptEntity.DeptId))]
-        public List<DeptEntity> Depts { get; set; }
+        public List<DeptEntity>? Depts { get; set; }
     }
 }

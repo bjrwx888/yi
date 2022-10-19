@@ -11,6 +11,6 @@ namespace Yi.Framework.Model.Models
     public partial class SpecsGroupEntity:IBaseModelEntity
     {
         [Navigate(NavigateType.OneToMany, nameof(SpecsEntity.SpecsGroupId))]
-        public List<SpecsEntity> Specses { get; set; }
+        public List<SpecsEntity>? Specses { get; set; }
     }
 }

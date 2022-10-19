@@ -11,10 +11,10 @@ namespace Yi.Framework.Model.Models
     public partial class CategoryEntity:IBaseModelEntity
     {
         [SugarColumn(IsIgnore = true)]
-       public List<CategoryEntity> Children { get; set; }
+       public List<CategoryEntity>? Children { get; set; }
 
 
         [Navigate(NavigateType.OneToMany,nameof(SpecsGroupEntity.CategoryId))]
-        public List<SpecsGroupEntity> SpecsGroups { get; set; }
+        public List<SpecsGroupEntity>? SpecsGroups { get; set; }
     }
 }

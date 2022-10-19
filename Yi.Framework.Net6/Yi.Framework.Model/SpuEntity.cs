@@ -12,15 +12,15 @@ namespace Yi.Framework.Model.Models
         /// 规格Spu完整信息 
         ///</summary>
         [SugarColumn(ColumnName = "SpecsAllInfo", IsJson = true)]
-        public List<SpecsSpuAllInfoModel> SpecsSpuAllInfo { get; set; }
+        public List<SpecsSpuAllInfoModel>? SpecsSpuAllInfo { get; set; }
         /// <summary>
         /// 规格Spu信息 
         ///</summary>
         [SugarColumn(ColumnName = "SpecsInfo", IsJson = true)]
-        public List<SpecsSpuInfoModel> SpecsSpuInfo { get; set; }
+        public List<SpecsSpuInfoModel>? SpecsSpuInfo { get; set; }
 
         [Navigate(NavigateType.OneToMany, nameof(SkuEntity.SpuId))]
-        public List<SpuEntity> Spus { get; set; }
+        public List<SpuEntity>? Spus { get; set; }
     }
 
     public class SpecsSpuAllInfoModel

@@ -159,9 +159,6 @@ ServiceLocator.Instance = app.Services;
     //测试页面注入
     #endregion
     app.UseDeveloperExceptionPage();
-    #region
-    //Swagger服务注入
-    #endregion
     app.UseSwaggerService();
 }
 #region

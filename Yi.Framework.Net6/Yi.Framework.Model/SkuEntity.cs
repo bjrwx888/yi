@@ -14,12 +14,12 @@ namespace Yi.Framework.Model.Models
         /// 规格sku信息 
         ///</summary>
         [SugarColumn(ColumnName = "SpecsSkuInfo", IsJson = true)]
-        public List<SpecsSkuInfoModel> SpecsSkuInfo { get; set; }
+        public List<SpecsSkuInfoModel>? SpecsSkuInfo { get; set; }
         /// <summary>
         /// 规格sku完整信息 
         ///</summary>
         [SugarColumn(ColumnName = "SpecsSkuAllInfo", IsJson = true)]
-        public List<SpecsSkuAllInfoModel> SpecsSkuAllInfo { get; set; }
+        public List<SpecsSkuAllInfoModel>? SpecsSkuAllInfo { get; set; }
     }
 
     public class SpecsSkuAllInfoModel
