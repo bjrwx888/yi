@@ -17,12 +17,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class SpuController : BaseCrudController<SpuEntity>
+    public class SpuController : BaseSimpleCrudController<SpuEntity>
     {
         private ISpuService _iSpuService;
         public SpuController(ILogger<SpuEntity> logger, ISpuService iSpuService) : base(logger, iSpuService)
         {
             _iSpuService = iSpuService;
+        }
+
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> PageList([FromQuery] SpuEntity eneity, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iSpuService.SelctPageList(eneity, page));
         }
     }
 }

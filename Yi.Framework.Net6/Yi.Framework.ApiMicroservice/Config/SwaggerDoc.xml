@@ -150,6 +150,18 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SkuController.PageList(Yi.Framework.Model.Models.SkuEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SpuController.PageList(Yi.Framework.Model.Models.SpuEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.AccountController">
             <summary>
             账户管理

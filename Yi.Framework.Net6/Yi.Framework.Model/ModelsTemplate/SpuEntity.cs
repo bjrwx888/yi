@@ -27,17 +27,17 @@ namespace Yi.Framework.Model.Models
         /// 商品名称 
         ///</summary>
          [SugarColumn(ColumnName="SpuName"    )]
-         public string SpuName { get; set; }
+         public string? SpuName { get; set; }
         /// <summary>
         /// 商品详情 
         ///</summary>
          [SugarColumn(ColumnName="Details"    )]
-         public string Details { get; set; }
+         public string? Details { get; set; }
         /// <summary>
         /// 商品价格 
         ///</summary>
          [SugarColumn(ColumnName="Price"    )]
-         public string Price { get; set; }
+         public string? Price { get; set; }
 
         /// <summary>
         /// 创建者 

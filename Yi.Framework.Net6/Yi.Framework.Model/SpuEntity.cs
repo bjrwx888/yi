@@ -20,7 +20,7 @@ namespace Yi.Framework.Model.Models
         public List<SpecsSpuInfoModel>? SpecsSpuInfo { get; set; }
 
         [Navigate(NavigateType.OneToMany, nameof(SkuEntity.SpuId))]
-        public List<SpuEntity>? Spus { get; set; }
+        public List<SkuEntity>? Skus { get; set; }
     }
 
     public class SpecsSpuAllInfoModel
