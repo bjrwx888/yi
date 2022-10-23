@@ -134,19 +134,34 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                     {
                         await f.CopyToAsync(stream);
 
-                        //如果是图片类型，还需要生成缩略图
+                        //如果是图片类型，还需要生成缩略图,当然，如果图片很小，直接复制过去即可
                         if (PathEnum.Image.ToString().Equals(type))
                         {
-                            //保存至缩略图路径
-                            var result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
-                               imageStream: stream,
-                               imageFormat: Format.Jpeg);
                             string thumbnailPath = $"{PathConst.wwwroot}/{PathEnum.Thumbnail}";
                             if (!Directory.Exists(thumbnailPath))
                             {
                                 Directory.CreateDirectory(thumbnailPath);
                             }
-                            await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
+                            //保存至缩略图路径
+                            byte[] result=null!;
+                            try
+                            {
+                                result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
+                            imageStream: stream,
+                            imageFormat: Format.Jpeg);
+                            }
+                            catch
+                            {
+                                result = new byte[stream.Length];
+                                stream.Read(result, 0, result.Length);
+                                // 设置当前流的位置为流的开始
+                                stream.Seek(0, SeekOrigin.Begin);
+                            }
+                            finally
+                            {
+                     
+                                await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
+                            }
                         }
 
 
@@ -173,7 +188,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             string typePath = $"{PathConst.wwwroot}/{PathEnum.Image}";
             string thumbnailPath = $"{PathConst.wwwroot}/{PathEnum.Thumbnail}";
-            List<string> fileNames =FileHelper. GetAllFileNames(typePath);
+            List<string> fileNames = FileHelper.GetAllFileNames(typePath);
             foreach (var filename in fileNames)
             {
                 if (System.IO.File.Exists(Path.Combine(thumbnailPath, filename)))
@@ -185,20 +200,41 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 {
                     Directory.CreateDirectory(typePath);
                 }
+
+
                 using (var stream = new FileStream(Path.Combine(typePath, filename), FileMode.Open, FileAccess.ReadWrite))
                 {
-                    //保存至缩略图路径
-                    var result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
-                       imageStream: stream,
-                       imageFormat: Format.Jpeg);
-
-                    if (!Directory.Exists(thumbnailPath))
+                    byte[] result=null!;
+                    try
                     {
-                        Directory.CreateDirectory(thumbnailPath);
-                    }
-                    await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
-                };
 
+                        //保存至缩略图路径
+                        result = _thumbnailSharpInvoer.CreateThumbnailBytes(thumbnailSize: 300,
+                          imageStream: stream,
+                          imageFormat: Format.Jpeg);
+
+                        if (!Directory.Exists(thumbnailPath))
+                        {
+                            Directory.CreateDirectory(thumbnailPath);
+                        }
+
+
+                    }
+                    catch
+                    {
+                        result = new byte[stream.Length];
+                        stream.Read(result, 0, result.Length);
+                        // 设置当前流的位置为流的开始
+                        stream.Seek(0, SeekOrigin.Begin);
+
+                        ////如果当前文件同步失败，就跳转到下一个
+                    }
+                    finally {
+
+                        await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
+                    }
+                }
+               
             }
             return Result.Success();
         }

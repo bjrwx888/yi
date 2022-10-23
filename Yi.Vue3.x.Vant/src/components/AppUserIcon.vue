@@ -3,7 +3,7 @@
 round
 :width="width"
 :height="height"
-:src="url+(src??'0')+'/true'"
+:src="url+(src??'0')"
 />
 </template>
 
