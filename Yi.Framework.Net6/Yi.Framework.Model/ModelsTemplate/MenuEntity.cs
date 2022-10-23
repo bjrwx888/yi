@@ -23,7 +23,7 @@ namespace Yi.Framework.Model.Models
         ///  
         ///</summary>
          [SugarColumn(ColumnName="MenuName"    )]
-         public string MenuName { get; set; }
+         public string? MenuName { get; set; }
         /// <summary>
         ///  
         ///</summary>
@@ -33,7 +33,7 @@ namespace Yi.Framework.Model.Models
         ///  
         ///</summary>
          [SugarColumn(ColumnName="PermissionCode"    )]
-         public string PermissionCode { get; set; }
+         public string? PermissionCode { get; set; }
         /// <summary>
         ///  
         ///</summary>
@@ -73,12 +73,12 @@ namespace Yi.Framework.Model.Models
         /// 菜单图标 
         ///</summary>
          [SugarColumn(ColumnName="MenuIcon"    )]
-         public string MenuIcon { get; set; }
+         public string? MenuIcon { get; set; }
         /// <summary>
         /// 菜单组件路由 
         ///</summary>
          [SugarColumn(ColumnName="Router"    )]
-         public string Router { get; set; }
+         public string? Router { get; set; }
         /// <summary>
         /// 是否为外部链接 
         ///</summary>
@@ -103,16 +103,16 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// 组件路径 
         ///</summary>
          [SugarColumn(ColumnName="Component"    )]
-         public string Component { get; set; }
+         public string? Component { get; set; }
         /// <summary>
         /// 路由参数 
         ///</summary>
          [SugarColumn(ColumnName="Query"    )]
-         public string Query { get; set; }
+         public string? Query { get; set; }
     }
 }

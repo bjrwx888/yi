@@ -22,7 +22,7 @@ namespace Yi.Framework.Model.Models
         /// 文件类型 
         ///</summary>
          [SugarColumn(ColumnName="FileType"    )]
-         public string FileType { get; set; }
+         public string? FileType { get; set; }
         /// <summary>
         /// 文件大小 
         ///</summary>
@@ -32,12 +32,12 @@ namespace Yi.Framework.Model.Models
         /// 文件名 
         ///</summary>
          [SugarColumn(ColumnName="FileName"    )]
-         public string FileName { get; set; }
+         public string? FileName { get; set; }
         /// <summary>
         /// 文件路径 
         ///</summary>
          [SugarColumn(ColumnName="FilePath"    )]
-         public string FilePath { get; set; }
+         public string? FilePath { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -77,6 +77,6 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
     }
 }

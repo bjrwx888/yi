@@ -22,7 +22,7 @@ namespace Yi.Framework.Model.Models
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Name"    )]
-         public string Name { get; set; }
+         public string? Name { get; set; }
         /// <summary>
         ///  
         ///</summary>
@@ -72,42 +72,42 @@ namespace Yi.Framework.Model.Models
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Salt"    )]
-         public string Salt { get; set; }
+         public string? Salt { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Icon"    )]
-         public string Icon { get; set; }
+         public string? Icon { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Nick"    )]
-         public string Nick { get; set; }
+         public string? Nick { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Email"    )]
-         public string Email { get; set; }
+         public string? Email { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Ip"    )]
-         public string Ip { get; set; }
+         public string? Ip { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Address"    )]
-         public string Address { get; set; }
+         public string? Address { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Phone"    )]
-         public string Phone { get; set; }
+         public string? Phone { get; set; }
         /// <summary>
         ///  
         ///</summary>
          [SugarColumn(ColumnName="Introduction"    )]
-         public string Introduction { get; set; }
+         public string? Introduction { get; set; }
         /// <summary>
         /// 排序字段 
         ///</summary>
@@ -117,7 +117,7 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// 部门id 
         ///</summary>

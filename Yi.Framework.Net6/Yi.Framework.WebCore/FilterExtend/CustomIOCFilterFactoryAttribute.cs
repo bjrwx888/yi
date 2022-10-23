@@ -11,7 +11,7 @@ namespace Yi.Framework.WebCore.FilterExtend
     /// </summary>
     public class CustomIOCFilterFactoryAttribute : Attribute, IFilterFactory
     {
-        private readonly Type _FilterType = null;
+        private readonly Type _FilterType;
 
         public CustomIOCFilterFactoryAttribute(Type type)
         {
@@ -23,7 +23,7 @@ namespace Yi.Framework.WebCore.FilterExtend
         {
             //return (IFilterMetadata)serviceProvider.GetService(typeof(CustomExceptionFilterAttribute));
 
-            return (IFilterMetadata)serviceProvider.GetService(this._FilterType);
+            return (IFilterMetadata)serviceProvider.GetService(this._FilterType)!;
         }
     }
 

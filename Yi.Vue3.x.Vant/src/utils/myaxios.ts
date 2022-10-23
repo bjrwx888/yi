@@ -42,7 +42,15 @@ myaxios.interceptors.request.use(function(config:any) {
 myaxios.interceptors.response.use(async function(response) {
 //成功
     const resp = response.data
-  
+  if(resp.code==401)
+  {
+    Notify({ type: 'warning', message: '登录过期' });
+    //登出
+    useUserStore().logOut().then(() => {
+        location.href = '/';
+      })
+      isRelogin.show = false;
+  }
     // store.dispatch("closeLoad");
     return resp;
 }, async function(error) {

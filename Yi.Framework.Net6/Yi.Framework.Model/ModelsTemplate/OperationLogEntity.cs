@@ -22,7 +22,7 @@ namespace Yi.Framework.Model.Models
         /// 操作模块 
         ///</summary>
          [SugarColumn(ColumnName="Title"    )]
-         public string Title { get; set; }
+         public string? Title { get; set; }
         /// <summary>
         /// 操作类型 
         ///</summary>
@@ -32,7 +32,7 @@ namespace Yi.Framework.Model.Models
         /// 请求方法 
         ///</summary>
          [SugarColumn(ColumnName="RequestMethod"    )]
-         public string RequestMethod { get; set; }
+         public string? RequestMethod { get; set; }
         /// <summary>
         /// 操作人员 
         ///</summary>
@@ -42,27 +42,27 @@ namespace Yi.Framework.Model.Models
         /// 操作Ip 
         ///</summary>
          [SugarColumn(ColumnName="OperIp"    )]
-         public string OperIp { get; set; }
+         public string? OperIp { get; set; }
         /// <summary>
         /// 操作地点 
         ///</summary>
          [SugarColumn(ColumnName="OperLocation"    )]
-         public string OperLocation { get; set; }
+         public string? OperLocation { get; set; }
         /// <summary>
         /// 操作方法 
         ///</summary>
          [SugarColumn(ColumnName="Method"    )]
-         public string Method { get; set; }
+         public string? Method { get; set; }
         /// <summary>
         /// 请求参数 
         ///</summary>
          [SugarColumn(ColumnName="RequestParam"    )]
-         public string RequestParam { get; set; }
+         public string? RequestParam { get; set; }
         /// <summary>
         /// 请求结果 
         ///</summary>
          [SugarColumn(ColumnName="RequestResult"    )]
-         public string RequestResult { get; set; }
+         public string? RequestResult { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -97,7 +97,7 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// 是否删除 
         ///</summary>

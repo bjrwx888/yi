@@ -22,7 +22,7 @@ namespace Yi.Framework.Model.Models
         ///  
         ///</summary>
          [SugarColumn(ColumnName="TenantName"    )]
-         public string TenantName { get; set; }
+         public string? TenantName { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -62,6 +62,6 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
     }
 }

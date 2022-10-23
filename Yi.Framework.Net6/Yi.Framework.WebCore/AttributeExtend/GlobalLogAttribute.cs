@@ -35,9 +35,8 @@ namespace Yi.Framework.WebCore.AttributeExtend
                 if (context.ActionDescriptor is not ControllerActionDescriptor controllerActionDescriptor) return;
 
                 //查找标签，获取标签对象
-                LogAttribute logAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
+                LogAttribute? logAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
                   .FirstOrDefault(a => a.GetType().Equals(typeof(LogAttribute))) as LogAttribute;
-
                 //空对象直接返回
                 if (logAttribute is null) return;
 
@@ -72,7 +71,7 @@ namespace Yi.Framework.WebCore.AttributeExtend
                 {
                     if (context.Result is ContentResult result && result.ContentType == "application/json")
                     {
-                        logEntity.RequestResult = result.Content.Replace("\r\n", "").Trim();
+                        logEntity.RequestResult = result.Content?.Replace("\r\n", "").Trim();
                     }
                    if (context.Result is JsonResult result2)
                     {

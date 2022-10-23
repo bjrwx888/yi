@@ -22,12 +22,12 @@ namespace Yi.Framework.Model.Models
         /// 岗位编码 
         ///</summary>
          [SugarColumn(ColumnName="PostCode"    )]
-         public string PostCode { get; set; }
+         public string? PostCode { get; set; }
         /// <summary>
         /// 岗位名称 
         ///</summary>
          [SugarColumn(ColumnName="PostName"    )]
-         public string PostName { get; set; }
+         public string? PostName { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -67,6 +67,6 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
     }
 }

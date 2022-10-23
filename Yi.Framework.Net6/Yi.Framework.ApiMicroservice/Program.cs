@@ -139,9 +139,14 @@ builder.Services.AddHeiCaptcha();
 #endregion
 builder.Services.AddHttpContextAccessor();
 #region
-//添加缩略图
+//添加缩略图，引入了System.Drawing，linu需要插件支持
 #endregion
 builder.Services.AddSingleton<ThumbnailSharpInvoer>();
+
+#region
+//全局配置初始化值
+#endregion
+GobalModel.SqlLogEnable = Appsettings.appBool("SqlLog_Enable");
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region
@@ -154,9 +159,6 @@ ServiceLocator.Instance = app.Services;
     //测试页面注入
     #endregion
     app.UseDeveloperExceptionPage();
-    #region
-    //Swagger服务注入
-    #endregion
     app.UseSwaggerService();
 }
 #region

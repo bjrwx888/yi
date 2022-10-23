@@ -28,7 +28,7 @@ namespace Yi.Framework.Common.QueueModel
         /// 尝试次数
         /// </summary>
         public int TryTime { get; set; }
-
+        
         public OrderTypeEnum OrderType { get; set; }
 
         public enum OrderTypeEnum

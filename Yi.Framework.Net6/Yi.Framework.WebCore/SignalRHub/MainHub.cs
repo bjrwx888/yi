@@ -16,7 +16,7 @@ namespace Yi.Framework.WebCore.SignalRHub
         public static readonly List<OnlineUser> clientUsers = new();
 
 
-        private HttpContext _httpContext;
+        private HttpContext? _httpContext;
         private ILogger<MainHub> _logger;
         public MainHub(IHttpContextAccessor httpContextAccessor,ILogger<MainHub> logger)
         {
@@ -32,20 +32,20 @@ namespace Yi.Framework.WebCore.SignalRHub
         /// <returns></returns>
         public override Task OnConnectedAsync()
         {
-            var name = _httpContext.GetUserNameInfo();
-            var loginUser = _httpContext.GetLoginLogInfo();
+            var name = _httpContext?.GetUserNameInfo();
+            var loginUser = _httpContext?.GetLoginLogInfo();
             var user = clientUsers.Any(u => u.ConnnectionId == Context.ConnectionId);
             //判断用户是否存在，否则添加集合
-            if (!user && Context.User.Identity.IsAuthenticated)
+            if (!user &&  (Context.User?.Identity?.IsAuthenticated??false))
             {
                 OnlineUser users = new(Context.ConnectionId)
                 {
-                    Browser= loginUser.Browser,
-                    LoginLocation = loginUser.LoginLocation,
-                    Ipaddr= loginUser.LoginIp,
+                    Browser= loginUser?.Browser,
+                    LoginLocation = loginUser?.LoginLocation,
+                    Ipaddr= loginUser?.LoginIp,
                     LoginTime=DateTime.Now,
-                    Os=loginUser.Os,
-                    UserName= name
+                    Os=loginUser?.Os,
+                    UserName= name??""
                 };
                 clientUsers.Add(users);
                 _logger.LogInformation($"{DateTime.Now}：{name},{Context.ConnectionId}连接服务端success，当前已连接{clientUsers.Count}个");
@@ -63,7 +63,7 @@ namespace Yi.Framework.WebCore.SignalRHub
         /// </summary>
         /// <param name="exception"></param>
         /// <returns></returns>
-        public override Task OnDisconnectedAsync(Exception exception)
+        public override Task OnDisconnectedAsync(Exception? exception)
         {
             var user = clientUsers.Where(p => p.ConnnectionId == Context.ConnectionId).FirstOrDefault();
             //判断用户是否存在，否则添加集合

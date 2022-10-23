@@ -22,17 +22,17 @@ namespace Yi.Framework.Model.Models
         /// 字典类型 
         ///</summary>
          [SugarColumn(ColumnName="DictType"    )]
-         public string DictType { get; set; }
+         public string? DictType { get; set; }
         /// <summary>
         /// 字典标签 
         ///</summary>
          [SugarColumn(ColumnName="DictLabel"    )]
-         public string DictLabel { get; set; }
+         public string? DictLabel { get; set; }
         /// <summary>
         /// 字典值 
         ///</summary>
          [SugarColumn(ColumnName="DictValue"    )]
-         public string DictValue { get; set; }
+         public string? DictValue { get; set; }
         /// <summary>
         /// 是否为该类型的默认值 
         ///</summary>
@@ -77,16 +77,16 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// tag类型 
         ///</summary>
          [SugarColumn(ColumnName="ListClass"    )]
-         public string ListClass { get; set; }
+         public string? ListClass { get; set; }
         /// <summary>
         /// tagClass 
         ///</summary>
          [SugarColumn(ColumnName="CssClass"    )]
-         public string CssClass { get; set; }
+         public string? CssClass { get; set; }
     }
 }

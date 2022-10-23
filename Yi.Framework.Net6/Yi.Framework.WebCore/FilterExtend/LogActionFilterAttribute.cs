@@ -14,7 +14,7 @@ namespace Yi.Framework.WebCore.FilterExtend
     /// </summary>
     public class LogActionFilterAttribute : ActionFilterAttribute
     {
-        private ILogger<LogActionFilterAttribute> _logger = null;
+        private ILogger<LogActionFilterAttribute> _logger ;
         public LogActionFilterAttribute(ILogger<LogActionFilterAttribute> logger)
         {
             this._logger = logger;
@@ -22,11 +22,11 @@ namespace Yi.Framework.WebCore.FilterExtend
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            string url = context.HttpContext.Request.Path.Value;
+            string? url = context.HttpContext.Request.Path.Value;
             string argument = JsonConvert.SerializeObject(context.ActionArguments);
 
-            string controllerName = context.Controller.GetType().FullName;
-            string actionName = context.ActionDescriptor.DisplayName;
+            string? controllerName = context.Controller.GetType().FullName;
+            string? actionName = context.ActionDescriptor.DisplayName;
 
             LogModel logModel = new LogModel()
             {

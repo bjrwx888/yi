@@ -11,8 +11,8 @@ namespace Yi.Framework.WebCore
     /// </summary>
     public class Appsettings
     {
-        static IConfiguration Configuration { get; set; }
-        static string contentPath { get; set; }
+        static IConfiguration? Configuration { get; set; }
+        static string? contentPath { get; set; }
     
         public Appsettings(string contentPath)
         {
@@ -37,14 +37,14 @@ namespace Yi.Framework.WebCore
         /// </summary>
         /// <param name="sections">节点配置</param>
         /// <returns></returns>
-        public static string app(params string[] sections)
+        public static string? app(params string[] sections)
         {
             try
             {
 
                 if (sections.Any())
                 {
-                    return Configuration[string.Join(":", sections)];
+                    return  Configuration?[string.Join(":", sections)];
                 }
             }
             catch (Exception) { }
@@ -59,7 +59,7 @@ namespace Yi.Framework.WebCore
 
         }
 
-        public static bool Bool(object thisValue)
+        public static bool Bool(object? thisValue)
         {
             bool reval = false;
             if (thisValue != null && thisValue != DBNull.Value && bool.TryParse(thisValue.ToString(), out reval))
@@ -84,9 +84,9 @@ namespace Yi.Framework.WebCore
         }
 
 
-        public static IConfiguration appConfiguration(params string[] sections)
+        public static IConfiguration? appConfiguration(params string[] sections)
         {
-            return Configuration.GetSection(string.Join(":", sections));
+            return Configuration?.GetSection(string.Join(":", sections));
         }
     }
 }

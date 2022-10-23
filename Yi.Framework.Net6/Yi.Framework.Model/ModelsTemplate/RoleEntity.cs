@@ -9,20 +9,20 @@ namespace Yi.Framework.Model.Models
     /// 角色表
     ///</summary>
     [SugarTable("Role")]
-    public partial class RoleEntity:IBaseModelEntity
+    public partial class RoleEntity : IBaseModelEntity
     {
         public RoleEntity()
         {
             this.CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
-        [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
-         public long Id { get; set; }
+        [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
+        public long Id { get; set; }
         /// <summary>
         ///  
         ///</summary>
-         [SugarColumn(ColumnName="RoleName"    )]
-         public string RoleName { get; set; }
+        [SugarColumn(ColumnName = "RoleName")]
+        public string? RoleName { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
@@ -57,7 +57,7 @@ namespace Yi.Framework.Model.Models
         /// 角色编码 
         ///</summary>
          [SugarColumn(ColumnName="RoleCode"    )]
-         public string RoleCode { get; set; }
+         public string? RoleCode { get; set; }
         /// <summary>
         /// 排序字段 
         ///</summary>
@@ -67,7 +67,7 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// 角色数据范围 
         ///</summary>

@@ -51,7 +51,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             //如果标题为空，默认为内容的前20个字符
             entity.Title = string.IsNullOrEmpty(entity.Title) ? 
-                (entity.Content.Length > 20 ? entity.Content.Substring(0, 20) : entity.Content) :
+                (entity.Content?.Length > 20 ? entity.Content.Substring(0, 20) : entity.Content) :
                 entity.Title;
             entity.UserId = HttpContext.GetUserIdInfo();
             return base.Add(entity);

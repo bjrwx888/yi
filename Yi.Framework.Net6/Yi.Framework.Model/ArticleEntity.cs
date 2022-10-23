@@ -8,6 +8,6 @@ namespace Yi.Framework.Model.Models
     public partial class ArticleEntity:IBaseModelEntity
     {
         [Navigate(NavigateType.OneToOne,nameof(UserId))]
-        public UserEntity User { get; set; }
+        public UserEntity? User { get; set; }
     }
 }

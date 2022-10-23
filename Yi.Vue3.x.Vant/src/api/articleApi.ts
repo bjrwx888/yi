@@ -3,7 +3,6 @@ import { ArticleEntity } from '@/type/interface/ArticleEntity'
 
 export default {
     add(data:any) {
-        console.log(data)
         return myaxios({
             url: `/article/add`,
             method: 'post',

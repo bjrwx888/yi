@@ -50,12 +50,16 @@ namespace Yi.Framework.WebCore.BuilderExtend
             {
                 foreach (var apolloProvider in root.Providers.Where(p => p is ApolloConfigurationProvider))
                 {
-                    var property = apolloProvider.GetType().BaseType.GetProperty("Data", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var data = property.GetValue(apolloProvider) as IDictionary<string, string>;
-                    foreach (var item in data)
+                    var property = apolloProvider.GetType().BaseType?.GetProperty("Data", BindingFlags.Instance | BindingFlags.NonPublic);
+                    var data = property?.GetValue(apolloProvider) as IDictionary<string, string>;
+                    if (data is not null)
                     {
-                        Console.WriteLine($"key {item.Key}   value {item.Value}");
+                        foreach (var item in data)
+                        {
+                            Console.WriteLine($"key {item.Key}   value {item.Value}");
+                        }
                     }
+
                 }
             });
         }

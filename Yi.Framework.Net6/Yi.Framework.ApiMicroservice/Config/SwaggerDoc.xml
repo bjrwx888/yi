@@ -4,62 +4,6 @@
         <name>Yi.Framework.ApiMicroservice</name>
     </assembly>
     <members>
-        <member name="T:Yi.Framework.ApiMicroservice.Controllers.AccountController">
-            <summary>
-            账户管理
-            </summary>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.RestCC">
-            <summary>
-             重置管理员CC的密码
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DTOModel.LoginDto)">
-            <summary>
-            没啥说，登录
-            </summary>
-            <param name="loginDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Register(Yi.Framework.DTOModel.RegisterDto)">
-            <summary>
-            没啥说，注册
-            </summary>
-            <param name="registerDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Logout">
-            <summary>
-            没啥说，登出
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetUserAllInfo">
-            <summary>
-            通过已登录的用户获取用户信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetRouterInfo">
-            <summary>
-            获取当前登录用户的前端路由
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdatePassword(Yi.Framework.DTOModel.UpdatePasswordDto)">
-            <summary>
-            自己更新密码
-            </summary>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.CaptchaImage">
-            <summary>
-            验证码
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.PageList(Yi.Framework.Model.Models.ArticleEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
@@ -204,6 +148,74 @@
             列表删除
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SkuController.PageList(Yi.Framework.Model.Models.SkuEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SpuController.PageList(Yi.Framework.Model.Models.SpuEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.AccountController">
+            <summary>
+            账户管理
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.RestCC">
+            <summary>
+             重置管理员CC的密码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DTOModel.LoginDto)">
+            <summary>
+            没啥说，登录
+            </summary>
+            <param name="loginDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Register(Yi.Framework.DTOModel.RegisterDto)">
+            <summary>
+            没啥说，注册
+            </summary>
+            <param name="registerDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Logout">
+            <summary>
+            没啥说，登出
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetUserAllInfo">
+            <summary>
+            通过已登录的用户获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.GetRouterInfo">
+            <summary>
+            获取当前登录用户的前端路由
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdatePassword(Yi.Framework.DTOModel.UpdatePasswordDto)">
+            <summary>
+            自己更新密码
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.CaptchaImage">
+            <summary>
+            验证码
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ConfigController.PageList(Yi.Framework.Model.Models.ConfigEntity,Yi.Framework.Common.Models.PageParModel)">
@@ -441,6 +453,70 @@
              </summary>
              <returns></returns>
         </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel,System.Nullable{System.Int64})">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="user"></param>
+            <param name="page"></param>
+            <param name="deptId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateStatus(System.Int64,System.Boolean)">
+            <summary>
+            更改用户状态
+            </summary>
+            <param name="userId"></param>
+            <param name="isDel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DTOModel.GiveUserSetRoleDto)">
+            <summary>
+            给多用户设置多角色
+            </summary>
+            <param name="giveUserSetRoleDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetById(System.Int64)">
+            <summary>
+            通过用户id得到用户信息关联部门、岗位、角色
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DTOModel.UserInfoDto)">
+            <summary>
+            更新用户信息
+            </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateProfile(Yi.Framework.DTOModel.UserInfoDto)">
+            <summary>
+            更新个人中心信息
+            </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.DTOModel.UserInfoDto)">
+            <summary>
+            添加用户
+            </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.RestPassword(Yi.Framework.Model.Models.UserEntity)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
             <summary>
             测试控制器
@@ -560,70 +636,6 @@
             <summary>
             缩略图测试,需要生成前及生成后的路径
             </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">
-            <summary>
-            用户管理
-            </summary>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel,System.Nullable{System.Int64})">
-            <summary>
-            动态条件分页查询
-            </summary>
-            <param name="user"></param>
-            <param name="page"></param>
-            <param name="deptId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateStatus(System.Int64,System.Boolean)">
-            <summary>
-            更改用户状态
-            </summary>
-            <param name="userId"></param>
-            <param name="isDel"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DTOModel.GiveUserSetRoleDto)">
-            <summary>
-            给多用户设置多角色
-            </summary>
-            <param name="giveUserSetRoleDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetById(System.Int64)">
-            <summary>
-            通过用户id得到用户信息关联部门、岗位、角色
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DTOModel.UserInfoDto)">
-            <summary>
-            更新用户信息
-            </summary>
-            <param name="userDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateProfile(Yi.Framework.DTOModel.UserInfoDto)">
-            <summary>
-            更新个人中心信息
-            </summary>
-            <param name="userDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.DTOModel.UserInfoDto)">
-            <summary>
-            添加用户
-            </summary>
-            <param name="userDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.RestPassword(Yi.Framework.Model.Models.UserEntity)">
-            <summary>
-            重置密码
-            </summary>
-            <param name="user"></param>
             <returns></returns>
         </member>
     </members>

@@ -272,7 +272,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public Result SeedDb()
         {
             var rep = _iUserService._repository;
-            return Result.Success().SetStatus(DbSeedExtend.Invoer(rep._Db));
+            return Result.Success().SetStatus(DbSeedExtend.DataInvoer(rep._Db));
         }
 
         /// <summary>

@@ -13,7 +13,12 @@ namespace Yi.Framework.WebCore.DbExtend
 {
     public static class DbSeedExtend
     {
-        public static bool Invoer(ISqlSugarClient _Db)
+        /// <summary>
+        /// 初始化数据
+        /// </summary>
+        /// <param name="_Db"></param>
+        /// <returns></returns>
+        public static bool DataInvoer(ISqlSugarClient _Db)
         {
             bool res = false;
             var users = SeedFactory.GetUserSeed();
@@ -87,14 +92,40 @@ namespace Yi.Framework.WebCore.DbExtend
             return res;
         }
 
+        /// <summary>
+        /// codeFirst初始化表
+        /// </summary>
+        /// <param name="_Db"></param>
+        /// <returns></returns>
+        public static void TableInvoer(ISqlSugarClient _Db)
+        {
+            //创建数据库
+            _Db.DbMaintenance.CreateDatabase();
+            var typeList = Common.Helper.AssemblyHelper.GetClass("Yi.Framework.Model");
+            foreach (var t in typeList)
+            {
+                //扫描如果存在SugarTable特性，直接codefirst
+                if (t.GetCustomAttributes(false).Any(a => a.GetType().Equals(typeof(SugarTable))))
+                {
+                    _Db.CodeFirst.SetStringDefaultLength(200).InitTables(t);//这样一个表就能成功创建了
+                }
+            }
+
+        }
+
         public static void UseDbSeedInitService(this IApplicationBuilder app)
         {
 
+            if (Appsettings.appBool("DbCodeFirst_Enabled"))
+            {
+                var _Db = app.ApplicationServices.GetRequiredService<ISqlSugarClient>();
+                TableInvoer(_Db);
+            }
 
             if (Appsettings.appBool("DbSeed_Enabled"))
             {
-                var _Db = app.ApplicationServices.GetService<ISqlSugarClient>();
-                Invoer(_Db);
+                var _Db = app.ApplicationServices.GetRequiredService<ISqlSugarClient>();
+                DataInvoer(_Db);
             }
 
         }
