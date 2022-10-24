@@ -34,6 +34,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 动态条件分页查询
         /// </summary>
         /// <returns></returns>
+        [Permission("system:role:query")]
         [HttpGet]
         public async Task<Result> PageList([FromQuery] RoleEntity role, [FromQuery] PageParModel page)
         {
@@ -47,6 +48,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="giveRoleSetMenuDto"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:role:edit")]
         public async Task<Result> GiveRoleSetMenu(GiveRoleSetMenuDto giveRoleSetMenuDto)
         {
             return Result.Success().SetStatus(await _iRoleService.GiveRoleSetMenu(giveRoleSetMenuDto.RoleIds, giveRoleSetMenuDto.MenuIds));
@@ -58,7 +60,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="roleDto"></param>
         /// <returns></returns>
-
+        [Permission("system:role:add")]
         [HttpPost]
         public async Task<Result> Add(RoleInfoDto roleDto)
         {
@@ -69,6 +71,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 更新角色信息
         /// </summary>
         /// <returns></returns>
+        [Permission("system:role:edit")]
         [HttpPut]
         public async Task<Result> Update(RoleInfoDto roleDto)
         {
@@ -81,6 +84,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="roleId"></param>
         /// <param name="isDel"></param>
         /// <returns></returns>
+        [Permission("system:role:edit")]
         [HttpPut]
         public async Task<Result> UpdateStatus(long roleId, bool isDel)
         {
@@ -91,10 +95,23 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         ///更改角色数据权限
         /// </summary>
         /// <returns></returns>
+        [Permission("system:role:edit")]
         [HttpPut]
         public async Task<Result> UpdateDataScpoce(RoleInfoDto roleDto)
         {
             return Result.Success().SetStatus(await _iRoleService.UpdateDataScpoce(roleDto));
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [Permission("system:role:remove")]
+        [HttpDelete]
+        public override async Task<Result> DelList(List<long> ids)
+        {
+            return await base.DelList(ids);
         }
     }
 }
