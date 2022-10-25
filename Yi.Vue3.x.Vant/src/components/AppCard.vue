@@ -36,14 +36,13 @@
 }
 
 .card-div {
-  background-color: #000;
   height: 6rem;
   width: 100%;
 }
 .bottom-div {
   display: flex;
 
-  justify-content: center;
+  /* justify-content: center; */
   width: 100%;
   height: 6rem;
   overflow: hidden;
@@ -54,7 +53,6 @@
 .card-div-inside {
   flex: none;
   display: block;
-
     margin-top: 0.5rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;

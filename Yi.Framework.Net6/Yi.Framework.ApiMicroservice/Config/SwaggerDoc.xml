@@ -453,6 +453,13 @@
              </summary>
              <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.DelList(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.UserController">
             <summary>
             用户管理
