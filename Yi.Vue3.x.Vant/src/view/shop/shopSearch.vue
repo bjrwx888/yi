@@ -1,14 +1,16 @@
 <template>
     这里是商品搜索页
     <br>
-    <router-link to="/shopDetails">点击进入商品详情</router-link>
+   
     <br>
     <router-link to="/shopIndex">返回商品首页</router-link>
 这个是spu:
+
 <div v-for="item in spuList" :key="item.id">商品名称：{{item.spuName}}
+  <router-link :to="`/shopDetails?spuId=${item.id}`">点击进入该商品详情</router-link>
    <div v-for="spec in item.specsSpuAllInfo" :key="spec">规格组： {{spec.specsGroupName}}
     <div v-for="name in spec.specsNames" :key="name">规格值： {{name}}
-
+   
 </div>
 
 </div>

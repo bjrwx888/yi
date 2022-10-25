@@ -36,6 +36,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(await _iSpuService.SelctPageList(eneity, page));
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        public override async Task<Result> GetById([FromRoute] long id)
+        {
+            return Result.Success().SetData(await _repository._DbQueryable.Includes(u=>u.Skus).SingleAsync(u=>u.Id.Equals(id)));
+        }
+
 
 
 

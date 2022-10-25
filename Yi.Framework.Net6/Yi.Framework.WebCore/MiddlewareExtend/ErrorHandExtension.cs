@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Models;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
@@ -69,8 +70,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             {
                 resp = Result.Error(msg);
             }
+            resp.SetCode((ResultCodeEnum)statusCode);
             var result = JsonConvert.SerializeObject(resp);
             context.Response.ContentType = "application/json;charset=utf-8";
+         
             return  context.Response.WriteAsync(result);
         }
     }

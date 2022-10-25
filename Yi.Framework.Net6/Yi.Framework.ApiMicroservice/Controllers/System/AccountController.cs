@@ -122,7 +122,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize]
         public async Task<Result> GetUserAllInfo()
         {
             //通过鉴权jwt获取到用户的id

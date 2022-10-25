@@ -31,7 +31,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Permission($"{nameof(T)}:get")]
         [Route("{id}")]
         [HttpGet]
         public virtual async Task<Result> GetById([FromRoute]long id)
