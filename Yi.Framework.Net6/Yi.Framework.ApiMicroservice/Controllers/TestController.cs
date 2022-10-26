@@ -36,6 +36,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private QuartzInvoker _quartzInvoker;
         private IHubContext<MainHub> _hub;
         private ThumbnailSharpInvoer _thumbnailSharpInvoer;
+        private CacheInvoker _cacheDb;
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
         /// <summary>
         /// 依赖注入
@@ -47,7 +48,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="local"></param>
         /// <param name="quartzInvoker"></param>
         /// <param name="thumbnailSharpInvoer"></param>
-        public TestController(IHubContext<MainHub> hub, ILogger<UserEntity> logger, IRoleService iRoleService, IUserService iUserService, IStringLocalizer<LocalLanguage> local, QuartzInvoker quartzInvoker, ThumbnailSharpInvoer thumbnailSharpInvoer)
+        /// <param name="cacheInvoker"></param>
+        public TestController(IHubContext<MainHub> hub,
+            ILogger<UserEntity> logger,
+            IRoleService iRoleService,
+            IUserService iUserService,
+            IStringLocalizer<LocalLanguage> local,
+            QuartzInvoker quartzInvoker,
+            ThumbnailSharpInvoer thumbnailSharpInvoer,
+            CacheInvoker cacheInvoker)
         {
             _iUserService = iUserService;
             _iRoleService = iRoleService;
@@ -55,6 +64,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _hub = hub;
             _local = local;
             _thumbnailSharpInvoer = thumbnailSharpInvoer;
+            _cacheDb = cacheInvoker;
         }
 
         /// <summary>
@@ -320,6 +330,21 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 return Result.Error(ex.Message);
             }
             return Result.Success();
+        }
+
+        /// <summary>
+        /// 缓存测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public Result CacheDBTest()
+        {
+            var key = "Yi:Test";
+            var item = "你好世界";
+            _cacheDb.Set(key, item);
+
+            var data = _cacheDb.Get<string>(key);
+            return Result.Success().SetData(data);
         }
     }
 }

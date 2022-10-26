@@ -529,7 +529,7 @@
             测试控制器
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.Model.Models.UserEntity},Yi.Framework.Interface.IRoleService,Yi.Framework.Interface.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.Model.Models.UserEntity},Yi.Framework.Interface.IRoleService,Yi.Framework.Interface.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer,Yi.Framework.Core.CacheInvoker)">
             <summary>
             依赖注入
             </summary>
@@ -540,6 +540,7 @@
             <param name="local"></param>
             <param name="quartzInvoker"></param>
             <param name="thumbnailSharpInvoer"></param>
+            <param name="cacheInvoker"></param>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.Swagger">
             <summary>
@@ -642,6 +643,12 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.ThumbnailTest">
             <summary>
             缩略图测试,需要生成前及生成后的路径
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.CacheDBTest">
+            <summary>
+            缓存测试
             </summary>
             <returns></returns>
         </member>
