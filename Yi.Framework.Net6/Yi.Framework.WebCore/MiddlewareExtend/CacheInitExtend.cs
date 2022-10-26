@@ -12,13 +12,13 @@ using Yi.Framework.Core;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
-  public static class RedisInitExtend
+  public static class CacheInitExtend
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RedisInitExtend));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CacheInitExtend));
         public  static  void UseRedisSeedInitService(this IApplicationBuilder app )
         {
 
-            if (Appsettings.appBool("RedisSeed_Enabled"))
+            if (Appsettings.appBool("CacheSeed_Enabled"))
             {
                 var _cacheClientDB = app.ApplicationServices.GetService<CacheInvoker>();
 

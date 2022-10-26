@@ -105,7 +105,7 @@ builder.Services.AddAuthorizationService();
 #region
 //Redis服务配置
 #endregion
-builder.Services.AddRedisService();
+builder.Services.AddCacheService();
 #region
 //RabbitMQ服务配置
 #endregion

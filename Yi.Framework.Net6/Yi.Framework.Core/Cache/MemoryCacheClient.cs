@@ -9,12 +9,16 @@ using Yi.Framework.Common.IOCOptions;
 
 namespace Yi.Framework.Core.Cache
 {
-    public class MemoryCacheClient: CacheInvoker
+    public class MemoryCacheClient : CacheInvoker
     {
         private IMemoryCache _client;
-        public MemoryCacheClient(IOptionsMonitor<RedisConnOptions> redisConnOptions):base(redisConnOptions)
+        public MemoryCacheClient()
         {
-            _client = new MemoryCache(new MemoryCacheOptions() { });
+            _client = new MemoryCache(new MemoryCacheOptions());
+        }
+        public override bool Exits(string key)
+        {
+            return _client.TryGetValue(key, out var _);
         }
         public override T Get<T>(string key)
         {
@@ -28,6 +32,12 @@ namespace Yi.Framework.Core.Cache
         public override bool Set<T>(string key, T item, TimeSpan time)
         {
             return _client.Set(key, item, time) is not null;
+        }
+
+        public override long Del(string key)
+        {
+            _client.Remove(key);
+            return 1;
         }
     }
 }
