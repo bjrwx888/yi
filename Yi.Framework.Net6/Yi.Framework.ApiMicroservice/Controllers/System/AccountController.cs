@@ -34,13 +34,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private ILogger _logger;
         private SecurityCodeHelper _securityCode;
         private IRepository<UserEntity> _repository;
-        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode)
+        private CacheInvoker _cacheDb;
+        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode,CacheInvoker cacheInvoker)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
             _logger = logger;
             _securityCode = securityCode;
             _repository = iUserService._repository;
+            _cacheDb = cacheInvoker;
         }
 
         /// <summary>
@@ -203,7 +205,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var uuid = Guid.NewGuid();
             var code = _securityCode.GetRandomEnDigitalText(4);
             //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
-            var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
+            //10分钟过期
+            _cacheDb.Set($"Yi:Captcha:{uuid}",code,new TimeSpan(0,10,0));
+             var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
             return Result.Success().SetData(new { uuid = uuid, img = imgbyte });
         }
     }
