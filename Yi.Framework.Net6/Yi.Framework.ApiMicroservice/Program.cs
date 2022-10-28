@@ -147,6 +147,7 @@ builder.Services.AddSingleton<ThumbnailSharpInvoer>();
 //全局配置初始化值
 #endregion
 GobalModel.SqlLogEnable = Appsettings.appBool("SqlLog_Enable");
+GobalModel.LoginCodeEnable = Appsettings.appBool("LoginCode_Enable");
 //-----------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 #region

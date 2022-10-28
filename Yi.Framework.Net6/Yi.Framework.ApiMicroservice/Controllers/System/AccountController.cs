@@ -76,11 +76,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //先进行验证码的效验
 
             var code = _cacheDb.Get<string>($"Yi:Captcha:{loginDto.Uuid}");
-            //暂时先放开
-            //if (code != loginDto.Code)
-            //{
-            //    return Result.Error("验证码错误！");
-            //}
+            //判断是否开启二维码效验
+            if (GobalModel.LoginCodeEnable)
+            {
+                if (code != loginDto.Code)
+                {
+                    return Result.Error("验证码错误！");
+                }
+            }
+
 
             var loginInfo = HttpContext.GetLoginLogInfo();
             loginInfo.LoginUser = loginDto.UserName;
