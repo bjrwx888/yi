@@ -20,7 +20,7 @@ namespace Yi.Framework.WebCore.BuilderExtend
             builder.AddNewtonsoftJson(options =>
              {
                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm";
+                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
                  //options.SerializerSettings.Converters.Add(new ValueToStringConverter());
              });
