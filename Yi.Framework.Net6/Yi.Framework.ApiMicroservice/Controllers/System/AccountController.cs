@@ -35,7 +35,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private SecurityCodeHelper _securityCode;
         private IRepository<UserEntity> _repository;
         private CacheInvoker _cacheDb;
-        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode,CacheInvoker cacheInvoker)
+        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode, CacheInvoker cacheInvoker)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
@@ -72,6 +72,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             //跳过，需要redis缓存获取uuid与code的关系，进行比较即可
             //先效验验证码和UUID
             //登录还需要进行登录日志的落库
+
+            //先进行验证码的效验
+
+            var code = _cacheDb.Get<string>($"Yi:Captcha:{loginDto.Uuid}");
+            //暂时先放开
+            //if (code != loginDto.Code)
+            //{
+            //    return Result.Error("验证码错误！");
+            //}
 
             var loginInfo = HttpContext.GetLoginLogInfo();
             loginInfo.LoginUser = loginDto.UserName;
@@ -160,22 +169,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(routers);
         }
 
-        ///// <summary>
-        ///// 更新已登录用户的用户信息
-        ///// </summary>
-        ///// <param name="user"></param>
-        ///// <returns></returns>
-        //[HttpPut]
-        //public async Task<Result> UpdateUserByHttp(UserEntity user)
-        //{
-        //    //当然，密码是不能给他修改的
-        //    user.Password = null;
-        //    user.Salt = null;
-
-        //    //修改需要赋值上主键哦
-        //    user.Id = HttpContext.GetUserIdInfo();
-        //    return Result.Success().SetStatus(await _iUserService._repository.UpdateIgnoreNullAsync(user));
-        //}
 
         /// <summary>
         /// 自己更新密码
@@ -206,8 +199,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var code = _securityCode.GetRandomEnDigitalText(4);
             //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
             //10分钟过期
-            _cacheDb.Set($"Yi:Captcha:{uuid}",code,new TimeSpan(0,10,0));
-             var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
+            _cacheDb.Set($"Yi:Captcha:{uuid}", code, new TimeSpan(0, 10, 0));
+            var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
             return Result.Success().SetData(new { uuid = uuid, img = imgbyte });
         }
     }
