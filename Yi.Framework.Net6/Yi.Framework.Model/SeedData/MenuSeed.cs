@@ -83,6 +83,108 @@ namespace Yi.Framework.Model.SeedData
                 IsDeleted = false
             };
             Entitys.Add(tool);
+            //swagger文档
+            MenuEntity swagger = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "接口文档",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "http://localhost:19001",
+                IsShow = true,
+                IsLink = true,
+                MenuIcon = "list",
+                OrderNum = 100,
+                ParentId = tool.Id,
+                IsDeleted = false,
+            };
+            Entitys.Add(swagger);
+
+
+            //业务功能
+            MenuEntity business = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "业务功能",
+                MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
+                Router = "/business",
+                IsShow = true,
+                IsLink = false,
+                MenuIcon = "international",
+                OrderNum = 97,
+                ParentId = 0,
+                IsDeleted = false
+            };
+            Entitys.Add(business);
+            //文章管理
+            MenuEntity article = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "文章管理",
+                PermissionCode = "business:article:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "article",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "business/article/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = business.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(article);
+
+            MenuEntity articleQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "文章查询",
+                PermissionCode = "business:article:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = article.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(articleQuery);
+
+            MenuEntity articleAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "文章新增",
+                PermissionCode = "business:article:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = article.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(articleAdd);
+
+            MenuEntity articleEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "文章修改",
+                PermissionCode = "business:article:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = article.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(articleEdit);
+
+            MenuEntity articleRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "文章删除",
+                PermissionCode = "business:article:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = article.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(articleRemove);
+
+
+
+
 
             //Yi框架
             MenuEntity guide = new MenuEntity()
@@ -99,7 +201,6 @@ namespace Yi.Framework.Model.SeedData
                 IsDeleted = false,
             };
             Entitys.Add(guide);
-
 
             //用户管理
             MenuEntity user = new MenuEntity()

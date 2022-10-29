@@ -13,7 +13,7 @@ namespace Yi.Framework.Model.Models
     public partial class MenuEntity
     {
         [SqlSugar.SugarColumn(IsIgnore = true)]
-        public List<MenuEntity> Children { get; set; }
+        public List<MenuEntity>? Children { get; set; }
 
 
         public static List<VueRouterModel> RouterBuild(List<MenuEntity> menus)

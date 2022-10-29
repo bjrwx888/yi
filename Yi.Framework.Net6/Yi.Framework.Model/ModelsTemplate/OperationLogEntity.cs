@@ -37,7 +37,7 @@ namespace Yi.Framework.Model.Models
         /// 操作人员 
         ///</summary>
          [SugarColumn(ColumnName="OperUser"    )]
-         public string OperUser { get; set; }
+         public string? OperUser { get; set; }
         /// <summary>
         /// 操作Ip 
         ///</summary>

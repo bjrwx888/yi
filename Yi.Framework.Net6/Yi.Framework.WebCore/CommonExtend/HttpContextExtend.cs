@@ -230,7 +230,15 @@ namespace Yi.Framework.WebCore
         public static LoginLogEntity GetLoginLogInfo(this HttpContext context)
         {
             var ipAddr = context.GetClientIp();
-            var location = IpTool.Search(ipAddr);
+            IpInfo location;
+            if (ipAddr == "127.0.0.1")
+            {
+                location = new IpInfo() { Province = "本地", City = "本机" };
+            }
+            else
+            {
+                location = IpTool.Search(ipAddr);
+            }
             ClientInfo clientInfo = context.GetClientInfo();
             LoginLogEntity entity = new()
             {

@@ -1,5 +1,6 @@
 <template>
-  <div class="app-container">
+
+<div class="app-container">
     <el-form
       :model="queryParams"
       ref="queryRef"
@@ -247,7 +248,7 @@
         >
       </span>
     </template>
-  </el-dialog>
+  </el-dialog> 
 </template>
 
 <script setup>
