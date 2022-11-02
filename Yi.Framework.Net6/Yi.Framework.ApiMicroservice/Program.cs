@@ -227,4 +227,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
+//准备添加多租户
 app.Run();
