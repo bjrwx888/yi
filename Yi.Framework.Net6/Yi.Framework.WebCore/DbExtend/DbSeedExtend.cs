@@ -104,8 +104,9 @@ namespace Yi.Framework.WebCore.DbExtend
             var typeList = Common.Helper.AssemblyHelper.GetClass("Yi.Framework.Model");
             foreach (var t in typeList)
             {
-                //扫描如果存在SugarTable特性，直接codefirst
-                if (t.GetCustomAttributes(false).Any(a => a.GetType().Equals(typeof(SugarTable))))
+                //扫描如果存在SugarTable特性 并且 不是分表模型，直接codefirst
+                if (t.GetCustomAttributes(false).Any(a => a.GetType().Equals(typeof(SugarTable))
+                && !t.GetCustomAttributes(false).Any(a=>a.GetType().Equals(typeof(SplitTableAttribute)))))
                 {
                     _Db.CodeFirst.SetStringDefaultLength(200).InitTables(t);//这样一个表就能成功创建了
                 }
