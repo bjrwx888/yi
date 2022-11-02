@@ -16,6 +16,7 @@ namespace Yi.Framework.Repository
     [AppService]
     public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
+       
         public ISugarQueryable<T> _DbQueryable { get { return base.Context.Queryable<T>(); } set { } }
 
         public ISqlSugarClient _Db { get { return base.Context; } set { } }
@@ -25,6 +26,21 @@ namespace Yi.Framework.Repository
         /// <param name="context"></param>
         public Repository(ISqlSugarClient context) : base(context)//注意这里要有默认值等于null
         {
+            //开始Saas分库！
+            //单个公共基础库+多个租户业务库
+            
+            //1:先判断操作对应实体上是否存在租户特性，如果存在说明是公共库
+
+            //如果是公共库，直接使用默认库即可
+            //如果不是公共库
+
+            //2:根据上下文对象获取用户的租户id
+            //3:根据租户id获取到对应上下文对象
+            //4：替换仓储中的上下文对象即可
+
+            //强化：如果租户要做到动态配置不写死，租户信息连接字符串等存入数据库，带入token中，还需要在sqlsugarAop中动态获取进行切换
+            //base.Context =  context.AsTenant().GetConnectionScopeWithAttr<T>();
+
         }
 
         /// <summary>
