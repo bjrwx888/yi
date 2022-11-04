@@ -35,7 +35,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private SecurityCodeHelper _securityCode;
         private IRepository<UserEntity> _repository;
         private CacheInvoker _cacheDb;
-        public AccountController(ILogger<UserEntity> logger, IUserService iUserService, JwtInvoker jwtInvoker, SecurityCodeHelper securityCode, CacheInvoker cacheInvoker)
+        public AccountController(ILogger<UserEntity> logger,
+            IUserService iUserService,
+            JwtInvoker jwtInvoker,
+            SecurityCodeHelper securityCode,
+            CacheInvoker cacheInvoker)
         {
             _iUserService = iUserService;
             _jwtInvoker = jwtInvoker;
@@ -87,15 +91,38 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
 
             var loginInfo = HttpContext.GetLoginLogInfo();
+
             loginInfo.LoginUser = loginDto.UserName;
             loginInfo.LogMsg = "登录成功！";
+
+
             var loginLogRepository = _repository.ChangeRepository<Repository<LoginLogEntity>>();
             UserEntity user = new();
+
+            //这里其实可以返回Dto
             if (await _iUserService.Login(loginDto.UserName, loginDto.Password, o => user = o))
             {
+                //根据用户id获取改用户的完整信息
                 var userRoleMenu = await _iUserService.GetUserAllInfo(user.Id);
+
+                //如果该用户没有任何一个菜单，或者没有任何一个角色，无意义的登录
+                if (userRoleMenu.PermissionCodes.Count == 0)
+                {
+                    return Result.Error("登录禁用！该用户分配无任何权限，无意义登录！");
+                }
+
+
+                //将该用户的完整信息缓存一份至缓存，后续需要完整用户信息，只需通过token中的id从缓存中获取即可
+
+                //先制作token
+                var token = _jwtInvoker.GetAccessToken(userRoleMenu.User, userRoleMenu.Menus);
+
+                //需要注意，缓存用户信息时间应大于或等于token过期时间
+                _cacheDb.Set($"Yi:UserInfo:{user.Id}", userRoleMenu, _jwtInvoker.GetTokenExpiration());
+
+
                 await loginLogRepository.InsertReturnSnowflakeIdAsync(loginInfo);
-                return Result.Success(loginInfo.LogMsg).SetData(new { token = _jwtInvoker.GetAccessToken(userRoleMenu.User, userRoleMenu.Menus) });
+                return Result.Success(loginInfo.LogMsg).SetData(new { token });
             }
             loginInfo.LogMsg = "登录失败！用户名或者密码错误！";
             await loginLogRepository.InsertReturnSnowflakeIdAsync(loginInfo);
@@ -137,11 +164,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetUserAllInfo()
+        public Result GetUserAllInfo()
         {
             //通过鉴权jwt获取到用户的id
             var userId = HttpContext.GetUserIdInfo();
-            var data = await _iUserService.GetUserAllInfo(userId);
+            //此处从缓存中获取即可
+            var data = _cacheDb.Get<UserRoleMenuDto>($"Yi:UserInfo:{userId}");
+            //var data = await _iUserService.GetUserAllInfo(userId);
             //系统用户数据被重置，老前端访问重新授权
             if (data is null)
             {

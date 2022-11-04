@@ -143,8 +143,8 @@
             </el-row>
             <el-row>
                <el-col :span="12">
-                  <el-form-item v-if="form.id == undefined" label="用户名称" prop="userName">
-                     <el-input v-model="form.user.userName" placeholder="请输入用户名称" maxlength="30" />
+                  <el-form-item v-if="form.id == undefined" label="用户账号" prop="userName">
+                     <el-input v-model="form.user.userName" placeholder="请输入用户账号" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">

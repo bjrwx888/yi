@@ -21,7 +21,7 @@ namespace Yi.Framework.Core
             }
 
             //无需授权情况
-            var userName = httpContext?.GetUserNameInfo();
+            var userName = httpContext?.GetUserIdInfo();
             if (userName is null)
             {
                 return;
@@ -33,9 +33,10 @@ namespace Yi.Framework.Core
                 return;
             }
 
-            //这里可以优化一下
+            var userId = httpContext?.GetUserIdInfo();
+
             //根据缓存获取全部用户信息
-            var userRoleMenu = ServiceLocator.Instance?.GetService<CacheInvoker>()?.Get<UserRoleMenuDto>("用户id");
+            var userRoleMenu = ServiceLocator.Instance?.GetService<CacheInvoker>()?.Get<UserRoleMenuDto>($"Yi:UserInfo:{userId}");
 
 
             var roles = userRoleMenu?.Roles;
@@ -43,9 +44,8 @@ namespace Yi.Framework.Core
             {
                 roles = new();
             }
-            //先测试部门就是LEBG
+
             long deptId = userRoleMenu?.User.DeptId ?? -1;
-            long userId = httpContext?.GetUserIdInfo()??-1;
             //根据角色的数据范围，来添加相对于的数据权限
             if (roles is not null)
             {

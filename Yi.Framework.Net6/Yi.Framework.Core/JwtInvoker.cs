@@ -27,6 +27,11 @@ namespace Yi.Framework.Core
             return this.GetToken(_JWTTokenOptions.ReExpiration, user, null, true);
         }
 
+        public TimeSpan GetTokenExpiration()
+        {
+            return new TimeSpan(0, _JWTTokenOptions.Expiration, 0); 
+        }
+
         public string GetAccessToken(UserEntity user, HashSet<MenuEntity> menus)
         {
             return this.GetToken(_JWTTokenOptions.Expiration, user, menus);

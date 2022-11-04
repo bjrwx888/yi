@@ -60,10 +60,9 @@ builder.Host.ConfigureLogging(loggingBuilder =>
 #endregion
 builder.Services.AddIocService(builder.Configuration);
 #region
-//Sqlsugar上下文注入,是否开启数据权限功能，开启需要Redis缓存
+//Sqlsugar上下文注入,是否开启数据权限功能，开启需走缓存
 #endregion
-builder.Services.AddSqlsugarServer();
-//builder.Services.AddSqlsugarServer(DbFiterExtend.Data);
+builder.Services.AddSqlsugarServer(DbFiterExtend.Data);
 #region
 //Quartz任务调度配置
 #endregion
