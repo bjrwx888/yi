@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-[assembly: HostingStartup(typeof(Yi.Framework.WebCore.Utility.CustomHostingStartup))]
+[assembly: HostingStartup(typeof(Yi.Framework.WebCore.BuilderExtend.CustomHostingStartup))]
 //这里放上启动类下的dll，即自动侵入了，当然我们现在不会这样做。
-namespace Yi.Framework.WebCore.Utility
+namespace Yi.Framework.WebCore.BuilderExtend
 {
     /// <summary>
     /// 必须实现IHostingStartup接口

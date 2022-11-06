@@ -37,9 +37,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private IHubContext<MainHub> _hub;
         private ThumbnailSharpInvoer _thumbnailSharpInvoer;
         private CacheInvoker _cacheDb;
+        private ILogger<TestController> _logger;
+        [Autowired]
+        public CacheInvoker CacheInvoker { get; set; }
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
         /// <summary>
-        /// 依赖注入
+        /// 依赖注入，优雅写法
         /// </summary>
         /// <param name="hub"></param>
         /// <param name="logger"></param>
@@ -50,22 +53,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="thumbnailSharpInvoer"></param>
         /// <param name="cacheInvoker"></param>
         public TestController(IHubContext<MainHub> hub,
-            ILogger<UserEntity> logger,
+            ILogger<TestController> logger,
             IRoleService iRoleService,
             IUserService iUserService,
             IStringLocalizer<LocalLanguage> local,
             QuartzInvoker quartzInvoker,
             ThumbnailSharpInvoer thumbnailSharpInvoer,
-            CacheInvoker cacheInvoker)
-        {
-            _iUserService = iUserService;
-            _iRoleService = iRoleService;
-            _quartzInvoker = quartzInvoker;
-            _hub = hub;
-            _local = local;
-            _thumbnailSharpInvoer = thumbnailSharpInvoer;
-            _cacheDb = cacheInvoker;
-        }
+            CacheInvoker cacheInvoker) =>
+
+            (_logger,_iUserService, _iRoleService, _quartzInvoker, _hub, _local, _thumbnailSharpInvoer, _cacheDb) =
+
+            (logger, iUserService, iRoleService, quartzInvoker, hub, local, thumbnailSharpInvoer, cacheInvoker);
+ 
 
         /// <summary>
         /// swagger跳转
@@ -345,6 +344,27 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
             var data = _cacheDb.Get<string>(key);
             return Result.Success().SetData(data);
+        }
+
+        /// <summary>
+        /// 自定义日志
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public Result CustomLogTest()
+        {
+            _logger.LogWarning("输出一条日志");
+            return Result.Success();
+        }
+
+        /// <summary>
+        /// 属性注入测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public Result PropertyTest()
+        {
+            return Result.Success().SetStatus(CacheInvoker is not null);
         }
     }
 }

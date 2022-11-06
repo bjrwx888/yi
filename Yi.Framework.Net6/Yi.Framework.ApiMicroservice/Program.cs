@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.Core;
 using Yi.Framework.WebCore.MiddlewareExtend;
-using Yi.Framework.WebCore.Utility;
 using Autofac;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Language;
@@ -15,6 +14,10 @@ using Yi.Framework.WebCore;
 using Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.WebCore.DbExtend;
 using IPTools.Core;
+using Yi.Framework.WebCore.LogExtend;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Yi.Framework.WebCore.AutoFacExtend;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -31,21 +34,29 @@ builder.Host.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-    
     #region
     //交由Module依赖注入
     #endregion
     containerBuilder.RegisterModule<CustomAutofacModule>();
     #region
+    //添加属性注入模块
+    #endregion
+    //containerBuilder.RegisterModule<PropertiesAutowiredModule>();
+    #region
     //使用AppService特性优雅的进行自动依赖注入,仓储与基类服务便是使用该种方式自动注入
     #endregion
     containerBuilder.AddAutoIocService("Yi.Framework.Repository", "Yi.Framework.Service");
 });
+////属性注入，将控制器的mvc模块转接给ioc
+//builder.Services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+
 builder.Host.ConfigureLogging(loggingBuilder =>
                 {
                     loggingBuilder.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.Warning);
                     loggingBuilder.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.Warning);
                     loggingBuilder.AddLog4Net("./Config/Log4net.config");
+                    //添加自定义日志
+                    //loggingBuilder.AddCustomLogger();
                 });
 #region
 //配置类配置

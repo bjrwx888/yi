@@ -15,10 +15,10 @@ using Yi.Framework.Interface;
 using Yi.Framework.Job;
 using Yi.Framework.Repository;
 using Yi.Framework.Service;
-using Yi.Framework.WebCore.Utility;
+using Yi.Framework.WebCore.AutoFacExtend;
 using Module = Autofac.Module;
 
-namespace Yi.Framework.WebCore.Utility
+namespace Yi.Framework.WebCore.AutoFacExtend
 {
     public class CustomAutofacModule : Module
     {

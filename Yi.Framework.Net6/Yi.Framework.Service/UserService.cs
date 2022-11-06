@@ -15,6 +15,7 @@ using Yi.Framework.Repository;
 
 namespace Yi.Framework.Service
 {
+
     public partial class UserService
     {
         public async Task<List<UserEntity>> GetListInRole()
