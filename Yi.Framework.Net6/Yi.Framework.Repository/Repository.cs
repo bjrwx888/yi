@@ -16,7 +16,7 @@ namespace Yi.Framework.Repository
     [AppService]
     public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
-       
+
         public ISugarQueryable<T> _DbQueryable { get { return base.Context.Queryable<T>(); } set { } }
 
         public ISqlSugarClient _Db { get { return base.Context; } set { } }
@@ -26,21 +26,40 @@ namespace Yi.Framework.Repository
         /// <param name="context"></param>
         public Repository(ISqlSugarClient context) : base(context)//注意这里要有默认值等于null
         {
-            //开始Saas分库！
-            //单个公共基础库+多个租户业务库
-            
-            //1:先判断操作对应实体上是否存在租户特性，如果存在说明是公共库
+            ////开始Saas分库！
+            ////单个公共基础库+多个租户业务库
 
-            //如果是公共库，直接使用默认库即可
-            //如果不是公共库
+            ////1:先判断操作对应实体上是否存在租户特性，如果存在说明是公共库
+            //var anyTenant = typeof(T).GetCustomAttributes(false).Any(a => a.GetType().Equals(typeof(TenantAttribute)));
 
-            //2:根据上下文对象获取用户的租户id
-            //3:根据租户id获取到对应上下文对象
-            //4：替换仓储中的上下文对象即可
+            ////如果是公共库，直接使用默认库即可
+            //if (anyTenant)
+            //{
+            //    base.Context = _Db.AsTenant().GetConnectionScope("0");
+            //}
+            ////如果不是公共库
+            //else
+            //{
+            //    //2:根据上下文对象获取用户的租户id、数据库连接串及用户信息
+            //    string tenantId = "获取用户的租户id";
+            //    string connection = "获取用户信息中的数据库连接字符串";
 
-            //强化：如果租户要做到动态配置不写死，租户信息连接字符串等存入数据库，带入token中，还需要在sqlsugarAop中动态获取进行切换
-            //base.Context =  context.AsTenant().GetConnectionScopeWithAttr<T>();
-
+            //    //如果该租户未添加到db对象中
+            //    if (!_Db.AsTenant().IsAnyConnection(tenantId))
+            //    { 
+            //      //添加业务库只在当前上下文有效
+            //        _Db.AsTenant().AddConnection(new ConnectionConfig()
+            //        {
+            //            ConfigId = tenantId,
+            //            ConnectionString = connection,
+            //            //数据库类型同样可以动态配置
+            //            DbType = SqlSugar.DbType.MySql,
+            //            IsAutoCloseConnection = true
+            //        });
+            //    }
+            //    //3:根据租户id获取到对应db对象,替换仓储中的db对象即可
+            //    base.Context = _Db.AsTenant().GetConnectionScope(tenantId);
+            //}
         }
 
         /// <summary>
@@ -74,19 +93,8 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<bool> UseSqlAsync(string sql, object parameters)
         {
-            return await _Db.Ado.ExecuteCommandAsync(sql,  parameters) >0;
+            return await _Db.Ado.ExecuteCommandAsync(sql, parameters) > 0;
         }
-
-        ///// <summary>
-        ///// 添加返回实体
-        ///// </summary>
-        ///// <param name="entity"></param>
-        ///// <returns></returns>
-        //public async Task<T> InsertReturnEntityAsync(T entity)
-        //{
-        //    entity.Id =SnowFlakeSingle.instance.getID();
-        //    return await _Db.Insertable(entity).ExecuteReturnEntityAsync();
-        //}
 
         /// <summary>
         /// 更新忽略空值
@@ -95,20 +103,8 @@ namespace Yi.Framework.Repository
         /// <returns></returns>
         public async Task<bool> UpdateIgnoreNullAsync(T entity)
         {
-            return await _Db.Updateable(entity).IgnoreColumns(true).ExecuteCommandAsync()>0;
+            return await _Db.Updateable(entity).IgnoreColumns(true).ExecuteCommandAsync() > 0;
         }
-
-
-        ///// <summary>
-        ///// 逻辑多删除
-        ///// </summary>
-        ///// <returns></returns>
-        //public async Task<bool> DeleteByLogicAsync(List<long> ids)
-        //{
-        //    var entitys = await _Db.Queryable<T>().Where(u => ids.Contains(u.Id)).ToListAsync();
-        //    entitys.ForEach(u=>u.IsDeleted=true);
-        //    return await _Db.Updateable(entitys).ExecuteCommandAsync()>0;
-        //}
 
 
         /// <summary>
@@ -138,17 +134,16 @@ namespace Yi.Framework.Repository
         /// 仓储扩展方法:单表查询通用分页 
         /// </summary>
         /// <returns></returns>
-        public  async Task<PageModel<List<T>>> CommonPageAsync(QueryPageCondition pars)
+        public async Task<PageModel<List<T>>> CommonPageAsync(QueryPageCondition pars)
         {
             RefAsync<int> tolCount = 0;
-            var result = await  QueryConditionHandler(new QueryCondition() {OrderBys=pars.OrderBys,Parameters=pars.Parameters } ).ToPageListAsync(pars.Index, pars.Size, tolCount);
+            var result = await QueryConditionHandler(new QueryCondition() { OrderBys = pars.OrderBys, Parameters = pars.Parameters }).ToPageListAsync(pars.Index, pars.Size, tolCount);
             return new PageModel<List<T>>
             {
                 Total = tolCount.Value,
                 Data = result
             };
         }
-
 
 
         public ISugarQueryable<T> QueryConditionHandler(QueryCondition pars)
@@ -228,5 +223,5 @@ namespace Yi.Framework.Repository
         }
     }
 
-   
+
 }

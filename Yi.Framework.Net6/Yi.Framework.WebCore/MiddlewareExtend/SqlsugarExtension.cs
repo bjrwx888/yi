@@ -23,6 +23,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 
                 readCon.ForEach(s =>
                 {
+                    //如果是动态saas分库，这里的连接串都不能写死，需要动态添加，这里只配置共享库的连接
                     slavaConFig.Add(new SlaveConnectionConfig() { ConnectionString = s });
                 });
             }
