@@ -2,6 +2,7 @@
 using SqlSugar;
 using System;
 using System.Linq;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
@@ -28,7 +29,7 @@ namespace Yi.Framework.Core
             }
 
             //超级管理员直接放行
-            if (ServiceLocator.Admin.Equals(userName))
+            if (SystemConst.Admin.Equals(userName))
             {
                 return;
             }

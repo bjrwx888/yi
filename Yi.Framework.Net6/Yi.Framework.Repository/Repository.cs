@@ -60,6 +60,8 @@ namespace Yi.Framework.Repository
             //    //3:根据租户id获取到对应db对象,替换仓储中的db对象即可
             //    base.Context = _Db.AsTenant().GetConnectionScope(tenantId);
             //}
+            //这里有个问题，如果想通过上下文请求获取用户信息，就依赖到web相关。需要进行协调好
+            //同时还要考虑动态的业务库初始化问题，这个判断不应该写到仓储中，会很吃性能，可以添加租户、程序启动，两个地方同时进行业务库的数据库初始化判断
         }
 
         /// <summary>

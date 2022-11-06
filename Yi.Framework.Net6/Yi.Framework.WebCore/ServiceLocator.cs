@@ -9,8 +9,7 @@ namespace Yi.Framework.WebCore
     {
         public static IServiceProvider? Instance { get; set; }
 
-        public static string Admin { get; set; } = "cc";
-
+        //需要兼容不存在http请求的情况
         public static bool GetHttp(out HttpContext? httpContext)
         {
             httpContext = null;
