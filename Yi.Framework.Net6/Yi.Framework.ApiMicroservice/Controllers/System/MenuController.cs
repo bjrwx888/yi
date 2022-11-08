@@ -35,6 +35,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="menu"></param>
         /// <returns></returns>
         [HttpGet]
+        [Permission("system:menu:query")]
         public async Task<Result> SelctGetList([FromQuery] MenuEntity menu)
         {
             return Result.Success().SetData(await _iMenuService.SelctGetList(menu));
