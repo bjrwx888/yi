@@ -47,6 +47,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="menu"></param>
         /// <returns></returns>
         [HttpPost]
+        [Permission("system:menu:add")]
         public async Task<Result> Add(MenuEntity menu)
         {
             return Result.Success().SetData(await _iMenuService._repository.InsertReturnSnowflakeIdAsync(menu));
@@ -58,6 +59,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="menu"></param>
         /// <returns></returns>
         [HttpPut]
+        [Permission("system:menu:edit")]
         public async Task<Result> Update(MenuEntity menu)
         {
             //注意，这里如果是主目录，还需要判断/，需要以/开头
@@ -70,6 +72,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Permission("system:menu:query")]
         public async Task<Result> GetMenuTree()
         {
             return Result.Success().SetData(await _iMenuService.GetMenuTreeAsync());
@@ -82,6 +85,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
+        [Permission("system:menu:query")]
         public async Task<Result> GetListByRoleId(long id)
         {
             return Result.Success().SetData(await _iMenuService.GetListByRoleId(id));
