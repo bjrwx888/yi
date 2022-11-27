@@ -101,7 +101,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [Log("用户模块", OperEnum.Update)]
         public async Task<Result> Update(UserInfoDto userDto)
         {
-            if (await _repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName) && !userDto.User.Id.Equals(u.Id)))
+            if (await _repository.IsAnyAsync(u => userDto.User.UserName!.Equals(u.UserName) && !userDto.User.Id.Equals(u.Id)))
             {
                 return Result.Error("用户名已存在，修改失败！");
             }
@@ -138,7 +138,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             {
                 return Result.Error("密码为空，添加失败！");
             }
-            if (await _repository.IsAnyAsync(u => userDto.User.UserName.Equals(u.UserName)))
+            if (await _repository.IsAnyAsync(u => userDto.User.UserName!.Equals(u.UserName)))
             {
                 return Result.Error("用户已经存在，添加失败！");
             }

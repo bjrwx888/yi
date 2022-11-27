@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
@@ -12,6 +13,7 @@ using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
 using Yi.Framework.Interface;
+using Yi.Framework.Job;
 using Yi.Framework.Language;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
@@ -216,8 +218,35 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> StopJob()
         {
             await _quartzInvoker.StopAsync(new Quartz.JobKey("test", "my"));
+            return Result.Success("http://localhost:19001/hangfire");
+        }
+
+        /// <summary>
+        /// hangfireJob测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public  Result HangfireStratJobTest()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {JobConst.method,"get" },
+                {JobConst.url,"https://www.baidu.com" }
+            };
+            RecurringJob.AddOrUpdate<HttpJob>(nameof(HttpJob),(Job)=>Job.Execute2(data), "*/5 * * * * ?");
+            return Result.Success("http://localhost:19001/hangfire");
+        }
+        /// <summary>
+        /// hangfireJob测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public Result HangfireStopJobTest()
+        {
+            RecurringJob.RemoveIfExists(nameof(HttpJob));
             return Result.Success();
         }
+
 
         /// <summary>
         /// 树形结构构建测试
