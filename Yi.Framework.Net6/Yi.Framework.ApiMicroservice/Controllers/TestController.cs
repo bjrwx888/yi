@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Hangfire.MemoryStorage.Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -219,6 +220,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             await _quartzInvoker.StopAsync(new Quartz.JobKey("test", "my"));
             return Result.Success("http://localhost:19001/hangfire");
+        }
+
+        /// <summary>
+        /// job异常处理
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> ErrorJob()
+        {
+            await _quartzInvoker.StartAsync("*/5 * * * * ?", "ErrorJob");
+            return Result.Success();
         }
 
         /// <summary>
