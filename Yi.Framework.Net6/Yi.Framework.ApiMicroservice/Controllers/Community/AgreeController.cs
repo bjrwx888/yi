@@ -23,11 +23,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class AgreeController : ControllerBase
     {
         [Autowired]
-        public IAgreeService _iAgreeService { get; set; }
+        public IAgreeService? _iAgreeService { get; set; }
         [Autowired]
-        public IArticleService _iArticleService { get; set; }
+        public IArticleService? _iArticleService { get; set; }
         [Autowired]
-        public ILogger<AgreeEntity> _logger { get; set; }
+        public ILogger<AgreeEntity>? _logger { get; set; }
 
         /// <summary>
         /// 点赞操作
@@ -37,30 +37,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> Operate(long articleId)
         {
-            //long userId = HttpContext.GetUserIdInfo();
-            long userId = 1L;
-            var article = await _iArticleService._repository.GetByIdAsync(articleId);
-            if (await _iAgreeService._repository.IsAnyAsync(u => u.UserId == userId && u.ArticleId == articleId))
+            long userId = HttpContext.GetUserIdInfo();
+            if (await _iAgreeService!.OperateAsync(articleId, userId))
             {
-                //已点赞，取消点赞
-                await _iAgreeService._repository.UseTranAsync(async () =>
-                {
-                    await _iAgreeService._repository.DeleteAsync(u => u.UserId == userId && u.ArticleId == articleId);
-                    await _iArticleService._repository.UpdateIgnoreNullAsync(new ArticleEntity { Id = articleId, AgreeNum = article.AgreeNum - 1 });
-
-                });
+                return Result.Success("点赞成功");
+              
             }
             else
             {
-                //未点赞，添加点赞记录
-                await _iAgreeService._repository.UseTranAsync(async () =>
-                {
-                    await _iAgreeService._repository.InsertAsync(new AgreeEntity { UserId = userId, ArticleId = articleId });
-                    await _iArticleService._repository.UpdateIgnoreNullAsync(new ArticleEntity { Id = articleId, AgreeNum = article.AgreeNum + 1 });
-                });
-
+                return Result.Success("已点赞，取消点赞").StatusFalse();
             }
-            return Result.Success("这里业务全部拆开放service层去");
         }
     }
 }

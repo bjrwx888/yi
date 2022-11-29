@@ -55,6 +55,12 @@ myaxios.interceptors.response.use(async function(response) {
     return resp;
 }, async function(error) {
 //未授权、失败
+if(error.response==undefined)
+{
+  Notify({ type: 'danger', message: `服务器异常:${error.message}` });
+  return Promise.reject(error);;
+}
+
 const resp = error.response.data
 if (resp.code == undefined && resp.message == undefined) {
     Notify({ type: 'danger', message: '未知错误' });

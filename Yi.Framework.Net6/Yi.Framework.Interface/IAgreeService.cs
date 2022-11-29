@@ -6,5 +6,6 @@ namespace Yi.Framework.Interface
 {
     public partial interface IAgreeService : IBaseService<AgreeEntity>
     {
+        Task<bool> OperateAsync(long articleId, long userId);
     }
 }

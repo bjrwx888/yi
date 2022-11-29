@@ -33,6 +33,7 @@ namespace Yi.Framework.DTOModel.Vo
         public string Remark { get; set; }
         public List<string> Images { get; set; }
 
+        public int? AgreeNum { get; set; }
         public UserVo User { get; set; }
     }
 }

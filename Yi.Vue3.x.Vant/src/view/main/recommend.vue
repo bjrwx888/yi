@@ -1,24 +1,14 @@
 <template>
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-    <van-list
-      class="list"
-      v-model:loading="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
+    <van-list class="list" v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
       <van-row v-for="(item, index) in articleList" :key="index" class="row">
         <van-col span="4" class="leftCol">
-          <AppUserIcon
-            width="3rem"
-            height="3rem"
-            :src="item.user == null ? null : item.user.icon"
-          />
+          <AppUserIcon width="3rem" height="3rem" :src="item.user == null ? null : item.user.icon" />
         </van-col>
 
         <van-col span="14" class="centerTitle">
           <span class="justtitle">{{
-            item.user == null ? "-" : item.user.nick ?? item.user.username
+              item.user == null ? "-" : item.user.nick ?? item.user.username
           }}</span>
           <br />
           <app-createTime :time="item.createTime" />
@@ -30,20 +20,9 @@
 
         <van-col class="rowBody" span="24">{{ item.content }}</van-col>
 
-        <van-col
-          span="8"
-          v-for="(image, imageIndex) in item.images"
-          :key="imageIndex"
-          class="imageCol"
-          @click="openImage(item.images, imageIndex)"
-          ><van-image
-            lazy-load
-            fit="cover"
-            width="100%"
-            height="7rem"
-            :src="url + image + '/true'"
-            radius="5"
-          />
+        <van-col span="8" v-for="(image, imageIndex) in item.images" :key="imageIndex" class="imageCol"
+          @click="openImage(item.images, imageIndex)">
+          <van-image lazy-load fit="cover" width="100%" height="7rem" :src="url + image + '/true'" radius="5" />
           <template v-slot:loading>
             <van-loading type="spinner" size="20" />
           </template>
@@ -52,40 +31,30 @@
         <van-col span="24" class="bottomRow">
           <van-grid direction="horizontal" :column-num="3">
             <van-grid-item icon="share-o" text="分享" />
-            <van-grid-item icon="comment-o" text="评论" @click="commentShow=true" />
-            <van-grid-item icon="good-job-o" text="点赞" />
+            <van-grid-item icon="comment-o" text="评论" @click="commentShow = true" />
+            <van-grid-item icon="good-job-o" :text="`点赞:${item.agreeNum}`" @click="aggreeHand(item.id)" />
           </van-grid>
         </van-col>
       </van-row>
     </van-list>
   </van-pull-refresh>
   <!-- 功能页面 -->
-  <van-action-sheet
-    v-model:show="show"
-    :actions="actions"
-    cancel-text="取消"
-    close-on-click-action
-  />
+  <van-action-sheet v-model:show="show" :actions="actions" cancel-text="取消" close-on-click-action />
 
   <!-- 图片预览 -->
-  <van-image-preview
-    v-model:show="imageShow"
-    :images="imagesPreview"
-    :startPosition="startIndex"
-    @change="onChange"
-    :closeable="true"
-  >
+  <van-image-preview v-model:show="imageShow" :images="imagesPreview" :startPosition="startIndex" @change="onChange"
+    :closeable="true">
     <template v-slot:index>第{{ index + 1 }}页</template>
   </van-image-preview>
 
   <!-- 评论面板 -->
   <van-action-sheet v-model:show="commentShow" title="共10条评论">
 
-      <van-row v-for="i of 10" :key="i" class="commentContent">
-<van-col span="4">头像</van-col>
-<van-col span="16">内容</van-col>
-<van-col span="4">点赞</van-col>
-      </van-row>
+    <van-row v-for="i of 10" :key="i" class="commentContent">
+      <van-col span="4">头像</van-col>
+      <van-col span="16">内容</van-col>
+      <van-col span="4">点赞</van-col>
+    </van-row>
   </van-action-sheet>
 </template>
 
@@ -95,6 +64,7 @@ import { ImagePreview, Toast } from "vant";
 import AppCreateTime from "@/components/AppCreateTime.vue";
 import AppUserIcon from "@/components/AppUserIcon.vue";
 import articleApi from "@/api/articleApi";
+import agreeApi from "@/api/agreeApi";
 import { ArticleEntity } from "@/type/interface/ArticleEntity";
 const VanImagePreview = ImagePreview.Component;
 const url = `${import.meta.env.VITE_APP_BASE_API}/file/`;
@@ -112,7 +82,7 @@ const { queryParams } = toRefs(data);
 const articleList = ref<any[]>([]);
 const totol = ref<Number>(0);
 const imageShow = ref(false);
-const commentShow=ref(false)
+const commentShow = ref(false)
 const index = ref(0);
 let imagesPreview = ref<string[]>([]);
 
@@ -176,11 +146,26 @@ const getList = () => {
     totol.value = response.data.totol;
   });
 };
+const aggreeHand = (articleId: any) => {
+  agreeApi.operate(articleId).then((response: any) => {
+    //更改显示的值
+    if (response.status) {
+      articleList.value.filter(p => p.id == articleId)[0].agreeNum += 1
+    } else {
+      articleList.value.filter(p => p.id == articleId)[0].agreeNum -= 1
+    }
+    Toast({
+      message: response.message,
+      position: 'bottom',
+    })
+  })
+}
 </script>
 <style scoped>
 .list {
   background-color: #f4f4f4;
 }
+
 .row {
   background-color: white;
   padding-top: 1rem;
@@ -188,6 +173,7 @@ const getList = () => {
   padding-right: 1rem;
   margin-bottom: 0.6rem;
 }
+
 .rowBody {
   text-align: left;
   background-color: white;
@@ -195,22 +181,27 @@ const getList = () => {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
 .title {
   padding-top: 1rem;
 
   min-height: 3rem;
   text-align: left;
 }
+
 .leftCol {
   align-content: left;
   text-align: left;
 }
+
 .centerTitle {
   text-align: left;
 }
+
 .imageCol {
   padding: 0.1rem 0.1rem 0.1rem 0.1rem;
 }
+
 .subtitle {
   color: #cbcbcb;
 }
@@ -218,14 +209,17 @@ const getList = () => {
 .justtitle {
   font-size: large;
 }
+
 .bottomRow {
   color: #999999;
 }
+
 .down {
   text-align: right;
   padding-right: 0.5rem;
 }
+
 .commentContent {
-margin-bottom: 4rem;
+  margin-bottom: 4rem;
 }
 </style>
