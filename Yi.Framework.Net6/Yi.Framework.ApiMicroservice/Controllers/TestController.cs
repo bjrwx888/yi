@@ -222,33 +222,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// hangfireJob测试
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public  Result HangfireStratJobTest()
-        {
-            Dictionary<string, object> data = new Dictionary<string, object>()
-            {
-                {JobConst.method,"get" },
-                {JobConst.url,"https://www.baidu.com" }
-            };
-            RecurringJob.AddOrUpdate<HttpJob>(nameof(HttpJob),(Job)=>Job.Execute2(data), "*/5 * * * * ?");
-            return Result.Success("http://localhost:19001/hangfire");
-        }
-        /// <summary>
-        /// hangfireJob测试
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public Result HangfireStopJobTest()
-        {
-            RecurringJob.RemoveIfExists(nameof(HttpJob));
-            return Result.Success();
-        }
-
-
-        /// <summary>
         /// 树形结构构建测试
         /// </summary>
         /// <returns></returns>

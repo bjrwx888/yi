@@ -40,29 +40,5 @@ namespace Yi.Framework.Job
                 Console.WriteLine($"结果:{data}");
             });
         }
-
-        public Task Execute2(Dictionary<string,object> dic)
-        {
-            return Task.Run(async () =>
-            {
-                //var jobData = context.JobDetail.JobDataMap;
-                string method = dic[Common.Const.JobConst.method].ToString();
-                string url = dic[Common.Const.JobConst.url].ToString();
-                string data = "异常！";
-                switch (method)
-                {
-                    case "post":
-                        data = await Common.Helper.HttpHelper.Post(url);
-                        break;
-                    case "get":
-                        data = await Common.Helper.HttpHelper.Get(url);
-                        break;
-                }
-
-
-                _logger.LogWarning("定时任务开始调度：" + nameof(HttpJob) + ":" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + $"：访问地址为:{url}，结果为:{data}");
-                Console.WriteLine($"结果:{data}");
-            });
-        }
     }
 }
