@@ -18,6 +18,8 @@ using Yi.Framework.WebCore.LogExtend;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Yi.Framework.WebCore.AutoFacExtend;
+using Hangfire;
+using Hangfire.MemoryStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -78,6 +80,15 @@ builder.Services.AddSqlsugarServer(DbFiterExtend.Data);
 //Quartz任务调度配置
 #endregion
 builder.Services.AddQuartzService();
+builder.Services.AddHangfire(option =>
+{
+    option.SetDataCompatibilityLevel(CompatibilityLevel.Version_170);//全局配置兼容版本，向下兼容
+    option.UseColouredConsoleLogProvider();//输出日志
+    option.UseSimpleAssemblyNameTypeSerializer();//使用简单程序集名称类型序列化程序
+    option.UseRecommendedSerializerSettings();//使用推荐的序列化配置
+    option.UseMemoryStorage();
+});
+builder.Services.AddHangfireServer();
 #region
 //AutoMapper注入
 #endregion
@@ -85,7 +96,8 @@ builder.Services.AddAutoMapperService();
 #region
 //控制器+过滤器配置
 #endregion
-builder.Services.AddControllers(optios => {
+builder.Services.AddControllers(optios =>
+{
     //注册全局
     optios.Filters.Add<GlobalLogAttribute>();
 }).AddJsonFileService();
@@ -228,6 +240,10 @@ app.UseDbSeedInitService();
 #endregion
 app.UseRedisSeedInitService();
 
+app.UseHangfireDashboard();
+
+
+
 app.UseEndpoints(endpoints =>
 {
     #region
@@ -235,6 +251,7 @@ app.UseEndpoints(endpoints =>
     #endregion
     endpoints.MapHub<MainHub>("/api/hub/main");
     endpoints.MapControllers();
+    endpoints.MapHangfireDashboard();
 });
 
 //准备添加多租户

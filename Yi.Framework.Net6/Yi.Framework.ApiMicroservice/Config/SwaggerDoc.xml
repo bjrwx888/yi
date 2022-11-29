@@ -602,6 +602,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.HangfireStratJobTest">
+            <summary>
+            hangfireJob测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.HangfireStopJobTest">
+            <summary>
+            hangfireJob测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.TreeTest">
             <summary>
             树形结构构建测试
