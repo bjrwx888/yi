@@ -4,21 +4,6 @@
         <name>Yi.Framework.ApiMicroservice</name>
     </assembly>
     <members>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.PageList(Yi.Framework.Model.Models.ArticleEntity,Yi.Framework.Common.Models.PageParModel)">
-            <summary>
-            动态条件分页查询
-            </summary>
-            <param name="entity"></param>
-            <param name="page"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.Add(Yi.Framework.Model.Models.ArticleEntity)">
-            <summary>
-            添加
-            </summary>
-            <param name="entity"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1">
             <summary>
             Json To Sql 类比模式，通用模型
@@ -148,6 +133,33 @@
             列表删除
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AgreeController.Operate(System.Int64)">
+            <summary>
+            点赞操作
+            </summary>
+            <param name="articleId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Controllers.ArticleController">
+            <summary>
+            文章控制器
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.PageList(Yi.Framework.Model.Models.ArticleEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <param name="entity"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.Add(Yi.Framework.Model.Models.ArticleEntity)">
+            <summary>
+            添加
+            </summary>
+            <param name="entity"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.SkuController.PageList(Yi.Framework.Model.Models.SkuEntity,Yi.Framework.Common.Models.PageParModel)">

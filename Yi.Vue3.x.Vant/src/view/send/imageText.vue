@@ -9,7 +9,12 @@
             </router-link>
           </van-col>
           <van-col span="18"><span>发图文</span></van-col>
-          <van-col span="3" @click="send" :style="{color: isSend?'#FE70A0':'#979797'}">发布</van-col>
+          <van-col
+            span="3"
+            @click="send"
+            :style="{ color: isSend ? '#FE70A0' : '#979797' }"
+            >发布</van-col
+          >
         </van-row>
       </van-sticky>
 
@@ -39,28 +44,33 @@
       <van-divider />
       <van-row>
         <van-col class="img-col" span="24">
-          <van-uploader  accept="image/*" :after-read="afterRead" v-model="fileList" multiple />
+          <van-uploader
+            accept="image/*"
+            :after-read="afterRead"
+            v-model="fileList"
+            multiple
+          />
         </van-col>
       </van-row>
     </div>
   </transition>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, reactive, toRefs,watch } from "vue";
+import { ref, onMounted, reactive, toRefs, watch } from "vue";
 import { ArticleEntity } from "@/type/interface/ArticleEntity";
 import fileApi from "@/api/fileApi";
 import articleApi from "@/api/articleApi";
 import { Toast } from "vant";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 const router = useRouter();
 const form = reactive<any>({
   title: "",
   content: "",
   images: [],
-  isDeleted: false
+  isDeleted: false,
 });
 
-const isSend=ref(false)
+const isSend = ref(false);
 const { images, content } = toRefs(form);
 const fileList = ref([]);
 const visible = ref<boolean>(false);
@@ -72,60 +82,64 @@ const afterRead = (file: any) => {
   file.message = "上传中...";
   var formData = new FormData();
   //一个文件
-  if(file.length==undefined)
-  {
+  if (file.length == undefined) {
     formData.append("file", file.file);
+  } else {
+    //多个文件
+    file.forEach((f: any) => {
+      formData.append("file", f.file);
+      f.status = "uploading";
+      f.message = "上传中...";
+    });
+    Toast({
+      message: "全部文件正在上传",
+      position: "bottom",
+    });
   }
-else
-{
-//多个文件
-file.forEach((f:any) => {
-  formData.append("file", f.file);
-});
-Toast({
-        message: "全部文件正在上传",
-        position: "bottom",
-      });
-}
-  fileApi.upload("image", formData)
-    .then((response: any) => {
-      images.value.push(...response.data);
+
+  fileApi.upload("image", formData).then((response: any) => {
+    images.value.push(...response.data);
+
+    if (file.length == undefined) {
       file.status = "done";
       file.message = "成功";
+    } else {
+      //多个文件
+      file.forEach((f: any) => {
+        f.status = "done";
+        f.message = "成功";
+      });
       Toast({
-        message: "文件上传成功",
+        message: "全部文件上传成功",
         position: "bottom",
       });
-    })
+    }
+  });
 };
 
 const send = () => {
-  if(form.content.length<5)
-  {
+  if (form.content.length < 5) {
     Toast({
-        message: "请输入至少5个字符",
-        position: "bottom",
-      });
+      message: "请输入至少5个字符",
+      position: "bottom",
+    });
+  } else {
+    articleApi.add(form).then((response: any) => {
+      router.push({ path: "/recommend" });
+    });
   }
-  else
-  {
-    articleApi.add(form).then((response:any)=>{
-      router.push({ path: '/recommend'});
-    })
-  }
-
 };
 
-watch(()=>form.content,(newValue,oldValue)=>{
- if(newValue.length<5)
- {
-  isSend.value=false
- }
- else
- {
-  isSend.value=true
- }
-})
+watch(
+  () => form.content,
+  (newValue, oldValue) => {
+    if (newValue.length < 5) {
+      isSend.value = false;
+    } else {
+      isSend.value = true;
+    }
+  }
+);
 </script>
 <style scoped>
 .head-row {
@@ -165,8 +179,7 @@ watch(()=>form.content,(newValue,oldValue)=>{
 .img-col {
   text-align: left;
 }
-.right-span
-{
+.right-span {
   color: #979797;
 }
 </style>

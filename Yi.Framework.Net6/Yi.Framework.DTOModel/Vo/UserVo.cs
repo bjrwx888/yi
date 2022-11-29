@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.DTOModel
+namespace Yi.Framework.DTOModel.Vo
 {
     /// <summary>
     /// 前端只需要这些数据即可

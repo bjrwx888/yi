@@ -1,6 +1,5 @@
 <template>
-
-    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+  <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list
       class="list"
       v-model:loading="loading"
@@ -10,11 +9,17 @@
     >
       <van-row v-for="(item, index) in articleList" :key="index" class="row">
         <van-col span="4" class="leftCol">
-    <AppUserIcon width="3rem" height="3rem" :src="item.user==null?null:(item.user.icon)"/>
+          <AppUserIcon
+            width="3rem"
+            height="3rem"
+            :src="item.user == null ? null : item.user.icon"
+          />
         </van-col>
 
         <van-col span="14" class="centerTitle">
-          <span class="justtitle">{{item.user==null?"-":(item.user.nick??item.user.username)}}</span>
+          <span class="justtitle">{{
+            item.user == null ? "-" : item.user.nick ?? item.user.username
+          }}</span>
           <br />
           <app-createTime :time="item.createTime" />
         </van-col>
@@ -25,29 +30,29 @@
 
         <van-col class="rowBody" span="24">{{ item.content }}</van-col>
 
-     <van-col
+        <van-col
           span="8"
           v-for="(image, imageIndex) in item.images"
           :key="imageIndex"
           class="imageCol"
-          @click="openImage(item.images,imageIndex)"
+          @click="openImage(item.images, imageIndex)"
           ><van-image
-          lazy-load
-          fit="cover"
+            lazy-load
+            fit="cover"
             width="100%"
             height="7rem"
-            :src="url + image+'/true'"
+            :src="url + image + '/true'"
             radius="5"
           />
           <template v-slot:loading>
-    <van-loading type="spinner" size="20" />
-  </template>
-        </van-col> 
+            <van-loading type="spinner" size="20" />
+          </template>
+        </van-col>
 
         <van-col span="24" class="bottomRow">
           <van-grid direction="horizontal" :column-num="3">
             <van-grid-item icon="share-o" text="分享" />
-            <van-grid-item icon="comment-o" text="评论" />
+            <van-grid-item icon="comment-o" text="评论" @click="commentShow=true" />
             <van-grid-item icon="good-job-o" text="点赞" />
           </van-grid>
         </van-col>
@@ -72,13 +77,23 @@
   >
     <template v-slot:index>第{{ index + 1 }}页</template>
   </van-image-preview>
+
+  <!-- 评论面板 -->
+  <van-action-sheet v-model:show="commentShow" title="共10条评论">
+
+      <van-row v-for="i of 10" :key="i" class="commentContent">
+<van-col span="4">头像</van-col>
+<van-col span="16">内容</van-col>
+<van-col span="4">点赞</van-col>
+      </van-row>
+  </van-action-sheet>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, toRefs } from "vue";
 import { ImagePreview, Toast } from "vant";
 import AppCreateTime from "@/components/AppCreateTime.vue";
-import   AppUserIcon from "@/components/AppUserIcon.vue";
+import AppUserIcon from "@/components/AppUserIcon.vue";
 import articleApi from "@/api/articleApi";
 import { ArticleEntity } from "@/type/interface/ArticleEntity";
 const VanImagePreview = ImagePreview.Component;
@@ -97,6 +112,7 @@ const { queryParams } = toRefs(data);
 const articleList = ref<any[]>([]);
 const totol = ref<Number>(0);
 const imageShow = ref(false);
+const commentShow=ref(false)
 const index = ref(0);
 let imagesPreview = ref<string[]>([]);
 
@@ -108,7 +124,7 @@ const list = ref<Number[]>([]);
 const loading = ref(false);
 const finished = ref(false);
 const refreshing = ref(false);
-const startIndex=ref(0)
+const startIndex = ref(0);
 const show = ref(false);
 const actions = [{ name: "取消关注" }, { name: "将TA拉黑" }, { name: "举报" }];
 
@@ -125,7 +141,7 @@ const onLoad = async () => {
       finished.value = true;
     } else {
       console.log("执行");
-      articleList.value.push(...(response.data.data));
+      articleList.value.push(...response.data.data);
       totol.value = response.data.totol;
       queryParams.value.pageNum += 1;
     }
@@ -144,9 +160,9 @@ const onRefresh = () => {
   queryParams.value.pageNum = 1;
   onLoad();
 };
-const openImage = (imagesUrl: string[],imageIndex:any) => {
+const openImage = (imagesUrl: string[], imageIndex: any) => {
   imagesPreview.value = imagesUrl.map((i) => url + i);
-  startIndex.value=imageIndex;
+  startIndex.value = imageIndex;
   imageShow.value = true;
 };
 onMounted(() => {
@@ -156,15 +172,14 @@ onMounted(() => {
 
 const getList = () => {
   articleApi.pageList(queryParams.value).then((response: any) => {
-    articleList.value.push(...(response.data.data));
+    articleList.value.push(...response.data.data);
     totol.value = response.data.totol;
   });
 };
 </script>
 <style scoped>
 .list {
-  background-color: #F4F4F4;
-
+  background-color: #f4f4f4;
 }
 .row {
   background-color: white;
@@ -209,5 +224,8 @@ const getList = () => {
 .down {
   text-align: right;
   padding-right: 0.5rem;
+}
+.commentContent {
+margin-bottom: 4rem;
 }
 </style>

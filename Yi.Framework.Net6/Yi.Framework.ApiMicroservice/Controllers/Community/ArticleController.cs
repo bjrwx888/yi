@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
-using Yi.Framework.DTOModel;
+using Yi.Framework.DTOModel.Vo;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
@@ -17,6 +17,9 @@ using Yi.Framework.WebCore.AuthorizationPolicy;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
+    /// <summary>
+    /// 文章控制器
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class ArticleController : BaseSimpleCrudController<ArticleEntity>

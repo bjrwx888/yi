@@ -1,6 +1,6 @@
 <template>
   <div class="div-top">
-    <span class="title">大白荟</span>
+    <span class="title">意框架</span>
     <br />
     <span class="subtitle">有幸相遇、不负未来</span>
   </div>
@@ -19,7 +19,7 @@
       type="password"
       placeholder="请输入密码"
     />
-    <van-button type="primary" @click="login">进入大白荟</van-button>
+    <van-button type="primary" @click="login">进入意框架</van-button>
     <p>其他方式登录<van-icon name="arrow" /></p>
 
     <van-row class="row-bottom" style="margin-top: 6rem">

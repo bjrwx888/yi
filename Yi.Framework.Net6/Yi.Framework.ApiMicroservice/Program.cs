@@ -18,8 +18,6 @@ using Yi.Framework.WebCore.LogExtend;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Yi.Framework.WebCore.AutoFacExtend;
-using Hangfire;
-using Hangfire.MemoryStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -43,14 +41,14 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     #region
     //添加属性注入模块
     #endregion
-    //containerBuilder.RegisterModule<PropertiesAutowiredModule>();
+    containerBuilder.RegisterModule<PropertiesAutowiredModule>();
     #region
     //使用AppService特性优雅的进行自动依赖注入,仓储与基类服务便是使用该种方式自动注入
     #endregion
     containerBuilder.AddAutoIocService("Yi.Framework.Repository", "Yi.Framework.Service");
 });
 ////属性注入，将控制器的mvc模块转接给ioc
-//builder.Services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+builder.Services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
 
 builder.Host.ConfigureLogging(loggingBuilder =>
                 {
