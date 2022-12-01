@@ -24,10 +24,10 @@ namespace Yi.Framework.Model.Models
          [SugarColumn(ColumnName="UserId"    )]
          public long? UserId { get; set; }
         /// <summary>
-        /// 文章id 
+        /// 文章或评论id 
         ///</summary>
-         [SugarColumn(ColumnName="ArticleId"    )]
-         public long? ArticleId { get; set; }
+         [SugarColumn(ColumnName="ArticleOrCommentId"    )]
+         public long? ArticleOrCommentId { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>
