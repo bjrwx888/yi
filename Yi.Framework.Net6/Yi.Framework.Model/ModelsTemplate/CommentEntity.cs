@@ -14,6 +14,9 @@ namespace Yi.Framework.Model.Models
         public CommentEntity()
         {
             this.CreateTime = DateTime.Now;
+            this.AgreeNum= 0;
+            this.CommentNum = 0;
+            this.ParentId= 0;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
         [SugarColumn(ColumnName="Id" ,IsPrimaryKey = true   )]
@@ -32,7 +35,7 @@ namespace Yi.Framework.Model.Models
         /// 评论内容 
         ///</summary>
          [SugarColumn(ColumnName="Content"    )]
-         public string Content { get; set; }
+         public string? Content { get; set; }
         /// <summary>
         /// 点赞数 
         ///</summary>
@@ -77,7 +80,7 @@ namespace Yi.Framework.Model.Models
         /// 描述 
         ///</summary>
          [SugarColumn(ColumnName="Remark"    )]
-         public string Remark { get; set; }
+         public string? Remark { get; set; }
         /// <summary>
         /// 子评论数 
         ///</summary>

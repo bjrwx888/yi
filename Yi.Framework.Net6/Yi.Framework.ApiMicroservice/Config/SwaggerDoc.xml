@@ -162,6 +162,25 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.CommentController.GetListByArticleId(System.Int64)">
+            <summary>
+            获取文章的全部一级评论
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.CommentController.GetById(System.Int64)">
+            <summary>
+            获取一级评论详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.CommentController.Add(Yi.Framework.Model.Models.CommentEntity)">
+            <summary>
+            回复文章或回复评论
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.SkuController.PageList(Yi.Framework.Model.Models.SkuEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询

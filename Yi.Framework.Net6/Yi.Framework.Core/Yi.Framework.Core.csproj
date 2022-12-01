@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Hangfire\**" />
+    <EmbeddedResource Remove="Hangfire\**" />
+    <None Remove="Hangfire\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="2.0.8" />
     <PackageReference Include="Consul" Version="1.6.10.3" />
     <PackageReference Include="CSRedisCore" Version="3.6.9" />
@@ -20,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Task\Yi.Framework.Job.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Hangfire\" />
   </ItemGroup>
 
 </Project>

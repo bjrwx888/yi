@@ -18,7 +18,6 @@ declare module '@vue/runtime-core' {
     VanButton: typeof import('vant/es')['Button']
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanCol: typeof import('vant/es')['Col']
-    VanDivider: typeof import('vant/es')['Divider']
     VanField: typeof import('vant/es')['Field']
     VanGrid: typeof import('vant/es')['Grid']
     VanGridItem: typeof import('vant/es')['GridItem']
@@ -34,6 +33,5 @@ declare module '@vue/runtime-core' {
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
-    VanUploader: typeof import('vant/es')['Uploader']
   }
 }

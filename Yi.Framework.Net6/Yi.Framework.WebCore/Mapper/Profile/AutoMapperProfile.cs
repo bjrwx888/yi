@@ -16,6 +16,7 @@ namespace Yi.Framework.WebCore.Mapper
         {
             CreateMap<ArticleEntity, ArticleVo > ();
             CreateMap<UserEntity, UserVo>();
+            CreateMap<CommentEntity, CommentVo>();
         }
     }
 
