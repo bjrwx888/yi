@@ -25,7 +25,6 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         {
             services.AddSingleton<QuartzInvoker>();
             services.AddQuartz();
-            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             return services;
         }
     }
