@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Core;
-using Yi.Framework.Core.Quartz;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -25,7 +24,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         public static IServiceCollection AddQuartzService(this IServiceCollection services)
         {
             services.AddSingleton<QuartzInvoker>();
-            services.AddSingleton<IJobFactory, MyQuartzFactory>();
+            services.AddQuartz();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             return services;
         }
