@@ -11,6 +11,7 @@ using Yi.Framework.WebCore.AutoFacExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Microsoft.AspNetCore.Builder;
 using Yi.Framework.WebCore.DbExtend;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Yi.Framework.XUnitTest
 {
@@ -42,16 +43,31 @@ namespace Yi.Framework.XUnitTest
 
             host.ConfigureServices(services => { });
         }
+        private IServiceCollection _iServiceCollection;
         public void ConfigureServices(IServiceCollection services, HostBuilderContext host)
         {
             services.AddIocService(host.Configuration);
+            ConfigureServices2(services);
+            _iServiceCollection = services;
+        }
+
+        public void ConfigureServices2(IServiceCollection services)
+        {
             services.AddQuartzService();
             services.AddSqlsugarServer();
+            _iServiceCollection = services;
         }
 
         public void Configure(IServiceProvider services)
         {
+            var appBuild = WebApplication.CreateBuilder();
+            appBuild.WebHost.ConfigureServices(sc =>
+            {
+                ConfigureServices2(sc);
+            });
 
+            var app2 = appBuild.Build();
+            app2.UseDbSeedInitService();
         }
     }
 }
