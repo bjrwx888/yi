@@ -43,15 +43,15 @@ namespace Yi.Framework.XUnitTest
 
             host.ConfigureServices(services => { });
         }
-        private IServiceCollection _iServiceCollection;
+        private IServiceCollection _iServiceCollection=null!;
         public void ConfigureServices(IServiceCollection services, HostBuilderContext host)
         {
             services.AddIocService(host.Configuration);
-            ConfigureServices2(services);
+            ConfigureTrueServices(services);
             _iServiceCollection = services;
         }
 
-        public void ConfigureServices2(IServiceCollection services)
+        public void ConfigureTrueServices(IServiceCollection services)
         {
             services.AddQuartzService();
             services.AddSqlsugarServer();
@@ -63,11 +63,11 @@ namespace Yi.Framework.XUnitTest
             var appBuild = WebApplication.CreateBuilder();
             appBuild.WebHost.ConfigureServices(sc =>
             {
-                ConfigureServices2(sc);
+                ConfigureTrueServices(sc);
             });
 
-            var app2 = appBuild.Build();
-            app2.UseDbSeedInitService();
+            var app = appBuild.Build();
+            app.UseDbSeedInitService();
         }
     }
 }
