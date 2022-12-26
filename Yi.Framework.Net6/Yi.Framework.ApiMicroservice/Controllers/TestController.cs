@@ -16,6 +16,7 @@ using Yi.Framework.Job;
 using Yi.Framework.Language;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
+using Yi.Framework.Uow.Interceptors;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
@@ -62,10 +63,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             ThumbnailSharpInvoer thumbnailSharpInvoer,
             CacheInvoker cacheInvoker) =>
 
-            (_logger,_iUserService, _iRoleService, _quartzInvoker, _hub, _local, _thumbnailSharpInvoer, _cacheDb) =
+            (_logger, _iUserService, _iRoleService, _quartzInvoker, _hub, _local, _thumbnailSharpInvoer, _cacheDb) =
 
             (logger, iUserService, iRoleService, quartzInvoker, hub, local, thumbnailSharpInvoer, cacheInvoker);
- 
+
 
         /// <summary>
         /// swagger跳转
@@ -107,6 +108,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             await _iUserService._repository._DbQueryable.ToListAsync();
 
             return Result.Success().SetData(await _iUserService.DbTest());
+        }
+
+        [HttpGet]
+        public async Task<Result> TestUnitOfWork()
+        {
+            var userId = await _iUserService.AddInfo(new DTOModel.UserInfoDto { User = new UserEntity { Address = "", UserName = "lisi", Password = "123456" }.BuildPassword() });
+            throw new ApplicationException("测试uow");
+            await _iRoleService._repository.InsertReturnSnowflakeIdAsync(new RoleEntity { RoleName = "测试", RoleCode = "tt" });
+            return Result.Success();
         }
 
         /// <summary>

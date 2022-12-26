@@ -36,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
     <ProjectReference Include="..\Yi.Framework.Service\Yi.Framework.Service.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
   </ItemGroup>
 
   <ItemGroup>
