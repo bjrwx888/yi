@@ -1,5 +1,6 @@
 ﻿
 using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -9,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Attribute;
+using Yi.Framework.Uow.Interceptors;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -44,41 +46,41 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                         case LifeTime.Singleton:
                             if (type.IsGenericType)
                             {
-                                build.RegisterGeneric(type).As(serviceType).SingleInstance();
+                                build.RegisterGeneric(type).As(serviceType).SingleInstance().EnableInterfaceInterceptors();
                             }
                             else
                             {
-                                build.RegisterType(type).As(serviceType).SingleInstance();
+                                build.RegisterType(type).As(serviceType).SingleInstance().EnableInterfaceInterceptors();
                             }
                             break;
                         case LifeTime.Scoped:
                             if (type.IsGenericType)
                             {
-                                build.RegisterGeneric(type).As(serviceType).InstancePerLifetimeScope();
+                                build.RegisterGeneric(type).As(serviceType).InstancePerLifetimeScope().EnableInterfaceInterceptors();
                             }
                             else
                             {
-                                build.RegisterType(type).As(serviceType).InstancePerLifetimeScope();
+                                build.RegisterType(type).As(serviceType).InstancePerLifetimeScope().EnableInterfaceInterceptors();
                             }
                             break;
                         case LifeTime.Transient:
                             if (type.IsGenericType)
                             {
-                                build.RegisterGeneric(type).As(serviceType).InstancePerDependency();
+                                build.RegisterGeneric(type).As(serviceType).InstancePerDependency().EnableInterfaceInterceptors();
                             }
                             else
                             {
-                                build.RegisterType(type).As(serviceType).InstancePerDependency();
+                                build.RegisterType(type).As(serviceType).InstancePerDependency().EnableInterfaceInterceptors();
                             }
                             break;
                         default:
                             if (type.IsGenericType)
                             {
-                                build.RegisterGeneric(type).As(serviceType).InstancePerDependency();
+                                build.RegisterGeneric(type).As(serviceType).InstancePerDependency().EnableInterfaceInterceptors();
                             }
                             else
                             {
-                                build.RegisterType(type).As(serviceType).InstancePerDependency();
+                                build.RegisterType(type).As(serviceType).InstancePerDependency().EnableInterfaceInterceptors();
                             }
                             break;
                     }

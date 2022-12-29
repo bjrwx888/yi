@@ -18,6 +18,9 @@ using Yi.Framework.WebCore.LogExtend;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Yi.Framework.WebCore.AutoFacExtend;
+using AspectCore.Extensions.DependencyInjection;
+using AspectCore.Extensions.Hosting;
+using Yi.Framework.Uow.Interceptors;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);
@@ -31,6 +34,9 @@ builder.Host.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder
      #endregion
      configurationBuilder.AddApolloService("Yi");
  });
+
+builder.Services.AddUnitOfWork();
+
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
@@ -47,6 +53,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     #endregion
     containerBuilder.AddAutoIocService("Yi.Framework.Repository", "Yi.Framework.Service");
 });
+
 ////属性注入，将控制器的mvc模块转接给ioc
 builder.Services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
 
@@ -154,6 +161,7 @@ builder.Services.AddHttpContextAccessor();
 #endregion
 builder.Services.AddSingleton<ThumbnailSharpInvoer>();
 
+
 #region
 //全局配置初始化值
 #endregion
@@ -237,6 +245,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<MainHub>("/api/hub/main");
     endpoints.MapControllers();
 });
-
 //准备添加多租户
 app.Run();

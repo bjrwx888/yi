@@ -21,6 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Extensions.Hosting" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
     <ProjectReference Include="..\Yi.Framework.WebCore\Yi.Framework.WebCore.csproj" />
   </ItemGroup>
 
