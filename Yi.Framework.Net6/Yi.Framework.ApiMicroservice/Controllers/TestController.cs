@@ -111,11 +111,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         [HttpGet]
+       
         public async Task<Result> TestUnitOfWork()
         {
-            var userId = await _iUserService.AddInfo(new DTOModel.UserInfoDto { User = new UserEntity { Address = "", UserName = "lisi", Password = "123456" }.BuildPassword() });
-            throw new ApplicationException("测试uow");
-            await _iRoleService._repository.InsertReturnSnowflakeIdAsync(new RoleEntity { RoleName = "测试", RoleCode = "tt" });
+            await _iRoleService.UowTest();
             return Result.Success();
         }
 

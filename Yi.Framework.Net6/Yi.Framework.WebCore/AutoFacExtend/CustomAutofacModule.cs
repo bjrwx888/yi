@@ -50,6 +50,7 @@ namespace Yi.Framework.WebCore.AutoFacExtend
                      .AsImplementedInterfaces()
                      .InstancePerLifetimeScope()
                      .EnableInterfaceInterceptors()
+                     //开启工作单元拦截
                      .InterceptedBy(typeof(UnitOfWorkInterceptor));
 
             ///反射注册任务调度层

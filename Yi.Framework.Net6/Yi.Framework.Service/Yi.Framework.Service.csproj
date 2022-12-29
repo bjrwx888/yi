@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
   </ItemGroup>
 
   <ItemGroup>

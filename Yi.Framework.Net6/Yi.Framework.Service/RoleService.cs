@@ -8,22 +8,32 @@ using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Repository;
+using Yi.Framework.Uow.Interceptors;
 
 namespace Yi.Framework.Service
 {
-    public partial class RoleService 
+    public partial class RoleService
     {
         public async Task<List<RoleEntity>> DbTest()
         {
             return await _repository._Db.Queryable<RoleEntity>().ToListAsync();
         }
+        //添加工作单元特性
+        [UnitOfWork]
+        public async Task<bool> UowTest()
+        {
+            var res = await _repository.InsertReturnSnowflakeIdAsync(new RoleEntity { RoleName = "测试", RoleCode = "tt" });
+            throw new ApplicationException("测试uow");
+            return res>0;
+        }
+
         public async Task<bool> GiveRoleSetMenu(List<long> roleIds, List<long> menuIds)
         {
-          var _repositoryRoleMenu=  _repository.ChangeRepository<Repository<RoleMenuEntity>>();
+            var _repositoryRoleMenu = _repository.ChangeRepository<Repository<RoleMenuEntity>>();
             //多次操作，需要事务确保原子性
             return await _repositoryRoleMenu.UseTranAsync(async () =>
             {   //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
-                await _repositoryRoleMenu.DeleteAsync(u => roleIds.Contains((long)u.RoleId) );
+                await _repositoryRoleMenu.DeleteAsync(u => roleIds.Contains((long)u.RoleId));
 
                 //遍历用户
                 foreach (var roleId in roleIds)
@@ -32,7 +42,7 @@ namespace Yi.Framework.Service
                     List<RoleMenuEntity> roleMenuEntity = new();
                     foreach (var menu in menuIds)
                     {
-                        roleMenuEntity.Add(new RoleMenuEntity() { RoleId = roleId,MenuId=menu });
+                        roleMenuEntity.Add(new RoleMenuEntity() { RoleId = roleId, MenuId = menu });
                     }
 
                     //一次性批量添加
@@ -46,7 +56,7 @@ namespace Yi.Framework.Service
         public async Task<RoleEntity> GetInMenuByRoleId(long roleId)
         {
             return await _repository._Db.Queryable<RoleEntity>().Includes(u => u.Menus).InSingleAsync(roleId);
-        
+
         }
 
 
@@ -58,7 +68,7 @@ namespace Yi.Framework.Service
                     .WhereIF(!string.IsNullOrEmpty(role.RoleName), u => u.RoleName.Contains(role.RoleName))
                      .WhereIF(!string.IsNullOrEmpty(role.RoleCode), u => u.RoleCode.Contains(role.RoleCode))
                     .WhereIF(page.StartTime.IsNotNull() && page.EndTime.IsNotNull(), u => u.CreateTime >= page.StartTime && u.CreateTime <= page.EndTime)
-                     .WhereIF(role.IsDeleted.IsNotNull(),  u => u.IsDeleted == role.IsDeleted)
+                     .WhereIF(role.IsDeleted.IsNotNull(), u => u.IsDeleted == role.IsDeleted)
                     .OrderBy(u => u.OrderNum, OrderByType.Desc)
                     .ToPageListAsync(page.PageNum, page.PageSize, total);
 
@@ -74,7 +84,7 @@ namespace Yi.Framework.Service
             return !0.Equals(res1) && res2;
         }
 
-        public async Task<bool> GiveRoleSetDept(List<long> roleIds,List<long> deptIds)
+        public async Task<bool> GiveRoleSetDept(List<long> roleIds, List<long> deptIds)
         {
             var _repositoryRoleDept = _repository.ChangeRepository<Repository<RoleDeptEntity>>();
             //多次操作，需要事务确保原子性
@@ -103,12 +113,12 @@ namespace Yi.Framework.Service
             var res1 = await _repository.UpdateIgnoreNullAsync(roleDto.Role);
             var res2 = await GiveRoleSetMenu(new List<long> { roleDto.Role.Id }, roleDto.MenuIds);
             var res3 = await GiveRoleSetDept(new List<long> { roleDto.Role.Id }, roleDto.DeptIds);
-            return res1 && res2&& res3;
+            return res1 && res2 && res3;
         }
 
         public async Task<bool> UpdateDataScpoce(RoleInfoDto roleDto)
         {
-           var role= new RoleEntity();
+            var role = new RoleEntity();
             role.Id = roleDto.Role.Id;
             role.DataScope = roleDto.Role.DataScope;
             var res1 = await _repository.UpdateIgnoreNullAsync(role);
