@@ -57,7 +57,6 @@ namespace Brick.IFServer.Controllers
         /// <summary>
         /// ²é
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result<List<StudentListOutput>>> GetLsit()

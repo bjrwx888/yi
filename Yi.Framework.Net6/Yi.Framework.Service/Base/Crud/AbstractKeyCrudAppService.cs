@@ -80,7 +80,7 @@ namespace Yi.Framework.Service.Base.Crud
         /// <param name="ids"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual async Task DeleteAsync(IEnumerable<TKey> ids)
+        public virtual  Task DeleteAsync(IEnumerable<TKey> ids)
         {
             throw new NotImplementedException();
         }
@@ -110,9 +110,9 @@ namespace Yi.Framework.Service.Base.Crud
         /// <param name="idEntity"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected virtual async Task UpdateValidAsync(TEntity idEntity, TUpdateInput dto)
+        protected virtual  Task UpdateValidAsync(TEntity idEntity, TUpdateInput dto)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         /// <summary>

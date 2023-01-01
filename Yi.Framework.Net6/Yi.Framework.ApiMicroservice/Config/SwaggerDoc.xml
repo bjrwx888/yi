@@ -719,7 +719,6 @@
             <summary>
             查
             </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Brick.IFServer.Controllers.StudentController.Del(System.Collections.Generic.List{System.Guid})">

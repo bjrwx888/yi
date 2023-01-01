@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
@@ -15,8 +16,11 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
         public static IServiceCollection AddAutoMapperService(this IServiceCollection services)
         {
             //这里会通过反射自动注入的，先临时这样
-            services.AddAutoMapper(typeof(AutoMapperProfile),typeof(StudentProfile));
-        
+
+            var profileList = Common.Helper.AssemblyHelper.GetClassByBaseClassesAndInterfaces("Yi.Framework.DTOModel", typeof(Profile));
+            profileList.Add(typeof(AutoMapperProfile));
+            services.AddAutoMapper(profileList.ToArray());
+
             return services;
         }
     }
