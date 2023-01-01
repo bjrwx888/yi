@@ -7,6 +7,7 @@ using Com.Ctrip.Framework.Apollo.Enums;
 using Com.Ctrip.Framework.Apollo.Logging;
 using Microsoft.Extensions.Primitives;
 using System.Reflection;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.WebCore.BuilderExtend
 {

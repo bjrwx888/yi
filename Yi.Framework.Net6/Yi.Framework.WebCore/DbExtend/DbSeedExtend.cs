@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Model.Models;
-using Yi.Framework.Model.SeedData;
+using Yi.Framework.Model.RABC.Entitys;
+using Yi.Framework.Model.RABC.SeedData;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.WebCore.DbExtend
 {

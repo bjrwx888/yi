@@ -7,14 +7,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Model.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Text.RegularExpressions;
 using UAParser;
 using IPTools.Core;
+using Yi.Framework.Model.RABC.Entitys;
 
-namespace Yi.Framework.WebCore
+namespace Yi.Framework.WebCore.CommonExtend
 {
     public static class HttpContextExtend
     {
@@ -113,7 +113,7 @@ namespace Yi.Framework.WebCore
         /// <param name="fileName"></param>
         public static void FileInlineHandle(this HttpContext httpContext, string fileName)
         {
-            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.GetEncoding("UTF-8"));
+            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, Encoding.GetEncoding("UTF-8"));
             httpContext.Response.Headers.Add("Content-Disposition", "inline;filename=" + encodeFilename);
 
         }
@@ -125,7 +125,7 @@ namespace Yi.Framework.WebCore
         /// <param name="fileName"></param>
         public static void FileAttachmentHandle(this HttpContext httpContext, string fileName)
         {
-            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.GetEncoding("UTF-8"));
+            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, Encoding.GetEncoding("UTF-8"));
             httpContext.Response.Headers.Add("Content-Disposition", "attachment;filename=" + encodeFilename);
 
         }
@@ -167,7 +167,7 @@ namespace Yi.Framework.WebCore
             }
             else
             {
-                param = context.Request.QueryString.Value is null?"": context.Request.QueryString.Value.ToString();
+                param = context.Request.QueryString.Value is null ? "" : context.Request.QueryString.Value.ToString();
             }
             return param;
         }
@@ -179,7 +179,7 @@ namespace Yi.Framework.WebCore
         /// <returns></returns>
         public static ClientInfo GetClientInfo(this HttpContext context)
         {
-            var str = GetUserAgent(context);
+            var str = context.GetUserAgent();
             var uaParser = Parser.GetDefault();
             ClientInfo c = uaParser.Parse(str);
             return c;

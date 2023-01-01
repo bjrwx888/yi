@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Attribute;
 using Yi.Framework.Interface;
 using Yi.Framework.Job;
 using Yi.Framework.Repository;

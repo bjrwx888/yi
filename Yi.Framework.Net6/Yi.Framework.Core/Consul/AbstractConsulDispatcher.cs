@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.IOCOptions;
 
-namespace Yi.Framework.Core.ConsulExtend
+namespace Yi.Framework.Core.Consul
 {
     public abstract class AbstractConsulDispatcher
     {
@@ -16,7 +16,7 @@ namespace Yi.Framework.Core.ConsulExtend
 
         public AbstractConsulDispatcher(IOptionsMonitor<ConsulClientOption> consulClientOption)
         {
-            this._ConsulClientOption = consulClientOption.CurrentValue;
+            _ConsulClientOption = consulClientOption.CurrentValue;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Yi.Framework.Core.ConsulExtend
         {
             Uri uri = new Uri(mappingUrl);
             string serviceName = uri.Host;
-            string addressPort = this.ChooseAddress(serviceName);
+            string addressPort = ChooseAddress(serviceName);
             return $"{uri.Scheme}://{addressPort}{uri.PathAndQuery}";
         }
 
@@ -36,8 +36,8 @@ namespace Yi.Framework.Core.ConsulExtend
         {
             ConsulClient client = new ConsulClient(c =>
             {
-                c.Address = new Uri($"http://{this._ConsulClientOption.IP}:{this._ConsulClientOption.Port}/");
-                c.Datacenter = this._ConsulClientOption.Datacenter;
+                c.Address = new Uri($"http://{_ConsulClientOption.IP}:{_ConsulClientOption.Port}/");
+                c.Datacenter = _ConsulClientOption.Datacenter;
             });
             AgentService agentService = null;
             //var response = client.Agent.Services().Result.Response;
@@ -59,10 +59,10 @@ namespace Yi.Framework.Core.ConsulExtend
             {
                 serviceList.Add(new KeyValuePair<string, AgentService>(i.ToString(), entrys[i].Service));
             }
-            this._CurrentAgentServiceDictionary = serviceList.ToArray();
+            _CurrentAgentServiceDictionary = serviceList.ToArray();
 
-            int index = this.GetIndex();
-            agentService = this._CurrentAgentServiceDictionary[index].Value;
+            int index = GetIndex();
+            agentService = _CurrentAgentServiceDictionary[index].Value;
 
             return $"{agentService.Address}:{agentService.Port}";
         }

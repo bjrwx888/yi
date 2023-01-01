@@ -11,14 +11,14 @@ using Yi.Framework.Common.IOCOptions;
 using CSRedis;
 using static CSRedis.CSRedisClient;
 
-namespace Yi.Framework.Core
+namespace Yi.Framework.Core.Cache
 {
     public abstract class CacheInvoker
     {
 
-        public virtual  bool Exits(string key)
+        public virtual bool Exits(string key)
         {
-          throw new NotImplementedException();
+            throw new NotImplementedException();
         }
         public virtual T Get<T>(string key)
         {
@@ -147,7 +147,7 @@ namespace Yi.Framework.Core
 
         public virtual string[] Keys(string pattern)
         {
-           throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

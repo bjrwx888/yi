@@ -374,6 +374,7 @@ function handleExport() {
 };
 /** 用户状态修改  */
 function handleStatusChange(row) {
+   console.log(row)
    let text = row.isDeleted === false ? "启用" : "停用";
    proxy.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗?').then(function () {
       return changeUserStatus(row.id, row.isDeleted);
@@ -543,7 +544,7 @@ function submitForm() {
       }
    });
 };
-
 getDeptTree();
 getList();
+
 </script>

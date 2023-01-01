@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Enum;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.WebCore.SignalRHub
 {

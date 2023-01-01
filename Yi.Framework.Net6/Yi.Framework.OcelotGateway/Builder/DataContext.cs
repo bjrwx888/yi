@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Yi.Framework.Common.Models;
-using Yi.Framework.Core;
+using Yi.Framework.Core.Cache;
 
 namespace Yi.Framework.OcelotGateway.Builder
 {

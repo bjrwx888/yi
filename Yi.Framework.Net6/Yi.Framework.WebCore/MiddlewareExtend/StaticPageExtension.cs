@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {

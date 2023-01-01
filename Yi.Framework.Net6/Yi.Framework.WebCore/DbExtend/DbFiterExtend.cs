@@ -1,15 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
-using System;
 using System.Linq;
+using Yi.Framework.Common.Base;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Core.Cache;
 using Yi.Framework.DTOModel;
-using Yi.Framework.Model.Models;
-using Yi.Framework.WebCore;
+using Yi.Framework.Model.RABC.Entitys;
+using Yi.Framework.WebCore.CommonExtend;
 
-namespace Yi.Framework.Core
+namespace Yi.Framework.WebCore.DbExtend
 {
     public class DbFiterExtend
     {
@@ -69,7 +70,7 @@ namespace Yi.Framework.Core
                             break;
                         case DataScopeEnum.CUSTOM:
                             //自定义查询
-                            var filter = new TableFilterItem<UserEntity>(it => SqlFunc.Subqueryable<RoleDeptEntity>().Where(f => f.DeptId == it.DeptId && f.RoleId == (long)role.Id).Any(), true);
+                            var filter = new TableFilterItem<UserEntity>(it => SqlFunc.Subqueryable<RoleDeptEntity>().Where(f => f.DeptId == it.DeptId && f.RoleId == role.Id).Any(), true);
                             db.QueryFilter.Add(filter);
                             break;
                         case DataScopeEnum.DEPT_FOLLOW:

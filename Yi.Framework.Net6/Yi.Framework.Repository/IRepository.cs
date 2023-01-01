@@ -6,8 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
-using Yi.Framework.Model.Models;
-using Yi.Framework.Model.Query;
+using Yi.Framework.Model.Base.Query;
 
 namespace Yi.Framework.Repository
 {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Job;
 
-namespace Yi.Framework.Core
+namespace Yi.Framework.Core.Quartz
 {
     public class QuartzInvoker
     {

@@ -8,10 +8,10 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Yi.Framework.WebCore.AutoFacExtend;
-using Yi.Framework.WebCore.MiddlewareExtend;
 using Microsoft.AspNetCore.Builder;
 using Yi.Framework.WebCore.DbExtend;
 using Microsoft.AspNetCore.Hosting;
+using Yi.Framework.WebCore.AspNetCoreExtensions;
 
 namespace Yi.Framework.XUnitTest
 {

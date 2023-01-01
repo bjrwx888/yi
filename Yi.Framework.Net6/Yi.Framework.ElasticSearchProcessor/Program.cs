@@ -5,8 +5,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.AspNetCoreExtensions;
 using Yi.Framework.WebCore.BuilderExtend;
-using Yi.Framework.WebCore.MiddlewareExtend;
 
 namespace Yi.Framework.ElasticSearchProcessor
 {

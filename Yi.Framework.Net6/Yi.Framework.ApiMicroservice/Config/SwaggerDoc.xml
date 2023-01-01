@@ -17,13 +17,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.GetList(Yi.Framework.Model.Query.QueryCondition)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.GetList(Yi.Framework.Model.Base.Query.QueryCondition)">
             <summary>
             列表查询
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.PageList(Yi.Framework.Model.Query.QueryPageCondition)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.BaseCrudController`1.PageList(Yi.Framework.Model.Base.Query.QueryPageCondition)">
             <summary>
             条件分页查询
             </summary>
@@ -147,7 +147,7 @@
             文章控制器
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.PageList(Yi.Framework.Model.Models.ArticleEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.PageList(Yi.Framework.Model.BBS.Entitys.ArticleEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -155,7 +155,7 @@
             <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.Add(Yi.Framework.Model.Models.ArticleEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ArticleController.Add(Yi.Framework.Model.BBS.Entitys.ArticleEntity)">
             <summary>
             添加
             </summary>
@@ -175,21 +175,9 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.CommentController.Add(Yi.Framework.Model.Models.CommentEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.CommentController.Add(Yi.Framework.Model.BBS.Entitys.CommentEntity)">
             <summary>
             回复文章或回复评论
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SkuController.PageList(Yi.Framework.Model.Models.SkuEntity,Yi.Framework.Common.Models.PageParModel)">
-            <summary>
-            动态条件分页查询
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SpuController.PageList(Yi.Framework.Model.Models.SpuEntity,Yi.Framework.Common.Models.PageParModel)">
-            <summary>
-            动态条件分页查询
             </summary>
             <returns></returns>
         </member>
@@ -249,7 +237,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ConfigController.PageList(Yi.Framework.Model.Models.ConfigEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ConfigController.PageList(Yi.Framework.Model.RABC.Entitys.ConfigEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -257,21 +245,21 @@
             <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.SelctGetList(Yi.Framework.Model.Models.DeptEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.SelctGetList(Yi.Framework.Model.RABC.Entitys.DeptEntity)">
             <summary>
             动态条件查询
             </summary>
             <param name="dept"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Add(Yi.Framework.Model.Models.DeptEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Add(Yi.Framework.Model.RABC.Entitys.DeptEntity)">
             <summary>
             添加
             </summary>
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Update(Yi.Framework.Model.Models.DeptEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DeptController.Update(Yi.Framework.Model.RABC.Entitys.DeptEntity)">
             <summary>
             更新
             </summary>
@@ -285,7 +273,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.Models.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryController.PageList(Yi.Framework.Model.RABC.Entitys.DictionaryEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -293,7 +281,7 @@
             <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.PageList(Yi.Framework.Model.Models.DictionaryInfoEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.DictionaryInfoController.PageList(Yi.Framework.Model.RABC.Entitys.DictionaryInfoEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -313,7 +301,7 @@
             文件
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.#ctor(Yi.Framework.Interface.IFileService,Microsoft.Extensions.Hosting.IHostEnvironment,Yi.Framework.Core.ThumbnailSharpInvoer)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.#ctor(Yi.Framework.Interface.RABC.IFileService,Microsoft.Extensions.Hosting.IHostEnvironment,Yi.Framework.Core.ThumbnailSharpInvoer)">
             <summary>
             文件上传下载
             </summary>
@@ -356,7 +344,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.LoginLogController.PageList(Yi.Framework.Model.Models.LoginLogEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.LoginLogController.PageList(Yi.Framework.Model.RABC.Entitys.LoginLogEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -369,21 +357,21 @@
             菜单管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.SelctGetList(Yi.Framework.Model.Models.MenuEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.SelctGetList(Yi.Framework.Model.RABC.Entitys.MenuEntity)">
             <summary>
             动态条件查询全部
             </summary>
             <param name="menu"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.Add(Yi.Framework.Model.Models.MenuEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.Add(Yi.Framework.Model.RABC.Entitys.MenuEntity)">
             <summary>
             插入
             </summary>
             <param name="menu"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.Update(Yi.Framework.Model.Models.MenuEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.Update(Yi.Framework.Model.RABC.Entitys.MenuEntity)">
             <summary>
             更新
             </summary>
@@ -423,7 +411,7 @@
             <param name="connnectionId"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.OperationLogController.PageList(Yi.Framework.Model.Models.OperationLogEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.OperationLogController.PageList(Yi.Framework.Model.RABC.Entitys.OperationLogEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -431,7 +419,7 @@
             <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.PostController.PageList(Yi.Framework.Model.Models.PostEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.PostController.PageList(Yi.Framework.Model.RABC.Entitys.PostEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -444,7 +432,7 @@
             角色管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.PageList(Yi.Framework.Model.Models.RoleEntity,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.PageList(Yi.Framework.Model.RABC.Entitys.RoleEntity,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             动态条件分页查询
             </summary>
@@ -496,7 +484,7 @@
             用户管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.Models.UserEntity,Yi.Framework.Common.Models.PageParModel,System.Nullable{System.Int64})">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.PageList(Yi.Framework.Model.RABC.Entitys.UserEntity,Yi.Framework.Common.Models.PageParModel,System.Nullable{System.Int64})">
             <summary>
             动态条件分页查询
             </summary>
@@ -548,11 +536,23 @@
             <param name="userDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.RestPassword(Yi.Framework.Model.Models.UserEntity)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.RestPassword(Yi.Framework.Model.RABC.Entitys.UserEntity)">
             <summary>
             重置密码
             </summary>
             <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SkuController.PageList(Yi.Framework.Model.SHOP.Entitys.SkuEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SpuController.PageList(Yi.Framework.Model.SHOP.Entitys.SpuEntity,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            动态条件分页查询
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.TestController">
@@ -560,7 +560,7 @@
             测试控制器
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.ApiMicroservice.Controllers.TestController},Yi.Framework.Interface.IRoleService,Yi.Framework.Interface.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer,Yi.Framework.Core.CacheInvoker)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.ApiMicroservice.Controllers.TestController},Yi.Framework.Interface.RABC.IRoleService,Yi.Framework.Interface.RABC.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.Quartz.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer,Yi.Framework.Core.Cache.CacheInvoker)">
             <summary>
             依赖注入，优雅写法
             </summary>

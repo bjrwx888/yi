@@ -1,4 +1,6 @@
-﻿namespace System
+﻿using System;
+
+namespace Yi.Framework.Common.Base
 {
     #region 无值定义
 
@@ -71,12 +73,12 @@
         /// <summary>
         /// 字串的默认无值
         /// </summary>
-        public static readonly string String = String.Empty;
+        public static readonly string String = string.Empty;
 
         /// <summary>
         /// 一般对象的判断
         /// </summary>
-        public const Object Object = null;
+        public const object Object = null;
     }
 
     #endregion
@@ -150,7 +152,7 @@
         /// </summary>
         /// <param name="value">待判断对象</param>
         /// <returns>是否为空(true--真,false--假)</returns>
-        public static bool IsNull(this String value)
+        public static bool IsNull(this string value)
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
             {
@@ -165,7 +167,7 @@
         /// </summary>
         /// <param name="value">待判断对象</param>
         /// <returns>是否不为空(true--真,false--假)</returns>
-        public static bool IsNotNull(this String value)
+        public static bool IsNotNull(this string value)
         {
             return !value.IsNull();
         }

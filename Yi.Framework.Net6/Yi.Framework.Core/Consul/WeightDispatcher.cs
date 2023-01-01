@@ -6,7 +6,7 @@ using Consul;
 using Microsoft.Extensions.Options;
 using Yi.Framework.Common.IOCOptions;
 
-namespace Yi.Framework.Core.ConsulExtend
+namespace Yi.Framework.Core.Consul
 {
     /// <summary>
     /// 权重
@@ -23,7 +23,7 @@ namespace Yi.Framework.Core.ConsulExtend
             }
             set
             {
-                _iTotalCount = value >= Int32.MaxValue ? 0 : value;
+                _iTotalCount = value >= int.MaxValue ? 0 : value;
             }
         }
         public WeightDispatcher(IOptionsMonitor<ConsulClientOption> consulClientOption) : base(consulClientOption)
@@ -36,17 +36,17 @@ namespace Yi.Framework.Core.ConsulExtend
         {
             ConsulClient client = new ConsulClient(c =>
             {
-                c.Address = new Uri($"http://{base._ConsulClientOption.IP}:{base._ConsulClientOption.Port}/");
-                c.Datacenter = base._ConsulClientOption.Datacenter;
+                c.Address = new Uri($"http://{_ConsulClientOption.IP}:{_ConsulClientOption.Port}/");
+                c.Datacenter = _ConsulClientOption.Datacenter;
             });
             AgentService agentService = null;
             var response = client.Agent.Services().Result.Response;
 
-            this._CurrentAgentServiceDictionary = response.Where(s => s.Value.Service.Equals(serviceName, StringComparison.OrdinalIgnoreCase)).ToArray();
+            _CurrentAgentServiceDictionary = response.Where(s => s.Value.Service.Equals(serviceName, StringComparison.OrdinalIgnoreCase)).ToArray();
 
 
             var serviceDictionaryNew = new List<AgentService>();
-            foreach (var service in base._CurrentAgentServiceDictionary)
+            foreach (var service in _CurrentAgentServiceDictionary)
             {
                 serviceDictionaryNew.AddRange(Enumerable.Repeat(service.Value, int.TryParse(service.Value.Tags?[0], out int iWeight) ? 1 : iWeight));
             }

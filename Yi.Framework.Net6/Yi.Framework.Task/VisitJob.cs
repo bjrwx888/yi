@@ -6,7 +6,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
-using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Job
 {

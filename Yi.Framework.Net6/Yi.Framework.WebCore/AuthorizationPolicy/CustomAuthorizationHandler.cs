@@ -9,7 +9,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Core;
-using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.WebCore.AuthorizationPolicy
 {

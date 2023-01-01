@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.IOCOptions;
-using Yi.Framework.Model.Models;
+using Yi.Framework.Model.RABC.Entitys;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Yi.Framework.Core

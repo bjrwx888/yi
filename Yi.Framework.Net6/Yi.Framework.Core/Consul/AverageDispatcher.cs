@@ -6,7 +6,7 @@ using Consul;
 using Microsoft.Extensions.Options;
 using Yi.Framework.Common.IOCOptions;
 
-namespace Yi.Framework.Core.ConsulExtend
+namespace Yi.Framework.Core.Consul
 {
     /// <summary>
     /// 平均
@@ -23,7 +23,7 @@ namespace Yi.Framework.Core.ConsulExtend
             }
             set
             {
-                _iTotalCount = value >= Int32.MaxValue ? 0 : value;
+                _iTotalCount = value >= int.MaxValue ? 0 : value;
             }
         }
 
@@ -39,7 +39,7 @@ namespace Yi.Framework.Core.ConsulExtend
         /// <returns></returns>
         protected override int GetIndex()
         {
-            return new Random(iTotalCount++).Next(0, base._CurrentAgentServiceDictionary.Length);
+            return new Random(iTotalCount++).Next(0, _CurrentAgentServiceDictionary.Length);
         }
     }
 }

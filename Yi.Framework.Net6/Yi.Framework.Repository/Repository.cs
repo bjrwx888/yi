@@ -3,8 +3,7 @@ using System.Data;
 using System.Linq.Expressions;
 using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Models;
-using Yi.Framework.Model.Models;
-using Yi.Framework.Model.Query;
+using Yi.Framework.Model.Base.Query;
 
 /***这里面写的代码不会给覆盖,如果要重新生成请删除 Repository.cs ***/
 namespace Yi.Framework.Repository

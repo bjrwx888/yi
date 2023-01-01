@@ -12,7 +12,9 @@ using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
-using Yi.Framework.Model.Models;
+using Yi.Framework.Interface.RABC;
+using Yi.Framework.Model.RABC.Entitys;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.WebCore.AttributeExtend
 {

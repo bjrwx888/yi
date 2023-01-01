@@ -10,7 +10,6 @@ using Microsoft.Extensions.Localization;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.SignalRHub;
 using Hei.Captcha;
-using Yi.Framework.WebCore;
 using Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.WebCore.DbExtend;
 using IPTools.Core;
@@ -21,6 +20,8 @@ using Yi.Framework.WebCore.AutoFacExtend;
 using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Extensions.Hosting;
 using Yi.Framework.Uow.Interceptors;
+using Yi.Framework.WebCore.AspNetCoreExtensions;
+using Yi.Framework.WebCore.CommonExtend;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddCommandLine(args);

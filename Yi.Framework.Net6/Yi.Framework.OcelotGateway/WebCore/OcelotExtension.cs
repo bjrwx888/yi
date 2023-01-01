@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yi.Framework.Common.IOCOptions;
-using Yi.Framework.Core;
+using Yi.Framework.Core.Cache;
 using Yi.Framework.OcelotGateway.Builder;
-using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.OcelotGateway.WebCore
 {

@@ -1,5 +1,5 @@
 using Yi.Framework.Common.Const;
-using Yi.Framework.Core;
+using Yi.Framework.Core.Quartz;
 
 namespace Yi.Framework.XUnitTest
 {

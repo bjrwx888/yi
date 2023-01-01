@@ -16,8 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
 using Ocelot.Cache.CacheManager;
-using Yi.Framework.WebCore.MiddlewareExtend;
 using Ocelot.Provider.Polly;
+using Yi.Framework.WebCore.AspNetCoreExtensions;
 
 namespace Yi.Framework.OcelotGateway
 {
