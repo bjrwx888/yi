@@ -7,66 +7,66 @@ namespace Yi.Framework.Common.Models
     public class Result
     {
         public static IStringLocalizer<LocalLanguage> _local;
-        public ResultCodeEnum code { get; set; }
+        public ResultCodeEnum Code { get; set; }
 
-        public bool status { get; set; }
-        public string message { get; set; }
-        public object data { get; set; }
-        public static Result Expire(ResultCodeEnum code, string msg="")
+        public bool Status { get; set; }
+        public string Message { get; set; }
+        public object Data { get; set; }
+        public static Result Expire(ResultCodeEnum Code, string msg="")
         {
-            return new Result() {  code = code, status=false,  message = Get(msg, "token_expiration") };
+            return new Result() {  Code = Code, Status=false,  Message = Get(msg, "token_expiration") };
         }
         public static Result Error(string msg = "")
         {
-            return new Result() { code = ResultCodeEnum.NotSuccess,status=false,  message =Get(msg, "fail") };
+            return new Result() { Code = ResultCodeEnum.NotSuccess, Status = false, Message = Get(msg, "fail") };
         }
         public static Result Success(string msg = "")
         {
-            return new Result() {  code = ResultCodeEnum.Success,status=true, message =Get( msg, "succeed" )};
+            return new Result() { Code = ResultCodeEnum.Success, Status = true, Message = Get( msg, "succeed" )};
         }
         public static Result SuccessError(string msg = "")
         {
-            return new Result() { code = ResultCodeEnum.Success, status = false, message = Get(msg, "fail") };
+            return new Result() { Code = ResultCodeEnum.Success, Status = false, Message = Get(msg, "fail") };
         }
 
 
         public static Result UnAuthorize(string msg = "")
         {
-            return new Result() {  code = ResultCodeEnum.NoPermission,status=false, message = Get(msg, "unAuthorize") };
+            return new Result() { Code = ResultCodeEnum.NoPermission, Status = false, Message = Get(msg, "unAuthorize") };
         }
-        public Result SetStatus(bool _status)
+        public Result SetStatus(bool _Status)
         {
-            if (_status)
+            if (_Status)
             {
-                this.code = ResultCodeEnum.Success;
-                this.message = "操作成功";
+                this.Code = ResultCodeEnum.Success;
+                this.Message = "操作成功";
             }
             else
             {
-                this.code = code = ResultCodeEnum.NotSuccess;
-                this.message = "操作失败";
+                this.Code  = ResultCodeEnum.NotSuccess;
+                this.Message = "操作失败";
             }
-            this.status = _status;
+            this.Status = _Status;
             return this;
         }
         public Result SetData(object obj)
         {
-            this.data = obj;
+            this.Data = obj;
             return this;
         }
         public Result SetCode(ResultCodeEnum Code)
         {
-            this.code = Code;
+            this.Code = Code;
             return this;
         }
         public Result StatusFalse()
         {
-            this.status = false;
+            this.Status = false;
             return this;
         }
         public Result StatusTrue()
         {
-            this.status = true;
+            this.Status = true;
             return this;
         }
 
@@ -81,31 +81,31 @@ namespace Yi.Framework.Common.Models
     }
     public class Result<T>
     {
-        public ResultCodeEnum code { get; set; }
-        public string message { get; set; }
-        public T data { get; set; }
+        public ResultCodeEnum Code { get; set; }
+        public string Message { get; set; }
+        public T Data { get; set; }
         public static Result<T> Error(string msg = "fail")
         {
-            return new Result<T>() { code = ResultCodeEnum.NotSuccess, message = msg };
+            return new Result<T>() { Code = ResultCodeEnum.NotSuccess, Message = msg };
         }
         public static Result<T> Success(string msg = "succeed")
         {
-            return new Result<T>() { code = ResultCodeEnum.Success, message = msg };
+            return new Result<T>() { Code = ResultCodeEnum.Success, Message = msg };
         }
         public static Result<T> UnAuthorize(string msg = "unAuthorize")
         {
-            return new Result<T>() { code = ResultCodeEnum.NoPermission, message = msg };
+            return new Result<T>() { Code = ResultCodeEnum.NoPermission, Message = msg };
         }
 
         public Result<T> SetData(T TValue)
         {
-            this.data = TValue;
+            this.Data = TValue;
             return this;
         }
 
         public Result<T> SetCode(ResultCodeEnum Code)
         {
-            this.code = Code;
+            this.Code = Code;
             return this;
         }
     }

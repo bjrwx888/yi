@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.DTOModel.Vo
+namespace Yi.Framework.DTOModel.Base.Vo
 {
     public class CommentVo
     {
@@ -51,11 +51,11 @@ namespace Yi.Framework.DTOModel.Vo
         /// <summary>
         /// 被回复的用户信息
         ///</summary>
-        public UserVo? UserInfo { get; set; }
+        public UserVo UserInfo { get; set; }
 
         /// <summary>
         /// 创建评论的用户信息 
         ///</summary>
-        public UserVo? CreateUserInfo { get; set; }
+        public UserVo CreateUserInfo { get; set; }
     }
 }

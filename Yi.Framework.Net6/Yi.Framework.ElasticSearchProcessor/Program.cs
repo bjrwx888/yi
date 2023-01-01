@@ -7,6 +7,7 @@ using System;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AspNetCoreExtensions;
 using Yi.Framework.WebCore.BuilderExtend;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.ElasticSearchProcessor
 {

@@ -41,7 +41,7 @@ namespace Yi.Framework.OcelotGateway.WebCore
             //--------------------------------------管道执行---------------------------------------------
             GateStartBuilder.Run(dataContext);
             //--------------------------------------处理结果---------------------------------------------
-            if (dataContext.Result.status)
+            if (dataContext.Result.Status)
             {
             //--------------------------------------中间件执行---------------------------------------------
                 await next(context);

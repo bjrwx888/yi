@@ -15,7 +15,6 @@ using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Common.QueueModel;
 using Yi.Framework.Core;
-using Yi.Framework.Core.ConsulExtend;
 using Yi.Framework.Core.SMS;
 
 namespace Yi.Framework.SMSProcessor

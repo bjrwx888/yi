@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
-using Yi.Framework.DTOModel;
+using Yi.Framework.DTOModel.Base.Dto;
 using Yi.Framework.Interface;
 using Yi.Framework.Interface.RABC;
 using Yi.Framework.Model.RABC.Entitys;

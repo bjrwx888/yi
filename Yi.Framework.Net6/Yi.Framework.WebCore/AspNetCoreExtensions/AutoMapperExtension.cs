@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using Yi.Framework.DTOModel.RABC.Student.MapperConfig;
 using Yi.Framework.WebCore.Mapper;
 
 namespace Yi.Framework.WebCore.AspNetCoreExtensions
@@ -13,7 +14,9 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
     {
         public static IServiceCollection AddAutoMapperService(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfile));
+            //这里会通过反射自动注入的，先临时这样
+            services.AddAutoMapper(typeof(AutoMapperProfile),typeof(StudentProfile));
+        
             return services;
         }
     }

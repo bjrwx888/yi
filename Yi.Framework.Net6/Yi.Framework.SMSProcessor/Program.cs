@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Core;
-using Yi.Framework.Core.ConsulExtend;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AspNetCoreExtensions;
+using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.SMSProcessor
 {

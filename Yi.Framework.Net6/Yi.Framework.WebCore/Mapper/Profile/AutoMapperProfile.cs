@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.DTOModel.Vo;
+using Yi.Framework.DTOModel.Base.Vo;
 using Yi.Framework.Model.BBS.Entitys;
 using Yi.Framework.Model.RABC.Entitys;
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Model.RABC.Entitys;
 
-namespace Yi.Framework.DTOModel
+namespace Yi.Framework.DTOModel.Base.Dto
 {
     public class RoleInfoDto
     {

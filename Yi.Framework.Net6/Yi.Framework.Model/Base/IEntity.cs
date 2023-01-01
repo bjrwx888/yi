@@ -16,7 +16,7 @@ namespace Yi.Framework.Model.Base
         /// Returns an array of ordered keys for this entity.
         /// </summary>
         /// <returns></returns>
-        object[] GetKeys();
+        //object[] GetKeys();
     }
 
     /// <summary>

@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using System;
 using Yi.Framework.Common.Models;
-using Yi.Framework.DTOModel;
 using Yi.Framework.Interface.Base;
 using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.Repository;
+using Yi.Framework.DTOModel.Base.Dto;
 
 namespace Yi.Framework.Interface.RABC
 {

@@ -1,6 +1,7 @@
 using Yi.Framework.Common.Const;
 using Yi.Framework.Core;
 using Yi.Framework.Interface;
+using Yi.Framework.Interface.RABC;
 
 namespace Yi.Framework.XUnitTest
 {

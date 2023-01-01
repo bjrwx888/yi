@@ -22,7 +22,7 @@ namespace Yi.Framework.XUnitTest
             host.ConfigureAppConfiguration(builder =>
                 {
                     builder.AddJsonFile("appsettings.json");
-                    builder.AddJsonFile("appsettings.Development.json");
+                    //builder.AddJsonFile("appsettings.Development.json");
                 });
             host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
@@ -51,6 +51,10 @@ namespace Yi.Framework.XUnitTest
             _iServiceCollection = services;
         }
 
+        /// <summary>
+        /// 这里配置服务
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureTrueServices(IServiceCollection services)
         {
             services.AddQuartzService();
@@ -58,6 +62,10 @@ namespace Yi.Framework.XUnitTest
             _iServiceCollection = services;
         }
 
+        /// <summary>
+        /// 这里兼容配置管道
+        /// </summary>
+        /// <param name="services"></param>
         public void Configure(IServiceProvider services)
         {
             var appBuild = WebApplication.CreateBuilder();

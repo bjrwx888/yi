@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System
+namespace Yi.Framework.Common.Attribute
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class AutowiredAttribute : Attribute
+    public class AutowiredAttribute : System.Attribute
     {
     }
 }

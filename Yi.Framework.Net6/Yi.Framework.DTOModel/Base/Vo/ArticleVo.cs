@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.DTOModel.Vo
+namespace Yi.Framework.DTOModel.Base.Vo
 {
     public class ArticleVo
     {
