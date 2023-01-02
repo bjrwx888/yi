@@ -19,11 +19,12 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     public class ErrorHandExtension
     {
         private readonly RequestDelegate next;
+        private readonly ILogger<ErrorHandExtension> _logger;
         //private readonly IErrorHandle _errorHandle;
-        public ErrorHandExtension(RequestDelegate next/*, IErrorHandle errorHandle*/)
+        public ErrorHandExtension(RequestDelegate next, ILoggerFactory loggerFactory /*, IErrorHandle errorHandle*/)
         {
             this.next = next;
-            //this._logger = loggerFactory.CreateLogger<ErrorHandExtension>();
+            this._logger = loggerFactory.CreateLogger<ErrorHandExtension>();
             //_errorHandle = errorHandle;
         }
 
@@ -40,6 +41,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             }
             catch (Exception ex)
             {
+                _logger.LogError("系统错误",ex);
                 //await _errorHandle.Invoer(context, ex);
                 var statusCode = context.Response.StatusCode;
                 if (ex is ArgumentException)

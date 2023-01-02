@@ -54,7 +54,7 @@ namespace Yi.Framework.Model.RABC.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 DictLabel = "显示",
-                DictValue = "0",
+                DictValue = "true",
                 DictType = "sys_show_hide",
                 OrderNum = 100,
                 Remark = "显示菜单",
@@ -66,7 +66,7 @@ namespace Yi.Framework.Model.RABC.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 DictLabel = "隐藏",
-                DictValue = "1",
+                DictValue = "false",
                 DictType = "sys_show_hide",
                 OrderNum = 99,
                 Remark = "隐藏菜单",

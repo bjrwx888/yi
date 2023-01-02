@@ -258,7 +258,7 @@
                         <el-radio
                            v-for="dict in sys_show_hide"
                            :key="dict.value"
-                           :label="dict.value"
+                           :label="JSON.parse(dict.value)"
                         >{{ dict.label }}</el-radio>
                      </el-radio-group>
                   </el-form-item>

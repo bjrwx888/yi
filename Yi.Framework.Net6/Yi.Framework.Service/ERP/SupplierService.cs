@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Models;
 using Yi.Framework.DtoModel.ERP.Supplier;
 using Yi.Framework.Interface.ERP;
 using Yi.Framework.Model.ERP.Entitys;
@@ -17,10 +19,14 @@ namespace Yi.Framework.Service.ERP
         public SupplierService(IRepository<SupplierEntity> repository, IMapper mapper) : base(repository, mapper)
         {
         }
-
-        public async Task<List<SupplierGetListOutput>> GetListAsync()
+        public async Task<PageModel<List<SupplierGetListOutput>>> PageListAsync(SupplierCreateUpdateInput input, PageParModel page)
         {
-            return await MapToGetListOutputDtosAsync(await Repository.GetListAsync());
+            RefAsync<int> totalNumber = 0;
+            var data = await Repository._DbQueryable
+                .WhereIF(input.Code is not null,u=>u.Code.Contains(input.Code))
+                .WhereIF(input.Name is not null, u => u.Name.Contains(input.Name))
+                .ToPageListAsync(page.PageNum, page.PageSize, totalNumber);
+            return new PageModel<List<SupplierGetListOutput>> { Total = totalNumber.Value, Data = await MapToGetListOutputDtosAsync(data) };
         }
     }
 }

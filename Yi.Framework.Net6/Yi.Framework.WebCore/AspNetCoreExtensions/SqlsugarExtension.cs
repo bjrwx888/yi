@@ -118,6 +118,7 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
                      {
                          sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
                      }
+                     sb.Append( $"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
                      _logger?.LogInformation(sb.ToString());
                  }
 

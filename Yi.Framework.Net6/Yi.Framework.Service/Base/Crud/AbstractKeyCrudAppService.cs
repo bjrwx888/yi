@@ -68,7 +68,8 @@ namespace Yi.Framework.Service.Base.Crud
 
             TryToSetTenantId(entity);
 
-            await Repository.InsertAsync(entity);
+            //这边需要进行判断，实体是什么guid还是雪花id
+            await Repository.InsertReturnSnowflakeIdAsync(entity);
 
             var entitydto = await MapToGetOutputDtoAsync(entity);
             return entitydto;
@@ -80,7 +81,7 @@ namespace Yi.Framework.Service.Base.Crud
         /// <param name="ids"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual  Task DeleteAsync(IEnumerable<TKey> ids)
+        public virtual Task DeleteAsync(IEnumerable<TKey> ids)
         {
             throw new NotImplementedException();
         }
@@ -110,7 +111,7 @@ namespace Yi.Framework.Service.Base.Crud
         /// <param name="idEntity"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected virtual  Task UpdateValidAsync(TEntity idEntity, TUpdateInput dto)
+        protected virtual Task UpdateValidAsync(TEntity idEntity, TUpdateInput dto)
         {
             return Task.CompletedTask;
         }
