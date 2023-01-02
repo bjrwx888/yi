@@ -50,4 +50,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ERP\SeedData\" />
+  </ItemGroup>
+
 </Project>
