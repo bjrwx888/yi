@@ -15,7 +15,6 @@ using Yi.Framework.Interface;
 using Yi.Framework.Job;
 using Yi.Framework.Repository;
 using Yi.Framework.Service;
-using Yi.Framework.Uow.Interceptors;
 using Yi.Framework.WebCore.AutoFacExtend;
 using Module = Autofac.Module;
 
@@ -49,9 +48,9 @@ namespace Yi.Framework.WebCore.AutoFacExtend
             containerBuilder.RegisterAssemblyTypes(assemblysServices)
                      .AsImplementedInterfaces()
                      .InstancePerLifetimeScope()
-                     .EnableInterfaceInterceptors()
+                     .EnableInterfaceInterceptors();
                      //开启工作单元拦截
-                     .InterceptedBy(typeof(UnitOfWorkInterceptor));
+                     //.InterceptedBy(typeof(UnitOfWorkInterceptor));
 
             ///反射注册任务调度层
             var assemblysJob = GetDll("Yi.Framework.Job.dll");

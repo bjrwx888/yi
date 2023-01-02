@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Attribute;
-using Yi.Framework.Uow.Interceptors;
 
 namespace Yi.Framework.WebCore.AspNetCoreExtensions
 {

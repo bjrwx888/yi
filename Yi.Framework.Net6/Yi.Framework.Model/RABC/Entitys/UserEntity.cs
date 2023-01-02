@@ -151,6 +151,10 @@ namespace Yi.Framework.Model.RABC.Entitys
             //如果不传值，那就把自己的password当作传进来的password
             if (password == null)
             {
+                if (Password == null)
+                {
+                    throw new ArgumentNullException("Password不能为空");
+                }
                 password = Password;
             }
             Salt = MD5Helper.GenerateSalt();

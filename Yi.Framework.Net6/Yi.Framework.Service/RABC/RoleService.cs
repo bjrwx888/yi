@@ -8,7 +8,6 @@ using Yi.Framework.Interface;
 using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.Repository;
 using Yi.Framework.Service.Base;
-using Yi.Framework.Uow.Interceptors;
 using Yi.Framework.Interface.RABC;
 using Yi.Framework.DTOModel.Base.Dto;
 
@@ -21,16 +20,10 @@ namespace Yi.Framework.Service.RABC
         }
         public async Task<List<RoleEntity>> DbTest()
         {
-            return await _repository._Db.Queryable<RoleEntity>().ToListAsync();
+            return await _repository._DbQueryable.ToListAsync();
         }
-        //添加工作单元特性
-        [UnitOfWork]
-        public async Task<bool> UowTest()
-        {
-            var res = await _repository.InsertReturnSnowflakeIdAsync(new RoleEntity { RoleName = "测试", RoleCode = "tt" });
-            throw new ApplicationException("测试uow");
-            return res > 0;
-        }
+
+
 
         public async Task<bool> GiveRoleSetMenu(List<long> roleIds, List<long> menuIds)
         {

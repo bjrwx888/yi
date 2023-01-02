@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,6 @@ using Yi.Framework.Job;
 using Yi.Framework.Language;
 using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.Repository;
-using Yi.Framework.Uow.Interceptors;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.AttributeExtend;
 using Yi.Framework.WebCore.AuthorizationPolicy;
@@ -43,6 +44,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private ThumbnailSharpInvoer _thumbnailSharpInvoer;
         private CacheInvoker _cacheDb;
         private ILogger<TestController> _logger;
+        ISugarUnitOfWork<UnitOfWork> _unitOfWork;
         [Autowired]
         public CacheInvoker CacheInvoker { get; set; }
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
@@ -57,6 +59,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="quartzInvoker"></param>
         /// <param name="thumbnailSharpInvoer"></param>
         /// <param name="cacheInvoker"></param>
+        /// <param name="unitOfWork"></param>
         public TestController(IHubContext<MainHub> hub,
             ILogger<TestController> logger,
             IRoleService iRoleService,
@@ -64,11 +67,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             IStringLocalizer<LocalLanguage> local,
             QuartzInvoker quartzInvoker,
             ThumbnailSharpInvoer thumbnailSharpInvoer,
-            CacheInvoker cacheInvoker) =>
+            CacheInvoker cacheInvoker,
+            ISugarUnitOfWork<UnitOfWork> unitOfWork
+            ) =>
 
-            (_logger, _iUserService, _iRoleService, _quartzInvoker, _hub, _local, _thumbnailSharpInvoer, _cacheDb) =
+            (_logger, _iUserService, _iRoleService, _quartzInvoker, _hub, _local, _thumbnailSharpInvoer, _cacheDb, _unitOfWork) =
 
-            (logger, iUserService, iRoleService, quartzInvoker, hub, local, thumbnailSharpInvoer, cacheInvoker);
+            (logger, iUserService, iRoleService, quartzInvoker, hub, local, thumbnailSharpInvoer, cacheInvoker, unitOfWork);
 
 
         /// <summary>
@@ -113,12 +118,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetData(await _iUserService.DbTest());
         }
 
+        /// <summary>
+        /// 工作单元测试，使用sqlsugar内置
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-       
-        public async Task<Result> TestUnitOfWork()
+
+        public async Task<Result> UnitOfWorkTest()
         {
-            await _iRoleService.UowTest();
-            return Result.Success();
+            var data = await _iRoleService._repository._DbQueryable.ToListAsync();
+            using (var uow = _unitOfWork.CreateContext())
+            {
+                var res = await _iRoleService._repository.InsertReturnSnowflakeIdAsync(new RoleEntity { RoleName = "测试", RoleCode = "tt" });
+                throw new ApplicationException("测试uow");
+            }
         }
 
         /// <summary>

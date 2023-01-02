@@ -560,7 +560,7 @@
             测试控制器
             </summary>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.ApiMicroservice.Controllers.TestController},Yi.Framework.Interface.RABC.IRoleService,Yi.Framework.Interface.RABC.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.Quartz.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer,Yi.Framework.Core.Cache.CacheInvoker)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Yi.Framework.WebCore.SignalRHub.MainHub},Microsoft.Extensions.Logging.ILogger{Yi.Framework.ApiMicroservice.Controllers.TestController},Yi.Framework.Interface.RABC.IRoleService,Yi.Framework.Interface.RABC.IUserService,Microsoft.Extensions.Localization.IStringLocalizer{Yi.Framework.Language.LocalLanguage},Yi.Framework.Core.Quartz.QuartzInvoker,Yi.Framework.Core.ThumbnailSharpInvoer,Yi.Framework.Core.Cache.CacheInvoker,SqlSugar.ISugarUnitOfWork{Yi.Framework.Repository.UnitOfWork})">
             <summary>
             依赖注入，优雅写法
             </summary>
@@ -572,6 +572,7 @@
             <param name="quartzInvoker"></param>
             <param name="thumbnailSharpInvoer"></param>
             <param name="cacheInvoker"></param>
+            <param name="unitOfWork"></param>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.Swagger">
             <summary>
@@ -582,6 +583,12 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.DbTest">
             <summary>
             仓储上下文对象测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.UnitOfWorkTest">
+            <summary>
+            工作单元测试，使用sqlsugar内置
             </summary>
             <returns></returns>
         </member>

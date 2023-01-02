@@ -16,11 +16,7 @@ namespace Yi.Framework.Interface.RABC
         /// <returns></returns>
         Task<List<RoleEntity>> DbTest();
 
-        /// <summary>
-        /// 工作单元测试
-        /// </summary>
-        /// <returns></returns>
-        Task<bool> UowTest();
+
 
         /// <summary>
         /// 通过角色id获取角色实体包含菜单

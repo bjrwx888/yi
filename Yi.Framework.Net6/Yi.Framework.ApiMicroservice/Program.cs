@@ -19,7 +19,6 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Yi.Framework.WebCore.AutoFacExtend;
 using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Extensions.Hosting;
-using Yi.Framework.Uow.Interceptors;
 using Yi.Framework.WebCore.AspNetCoreExtensions;
 using Yi.Framework.WebCore.CommonExtend;
 
@@ -35,8 +34,6 @@ builder.Host.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder
      #endregion
      configurationBuilder.AddApolloService("Yi");
  });
-
-builder.Services.AddUnitOfWork();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SqlSugar;
 using System;
@@ -8,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Repository;
 using Yi.Framework.WebCore.CommonExtend;
 
 namespace Yi.Framework.WebCore.AspNetCoreExtensions
@@ -124,6 +126,9 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
 
          });
             services.AddSingleton<ISqlSugarClient>(sqlSugar);//这边是SqlSugarScope用AddSingleton
+
+            //添加工作单元
+            services.AddSingleton<ISugarUnitOfWork<UnitOfWork>>(new SugarUnitOfWork<UnitOfWork>(sqlSugar));
         }
     }
 
