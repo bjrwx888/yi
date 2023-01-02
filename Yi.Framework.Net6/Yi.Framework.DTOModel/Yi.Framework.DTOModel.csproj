@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
+    <Folder Include="BBS\" />
+    <Folder Include="Shop\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BBS\" />
-    <Folder Include="Shop\" />
+    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -192,14 +192,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DTOModel.Base.Dto.LoginDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DtoModel.Base.Dto.LoginDto)">
             <summary>
             没啥说，登录
             </summary>
             <param name="loginDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Register(Yi.Framework.DTOModel.Base.Dto.RegisterDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Register(Yi.Framework.DtoModel.Base.Dto.RegisterDto)">
             <summary>
             没啥说，注册
             </summary>
@@ -224,7 +224,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdatePassword(Yi.Framework.DTOModel.Base.Dto.UpdatePasswordDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.UpdatePassword(Yi.Framework.DtoModel.Base.Dto.UpdatePasswordDto)">
             <summary>
             自己更新密码
             </summary>
@@ -438,21 +438,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GiveRoleSetMenu(Yi.Framework.DTOModel.Base.Dto.GiveRoleSetMenuDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GiveRoleSetMenu(Yi.Framework.DtoModel.Base.Dto.GiveRoleSetMenuDto)">
             <summary>
             给多用户设置多角色
             </summary>
             <param name="giveRoleSetMenuDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Add(Yi.Framework.DTOModel.Base.Dto.RoleInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Add(Yi.Framework.DtoModel.Base.Dto.RoleInfoDto)">
             <summary>
             添加角色包含菜单
             </summary>
             <param name="roleDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Update(Yi.Framework.DTOModel.Base.Dto.RoleInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Update(Yi.Framework.DtoModel.Base.Dto.RoleInfoDto)">
             <summary>
             更新角色信息
             </summary>
@@ -466,7 +466,7 @@
             <param name="isDel"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateDataScpoce(Yi.Framework.DTOModel.Base.Dto.RoleInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.UpdateDataScpoce(Yi.Framework.DtoModel.Base.Dto.RoleInfoDto)">
              <summary>
             更改角色数据权限
              </summary>
@@ -501,7 +501,7 @@
             <param name="isDel"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DTOModel.Base.Dto.GiveUserSetRoleDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GiveUserSetRole(Yi.Framework.DtoModel.Base.Dto.GiveUserSetRoleDto)">
             <summary>
             给多用户设置多角色
             </summary>
@@ -515,21 +515,21 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DTOModel.Base.Dto.UserInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DtoModel.Base.Dto.UserInfoDto)">
             <summary>
             更新用户信息
             </summary>
             <param name="userDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateProfile(Yi.Framework.DTOModel.Base.Dto.UserInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateProfile(Yi.Framework.DtoModel.Base.Dto.UserInfoDto)">
             <summary>
             更新个人中心信息
             </summary>
             <param name="userDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.DTOModel.Base.Dto.UserInfoDto)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Add(Yi.Framework.DtoModel.Base.Dto.UserInfoDto)">
             <summary>
             添加用户
             </summary>
@@ -708,7 +708,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Brick.IFServer.Controllers.StudentController.Create(Yi.Framework.DTOModel.RABC.Student.StudentCreateInput)">
+        <member name="M:Brick.IFServer.Controllers.StudentController.Create(Yi.Framework.DtoModel.RABC.Student.StudentCreateInput)">
             <summary>
             增
             </summary>
@@ -735,7 +735,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Brick.IFServer.Controllers.StudentController.Update(System.Guid,Yi.Framework.DTOModel.RABC.Student.StudentUpdateInput)">
+        <member name="M:Brick.IFServer.Controllers.StudentController.Update(System.Guid,Yi.Framework.DtoModel.RABC.Student.StudentUpdateInput)">
             <summary>
             更
             </summary>

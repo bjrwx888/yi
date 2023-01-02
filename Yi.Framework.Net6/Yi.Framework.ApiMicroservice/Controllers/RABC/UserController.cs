@@ -10,7 +10,7 @@ using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
-using Yi.Framework.DTOModel.Base.Dto;
+using Yi.Framework.DtoModel.Base.Dto;
 using Yi.Framework.Interface;
 using Yi.Framework.Interface.RABC;
 using Yi.Framework.Model.RABC.Entitys;

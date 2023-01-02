@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
-using Yi.Framework.DTOModel.RABC.Student.MapperConfig;
+using Yi.Framework.DtoModel.RABC.Student.MapperConfig;
 using Yi.Framework.WebCore.Mapper;
 
 namespace Yi.Framework.WebCore.AspNetCoreExtensions
@@ -17,7 +17,7 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
         {
             //这里会通过反射自动注入的，先临时这样
 
-            var profileList = Common.Helper.AssemblyHelper.GetClassByBaseClassesAndInterfaces("Yi.Framework.DTOModel", typeof(Profile));
+            var profileList = Common.Helper.AssemblyHelper.GetClassByBaseClassesAndInterfaces("Yi.Framework.DtoModel", typeof(Profile));
             profileList.Add(typeof(AutoMapperProfile));
             services.AddAutoMapper(profileList.ToArray());
 

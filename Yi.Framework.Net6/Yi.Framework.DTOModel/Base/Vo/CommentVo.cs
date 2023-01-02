@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.DTOModel.Base.Vo
+namespace Yi.Framework.DtoModel.Base.Vo
 {
     public class CommentVo
     {

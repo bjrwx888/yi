@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.DTOModel.Base.Dto
+namespace Yi.Framework.DtoModel.Base.Dto
 {
     public class UpdatePasswordDto
     {

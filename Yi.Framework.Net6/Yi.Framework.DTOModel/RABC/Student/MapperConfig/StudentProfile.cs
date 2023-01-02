@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Model.RABC.Entitys;
 
-namespace Yi.Framework.DTOModel.RABC.Student.MapperConfig
+namespace Yi.Framework.DtoModel.RABC.Student.MapperConfig
 {
     public class StudentProfile : Profile
     {

@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Models;
-using Yi.Framework.DTOModel.RABC.Student;
+using Yi.Framework.DtoModel.RABC.Student;
 using Yi.Framework.Interface.RABC;
 
 namespace Brick.IFServer.Controllers

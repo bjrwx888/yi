@@ -1,32 +1,32 @@
-////*****************************µ¥µØÖ·¶àÊµÀı¸ºÔØ¾ùºâ+Consul********************************
+ï»¿////*****************************å•åœ°å€å¤šå®ä¾‹è´Ÿè½½å‡è¡¡+Consul********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
-//      "UpstreamPathTemplate": "/T/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
 //      "UseServiceDiscovery": true,
-//      "ServiceName": "ZhaoxiService", //consul·şÎñÃû³Æ
+//      "ServiceName": "ZhaoxiService", //consulæœåŠ¡åç§°
 //      "LoadBalancerOptions": {
-//        "Type": "RoundRobin" //ÂÖÑ¯      LeastConnection-×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷   NoLoadBalance²»¸ºÔØ¾ùºâ
+//        "Type": "RoundRobin" //è½®è¯¢      LeastConnection-æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨   NoLoadBalanceä¸è´Ÿè½½å‡è¡¡
 //      }
 //    }
 //  ],
 //  "GlobalConfiguration": {
-//    "BaseUrl": "http://127.0.0.1:6299", //Íø¹Ø¶ÔÍâµØÖ·
+//    "BaseUrl": "http://127.0.0.1:6299", //ç½‘å…³å¯¹å¤–åœ°å€
 //    "ServiceDiscoveryProvider": {
 //      "Host": "47.95.2.2",
 //      "Port": 8089,
-//      "Type": "Consul" //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ, Ã¿´ÎÇëÇóÈ¥consul
-//    } //OcelotÃ»ÓĞÖ§³ÖÅäÖÃ¶à¸öConsul
+//      "Type": "Consul" //ç”±Consulæä¾›æœåŠ¡å‘ç°, æ¯æ¬¡è¯·æ±‚å»consul
+//    } //Ocelotæ²¡æœ‰æ”¯æŒé…ç½®å¤šä¸ªConsul
 
 //    //,"ServiceDiscoveryProvider": {
 //    //  "Host": "localhost",
 //    //  "Port": 8500,
-//    //  "Type": "PollConsul", //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ,
-//    //  "PollingInterval": 1000 //ÂÖÑ¯consul,ÆµÂÊºÁÃë--downµôÊÇ²»ÖªµÀµÄ
-//    //  //"Token": "footoken"//ĞèÒªACLµÄ»°
+//    //  "Type": "PollConsul", //ç”±Consulæä¾›æœåŠ¡å‘ç°,
+//    //  "PollingInterval": 1000 //è½®è¯¢consul,é¢‘ç‡æ¯«ç§’--downæ‰æ˜¯ä¸çŸ¥é“çš„
+//    //  //"Token": "footoken"//éœ€è¦ACLçš„è¯
 //    //}
 //  }
 //}
@@ -37,77 +37,77 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "api/api/{url}", //ÉÏÓÎÇëÇóµØÖ·--Íø¹Ø
+      "UpstreamPathTemplate": "api/api/{url}", //ä¸Šæ¸¸è¯·æ±‚åœ°å€--ç½‘å…³
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "PATCH", "Delete", "Options" ],
       "UseServiceDiscovery": true,
       "ServiceName": "ApiMicroservice",
       "LoadBalancerOptions": {
-        "Type": "RoundRobin" //ÂÖÑ¯      LeastConnection-×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷   NoLoadBalance²»¸ºÔØ¾ùºâ
+        "Type": "RoundRobin" //è½®è¯¢      LeastConnection-æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨   NoLoadBalanceä¸è´Ÿè½½å‡è¡¡
       },
-      "DownstreamPathTemplate": "api/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+      "DownstreamPathTemplate": "api/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
       "DownstreamScheme": "https",
       "DownstreamHeaderTransform": {
-        "Access-Control-Allow-Origin": "*", //²»´æÔÚ¾ÍÌí¼Ó
+        "Access-Control-Allow-Origin": "*", //ä¸å­˜åœ¨å°±æ·»åŠ 
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers": "*"
       }
     },
     {
-      "UpstreamPathTemplate": "api/item/{url}", //ÉÏÓÎÇëÇóµØÖ·--Íø¹Ø
+      "UpstreamPathTemplate": "api/item/{url}", //ä¸Šæ¸¸è¯·æ±‚åœ°å€--ç½‘å…³
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "PATCH", "Delete", "Options" ],
       "UseServiceDiscovery": true,
       "ServiceName": "PageDetail",
       "LoadBalancerOptions": {
-        "Type": "RoundRobin" //ÂÖÑ¯      LeastConnection-×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷   NoLoadBalance²»¸ºÔØ¾ùºâ
+        "Type": "RoundRobin" //è½®è¯¢      LeastConnection-æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨   NoLoadBalanceä¸è´Ÿè½½å‡è¡¡
       },
-      "DownstreamPathTemplate": "api/item/{url}", //·şÎñµØÖ·--url±äÁ¿
+      "DownstreamPathTemplate": "api/item/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
       "DownstreamScheme": "https",
       "DownstreamHeaderTransform": {
-        "Access-Control-Allow-Origin": "*", //²»´æÔÚ¾ÍÌí¼Ó
+        "Access-Control-Allow-Origin": "*", //ä¸å­˜åœ¨å°±æ·»åŠ 
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers": "*"
       }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://127.0.0.1:7200", //Íø¹Ø¶ÔÍâµØÖ·
+    "BaseUrl": "http://127.0.0.1:7200", //ç½‘å…³å¯¹å¤–åœ°å€
     "ServiceDiscoveryProvider": {
       "Host": "192.168.2.128",
       "Port": 8500,
-      "Type": "Consul" //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ, Ã¿´ÎÇëÇóÈ¥consul
+      "Type": "Consul" //ç”±Consulæä¾›æœåŠ¡å‘ç°, æ¯æ¬¡è¯·æ±‚å»consul
     },
     "RateLimitOptions": {
-      "QuotaExceededMessage": "ÄãµÄÇëÇó¹ıÓÚÆµ·±£¬ÇëÉÔºóÔÙÊÔ£¡", // µ±ÇëÇó¹ıÔØ±»½Ø¶ÏÊ±·µ»ØµÄÏûÏ¢
-      "HttpStatusCode": 666 // µ±ÇëÇó¹ıÔØ±»½Ø¶ÏÊ±·µ»ØµÄhttp status
-      //"ClientIdHeader": "client_id" // ÓÃÀ´Ê¶±ğ¿Í»§¶ËµÄÇëÇóÍ·£¬Ä¬ÈÏÊÇ ClientId
+      "QuotaExceededMessage": "ä½ çš„è¯·æ±‚è¿‡äºé¢‘ç¹ï¼Œè¯·ç¨åå†è¯•ï¼", // å½“è¯·æ±‚è¿‡è½½è¢«æˆªæ–­æ—¶è¿”å›çš„æ¶ˆæ¯
+      "HttpStatusCode": 666 // å½“è¯·æ±‚è¿‡è½½è¢«æˆªæ–­æ—¶è¿”å›çš„http status
+      //"ClientIdHeader": "client_id" // ç”¨æ¥è¯†åˆ«å®¢æˆ·ç«¯çš„è¯·æ±‚å¤´ï¼Œé»˜è®¤æ˜¯ ClientId
     }
 
     //,"ServiceDiscoveryProvider": {
     //  "Host": "localhost",
     //  "Port": 8500,
-    //  "Type": "PollConsul", //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ,
-    //  "PollingInterval": 1000 //ÂÖÑ¯consul,ÆµÂÊºÁÃë--downµôÊÇ²»ÖªµÀµÄ
-    //  //"Token": "footoken"//ĞèÒªACLµÄ»°
+    //  "Type": "PollConsul", //ç”±Consulæä¾›æœåŠ¡å‘ç°,
+    //  "PollingInterval": 1000 //è½®è¯¢consul,é¢‘ç‡æ¯«ç§’--downæ‰æ˜¯ä¸çŸ¥é“çš„
+    //  //"Token": "footoken"//éœ€è¦ACLçš„è¯
     //}
   }
 }
 
-////*****************************µ¥µØÖ·--ÎŞConsul********************************
+////*****************************å•åœ°å€--æ— Consul********************************
 //{
 //  "Routes": [
 //    {
-//      "UpstreamPathTemplate": "/api/auth/{url}", //ÉÏÓÎÇëÇóµØÖ·--Íø¹Ø
+//      "UpstreamPathTemplate": "/api/auth/{url}", //ä¸Šæ¸¸è¯·æ±‚åœ°å€--ç½‘å…³
 //      "UpstreamHttpMethod": [ "Get", "Post", "Put", "PATCH", "Delete", "Options" ],
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 7200 //Íø¹Øapi ¶Ë¿Ú
+//          "Port": 7200 //ç½‘å…³api ç«¯å£
 //        }
 //      ],
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHeaderTransform": {
-//        "Access-Control-Allow-Origin": "*", //²»´æÔÚ¾ÍÌí¼Ó
+//        "Access-Control-Allow-Origin": "*", //ä¸å­˜åœ¨å°±æ·»åŠ 
 //        "Access-Control-Allow-Methods": "*",
 //        "Access-Control-Allow-Headers": "*"
 //      }
@@ -115,123 +115,123 @@
 //  ]
 //}
 
-////*****************************µ¥µØÖ·È«Æ¥Åä********************************
+////*****************************å•åœ°å€å…¨åŒ¹é…********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5726 //·şÎñ¶Ë¿Ú
+//          "Port": 5726 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/{url}", //Íø¹ØµØÖ·--url±äÁ¿   //³åÍ»µÄ»¹¿ÉÒÔ¼ÓÈ¨ÖØPriority
+//      "UpstreamPathTemplate": "/{url}", //ç½‘å…³åœ°å€--urlå˜é‡   //å†²çªçš„è¿˜å¯ä»¥åŠ æƒé‡Priority
 //      "UpstreamHttpMethod": [ "Get", "Post" ]
 //    }
 //  ]
 //}
 
-////*****************************¶àµØÖ·¶àÊµÀı********************************
+////*****************************å¤šåœ°å€å¤šå®ä¾‹********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5726 //·şÎñ¶Ë¿Ú
+//          "Port": 5726 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/T5726/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T5726/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ]
 //    },
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5727 //·şÎñ¶Ë¿Ú
+//          "Port": 5727 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/T5727/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T5727/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ]
 //    },
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5728 //·şÎñ¶Ë¿Ú
+//          "Port": 5728 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/T5728/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T5728/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ]
 //    }
 //  ]
 //}
 
-//////MVCµÄÂ·ÓÉ¹æÔòÊÇ½üË®Â¥Ì¨ÏÈµÃÔÂ--
-////*****************************Â·ÓÉ³åÍ»+´øÈ¨Æ¥Åä********************************
+//////MVCçš„è·¯ç”±è§„åˆ™æ˜¯è¿‘æ°´æ¥¼å°å…ˆå¾—æœˆ--
+////*****************************è·¯ç”±å†²çª+å¸¦æƒåŒ¹é…********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5726 //·şÎñ¶Ë¿Ú
+//          "Port": 5726 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/{url}", //Íø¹ØµØÖ·--url±äÁ¿   //³åÍ»µÄ»¹¿ÉÒÔ¼ÓÈ¨ÖØPriority
+//      "UpstreamPathTemplate": "/{url}", //ç½‘å…³åœ°å€--urlå˜é‡   //å†²çªçš„è¿˜å¯ä»¥åŠ æƒé‡Priority
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
-//      "Priority": 0 //Ä¬ÈÏÊÇ0 ¼Ó¸ö1
+//      "Priority": 0 //é»˜è®¤æ˜¯0 åŠ ä¸ª1
 //    },
 //    {
-//      "DownstreamPathTemplate": "/api/users/get?id={id}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/users/get?id={id}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5727 //·şÎñ¶Ë¿Ú
+//          "Port": 5727 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/api/users/get/{id}", //Íø¹ØµØÖ·--url±äÁ¿   //³åÍ»µÄ»¹¿ÉÒÔ¼ÓÈ¨ÖØPriority
+//      "UpstreamPathTemplate": "/api/users/get/{id}", //ç½‘å…³åœ°å€--urlå˜é‡   //å†²çªçš„è¿˜å¯ä»¥åŠ æƒé‡Priority
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
-//      "Priority": 1 //Ä¬ÈÏÊÇ0 ¼Ó¸ö1
+//      "Priority": 1 //é»˜è®¤æ˜¯0 åŠ ä¸ª1
 //    },
 //    {
-//      "DownstreamPathTemplate": "/api/users/{url}?id={id}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/users/{url}?id={id}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5728 //·şÎñ¶Ë¿Ú
+//          "Port": 5728 //æœåŠ¡ç«¯å£
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/api/users/{url}/{id}", //Íø¹ØµØÖ·--url±äÁ¿   //³åÍ»µÄ»¹¿ÉÒÔ¼ÓÈ¨ÖØPriority
+//      "UpstreamPathTemplate": "/api/users/{url}/{id}", //ç½‘å…³åœ°å€--urlå˜é‡   //å†²çªçš„è¿˜å¯ä»¥åŠ æƒé‡Priority
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
-//      "Priority": 2 //Ä¬ÈÏÊÇ0 ¼Ó¸ö1
+//      "Priority": 2 //é»˜è®¤æ˜¯0 åŠ ä¸ª1
 //    }
 //  ]
 //}
 
-////*****************************µ¥µØÖ·¶àÊµÀı¸ºÔØ¾ùºâ********************************
+////*****************************å•åœ°å€å¤šå®ä¾‹è´Ÿè½½å‡è¡¡********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "47.95.2.2",
 //          "Port": 5726
-//        }, //Ocelot¸ºÔØ¾ùºâ
+//        }, //Ocelotè´Ÿè½½å‡è¡¡
 //        {
 //          "Host": "47.95.2.2",
 //          "Port": 5727
@@ -241,10 +241,10 @@
 //          "Port": 5728
 //        }
 //      ],
-//      "UpstreamPathTemplate": "/T/{url}", //Íø¹ØµØÖ·--url±äÁ¿   //³åÍ»µÄ»¹¿ÉÒÔ¼ÓÈ¨ÖØPriority
+//      "UpstreamPathTemplate": "/T/{url}", //ç½‘å…³åœ°å€--urlå˜é‡   //å†²çªçš„è¿˜å¯ä»¥åŠ æƒé‡Priority
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
 //      "LoadBalancerOptions": {
-//        "Type": "RoundRobin" //ÂÖÑ¯ //"LeastConnection" //×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷  "NoLoadBalance" //²»¸ºÔØ¾ùºâ  //"CookieStickySessions" //»á»°Õ³ÖÍ  //
+//        "Type": "RoundRobin" //è½®è¯¢ //"LeastConnection" //æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨  "NoLoadBalance" //ä¸è´Ÿè½½å‡è¡¡  //"CookieStickySessions" //ä¼šè¯ç²˜æ»  //
 //      }
 //      //"LoadBalancerOptions": {
 //      //  "Type": "CookieStickySessions",
@@ -255,126 +255,126 @@
 //  ]
 //}
 
-////*****************************µ¥µØÖ·¶àÊµÀı¸ºÔØ¾ùºâ+Consul********************************
+////*****************************å•åœ°å€å¤šå®ä¾‹è´Ÿè½½å‡è¡¡+Consul********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
-//      "UpstreamPathTemplate": "/T/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
 //      "UseServiceDiscovery": true,
-//      "ServiceName": "ZhaoxiService", //consul·şÎñÃû³Æ
+//      "ServiceName": "ZhaoxiService", //consulæœåŠ¡åç§°
 //      "LoadBalancerOptions": {
-//        "Type": "RoundRobin" //ÂÖÑ¯      LeastConnection-×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷   NoLoadBalance²»¸ºÔØ¾ùºâ
+//        "Type": "RoundRobin" //è½®è¯¢      LeastConnection-æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨   NoLoadBalanceä¸è´Ÿè½½å‡è¡¡
 //      }
 //    }
 //  ],
 //  "GlobalConfiguration": {
-//    "BaseUrl": "http://127.0.0.1:6299", //Íø¹Ø¶ÔÍâµØÖ·
+//    "BaseUrl": "http://127.0.0.1:6299", //ç½‘å…³å¯¹å¤–åœ°å€
 //    "ServiceDiscoveryProvider": {
 //      "Host": "47.95.2.2",
 //      "Port": 8089,
-//      "Type": "Consul" //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ, Ã¿´ÎÇëÇóÈ¥consul
-//    } //OcelotÃ»ÓĞÖ§³ÖÅäÖÃ¶à¸öConsul
+//      "Type": "Consul" //ç”±Consulæä¾›æœåŠ¡å‘ç°, æ¯æ¬¡è¯·æ±‚å»consul
+//    } //Ocelotæ²¡æœ‰æ”¯æŒé…ç½®å¤šä¸ªConsul
 
 //    //,"ServiceDiscoveryProvider": {
 //    //  "Host": "localhost",
 //    //  "Port": 8500,
-//    //  "Type": "PollConsul", //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ,
-//    //  "PollingInterval": 1000 //ÂÖÑ¯consul,ÆµÂÊºÁÃë--downµôÊÇ²»ÖªµÀµÄ
-//    //  //"Token": "footoken"//ĞèÒªACLµÄ»°
+//    //  "Type": "PollConsul", //ç”±Consulæä¾›æœåŠ¡å‘ç°,
+//    //  "PollingInterval": 1000 //è½®è¯¢consul,é¢‘ç‡æ¯«ç§’--downæ‰æ˜¯ä¸çŸ¥é“çš„
+//    //  //"Token": "footoken"//éœ€è¦ACLçš„è¯
 //    //}
 //  }
 //}
 
-////*****************************Consul+»º´æCache********************************
+////*****************************Consul+ç¼“å­˜Cache********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
-//      "UpstreamPathTemplate": "/T/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
 //      "UseServiceDiscovery": true,
-//      "ServiceName": "ZhaoxiService", //consul·şÎñÃû³Æ
+//      "ServiceName": "ZhaoxiService", //consulæœåŠ¡åç§°
 //      "LoadBalancerOptions": {
-//        "Type": "RoundRobin" //ÂÖÑ¯      LeastConnection-×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷   NoLoadBalance²»¸ºÔØ¾ùºâ
+//        "Type": "RoundRobin" //è½®è¯¢      LeastConnection-æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨   NoLoadBalanceä¸è´Ÿè½½å‡è¡¡
 //      },
 //      "FileCacheOptions": {
 //        "TtlSeconds": 15, //Second
-//        "Region": "UserCache" //¿ÉÒÔµ÷ÓÃApi»º´æÇåÀí
+//        "Region": "UserCache" //å¯ä»¥è°ƒç”¨Apiç¼“å­˜æ¸…ç†
 //      }
 //    }
 //  ],
 //  "GlobalConfiguration": {
-//    "BaseUrl": "http://127.0.0.1:6299", //Íø¹Ø¶ÔÍâµØÖ·
+//    "BaseUrl": "http://127.0.0.1:6299", //ç½‘å…³å¯¹å¤–åœ°å€
 //    "ServiceDiscoveryProvider": {
 //      "Host": "47.95.2.2",
 //      "Port": 8089,
-//      "Type": "Consul" //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ, Ã¿´ÎÇëÇóÈ¥consul
+//      "Type": "Consul" //ç”±Consulæä¾›æœåŠ¡å‘ç°, æ¯æ¬¡è¯·æ±‚å»consul
 //    }
 //    //"ServiceDiscoveryProvider": {
 //    //  "Host": "localhost",
 //    //  "Port": 8500,
-//    //  "Type": "PollConsul", //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ,
-//    //  "PollingInterval": 1000 //ÂÖÑ¯consul,ÆµÂÊºÁÃë--downµôÊÇ²»ÖªµÀµÄ
-//    //  //"Token": "footoken"//ĞèÒªACLµÄ»°
+//    //  "Type": "PollConsul", //ç”±Consulæä¾›æœåŠ¡å‘ç°,
+//    //  "PollingInterval": 1000 //è½®è¯¢consul,é¢‘ç‡æ¯«ç§’--downæ‰æ˜¯ä¸çŸ¥é“çš„
+//    //  //"Token": "footoken"//éœ€è¦ACLçš„è¯
 //    //}
 //  }
 //}
 
-////*****************************³¬Ê±+ÏŞÁ÷+ÈÛ¶Ï+½µ¼¶+Consul+Polly********************************
+////*****************************è¶…æ—¶+é™æµ+ç†”æ–­+é™çº§+Consul+Polly********************************
 //{
 //  "Routes": [
 //    {
-//      "DownstreamPathTemplate": "/api/{url}", //·şÎñµØÖ·--url±äÁ¿
+//      "DownstreamPathTemplate": "/api/{url}", //æœåŠ¡åœ°å€--urlå˜é‡
 //      "DownstreamScheme": "http",
-//      "UpstreamPathTemplate": "/T/{url}", //Íø¹ØµØÖ·--url±äÁ¿
+//      "UpstreamPathTemplate": "/T/{url}", //ç½‘å…³åœ°å€--urlå˜é‡
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
 //      "UseServiceDiscovery": true,
-//      "ServiceName": "ZhaoxiService", //consul·şÎñÃû³Æ
+//      "ServiceName": "ZhaoxiService", //consulæœåŠ¡åç§°
 //      "LoadBalancerOptions": {
-//        "Type": "RoundRobin" //ÂÖÑ¯      LeastConnection-×îÉÙÁ¬½ÓÊıµÄ·şÎñÆ÷   NoLoadBalance²»¸ºÔØ¾ùºâ
+//        "Type": "RoundRobin" //è½®è¯¢      LeastConnection-æœ€å°‘è¿æ¥æ•°çš„æœåŠ¡å™¨   NoLoadBalanceä¸è´Ÿè½½å‡è¡¡
 //      },
 //      "RateLimitOptions": {
-//        "ClientWhitelist": [ "eleven", "seven" ], //°×Ãûµ¥ ClientId Çø·Ö´óĞ¡Ğ´
+//        "ClientWhitelist": [ "eleven", "seven" ], //ç™½åå• ClientId åŒºåˆ†å¤§å°å†™
 //        "EnableRateLimiting": true,
 //        "Period": "5m", //1s, 5m, 1h, 1d
-//        "PeriodTimespan": 30, //¶àÉÙÃëÖ®ºó¿Í»§¶Ë¿ÉÒÔÖØÊÔ
-//        "Limit": 5 //Í³¼ÆÊ±¼ä¶ÎÄÚÔÊĞíµÄ×î´óÇëÇóÊıÁ¿
+//        "PeriodTimespan": 30, //å¤šå°‘ç§’ä¹‹åå®¢æˆ·ç«¯å¯ä»¥é‡è¯•
+//        "Limit": 5 //ç»Ÿè®¡æ—¶é—´æ®µå†…å…è®¸çš„æœ€å¤§è¯·æ±‚æ•°é‡
 //      },
 //      "AuthenticationOptions": {
 //        "AuthenticationProviderKey": "UserGatewayKey",
 //        "AllowedScopes": []
 //      },
 //      "QoSOptions": {
-//        "ExceptionsAllowedBeforeBreaking": 3, //ÔÊĞí¶àÉÙ¸öÒì³£ÇëÇó
-//        "DurationOfBreak": 10000, // ÈÛ¶ÏµÄÊ±¼ä£¬µ¥Î»Îªms
-//        "TimeoutValue": 2000 //µ¥Î»ms Èç¹ûÏÂÓÎÇëÇóµÄ´¦ÀíÊ±¼ä³¬¹ı¶àÉÙÔò×ÔÈç½«ÇëÇóÉèÖÃÎª³¬Ê± Ä¬ÈÏ90Ãë
+//        "ExceptionsAllowedBeforeBreaking": 3, //å…è®¸å¤šå°‘ä¸ªå¼‚å¸¸è¯·æ±‚
+//        "DurationOfBreak": 10000, // ç†”æ–­çš„æ—¶é—´ï¼Œå•ä½ä¸ºms
+//        "TimeoutValue": 2000 //å•ä½ms å¦‚æœä¸‹æ¸¸è¯·æ±‚çš„å¤„ç†æ—¶é—´è¶…è¿‡å¤šå°‘åˆ™è‡ªå¦‚å°†è¯·æ±‚è®¾ç½®ä¸ºè¶…æ—¶ é»˜è®¤90ç§’
 //      }
 //      //"FileCacheOptions": {
 //      //  "TtlSeconds": 15,
-//      //  "Region": "UserCache" //¿ÉÒÔµ÷ÓÃApiÇåÀí
+//      //  "Region": "UserCache" //å¯ä»¥è°ƒç”¨Apiæ¸…ç†
 //      //}
 //    }
 //  ],
 //  "GlobalConfiguration": {
-//    "BaseUrl": "http://127.0.0.1:6299", //Íø¹Ø¶ÔÍâµØÖ·
+//    "BaseUrl": "http://127.0.0.1:6299", //ç½‘å…³å¯¹å¤–åœ°å€
 //    "ServiceDiscoveryProvider": {
 //      "Host": "47.95.2.2",
 //      "Port": 8089,
-//      "Type": "Consul" //ÓÉConsulÌá¹©·şÎñ·¢ÏÖ
+//      "Type": "Consul" //ç”±Consulæä¾›æœåŠ¡å‘ç°
 //    },
 //    "RateLimitOptions": {
-//      "QuotaExceededMessage": "Too many requests, maybe later? 11", // µ±ÇëÇó¹ıÔØ±»½Ø¶ÏÊ±·µ»ØµÄÏûÏ¢
-//      "HttpStatusCode": 666, // µ±ÇëÇó¹ıÔØ±»½Ø¶ÏÊ±·µ»ØµÄhttp status
-//      //"ClientIdHeader": "client_id" // ÓÃÀ´Ê¶±ğ¿Í»§¶ËµÄÇëÇóÍ·£¬Ä¬ÈÏÊÇ ClientId
+//      "QuotaExceededMessage": "Too many requests, maybe later? 11", // å½“è¯·æ±‚è¿‡è½½è¢«æˆªæ–­æ—¶è¿”å›çš„æ¶ˆæ¯
+//      "HttpStatusCode": 666, // å½“è¯·æ±‚è¿‡è½½è¢«æˆªæ–­æ—¶è¿”å›çš„http status
+//      //"ClientIdHeader": "client_id" // ç”¨æ¥è¯†åˆ«å®¢æˆ·ç«¯çš„è¯·æ±‚å¤´ï¼Œé»˜è®¤æ˜¯ ClientId
 //    }
 //  }
 //}
 
-////*****************************ÇëÇó¾ÛºÏAggregator********************************
+////*****************************è¯·æ±‚èšåˆAggregator********************************
 //{
 //  "Routes": [
 //    {
@@ -383,8 +383,8 @@
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5726 //·şÎñ¶Ë¿Ú
-//        } //¿ÉÒÔ¶à¸ö£¬×ÔĞĞ¸ºÔØ¾ùºâ
+//          "Port": 5726 //æœåŠ¡ç«¯å£
+//        } //å¯ä»¥å¤šä¸ªï¼Œè‡ªè¡Œè´Ÿè½½å‡è¡¡
 //      ],
 //      "UpstreamPathTemplate": "/T5726/users/all",
 //      "UpstreamHttpMethod": [ "Get", "Post" ],
@@ -396,7 +396,7 @@
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5727 //·şÎñ¶Ë¿Ú
+//          "Port": 5727 //æœåŠ¡ç«¯å£
 //        }
 //      ],
 //      "UpstreamPathTemplate": "/T5727/users/all",
@@ -409,7 +409,7 @@
 //      "DownstreamHostAndPorts": [
 //        {
 //          "Host": "localhost",
-//          "Port": 5728 //·şÎñ¶Ë¿Ú
+//          "Port": 5728 //æœåŠ¡ç«¯å£
 //        }
 //      ],
 //      "UpstreamPathTemplate": "/T5728/users/all",
@@ -424,8 +424,8 @@
 //        "T5727",
 //        "T5728"
 //      ],
-//      "UpstreamPathTemplate": "/UserAggregator", //Èç¹ûÄ³¸ö404 ÊÇ²»Ó°Ïì·µ»Ø£¬µ±³Énull
-//      "Aggregator": "CustomUserAggregator" //×Ô¶¨Òå¾ÛºÏÆ÷
+//      "UpstreamPathTemplate": "/UserAggregator", //å¦‚æœæŸä¸ª404 æ˜¯ä¸å½±å“è¿”å›ï¼Œå½“æˆnull
+//      "Aggregator": "CustomUserAggregator" //è‡ªå®šä¹‰èšåˆå™¨
 //    }
 //  ]
 //}

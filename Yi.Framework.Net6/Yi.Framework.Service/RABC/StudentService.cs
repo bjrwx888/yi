@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Exceptions;
-using Yi.Framework.DTOModel.RABC.Student;
+using Yi.Framework.DtoModel.RABC.Student;
+using Yi.Framework.DtoModel.RABC.Student.ConstConfig;
 using Yi.Framework.Interface.RABC;
 using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.Repository;
@@ -24,11 +25,11 @@ namespace Yi.Framework.Service.RABC
 
         public  void GetError()
         {
-            throw new ApplicationException("查询错误");
+            throw new ApplicationException(StudentConst.学生异常错误);
         }
         public void GetError2()
         {
-            throw new UserFriendlyException("友好错误");
+            throw new UserFriendlyException(StudentConst.学生友好错误);
         }
 
         /// <summary>

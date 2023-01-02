@@ -9,7 +9,7 @@ using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.Repository;
 using Yi.Framework.Service.Base;
 using Yi.Framework.Interface.RABC;
-using Yi.Framework.DTOModel.Base.Dto;
+using Yi.Framework.DtoModel.Base.Dto;
 
 namespace Yi.Framework.Service.RABC
 {

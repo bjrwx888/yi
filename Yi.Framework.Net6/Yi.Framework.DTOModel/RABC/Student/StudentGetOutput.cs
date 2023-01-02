@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Yi.Framework.Model.Base;
 
-namespace Yi.Framework.DTOModel.RABC.Student
+namespace Yi.Framework.DtoModel.RABC.Student
 {
     public class StudentGetOutput : EntityDto<Guid>
     {

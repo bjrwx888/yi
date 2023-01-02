@@ -12,7 +12,7 @@ using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
-using Yi.Framework.DTOModel;
+using Yi.Framework.DtoModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Repository;
 using Yi.Framework.WebCore;
@@ -52,11 +52,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
             if (!string.IsNullOrEmpty(online.Ipaddr))
             {
-                dataWhere = dataWhere.Where((u) => u.Ipaddr.Contains(online.Ipaddr));
+                dataWhere = dataWhere.Where((u) => u.Ipaddr!.Contains(online.Ipaddr));
             }
             if (!string.IsNullOrEmpty(online.UserName))
             {
-                dataWhere = dataWhere.Where((u) => u.UserName.Contains(online.UserName));
+                dataWhere = dataWhere.Where((u) => u.UserName!.Contains(online.UserName));
             }
             return Result.Success().SetData(new PageModel<List<OnlineUser>>() { Total = data.Count, Data = dataWhere.ToList() });
         }

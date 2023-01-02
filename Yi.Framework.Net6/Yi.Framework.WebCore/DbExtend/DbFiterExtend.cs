@@ -6,7 +6,7 @@ using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Enum;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core.Cache;
-using Yi.Framework.DTOModel.Base.Dto;
+using Yi.Framework.DtoModel.Base.Dto;
 using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.WebCore.CommonExtend;
 
