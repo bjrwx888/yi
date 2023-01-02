@@ -52,7 +52,7 @@ Yi框架最新版本标签：`v1.2.0`，具体版本可以查看标签迭代
 
 废话少说直接上地址，**请不要**更改里面的数据
 
-API服务：~~[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：admin 、 123~~
+API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 、 123456
 
 网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~
 
