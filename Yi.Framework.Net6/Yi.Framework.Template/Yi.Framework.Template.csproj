@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Code\" />
     <Folder Include="Const\" />
   </ItemGroup>
 
