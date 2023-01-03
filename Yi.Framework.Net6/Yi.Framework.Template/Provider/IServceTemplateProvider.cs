@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yi.Framework.Template.Abstract;
+using Yi.Framework.Template.Const;
+
+namespace Yi.Framework.Template.Provider
+{
+    public class IServceTemplateProvider : ProgramTemplateProvider
+    {
+        public IServceTemplateProvider(string modelName, string entityName) : base( modelName,entityName)
+        {
+            BuildPath = $@"..\..\..\Code\Yi.Framework.Interface\{TemplateConst.ModelName}\I{TemplateConst.EntityName}Service.cs";
+            TemplatePath = $@"..\..\..\Template\IServiceTemplate.txt";
+        }
+    }
+}

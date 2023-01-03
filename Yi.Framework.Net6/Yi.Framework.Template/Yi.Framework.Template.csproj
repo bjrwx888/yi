@@ -12,8 +12,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Template\" />
-    <Folder Include="Code\" />
+    <Folder Include="Const\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Template\IServiceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\ServiceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

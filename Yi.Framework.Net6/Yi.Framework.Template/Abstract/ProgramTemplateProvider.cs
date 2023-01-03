@@ -51,6 +51,10 @@ namespace Yi.Framework.Template.Abstract
             {
                 templateData = templateData.Replace(ky.Key, ky.Value);
             }
+            if (!Directory.Exists(Path.GetDirectoryName(BuildPath)))
+            { 
+                Directory.CreateDirectory(Path.GetDirectoryName(BuildPath)!);
+            }
             File.WriteAllText(BuildPath, templateData);
         }
 

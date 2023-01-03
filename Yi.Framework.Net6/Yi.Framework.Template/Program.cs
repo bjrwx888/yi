@@ -11,7 +11,7 @@ string entityName = "Test";
 templateFactory.CreateTemplateProviders((option) =>
 {
     option.Add(new ServceTemplateProvider(modelName, entityName));
-
+    option.Add(new IServceTemplateProvider(modelName, entityName));
 });
 
 //开始构建模板
