@@ -11,17 +11,17 @@ namespace Yi.Framework.Template.Abstract
         /// <summary>
         /// 构建生成路径
         /// </summary>
-        string BuildPath { get; set; }
+        string? BuildPath { get; set; }
 
         /// <summary>
         /// 模板文件路径
         /// </summary>
-        string TemplatePath { get; set; }
+        string? TemplatePath { get; set; }
 
         /// <summary>
         /// 备份文件路径
         /// </summary>
-        string BakPath { get; set; }
+        string? BakPath { get; set; }
 
 
         /// <summary>
