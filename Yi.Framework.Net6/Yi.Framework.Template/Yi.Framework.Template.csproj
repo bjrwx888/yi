@@ -4,47 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="vue3-ruoyi\view.vue">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>view.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="vue3-ruoyi\view.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>view.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="vue3-ruoyi\view.tt">
-      <LastGenOutput>view.vue</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="vue3-ruoyi\api.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>api.js</LastGenOutput>
-    </None>
-    <None Update="vue3-ruoyi\api.js">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>api.tt</DependentUpon>
-    </None>
-    <None Update="vue3-ruoyi\view.vue">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>view.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Template\" />
+    <Folder Include="Code\" />
   </ItemGroup>
 
 </Project>
