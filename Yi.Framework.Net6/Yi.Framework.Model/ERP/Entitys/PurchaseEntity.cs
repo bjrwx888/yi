@@ -45,12 +45,12 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// <summary>
         /// 总共金额
         /// </summary>
-        public long TotalMoney { get; set; }
+        public float TotalMoney { get; set; }
 
         /// <summary>
         /// 已支付金额
         /// </summary>
-        public long PaidMoney { get; set; }
+        public float PaidMoney { get; set; }
 
         /// <summary>
         /// 采购状态

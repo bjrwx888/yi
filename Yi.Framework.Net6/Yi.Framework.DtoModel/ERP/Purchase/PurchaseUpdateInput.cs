@@ -9,7 +9,7 @@ using Yi.Framework.Model.ERP.Entitys;
 
 namespace Yi.Framework.DtoModel.ERP.Purchase
 {
-    public class PurchaseCreateUpdateInput : EntityDto<long>
+    public class PurchaseUpdateInput : EntityDto<long>
     {
         public string Code { get; set; }
         public DateTime NeedTime { get; set; }

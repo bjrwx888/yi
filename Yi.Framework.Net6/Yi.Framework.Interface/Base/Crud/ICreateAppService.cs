@@ -17,5 +17,7 @@ namespace Yi.Framework.Interface.Base.Crud
         , in TCreateInputDto> : IApplicationService
     {
         Task<TCreateResultOutputDto> CreateAsync(TCreateInputDto dto);
+
+        Task CreateAsync(IEnumerable<TCreateInputDto> dtos);
     }
 }

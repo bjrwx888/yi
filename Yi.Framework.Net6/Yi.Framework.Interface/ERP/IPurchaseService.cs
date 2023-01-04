@@ -9,8 +9,8 @@ using Yi.Framework.Interface.Base.Crud;
 
 namespace Yi.Framework.Interface.ERP
 {
-    public interface IPurchaseService : ICrudAppService<PurchaseGetListOutput, long, PurchaseCreateUpdateInput>
+    public interface IPurchaseService : ICrudAppService<PurchaseGetListOutput, long, PurchaseCreateInput, PurchaseUpdateInput>
     {
-        Task<PageModel<List<PurchaseGetListOutput>>> PageListAsync(PurchaseCreateUpdateInput input, PageParModel page);
+        Task<PageModel<List<PurchaseGetListOutput>>> PageListAsync(PurchaseGetListInput input, PageParModel page);
     }
 }

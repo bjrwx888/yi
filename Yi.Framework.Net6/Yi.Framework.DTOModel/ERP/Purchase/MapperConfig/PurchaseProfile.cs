@@ -12,7 +12,7 @@ namespace Yi.Framework.DtoModel.ERP.Purchase.MapperConfig
     {
         public SuppliERProfile()
         {
-            CreateMap<PurchaseCreateUpdateInput, PurchaseEntity>();
+            CreateMap<PurchaseCreateInput, PurchaseEntity>();
             CreateMap<PurchaseEntity, PurchaseGetListOutput>();
 
         }

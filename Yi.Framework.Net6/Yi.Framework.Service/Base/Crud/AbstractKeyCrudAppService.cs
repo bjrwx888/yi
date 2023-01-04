@@ -75,6 +75,18 @@ namespace Yi.Framework.Service.Base.Crud
             return entitydto;
         }
 
+
+        public async virtual Task CreateAsync(IEnumerable<TCreateInput> dtos)
+        {
+
+            var entity = await MapToEntitysAsync(dtos);
+
+            TryToSetTenantId(entity);
+
+            //这边需要进行判断，实体是什么guid还是雪花id
+            await Repository.InsertReturnSnowflakeIdAsync(entity);
+        }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -126,6 +138,19 @@ namespace Yi.Framework.Service.Base.Crud
             MapToEntity(updateInput, entity);
             return Task.CompletedTask;
         }
+
+        /// <summary>
+        /// 将 批量更新输入dto转化为实体的异步
+        /// </summary>
+        /// <param name="updateInput"></param>
+        /// <param name="entity"></param>
+        protected virtual async Task<List<TEntity>> MapToEntitysAsync(IEnumerable<TCreateInput> updateInput)
+        {
+            List<TEntity> entitys = MapToEntitys(updateInput);
+
+            return await Task.FromResult(entitys);
+        }
+
         /// <summary>
         /// 将 更新输入dto转化为实体的同步方法
         /// </summary>
@@ -135,6 +160,17 @@ namespace Yi.Framework.Service.Base.Crud
         {
             ObjectMapper.Map(updateInput, entity);
         }
+
+        /// <summary>
+        ///  将 批量更新输入dto转化为实体的同步方法
+        /// </summary>
+        /// <param name="updateInput"></param>
+        /// <returns></returns>
+        protected virtual List<TEntity> MapToEntitys(IEnumerable<TCreateInput> updateInput)
+        {
+            return ObjectMapper.Map<List<TEntity>>(updateInput);
+        }
+
 
         /// <summary>
         /// 创建dto 给 实体的转换的异步方法
@@ -202,6 +238,16 @@ namespace Yi.Framework.Service.Base.Crud
 
             //}
         }
+
+        protected virtual void TryToSetTenantId(IEnumerable<TEntity> entitys)
+        {
+            foreach (var entity in entitys)
+            {
+                TryToSetTenantId(entity);
+            }
+
+        }
+
 
         /// <summary>
         /// 判断租户id的属性是否为空

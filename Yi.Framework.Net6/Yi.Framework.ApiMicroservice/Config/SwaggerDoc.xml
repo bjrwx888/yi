@@ -215,7 +215,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.PageList(Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.PageList(Yi.Framework.DtoModel.ERP.Purchase.PurchaseGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
             </summary>
@@ -227,14 +227,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Create(Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateUpdateInput)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Create(Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateInput)">
             <summary>
             增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Update(System.Int64,Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateUpdateInput)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Update(System.Int64,Yi.Framework.DtoModel.ERP.Purchase.PurchaseUpdateInput)">
             <summary>
             更
             </summary>

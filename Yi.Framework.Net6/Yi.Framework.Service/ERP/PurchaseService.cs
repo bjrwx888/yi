@@ -14,12 +14,17 @@ using Yi.Framework.Service.Base.Crud;
 
 namespace Yi.Framework.Service.ERP
 {
-    public class PurchaseService : CrudAppService<PurchaseEntity, PurchaseGetListOutput, long, PurchaseCreateUpdateInput>, IPurchaseService
+    public class PurchaseService : CrudAppService<PurchaseEntity, PurchaseGetListOutput, long, PurchaseCreateInput, PurchaseUpdateInput>, IPurchaseService
     {
-        public PurchaseService(IRepository<PurchaseEntity> repository, IMapper mapper) : base(repository, mapper)
+        private readonly ISugarUnitOfWork<UnitOfWork> _unitOfWork;
+        private readonly IPurchaseDetailsService _purchaseDetailsService;
+        public PurchaseService(IRepository<PurchaseEntity> repository, IMapper mapper, ISugarUnitOfWork<UnitOfWork> unitOfWork,
+            IPurchaseDetailsService purchaseDetailsService) : base(repository, mapper)
         {
+            _unitOfWork = unitOfWork;
+            _purchaseDetailsService = purchaseDetailsService;
         }
-        public async Task<PageModel<List<PurchaseGetListOutput>>> PageListAsync(PurchaseCreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<PurchaseGetListOutput>>> PageListAsync(PurchaseGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable
@@ -27,6 +32,24 @@ namespace Yi.Framework.Service.ERP
                 //.WhereIF(input.Name is not null, u => u.Name.Contains(input.Name))
                 .ToPageListAsync(page.PageNum, page.PageSize, totalNumber);
             return new PageModel<List<PurchaseGetListOutput>> { Total = totalNumber.Value, Data = await MapToGetListOutputDtosAsync(data) };
+        }
+
+        public override async Task<PurchaseGetListOutput> CreateAsync(PurchaseCreateInput input)
+        {
+
+            using (var uow = _unitOfWork.CreateContext())
+            {
+                var entity = await MapToEntityAsync(input);
+                entity.PaidMoney = 0;
+                entity.TotalMoney = input.PurchaseDetails.Sum(u => u.UnitPrice * u.TotalNumber);
+                entity.PurchaseState = PurchaseStateEnum.Build;
+                TryToSetTenantId(entity);
+                var purchaseId = await Repository.InsertReturnSnowflakeIdAsync(entity);
+
+                await _purchaseDetailsService.CreateAsync(input.PurchaseDetails);
+            }
+
+            return null;
         }
     }
 }

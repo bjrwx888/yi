@@ -22,7 +22,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] PurchaseCreateUpdateInput input, [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] PurchaseGetListInput input, [FromQuery] PageParModel page)
         {
             var result = await _purchaseService.PageListAsync(input, page);
             return Result.Success().SetData(result);
@@ -46,7 +46,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Result> Create(PurchaseCreateUpdateInput input)
+        public async Task<Result> Create(PurchaseCreateInput input)
         {
             var result = await _purchaseService.CreateAsync(input);
             return Result.Success().SetData(result);
@@ -60,7 +60,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public async Task<Result> Update(long id, PurchaseCreateUpdateInput input)
+        public async Task<Result> Update(long id, PurchaseUpdateInput input)
         {
             var result = await _purchaseService.UpdateAsync(id, input);
             return Result.Success().SetData(result);
