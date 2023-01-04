@@ -261,6 +261,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.UnitController.GetList">
+            <summary>
+            全查
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.UnitController.Create(Yi.Framework.DtoModel.ERP.Unit.UnitCreateUpdateInput)">
             <summary>
             增

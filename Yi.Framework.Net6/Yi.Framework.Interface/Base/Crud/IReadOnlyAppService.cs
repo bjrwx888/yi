@@ -21,6 +21,11 @@ namespace Yi.Framework.Interface.Base.Crud
         /// <returns></returns>
         Task<TDetail> GetByIdAsync(TKey id);
 
+        /// <summary>
+        /// 获取全部
+        /// </summary>
+        /// <returns></returns>
+        Task<List<TListDto>> GetListAsync();
 
         /// <summary>
         /// 根据url参数查询

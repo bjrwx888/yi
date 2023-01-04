@@ -122,8 +122,12 @@
     
           <el-table-column label="物料名称" align="center" prop="name" :show-overflow-tooltip="true"/>
 
-          <el-table-column label="单位" align="center" prop="unitName" :show-overflow-tooltip="true"/>
-    
+          <el-table-column label="单位" align="center" prop="unitName" :show-overflow-tooltip="true">
+             <template #default="scope">
+                 <el-tag>{{ scope.row.unitName }}</el-tag>
+              </template>
+          </el-table-column>
+
           <el-table-column label="备注" align="center" prop="remarks" :show-overflow-tooltip="true"/>
           <!-- <el-table-column label="状态" align="center" prop="isDeleted">
             <template #default="scope">
@@ -193,8 +197,15 @@
                    <el-input v-model="form.name" placeholder="请输入物料名称" />
             </el-form-item>
 
-            <el-form-item label="物料单位" prop="name">
-                   <el-input v-model="form.unitName" placeholder="请输入物料单位" />
+            <el-form-item label="物料单位" prop="unitName">
+                   <el-select v-model="form.unitName" filterable placeholder="请选择单位">
+                    <el-option
+                    v-for="item in unitList"
+                    :key="item.name"
+                    :label="item.name"
+                    :value="item.name"
+                    />
+                </el-select>
             </el-form-item>
             <!-- <el-form-item label="状态" prop="isDeleted">
               <el-radio-group v-model="form.isDeleted">
@@ -239,12 +250,17 @@
       addData,
       updateData,
     } from "@/api/erp/materialApi";
+
+    import {
+        allData as allUnitData,
+    } from "@/api/erp/unitApi";
     import { ref } from "@vue/reactivity";
 
     
     const { proxy } = getCurrentInstance();
     const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
     
+    const unitList=ref([]);
     const dataList = ref([]);
     const open = ref(false);
     const loading = ref(true);
@@ -266,6 +282,7 @@
       rules: {
         code: [{ required: true, message: "物料编号不能为空", trigger: "blur" }],
         name: [{ required: true, message: "物料名称不能为空", trigger: "blur" }],
+        unitName: [{ required: true, message: "物料单位不能为空", trigger: "blur" }]
       },
     });
     
@@ -283,6 +300,15 @@
         }
       );
     }
+    /**查询全部单位列表*/
+    function getUnitList() {
+        allUnitData().then(
+        (response) => {
+          unitList.value = response.data;
+        }
+      );
+    }
+
     /** 取消按钮 */
     function cancel() {
       open.value = false;
@@ -309,9 +335,7 @@ const queryRef=ref(null);
     /** 重置按钮操作 */
     function resetQuery() {
       dateRange.value = [];
-console.log(queryRef.value)
-      queryRef.value.resetFields();
-    //   proxy.resetForm("queryRef");
+      proxy.resetForm("queryRef");
       handleQuery();
     }
     /** 新增按钮操作 */
@@ -374,4 +398,5 @@ console.log(queryRef.value)
     function handleExport() {}
     
     getList();
+    getUnitList();
     </script>

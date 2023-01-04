@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+// 全查询
+export function allData() {
+  return request({
+    url: '/unit/getList',
+    method: 'get'
+  })
+}
+
 // 分页查询
 export function listData(query) {
   return request({

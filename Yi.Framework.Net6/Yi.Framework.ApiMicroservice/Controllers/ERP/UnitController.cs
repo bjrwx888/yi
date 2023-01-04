@@ -41,6 +41,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         }
 
         /// <summary>
+        /// 全查
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetList()
+        {
+            var result = await _unitService.GetListAsync();
+            return Result.Success().SetData(result);
+        }
+
+        /// <summary>
         /// 增
         /// </summary>
         /// <param name="input"></param>
