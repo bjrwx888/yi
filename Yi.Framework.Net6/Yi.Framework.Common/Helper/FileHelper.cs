@@ -407,6 +407,84 @@ namespace Yi.Framework.Common.Helper
 
             return folder.Select(x => x.Name).ToList();
         }
+        /// <summary>
+        /// 文件内容替换
+        /// </summary>
+        public static string FileContentReplace(string path, string oldStr, string newStr)
+        {
+            var content = File.ReadAllText(path);
 
+            if (content.Contains(oldStr))
+            {
+                File.Delete(path);
+                File.WriteAllText(path, content.Replace(oldStr, newStr));
+            }
+
+            return path;
+        }
+        /// <summary>
+        /// 文件名称
+        /// </summary>
+        public static string FileNameReplace(string path, string oldStr, string newStr)
+        {
+            string fileName = Path.GetFileName(path);
+            if (!fileName.Contains(oldStr))
+            {
+                return path;
+            }
+
+            string? directoryName = Path.GetDirectoryName(path);
+            string newFileName = fileName.Replace(oldStr, newStr);
+            string newPath = Path.Combine(directoryName ?? "", newFileName);
+            File.Move(path, newPath);
+
+            return newPath;
+        }
+        /// <summary>
+        /// 目录名替换
+        /// </summary>
+        public static string DirectoryNameReplace(string path, string oldStr, string newStr)
+        {
+            string fileName = Path.GetFileName(path);
+            if (!fileName.Contains(oldStr))
+            {
+                return path;
+            }
+
+            string? directoryName = Path.GetDirectoryName(path);
+            string newFileName = fileName.Replace(oldStr, newStr);
+            string newPath = Path.Combine(directoryName ?? "", newFileName);
+            Directory.Move(path, newPath);
+            return newPath;
+        }
+
+        /// <summary>
+        ///  全部信息递归替换
+        /// </summary>
+        /// <param name="dirPath"></param>
+        /// <param name="oldStr"></param>
+        /// <param name="newStr"></param>
+        public static void AllInfoReplace(string dirPath, string oldStr, string newStr)
+        {
+            var path = DirectoryNameReplace(dirPath, oldStr, newStr);
+            var dirInfo = new DirectoryInfo(path);
+            var files = dirInfo.GetFiles();
+            var dirs = dirInfo.GetDirectories();
+            if (files.Length > 0)
+            {
+                foreach (var f in files)
+                {
+                    FileContentReplace(f.FullName, oldStr, newStr);
+                    FileNameReplace(f.FullName, oldStr, newStr);
+                }
+            }
+            if (dirs.Length > 0)
+            {
+                foreach (var d in dirs)
+                {
+                    AllInfoReplace(d.FullName, oldStr, newStr);
+                }
+            }
+        }
     }
 }
