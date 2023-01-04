@@ -20,7 +20,7 @@
 
 Yi框架-一套与SqlSugar一样爽的.Net6低代码开源框架。
 与Sqlsugar理念一致，以用户体验出发。
-架构干净整洁、无业务代码、采用微软风格原生框架封装、WebFrist开发。
+架构干净整洁、无业务代码、采用微软风格原生框架封装、CodeFrist+自研配套模板生成器 开发。
 适合.Net6学习、Sqlsugar学习 、项目二次开发。
 集大成者，终究轮子
 
@@ -56,15 +56,11 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 
 网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~
 
-WebFirst开发：所有代码生成器已经配置完成，无需任何操作数据库及任何代码，只需要网页表格上点点点即可
+~~ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数据库及任何代码，只需要网页表格上点点点即可 ~~
 
-[https://www.donet5.com/Doc/11](https://www.donet5.com/Doc/11)
+代码自动生成：
 
-谁能把持的住Sqlsugar作者自己都依赖成瘾的东西呢？这是继DbFirst、CodeFirst下一代的划时代产品！无脑爽！
-
-![image](https://s1.ax1x.com/2022/04/12/Lnm5Yq.png)
-
-（首次添加实体后，生成代码记得修改对应的路径哦~~）
+![代码生成](Readme/%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90.gif)
 
 ### 支持:
 
