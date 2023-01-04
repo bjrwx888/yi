@@ -56,7 +56,7 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 
 网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~
 
-~~ WebFirst开发：所有代码生成器已经配置完成，无需任何操作数据库及任何代码，只需要网页表格上点点点即可 ~~
+~~WebFirst开发：所有代码生成器已经配置完成，无需任何操作数据库及任何代码，只需要网页表格上点点点即可~~
 
 代码自动生成：
 
