@@ -12,7 +12,7 @@ namespace Yi.Framework.Template.Provider.Server
     {
         public ProfileTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\Code_Server\Yi.Framework.DtoModel\{TemplateConst.ModelName}\{TemplateConst.EntityName}\MapperConfig\{TemplateConst.EntityName}Profile.cs";
+            BuildPath = $@"..\..\..\..\Yi.Framework.DtoModel\{TemplateConst.ModelName}\{TemplateConst.EntityName}\MapperConfig\{TemplateConst.EntityName}Profile.cs";
             TemplatePath = $@"..\..\..\Template\Server\ProfileTemplate.txt";
         }
     }

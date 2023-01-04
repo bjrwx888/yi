@@ -12,7 +12,7 @@ namespace Yi.Framework.Template.Provider.Site
     {
         public ApiTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\Code_Site\src\api\{TemplateConst.ModelName}\{TemplateConst.LowerEntityName}Api.js";
+            BuildPath = $@"..\..\..\Code_Site\src\api\{TemplateConst.LowerModelName}\{TemplateConst.LowerEntityName}Api.js";
             TemplatePath = $@"..\..\..\Template\Site\ApiTemplate.txt";
         }
     }

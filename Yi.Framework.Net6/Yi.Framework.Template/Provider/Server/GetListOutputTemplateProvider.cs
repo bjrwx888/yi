@@ -12,7 +12,7 @@ namespace Yi.Framework.Template.Provider.Server
     {
         public GetListOutputTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\Code_Server\Yi.Framework.DtoModel\{TemplateConst.ModelName}\{TemplateConst.EntityName}\{TemplateConst.EntityName}GetListOutput.cs";
+            BuildPath = $@"..\..\..\..\Yi.Framework.DtoModel\{TemplateConst.ModelName}\{TemplateConst.EntityName}\{TemplateConst.EntityName}GetListOutput.cs";
             TemplatePath = $@"..\..\..\Template\Server\GetListOutputTemplate.txt";
             EntityPath = $@"..\..\..\..\Yi.Framework.Model\{TemplateConst.ModelName}\Entitys\{TemplateConst.EntityName}Entity.cs";
         }

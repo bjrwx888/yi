@@ -12,7 +12,7 @@ namespace Yi.Framework.Template.Provider.Server
     {
         public ControllerTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\Code_Server\Yi.Framework.ApiMicroservice\Controllers\{TemplateConst.ModelName}\{TemplateConst.EntityName}Controller.cs";
+            BuildPath = $@"..\..\..\..\Yi.Framework.ApiMicroservice\Controllers\{TemplateConst.ModelName}\{TemplateConst.EntityName}Controller.cs";
             TemplatePath = $@"..\..\..\Template\Server\ControllerTemplate.txt";
         }
     }

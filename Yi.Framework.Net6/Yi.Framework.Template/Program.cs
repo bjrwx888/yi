@@ -7,7 +7,7 @@ TemplateFactory templateFactory = new();
 //选择需要生成的模板提供者
 
 string modelName = "ERP";
-List<string> entityNames =new (){ "Supplier", "Purchase", "PurchaseDetails" };
+List<string> entityNames =new (){ "_" };
 
 foreach (var entityName in entityNames)
 {

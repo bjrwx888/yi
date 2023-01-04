@@ -12,7 +12,7 @@ namespace Yi.Framework.Template.Provider.Server
     {
         public IServceTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\Code_Server\Yi.Framework.Interface\{TemplateConst.ModelName}\I{TemplateConst.EntityName}Service.cs";
+            BuildPath = $@"..\..\..\..\Yi.Framework.Interface\{TemplateConst.ModelName}\I{TemplateConst.EntityName}Service.cs";
             TemplatePath = $@"..\..\..\Template\Server\IServiceTemplate.txt";
         }
     }

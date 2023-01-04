@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
 using Yi.Framework.Model.Base;
 
 namespace Yi.Framework.Model.ERP.Entitys
 {
     /// <summary>
-    /// 采购订单子表
+    /// 仓库定义
     /// </summary>
-    [SugarTable("PurchaseDetail")]
-    public class PurchaseDetailsEntity : IEntity<long>, IMultiTenant
+    [SugarTable("Warehouse")]
+    public class WarehouseEntity : IEntity<long>, IMultiTenant
     {
         /// <summary>
         /// 主键
@@ -28,31 +29,23 @@ namespace Yi.Framework.Model.ERP.Entitys
         public Guid? TenantId { get; set; }
 
         /// <summary>
-        /// 采购单id
+        /// 仓库编码
         /// </summary>
-        public long PurchaseId { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
-        /// 物料id
+        /// 仓库名称
         /// </summary>
-        public long MaterialId { get; set; }
+        public string Name { get; set; }
 
-        /// <summary>
-        /// 单价
-        /// </summary>
-
-        public float UnitPrice { get; set; }
-        /// <summary>
-        /// 总数量
-        /// </summary>
-        public long TotalNumber { get; set; }
-        /// <summary>
-        /// 已完成数量
-        /// </summary>
-        public long CompleteNumber { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
         public string Remarks { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public StateEnum State { get; set; }
     }
 }

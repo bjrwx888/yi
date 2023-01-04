@@ -8,20 +8,20 @@
           v-show="showSearch"
           label-width="100px"
         >
-          <el-form-item label="供应商名称" prop="name" >
+          <el-form-item label="物料名称" prop="name" >
             <el-input
               v-model="queryParams.name"
-              placeholder="请输入供应商名称"
+              placeholder="请输入物料名称"
               clearable
               style="width: 240px"
               @keyup.enter="handleQuery"
               prop="name"
             />
           </el-form-item>
-          <el-form-item label="供应商编号" prop="code" >
+          <el-form-item label="物料编号" prop="code" >
             <el-input
               v-model="queryParams.code"
-              placeholder="请输入供应商编号"
+              placeholder="请输入物料编号"
               clearable
               style="width: 240px"
               @keyup.enter="handleQuery"
@@ -68,7 +68,7 @@
               plain
               icon="Plus"
               @click="handleAdd"
-              v-hasPermi="['erp:supplier:add']"
+              v-hasPermi="['erp:material:add']"
               >新增</el-button
             >
           </el-col>
@@ -79,7 +79,7 @@
               icon="Edit"
               :disabled="single"
               @click="handleUpdate"
-              v-hasPermi="['erp:supplier:edit']"
+              v-hasPermi="['erp:material:edit']"
               >修改</el-button
             >
           </el-col>
@@ -90,7 +90,7 @@
               icon="Delete"
               :disabled="multiple"
               @click="handleDelete"
-              v-hasPermi="['erp:supplier:remove']"
+              v-hasPermi="['erp:material:remove']"
               >删除</el-button
             >
           </el-col>
@@ -100,7 +100,7 @@
               plain
               icon="Download"
               @click="handleExport"
-              v-hasPermi="['erp:supplier:export']"
+              v-hasPermi="['erp:material:export']"
               >导出</el-button
             >
           </el-col>
@@ -118,19 +118,13 @@
           <el-table-column type="selection" width="55" align="center" />
 
           <!-----------------------这里开始就是数据表单的全部列------------------------>
-          <el-table-column label="供应商编号" align="center" prop="code" />
+          <el-table-column label="物料编号" align="center" prop="code" />
     
-          <el-table-column label="供应商名称" align="center" prop="name" :show-overflow-tooltip="true"/>
+          <el-table-column label="物料名称" align="center" prop="name" :show-overflow-tooltip="true"/>
+
+          <el-table-column label="单位" align="center" prop="unitName" :show-overflow-tooltip="true"/>
     
-          <el-table-column label="详细地址" align="center" prop="address" :show-overflow-tooltip="true"/>
-
-          <el-table-column label="联系人" align="center" prop="name" :show-overflow-tooltip="true"/>
-
-          <el-table-column label="联系电话" align="center" prop="phone" :show-overflow-tooltip="true"/>
-
-          <el-table-column label="传真" align="center" prop="fax" :show-overflow-tooltip="true"/>
-
-          <el-table-column label="邮箱" align="center" prop="email" :show-overflow-tooltip="true"/>
+          <el-table-column label="备注" align="center" prop="remarks" :show-overflow-tooltip="true"/>
           <!-- <el-table-column label="状态" align="center" prop="isDeleted">
             <template #default="scope">
               <dict-tag
@@ -191,32 +185,16 @@
         <!-- ---------------------这里是新增和更新的对话框--------------------- -->
         <el-dialog :title="title" v-model="open" width="600px" append-to-body>
           <el-form ref="dataRef" :model="form" :rules="rules" label-width="100px">
-            <el-form-item label="供应商编码" prop="code">
-                   <el-input v-model="form.code" placeholder="请输入供应商编码" />
+            <el-form-item label="物料编码" prop="code">
+                   <el-input v-model="form.code" placeholder="请输入物料编码" />
             </el-form-item>
 
-            <el-form-item label="供应商名称" prop="name">
-                   <el-input v-model="form.name" placeholder="请输入供应商名称" />
+            <el-form-item label="物料名称" prop="name">
+                   <el-input v-model="form.name" placeholder="请输入物料名称" />
             </el-form-item>
 
-            <el-form-item label="地址" prop="address">
-                   <el-input v-model="form.address" placeholder="请输入地址" />
-            </el-form-item>
-
-            <el-form-item label="供应商编码" prop="code">
-                   <el-input v-model="form.code" placeholder="请输入供应商编码" />
-            </el-form-item>
-
-            <el-form-item label="联系电话" prop="phone">
-                   <el-input v-model="form.phone" placeholder="请输入联系电话" />
-            </el-form-item>
-
-            <el-form-item label="传真" prop="fax">
-                   <el-input v-model="form.fax" placeholder="请输入传真" />
-            </el-form-item>
-
-            <el-form-item label="邮箱" prop="email">
-                   <el-input v-model="form.email" placeholder="请输入邮箱" />
+            <el-form-item label="物料单位" prop="name">
+                   <el-input v-model="form.unitName" placeholder="请输入物料单位" />
             </el-form-item>
             <!-- <el-form-item label="状态" prop="isDeleted">
               <el-radio-group v-model="form.isDeleted">
@@ -260,7 +238,7 @@
       delData,
       addData,
       updateData,
-    } from "@/api/erp/supplierApi";
+    } from "@/api/erp/materialApi";
     import { ref } from "@vue/reactivity";
 
     
@@ -283,11 +261,11 @@
         pageNum: 1,
         pageSize: 10,
         name: undefined,
-        code: undefined,
+        code: undefined
       },
       rules: {
-        code: [{ required: true, message: "供应商编号不能为空", trigger: "blur" }],
-        name: [{ required: true, message: "供应商名称不能为空", trigger: "blur" }],
+        code: [{ required: true, message: "物料编号不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "物料名称不能为空", trigger: "blur" }],
       },
     });
     
@@ -316,7 +294,6 @@
     function reset() {
       form.value = {
         id: undefined,
-        title: undefined,
         isDeleted: false,
         remark: undefined,
       };
@@ -327,17 +304,21 @@
       queryParams.value.pageNum = 1;
       getList();
     }
+
+const queryRef=ref(null);
     /** 重置按钮操作 */
     function resetQuery() {
       dateRange.value = [];
-      proxy.resetForm("queryRef");
+console.log(queryRef.value)
+      queryRef.value.resetFields();
+    //   proxy.resetForm("queryRef");
       handleQuery();
     }
     /** 新增按钮操作 */
     function handleAdd() {
       reset();
       open.value = true;
-      title.value = "添加供应商";
+      title.value = "添加物料";
     }
     /** 多选框选中数据 */
     function handleSelectionChange(selection) {
@@ -352,7 +333,7 @@
       getData(id).then((response) => {
         form.value = response.data;
         open.value = true;
-        title.value = "修改供应商";
+        title.value = "修改物料";
       });
     }
     /** 提交按钮 */
