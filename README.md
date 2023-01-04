@@ -20,11 +20,11 @@
 
 Yi框架-一套与SqlSugar一样爽的.Net6低代码开源框架。
 与Sqlsugar理念一致，以用户体验出发。
-架构干净整洁、无业务代码、采用微软风格原生框架封装、CodeFrist+自研配套模板生成器 开发。
+架构干净整洁、无业务代码、采用微软风格原生框架封装、CodeFrist+配套自研文件模板代码生成器 开发。
 适合.Net6学习、Sqlsugar学习 、项目二次开发。
 集大成者，终究轮子
 
-Yi框架最新版本标签：`v1.2.0`，具体版本可以查看标签迭代
+Yi框架最新版本标签：`v1.2.1`，具体版本可以查看标签迭代
 
 （项目与Sqlsugar同步更新，但这作者老杰哥代码天天爆肝到凌晨两点，我们也尽量会跟上他的脚步。更新频繁，所以可watching持续关注。）
 
@@ -36,11 +36,13 @@ Yi框架最新版本标签：`v1.2.0`，具体版本可以查看标签迭代
 
 **SqlSugar**:.Net6 DDD领域驱动设计 简单分层微服务架构
 
-- Yi.Framework.Net6：.NetCore 6 意框架
+- Yi.Framework.Net6：.NetCore 6 意框架 （后端）
 
-- Yi.Vue3.X.RuoYi：Vue3 RuoYi前端框架
+- Yi.Vue3.X.RuoYi：Vue3 RuoYi前端框架 （前端后台）
 
   （你没有听错，已经接入java流行指数最高最火爆的框架之一，与其他框架不同，Yi框架后端为完全重制版，并非为ruoyi java模仿版）
+  
+- Yi.Vue3.x.Vant：Vue3 移动端前端框架 （前端前台）持续迭代
 
 **SqlSugar-Dev**：为sqlsugar分支的实时开发版本
 
@@ -91,8 +93,8 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 ****
 <h3>业务支持模块</h3>
 
+RABC权限管理系统（正在更新）
 （大部分ruoyi功能，采用ruoyi前端）
-
 - 用户管理
 - 角色管理
 - 菜单管理
@@ -103,6 +105,22 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 - 用户在线
 - 操作日志
 - 登录日志
+- 等等
+
+ERP进销存系统（正在更新）
+- 供货商管理
+- 等等
+
+BBS论坛系统（持续迭代）
+- 文章管理
+- 评论管理
+- 等等
+
+SHOP电商系统（持续迭代）
+- SPU管理
+- SKU管理
+- 商品规格
+- 商品分类
 - 等等
 
 
@@ -123,8 +141,6 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 - [x] 支持采用`异步`开发awit/async
 - [x] 支持数据库主从`读写分离`
 - [x] 支持功能替换，无需改动代码，只需配置`json文件`进行装配即可
-- [x] 支持WebFirst，无需改动代码，自动生成全套代码与数据库，只需点点点
-- [x] 支持`用户-角色-菜单-接口`以及vue2.0前端全部逻辑代码，下载无需修改直接使用
 - [x] 支持`Aop封装`，FilterAop、IocAop、LogAop、SqlAop
 - [x] 支持`Log4Net日志`记录，自动生成至bin目录下的logs文件夹
 - [x] 支持`DbSeed数据库种子数据`接入
@@ -136,11 +152,13 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 - [x] 支持`consul`服务器注册与发现
 - [x] 支持`健康检查`
 - [x] 支持`RabbitMQ`消息队列
-- [x] 支持`Redis`多级缓存 
+- [x] 支持`Redis`多级缓存
+- [x] 支持`MemoryCache`多级缓存 
 - [x] 支持`Ocelot`网关，路由、服务聚合、服务发现、认证、鉴权、限流、熔断、缓存、Header头传递
 - [x] 支持`Apollo`全局配置中心;
 - [x] 支持`docker`镜像制作
 - [x] 支持`Quartz.net`任务调度，实现任意接口被调度
+- [x] 支持`ThumbnailSharp`缩略图封装
 - [x] 支持`ELK`，log4net+kafka+es+logstach+kibana
 - [x] 支持`IdentityService4`授权中心
 - [x] 支持`Es`分词查询
@@ -149,12 +167,15 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 - [x] 支持`Docker+k8s`部署
 - [x] 支持`Jenkins+CI/CD`
 - [x] 支持`AutoMapper`模块映射
-- [x] 支持`微信支付`
+- [x] 支持`微信支付`模块
 - [x] 支持`单表多租户`常用功能
 - [x] 支持`逻辑删除`常用功能
 - [x] 支持`操作日志`常用功能
 - [x] 支持`自动分表`
 - [x] 支持`数据权限`
+- [x] 支持`CodeFrist`快速构建数据库
+- [x] 支持自研文件版`代码生成器`快速构建通用代码
+- [x] 支持完整`Dto`模式
 - [x] 支持 太多了忘了
 
 
@@ -169,10 +190,11 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 
 分层如此清晰！什么？还感觉太复杂了？用户只需关注Api、Service其他都是轮子啊！
 
-~~- BackGround：后台进程（目前可以无视，等待更新）~~
-- Client：客户端（测试、客户端）
+- BackGround：后台进程（通常使用消息队列进行消费任务）
+- Test：测试（单元测试）
 - Domain：领域层（Dto、服务接口层、模型层、仓储层、服务层）
 - Infrastructure：基础实例层(通用工具层、核心层、定时任务Job、国际化、Web扩展层)
+- Module：模块层（其他模块，可按需进行引入，例如微信支付、代码生成）
 - MicroServiceInstance：服务层（微服务）
 
 ****
@@ -180,14 +202,20 @@ API服务：[yi.ccnetcore.com](http://yi.ccnetcore.com)    管理员账号：cc 
 
 我们将在之后更新教程手册！
 
+后端
 1.  下载全部源码，默认使用sqlite数据库，已经生成
-2.  直接点击sln文件运行即可，没有其他依赖
+2.  直接点击sln文件运行即可，没有任何其他依赖
+
+前端
+1.  下载全部源码，npm i 安装依赖
+2.  使用npm run dev进行运行
+
 
 ****
 ### 使用说明:
 
-1.  导入使用仓库中的WebFirst数据库
-2.  使用WebFirst添加实体、同步实体、修改模板生成路径并生成方案
+~~1.  导入使用仓库中的WebFirst数据库~~
+~~2.  使用WebFirst添加实体、同步实体、修改模板生成路径并生成方案~~
 
  没了，恭喜你已经成功完成了项目，并且已经具备大部分通用场景业务
 是不是一个字？爽！
