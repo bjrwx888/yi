@@ -1,10 +1,9 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DtoModel.RABC.Student;
 using Yi.Framework.Interface.RABC;
 
-namespace Brick.IFServer.Controllers
+namespace Yi.Framework.ApiMicroservice.Controllers.ERP
 {
     [ApiController]
     [Route("[controller]")]

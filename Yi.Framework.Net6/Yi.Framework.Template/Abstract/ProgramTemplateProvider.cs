@@ -16,6 +16,8 @@ namespace Yi.Framework.Template.Abstract
             EntityName = entityName;
             base.AddTemplateDic(TemplateConst.EntityName, EntityName);
             base.AddTemplateDic(TemplateConst.ModelName, ModelName);
+            base.AddTemplateDic(TemplateConst.LowerEntityName, EntityName.Substring(0, 1).ToLower() + EntityName.Substring(1));
+            base.AddTemplateDic(TemplateConst.LowerModelName, ModelName.ToLower());
         }
         /// <summary>
         /// 实体名称
@@ -34,11 +36,21 @@ namespace Yi.Framework.Template.Abstract
             get => base.BuildPath;
             set
             {
-                value = value!.Replace(TemplateConst.EntityName, EntityName);
-                value = value.Replace(TemplateConst.ModelName, ModelName);
+                value = ReplaceTemplateDic(value!);
+
                 base.BuildPath = value;
             }
         }
+
+        public string ReplaceTemplateDic(string str)
+        {
+            foreach (var ky in TemplateDic)
+            {
+                str = str.Replace(ky.Key, ky.Value);
+            }
+            return str;
+        }
+
 
         public override void Build()
         {
@@ -47,12 +59,9 @@ namespace Yi.Framework.Template.Abstract
                 throw new ArgumentNullException(nameof(BuildPath));
             }
             var templateData = GetTemplateData();
-            foreach (var ky in TemplateDic)
-            {
-                templateData = templateData.Replace(ky.Key, ky.Value);
-            }
+            templateData = ReplaceTemplateDic(templateData);
             if (!Directory.Exists(Path.GetDirectoryName(BuildPath)))
-            { 
+            {
                 Directory.CreateDirectory(Path.GetDirectoryName(BuildPath)!);
             }
             File.WriteAllText(BuildPath, templateData);

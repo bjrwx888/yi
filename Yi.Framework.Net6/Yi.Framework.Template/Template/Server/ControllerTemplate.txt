@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Models;
-using Yi.Framework.DtoModel.ERP.Supplier;
-using Yi.Framework.Interface.ERP;
+using Yi.Framework.DtoModel.#ModelName#.#EntityName#;
+using Yi.Framework.Interface.#ModelName#;
 
-namespace Yi.Framework.ApiMicroservice.Controllers.ERP
+namespace Yi.Framework.ApiMicroservice.Controllers.#ModelName#
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class SupplierController : ControllerBase
+    public class #EntityName#Controller : ControllerBase
     {
-        private readonly ILogger<SupplierController> _logger;
-        private readonly ISupplierService _supplierService;
-        public SupplierController(ILogger<SupplierController> logger, ISupplierService supplierService)
+        private readonly ILogger<#EntityName#Controller> _logger;
+        private readonly I#EntityName#Service _#LowerEntityName#Service;
+        public #EntityName#Controller(ILogger<#EntityName#Controller> logger, I#EntityName#Service #LowerEntityName#Service)
         {
             _logger = logger;
-            _supplierService = supplierService;
+            _#LowerEntityName#Service = #LowerEntityName#Service;
         }
 
         /// <summary>
@@ -22,9 +22,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] SupplierCreateUpdateInput input, [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] #EntityName#CreateUpdateInput input, [FromQuery] PageParModel page)
         {
-            var result = await _supplierService.PageListAsync(input, page);
+            var result = await _#LowerEntityName#Service.PageListAsync(input, page);
             return Result.Success().SetData(result);
         }
 
@@ -36,7 +36,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         [Route("{id}")]
         public async Task<Result> GetById(long id)
         {
-            var result = await _supplierService.GetByIdAsync(id);
+            var result = await _#LowerEntityName#Service.GetByIdAsync(id);
             return Result.Success().SetData(result);
         }
 
@@ -46,9 +46,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Result> Create(SupplierCreateUpdateInput input)
+        public async Task<Result> Create(#EntityName#CreateUpdateInput input)
         {
-            var result = await _supplierService.CreateAsync(input);
+            var result = await _#LowerEntityName#Service.CreateAsync(input);
             return Result.Success().SetData(result);
         }
 
@@ -60,9 +60,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public async Task<Result> Update(long id, SupplierCreateUpdateInput input)
+        public async Task<Result> Update(long id, #EntityName#CreateUpdateInput input)
         {
-            var result = await _supplierService.UpdateAsync(id, input);
+            var result = await _#LowerEntityName#Service.UpdateAsync(id, input);
             return Result.Success().SetData(result);
         }
 
@@ -74,7 +74,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         [HttpDelete]
         public async Task<Result> Del(List<long> ids)
         {
-            await _supplierService.DeleteAsync(ids);
+            await _#LowerEntityName#Service.DeleteAsync(ids);
             return Result.Success();
         }
     }
