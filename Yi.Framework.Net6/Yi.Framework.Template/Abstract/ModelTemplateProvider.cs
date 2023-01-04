@@ -67,6 +67,11 @@ namespace Yi.Framework.Template.Abstract
                         continue;
                     }
                 }
+                //以}结尾，不包含get不是属性，代表类结尾
+                if (enetityDatas[i].EndsWith("}") && !enetityDatas[i].Contains("get"))
+                {
+                    break;
+                }
             }
 
             //拼接实体字段

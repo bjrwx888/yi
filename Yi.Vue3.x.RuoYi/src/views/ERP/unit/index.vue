@@ -287,12 +287,6 @@
 
     /** 表单重置 */
     function reset() {
-      form.value = {
-        id: undefined,
-        title: undefined,
-        isDeleted: false,
-        remark: undefined,
-      };
       proxy.resetForm("dataRef");
     }
     /** 搜索按钮操作 */

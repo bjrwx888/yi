@@ -38,9 +38,14 @@ namespace Yi.Framework.Model.ERP.Entitys
         public long MaterialId { get; set; }
 
         /// <summary>
+        /// 物料单位
+        /// </summary>
+        public string MaterialUnit { get; set; }
+
+
+        /// <summary>
         /// 单价
         /// </summary>
-
         public float UnitPrice { get; set; }
         /// <summary>
         /// 总数量

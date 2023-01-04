@@ -215,6 +215,74 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.PageList(Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            分页查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.GetById(System.Int64)">
+            <summary>
+            单查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Create(Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateUpdateInput)">
+            <summary>
+            增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Update(System.Int64,Yi.Framework.DtoModel.ERP.Purchase.PurchaseCreateUpdateInput)">
+            <summary>
+            更
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Del(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            删
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.PageList(Yi.Framework.DtoModel.ERP.PurchaseDetails.PurchaseDetailsCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            分页查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.GetById(System.Int64)">
+            <summary>
+            单查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.Create(Yi.Framework.DtoModel.ERP.PurchaseDetails.PurchaseDetailsCreateUpdateInput)">
+            <summary>
+            增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.Update(System.Int64,Yi.Framework.DtoModel.ERP.PurchaseDetails.PurchaseDetailsCreateUpdateInput)">
+            <summary>
+            更
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.Del(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            删
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.SupplierController.PageList(Yi.Framework.DtoModel.ERP.Supplier.SupplierCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查

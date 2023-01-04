@@ -41,13 +41,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             }
             catch (Exception ex)
             {
-                _logger.LogError("系统错误",ex);
+                _logger.LogError(ex,$"系统错误:{ex.Message}");
                 //await _errorHandle.Invoer(context, ex);
                 var statusCode = context.Response.StatusCode;
-                if (ex is ArgumentException)
-                {
-                    statusCode = 200;
-                }
+                context.Response.StatusCode = 500;
                 await HandleExceptionAsync(context, statusCode, ex.Message);
             }
             finally
