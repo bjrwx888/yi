@@ -14,28 +14,17 @@ namespace Yi.Framework.Service.Base.Crud
       : CrudAppService<TEntity, TEntityDto, TKey, TEntityDto>
       where TEntity : class, IEntity<TKey>, new()
     {
-        protected CrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
     }
 
-    public abstract class CrudAppService<TEntity, TEntityDto, TKey, TCreateInput>
-        : CrudAppService<TEntity, TEntityDto, TKey, TCreateInput, TCreateInput>
+    public abstract class CrudAppService<TEntity, TEntityDto, TKey, TCreateInputDto>
+        : CrudAppService<TEntity, TEntityDto, TKey, TCreateInputDto, TCreateInputDto>
         where TEntity : class, IEntity<TKey>, new()
     {
-        protected CrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
     }
 
-    public abstract class CrudAppService<TEntity, TEntityDto, TKey, TCreateInput, TUpdateInput>
-        : CrudAppService<TEntity, TEntityDto, TEntityDto, TKey, TCreateInput, TUpdateInput>
+    public abstract class CrudAppService<TEntity, TEntityDto, TKey, TCreateInputDto, TUpdateInputDto>: CrudAppService<TEntity, TEntityDto, TEntityDto, TKey, TCreateInputDto, TUpdateInputDto>
         where TEntity : class, IEntity<TKey>, new()
     {
-        protected CrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
-
         protected override Task<TEntityDto> MapToGetListOutputDtoAsync(TEntity entity)
         {
             return MapToGetOutputDtoAsync(entity);
@@ -47,14 +36,10 @@ namespace Yi.Framework.Service.Base.Crud
         }
     }
 
-    public abstract class CrudAppService<TEntity, TGetOutputDto, TGetListOutputDto, TKey, TCreateInput, TUpdateInput>
-         : AbstractKeyCrudAppService<TEntity, TGetOutputDto, TGetListOutputDto, TKey, TCreateInput, TUpdateInput>
+    public abstract class CrudAppService<TEntity, TGetOutputDto, TListOutputDto, TKey, TCreateInputDto, TUpdateInputDto>
+         : AbstractKeyCrudAppService<TEntity, TGetOutputDto, TListOutputDto, TKey, TCreateInputDto, TUpdateInputDto>
          where TEntity : class, IEntity<TKey>, new()
     {
-        protected CrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
-
         protected override async Task DeleteByIdAsync(TKey id)
         {
             await DeleteAsync(new List<TKey> { id });
@@ -65,7 +50,7 @@ namespace Yi.Framework.Service.Base.Crud
             return await Repository.GetByIdAsync(id);
         }
 
-        protected override void MapToEntity(TUpdateInput updateInput, TEntity entity)
+        protected override void MapToEntity(TUpdateInputDto updateInput, TEntity entity)
         {
             if (updateInput is IEntityDto<TKey> entityDto)
             {

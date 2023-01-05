@@ -13,29 +13,29 @@ namespace Yi.Framework.DtoModel.ERP.Supplier
         /// <summary>
         /// 供应商编码
         /// </summary>
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         /// <summary>
         /// 供应商名称
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// 供应商地址
         /// </summary>
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
-        public long Phone { get; set; }
+        public long? Phone { get; set; }
         /// <summary>
         /// 传真
         /// </summary>
-        public string Fax { get; set; }
+        public string? Fax { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
     }
 }

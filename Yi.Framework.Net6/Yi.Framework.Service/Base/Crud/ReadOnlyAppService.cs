@@ -14,10 +14,6 @@ namespace Yi.Framework.Service.Base.Crud
            : AbstractKeyReadOnlyAppService<TEntity, TGetOutputDto, TGetListOutputDto, TKey>
            where TEntity : class, IEntity<TKey>, new()
     {
-        protected ReadOnlyAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
-
         protected override async Task<TEntity> GetEntityByIdAsync(TKey id)
         {
             return await Repository.GetByIdAsync(id);

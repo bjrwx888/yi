@@ -14,10 +14,6 @@ namespace Yi.Framework.Service.RABC
 {
     public class StudentService : CrudAppService<StudentEntity, StudentGetOutput, StudentListOutput, Guid, StudentCreateInput, StudentUpdateInput>, IStudentService
     {
-        public StudentService(IRepository<StudentEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
-
         public async Task<List<StudentListOutput>> GetListAsync()
         {
             return await MapToGetListOutputDtosAsync(await Repository.GetListAsync());

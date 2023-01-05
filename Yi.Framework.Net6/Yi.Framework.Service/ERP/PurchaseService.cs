@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DtoModel.ERP.Purchase;
 using Yi.Framework.Interface.ERP;
+using Yi.Framework.Model.Base;
 using Yi.Framework.Model.ERP.Entitys;
 using Yi.Framework.Repository;
 using Yi.Framework.Service.Base.Crud;
@@ -16,10 +18,10 @@ namespace Yi.Framework.Service.ERP
 {
     public class PurchaseService : CrudAppService<PurchaseEntity, PurchaseGetListOutput, long, PurchaseCreateInput, PurchaseUpdateInput>, IPurchaseService
     {
-        private readonly ISugarUnitOfWork<UnitOfWork> _unitOfWork;
+        private ISugarUnitOfWork<UnitOfWork> _unitOfWork;
         private readonly IPurchaseDetailsService _purchaseDetailsService;
-        public PurchaseService(IRepository<PurchaseEntity> repository, IMapper mapper, ISugarUnitOfWork<UnitOfWork> unitOfWork,
-            IPurchaseDetailsService purchaseDetailsService) : base(repository, mapper)
+        public PurchaseService(ISugarUnitOfWork<UnitOfWork> unitOfWork,
+            IPurchaseDetailsService purchaseDetailsService)
         {
             _unitOfWork = unitOfWork;
             _purchaseDetailsService = purchaseDetailsService;
@@ -36,20 +38,20 @@ namespace Yi.Framework.Service.ERP
 
         public override async Task<PurchaseGetListOutput> CreateAsync(PurchaseCreateInput input)
         {
-
+            PurchaseEntity entity = null;
             using (var uow = _unitOfWork.CreateContext())
             {
-                var entity = await MapToEntityAsync(input);
+                entity = await MapToEntityAsync(input);
                 entity.PaidMoney = 0;
                 entity.TotalMoney = input.PurchaseDetails.Sum(u => u.UnitPrice * u.TotalNumber);
                 entity.PurchaseState = PurchaseStateEnum.Build;
                 TryToSetTenantId(entity);
                 var purchaseId = await Repository.InsertReturnSnowflakeIdAsync(entity);
-
+                entity.Id = purchaseId;
                 await _purchaseDetailsService.CreateAsync(input.PurchaseDetails);
+                uow.Commit();
             }
-
-            return null;
+            return await MapToGetListOutputDtoAsync(entity); ;
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Attribute;
+using Yi.Framework.Common.Enum;
+using Yi.Framework.Common.Exceptions;
 using Yi.Framework.Interface.Base.Crud;
 using Yi.Framework.Model.Base;
 using Yi.Framework.Repository;
@@ -17,9 +20,6 @@ namespace Yi.Framework.Service.Base.Crud
     : AbstractKeyReadOnlyAppService<TEntity, TEntityDto, TEntityDto, TKey>
     where TEntity : class, IEntity, new()
     {
-        protected AbstractKeyReadOnlyAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
     }
 
 
@@ -27,13 +27,8 @@ namespace Yi.Framework.Service.Base.Crud
         IReadOnlyAppService<TGetOutputDto, TGetListOutputDto, TKey>
          where TEntity : class, IEntity, new()
     {
-
-        public AbstractKeyReadOnlyAppService(IRepository<TEntity> repository, IMapper mapper) : base(mapper)
-        {
-            Repository = repository;
-
-        }
-        protected IRepository<TEntity> Repository { get; set; }
+        [Autowired]
+        public IRepository<TEntity> Repository { get; set; }
 
 
         public async Task<List<TGetListOutputDto>> GetListAsync()
@@ -46,6 +41,10 @@ namespace Yi.Framework.Service.Base.Crud
         public async Task<TGetOutputDto> GetByIdAsync(TKey id)
         {
             var entity = await GetEntityByIdAsync(id);
+            if (entity is null)
+            {
+                throw new UserFriendlyException($"主键：{id} 数据不存在",ResultCodeEnum.NotSuccess);
+            }
             var entityDto = await MapToGetOutputDtoAsync(entity);
 
             return entityDto;
@@ -92,6 +91,24 @@ namespace Yi.Framework.Service.Base.Crud
 
             return dtos;
         }
+
+        /// <summary>
+        /// 多个实体列表映射GetList输出dto列表的同步方法
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        protected virtual async Task<List<TGetListOutputDto>> MapToGetListOutputDtos(IEnumerable<TEntity> entities)
+        {
+            var dtos = new List<TGetListOutputDto>();
+
+            foreach (var entity in entities)
+            {
+                dtos.Add(await MapToGetListOutputDtoAsync(entity));
+            }
+
+            return dtos;
+        }
+
         /// <summary>
         /// 实体列表映射GetList输出dto的异步方法
         /// </summary>

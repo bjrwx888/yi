@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Interface.Base.Crud
 {
-    public interface ICreateAppService<TEntityDto>
-        : ICreateAppService<TEntityDto, TEntityDto>
+    public interface ICreateAppService<TEntityDto>: ICreateAppService<TEntityDto, TEntityDto>
     {
 
     }
 
 
-    public interface ICreateAppService<TCreateResultOutputDto
-        , in TCreateInputDto> : IApplicationService
+    public interface ICreateAppService<TCreateResultOutputDto , in TCreateInputDto> : IApplicationService
     {
         Task<TCreateResultOutputDto> CreateAsync(TCreateInputDto dto);
 

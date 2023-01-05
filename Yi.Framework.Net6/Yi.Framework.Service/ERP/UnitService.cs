@@ -16,9 +16,6 @@ namespace Yi.Framework.Service.ERP
 {
     public class UnitService : CrudAppService<UnitEntity, UnitGetListOutput, long, UnitCreateUpdateInput>, IUnitService
     {
-        public UnitService(IRepository<UnitEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
         public async Task<PageModel<List<UnitGetListOutput>>> PageListAsync(UnitCreateUpdateInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;

@@ -37,6 +37,12 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// </summary>
         public long MaterialId { get; set; }
 
+
+        /// <summary>
+        /// 物料名称
+        /// </summary>
+        public string MaterialName { get; set; }
+
         /// <summary>
         /// 物料单位
         /// </summary>

@@ -9,6 +9,7 @@ namespace Yi.Framework.DtoModel.ERP.PurchaseDetails
 {
     public class PurchaseDetailsGetListOutput: EntityDto<long>
     {
+        public string MaterialName { get; set; }
         public string MaterialUnit { get; set; }
         public float UnitPrice { get; set; }
         public long TotalNumber { get; set; }

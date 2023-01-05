@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Abstract;
 using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Models;
@@ -45,6 +46,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private CacheInvoker _cacheDb;
         private ILogger<TestController> _logger;
         ISugarUnitOfWork<UnitOfWork> _unitOfWork;
+        [Autowired]
+        private ICurrentUser _currentUser { get; set; }
+
         [Autowired]
         public CacheInvoker CacheInvoker { get; set; }
         //你可以依赖注入服务层各各接口，也可以注入其他仓储层，怎么爽怎么来！
@@ -402,6 +406,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public Result PropertyTest()
         {
             return Result.Success().SetStatus(CacheInvoker is not null);
+        }
+
+        /// <summary>
+        /// 获取当前用户信息测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public Result CurrentUserTest()
+        {
+            var per = _currentUser.Permission;
+            return Result.Success().SetData(per);
         }
     }
 }

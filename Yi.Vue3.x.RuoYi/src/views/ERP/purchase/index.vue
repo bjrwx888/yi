@@ -142,14 +142,19 @@
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="需求时间" prop="name">
-              <el-input v-model="form.name" placeholder="请输入采购单员" />
+            <el-form-item label="需求时间" prop="needTime">
+              <el-date-picker
+        v-model="form.needTime"
+        type="date"
+        placeholder="选择一个日期"
+        size="default"
+      />
             </el-form-item>
           </el-col>
 
           <el-col :offset="8" :span="8">
-            <el-form-item label="总金额" prop="name">
-              999{{ form.name }}
+            <el-form-item label="总金额">
+             {{showTotalMoney}}
             </el-form-item>
           </el-col>
 
@@ -158,7 +163,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="物料信息">
-              <el-table :data="tableData" border style="width: 100%">
+              <el-table :data="form.purchaseDetails" border style="width: 100%">
 
                 <el-table-column  width="90">
                   <template #default>
@@ -166,11 +171,30 @@
                   </template>
                 </el-table-column>
 
-                <el-table-column prop="date" label="物料" width="180" />
-                <el-table-column prop="name" label="单价" width="180" />
-                <el-table-column prop="address" label="采购数量" width="180" />
-                <el-table-column prop="address" label="备注" />
+                <el-table-column prop="materialName" label="物料" width="180" />
+                <el-table-column prop="materialUnit" label="单位" width="180" />
+                <el-table-column prop="unitPrice" label="单价" width="180" >
+      <template #default="scope">
+        <el-input
+
+        v-model="scope.row.unitPrice"/>
+      </template>
+                </el-table-column>
+                <el-table-column prop="totalNumber" label="采购数量" width="180" >
+                  <template #default="scope">
+        <el-input v-model="scope.row.totalNumber"/>
+      </template>
+
+                </el-table-column>
+                <el-table-column prop="remarks" label="备注" >
+                  <template #default="scope">
+        <el-input
+
+        v-model="scope.row.remarks"/>
+      </template>
+                </el-table-column>
               </el-table>
+              <el-button class="form-add-btn" type="primary" icon="CirclePlus" plain @click="materialHandleAdd">添加物料</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -185,6 +209,44 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- ---------------------这里是新增物料的对话框--------------------- -->
+    <el-dialog title="添加物料" v-model="openMaterial" width="800px" append-to-body>
+      <el-form :model="queryMaterialParams" ref="queryMaterialRef" :inline="true" label-width="70px">
+      <el-form-item label="物料名称" prop="name">
+        <el-input v-model="queryMaterialParams.name" placeholder="请输入物料名称" clearable style="width: 150px"
+          @keyup.enter="handleMaterialQuery" prop="name" />
+      </el-form-item>
+      <el-form-item label="物料编码" prop="code">
+        <el-input v-model="queryMaterialParams.code" placeholder="请输入物料编码" clearable style="width: 150px"
+          @keyup.enter="handleMaterialQuery" prop="code" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="Search" @click="handleMaterialQuery">搜索</el-button>
+        <el-button icon="Refresh" @click="resetMaterialQuery">重置</el-button>
+      </el-form-item>
+      <!-- 物料表单 -->
+      <el-table
+    style="width: 100%"
+    :data="materialList"
+    @selection-change="materialHandleSelectionChange"
+  >
+    <el-table-column type="selection" width="55" />
+    <el-table-column property="code" label="物料编码"  />
+    <el-table-column property="name" label="物料信息"  />
+    <el-table-column property="unitName" label="物料单位"  />
+    
+  </el-table>
+  <pagination v-show="materialTotal > 0" :total="materialTotal" v-model:page="queryMaterialParams.pageNum"
+      v-model:limit="queryMaterialParams.pageSize" @pagination="getMaterialList" />
+</el-form>
+<template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitMaterialForm">确 定</el-button>
+          <el-button @click="materialCancel">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
     
@@ -196,33 +258,21 @@ import {
   addData,
   updateData,
 } from "@/api/erp/purchaseApi";
-import { ref } from "@vue/reactivity";
 
+import {
+  listData as materialListData
+} from "@/api/erp/materialApi";
+import { ref } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
 
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
+//添加物料对话框
+const openMaterial=ref(false);
+const materialList= ref([]);
+const materialTotal = ref(0);
+const materialMultipleSelection=ref([]);
+
 
 
 const dataList = ref([]);
@@ -236,7 +286,10 @@ const total = ref(0);
 const title = ref("");
 const dateRange = ref([]);
 const data = reactive({
-  form: {},
+  form: {
+    totalMoney:0,
+    purchaseDetails:[]
+  },
   queryParams: {
     pageNum: 1,
     pageSize: 10,
@@ -244,14 +297,19 @@ const data = reactive({
     code: undefined,
     buyer: undefined,
   },
+  queryMaterialParams:{
+    pageNum: 1,
+    pageSize: 10,
+    name: undefined,
+    code: undefined,
+  },
   rules: {
     code: [{ required: true, message: "采购单编号不能为空", trigger: "blur" }],
     name: [{ required: true, message: "采购单名称不能为空", trigger: "blur" }],
   },
 });
 
-const { queryParams, form, rules } = toRefs(data);
-
+const { queryParams, form, queryMaterialParams,rules } = toRefs(data);
 /** 查询列表 */
 function getList() {
   loading.value = true;
@@ -263,6 +321,7 @@ function getList() {
     }
   );
 }
+
 /** 取消按钮 */
 function cancel() {
   open.value = false;
@@ -343,5 +402,87 @@ function handleDelete(row) {
 /** 导出按钮操作 */
 function handleExport() { }
 
+
+
+//-------------这里开始是物料对话框的数据-----------
+/** 物料查询列表 */
+function getMaterialList() {
+  materialListData(proxy.addDateRange(queryMaterialParams.value, dateRange.value)).then(
+    (response) => {
+      materialList.value = response.data.data;
+      materialTotal.value = response.data.total;
+    }
+  );
+}
+/** 表单改变选择 */
+function materialHandleSelectionChange(select)
+{
+  materialMultipleSelection.value=select
+}
+/** 打开对话框 */
+function materialHandleAdd()
+{
+  getMaterialList();
+  openMaterial.value=true;
+}
+/** 搜索 */
+function handleMaterialQuery()
+{
+  getMaterialList();
+}
+/**重置表单 */
+function resetMaterialQuery()
+{
+  proxy.resetForm("queryMaterialRef");
+  handleMaterialQuery();
+}
+/** 提交物料表单 */
+function submitMaterialForm()
+{
+if(materialMultipleSelection.value.length>0)
+{
+  const purchaseDetailsList=  materialMultipleSelection.value.map(u=>{
+      return {materialName:u.name,materialUnit:u.unitName}
+    })
+
+  form.value.purchaseDetails.push(...purchaseDetailsList)
+  materialCancel()
+
+}
+else
+{
+
+  proxy.$modal.msgError("请选择至少一个物料");
+}
+
+
+}
+/** 取消对话框 */
+function materialCancel()
+{
+  openMaterial.value=false
+}
+
+// watch(data.form, (newValue, oldValue) => {
+// console.log(newValue.purchaseDetails,999)
+//       }
+//       , { immdiate: true })
+/** 计算属性：实时计算展示的价格 */
+const showTotalMoney =computed(()=>{
+  let res=0;
+   form.value.purchaseDetails.forEach(details => {
+    if(details.unitPrice!=undefined && details.totalNumber!=undefined) 
+   {res+=  details.unitPrice*details.totalNumber} 
+   });
+   return res;
+})
+
 getList();
 </script>
+<style scoped>
+.form-add-btn{
+
+  width: 100%;
+  margin-top: 10px;
+}
+</style>

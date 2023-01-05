@@ -12,21 +12,21 @@ namespace Yi.Framework.Interface.Base.Crud
 
     }
 
-    public interface ICrudAppService<TEntityDto, in TKey, in TCreateInput>
-        : ICrudAppService<TEntityDto, TKey, TCreateInput, TCreateInput>
+    public interface ICrudAppService<TEntityDto, in TKey, in TCreateInputDto>
+        : ICrudAppService<TEntityDto, TKey, TCreateInputDto, TCreateInputDto>
     {
 
     }
 
-    public interface ICrudAppService<TEntityDto, in TKey, in TCreateInput, in TUpdateInput>
-        : ICrudAppService<TEntityDto, TEntityDto, TKey, TCreateInput, TUpdateInput>
+    public interface ICrudAppService<TEntityDto, in TKey, in TCreateInputDto, in TUpdateInputDto>
+        : ICrudAppService<TEntityDto, TEntityDto, TKey, TCreateInputDto, TUpdateInputDto>
     {
 
     }
 
-    public interface ICrudAppService<TGetOutputDto, TGetListOutputDto, in TKey, in TCreateInput, in TUpdateInput>
-        : IReadOnlyAppService<TGetOutputDto, TGetListOutputDto, TKey>,
-            ICreateUpdateAppService<TGetOutputDto, TKey, TCreateInput, TUpdateInput>,
+    public interface ICrudAppService<TGetOutputDto, TListOutputDto, in TKey, in TCreateInputDto, in TUpdateInputDto>
+        : IReadOnlyAppService<TGetOutputDto, TListOutputDto, TKey>,
+            ICreateUpdateAppService<TGetOutputDto, TKey, TCreateInputDto, TUpdateInputDto>,
             IDeleteAppService<TKey>
     {
 

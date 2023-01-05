@@ -953,5 +953,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.TestController.CurrentUserTest">
+            <summary>
+            获取当前用户信息测试
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

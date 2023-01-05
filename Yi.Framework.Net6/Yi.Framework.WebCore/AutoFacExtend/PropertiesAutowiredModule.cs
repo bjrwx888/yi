@@ -14,9 +14,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Attribute;
 using Yi.Framework.Interface;
+using Yi.Framework.Interface.Base.Crud;
 using Yi.Framework.Job;
 using Yi.Framework.Repository;
 using Yi.Framework.Service;
+using Yi.Framework.Service.Base.Crud;
 using Module = Autofac.Module;
 
 namespace Yi.Framework.WebCore.AutoFacExtend

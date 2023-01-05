@@ -20,6 +20,9 @@
     <None Update="Template\Server\ControllerTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Template\Server\GetListInputTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Template\Server\ProfileTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

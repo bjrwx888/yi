@@ -16,9 +16,6 @@ namespace Yi.Framework.Service.ERP
 {
     public class MaterialService : CrudAppService<MaterialEntity, MaterialGetListOutput, long, MaterialCreateUpdateInput>, IMaterialService
     {
-        public MaterialService(IRepository<MaterialEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
         public async Task<PageModel<List<MaterialGetListOutput>>> PageListAsync(MaterialCreateUpdateInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;

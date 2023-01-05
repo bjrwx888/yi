@@ -16,9 +16,6 @@ namespace Yi.Framework.Service.ERP
 {
     public class PurchaseDetailsService : CrudAppService<PurchaseDetailsEntity, PurchaseDetailsGetListOutput, long, PurchaseDetailsCreateUpdateInput>, IPurchaseDetailsService
     {
-        public PurchaseDetailsService(IRepository<PurchaseDetailsEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
         public async Task<PageModel<List<PurchaseDetailsGetListOutput>>> PageListAsync(PurchaseDetailsCreateUpdateInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;

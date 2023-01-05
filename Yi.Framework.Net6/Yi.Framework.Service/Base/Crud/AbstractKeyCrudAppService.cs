@@ -14,28 +14,18 @@ namespace Yi.Framework.Service.Base.Crud
     : AbstractKeyCrudAppService<TEntity, TEntityDto, TKey, TEntityDto, TEntityDto>
     where TEntity : class, IEntity, new()
     {
-        protected AbstractKeyCrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
     }
 
     public abstract class AbstractKeyCrudAppService<TEntity, TEntityDto, TKey, TCreateUpdateInput>
         : AbstractKeyCrudAppService<TEntity, TEntityDto, TKey, TCreateUpdateInput, TCreateUpdateInput>
         where TEntity : class, IEntity, new()
     {
-        protected AbstractKeyCrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
     }
 
-    public abstract class AbstractKeyCrudAppService<TEntity, TEntityDto, TKey, TCreateInput, TUpdateInput>
-        : AbstractKeyCrudAppService<TEntity, TEntityDto, TEntityDto, TKey, TCreateInput, TUpdateInput>
+    public abstract class AbstractKeyCrudAppService<TEntity, TEntityDto, TKey, TCreateInputDto, TUpdateInputDto>
+        : AbstractKeyCrudAppService<TEntity, TEntityDto, TEntityDto, TKey, TCreateInputDto, TUpdateInputDto>
         where TEntity : class, IEntity, new()
     {
-        protected AbstractKeyCrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
-
         protected override Task<TEntityDto> MapToGetListOutputDtoAsync(TEntity entity)
         {
             return MapToGetOutputDtoAsync(entity);
@@ -47,23 +37,20 @@ namespace Yi.Framework.Service.Base.Crud
         }
     }
 
-    public abstract class AbstractKeyCrudAppService<TEntity, TGetOutputDto, TGetListOutputDto, TKey, TCreateInput, TUpdateInput>
-           : AbstractKeyReadOnlyAppService<TEntity, TGetOutputDto, TGetListOutputDto, TKey>,
-               ICrudAppService<TGetOutputDto, TGetListOutputDto, TKey, TCreateInput, TUpdateInput>
+    public abstract class AbstractKeyCrudAppService<TEntity, TGetOutputDto, TListOutputDto, TKey, TCreateInputDto, TUpdateInputDto>
+           : AbstractKeyReadOnlyAppService<TEntity, TGetOutputDto, TListOutputDto, TKey>,
+               ICrudAppService<TGetOutputDto, TListOutputDto, TKey, TCreateInputDto, TUpdateInputDto>
            where TEntity : class, IEntity, new()
     {
-        protected AbstractKeyCrudAppService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
 
         /// <summary>
         /// 创建
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public virtual async Task<TGetOutputDto> CreateAsync(TCreateInput input)
+        public virtual async Task<TGetOutputDto> CreateAsync(TCreateInputDto input)
         {
-
+        
             var entity = await MapToEntityAsync(input);
 
             TryToSetTenantId(entity);
@@ -76,7 +63,7 @@ namespace Yi.Framework.Service.Base.Crud
         }
 
 
-        public async virtual Task CreateAsync(IEnumerable<TCreateInput> dtos)
+        public async virtual Task CreateAsync(IEnumerable<TCreateInputDto> dtos)
         {
 
             var entity = await MapToEntitysAsync(dtos);
@@ -105,7 +92,7 @@ namespace Yi.Framework.Service.Base.Crud
         /// <param name="id"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public virtual async Task<TGetOutputDto> UpdateAsync(TKey id, TUpdateInput input)
+        public virtual async Task<TGetOutputDto> UpdateAsync(TKey id, TUpdateInputDto input)
         {
             var entity = await GetEntityByIdAsync(id);
 
@@ -123,31 +110,30 @@ namespace Yi.Framework.Service.Base.Crud
         /// <param name="idEntity"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected virtual Task UpdateValidAsync(TEntity idEntity, TUpdateInput dto)
+        protected virtual Task UpdateValidAsync(TEntity idEntity, TUpdateInputDto dto)
         {
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// 将 更新输入dto转化为实体的异步
+        ///  将 批量更新输入dto转化为实体的同步方法
         /// </summary>
         /// <param name="updateInput"></param>
-        /// <param name="entity"></param>
-        protected virtual Task MapToEntityAsync(TUpdateInput updateInput, TEntity entity)
+        /// <returns></returns>
+        protected virtual List<TEntity> MapToEntity(IEnumerable<TCreateInputDto> updateInput)
         {
-            MapToEntity(updateInput, entity);
-            return Task.CompletedTask;
+            return ObjectMapper.Map<List<TEntity>>(updateInput);
         }
+
 
         /// <summary>
         /// 将 批量更新输入dto转化为实体的异步
         /// </summary>
         /// <param name="updateInput"></param>
         /// <param name="entity"></param>
-        protected virtual async Task<List<TEntity>> MapToEntitysAsync(IEnumerable<TCreateInput> updateInput)
+        protected virtual async Task<List<TEntity>> MapToEntitysAsync(IEnumerable<TCreateInputDto> updateInput)
         {
-            List<TEntity> entitys = MapToEntitys(updateInput);
-
+            List<TEntity> entitys = MapToEntity(updateInput);
             return await Task.FromResult(entitys);
         }
 
@@ -156,28 +142,28 @@ namespace Yi.Framework.Service.Base.Crud
         /// </summary>
         /// <param name="updateInput"></param>
         /// <param name="entity"></param>
-        protected virtual void MapToEntity(TUpdateInput updateInput, TEntity entity)
+        protected virtual void MapToEntity(TUpdateInputDto updateInput, TEntity entity)
         {
             ObjectMapper.Map(updateInput, entity);
         }
 
+
         /// <summary>
-        ///  将 批量更新输入dto转化为实体的同步方法
+        /// 将 更新输入dto转化为实体的异步
         /// </summary>
         /// <param name="updateInput"></param>
-        /// <returns></returns>
-        protected virtual List<TEntity> MapToEntitys(IEnumerable<TCreateInput> updateInput)
+        /// <param name="entity"></param>
+        protected virtual Task MapToEntityAsync(TUpdateInputDto updateInput, TEntity entity)
         {
-            return ObjectMapper.Map<List<TEntity>>(updateInput);
+            MapToEntity(updateInput, entity);
+            return Task.CompletedTask;
         }
-
-
         /// <summary>
         /// 创建dto 给 实体的转换的异步方法
         /// </summary>
         /// <param name="createInput"></param>
         /// <returns></returns>
-        protected virtual Task<TEntity> MapToEntityAsync(TCreateInput createInput)
+        protected virtual Task<TEntity> MapToEntityAsync(TCreateInputDto createInput)
         {
             return Task.FromResult(MapToEntity(createInput));
         }
@@ -187,9 +173,9 @@ namespace Yi.Framework.Service.Base.Crud
         /// </summary>
         /// <param name="createInput"></param>
         /// <returns></returns>
-        protected virtual TEntity MapToEntity(TCreateInput createInput)
+        protected virtual TEntity MapToEntity(TCreateInputDto createInput)
         {
-            var entity = ObjectMapper.Map<TCreateInput, TEntity>(createInput);
+            var entity = ObjectMapper.Map<TCreateInputDto, TEntity>(createInput);
             SetIdForGuids(entity);
             return entity;
         }

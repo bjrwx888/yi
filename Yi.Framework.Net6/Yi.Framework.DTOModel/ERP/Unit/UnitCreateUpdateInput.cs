@@ -10,8 +10,8 @@ namespace Yi.Framework.DtoModel.ERP.Unit
 {
     public class UnitCreateUpdateInput : EntityDto<long>
     {
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Remarks { get; set; }
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+        public string? Remarks { get; set; }
     }
 }

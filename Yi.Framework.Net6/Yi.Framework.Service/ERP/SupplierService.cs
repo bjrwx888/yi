@@ -16,9 +16,6 @@ namespace Yi.Framework.Service.ERP
 {
     public class SupplierService : CrudAppService<SupplierEntity, SupplierGetListOutput, long, SupplierCreateUpdateInput>, ISupplierService
     {
-        public SupplierService(IRepository<SupplierEntity> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
         public async Task<PageModel<List<SupplierGetListOutput>>> PageListAsync(SupplierCreateUpdateInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;

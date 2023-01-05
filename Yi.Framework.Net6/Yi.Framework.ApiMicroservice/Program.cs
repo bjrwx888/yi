@@ -159,6 +159,10 @@ builder.Services.AddHttpContextAccessor();
 #endregion
 builder.Services.AddSingleton<ThumbnailSharpInvoer>();
 
+#region
+//添加当前用户信息使用
+#endregion
+builder.Services.AddCurrentUserServer();
 
 #region
 //全局配置初始化值
@@ -221,6 +225,10 @@ app.UseAuthentication();
 //授权注入
 #endregion
 app.UseAuthorization();
+#region
+//添加当前用户信息使用
+#endregion
+app.UseCurrentUserServer();
 #region
 //Consul服务注入
 #endregion
