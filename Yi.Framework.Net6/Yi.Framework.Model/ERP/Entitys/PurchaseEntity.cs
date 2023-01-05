@@ -30,22 +30,22 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// <summary>
         /// 采购单号
         /// </summary>
-        public string Code { get; set; }
+        public string Code { get; set; }=string.Empty;
 
         /// <summary>
         /// 需求时间 
         /// </summary>
-        public DateTime NeedTime { get; set; }
+        public DateTime? NeedTime { get; set; }
 
         /// <summary>
         /// 采购员
         /// </summary>
-        public string Buyer { get; set; }
+        public string? Buyer { get; set; }
 
         /// <summary>
         /// 总共金额
         /// </summary>
-        public float TotalMoney { get; set; }
+        public float TotalMoney { get; set; } 
 
         /// <summary>
         /// 已支付金额
@@ -55,7 +55,8 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// <summary>
         /// 采购状态
         /// </summary>
-        public PurchaseStateEnum PurchaseState { get; set; }
+        public PurchaseStateEnum PurchaseState { get; set; } = PurchaseStateEnum.Build;
+
     }
 
     public enum PurchaseStateEnum

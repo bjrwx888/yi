@@ -11,8 +11,8 @@ namespace Yi.Framework.Model.Base.Query
 {
     public class QueryParameter
     {
-        public string Key { get; set; }
-        public string Value { get; set; }
+        public string? Key { get; set; }
+        public string? Value { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public ConditionalType Type { get; set; } = ConditionalType.Like;
     }

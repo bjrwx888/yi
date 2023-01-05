@@ -10,9 +10,9 @@ namespace Yi.Framework.DtoModel.Base.Vo
     {
         public long Id { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
-        public string Content { get; set; }
+        public string Content { get; set; } = string.Empty;
 
         public long? UserId { get; set; }
 
@@ -30,10 +30,10 @@ namespace Yi.Framework.DtoModel.Base.Vo
 
         public int? OrderNum { get; set; }
 
-        public string Remark { get; set; }
-        public List<string> Images { get; set; }
+        public string? Remark { get; set; }
+        public List<string>? Images { get; set; }
 
         public int? AgreeNum { get; set; }
-        public UserVo User { get; set; }
+        public UserVo? User { get; set; }
     }
 }

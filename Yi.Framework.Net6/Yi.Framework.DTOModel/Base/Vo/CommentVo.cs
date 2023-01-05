@@ -14,7 +14,7 @@ namespace Yi.Framework.DtoModel.Base.Vo
         /// <summary>
         /// 评论内容 
         ///</summary>
-        public string Content { get; set; }
+        public string Content { get; set; }=string.Empty;
         /// <summary>
         /// 点赞数 
         ///</summary>
@@ -41,7 +41,7 @@ namespace Yi.Framework.DtoModel.Base.Vo
         /// 描述 
         ///</summary>
 
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
         /// <summary>
         /// 子评论数 
         ///</summary>
@@ -51,11 +51,11 @@ namespace Yi.Framework.DtoModel.Base.Vo
         /// <summary>
         /// 被回复的用户信息
         ///</summary>
-        public UserVo UserInfo { get; set; }
+        public UserVo? UserInfo { get; set; }
 
         /// <summary>
         /// 创建评论的用户信息 
         ///</summary>
-        public UserVo CreateUserInfo { get; set; }
+        public UserVo? CreateUserInfo { get; set; }
     }
 }

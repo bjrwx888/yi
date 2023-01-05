@@ -8,7 +8,7 @@ namespace Yi.Framework.Model.Base
 {
     public class Entity<Key> : IEntity<Key>
     {
-        public Key Id { get; set; }
+        public Key Id { get; set; }=default(Key)!;
 
         public object[] GetKeys()
         {

@@ -9,9 +9,9 @@ namespace Yi.Framework.DtoModel.Base.Dto
 {
     public class UserInfoDto
     {
-        public UserEntity User { get; set; }
-        public List<long> RoleIds { get; set; }
-        public List<long> PostIds { get; set; }
+        public UserEntity? User { get; set; }
+        public List<long>? RoleIds { get; set; }
+        public List<long>? PostIds { get; set; }
         public long? DeptId { get; set; }
     }
 }

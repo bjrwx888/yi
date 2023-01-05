@@ -13,6 +13,6 @@ namespace Yi.Framework.Model.Base
 
     public interface IEntityDto<TKey> : IEntityDto
     {
-        TKey Id { get; set; }
+        TKey? Id { get; set; }
     }
 }

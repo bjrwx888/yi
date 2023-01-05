@@ -14,11 +14,6 @@ namespace Yi.Framework.Service.RABC
 {
     public class StudentService : CrudAppService<StudentEntity, StudentGetOutput, StudentListOutput, Guid, StudentCreateInput, StudentUpdateInput>, IStudentService
     {
-        public async Task<List<StudentListOutput>> GetListAsync()
-        {
-            return await MapToGetListOutputDtosAsync(await Repository.GetListAsync());
-        }
-
         public  void GetError()
         {
             throw new ApplicationException(StudentConst.学生异常错误);

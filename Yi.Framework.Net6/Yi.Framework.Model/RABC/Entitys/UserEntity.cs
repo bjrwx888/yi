@@ -146,7 +146,7 @@ namespace Yi.Framework.Model.RABC.Entitys
         /// <summary>
         /// 构建密码，MD5盐值加密
         /// </summary>
-        public UserEntity BuildPassword(string password = null)
+        public UserEntity BuildPassword(string? password = null)
         {
             //如果不传值，那就把自己的password当作传进来的password
             if (password == null)

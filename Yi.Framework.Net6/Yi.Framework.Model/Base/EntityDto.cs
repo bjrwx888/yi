@@ -12,7 +12,7 @@ namespace Yi.Framework.Model.Base
         //
         // 摘要:
         //     Id of the entity.
-        public TKey Id { get; set; }
+        public TKey? Id { get; set; }
 
         public override string ToString()
         {

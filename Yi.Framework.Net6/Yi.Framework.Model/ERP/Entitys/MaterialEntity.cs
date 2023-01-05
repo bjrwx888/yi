@@ -30,21 +30,21 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// <summary>
         /// 物料编码
         /// </summary>
-        public string Code { get; set; }
+        public string Code { get; set; }=string.Empty;
 
         /// <summary>
         /// 物料名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; }=string.Empty;
 
         /// <summary>
         /// 物料单位
         /// </summary>
-        public string UnitName { get; set; }
+        public string UnitName { get; set; }=string.Empty;
 
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
     }
 }

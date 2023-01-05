@@ -29,7 +29,7 @@ namespace Yi.Framework.Model.SHOP.Entitys
         /// 商品规格组名 
         ///</summary>
         [SugarColumn(ColumnName = "SpecsGroupName")]
-        public string SpecsGroupName { get; set; }
+        public string? SpecsGroupName { get; set; }
         /// <summary>
         /// 创建者 
         ///</summary>

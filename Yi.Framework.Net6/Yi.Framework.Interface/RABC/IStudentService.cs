@@ -9,6 +9,5 @@ namespace Yi.Framework.Interface.RABC
     public interface IStudentService : ICrudAppService<StudentGetOutput, StudentListOutput, Guid, StudentCreateInput, StudentUpdateInput>
     {
         void GetError();
-        Task<List<StudentListOutput>> GetListAsync();
     }
 }
