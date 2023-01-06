@@ -92,6 +92,10 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
                          {
                              //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["TenantId"].ToString()));
                          }
+                         if (entityInfo.PropertyName == "CreateTime")
+                         {
+                             entityInfo.SetValue(DateTime.Now);
+                         }
                          break;
                      case DataFilterType.UpdateByObject:
                          if (entityInfo.PropertyName == "ModifyTime")

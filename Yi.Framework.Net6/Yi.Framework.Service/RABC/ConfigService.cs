@@ -1,6 +1,7 @@
 ﻿using SqlSugar;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.Interface.RABC;
@@ -15,6 +16,8 @@ namespace Yi.Framework.Service.RABC
         public ConfigService(IRepository<ConfigEntity> repository) : base(repository)
         {
         }
+
+        [Caching(AbsoluteExpiration = 10)]
         public async Task<PageModel<List<ConfigEntity>>> SelctPageList(ConfigEntity config, PageParModel page)
         {
             RefAsync<int> total = 0;

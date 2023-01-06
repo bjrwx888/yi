@@ -15,7 +15,7 @@ namespace Yi.Framework.Model.RABC.Entitys
     {
         public ConfigEntity()
         {
-            CreateTime = DateTime.Now;
+            //CreateTime = DateTime.Now;
         }
         [JsonConverter(typeof(ValueToStringConverter))]
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]

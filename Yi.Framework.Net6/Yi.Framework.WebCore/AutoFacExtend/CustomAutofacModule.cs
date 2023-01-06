@@ -16,7 +16,9 @@ using Yi.Framework.Interface;
 using Yi.Framework.Job;
 using Yi.Framework.Repository;
 using Yi.Framework.Service;
+using Yi.Framework.WebCore.AOP;
 using Yi.Framework.WebCore.AutoFacExtend;
+using Yi.Framework.WebCore.CommonExtend;
 using Yi.Framework.WebCore.Impl;
 using Module = Autofac.Module;
 
@@ -43,6 +45,17 @@ namespace Yi.Framework.WebCore.AutoFacExtend
 
             containerBuilder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 
+            var cacheType = new List<Type>();
+            if (Appsettings.appBool("RedisCacheAOP_Enabled"))
+            {
+                containerBuilder.RegisterType<RedisCacheAOP>();
+                cacheType.Add(typeof(RedisCacheAOP));
+            }
+            if (Appsettings.appBool("MemoryCacheAOP_Enabled"))
+            {
+                containerBuilder.RegisterType<MemoryCacheAOP>();
+                cacheType.Add(typeof(MemoryCacheAOP));
+            }
             //containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             //containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope();
             ///反射注入服务层及接口层     
@@ -50,7 +63,8 @@ namespace Yi.Framework.WebCore.AutoFacExtend
             containerBuilder.RegisterAssemblyTypes(assemblysServices).PropertiesAutowired(new AutowiredPropertySelector())
                      .AsImplementedInterfaces()
                      .InstancePerLifetimeScope()
-                     .EnableInterfaceInterceptors();
+                     .EnableInterfaceInterceptors()
+                     .InterceptedBy(cacheType.ToArray());
             //开启工作单元拦截
             //.InterceptedBy(typeof(UnitOfWorkInterceptor));
 
