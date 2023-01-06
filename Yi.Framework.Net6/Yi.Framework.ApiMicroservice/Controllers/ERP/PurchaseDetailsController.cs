@@ -26,7 +26,19 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         {
             var result = await _purchaseDetailsService.PageListAsync(input, page);
             return Result.Success().SetData(result);
+
+
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Result> GetListByPurchaseId(long id)
+        {
+            var result = await _purchaseDetailsService.GetListByPurchaseIdAsync(id);
+            return Result.Success().SetData(result);
+        }
+
+
 
         /// <summary>
         /// 单查

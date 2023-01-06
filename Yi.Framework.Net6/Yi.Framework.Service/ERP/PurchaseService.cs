@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Common.Attribute;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DtoModel.ERP.Purchase;
+using Yi.Framework.DtoModel.ERP.PurchaseDetails;
 using Yi.Framework.Interface.ERP;
 using Yi.Framework.Model.Base;
 using Yi.Framework.Model.ERP.Entitys;
@@ -49,7 +50,9 @@ namespace Yi.Framework.Service.ERP
                 TryToSetTenantId(entity);
                 var purchaseId = await Repository.InsertReturnSnowflakeIdAsync(entity);
                 entity.Id = purchaseId;
-                await _purchaseDetailsService.CreateAsync(input.PurchaseDetails);
+
+
+                await _purchaseDetailsService.CreateAsync(input.PurchaseDetails.SetPurchaseId(purchaseId));
                 uow.Commit();
             }
             return await MapToGetListOutputDtoAsync(entity); ;

@@ -16,6 +16,12 @@ namespace Yi.Framework.Service.ERP
 {
     public class PurchaseDetailsService : CrudAppService<PurchaseDetailsEntity, PurchaseDetailsGetListOutput, long, PurchaseDetailsCreateUpdateInput>, IPurchaseDetailsService
     {
+        public async Task<List<PurchaseDetailsGetListOutput>> GetListByPurchaseIdAsync(long purchaseId)
+        {
+           var data= await Repository._DbQueryable.Where(u => u.PurchaseId == purchaseId).ToListAsync();
+            return await MapToGetListOutputDtos(data);
+        }
+
         public async Task<PageModel<List<PurchaseDetailsGetListOutput>>> PageListAsync(PurchaseDetailsGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;

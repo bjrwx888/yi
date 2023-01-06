@@ -1,4 +1,10 @@
 import request from '@/utils/request'
+export function getListByPurchaseId(id){
+  return request({
+    url: `/purchaseDetails/getListByPurchaseId/${id}`,
+    method: 'get'
+  })
+}
 
 // 分页查询
 export function listData(query) {

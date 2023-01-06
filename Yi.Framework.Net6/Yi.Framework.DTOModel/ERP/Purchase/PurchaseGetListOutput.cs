@@ -18,5 +18,7 @@ namespace Yi.Framework.DtoModel.ERP.Purchase
 
         public string SupplierName { get; set; } = string.Empty;
         public PurchaseStateEnum PurchaseState { get; set; }
+
+     
     }
 }

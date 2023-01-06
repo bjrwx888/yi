@@ -20,7 +20,7 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// </summary>
         [JsonConverter(typeof(ValueToStringConverter))]
         [SugarColumn(IsPrimaryKey = true)]
-        public long Id { get; set; } 
+        public long Id { get; set; }
 
         /// <summary>
         /// 租户id
@@ -35,28 +35,28 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// <summary>
         /// 物料id
         /// </summary>
-        public long MaterialId { get; set; } 
+        public long MaterialId { get; set; }
 
 
         /// <summary>
         /// 物料名称
         /// </summary>
-        public string MaterialName { get; set; }=string.Empty;
+        public string MaterialName { get; set; } = string.Empty;
 
         /// <summary>
         /// 物料单位
         /// </summary>
-        public string MaterialUnit { get; set; }=string.Empty ;
+        public string MaterialUnit { get; set; } = string.Empty;
 
 
         /// <summary>
         /// 单价
         /// </summary>
-        public float UnitPrice { get; set; } 
+        public float UnitPrice { get; set; }
         /// <summary>
         /// 总数量
         /// </summary>
-        public long TotalNumber { get; set; } 
+        public long TotalNumber { get; set; }
         /// <summary>
         /// 已完成数量
         /// </summary>
@@ -65,5 +65,9 @@ namespace Yi.Framework.Model.ERP.Entitys
         /// 备注
         /// </summary>
         public string? Remarks { get; set; }
+
+
+
     }
+
 }
