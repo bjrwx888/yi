@@ -110,6 +110,11 @@ namespace Yi.Framework.Common.Base
 
         }
 
+        public static string TryStringNull(this object value)
+        {
+            return value == null ? "" : value.ToString().Trim();
+        }
+
         /// <summary>
         /// Object类型无值判断
         /// </summary>
