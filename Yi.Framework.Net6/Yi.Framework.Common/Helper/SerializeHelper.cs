@@ -22,7 +22,7 @@ namespace Yi.Framework.Common.Helper
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static TEntity Deserialize<TEntity>(byte[] value)
+        public static TEntity? Deserialize<TEntity>(byte[] value)
         {
             if (value == null)
             {

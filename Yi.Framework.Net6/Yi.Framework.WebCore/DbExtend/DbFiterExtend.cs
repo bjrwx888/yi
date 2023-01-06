@@ -42,7 +42,7 @@ namespace Yi.Framework.WebCore.DbExtend
 
 
             var roles = userRoleMenu?.Roles;
-            if (roles.IsNull())
+            if (roles!.IsNull())
             {
                 roles = new();
             }

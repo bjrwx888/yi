@@ -23,9 +23,9 @@ namespace Yi.Framework.Common.Abstract
 
         public bool PhoneNumberVerified { get; set; }
 
-        public string[] Roles { get; set; }
+        public string[]? Roles { get; set; }
 
-        public string[] Permission { get; set; }
+        public string[]? Permission { get; set; }
 
     }
 }

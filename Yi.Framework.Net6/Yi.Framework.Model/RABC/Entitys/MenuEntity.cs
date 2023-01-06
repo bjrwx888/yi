@@ -138,7 +138,7 @@ namespace Yi.Framework.Model.RABC.Entitys
 
                 //开头大写
                 r.Name = routerName?.First().ToString().ToUpper() + routerName?.Substring(1);
-                r.Path = m.Router;
+                r.Path = m.Router!;
                 r.Hidden = !m.IsShow ?? false;
 
 
@@ -162,18 +162,18 @@ namespace Yi.Framework.Model.RABC.Entitys
 
                     r.Redirect = "noRedirect";
                     r.AlwaysShow = true;
-                    r.Component = m.Component;
+                    r.Component = m.Component!;
                     r.AlwaysShow = false;
                 }
                 r.Meta = new Meta
                 {
-                    Title = m.MenuName,
-                    Icon = m.MenuIcon,
+                    Title = m.MenuName!,
+                    Icon = m.MenuIcon!,
                     NoCache = !m.IsCache ?? true
                 };
                 if (m.IsLink ?? false)
                 {
-                    r.Meta.link = m.Router;
+                    r.Meta.link = m.Router!;
                     r.AlwaysShow = false;
                 }
 

@@ -6,12 +6,12 @@ namespace Yi.Framework.Common.Models
 {
     public class Result
     {
-        public static IStringLocalizer<LocalLanguage> _local;
+        public static IStringLocalizer<LocalLanguage>? _local;
         public ResultCodeEnum Code { get; set; }
 
         public bool Status { get; set; }
-        public string Message { get; set; }
-        public object Data { get; set; }
+        public string? Message { get; set; }
+        public object? Data { get; set; }
         public static Result Expire(ResultCodeEnum Code, string msg="")
         {
             return new Result() {  Code = Code, Status=false,  Message = Get(msg, "token_expiration") };
@@ -49,7 +49,7 @@ namespace Yi.Framework.Common.Models
             this.Status = _Status;
             return this;
         }
-        public Result SetData(object obj)
+        public Result SetData(object? obj)
         {
             this.Data = obj;
             return this;
@@ -74,7 +74,10 @@ namespace Yi.Framework.Common.Models
         {
             if (msg=="")
             {
-                msg = _local[msg2];
+                if (_local is not null)
+                {
+                    msg = _local[msg2];
+                }
             }
             return msg;
         }
@@ -82,8 +85,8 @@ namespace Yi.Framework.Common.Models
     public class Result<T>
     {
         public ResultCodeEnum Code { get; set; }
-        public string Message { get; set; }
-        public T Data { get; set; }
+        public string? Message { get; set; }
+        public T? Data { get; set; }
         public static Result<T> Error(string msg = "fail")
         {
             return new Result<T>() { Code = ResultCodeEnum.NotSuccess, Message = msg };

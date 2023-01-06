@@ -15,7 +15,7 @@ namespace Yi.Framework.Common.Helper
 
         public static T StrToObj<T>(string str)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str)!;
         }
         /// <summary>
         /// 转换对象为JSON格式数据
@@ -85,7 +85,7 @@ namespace Yi.Framework.Common.Helper
             {
                 System.Runtime.Serialization.Json.DataContractJsonSerializer serializer =
                 new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
-                return (T)serializer.ReadObject(ms);
+                return (T)serializer.ReadObject(ms)!;
             }
         }
 

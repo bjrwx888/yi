@@ -24,6 +24,11 @@ namespace Yi.Framework.Common.Helper
                 // 获取所有可用网卡IP信息
                 var ipCollection = nics?.Select(x => x.GetIPProperties())?.SelectMany(x => x.UnicastAddresses);
 
+                if (ipCollection is null)
+                {
+                    return instanceIp;
+                }
+
                 foreach (var ipadd in ipCollection)
                 {
                     if (!IPAddress.IsLoopback(ipadd.Address) && ipadd.Address.AddressFamily == AddressFamily.InterNetwork)

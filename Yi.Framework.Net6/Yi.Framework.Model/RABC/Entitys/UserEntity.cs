@@ -169,6 +169,10 @@ namespace Yi.Framework.Model.RABC.Entitys
         /// <returns></returns>
         public bool JudgePassword(string password)
         {
+            if (this.Salt is  null)
+            {
+                throw new ArgumentNullException(this.Salt);
+            }
             var p = MD5Helper.SHA2Encode(password, Salt);
             if (Password == MD5Helper.SHA2Encode(password, Salt))
             {

@@ -14,8 +14,8 @@ public class UserFriendlyException : BusinessException
     public UserFriendlyException(
         string message,
         ResultCodeEnum code = ResultCodeEnum.NotSuccess,
-        string details = null,
-        Exception innerException = null,
+        string? details = null,
+        Exception? innerException = null,
         LogLevel logLevel = LogLevel.Warning)
         : base(
               code,

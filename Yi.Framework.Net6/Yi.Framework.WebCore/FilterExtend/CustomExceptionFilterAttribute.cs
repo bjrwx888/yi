@@ -33,7 +33,7 @@ namespace Yi.Framework.WebCore.FilterExtend
                 var logModel = new LogModel()
                 {
                     OriginalClassName = "",
-                    OriginalMethodName = actionName,
+                    OriginalMethodName = actionName??"",
                     Remark = $"来源于{nameof(CustomExceptionFilterAttribute)}.{nameof(OnException)}"
                 };
                 this._logger.LogError(context.Exception, $"{url}----->actionName={actionName}  Message={context.Exception.Message}", JsonConvert.SerializeObject(logModel));

@@ -28,7 +28,7 @@ namespace Yi.Framework.Common.Helper
         }
 
 
-        public static async Task<string> Post(string url, object item = null, Dictionary<string, string> head = null)
+        public static async Task<string> Post(string url, object? item = null, Dictionary<string, string>? head = null)
         {
 
             using StringContent json = new(JsonSerializer.Serialize(item), Encoding.UTF8, MediaTypeNames.Application.Json);

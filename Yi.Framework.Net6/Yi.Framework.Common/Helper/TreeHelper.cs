@@ -9,13 +9,13 @@ namespace Yi.Framework.Common.Helper
 {
     public static class TreeHelper
     {
-        public static List<T> SetTree<T>(List<T> list, Action<T> action = null)
+        public static List<T> SetTree<T>(List<T> list, Action<T> action = null!)
         {
             if (list is not null && list.Count > 0)
             {
                 IList<T> result = new List<T>();
-                long pid = list.Min(m => (m as ITreeModel<T>).ParentId);
-                IList<T> t = list.Where(m => (m as ITreeModel<T>).ParentId == pid).ToList();
+                long pid = list.Min(m => (m as ITreeModel<T>)!.ParentId);
+                IList<T> t = list.Where(m => (m as ITreeModel<T>)!.ParentId == pid).ToList();
                 foreach (T model in t)
                 {
                     if (action is not null)
@@ -24,20 +24,20 @@ namespace Yi.Framework.Common.Helper
                     }
                     result.Add(model);
                     var item = (model as ITreeModel<T>);
-                    IList<T> children = list.Where(m => (m as ITreeModel<T>).ParentId == item.Id).ToList();
+                    IList<T> children = list.Where(m => (m as ITreeModel<T>)!.ParentId == item!.Id).ToList();
                     if (children.Count > 0)
                     {
-                        SetTreeChildren(list, children, model, action);
+                        SetTreeChildren(list, children, model, action!);
                     }
                 }
-                return result.OrderByDescending(m => (m as ITreeModel<T>).OrderNum).ToList();
+                return result.OrderByDescending(m => (m as ITreeModel<T>)!.OrderNum).ToList();
             }
-            return null;
+            return null!;
         }
-        private static void SetTreeChildren<T>(IList<T> list, IList<T> children, T model, Action<T> action = null)
+        private static void SetTreeChildren<T>(IList<T> list, IList<T> children, T model, Action<T> action = null!)
         {
             var mm = (model as ITreeModel<T>);
-            mm.Children = new List<T>();
+            mm!.Children = new List<T>();
             foreach (T item in children)
             {
                 if (action is not null)
@@ -46,13 +46,13 @@ namespace Yi.Framework.Common.Helper
                 }
                 mm.Children.Add(item);
                 var _item = (item as ITreeModel<T>);
-                IList<T> _children = list.Where(m => (m as ITreeModel<T>).ParentId == _item.Id).ToList();
+                IList<T> _children = list.Where(m => (m as ITreeModel<T>)!.ParentId == _item!.Id).ToList();
                 if (_children.Count > 0)
                 {
-                    SetTreeChildren(list, _children, item, action);
+                    SetTreeChildren(list, _children, item, action!);
                 }
             }
-            mm.Children = mm.Children.OrderByDescending(m => (m as ITreeModel<T>).OrderNum).ToList();
+            mm.Children = mm.Children.OrderByDescending(m => (m as ITreeModel<T>)!.OrderNum).ToList();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Yi.Framework.Common.Helper
 	/// </summary>
 	public class RSAHelper
 	{
-		public readonly RSA _privateKeyRsaProvider;
-		public readonly RSA _publicKeyRsaProvider;
+		public readonly RSA? _privateKeyRsaProvider;
+		public readonly RSA? _publicKeyRsaProvider;
 		private readonly HashAlgorithmName _hashAlgorithmName;
 		private readonly Encoding _encoding;
 
@@ -23,7 +23,7 @@ namespace Yi.Framework.Common.Helper
 		/// <param name="encoding">编码类型</param>
 		/// <param name="privateKey">私钥</param>
 		/// <param name="publicKey">公钥</param>
-		public RSAHelper(RSAType rsaType, Encoding encoding, string privateKey, string publicKey = null)
+		public RSAHelper(RSAType rsaType, Encoding encoding, string privateKey, string? publicKey = null)
 		{
 			_encoding = encoding;
 			if (!string.IsNullOrEmpty(privateKey))
@@ -50,7 +50,7 @@ namespace Yi.Framework.Common.Helper
 		{
 			byte[] dataBytes = _encoding.GetBytes(data);
 
-			var signatureBytes = _privateKeyRsaProvider.SignData(dataBytes, _hashAlgorithmName, RSASignaturePadding.Pkcs1);
+			var signatureBytes = _privateKeyRsaProvider!.SignData(dataBytes, _hashAlgorithmName, RSASignaturePadding.Pkcs1);
 
 			return Convert.ToBase64String(signatureBytes);
 		}
@@ -70,7 +70,7 @@ namespace Yi.Framework.Common.Helper
 			byte[] dataBytes = _encoding.GetBytes(data);
 			byte[] signBytes = Convert.FromBase64String(sign);
 
-			var verify = _publicKeyRsaProvider.VerifyData(dataBytes, signBytes, _hashAlgorithmName, RSASignaturePadding.Pkcs1);
+			var verify = _publicKeyRsaProvider!.VerifyData(dataBytes, signBytes, _hashAlgorithmName, RSASignaturePadding.Pkcs1);
 
 			return verify;
 		}
@@ -225,7 +225,7 @@ namespace Yi.Framework.Common.Helper
 		/// </summary>
 		/// <param name="publicKeyString"></param>
 		/// <returns></returns>
-		public RSA CreateRsaProviderFromPublicKey(string publicKeyString)
+		public RSA? CreateRsaProviderFromPublicKey(string publicKeyString)
 		{
 			// encoded OID sequence for  PKCS #1 rsaEncryption szOID_RSA_RSA = "1.2.840.113549.1.1.1"
 			byte[] seqOid = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };

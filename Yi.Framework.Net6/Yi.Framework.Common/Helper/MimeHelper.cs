@@ -22,15 +22,15 @@ namespace Yi.Framework.Common.Helper
 
             public static string GetMimeMapping(string FileName)
             {
-                string text = null;
+                string text = null!;
                 int num = FileName.LastIndexOf('.');
                 if (0 < num && num > FileName.LastIndexOf('\\'))
                 {
-                    text = (string)MimeHelper._mimeMappingTable[FileName.Substring(num)];
+                    text = (string)MimeHelper._mimeMappingTable[FileName.Substring(num)]!;
                 }
                 if (text == null)
                 {
-                    text = (string)MimeHelper._mimeMappingTable[".*"];
+                    text = (string)MimeHelper._mimeMappingTable[".*"]!;
                 }
                 return text;
             }

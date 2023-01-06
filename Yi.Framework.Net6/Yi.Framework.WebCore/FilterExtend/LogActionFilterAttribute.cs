@@ -30,8 +30,8 @@ namespace Yi.Framework.WebCore.FilterExtend
 
             LogModel logModel = new LogModel()
             {
-                OriginalClassName = controllerName,
-                OriginalMethodName = actionName,
+                OriginalClassName = controllerName??"",
+                OriginalMethodName = actionName ?? "",
                 Remark = $"来源于{nameof(LogActionFilterAttribute)}.{nameof(OnActionExecuting)}"
             };
 

@@ -69,7 +69,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 //路径为： 文件路径/文件id+文件扩展名
                 var path = Path.Combine($"{PathConst.wwwroot}/{file.FilePath}", file.Id.ToString() + Path.GetExtension(file.FileName));
                 var stream = System.IO.File.OpenRead(path);
-                var MimeType = Common.Helper.MimeHelper.GetMimeMapping(file.FileName);
+                var MimeType = Common.Helper.MimeHelper.GetMimeMapping(file.FileName!);
                 return File(stream, MimeType, file.FileName);
             }
             catch

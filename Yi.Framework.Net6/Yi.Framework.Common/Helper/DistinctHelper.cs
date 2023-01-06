@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,14 @@ namespace Yi.Framework.Common.Helper
         {
             this._getField = getfield;
         }
-        public bool Equals(T x, T y)
+        public bool Equals(T? x, T? y)
         {
-            return EqualityComparer<C>.Default.Equals(_getField(x), _getField(y));
+            return EqualityComparer<C>.Default.Equals(_getField(x!), _getField(y!));
         }
+       
         public int GetHashCode(T obj)
         {
-            return EqualityComparer<C>.Default.GetHashCode(this._getField(obj));
+            return EqualityComparer<C>.Default.GetHashCode(this._getField(obj)!);
         }
     }
     public static class DistinctHelper

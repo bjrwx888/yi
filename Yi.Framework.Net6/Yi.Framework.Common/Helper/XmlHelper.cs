@@ -13,7 +13,7 @@ namespace Yi.Framework.Common.Helper
         /// <typeparam name="T">类</typeparam>
         /// <param name="obj">对象</param>
         /// <returns>字符格式的JSON数据</returns>
-        public static string GetXML<T>(object obj)
+        public static string? GetXML<T>(object obj)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Yi.Framework.Common.Helper
             XmlSerializer serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(rootName));
             StringReader reader = new StringReader(xml);
 
-            T res = (T)serializer.Deserialize(reader);
+            T res = (T)serializer.Deserialize(reader)!;
             reader.Close();
             reader.Dispose();
             return res; 

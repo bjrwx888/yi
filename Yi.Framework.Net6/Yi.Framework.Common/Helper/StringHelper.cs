@@ -50,7 +50,7 @@ namespace Yi.Framework.Common.Helper
         {
 
             StringBuilder sb = new StringBuilder();
-            string urlPars = null;
+            string? urlPars = null;
             bool isEnter = false;
             foreach (var item in dic)
             {
@@ -69,7 +69,7 @@ namespace Yi.Framework.Common.Helper
         {
 
             StringBuilder sb = new StringBuilder();
-            string urlPars = null;
+            string? urlPars = null;
             bool isEnter = false;
             foreach (var item in dic)
             {

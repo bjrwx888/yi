@@ -19,7 +19,7 @@ namespace Yi.Framework.Common.Attribute
         /// <summary>
         /// 指定服务类型
         /// </summary>
-        public Type ServiceType { get; set; }
+        public Type? ServiceType { get; set; } 
 
     }
 

@@ -22,7 +22,7 @@ namespace Yi.Framework.WebCore.AspNetCoreExtensions
 
         public static void UseLocalizerService(this IApplicationBuilder app)
         {
-            Result._local = app.ApplicationServices.GetService<IStringLocalizer<LocalLanguage>>();
+            Result._local = app.ApplicationServices.GetRequiredService<IStringLocalizer<LocalLanguage>>();
 
             var support = new[] { "zh", "en" };
             var local = new RequestLocalizationOptions().SetDefaultCulture(support[0])

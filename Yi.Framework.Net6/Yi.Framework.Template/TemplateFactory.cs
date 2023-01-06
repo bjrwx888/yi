@@ -10,11 +10,10 @@ namespace Yi.Framework.Template
 {
     public class TemplateFactory
     {
-        private List<ITemplateProvider> _templateProviders;
+        private List<ITemplateProvider> _templateProviders=new List<ITemplateProvider>();
 
         public void CreateTemplateProviders(Action<List<ITemplateProvider>> action)
         {
-            _templateProviders=new List<ITemplateProvider>();
             action(_templateProviders);
         }
 
