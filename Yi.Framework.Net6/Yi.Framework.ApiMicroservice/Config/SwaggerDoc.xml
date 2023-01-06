@@ -181,7 +181,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.MaterialController.PageList(Yi.Framework.DtoModel.ERP.Material.MaterialCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.MaterialController.PageList(Yi.Framework.DtoModel.ERP.Material.MaterialGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
             </summary>
@@ -249,7 +249,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.PageList(Yi.Framework.DtoModel.ERP.PurchaseDetails.PurchaseDetailsCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.PageList(Yi.Framework.DtoModel.ERP.PurchaseDetails.PurchaseDetailsGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
             </summary>
@@ -283,7 +283,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.SupplierController.PageList(Yi.Framework.DtoModel.ERP.Supplier.SupplierCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.SupplierController.PageList(Yi.Framework.DtoModel.ERP.Supplier.SupplierGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
             </summary>
@@ -317,7 +317,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.UnitController.PageList(Yi.Framework.DtoModel.ERP.Unit.UnitCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.UnitController.PageList(Yi.Framework.DtoModel.ERP.Unit.UnitGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
             </summary>
@@ -357,7 +357,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.WarehouseController.PageList(Yi.Framework.DtoModel.ERP.Warehouse.WarehouseCreateUpdateInput,Yi.Framework.Common.Models.PageParModel)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.WarehouseController.PageList(Yi.Framework.DtoModel.ERP.Warehouse.WarehouseGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
             </summary>

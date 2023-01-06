@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DtoModel.ERP.Supplier;
 using Yi.Framework.Interface.ERP;
@@ -22,7 +22,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] SupplierCreateUpdateInput input, [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] SupplierGetListInput input, [FromQuery] PageParModel page)
         {
             var result = await _supplierService.PageListAsync(input, page);
             return Result.Success().SetData(result);

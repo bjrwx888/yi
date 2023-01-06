@@ -16,7 +16,7 @@ namespace Yi.Framework.Service.ERP
 {
     public class UnitService : CrudAppService<UnitEntity, UnitGetListOutput, long, UnitCreateUpdateInput>, IUnitService
     {
-        public async Task<PageModel<List<UnitGetListOutput>>> PageListAsync(UnitCreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<UnitGetListOutput>>> PageListAsync(UnitGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable

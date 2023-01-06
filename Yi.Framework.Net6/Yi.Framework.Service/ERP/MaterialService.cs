@@ -16,7 +16,7 @@ namespace Yi.Framework.Service.ERP
 {
     public class MaterialService : CrudAppService<MaterialEntity, MaterialGetListOutput, long, MaterialCreateUpdateInput>, IMaterialService
     {
-        public async Task<PageModel<List<MaterialGetListOutput>>> PageListAsync(MaterialCreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<MaterialGetListOutput>>> PageListAsync(MaterialGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable

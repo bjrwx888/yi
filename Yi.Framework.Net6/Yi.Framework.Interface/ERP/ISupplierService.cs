@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,6 @@ namespace Yi.Framework.Interface.ERP
 {
     public interface ISupplierService : ICrudAppService<SupplierGetListOutput, long, SupplierCreateUpdateInput>
     {
-        Task<PageModel<List<SupplierGetListOutput>>> PageListAsync(SupplierCreateUpdateInput input, PageParModel page);
+        Task<PageModel<List<SupplierGetListOutput>>> PageListAsync(SupplierGetListInput input, PageParModel page);
     }
 }

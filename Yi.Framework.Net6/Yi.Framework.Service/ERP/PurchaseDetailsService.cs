@@ -16,12 +16,11 @@ namespace Yi.Framework.Service.ERP
 {
     public class PurchaseDetailsService : CrudAppService<PurchaseDetailsEntity, PurchaseDetailsGetListOutput, long, PurchaseDetailsCreateUpdateInput>, IPurchaseDetailsService
     {
-        public async Task<PageModel<List<PurchaseDetailsGetListOutput>>> PageListAsync(PurchaseDetailsCreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<PurchaseDetailsGetListOutput>>> PageListAsync(PurchaseDetailsGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable
-                //.WhereIF(input.Code is not null,u=>u.Code.Contains(input.Code))
-                //.WhereIF(input.Name is not null, u => u.Name.Contains(input.Name))
+
                 .ToPageListAsync(page.PageNum, page.PageSize, totalNumber);
             return new PageModel<List<PurchaseDetailsGetListOutput>> { Total = totalNumber.Value, Data = await MapToGetListOutputDtosAsync(data) };
         }

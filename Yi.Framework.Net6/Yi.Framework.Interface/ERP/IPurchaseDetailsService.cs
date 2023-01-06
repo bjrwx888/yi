@@ -11,6 +11,6 @@ namespace Yi.Framework.Interface.ERP
 {
     public interface IPurchaseDetailsService : ICrudAppService<PurchaseDetailsGetListOutput, long, PurchaseDetailsCreateUpdateInput>
     {
-        Task<PageModel<List<PurchaseDetailsGetListOutput>>> PageListAsync(PurchaseDetailsCreateUpdateInput input, PageParModel page);
+        Task<PageModel<List<PurchaseDetailsGetListOutput>>> PageListAsync(PurchaseDetailsGetListInput input, PageParModel page);
     }
 }

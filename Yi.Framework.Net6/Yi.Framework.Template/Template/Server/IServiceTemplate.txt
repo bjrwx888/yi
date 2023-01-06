@@ -11,6 +11,6 @@ namespace Yi.Framework.Interface.#ModelName#
 {
     public interface I#EntityName#Service : ICrudAppService<#EntityName#GetListOutput, long, #EntityName#CreateUpdateInput>
     {
-        Task<PageModel<List<#EntityName#GetListOutput>>> PageListAsync(#EntityName#CreateUpdateInput input, PageParModel page);
+        Task<PageModel<List<#EntityName#GetListOutput>>> PageListAsync(#EntityName#GetListInput input, PageParModel page);
     }
 }

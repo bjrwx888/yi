@@ -22,7 +22,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers.#ModelName#
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> PageList([FromQuery] #EntityName#CreateUpdateInput input, [FromQuery] PageParModel page)
+        public async Task<Result> PageList([FromQuery] #EntityName#GetListInput input, [FromQuery] PageParModel page)
         {
             var result = await _#LowerEntityName#Service.PageListAsync(input, page);
             return Result.Success().SetData(result);

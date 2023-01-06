@@ -11,6 +11,6 @@ namespace Yi.Framework.Interface.ERP
 {
     public interface IWarehouseService : ICrudAppService<WarehouseGetListOutput, long, WarehouseCreateUpdateInput>
     {
-        Task<PageModel<List<WarehouseGetListOutput>>> PageListAsync(WarehouseCreateUpdateInput input, PageParModel page);
+        Task<PageModel<List<WarehouseGetListOutput>>> PageListAsync(WarehouseGetListInput input, PageParModel page);
     }
 }

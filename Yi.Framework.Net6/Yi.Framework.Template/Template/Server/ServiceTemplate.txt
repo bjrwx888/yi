@@ -16,7 +16,7 @@ namespace Yi.Framework.Service.#ModelName#
 {
     public class #EntityName#Service : CrudAppService<#EntityName#Entity, #EntityName#GetListOutput, long, #EntityName#CreateUpdateInput>, I#EntityName#Service
     {
-        public async Task<PageModel<List<#EntityName#GetListOutput>>> PageListAsync(#EntityName#CreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<#EntityName#GetListOutput>>> PageListAsync(#EntityName#GetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable

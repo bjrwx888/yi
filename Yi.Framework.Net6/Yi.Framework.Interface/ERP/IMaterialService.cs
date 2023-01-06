@@ -11,6 +11,6 @@ namespace Yi.Framework.Interface.ERP
 {
     public interface IMaterialService : ICrudAppService<MaterialGetListOutput, long, MaterialCreateUpdateInput>
     {
-        Task<PageModel<List<MaterialGetListOutput>>> PageListAsync(MaterialCreateUpdateInput input, PageParModel page);
+        Task<PageModel<List<MaterialGetListOutput>>> PageListAsync(MaterialGetListInput input, PageParModel page);
     }
 }

@@ -16,7 +16,7 @@ namespace Yi.Framework.Service.ERP
 {
     public class WarehouseService : CrudAppService<WarehouseEntity, WarehouseGetListOutput, long, WarehouseCreateUpdateInput>, IWarehouseService
     {
-        public async Task<PageModel<List<WarehouseGetListOutput>>> PageListAsync(WarehouseCreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<WarehouseGetListOutput>>> PageListAsync(WarehouseGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable

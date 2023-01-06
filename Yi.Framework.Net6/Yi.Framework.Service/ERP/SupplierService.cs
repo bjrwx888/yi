@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Yi.Framework.Service.ERP
 {
     public class SupplierService : CrudAppService<SupplierEntity, SupplierGetListOutput, long, SupplierCreateUpdateInput>, ISupplierService
     {
-        public async Task<PageModel<List<SupplierGetListOutput>>> PageListAsync(SupplierCreateUpdateInput input, PageParModel page)
+        public async Task<PageModel<List<SupplierGetListOutput>>> PageListAsync(SupplierGetListInput input, PageParModel page)
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable
