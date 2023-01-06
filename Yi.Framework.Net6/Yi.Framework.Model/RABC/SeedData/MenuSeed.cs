@@ -100,13 +100,13 @@ namespace Yi.Framework.Model.RABC.SeedData
             Entitys.Add(swagger);
 
 
-            //业务功能
-            MenuEntity business = new MenuEntity()
+            //BBS
+            MenuEntity bbs = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
-                MenuName = "业务功能",
+                MenuName = "BBS",
                 MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
-                Router = "/business",
+                Router = "/bbs",
                 IsShow = true,
                 IsLink = false,
                 MenuIcon = "international",
@@ -114,22 +114,22 @@ namespace Yi.Framework.Model.RABC.SeedData
                 ParentId = 0,
                 IsDeleted = false
             };
-            Entitys.Add(business);
+            Entitys.Add(bbs);
             //文章管理
             MenuEntity article = new MenuEntity()
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "文章管理",
-                PermissionCode = "business:article:list",
+                PermissionCode = "bbs:article:list",
                 MenuType = MenuTypeEnum.Menu.GetHashCode(),
                 Router = "article",
                 IsShow = true,
                 IsLink = false,
                 IsCache = true,
-                Component = "business/article/index",
+                Component = "bbs/article/index",
                 MenuIcon = "education",
                 OrderNum = 100,
-                ParentId = business.Id,
+                ParentId = bbs.Id,
                 IsDeleted = false
             };
             Entitys.Add(article);
@@ -138,7 +138,7 @@ namespace Yi.Framework.Model.RABC.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "文章查询",
-                PermissionCode = "business:article:query",
+                PermissionCode = "bbs:article:query",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
                 ParentId = article.Id,
@@ -150,7 +150,7 @@ namespace Yi.Framework.Model.RABC.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "文章新增",
-                PermissionCode = "business:article:add",
+                PermissionCode = "bbs:article:add",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
                 ParentId = article.Id,
@@ -162,7 +162,7 @@ namespace Yi.Framework.Model.RABC.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "文章修改",
-                PermissionCode = "business:article:edit",
+                PermissionCode = "bbs:article:edit",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
                 ParentId = article.Id,
@@ -174,7 +174,7 @@ namespace Yi.Framework.Model.RABC.SeedData
             {
                 Id = SnowFlakeSingle.Instance.NextId(),
                 MenuName = "文章删除",
-                PermissionCode = "business:article:remove",
+                PermissionCode = "bbs:article:remove",
                 MenuType = MenuTypeEnum.Component.GetHashCode(),
                 OrderNum = 100,
                 ParentId = article.Id,
@@ -182,7 +182,362 @@ namespace Yi.Framework.Model.RABC.SeedData
             };
             Entitys.Add(articleRemove);
 
+            //ERP
+            MenuEntity erp = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "ERP",
+                MenuType = MenuTypeEnum.Catalogue.GetHashCode(),
+                Router = "/erp",
+                IsShow = true,
+                IsLink = false,
+                MenuIcon = "international",
+                OrderNum = 96,
+                ParentId = 0,
+                IsDeleted = false
+            };
+            Entitys.Add(erp);
 
+
+
+            //供应商定义
+            MenuEntity supplier = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "供应商定义",
+                PermissionCode = "erp:supplier:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "supplier",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "erp/supplier/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = erp.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(supplier);
+
+            MenuEntity supplierQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "供应商查询",
+                PermissionCode = "erp:supplier:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = supplier.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(supplierQuery);
+
+            MenuEntity supplierAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "供应商新增",
+                PermissionCode = "erp:supplier:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = supplier.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(supplierAdd);
+
+            MenuEntity supplierEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "供应商修改",
+                PermissionCode = "erp:supplier:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = supplier.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(supplierEdit);
+
+            MenuEntity supplierRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "供应商删除",
+                PermissionCode = "erp:supplier:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = supplier.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(supplierRemove);
+
+
+            //仓库定义
+            MenuEntity warehouse = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "仓库定义",
+                PermissionCode = "erp:warehouse:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "warehouse",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "erp/warehouse/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = erp.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(warehouse);
+
+            MenuEntity warehouseQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "仓库查询",
+                PermissionCode = "erp:warehouse:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = warehouse.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(warehouseQuery);
+
+            MenuEntity warehouseAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "仓库新增",
+                PermissionCode = "erp:warehouse:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = warehouse.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(warehouseAdd);
+
+            MenuEntity warehouseEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "仓库修改",
+                PermissionCode = "erp:warehouse:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = warehouse.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(warehouseEdit);
+
+            MenuEntity warehouseRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "仓库删除",
+                PermissionCode = "erp:warehouse:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = warehouse.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(warehouseRemove);
+
+
+            //单位定义
+            MenuEntity unit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "单位定义",
+                PermissionCode = "erp:unit:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "unit",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "erp/unit/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = erp.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(unit);
+
+            MenuEntity unitQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "单位查询",
+                PermissionCode = "erp:unit:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = unit.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(unitQuery);
+
+            MenuEntity unitAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "单位新增",
+                PermissionCode = "erp:unit:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = unit.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(unitAdd);
+
+            MenuEntity unitEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "单位修改",
+                PermissionCode = "erp:unit:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = unit.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(unitEdit);
+
+            MenuEntity unitRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "单位删除",
+                PermissionCode = "erp:unit:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = unit.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(unitRemove);
+
+
+            //物料定义
+            MenuEntity material = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "物料定义",
+                PermissionCode = "erp:material:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "material",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "erp/material/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = erp.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(material);
+
+            MenuEntity materialQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "物料查询",
+                PermissionCode = "erp:material:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = material.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(materialQuery);
+
+            MenuEntity materialAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "物料新增",
+                PermissionCode = "erp:material:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = material.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(materialAdd);
+
+            MenuEntity materialEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "物料修改",
+                PermissionCode = "erp:material:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = material.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(materialEdit);
+
+            MenuEntity materialRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "物料删除",
+                PermissionCode = "erp:material:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = material.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(materialRemove);
+
+
+            //采购订单
+            MenuEntity purchase = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "采购订单",
+                PermissionCode = "erp:purchase:list",
+                MenuType = MenuTypeEnum.Menu.GetHashCode(),
+                Router = "purchase",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "erp/purchase/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = erp.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(purchase);
+
+            MenuEntity purchaseQuery = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "采购订单查询",
+                PermissionCode = "erp:purchase:query",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = purchase.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(purchaseQuery);
+
+            MenuEntity purchaseAdd = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "采购订单新增",
+                PermissionCode = "erp:purchase:add",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = purchase.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(purchaseAdd);
+
+            MenuEntity purchaseEdit = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "采购订单修改",
+                PermissionCode = "erp:purchase:edit",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = purchase.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(purchaseEdit);
+
+            MenuEntity purchaseRemove = new MenuEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                MenuName = "采购订单删除",
+                PermissionCode = "erp:purchase:remove",
+                MenuType = MenuTypeEnum.Component.GetHashCode(),
+                OrderNum = 100,
+                ParentId = purchase.Id,
+                IsDeleted = false
+            };
+            Entitys.Add(purchaseRemove);
 
 
 

@@ -8,7 +8,7 @@ namespace Yi.Framework.Common.QueueModel
 {
     public class SMSQueueModel
     {
-        public string code { get; set; }
-        public string phone { get; set; }
+        public string? code { get; set; }
+        public string? phone { get; set; }
     }
 }

@@ -9,10 +9,10 @@ namespace Yi.Framework.Common.Helper
 {
     public class EmailHelper
     {
-        public static string fromMail { get; set; }
-        public static string pwdMail { get; set; }
-        public static string senderMail { get; set; }
-        public static string subjectMail { get; set; }
+        public static string fromMail { get; set; } = string.Empty;
+        public static string pwdMail { get; set; } = string.Empty;
+        public static string senderMail { get; set; } = string.Empty;
+        public static string subjectMail { get; set; } = string.Empty;
         public static void Init(string fromMail,string pwdMail,string senderMail, string subjectMail)
         {
             EmailHelper.fromMail = fromMail;

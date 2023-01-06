@@ -391,41 +391,6 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StudentController.Create(Yi.Framework.DtoModel.RABC.Student.StudentCreateInput)">
-            <summary>
-            增
-            </summary>
-            <param name="studentCreateInput"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StudentController.GetById(System.Guid)">
-            <summary>
-            查
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StudentController.GetLsit">
-            <summary>
-            查
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StudentController.Del(System.Collections.Generic.List{System.Guid})">
-            <summary>
-            删
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StudentController.Update(System.Guid,Yi.Framework.DtoModel.RABC.Student.StudentUpdateInput)">
-            <summary>
-            更
-            </summary>
-            <param name="id"></param>
-            <param name="studentUpdateInput"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yi.Framework.ApiMicroservice.Controllers.AccountController">
             <summary>
             账户管理

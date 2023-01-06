@@ -8,10 +8,10 @@
          v-show="showSearch"
          label-width="68px"
        >
-         <el-form-item label="文章标题" prop="title" >
+         <el-form-item label="部门名称" prop="deptName" >
            <el-input
-             v-model="queryParams.title"
-             placeholder="请输入文章标题"
+             v-model="queryParams.deptName"
+             placeholder="请输入部门名称"
              clearable
              style="width: 240px"
              @keyup.enter="handleQuery"
@@ -58,7 +58,7 @@
              plain
              icon="Plus"
              @click="handleAdd"
-             v-hasPermi="['business:article:add']"
+             v-hasPermi="['business:dept:add']"
              >新增</el-button
            >
          </el-col>
@@ -69,7 +69,7 @@
              icon="Edit"
              :disabled="single"
              @click="handleUpdate"
-             v-hasPermi="['business:article:edit']"
+             v-hasPermi="['business:dept:edit']"
              >修改</el-button
            >
          </el-col>
@@ -80,7 +80,7 @@
              icon="Delete"
              :disabled="multiple"
              @click="handleDelete"
-             v-hasPermi="['business:article:remove']"
+             v-hasPermi="['business:dept:remove']"
              >删除</el-button
            >
          </el-col>
@@ -90,7 +90,7 @@
              plain
              icon="Download"
              @click="handleExport"
-             v-hasPermi="['business:article:export']"
+             v-hasPermi="['business:dept:export']"
              >导出</el-button
            >
          </el-col>
@@ -102,21 +102,21 @@
    
        <el-table
          v-loading="loading"
-         :data="articleList"
+         :data="deptList"
          @selection-change="handleSelectionChange"
        >
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="编号" align="center" prop="id" />
    
          <el-table-column
-           label="文章标题"
+           label="部门标题"
            align="center"
            prop="title"
            :show-overflow-tooltip="true"
          />
    
          <el-table-column
-           label="文章部分内容"
+           label="部门部分内容"
            align="left"
            prop="content"
            :show-overflow-tooltip="true"
@@ -165,21 +165,21 @@
                icon="Edit"
                @click="handleOpen(scope.row)"
          
-               >文章详情</el-button
+               >部门详情</el-button
              >
    
              <el-button
                type="text"
                icon="Edit"
                @click="handleUpdate(scope.row)"
-               v-hasPermi="['business:article:edit']"
+               v-hasPermi="['business:dept:edit']"
                >修改</el-button
              >
              <el-button
                type="text"
                icon="Delete"
                @click="handleDelete(scope.row)"
-               v-hasPermi="['business:article:remove']"
+               v-hasPermi="['business:dept:remove']"
                >删除</el-button
              >
            </template>
@@ -196,8 +196,8 @@
    
        <el-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="dataRef" :model="form" :rules="rules" label-width="80px">
-           <el-form-item label="文章标题" prop="title">
-                  <el-input v-model="form.title" placeholder="请输入文章标题" />
+           <el-form-item label="部门标题" prop="title">
+                  <el-input v-model="form.title" placeholder="请输入部门标题" />
                </el-form-item>
            <el-form-item label="状态" prop="isDeleted">
              <el-radio-group v-model="form.isDeleted">
@@ -236,14 +236,14 @@
      delData,
      addData,
      updateData,
-   } from "@/api/business/articleApi";
+   } from "@/api/system/dept";
    import { ref } from "@vue/reactivity";
    import { computed } from "@vue/runtime-core";
    
    const { proxy } = getCurrentInstance();
    const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
    
-   const articleList = ref([]);
+   const deptList = ref([]);
    const open = ref(false);
    const loading = ref(true);
    const showSearch = ref(true);
@@ -253,18 +253,18 @@
    const total = ref(0);
    const title = ref("");
    const dateRange = ref([]);
-   const articleDialogVisible=ref(false);
-   const articleId=ref("");
+   const deptDialogVisible=ref(false);
+   const deptId=ref("");
    const data = reactive({
      form: {},
      queryParams: {
        pageNum: 1,
        pageSize: 10,
-       title: undefined,
+       deptName: undefined,
        isDeleted: undefined,
      },
      rules: {
-       title: [{ required: true, message: "文章标题不能为空", trigger: "blur" }],
+      deptName: [{ required: true, message: "部门标题不能为空", trigger: "blur" }],
      },
    });
    
@@ -276,7 +276,7 @@
      loading.value = true;
      listData(proxy.addDateRange(queryParams.value, dateRange.value)).then(
        (response) => {
-         articleList.value = response.data.data;
+         deptList.value = response.data.data;
          total.value = response.data.total;
          loading.value = false;
        }
@@ -312,7 +312,7 @@
    function handleAdd() {
      reset();
      open.value = true;
-     title.value = "添加文章";
+     title.value = "添加部门";
    }
    /** 多选框选中数据 */
    function handleSelectionChange(selection) {
@@ -327,7 +327,7 @@
      getData(id).then((response) => {
        form.value = response.data;
        open.value = true;
-       title.value = "修改文章类型";
+       title.value = "修改部门类型";
      });
    }
    /** 提交按钮 */
@@ -354,7 +354,7 @@
    function handleDelete(row) {
      const delIds = row.id || ids.value;
      proxy.$modal
-       .confirm('是否确认删除字典编号为"' + delIds + '"的数据项？')
+       .confirm('是否确认删除编号为"' + delIds + '"的数据项？')
        .then(function () {
          return delData(delIds);
        })
@@ -367,10 +367,10 @@
    /** 导出按钮操作 */
    function handleExport() {}
    
-   /** 打开文章详情 */
+   /** 打开部门详情 */
    function handleOpen(row){
-       articleId.value=row.id;
-       articleDialogVisible.value=true;
+       deptId.value=row.id;
+       deptDialogVisible.value=true;
    }
    getList();
    </script>

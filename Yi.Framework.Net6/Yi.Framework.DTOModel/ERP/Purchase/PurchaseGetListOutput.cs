@@ -10,9 +10,9 @@ namespace Yi.Framework.DtoModel.ERP.Purchase
 {
     public class PurchaseGetListOutput: EntityDto<long>
     {
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
         public DateTime NeedTime { get; set; }
-        public string Buyer { get; set; }
+        public string Buyer { get; set; } = string.Empty;
         public long TotalMoney { get; set; }
         public long PaidMoney { get; set; }
         public PurchaseStateEnum PurchaseState { get; set; }

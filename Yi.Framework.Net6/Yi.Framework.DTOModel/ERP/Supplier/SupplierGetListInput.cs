@@ -7,7 +7,7 @@ using Yi.Framework.Model.Base;
 
 namespace Yi.Framework.DtoModel.ERP.Supplier
 {
-    public class SupplierGetListOutput: EntityDto<long>
+    public class SupplierGetListInput
     {
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; }= string.Empty;

@@ -239,7 +239,7 @@ import { getToken } from "@/utils/auth";
 import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser } from "@/api/system/user";
 import { roleOptionselect } from "@/api/system/role";
 import { postOptionselect } from "@/api/system/post";
-import { listDept } from "@/api/system/dept";
+import { listData as listDept } from "@/api/system/dept";
 
 
 const router = useRouter();

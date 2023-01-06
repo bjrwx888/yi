@@ -8,7 +8,7 @@ namespace Yi.Framework.DtoModel.Base.Dto
 {
     public class GiveRoleSetMenuDto
     {
-        public List<long> RoleIds { get; set; }
-        public List<long> MenuIds { get; set; }
+        public List<long>? RoleIds { get; set; }
+        public List<long>? MenuIds { get; set; }
     }
 }

@@ -10,12 +10,11 @@ namespace Yi.Framework.DtoModel.ERP.PurchaseDetails
 {
     public class PurchaseDetailsCreateUpdateInput : EntityDto<long>
     {
-        public string? MaterialUnit { get; set; }
-
-        public string? MaterialName { get; set; }
-        public float UnitPrice { get; set; }
-        public long TotalNumber { get; set; }
-        public long? CompleteNumber { get; set; }
+        public string MaterialName { get; set; }=string.Empty;
+        public string MaterialUnit { get; set; }=string.Empty ;
+        public float UnitPrice { get; set; } 
+        public long TotalNumber { get; set; } 
+        public long CompleteNumber { get; set; }
         public string? Remarks { get; set; }
     }
 }

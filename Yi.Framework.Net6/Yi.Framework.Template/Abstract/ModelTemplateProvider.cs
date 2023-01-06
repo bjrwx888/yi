@@ -15,7 +15,7 @@ namespace Yi.Framework.Template.Abstract
             AddIgnoreEntityField("Id", "TenantId");
         }
 
-        private string entityPath;
+        private string entityPath=string.Empty;
 
         /// <summary>
         /// 实体路径，该类生成需要实体与模板两个同时构建成

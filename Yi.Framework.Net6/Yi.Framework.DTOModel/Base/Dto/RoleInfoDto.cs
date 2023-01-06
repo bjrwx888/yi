@@ -9,8 +9,8 @@ namespace Yi.Framework.DtoModel.Base.Dto
 {
     public class RoleInfoDto
     {
-        public RoleEntity Role { get; set; }
-        public List<long> DeptIds { get; set; }
-        public List<long> MenuIds { get; set; }
+        public RoleEntity Role { get; set; }=new ();
+        public List<long> DeptIds { get; set; } = new ();
+        public List<long> MenuIds { get; set; } = new ();
     }
 }

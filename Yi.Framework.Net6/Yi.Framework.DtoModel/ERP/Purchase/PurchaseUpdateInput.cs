@@ -11,9 +11,9 @@ namespace Yi.Framework.DtoModel.ERP.Purchase
 {
     public class PurchaseUpdateInput : EntityDto<long>
     {
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public DateTime NeedTime { get; set; }
-        public string Buyer { get; set; }
+        public string? Buyer { get; set; }
         public long TotalMoney { get; set; }
         public long PaidMoney { get; set; }
         public PurchaseStateEnum PurchaseState { get; set; }

@@ -10,9 +10,9 @@ namespace Yi.Framework.DtoModel.ERP.Material
 {
     public class MaterialCreateUpdateInput : EntityDto<long>
     {
-        public string? Code { get; set; }
-        public string? Name { get; set; }
-        public string? UnitName { get; set; }
+        public string Code { get; set; }=string.Empty;
+        public string Name { get; set; }=string.Empty;
+        public string UnitName { get; set; }=string.Empty;
         public string? Remarks { get; set; }
     }
 }

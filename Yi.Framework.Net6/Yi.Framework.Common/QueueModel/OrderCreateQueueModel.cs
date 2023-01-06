@@ -22,7 +22,7 @@ namespace Yi.Framework.Common.QueueModel
         /// <summary>
         /// sku ID 集合
         /// </summary>
-        public List<long> SkuIdList { get; set; }
+        public List<long>? SkuIdList { get; set; }
 
         /// <summary>
         /// 尝试次数

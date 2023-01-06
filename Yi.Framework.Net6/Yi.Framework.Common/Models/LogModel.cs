@@ -11,8 +11,8 @@ namespace Yi.Framework.Common.Models
     /// </summary>
     public class LogModel
     {
-        public string OriginalClassName { get; set; }
-        public string OriginalMethodName { get; set; }
-        public string Remark { get; set; }
+        public string OriginalClassName { get; set; } = string.Empty;
+        public string OriginalMethodName { get; set; } = string.Empty;
+        public string? Remark { get; set; }
     }
 }

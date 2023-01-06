@@ -7,7 +7,7 @@ using Yi.Framework.Model.Base;
 
 namespace Yi.Framework.DtoModel.ERP.PurchaseDetails
 {
-    public class PurchaseDetailsGetListOutput: EntityDto<long>
+    public class PurchaseDetailsGetListInput
     {
         public string MaterialName { get; set; }=string.Empty;
         public string MaterialUnit { get; set; }=string.Empty ;

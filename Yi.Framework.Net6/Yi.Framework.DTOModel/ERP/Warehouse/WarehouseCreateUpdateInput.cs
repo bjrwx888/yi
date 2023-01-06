@@ -11,9 +11,9 @@ namespace Yi.Framework.DtoModel.ERP.Warehouse
 {
     public class WarehouseCreateUpdateInput : EntityDto<long>
     {
-        public string? Code { get; set; }
-        public string? Name { get; set; }
+        public string Code { get; set; }=string.Empty;
+        public string Name { get; set; }=string.Empty ;
         public string? Remarks { get; set; }
-        public StateEnum? State { get; set; }
+        public StateEnum State { get; set; } = StateEnum.Normal;
     }
 }

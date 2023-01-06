@@ -9,8 +9,8 @@ namespace Yi.Framework.DtoModel.ERP.Unit
 {
     public class UnitGetListOutput: EntityDto<long>
     {
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Remarks { get; set; }
+        public string Code { get; set; }=string.Empty;
+        public string Name { get; set; }=string.Empty;
+        public string? Remarks { get; set; }
     }
 }

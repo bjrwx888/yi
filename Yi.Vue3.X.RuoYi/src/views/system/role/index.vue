@@ -379,7 +379,7 @@ import {
   treeselect as menuTreeselect,
   listMenu,
 } from "@/api/system/menu";
-import { listDept, roleDeptTreeselect } from "@/api/system/dept";
+import { listData as listDept, roleDeptTreeselect } from "@/api/system/dept";
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
