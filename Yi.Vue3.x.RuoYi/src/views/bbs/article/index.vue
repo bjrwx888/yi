@@ -58,7 +58,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['business:article:add']"
+          v-hasPermi="['bbs:article:add']"
           >新增</el-button
         >
       </el-col>
@@ -69,7 +69,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['business:article:edit']"
+          v-hasPermi="['bbs:article:edit']"
           >修改</el-button
         >
       </el-col>
@@ -80,7 +80,7 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['business:article:remove']"
+          v-hasPermi="['bbs:article:remove']"
           >删除</el-button
         >
       </el-col>
@@ -90,7 +90,7 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['business:article:export']"
+          v-hasPermi="['bbs:article:export']"
           >导出</el-button
         >
       </el-col>
@@ -172,14 +172,14 @@
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['business:article:edit']"
+            v-hasPermi="['bbs:article:edit']"
             >修改</el-button
           >
           <el-button
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['business:article:remove']"
+            v-hasPermi="['bbs:article:remove']"
             >删除</el-button
           >
         </template>
@@ -241,7 +241,7 @@ import {
   delData,
   addData,
   updateData,
-} from "@/api/business/articleApi";
+} from "@/api/bbs/articleApi";
 import { ref } from "@vue/reactivity";
 import { computed } from "@vue/runtime-core";
 

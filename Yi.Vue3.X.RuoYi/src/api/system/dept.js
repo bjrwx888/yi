@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 // 查询部门列表
-export function listData(query) {
+export function listDept(query) {
   return request({
     url: '/dept/SelctGetList',
     method: 'get',
@@ -18,7 +18,7 @@ export function listData(query) {
 // }
 
 // 查询部门详细
-export function getData(deptId) {
+export function getDept(deptId) {
   return request({
     url: '/dept/getById/' + deptId,
     method: 'get'
@@ -26,7 +26,7 @@ export function getData(deptId) {
 }
 
 // 新增部门
-export function addData(data) {
+export function addDept(data) {
   return request({
     url: '/dept/add',
     method: 'post',
@@ -35,7 +35,7 @@ export function addData(data) {
 }
 
 // 修改部门
-export function updateData(data) {
+export function updateDept(data) {
   return request({
     url: '/dept/update',
     method: 'put',
@@ -44,7 +44,7 @@ export function updateData(data) {
 }
 
 // 删除部门
-export function delData(deptId) {
+export function delDept(deptId) {
   if("string"==typeof(deptId))
   {
     deptId=[deptId];
