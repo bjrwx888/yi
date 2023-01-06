@@ -39,5 +39,28 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             return Result.Success().SetData(await _iDictionaryService.SelctPageList(dic, page));
         }
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> PageLisst([FromQuery] DictionaryEntity dic, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iDictionaryService.SelctPageList(dic, page));
+        }
+
+        /// <summary>
+        /// 动态条件分页查询
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> PageLisstss([FromQuery] DictionaryEntity dic, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iDictionaryService.SelctPageList(dic, page));
+        }
     }
 }
