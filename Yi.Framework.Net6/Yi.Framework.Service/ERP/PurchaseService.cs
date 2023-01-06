@@ -30,10 +30,11 @@ namespace Yi.Framework.Service.ERP
         {
             RefAsync<int> totalNumber = 0;
             var data = await Repository._DbQueryable
-                //.WhereIF(input.Code is not null,u=>u.Code.Contains(input.Code))
-                //.WhereIF(input.Name is not null, u => u.Name.Contains(input.Name))
+                .LeftJoin<SupplierEntity>((p, s) => p.SupplierId == s.Id)
+                .WhereIF(input.Code is not null, u => u.Code.Contains(input.Code))
+                .Select((p, s) =>  new PurchaseGetListOutput { SupplierName = s.Name },true)
                 .ToPageListAsync(page.PageNum, page.PageSize, totalNumber);
-            return new PageModel<List<PurchaseGetListOutput>> { Total = totalNumber.Value, Data = await MapToGetListOutputDtosAsync(data) };
+            return new PageModel<List<PurchaseGetListOutput>> { Total = totalNumber.Value, Data = data };
         }
 
         public override async Task<PurchaseGetListOutput> CreateAsync(PurchaseCreateInput input)

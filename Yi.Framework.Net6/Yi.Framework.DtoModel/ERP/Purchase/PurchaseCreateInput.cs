@@ -16,6 +16,8 @@ namespace Yi.Framework.DtoModel.ERP.Purchase
         public DateTime? NeedTime { get; set; }
         public string Buyer { get; set; } = string.Empty;
 
+        public long SupplierId { get; set; }
+
         public List<PurchaseDetailsCreateUpdateInput>? PurchaseDetails { get; set; }
     }
 }

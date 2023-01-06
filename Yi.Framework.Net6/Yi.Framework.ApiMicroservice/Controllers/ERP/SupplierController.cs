@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DtoModel.ERP.Supplier;
 using Yi.Framework.Interface.ERP;
+using Yi.Framework.Service.ERP;
 
 namespace Yi.Framework.ApiMicroservice.Controllers.ERP
 {
@@ -16,6 +17,18 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
             _logger = logger;
             _supplierService = supplierService;
         }
+
+        /// <summary>
+        /// 全查
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetList()
+        {
+            var result = await _supplierService.GetListAsync();
+            return Result.Success().SetData(result);
+        }
+
 
         /// <summary>
         /// 分页查

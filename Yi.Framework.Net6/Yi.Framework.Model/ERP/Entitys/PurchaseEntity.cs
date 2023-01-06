@@ -28,6 +28,11 @@ namespace Yi.Framework.Model.ERP.Entitys
         public Guid? TenantId { get; set; }
 
         /// <summary>
+        /// 供应商id
+        /// </summary>
+        public long SupplierId { get; set; }
+
+        /// <summary>
         /// 采购单号
         /// </summary>
         public string Code { get; set; }=string.Empty;

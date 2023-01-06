@@ -70,7 +70,7 @@
       <!-----------------------这里开始就是数据表单的全部列------------------------>
       <el-table-column label="采购单号" align="center" prop="code" />
 
-      <el-table-column label="供应商" align="center" prop="name" :show-overflow-tooltip="true" />
+      <el-table-column label="供应商" align="center" prop="supplierName" :show-overflow-tooltip="true" />
 
       <el-table-column label="需求时间" align="center" prop="needTime" :show-overflow-tooltip="true" />
 
@@ -136,9 +136,22 @@
             </el-form-item>
           </el-col>
 
-          <el-col :offset="8" :span="8">
-            <el-form-item label="采购单员" prop="name">
-              <el-input v-model="form.name" placeholder="请输入采购单员" /> </el-form-item>
+          <el-col :span="8">
+            <el-form-item label="供应商" prop="supplierName">
+              <el-select v-model="form.supplierId" filterable placeholder="请选择供应商">
+    <el-option
+      v-for="item in supplierList"
+      :key="item.id"
+      :label="item.name"
+      :value="item.id"
+    />
+  </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="采购单员" prop="buyer">
+              <el-input v-model="form.buyer" placeholder="请输入采购单员" /> </el-form-item>
           </el-col>
 
           <el-col :span="8">
@@ -166,11 +179,11 @@
               <el-table :data="form.purchaseDetails" border style="width: 100%">
 
                 <el-table-column  width="90">
-                  <template #default>
-                    <el-button   icon="Delete" type="danger" size="small">删除</el-button>
+                  <template #default="scope">
+                    <el-button @click="delMaterialRow(scope.$index)"  icon="Delete" type="danger" size="small">删除</el-button>
                   </template>
                 </el-table-column>
-
+                <el-table-column type="index" label="序号" width="60" />
                 <el-table-column prop="materialName" label="物料" width="180" />
                 <el-table-column prop="materialUnit" label="单位" width="180" />
                 <el-table-column prop="unitPrice" label="单价" width="180" >
@@ -258,7 +271,10 @@ import {
   addData,
   updateData,
 } from "@/api/erp/purchaseApi";
-
+import
+{
+  allData as supplierlAllData
+} from "@/api/erp/supplierApi";
 import {
   listData as materialListData
 } from "@/api/erp/materialApi";
@@ -273,6 +289,8 @@ const materialList= ref([]);
 const materialTotal = ref(0);
 const materialMultipleSelection=ref([]);
 
+//选择框供应商
+const supplierList=ref([]);
 
 
 const dataList = ref([]);
@@ -287,6 +305,7 @@ const title = ref("");
 const dateRange = ref([]);
 const data = reactive({
   form: {
+    supplierId:undefined,
     totalMoney:0,
     purchaseDetails:[]
   },
@@ -463,6 +482,12 @@ function materialCancel()
   openMaterial.value=false
 }
 
+/** 删除物料行 */
+function delMaterialRow(index)
+{
+
+ form.value.purchaseDetails.splice(index, 1);
+}
 // watch(data.form, (newValue, oldValue) => {
 // console.log(newValue.purchaseDetails,999)
 //       }
@@ -477,7 +502,17 @@ const showTotalMoney =computed(()=>{
    return res;
 })
 
+//-------------这里开始是供货商的数据-----------
+/** 供货商查询列表 */
+function getSupplierList() {
+  supplierlAllData().then(
+    (response) => {
+      supplierList.value = response.data;
+    }
+  );
+}
 getList();
+getSupplierList();
 </script>
 <style scoped>
 .form-add-btn{

@@ -15,6 +15,8 @@ namespace Yi.Framework.DtoModel.ERP.Purchase
         public string Buyer { get; set; } = string.Empty;
         public long TotalMoney { get; set; }
         public long PaidMoney { get; set; }
+
+        public string SupplierName { get; set; } = string.Empty;
         public PurchaseStateEnum PurchaseState { get; set; }
     }
 }

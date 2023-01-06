@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Ubiety.Dns.Core.Common;
 
 namespace Yi.Framework.WebCore.CommonExtend
 {

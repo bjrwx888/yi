@@ -283,6 +283,12 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.SupplierController.GetList">
+            <summary>
+            全查
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.SupplierController.PageList(Yi.Framework.DtoModel.ERP.Supplier.SupplierGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
