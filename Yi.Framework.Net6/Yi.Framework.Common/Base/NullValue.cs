@@ -112,7 +112,7 @@ namespace Yi.Framework.Common.Base
 
         public static string TryStringNull(this object value)
         {
-            return value == null ? "" : value.ToString().Trim();
+            return value == null ? "" : value.ToString()!.Trim();
         }
 
         /// <summary>

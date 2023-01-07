@@ -12,11 +12,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Abstract;
+using Yi.Framework.Core.Cache.Aop;
 using Yi.Framework.Interface;
 using Yi.Framework.Job;
 using Yi.Framework.Repository;
 using Yi.Framework.Service;
-using Yi.Framework.WebCore.AOP;
 using Yi.Framework.WebCore.AutoFacExtend;
 using Yi.Framework.WebCore.CommonExtend;
 using Yi.Framework.WebCore.Impl;
@@ -46,25 +46,35 @@ namespace Yi.Framework.WebCore.AutoFacExtend
             containerBuilder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 
             var cacheType = new List<Type>();
-            if (Appsettings.appBool("RedisCacheAOP_Enabled"))
-            {
-                containerBuilder.RegisterType<RedisCacheAOP>();
-                cacheType.Add(typeof(RedisCacheAOP));
-            }
-            if (Appsettings.appBool("MemoryCacheAOP_Enabled"))
-            {
-                containerBuilder.RegisterType<MemoryCacheAOP>();
-                cacheType.Add(typeof(MemoryCacheAOP));
-            }
+
             //containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             //containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope();
             ///反射注入服务层及接口层     
             var assemblysServices = GetDll("Yi.Framework.Service.dll");
-            containerBuilder.RegisterAssemblyTypes(assemblysServices).PropertiesAutowired(new AutowiredPropertySelector())
-                     .AsImplementedInterfaces()
-                     .InstancePerLifetimeScope()
-                     .EnableInterfaceInterceptors()
-                     .InterceptedBy(cacheType.ToArray());
+            var regContainerBuilder = containerBuilder.RegisterAssemblyTypes(assemblysServices).PropertiesAutowired(new AutowiredPropertySelector())
+                        .AsImplementedInterfaces()
+                        .InstancePerLifetimeScope()
+                        .EnableInterfaceInterceptors();
+
+            if (Appsettings.appBool("CacheAOP_Enabled"))
+            {
+                var cacheSelect = Appsettings.app("CacheSelect");
+
+                switch (cacheSelect)
+                {
+                    case "Redis":
+                        containerBuilder.RegisterType<RedisCacheAOP>();
+                        cacheType.Add(typeof(RedisCacheAOP));
+                        break;
+                    case "MemoryCache":
+                        containerBuilder.RegisterType<MemoryCacheAOP>();
+                        cacheType.Add(typeof(MemoryCacheAOP));
+                        break;
+                    default: throw new ArgumentException("CacheSelect配置填的是什么东西？俺不认得");
+                }
+                regContainerBuilder.InterceptedBy(cacheType.ToArray());
+            }
+                     
             //开启工作单元拦截
             //.InterceptedBy(typeof(UnitOfWorkInterceptor));
 

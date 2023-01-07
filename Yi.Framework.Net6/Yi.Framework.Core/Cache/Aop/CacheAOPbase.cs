@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Common.Base;
 using Yi.Framework.Common.Helper;
 
-namespace Yi.Framework.WebCore.AOP
+namespace Yi.Framework.Core.Cache.Aop
 {
     public abstract class CacheAOPbase : IInterceptor
     {

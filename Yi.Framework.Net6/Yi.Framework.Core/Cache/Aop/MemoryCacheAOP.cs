@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Attribute;
+using Yi.Framework.Core.Cache;
 
-namespace Yi.Framework.WebCore.AOP
+namespace Yi.Framework.Core.Cache.Aop
 {
     public class MemoryCacheAOP : CacheAOPbase
     {
@@ -18,8 +21,8 @@ namespace Yi.Framework.WebCore.AOP
         {
             var method = invocation.MethodInvocationTarget ?? invocation.Method;
 
-            var CachingAttribute = method.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(CachingAttribute));
-            if (CachingAttribute is CachingAttribute qCachingAttribute)
+            var cachingAttribute = method.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(CachingAttribute));
+            if (cachingAttribute is CachingAttribute qCachingAttribute)
             {
                 //获取自定义缓存键
                 var cacheKey = CustomCacheKey(invocation);

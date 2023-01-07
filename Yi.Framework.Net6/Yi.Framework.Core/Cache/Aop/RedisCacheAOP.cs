@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Core.Cache;
 using Yi.Framework.Common.Attribute;
 
-namespace Yi.Framework.WebCore.AOP
+namespace Yi.Framework.Core.Cache.Aop
 {
     public class RedisCacheAOP : CacheAOPbase
     {
