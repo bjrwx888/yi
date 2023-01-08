@@ -459,7 +459,7 @@
               <el-input  placeholder="请输入物料" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="创建时间" style="width: 308px">
               <el-date-picker
                 value-format="YYYY-MM-DD"
@@ -469,6 +469,13 @@
                 end-placeholder="结束日期"
               ></el-date-picker>
             </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item>
+          <el-button type="primary" icon="Search" 
+          >查询</el-button
+        >
+      </el-form-item>
           </el-col>
         </el-row>
         <el-row>
@@ -493,7 +500,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="备注" prop="remarks">
+        <el-form-item label="订单备注" prop="remarks">
           {{ form.remarks }}
         </el-form-item>
       </el-form>
@@ -669,6 +676,7 @@ function handleGet(row) {
   getListByPurchaseId(row.id).then((response) => {
     form.value.purchaseDetails = response.data;
   });
+  form.value.remarks=row.remarks;
   openDetails.value = true;
 }
 

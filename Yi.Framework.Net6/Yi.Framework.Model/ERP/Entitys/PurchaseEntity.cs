@@ -58,6 +58,11 @@ namespace Yi.Framework.Model.ERP.Entitys
         public float PaidMoney { get; set; }
 
         /// <summary>
+        /// 备注
+        /// </summary>
+        public string? Remarks { get; set; }
+
+        /// <summary>
         /// 采购状态
         /// </summary>
         public PurchaseStateEnum PurchaseState { get; set; } = PurchaseStateEnum.Build;
