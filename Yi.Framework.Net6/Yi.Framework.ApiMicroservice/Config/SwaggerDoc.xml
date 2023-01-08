@@ -249,6 +249,18 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Receipt(Yi.Framework.DtoModel.ERP.Purchase.ReceiptInput)">
+            <summary>
+            收获
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseController.Collection(Yi.Framework.DtoModel.ERP.Purchase.CollectionInput)">
+            <summary>
+            回款?????甲方主动给乙方钱，乙方给货物。应该不叫回款。。。。想想叫啥优雅的名字
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.PageList(Yi.Framework.DtoModel.ERP.PurchaseDetails.PurchaseDetailsGetListInput,Yi.Framework.Common.Models.PageParModel)">
             <summary>
             分页查
@@ -277,6 +289,49 @@
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.PurchaseDetailsController.Del(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            删
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockController.PageList(Yi.Framework.DtoModel.ERP.Stock.StockGetListInput,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            分页查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockController.GetById(System.Int64)">
+            <summary>
+            单查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockController.InputStock(Yi.Framework.DtoModel.ERP.Stock.StockCreateUpdateInput)">
+            <summary>
+            入库
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockController.OutputStock(Yi.Framework.DtoModel.ERP.Stock.StockCreateUpdateInput)">
+            <summary>
+            出库
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockDetailsController.PageList(Yi.Framework.DtoModel.ERP.StockDetails.StockDetailsGetListInput,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            分页查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockDetailsController.GetById(System.Int64)">
+            <summary>
+            单查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.ERP.StockDetailsController.Del(System.Collections.Generic.List{System.Int64})">
             <summary>
             删
             </summary>

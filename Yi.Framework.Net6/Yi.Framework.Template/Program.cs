@@ -13,15 +13,15 @@ foreach (var entityName in entityNames)
 {
     templateFactory.CreateTemplateProviders((option) =>
     {
-        //option.Add(new ServceTemplateProvider(modelName, entityName));
-        //option.Add(new IServceTemplateProvider(modelName, entityName));
-        //option.Add(new CreateUpdateInputTemplateProvider(modelName, entityName));
-        //option.Add(new GetListOutputTemplateProvider(modelName, entityName));
-        //option.Add(new GetListInputTemplateProvider(modelName, entityName));
-        //option.Add(new ConstTemplateProvider(modelName, entityName));
-        //option.Add(new ProfileTemplateProvider(modelName, entityName));
+        option.Add(new ServceTemplateProvider(modelName, entityName));
+        option.Add(new IServceTemplateProvider(modelName, entityName));
+        option.Add(new CreateUpdateInputTemplateProvider(modelName, entityName));
+        option.Add(new GetListOutputTemplateProvider(modelName, entityName));
+        option.Add(new GetListInputTemplateProvider(modelName, entityName));
+        option.Add(new ConstTemplateProvider(modelName, entityName));
+        option.Add(new ProfileTemplateProvider(modelName, entityName));
         option.Add(new ControllerTemplateProvider(modelName, entityName));
-        //option.Add(new ApiTemplateProvider(modelName, entityName));
+        option.Add(new ApiTemplateProvider(modelName, entityName));
     });
     //开始构建模板
     templateFactory.BuildTemplate();

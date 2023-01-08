@@ -79,5 +79,25 @@ namespace Yi.Framework.ApiMicroservice.Controllers.ERP
             await _purchaseService.DeleteAsync(ids);
             return Result.Success();
         }
+
+        /// <summary>
+        /// 收获
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> Receipt(ReceiptInput input)
+        { 
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 回款?????甲方主动给乙方钱，乙方给货物。应该不叫回款。。。。想想叫啥优雅的名字
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> Collection(CollectionInput input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

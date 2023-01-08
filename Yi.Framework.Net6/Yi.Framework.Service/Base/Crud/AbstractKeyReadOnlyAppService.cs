@@ -31,14 +31,14 @@ namespace Yi.Framework.Service.Base.Crud
         public IRepository<TEntity> Repository { get; set; }
 
 
-        public async Task<List<TGetListOutputDto>> GetListAsync()
+        public virtual async Task<List<TGetListOutputDto>> GetListAsync()
         {
             var entitys = await Repository.GetListAsync();
             var entityDtos = await MapToGetListOutputDtosAsync(entitys);
             return entityDtos;
         }
 
-        public async Task<TGetOutputDto> GetByIdAsync(TKey id)
+        public virtual async Task<TGetOutputDto> GetByIdAsync(TKey id)
         {
             var entity = await GetEntityByIdAsync(id);
             if (entity is null)
