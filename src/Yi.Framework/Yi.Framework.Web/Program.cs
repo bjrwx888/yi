@@ -1,8 +1,11 @@
 
 using AspNetCore.Microsoft.AspNetCore.Builder;
 using Panda.DynamicWebApi;
+using System.Reflection;
 using Yi.Framework.Application;
+using Yi.Framework.Autofac.Extensions;
 using Yi.Framework.Core;
+using Yi.Framework.Core.AutoMapper;
 using Yi.Framework.Core.Extensions;
 using Yi.Framework.Core.Sqlsugar;
 using Yi.Framework.Core.Sqlsugar.Repository;
@@ -12,19 +15,25 @@ using Yi.Framework.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseUrls(builder.Configuration.GetValue<string>("StartUrl"));
+
+//添加模块
 builder.UseYiModules(
     typeof(YiFrameworkCoreModule).Assembly,
+    typeof(YiFrameworkCoreAutoMapperModule).Assembly,
     typeof(YiFrameworkDddModule).Assembly,
     typeof(YiFrameworkCoreSqlsugarModule).Assembly
     );
+
+//使用autofac
+builder.Host.UseAutoFacServerProviderFactory();
+
+//添加控制器与动态api
 builder.Services.AddControllers();
 builder.Services.AddDynamicWebApi();
 
-
-builder.Services.AddEndpointsApiExplorer();
-
+//添加swagger
 builder.Services.AddSwaggerServer<YiFrameworkApplicationModule>();
-//builder.Services.AddAutoIocServer("Yi.Framework.Core.Sqlsugar");
 
 
 var app = builder.Build();

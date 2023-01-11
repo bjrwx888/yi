@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Yi.Framework.Ddd.Application\Yi.Framework.Ddd.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Options\" />
+  </ItemGroup>
+
 </Project>

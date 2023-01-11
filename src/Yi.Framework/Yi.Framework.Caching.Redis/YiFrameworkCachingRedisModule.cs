@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Yi.Framework.Core.Configuration;
 
-namespace Yi.Framework.Ddd
+namespace Yi.Framework.Caching.Redis
 {
-    public class YiFrameworkDddModule:IStartupModule
+
+    public class YiFrameworkCachingRedisModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
@@ -17,7 +14,9 @@ namespace Yi.Framework.Ddd
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
- 
+            services.Configure<CachingConnOptions>(Appsettings.appConfiguration("CachingConnOptions"));
+            services.AddSingleton<CacheInvoker, RedisCacheClient>();
         }
     }
+
 }

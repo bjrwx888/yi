@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Caching.MemoryCache;
+using Yi.Framework.Caching;
 
 namespace Yi.Framework.Ddd
 {
-    public class YiFrameworkDddModule:IStartupModule
+    public class YiFrameworkCachingMemoryCacheModule:IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
@@ -17,7 +19,7 @@ namespace Yi.Framework.Ddd
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
- 
+            services.AddSingleton<CacheInvoker, MemoryCacheClient>();
         }
     }
 }

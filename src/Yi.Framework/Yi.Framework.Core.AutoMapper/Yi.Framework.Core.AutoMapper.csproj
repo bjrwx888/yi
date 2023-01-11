@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSRedisCore" Version="3.8.670" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Caching\Yi.Framework.Caching.csproj" />
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
   </ItemGroup>
 

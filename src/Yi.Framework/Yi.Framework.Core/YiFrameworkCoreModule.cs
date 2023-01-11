@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Configuration;
+using Yi.Framework.Core.Extensions;
 using Yi.Framework.Core.Model;
 
 namespace Yi.Framework.Core
@@ -24,6 +25,7 @@ namespace Yi.Framework.Core
         {
             //添加全局配置类
             services.AddSingleton(new Appsettings(context.Configuration));
+
 
             //全局日志
             GobalLogModel.SqlLogEnable = Appsettings.appBool("SqlLog_Enable");

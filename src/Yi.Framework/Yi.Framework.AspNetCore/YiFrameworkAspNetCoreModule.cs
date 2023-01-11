@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Ddd
+namespace Yi.Framework.AspNetCore
 {
-    public class YiFrameworkDddModule:IStartupModule
+    internal class YiFrameworkAspNetCoreModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
@@ -17,7 +17,7 @@ namespace Yi.Framework.Ddd
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
- 
+            services.AddAutoIocServer();
         }
     }
 }

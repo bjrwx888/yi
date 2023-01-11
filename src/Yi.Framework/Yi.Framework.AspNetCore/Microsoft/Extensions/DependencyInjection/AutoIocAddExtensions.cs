@@ -19,6 +19,21 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             return services;
         }
+
+        /// <summary>
+        /// 扫描全部
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddAutoIocServer(this IServiceCollection services)
+        {
+           var assemblys= AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var a in assemblys)
+            {
+                RegIoc(services, a);
+            }
+            return services;
+        }
         private static void RegIoc(IServiceCollection services, Assembly assembly)
         {
             foreach (var type in assembly.GetTypes())
@@ -27,13 +42,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 var serviceAttribute = type.GetCustomAttribute<AppServiceAttribute>();
                 if (serviceAttribute is not null)
                 {
+                    //泛型类需要单独进行处理
                     //情况1：使用自定义[AppService(ServiceType = typeof(注册抽象或者接口))]，手动去注册，放type即可
                     var serviceType = serviceAttribute.ServiceType;
                     //情况2 自动去找接口，如果存在就是接口，如果不存在就是本身
                     if (serviceType == null)
                     {
                         //获取最靠近的接口
-                        var firstInter = type.GetInterfaces().FirstOrDefault();
+                        var firstInter = type .GetInterfaces().LastOrDefault();
                         if (firstInter is null)
                         {
                             serviceType = type;

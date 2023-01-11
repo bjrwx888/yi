@@ -9,7 +9,7 @@ using Yi.Framework.Ddd.Repository;
 
 namespace Yi.Framework.Core.Sqlsugar.Repository
 {
-    [AppService]
+    [AppService(ServiceType =typeof(IRepository<>))]
     public class SqlsugarRepository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
         public SqlsugarRepository(ISqlSugarClient context) : base(context)
