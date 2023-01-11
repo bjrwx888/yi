@@ -7,18 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Ddd
+namespace Yi.Framework.Application
 {
-    public class YiFrameworkModule : IStartupModule
+    public class YiFrameworkApplicationModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
-            throw new NotImplementedException();
+      
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

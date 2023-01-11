@@ -1,9 +1,8 @@
 ﻿using StartupModules;
-using Yi.Framework.Core.Module;
 
 namespace Yi.Framework.Web
 {
-    public class YiFrameworkWebModule : IYiModule
+    public class YiFrameworkWebModule : IStartupModule
     {
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
