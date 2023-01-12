@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Domain.Shared.Student.IRepository;
+using Yi.Framework.Domain.Student.IRepository;
 using Yi.Framework.Sqlsugar.Student;
 
 namespace Yi.Framework.Sqlsugar

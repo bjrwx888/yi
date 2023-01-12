@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj" />
-    <ProjectReference Include="..\Yi.Framework.Sqlsugar\Yi.Framework.Sqlsugar.csproj" />
   </ItemGroup>
 
 </Project>
