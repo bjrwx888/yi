@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.Autofac",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.AspNetCore", "Yi.Framework.AspNetCore\Yi.Framework.AspNetCore.csproj", "{2F5E5843-14FB-48F1-AEB0-B9FFE103B972}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.BackgroundJobs", "Yi.Framework.BackgroundJobs\Yi.Framework.BackgroundJobs.csproj", "{E569E5AA-3CC1-459A-B5DD-5D340B551A44}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Caching", "Yi.Framework.Caching\Yi.Framework.Caching.csproj", "{8767C5B7-3A17-4729-BCAA-B391B6A215AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Caching.Redis", "Yi.Framework.Caching.Redis\Yi.Framework.Caching.Redis.csproj", "{F13D4F03-3FA0-43E9-BBAA-F618E1A3CF41}"
@@ -43,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Uow", "Yi.Fram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.Sqlsugar", "Yi.Framework.Core.Sqlsugar\Yi.Framework.Core.Sqlsugar.csproj", "{58F4071D-66B7-4839-A247-79AF0E4E1C8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Core.AutoMapper", "Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj", "{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.AutoMapper", "Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj", "{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,10 +93,6 @@ Global
 		{2F5E5843-14FB-48F1-AEB0-B9FFE103B972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F5E5843-14FB-48F1-AEB0-B9FFE103B972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F5E5843-14FB-48F1-AEB0-B9FFE103B972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E569E5AA-3CC1-459A-B5DD-5D340B551A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E569E5AA-3CC1-459A-B5DD-5D340B551A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E569E5AA-3CC1-459A-B5DD-5D340B551A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E569E5AA-3CC1-459A-B5DD-5D340B551A44}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8767C5B7-3A17-4729-BCAA-B391B6A215AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8767C5B7-3A17-4729-BCAA-B391B6A215AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8767C5B7-3A17-4729-BCAA-B391B6A215AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -139,7 +133,6 @@ Global
 		{949F35A7-36E4-4080-9940-24BE52532078} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{63BA134E-9D23-4EB8-87E4-B45B33D954F5} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{2F5E5843-14FB-48F1-AEB0-B9FFE103B972} = {5F2B846D-96CE-400A-878E-220498F4EE31}
-		{E569E5AA-3CC1-459A-B5DD-5D340B551A44} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 		{8767C5B7-3A17-4729-BCAA-B391B6A215AA} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 		{F13D4F03-3FA0-43E9-BBAA-F618E1A3CF41} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 		{67CF07AB-2A72-4B36-A3A5-4CEB82B7C43C} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}

@@ -16,7 +16,7 @@ namespace Yi.Framework.Core.Attribute
         /// 服务声明周期
         /// 不给默认值的话注册的是作用域
         /// </summary>
-        public LifeTime ServiceLifetime { get; set; } = LifeTime.Scoped;
+        public LifeTime ServiceLifetime { get; set; } = LifeTime.Transient;
         /// <summary>
         /// 指定服务类型
         /// </summary>

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Microsoft\Extensions\Hosting\" />
   </ItemGroup>
 
