@@ -26,9 +26,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class RoleController : BaseSimpleRdController<RoleEntity>
     {
         private IRoleService _iRoleService;
-        public RoleController(ILogger<RoleEntity> logger, IRoleService iRoleService) : base(logger, iRoleService)
+        private IUserRoleService _iUserRoleService;
+        public RoleController(ILogger<RoleEntity> logger, IRoleService iRoleService,IUserRoleService iUserRoleService) : base(logger, iRoleService)
         {
             _iRoleService = iRoleService;
+            _iUserRoleService = iUserRoleService;
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
 
         /// <summary>
-        /// 给多用户设置多角色
+        /// 给多角色设置多菜单
         /// </summary>
         /// <param name="giveRoleSetMenuDto"></param>
         /// <returns></returns>
@@ -55,6 +57,54 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success().SetStatus(await _iRoleService.GiveRoleSetMenu(giveRoleSetMenuDto.RoleIds, giveRoleSetMenuDto.MenuIds));
         }
 
+        /// <summary>
+        /// 根据角色查询用户
+        /// </summary>
+        /// <param name="userRole"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [Permission("system:role:query")]
+        [HttpGet]
+        public async Task<Result> GetAllocatedList([FromQuery] ParUserRoleDto userRole, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iUserRoleService.GetAllocatedPageList(userRole, page));
+        }
+
+
+        /// <summary>
+        /// 根据角色查询未分配角色的用户
+        /// </summary>
+        /// <param name="userRole"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [Permission("system:role:query")]
+        [HttpGet]
+        public async Task<Result> GetUnAllocatedList([FromQuery] ParUserRoleDto userRole, [FromQuery] PageParModel page)
+        {
+            return Result.Success().SetData(await _iUserRoleService.GetUnAllocatedPageList(userRole, page));
+        }
+
+        /// <summary>
+        /// 给角色分配用户
+        /// </summary>
+        /// <returns></returns>
+        [Permission("system:role:edit")]
+        [HttpPut]
+        public async Task<Result> SelectRoleUserAll(CrRoleUserDto crRoleUserDto)
+        {
+            return Result.Success().SetStatus(await _iUserRoleService.SelectRoleUserAll(crRoleUserDto));
+        }
+
+        /// <summary>
+        /// 批量取消用户授权角色
+        /// </summary>
+        /// <returns></returns>
+        [Permission("system:role:edit")]
+        [HttpPut]
+        public async Task<Result> CancelRoleUserAll(CrRoleUserDto crRoleUserDto)
+        {
+            return Result.Success().SetStatus(await _iUserRoleService.CancelRoleUserAll(crRoleUserDto));
+        }
 
         /// <summary>
         /// 添加角色包含菜单

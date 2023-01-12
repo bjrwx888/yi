@@ -82,5 +82,9 @@ namespace Yi.Framework.Model.RABC.Entitys
 
         [Navigate(typeof(RoleDeptEntity), nameof(RoleDeptEntity.RoleId), nameof(RoleDeptEntity.DeptId))]
         public List<DeptEntity>? Depts { get; set; }
+
+
+        [SugarColumn(IsIgnore = true)]
+        public bool flag { get; set; }
     }
 }

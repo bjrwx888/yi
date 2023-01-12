@@ -711,9 +711,37 @@
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GiveRoleSetMenu(Yi.Framework.DtoModel.Base.Dto.GiveRoleSetMenuDto)">
             <summary>
-            给多用户设置多角色
+            给多角色设置多菜单
             </summary>
             <param name="giveRoleSetMenuDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetAllocatedList(Yi.Framework.DtoModel.Base.Dto.ParUserRoleDto,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            根据角色查询用户
+            </summary>
+            <param name="userRole"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetUnAllocatedList(Yi.Framework.DtoModel.Base.Dto.ParUserRoleDto,Yi.Framework.Common.Models.PageParModel)">
+            <summary>
+            根据角色查询未分配角色的用户
+            </summary>
+            <param name="userRole"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.SelectRoleUserAll(Yi.Framework.DtoModel.Base.Dto.CrRoleUserDto)">
+            <summary>
+            给角色分配用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.CancelRoleUserAll(Yi.Framework.DtoModel.Base.Dto.CrRoleUserDto)">
+            <summary>
+            批量取消用户授权角色
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.Add(Yi.Framework.DtoModel.Base.Dto.RoleInfoDto)">
@@ -784,6 +812,20 @@
             通过用户id得到用户信息关联部门、岗位、角色
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetAuthRole(System.Int64)">
+            <summary>
+            通过用户id得到用户信息关联角色
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateAuthRole(Yi.Framework.DtoModel.Base.Dto.UpUserRoleDto)">
+            <summary>
+            更新用户角色信息
+            </summary>
+            <param name="upUserRoledto"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.Update(Yi.Framework.DtoModel.Base.Dto.UserInfoDto)">
