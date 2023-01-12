@@ -6,21 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Application.Contracts.Student;
-using Yi.Framework.Application.Student;
+using Yi.Framework.Domain.Student;
 
-namespace Yi.Framework.Application
+namespace Yi.Framework.Domain
 {
-    public class YiFrameworkApplicationModule : IStartupModule
+    public class YiFrameworkDomainModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
-      
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<StudentManager>();
         }
     }
 }

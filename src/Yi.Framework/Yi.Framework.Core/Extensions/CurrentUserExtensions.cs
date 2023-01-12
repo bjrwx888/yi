@@ -51,10 +51,10 @@ namespace Yi.Framework.Core.Extensions
             var claims = authenticateContext.Principal.Claims;
             //通过鉴权之后，开始赋值
             _currentUser.IsAuthenticated = true;
-            _currentUser.Id = claims.GetClaim(JwtRegisteredClaimNames.Sid) is null ? 0 : Convert.ToInt64(claims.GetClaim(JwtRegisteredClaimNames.Sid));
-            _currentUser.UserName = claims.GetClaim(SystemConst.UserName) ?? "";
-            _currentUser.Permission = claims.GetClaims(SystemConst.PermissionClaim);
-            _currentUser.TenantId = claims.GetClaim(SystemConst.TenantId) is null ? null : Guid.Parse(claims.GetClaim(SystemConst.TenantId)!);
+            //_currentUser.Id = claims.GetClaim(JwtRegisteredClaimNames.Sid) is null ? 0 : Convert.ToInt64(claims.GetClaim(JwtRegisteredClaimNames.Sid));
+            //_currentUser.UserName = claims.GetClaim(SystemConst.UserName) ?? "";
+            //_currentUser.Permission = claims.GetClaims(SystemConst.PermissionClaim);
+            //_currentUser.TenantId = claims.GetClaim(SystemConst.TenantId) is null ? null : Guid.Parse(claims.GetClaim(SystemConst.TenantId)!);
             await _next(context);
 
         }

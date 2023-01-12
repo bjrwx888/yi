@@ -3,6 +3,7 @@ using AspNetCore.Microsoft.AspNetCore.Builder;
 using Panda.DynamicWebApi;
 using System.Reflection;
 using Yi.Framework.Application;
+using Yi.Framework.Application.Contracts;
 using Yi.Framework.Autofac.Extensions;
 using Yi.Framework.Core;
 using Yi.Framework.Core.AutoMapper;
@@ -11,6 +12,9 @@ using Yi.Framework.Core.Sqlsugar;
 using Yi.Framework.Core.Sqlsugar.Repository;
 using Yi.Framework.Ddd;
 using Yi.Framework.Ddd.Repository;
+using Yi.Framework.Domain;
+using Yi.Framework.Domain.Shared;
+using Yi.Framework.Sqlsugar;
 using Yi.Framework.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +26,13 @@ builder.UseYiModules(
     typeof(YiFrameworkCoreModule).Assembly,
     typeof(YiFrameworkCoreAutoMapperModule).Assembly,
     typeof(YiFrameworkDddModule).Assembly,
-    typeof(YiFrameworkCoreSqlsugarModule).Assembly
+    typeof(YiFrameworkCoreSqlsugarModule).Assembly,
+
+     typeof(YiFrameworkSqlsugarModule).Assembly,
+     typeof(YiFrameworkDomainSharedModule).Assembly,
+     typeof(YiFrameworkDomainModule).Assembly,
+     typeof(YiFrameworkApplicationContractsModule).Assembly,
+     typeof(YiFrameworkApplicationModule).Assembly
     );
 
 // π”√autofac

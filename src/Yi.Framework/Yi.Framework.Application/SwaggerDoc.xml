@@ -4,5 +4,10 @@
         <name>Yi.Framework.Application</name>
     </assembly>
     <members>
+        <member name="T:Yi.Framework.Application.Student.StudentService">
+            <summary>
+            服务实现
+            </summary>
+        </member>
     </members>
 </doc>

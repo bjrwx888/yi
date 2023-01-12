@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Ddd.Application\Yi.Framework.Ddd.csproj" />
+  </ItemGroup>
+
 </Project>

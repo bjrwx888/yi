@@ -98,7 +98,7 @@ namespace Yi.Framework.Caching.Redis
         /// </summary>
         /// <param name="channels"></param>
         /// <returns></returns>
-        public override SubscribeObject Subscribe(params (string, Action<SubscribeMessageEventArgs>)[] channels)
+        public  SubscribeObject Subscribe(params (string, Action<SubscribeMessageEventArgs>)[] channels)
         {
             return _client.Subscribe(channels);
         }
@@ -109,7 +109,7 @@ namespace Yi.Framework.Caching.Redis
         /// <param name="listKey"></param>
         /// <param name="onMessage"></param>
         /// <returns></returns>
-        public override SubscribeListObject SubscribeList(string listKey, Action<string> onMessage)
+        public  SubscribeListObject SubscribeList(string listKey, Action<string> onMessage)
         {
             return _client.SubscribeList(listKey, onMessage);
         }
@@ -121,7 +121,7 @@ namespace Yi.Framework.Caching.Redis
         /// <param name="clientId"></param>
         /// <param name="onMessage"></param>
         /// <returns></returns>
-        public override SubscribeListBroadcastObject SubscribeListBroadcast(string listKey, string clientId, Action<string> onMessage)
+        public  SubscribeListBroadcastObject SubscribeListBroadcast(string listKey, string clientId, Action<string> onMessage)
         {
             return _client.SubscribeListBroadcast(listKey, clientId, onMessage);
         }
