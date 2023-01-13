@@ -1,24 +1,28 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿
 using Microsoft.Extensions.DependencyInjection;
-using StartupModules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Modularity;
+using Volo.Abp;
 using Yi.Framework.Domain.Student;
+using Yi.Framework.Domain.Shared;
 
 namespace Yi.Framework.Domain
 {
-    public class YiFrameworkDomainModule : IStartupModule
+    [DependsOn(typeof(YiFrameworkDomainSharedModule))]
+    public class YiFrameworkDomainModule : AbpModule
     {
-        public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddTransient<StudentManager>();
         }
 
-        public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
-            services.AddTransient<StudentManager>();
+        
         }
     }
 }

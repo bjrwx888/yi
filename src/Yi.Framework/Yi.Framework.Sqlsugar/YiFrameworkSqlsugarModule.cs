@@ -1,25 +1,29 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using StartupModules;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
+using Volo.Abp.Modularity;
+using Yi.Framework.Domain;
 using Yi.Framework.Domain.Student.IRepository;
 using Yi.Framework.Sqlsugar.Student;
 
 namespace Yi.Framework.Sqlsugar
 {
-    public class YiFrameworkSqlsugarModule : IStartupModule
+    [DependsOn(typeof(YiFrameworkDomainModule))]
+    public class YiFrameworkSqlsugarModule : AbpModule
     {
-        public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddTransient<IStudentRepository, StudentRepository>();
+        }
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        {
+
         }
 
-        public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
-        {
-            services.AddTransient<IStudentRepository, StudentRepository>();
-        }
+
     }
 }

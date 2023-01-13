@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Caching\Yi.Framework.Caching.csproj" />
-    <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
   </ItemGroup>
 
 </Project>

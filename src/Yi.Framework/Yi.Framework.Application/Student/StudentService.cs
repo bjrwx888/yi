@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Services;
 using Yi.Framework.Application.Contracts.Student;
 using Yi.Framework.Domain.Student;
 using Yi.Framework.Domain.Student.IRepository;
-using Microsoft.AspNetCore.Mvc;
-using NET.AutoWebApi.Setting;
-using Microsoft.AspNetCore.Http;
+
 
 namespace Yi.Framework.Application.Student
 {
     /// <summary>
     /// 服务实现
     /// </summary>
-    public class StudentService : IStudentService, IAutoApiService
+    public class StudentService : ApplicationService, IStudentService
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;
@@ -25,7 +25,12 @@ namespace Yi.Framework.Application.Student
             _studentManager = studentManager;
         }
 
-        public string PostShijie(IFormFile formFile)
+        /// <summary>
+        /// 你好世界
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        public string PostShijie(string formFile)
         {
             var ss = formFile;
             return "你好世界";
