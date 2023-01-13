@@ -1,6 +1,4 @@
-﻿using Panda.DynamicWebApi;
-using Panda.DynamicWebApi.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +6,16 @@ using System.Threading.Tasks;
 using Yi.Framework.Application.Contracts.Student;
 using Yi.Framework.Domain.Student;
 using Yi.Framework.Domain.Student.IRepository;
+using Microsoft.AspNetCore.Mvc;
+using NET.AutoWebApi.Setting;
+using Microsoft.AspNetCore.Http;
 
 namespace Yi.Framework.Application.Student
 {
     /// <summary>
     /// 服务实现
     /// </summary>
-    [DynamicWebApi]
-    public class StudentService : IStudentService, IDynamicWebApi
+    public class StudentService : IStudentService, IAutoApiService
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;
@@ -24,8 +24,10 @@ namespace Yi.Framework.Application.Student
             _studentRepository = studentRepository;
             _studentManager = studentManager;
         }
-        public string GetShijie()
+
+        public string PostShijie(IFormFile formFile)
         {
+            var ss = formFile;
             return "你好世界";
         }
     }

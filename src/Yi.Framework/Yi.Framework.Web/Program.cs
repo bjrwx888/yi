@@ -1,6 +1,5 @@
 
 using AspNetCore.Microsoft.AspNetCore.Builder;
-using Panda.DynamicWebApi;
 using System.Reflection;
 using Yi.Framework.Application;
 using Yi.Framework.Application.Contracts;
@@ -40,7 +39,11 @@ builder.Host.UseAutoFacServerProviderFactory();
 
 //添加控制器与动态api
 builder.Services.AddControllers();
-builder.Services.AddDynamicWebApi();
+builder.Services.AddAutoApiService(opt =>
+{
+    //NETServiceTest所在程序集添加进动态api配置
+    opt.CreateConventional(typeof(YiFrameworkApplicationModule).Assembly);
+});
 
 //添加swagger
 builder.Services.AddSwaggerServer<YiFrameworkApplicationModule>();
@@ -59,6 +62,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseRouting();
+
+//使用动态api
+app.UseAutoApiService();
 app.MapControllers();
 
 app.Run();
