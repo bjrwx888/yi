@@ -7,12 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="6.0.2" />
-    <PackageReference Include="Volo.Abp.Swashbuckle" Version="6.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Application\Yi.Framework.Application.csproj" />
+    <ProjectReference Include="..\Yi.Framework.AspNetCore\Yi.Framework.AspNetCore.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Core.Autofac\Yi.Framework.Core.Autofac.csproj" />
     <ProjectReference Include="..\Yi.Framework.Sqlsugar\Yi.Framework.Sqlsugar.csproj" />
   </ItemGroup>
 

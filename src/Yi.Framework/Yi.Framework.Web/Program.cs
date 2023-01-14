@@ -1,15 +1,70 @@
 
+using AspNetCore.Microsoft.AspNetCore.Builder;
+using System.Reflection;
+using Yi.Framework.Application;
+using Yi.Framework.Application.Contracts;
+using Yi.Framework.Autofac.Extensions;
+using Yi.Framework.Core;
+using Yi.Framework.Core.AutoMapper;
+using Yi.Framework.Core.Extensions;
+using Yi.Framework.Core.Sqlsugar;
+using Yi.Framework.Core.Sqlsugar.Repository;
+using Yi.Framework.Ddd;
+using Yi.Framework.Ddd.Repository;
+using Yi.Framework.Domain;
+using Yi.Framework.Domain.Shared;
+using Yi.Framework.Sqlsugar;
 using Yi.Framework.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//添加配置文件
-builder.Host.AddAppSettingsSecretsJson();
-//添加模块化
-await builder.AddApplicationAsync<YiFrameworkWebModule>();
+builder.WebHost.UseUrls(builder.Configuration.GetValue<string>("StartUrl"));
+
+//添加模块
+builder.UseYiModules(
+    typeof(YiFrameworkCoreModule).Assembly,
+    typeof(YiFrameworkCoreAutoMapperModule).Assembly,
+    typeof(YiFrameworkDddModule).Assembly,
+    typeof(YiFrameworkCoreSqlsugarModule).Assembly,
+
+     typeof(YiFrameworkSqlsugarModule).Assembly,
+     typeof(YiFrameworkDomainSharedModule).Assembly,
+     typeof(YiFrameworkDomainModule).Assembly,
+     typeof(YiFrameworkApplicationContractsModule).Assembly,
+     typeof(YiFrameworkApplicationModule).Assembly
+    );
+
+//使用autofac
+builder.Host.UseAutoFacServerProviderFactory();
+
+//添加控制器与动态api
+builder.Services.AddControllers();
+builder.Services.AddAutoApiService(opt =>
+{
+    //NETServiceTest所在程序集添加进动态api配置
+    opt.CreateConventional(typeof(YiFrameworkApplicationModule).Assembly);
+});
+
+//添加swagger
+builder.Services.AddSwaggerServer<YiFrameworkApplicationModule>();
+
 
 var app = builder.Build();
 
-//使用模块化
-await app.InitializeApplicationAsync();
-await app.RunAsync();
+app.Services.GetRequiredService<IRepository<TestEntity>>();
+//if (app.Environment.IsDevelopment())
+{
+    app.UseSwaggerServer();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.UseRouting();
+
+//使用动态api
+app.UseAutoApiService();
+app.MapControllers();
+
+app.Run();

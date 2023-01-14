@@ -11,7 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.AspNetCore\Yi.Framework.AspNetCore.csproj" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="NET.AutoApi" Version="1.0.3" />
+    <PackageReference Include="SqlSugarCoreNoDrive" Version="5.1.3.43" />
+    <PackageReference Include="StartupModules" Version="4.0.0" />
   </ItemGroup>
 
 </Project>

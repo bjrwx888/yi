@@ -9,12 +9,5 @@
             服务实现
             </summary>
         </member>
-        <member name="M:Yi.Framework.Application.Student.StudentService.PostShijie(System.String)">
-            <summary>
-            你好世界
-            </summary>
-            <param name="formFile"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

@@ -1,21 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using StartupModules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Volo.Abp;
-using Volo.Abp.Modularity;
 
 namespace Yi.Framework.Domain.Shared
 {
-    public class YiFrameworkDomainSharedModule : AbpModule
+    public class YiFrameworkDomainSharedModule : IStartupModule
     {
-        public override void ConfigureServices(ServiceConfigurationContext context)
+        public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
         }
 
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
         }
     }
