@@ -1,5 +1,4 @@
-﻿using AutoMapper.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -42,7 +41,7 @@ namespace Yi.Framework.Core.Helper
              ).ToList();
         }
 
-        public static List<Type> GetClassByBaseClassesAndInterfaces(string assemblyFile, Type type)
+        public static List<Type> GetClassByInterfaces(string assemblyFile, Type type)
         {
             Assembly assembly = Assembly.Load(assemblyFile);
 
@@ -51,7 +50,7 @@ namespace Yi.Framework.Core.Helper
             List<Type> typeList = assembly.GetTypes().Where(m => m.IsClass).ToList();
             foreach (var t in typeList)
             {
-                var data = t.BaseClassesAndInterfaces();
+                var data = t.GetInterfaces();
                 if (data.Contains(type))
                 {
                     resList.Add(t);

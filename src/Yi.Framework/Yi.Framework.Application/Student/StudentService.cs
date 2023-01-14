@@ -24,11 +24,14 @@ namespace Yi.Framework.Application.Student
             _studentRepository = studentRepository;
             _studentManager = studentManager;
         }
-
-        public string PostShijie(IFormFile formFile)
+        /// <summary>
+        /// 你好世界
+        /// </summary>
+        /// <param name="aaa"></param>
+        /// <returns></returns>
+        public string PostShijie(string aaa)
         {
-            var ss = formFile;
-            return "你好世界";
+            return aaa;
         }
     }
 }

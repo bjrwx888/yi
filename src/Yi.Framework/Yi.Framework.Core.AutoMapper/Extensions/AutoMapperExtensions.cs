@@ -22,7 +22,7 @@ namespace Yi.Framework.Autofac.Extensions
             {
                 if (a.FullName is not null)
                 {
-                    profileList.AddRange(AssemblyHelper.GetClassByBaseClassesAndInterfaces(a.FullName, typeof(Profile)));
+                    profileList.AddRange(AssemblyHelper.GetClassByInterfaces(a.FullName, typeof(Profile)));
                 }
 
             });

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Application.Contracts\Yi.Framework.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Yi.Framework.AspNetCore\Yi.Framework.AspNetCore.csproj" />
     <ProjectReference Include="..\Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj" />
     <ProjectReference Include="..\Yi.Framework.Domain\Yi.Framework.Domain.csproj" />
   </ItemGroup>

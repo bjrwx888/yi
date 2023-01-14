@@ -16,6 +16,7 @@ using Yi.Framework.Domain.Shared;
 using Yi.Framework.Sqlsugar;
 using Yi.Framework.Web;
 
+//这里是最早执行的地方
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseUrls(builder.Configuration.GetValue<string>("StartUrl"));
@@ -31,40 +32,17 @@ builder.UseYiModules(
      typeof(YiFrameworkDomainSharedModule).Assembly,
      typeof(YiFrameworkDomainModule).Assembly,
      typeof(YiFrameworkApplicationContractsModule).Assembly,
-     typeof(YiFrameworkApplicationModule).Assembly
+     typeof(YiFrameworkApplicationModule).Assembly,
+     typeof(YiFrameworkWebModule).Assembly
+    
     );
 
 //使用autofac
 builder.Host.UseAutoFacServerProviderFactory();
 
-//添加控制器与动态api
-builder.Services.AddControllers();
-builder.Services.AddAutoApiService(opt =>
-{
-    //NETServiceTest所在程序集添加进动态api配置
-    opt.CreateConventional(typeof(YiFrameworkApplicationModule).Assembly);
-});
-
-//添加swagger
-builder.Services.AddSwaggerServer<YiFrameworkApplicationModule>();
-
-
 var app = builder.Build();
-
-app.Services.GetRequiredService<IRepository<TestEntity>>();
-//if (app.Environment.IsDevelopment())
-{
-    app.UseSwaggerServer();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.UseRouting();
 
 //使用动态api
 app.UseAutoApiService();
 app.MapControllers();
-
 app.Run();
