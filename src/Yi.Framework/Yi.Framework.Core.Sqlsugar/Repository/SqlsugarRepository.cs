@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attribute;
-using Yi.Framework.Ddd.Repository;
+using Yi.Framework.Ddd.Repositories;
 
 namespace Yi.Framework.Core.Sqlsugar.Repository
 {

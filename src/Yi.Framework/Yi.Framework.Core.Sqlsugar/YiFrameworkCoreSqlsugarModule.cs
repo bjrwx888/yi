@@ -6,7 +6,7 @@ using Yi.Framework.Core.Options;
 using Yi.Framework.Core.Sqlsugar.Extensions;
 using Yi.Framework.Core.Sqlsugar.Repository;
 using Yi.Framework.Ddd;
-using Yi.Framework.Ddd.Repository;
+using Yi.Framework.Ddd.Repositories;
 
 namespace Yi.Framework.Core.Sqlsugar
 {

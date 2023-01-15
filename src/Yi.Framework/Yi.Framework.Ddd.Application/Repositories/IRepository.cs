@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Ddd.Repository
+namespace Yi.Framework.Ddd.Repositories
 {
     public interface IRepository<T>
     {
