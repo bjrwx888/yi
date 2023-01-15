@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Model;
 using Yi.Framework.Ddd.Dtos;
 using Yi.Framework.Ddd.Entities;
 using Yi.Framework.Ddd.Repositories;
@@ -30,7 +32,10 @@ where TEntityDto : IEntityDto<TKey>
       IReadOnlyAppService<TGetOutputDto, TGetListOutputDto, TKey, TGetListInput>
         where TEntity : class, IEntity
     {
-        protected IRepository<TEntity> _repository { get; }
+        /// <summary>
+        /// 先暂时用服务定位的方式，之后将更改为属性注入
+        /// </summary>
+        protected IRepository<TEntity> _repository { get => ServiceLocatorModel.Instance.GetRequiredService<IRepository<TEntity>>(); }
 
         //Mapper
         protected virtual Task<TGetOutputDto> MapToGetOutputDtoAsync(TEntity entity)

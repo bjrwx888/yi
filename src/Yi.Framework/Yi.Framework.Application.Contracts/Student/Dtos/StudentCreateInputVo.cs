@@ -11,5 +11,6 @@ namespace Yi.Framework.Application.Contracts.Student.Dtos
     /// </summary>
     public class StudentCreateInputVo
     {
+        public string Name { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace AspNetCore.Microsoft.AspNetCore.Builder
 {
     public static class CorsUseExtensions
     {
-        public static void UseCorsService(this IApplicationBuilder app)
+        public static void UseCorsServer(this IApplicationBuilder app)
         {
             app.UseCors("CorsPolicy");
         }

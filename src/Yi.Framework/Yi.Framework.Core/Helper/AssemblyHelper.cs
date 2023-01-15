@@ -41,6 +41,26 @@ namespace Yi.Framework.Core.Helper
              ).ToList();
         }
 
+        public static List<Type> GetClassByParentClass(string assemblyFile, Type type)
+        {
+            Assembly assembly = Assembly.Load(assemblyFile);
+
+            List<Type> resList = new List<Type>();
+
+            List<Type> typeList = assembly.GetTypes().Where(m => m.IsClass).ToList();
+            foreach (var t in typeList)
+            {
+                var data = t.BaseType;
+                if (data == type)
+                {
+                    resList.Add(t);
+                }
+
+            }
+            return resList;
+        }
+
+
         public static List<Type> GetClassByInterfaces(string assemblyFile, Type type)
         {
             Assembly assembly = Assembly.Load(assemblyFile);

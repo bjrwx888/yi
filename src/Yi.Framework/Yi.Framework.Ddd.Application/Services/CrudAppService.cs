@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Helper;
 using Yi.Framework.Ddd.Dtos;
 using Yi.Framework.Ddd.Entities;
 using Yi.Framework.Ddd.Services.Abstract;
@@ -62,11 +63,15 @@ namespace Yi.Framework.Ddd.Services
             //这里判断实体的T，给id赋值
 
             //雪花id
-            //if (entity is IEntity<long>)
-            //{
-            //    //使用反射，暂时先使用sqlsuga的雪花id提供
-            //    entityWithLongId.Id = SqlSugar.SnowFlakeSingle.Instance.NextId();
-            //}
+            if (entity is IEntity<long> entityForlongId)
+            {
+                if (entityForlongId.Id is default(long))
+                {
+                    //使用反射，暂时先使用sqlsuga的雪花id提供
+                    //ps: linshi
+                    ReflexHelper.SetModelValue("Id", SnowflakeHelper.NextId, entity);
+                }
+            }
 
 
             return Task.FromResult(entity);
@@ -86,6 +91,7 @@ namespace Yi.Framework.Ddd.Services
         {
             var entity = await MapToEntityAsync(input);
 
+            //这里还可以设置租户
             await _repository.InsertAsync(entity);
 
             return await MapToGetOutputDtoAsync(entity);

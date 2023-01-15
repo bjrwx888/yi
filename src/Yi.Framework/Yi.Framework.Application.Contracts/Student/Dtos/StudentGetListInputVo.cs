@@ -8,5 +8,6 @@ namespace Yi.Framework.Application.Contracts.Student.Dtos
 {
     public class StudentGetListInputVo
     {
+        public string? Name { get; set; }
     }
 }

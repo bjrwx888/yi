@@ -28,6 +28,11 @@
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
+        <member name="P:Yi.Framework.Ddd.Services.ReadOnlyAppService`5._repository">
+            <summary>
+            先暂时用服务定位的方式，之后将更改为属性注入
+            </summary>
+        </member>
         <member name="M:Yi.Framework.Ddd.Services.ReadOnlyAppService`5.GetAsync(`3)">
             <summary>
             单查

@@ -10,5 +10,6 @@ namespace Yi.Framework.Application.Contracts.Student.Dtos
     public class StudentGetOutputDto : IEntityDto<long>
     {
         public long Id { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Configuration;
 using Yi.Framework.Core.Model;
+using Yi.Framework.Core.Sqlsugar.Const;
+using Yi.Framework.Core.Sqlsugar.Options;
 using DbType = SqlSugar.DbType;
 
 namespace Yi.Framework.Core.Sqlsugar.Extensions
@@ -18,11 +20,24 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
     {
         public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient>? action = null)
         {
-            DbType dbType;
-            var slavaConFig = new List<SlaveConnectionConfig>();
-            if (Appsettings.appBool("MutiDB_Enabled"))
+            var dbConnOptions = Appsettings.app<DbConnOptions>("DbConnOptions");
+
+            if (dbConnOptions.DbType is null)
             {
-                var readCon = Appsettings.app<List<string>>("DbConn", "ReadUrl");
+                throw new ArgumentException(SqlsugarConst.DbType配置为空);
+            }
+            var slavaConFig = new List<SlaveConnectionConfig>();
+
+
+
+            if (dbConnOptions.EnabledReadWrite)
+            {
+                if (dbConnOptions.ReadUrl is null)
+                {
+                    throw new ArgumentException(SqlsugarConst.读写分离为空);
+                }
+
+                var readCon = dbConnOptions.ReadUrl;
 
                 readCon.ForEach(s =>
                 {
@@ -31,19 +46,14 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
                 });
             }
 
-            switch (Appsettings.app("DbSelect"))
-            {
-                case "Mysql": dbType = DbType.MySql; break;
-                case "Sqlite": dbType = DbType.Sqlite; break;
-                case "Sqlserver": dbType = DbType.SqlServer; break;
-                case "Oracle": dbType = DbType.Oracle; break;
-                default: throw new Exception("DbSelect配置写的TM是个什么东西？");
-            }
+
+
+
             SqlSugarScope sqlSugar = new SqlSugarScope(new ConnectionConfig()
             {
                 //准备添加分表分库
-                DbType = dbType,
-                ConnectionString = Appsettings.app("DbConn", "WriteUrl"),
+                DbType = dbConnOptions.DbType ?? DbType.Sqlite,
+                ConnectionString = dbConnOptions.Url,
                 IsAutoCloseConnection = true,
                 MoreSettings = new ConnMoreSettings()
                 {
@@ -55,13 +65,6 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
                 {
                     EntityService = (c, p) =>
                     {
-                        //// int?  decimal?这种 isnullable=true
-                        //if (c.PropertyType.IsGenericType &&
-                        //c.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                        //{
-                        //    p.IsNullable = true;
-                        //}
-
                         //高版C#写法 支持string?和string  
                         if (new NullabilityInfoContext()
                         .Create(c).WriteState is NullabilityState.Nullable)
@@ -73,6 +76,7 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
             },
          db =>
          {
+             //扩展
              if (action is not null)
              {
                  action(db);
@@ -80,32 +84,12 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
 
              db.Aop.DataExecuting = (oldValue, entityInfo) =>
              {
-                 //var httpcontext = ServiceLocator.Instance.GetService<IHttpContextAccessor>().HttpContext;
+
                  switch (entityInfo.OperationType)
                  {
                      case DataFilterType.InsertByObject:
-                         if (entityInfo.PropertyName == "CreateUser")
-                         {
-                             //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["Id"].ToString()));
-                         }
-                         if (entityInfo.PropertyName == "TenantId")
-                         {
-                             //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["TenantId"].ToString()));
-                         }
-                         if (entityInfo.PropertyName == "CreateTime")
-                         {
-                             entityInfo.SetValue(DateTime.Now);
-                         }
                          break;
                      case DataFilterType.UpdateByObject:
-                         if (entityInfo.PropertyName == "ModifyTime")
-                         {
-                             entityInfo.SetValue(DateTime.Now);
-                         }
-                         if (entityInfo.PropertyName == "ModifyUser")
-                         {
-                             //entityInfo.SetValue(new Guid(httpcontext.Request.Headers["Id"].ToString()));
-                         }
                          break;
                  }
 
@@ -125,8 +109,6 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
                      sb.Append($"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
                      _logger?.LogInformation(sb.ToString());
                  }
-
-
              };
 
          });

@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Options\" />
     <Folder Include="Uow\" />
+    <Folder Include="CodeFirst\" />
   </ItemGroup>
 
 </Project>

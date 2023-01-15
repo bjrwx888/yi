@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Module\" />
+    <Folder Include="Options\" />
   </ItemGroup>
 
   <ItemGroup>

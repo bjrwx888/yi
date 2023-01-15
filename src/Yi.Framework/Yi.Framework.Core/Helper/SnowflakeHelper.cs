@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Yi.Framework.Core.Helper
 {
 	public static class SnowflakeHelper
 	{
+		public static long NextId { get => SnowFlakeSingle.Instance.NextId(); }
+
 		public static long Next()
 		{
 			SnowflakeTool snowflakeTool = new SnowflakeTool(1);
