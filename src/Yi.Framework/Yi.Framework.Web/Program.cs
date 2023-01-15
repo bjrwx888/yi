@@ -8,9 +8,7 @@ using Yi.Framework.Core;
 using Yi.Framework.Core.AutoMapper;
 using Yi.Framework.Core.Extensions;
 using Yi.Framework.Core.Sqlsugar;
-using Yi.Framework.Core.Sqlsugar.Repository;
 using Yi.Framework.Ddd;
-using Yi.Framework.Ddd.Repository;
 using Yi.Framework.Domain;
 using Yi.Framework.Domain.Shared;
 using Yi.Framework.Sqlsugar;
@@ -41,8 +39,5 @@ builder.UseYiModules(
 builder.Host.UseAutoFacServerProviderFactory();
 
 var app = builder.Build();
-
-//Ê¹ÓÃ¶¯Ì¬api
-app.UseAutoApiService();
 app.MapControllers();
 app.Run();

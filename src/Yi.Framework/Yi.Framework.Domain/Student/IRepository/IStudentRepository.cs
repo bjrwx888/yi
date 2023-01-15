@@ -13,5 +13,6 @@ namespace Yi.Framework.Domain.Student.IRepository
     /// </summary>
     public interface IStudentRepository:IRepository<StudentEntity>
     {
+        Task<List<StudentEntity>> GetMyListAsync();
     }
 }

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Yi.Framework.Common.Helper
+namespace Yi.Framework.Core.Helper
 {
     public class FileHelper : IDisposable
     {
@@ -128,7 +128,7 @@ namespace Yi.Framework.Common.Helper
                 FileStream f = File.Create(Path);
                 f.Close();
             }
-            StreamWriter f2 = new StreamWriter(Path, false, System.Text.Encoding.GetEncoding("gb2312"));
+            StreamWriter f2 = new StreamWriter(Path, false, Encoding.GetEncoding("gb2312"));
             f2.Write(Strings);
             f2.Close();
             f2.Dispose();
@@ -175,7 +175,7 @@ namespace Yi.Framework.Common.Helper
                 s = "不存在相应的目录";
             else
             {
-                StreamReader f2 = new StreamReader(Path, System.Text.Encoding.GetEncoding("gb2312"));
+                StreamReader f2 = new StreamReader(Path, Encoding.GetEncoding("gb2312"));
                 s = f2.ReadToEnd();
                 f2.Close();
                 f2.Dispose();

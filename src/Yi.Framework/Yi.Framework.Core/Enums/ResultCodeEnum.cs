@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Core.Enum
+namespace Yi.Framework.Core.Enums
 {
     public enum ResultCodeEnum
     {

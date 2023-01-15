@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Ddd.Services
+namespace Yi.Framework.Application.Contracts.Student.Dtos
 {
-    public interface IApplicationService
+    public class StudentUpdateInputVo
     {
     }
 }

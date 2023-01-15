@@ -9,17 +9,22 @@ using Yi.Framework.Domain.Student.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using NET.AutoWebApi.Setting;
 using Microsoft.AspNetCore.Http;
+using Yi.Framework.Ddd.Services.Abstract;
+using Yi.Framework.Application.Contracts.Student.Dtos;
+using Yi.Framework.Domain.Student.Entities;
+using Yi.Framework.Ddd.Services;
 
 namespace Yi.Framework.Application.Student
 {
     /// <summary>
     /// 服务实现
     /// </summary>
-    public class StudentService : IStudentService, IAutoApiService
+    public class StudentService : CrudAppService<StudentEntity, StudentGetOutputDto, StudentGetListOutputDto, long, StudentGetListInputVo, StudentCreateInputVo, StudentUpdateInputVo>,
+        IStudentService, IAutoApiService
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;
-        public StudentService(IStudentRepository studentRepository, StudentManager studentManager )
+        public StudentService(IStudentRepository studentRepository, StudentManager studentManager)
         {
             _studentRepository = studentRepository;
             _studentManager = studentManager;
@@ -27,11 +32,11 @@ namespace Yi.Framework.Application.Student
         /// <summary>
         /// 你好世界
         /// </summary>
-        /// <param name="aaa"></param>
         /// <returns></returns>
-        public string PostShijie(string aaa)
+        public async Task<List<StudentGetListOutputDto>> PostShijie()
         {
-            return aaa;
+            var entities = await _studentRepository.GetMyListAsync();
+            return await MapToGetListOutputDtosAsync(entities);
         }
     }
 }

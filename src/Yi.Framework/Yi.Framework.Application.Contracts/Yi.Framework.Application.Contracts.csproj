@@ -4,14 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <DocumentationFile>./ApplicationContractsSwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Student\Dtos\" />
+    <ProjectReference Include="..\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj" />
+    <None Update="ApplicationContractsSwaggerDoc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

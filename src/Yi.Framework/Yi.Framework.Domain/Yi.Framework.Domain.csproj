@@ -4,10 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <DocumentationFile>./DomainSwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DomainSwaggerDoc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

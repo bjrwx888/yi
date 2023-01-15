@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Core.Attribute;
+using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.DependencyInjection;
 
 namespace Yi.Framework.Core.Extensions

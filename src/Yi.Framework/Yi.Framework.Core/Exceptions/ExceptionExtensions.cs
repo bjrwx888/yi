@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.ExceptionServices;
 using Microsoft.Extensions.Logging;
-using Yi.Framework.Core.Enum;
+using Yi.Framework.Core.Enums;
 
 namespace Yi.Framework.Core.Exceptions;
 

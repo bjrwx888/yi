@@ -5,18 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>./YiFrameworkSwaggerDoc.xml</DocumentationFile>
+    <DocumentationFile>./SwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj" />
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="YiFrameworkSwaggerDoc.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

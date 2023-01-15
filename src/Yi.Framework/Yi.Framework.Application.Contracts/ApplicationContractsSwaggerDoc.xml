@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.Framework.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Yi.Framework.Application.Contracts.Student.Dtos.StudentCreateInputVo">
+            <summary>
+            Student输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Framework.Application.Contracts.Student.IStudentService">
+            <summary>
+            服务抽象
+            </summary>
+        </member>
+    </members>
+</doc>

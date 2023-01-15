@@ -26,9 +26,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 c.SwaggerDoc("v1", apiInfo);
 
-                //添加注释服务
-                //为 Swagger JSON and UI设置xml文档注释路径
-                //获取应用程序所在目录(绝对路径，不受工作目录影响，建议采用此方法获取路径使用windwos&Linux）
 
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
                 if (basePath is not null)
@@ -38,21 +35,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         c.IncludeXmlComments(item, true);
                     }
                 }
-                //控制器层注释
-                //var entityXmlPath = Path.Combine(basePath, @"SwaggerDoc.xml");//实体注释
-                //c.IncludeXmlComments(apiXmlPath, true);//true表示显示控制器注释
-                //c.IncludeXmlComments(apiXmlPath, true);
 
-                //这里路径应该动态获取，先暂时写死
-                //c.IncludeXmlComments("E:\\Yi\\src\\Yi.Framework\\Yi.Framework.Application\\SwaggerDoc.xml", true);
-
-
-                //添加控制器注释
-                //c.DocumentFilter<SwaggerDocTag>();
-
-                //添加header验证信息
-                //c.OperationFilter<SwaggerHeader>();
-                //var security = new Dictionary<string, IEnumerable<string>> { { "Bearer", new string[] { } }, };
                 c.AddSecurityDefinition("JwtBearer", new OpenApiSecurityScheme()
                 {
                     Description = "直接输入Token即可",

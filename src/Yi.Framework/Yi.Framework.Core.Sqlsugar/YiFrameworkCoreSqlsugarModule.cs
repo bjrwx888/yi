@@ -4,7 +4,7 @@ using StartupModules;
 using Yi.Framework.Core.Configuration;
 using Yi.Framework.Core.Options;
 using Yi.Framework.Core.Sqlsugar.Extensions;
-using Yi.Framework.Core.Sqlsugar.Repository;
+using Yi.Framework.Core.Sqlsugar.Repositories;
 using Yi.Framework.Ddd;
 using Yi.Framework.Ddd.Repositories;
 
