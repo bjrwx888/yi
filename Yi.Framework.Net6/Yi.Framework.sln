@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.AutoMappe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Office.Excel", "src\module\Yi.Framework.Office.Excel\Yi.Framework.Office.Excel.csproj", "{4EEC6607-F0D8-4277-9463-104DA7E184B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.WeChatPay", "src\module\Yi.Framework.WeChatPay\Yi.Framework.WeChatPay.csproj", "{588D0DA9-303A-4FF0-A2D1-83037E2B269F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{4EEC6607-F0D8-4277-9463-104DA7E184B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EEC6607-F0D8-4277-9463-104DA7E184B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EEC6607-F0D8-4277-9463-104DA7E184B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{58F4071D-66B7-4839-A247-79AF0E4E1C8E} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{4EEC6607-F0D8-4277-9463-104DA7E184B6} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
+		{588D0DA9-303A-4FF0-A2D1-83037E2B269F} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C1A3808-0F4F-43FB-A9FE-5F27A3BB2ECF}
