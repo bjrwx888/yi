@@ -36,6 +36,7 @@ namespace Yi.Framework.Core.Helper
             return null;
         }
 
+
         /// <summary>
         /// 设置对象属性值
         /// </summary>
@@ -48,7 +49,6 @@ namespace Yi.Framework.Core.Helper
             try
             {
                 Type Ts = obj.GetType();
-                //object v = Convert.ChangeType(Value, Ts.GetProperty(FieldName).PropertyType);
                 Ts.GetProperty(FieldName).SetValue(obj, Value, null);
                 return true;
             }

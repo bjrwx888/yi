@@ -89,7 +89,8 @@ namespace Yi.Framework.Core.Extensions
             if (serviceInterfaces is not null)
             {
                 var serviceType = type;
-                var firstInter = type.GetInterfaces().LastOrDefault();
+                var firstInter = type.GetInterfaces().Where(u => u != typeof(ITransientDependency)).LastOrDefault();
+
                 if (firstInter is not null)
                 {
                     serviceType = firstInter;

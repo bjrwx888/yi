@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Autofac.Extensions
+namespace Yi.Framework.Core.Autofac.Extensions
 {
     public static class AutoFacExtensions
     {
@@ -18,5 +18,10 @@ namespace Yi.Framework.Autofac.Extensions
             return hostBuilder;
         }
 
+        public static IHostBuilder ConfigureAutoFacContainer(this IHostBuilder hostBuilder, Action<ContainerBuilder> configureDelegate)
+        {
+            hostBuilder.UseAutoFacServerProviderFactory();
+            return hostBuilder.ConfigureContainer(configureDelegate);
+        }
     }
 }
