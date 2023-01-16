@@ -1,7 +1,3 @@
-
-using AspNetCore.Microsoft.AspNetCore.Builder;
-using Autofac;
-using System.Reflection;
 using Yi.Framework.Application;
 using Yi.Framework.Application.Contracts;
 using Yi.Framework.Core;
@@ -16,7 +12,7 @@ using Yi.Framework.Domain.Shared;
 using Yi.Framework.Sqlsugar;
 using Yi.Framework.Web;
 
-
+TimeTest.Start();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseUrls(builder.Configuration.GetValue<string>("StartUrl"));
@@ -50,4 +46,9 @@ var app = builder.Build();
 
 var t = app.Services.GetService<Test2Entity>();
 app.MapControllers();
+
+
+
+
+
 app.Run();

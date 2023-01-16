@@ -26,7 +26,6 @@ namespace Yi.Framework.Core
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            
             //添加全局配置类
             services.AddSingleton(new Appsettings(context.Configuration));
             //全盘扫描,自动依赖注入

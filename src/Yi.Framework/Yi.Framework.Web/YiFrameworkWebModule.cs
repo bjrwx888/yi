@@ -34,7 +34,7 @@ namespace Yi.Framework.Web
             app.UseAuthorization();
 
             app.UseRouting();
-
+            TimeTest.Result();
 
         }
     }
