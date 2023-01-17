@@ -14,6 +14,7 @@ using Yi.Framework.Application.Contracts.Student.Dtos;
 using Yi.Framework.Domain.Student.Entities;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Core.Attributes;
+using Yi.Framework.Uow;
 
 namespace Yi.Framework.Application.Student
 {
@@ -23,24 +24,31 @@ namespace Yi.Framework.Application.Student
 
     [AppService]
     public class StudentService : CrudAppService<StudentEntity, StudentGetOutputDto, StudentGetListOutputDto, long, StudentGetListInputVo, StudentCreateInputVo, StudentUpdateInputVo>,
-       IStudentService,IAutoApiService
+       IStudentService, IAutoApiService
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;
-        public StudentService(IStudentRepository studentRepository, StudentManager studentManager)
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        public StudentService(IStudentRepository studentRepository, StudentManager studentManager, IUnitOfWorkManager unitOfWorkManager)
         {
             _studentRepository = studentRepository;
             _studentManager = studentManager;
+            _unitOfWorkManager = unitOfWorkManager;
         }
         /// <summary>
-        /// 你好世界
+        /// Uow
         /// </summary>
         /// <returns></returns>
-        public async Task<List<StudentGetListOutputDto>> PostShijie()
+        public async Task<StudentGetOutputDto> PostUow()
         {
-            throw new NotImplementedException();
-            var entities = await _studentRepository.GetMyListAsync();
-            return await MapToGetListOutputDtosAsync(entities);
+            StudentGetOutputDto res = new();
+            using (var uow = _unitOfWorkManager.CreateContext())
+            {
+                res = await base.CreateAsync(new StudentCreateInputVo { Name = $"老杰哥{DateTime.Now.ToString("ffff")}", Number = 2023 });
+                if (new Random().Next(0, 2) == 0) throw new NotImplementedException();
+                uow.Commit();
+            }
+            return res;
         }
     }
 }

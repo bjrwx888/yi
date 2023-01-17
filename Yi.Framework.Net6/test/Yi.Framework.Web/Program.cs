@@ -8,7 +8,7 @@ TimeTest.Start();
 var builder = WebApplication.CreateBuilder(args);
 
 //设置启动url
-builder.WebHost.UseStartUrlsServer(builder.Configuration, "StartUrl");
+builder.WebHost.UseStartUrlsServer(builder.Configuration);
 
 //添加模块
 builder.UseYiModules(typeof(YiFrameworkWebModule));

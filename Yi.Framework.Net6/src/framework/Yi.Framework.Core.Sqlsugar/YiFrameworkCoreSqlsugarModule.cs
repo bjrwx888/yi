@@ -5,8 +5,10 @@ using Yi.Framework.Core.Configuration;
 using Yi.Framework.Core.Sqlsugar.Extensions;
 using Yi.Framework.Core.Sqlsugar.Options;
 using Yi.Framework.Core.Sqlsugar.Repositories;
+using Yi.Framework.Core.Sqlsugar.Uow;
 using Yi.Framework.Ddd;
 using Yi.Framework.Ddd.Repositories;
+using Yi.Framework.Uow;
 
 namespace Yi.Framework.Core.Sqlsugar
 {
@@ -20,6 +22,9 @@ namespace Yi.Framework.Core.Sqlsugar
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
             services.AddTransient(typeof(IRepository<>), typeof(SqlsugarRepository<>));
+
+            services.AddSingleton<IUnitOfWorkManager, UnitOfWorkManager>();
+
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
             services.AddSqlsugarServer();
        
