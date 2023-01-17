@@ -1,12 +1,20 @@
 ﻿using AspNetCore.Microsoft.AspNetCore.Builder;
 using StartupModules;
 using Yi.Framework.Application;
+using Yi.Framework.Core;
+using Yi.Framework.Core.Attributes;
+using Yi.Framework.Sqlsugar;
 
 namespace Yi.Framework.Web
 {
     /// <summary>
     /// 这里是最后执行的模块
     /// </summary>
+    [DependsOn(
+        typeof(YiFrameworkCoreModule),
+        typeof(YiFrameworkSqlsugarModule),
+        typeof(YiFrameworkApplicationModule)
+        )]
     public class YiFrameworkWebModule : IStartupModule
     {
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)

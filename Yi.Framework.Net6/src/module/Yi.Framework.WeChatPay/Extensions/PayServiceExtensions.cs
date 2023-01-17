@@ -40,8 +40,8 @@ namespace Yi.Framework.WeChatPay.Extensions
                 throw new PayException("NotifyUrl为空值");
             }
             services.AddSingleton(option);
-            services.AddTransient<PayInvoker>();
-            services.AddTransient<IPayInvoker, PayInvoker>();
+            services.AddTransient<PayManager>();
+            services.AddTransient<IPayManager, PayManager>();
             services.AddTransient<IPayConfig, PayConfig>();
             services.AddTransient<PayHelper>();
             services.AddTransient<PayApi>();

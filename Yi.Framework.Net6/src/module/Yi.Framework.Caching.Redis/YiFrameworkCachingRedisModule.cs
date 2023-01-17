@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
+using Yi.Framework.Core;
+using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Configuration;
 
 namespace Yi.Framework.Caching.Redis
 {
-
+    [DependsOn(
+    typeof(YiFrameworkCoreModule)
+    )]
     public class YiFrameworkCachingRedisModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)

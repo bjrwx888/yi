@@ -8,9 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Caching.MemoryCache;
 using Yi.Framework.Caching;
+using Yi.Framework.Core.Attributes;
+using Yi.Framework.Core;
 
 namespace Yi.Framework.Ddd
 {
+    [DependsOn(
+        typeof(YiFrameworkCoreModule)
+        )]
     public class YiFrameworkCachingMemoryCacheModule:IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)

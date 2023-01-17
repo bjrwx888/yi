@@ -11,13 +11,13 @@ using Yi.Framework.WeChatPay.Options;
 
 namespace Yi.Framework.WeChatPay.Domain
 {
-    public class PayInvoker : IPayInvoker
+    public class PayManager : IPayManager
     {
         private readonly PayHelper _payHelper;
-        private readonly ILogger<PayInvoker> _logger;
+        private readonly ILogger<PayManager> _logger;
         private readonly AbstractNotify _notify;
 
-        public PayInvoker(PayHelper payHelper, ILogger<PayInvoker> logger, AbstractNotify notify)
+        public PayManager(PayHelper payHelper, ILogger<PayManager> logger, AbstractNotify notify)
         {
             _payHelper = payHelper;
             _logger = logger;

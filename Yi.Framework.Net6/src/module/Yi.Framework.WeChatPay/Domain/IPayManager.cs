@@ -8,7 +8,7 @@ using Yi.Framework.WeChatPay.Helper;
 
 namespace Yi.Framework.WeChatPay.Domain
 {
-    public interface IPayInvoker
+    public interface IPayManager
     {
         /// <summary>
         /// 获取WX支付链接的方法

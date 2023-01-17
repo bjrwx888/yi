@@ -6,10 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Attributes;
+using Yi.Framework.Ddd;
 
 namespace Yi.Framework.Domain.Shared
 {
-    public class YiFrameworkDomainSharedModule : IStartupModule
+    [DependsOn(
+        typeof(YiFrameworkDddModule)
+        )]
+     public class YiFrameworkDomainSharedModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {

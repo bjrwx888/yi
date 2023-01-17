@@ -23,6 +23,7 @@ namespace Yi.Framework.Core.Autofac.Extensions
             switch (autoFacModuleEnum)
             {
                 case AutoFacModuleEnum.PropertiesAutowiredModule:
+                    Console.WriteLine($"意框架添加AutoFac模块：{nameof(PropertiesAutowiredModule)}-属性注入模块");
                     new PropertiesAutowiredModule().Load(builder, assemblies);
                     break;
             }
