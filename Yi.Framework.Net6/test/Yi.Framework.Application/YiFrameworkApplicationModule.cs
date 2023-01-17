@@ -22,12 +22,10 @@ namespace Yi.Framework.Application
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
-      
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            services.AddTransient<IStudentService, StudentService>();
         }
     }
 }

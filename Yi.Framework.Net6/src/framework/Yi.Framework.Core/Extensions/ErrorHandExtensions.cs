@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,12 @@ using Yi.Framework.Core.Exceptions;
 
 namespace Yi.Framework.Core.Extensions
 {
+
+   internal class ExceptionModle
+    {
+        public string? Message { get; set; }
+        public string? Details { get; set; }
+    }
     public class ErrorHandMiddleware
     {
         private readonly RequestDelegate _next;
@@ -22,26 +29,46 @@ namespace Yi.Framework.Core.Extensions
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            bool isNext = true;
             try
             {
                 await _next(context);
             }
             catch (BusinessException businessEx)
             {
-                var statusCode = 200;
-                //业务错误，不记录
-                await context.Response.WriteAsync($"你好世界:友好错误，已经被中间件拦截");
+                context.Response.ContentType = "application/json;charset=utf-8";
+                context.Response.StatusCode = businessEx.Code.GetHashCode();
+
+                var result = new ExceptionModle
+                {
+                    Message= businessEx.Message,
+                    Details= businessEx.Details,
+                };
+                //业务错误，不记录日志
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
+                {
+                    //设置首字母小写
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                }));
+
             }
             catch (Exception ex)
             {
-                isNext = false;
+                context.Response.ContentType = "application/json;charset=utf-8";
+                //系统错误，记录日志
                 _logger.LogError(ex, $"系统错误:{ex.Message}");
                 //await _errorHandle.Invoer(context, ex);
-                var statusCode = context.Response.StatusCode;
                 context.Response.StatusCode = 500;
                 //系统错误，需要记录
-                await context.Response.WriteAsync($"你好世界：系统错误，已经被中间件拦截");
+                var result = new ExceptionModle
+                {
+                    Message = ex.Message,
+                    Details = "系统错误",
+                };
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
+                {
+                    //设置首字母小写
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                }));
             }
         }
 

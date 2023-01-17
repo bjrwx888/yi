@@ -20,8 +20,8 @@ namespace Yi.Framework.Core
             //服务定位实例赋值
             ServiceLocatorModel.Instance = app.ApplicationServices;
 
-            //全局错误，需要靠前
-            app.UseErrorHandlingServer();
+            //全局错误，需要靠前，放在此处无效
+            //app.UseErrorHandlingServer();
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)

@@ -13,14 +13,17 @@ using Yi.Framework.Ddd.Services.Abstract;
 using Yi.Framework.Application.Contracts.Student.Dtos;
 using Yi.Framework.Domain.Student.Entities;
 using Yi.Framework.Ddd.Services;
+using Yi.Framework.Core.Attributes;
 
 namespace Yi.Framework.Application.Student
 {
     /// <summary>
     /// 服务实现
     /// </summary>
+
+    [AppService]
     public class StudentService : CrudAppService<StudentEntity, StudentGetOutputDto, StudentGetListOutputDto, long, StudentGetListInputVo, StudentCreateInputVo, StudentUpdateInputVo>,
-        IStudentService, IAutoApiService
+       IStudentService,IAutoApiService
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;

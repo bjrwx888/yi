@@ -1,5 +1,4 @@
-﻿using Yi.Framework.Core.Attributes;
-using Yi.Framework.Core.DependencyInjection;
+﻿using Yi.Framework.Core.DependencyInjection;
 
 namespace Yi.Framework.Web
 {

@@ -7,11 +7,7 @@ using Yi.Framework.Sqlsugar;
 
 namespace Yi.Framework.Web
 {
-    /// <summary>
-    /// 这里是最后执行的模块
-    /// </summary>
     [DependsOn(
-        typeof(YiFrameworkCoreModule),
         typeof(YiFrameworkSqlsugarModule),
         typeof(YiFrameworkApplicationModule)
         )]

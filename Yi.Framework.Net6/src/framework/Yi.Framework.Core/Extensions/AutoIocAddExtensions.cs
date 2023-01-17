@@ -55,8 +55,9 @@ namespace Yi.Framework.Core.Extensions
                 //情况2 自动去找接口，如果存在就是接口，如果不存在就是本身
                 if (serviceType == null)
                 {
-                    //获取最靠近的接口
-                    var firstInter = type.GetInterfaces().LastOrDefault();
+                    //获取最远靠近的接口
+                    var p = type.GetInterfaces().ToList();
+                    var firstInter = type.GetInterfaces().Where(u => u.Name ==$"I{type.Name}").LastOrDefault();
                     if (firstInter is null)
                     {
                         serviceType = type;
@@ -89,7 +90,9 @@ namespace Yi.Framework.Core.Extensions
             if (serviceInterfaces is not null)
             {
                 var serviceType = type;
-                var firstInter = type.GetInterfaces().Where(u => u != typeof(ITransientDependency)).LastOrDefault();
+
+                //规范
+                var firstInter = type.GetInterfaces().Where(u => u != typeof(ITransientDependency) && u.Name == $"I{type.Name}").LastOrDefault();
 
                 if (firstInter is not null)
                 {
@@ -97,15 +100,15 @@ namespace Yi.Framework.Core.Extensions
                 }
                 if (serviceInterfaces.Contains(typeof(ITransientDependency)))
                 {
-                    services.AddTransient(serviceType,type);
+                    services.AddTransient(serviceType, type);
                 }
                 if (serviceInterfaces.Contains(typeof(IScopedDependency)))
                 {
-                    services.AddScoped(serviceType,type);
+                    services.AddScoped(serviceType, type);
                 }
                 if (serviceInterfaces.Contains(typeof(ISingletonDependency)))
                 {
-                    services.AddSingleton(serviceType,type);
+                    services.AddSingleton(serviceType, type);
                 }
             }
         }
