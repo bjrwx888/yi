@@ -9,9 +9,9 @@
             服务实现
             </summary>
         </member>
-        <member name="M:Yi.Framework.Application.Student.StudentService.PostShijie">
+        <member name="M:Yi.Framework.Application.Student.StudentService.PostUow">
             <summary>
-            你好世界
+            Uow
             </summary>
             <returns></returns>
         </member>

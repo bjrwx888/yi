@@ -25,6 +25,7 @@ namespace Yi.Framework.Core.Sqlsugar
 
             services.AddSingleton<IUnitOfWorkManager, UnitOfWorkManager>();
 
+
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
             services.AddSqlsugarServer();
        

@@ -12,7 +12,6 @@
     <ProjectReference Include="..\Yi.Framework.Core.Autofac\Yi.Framework.Core.Autofac.csproj" />
     <ProjectReference Include="..\Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj" />
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
-    <ProjectReference Include="..\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
   </ItemGroup>
 
   <ItemGroup>

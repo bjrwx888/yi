@@ -28,13 +28,15 @@ namespace Yi.Framework.Application.Student
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        //private readonly IUnitOfWorkManager _unitOfWorkManager;
         public StudentService(IStudentRepository studentRepository, StudentManager studentManager, IUnitOfWorkManager unitOfWorkManager)
         {
             _studentRepository = studentRepository;
             _studentManager = studentManager;
             _unitOfWorkManager = unitOfWorkManager;
         }
+
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
         /// <summary>
         /// Uow
         /// </summary>
@@ -44,6 +46,7 @@ namespace Yi.Framework.Application.Student
             StudentGetOutputDto res = new();
             using (var uow = _unitOfWorkManager.CreateContext())
             {
+                var studentRepository = uow.GetRepository<StudentEntity>();
                 res = await base.CreateAsync(new StudentCreateInputVo { Name = $"老杰哥{DateTime.Now.ToString("ffff")}", Number = 2023 });
                 if (new Random().Next(0, 2) == 0) throw new NotImplementedException();
                 uow.Commit();
