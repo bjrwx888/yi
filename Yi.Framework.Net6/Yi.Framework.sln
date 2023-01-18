@@ -43,9 +43,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.Sqlsugar"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.AutoMapper", "src\framework\Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj", "{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Office.Excel", "src\module\Yi.Framework.Office.Excel\Yi.Framework.Office.Excel.csproj", "{4EEC6607-F0D8-4277-9463-104DA7E184B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Office.Excel", "src\module\Yi.Framework.Office.Excel\Yi.Framework.Office.Excel.csproj", "{4EEC6607-F0D8-4277-9463-104DA7E184B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.WeChatPay", "src\module\Yi.Framework.WeChatPay\Yi.Framework.WeChatPay.csproj", "{588D0DA9-303A-4FF0-A2D1-83037E2B269F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.WeChatPay", "src\module\Yi.Framework.WeChatPay\Yi.Framework.WeChatPay.csproj", "{588D0DA9-303A-4FF0-A2D1-83037E2B269F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Data", "Yi.Framework.Data\Yi.Framework.Data.csproj", "{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Authentication.JwtBearer", "src\framework\Yi.Framework.Authentication.JwtBearer\Yi.Framework.Authentication.JwtBearer.csproj", "{D40C583D-58BE-422D-9A57-94DECB751EB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +133,14 @@ Global
 		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588D0DA9-303A-4FF0-A2D1-83037E2B269F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D40C583D-58BE-422D-9A57-94DECB751EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D40C583D-58BE-422D-9A57-94DECB751EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D40C583D-58BE-422D-9A57-94DECB751EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D40C583D-58BE-422D-9A57-94DECB751EB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +165,8 @@ Global
 		{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{4EEC6607-F0D8-4277-9463-104DA7E184B6} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 		{588D0DA9-303A-4FF0-A2D1-83037E2B269F} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
+		{DEE07142-32CE-4B5F-A5A3-452064EBF4A2} = {5F2B846D-96CE-400A-878E-220498F4EE31}
+		{D40C583D-58BE-422D-9A57-94DECB751EB4} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C1A3808-0F4F-43FB-A9FE-5F27A3BB2ECF}

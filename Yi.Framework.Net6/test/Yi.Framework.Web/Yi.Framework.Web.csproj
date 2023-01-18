@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\framework\Yi.Framework.Authentication.JwtBearer\Yi.Framework.Authentication.JwtBearer.csproj" />
     <ProjectReference Include="..\..\src\framework\Yi.Framework.Core.Autofac\Yi.Framework.Core.Autofac.csproj" />
     <ProjectReference Include="..\Yi.Framework.Application\Yi.Framework.Application.csproj" />
     <ProjectReference Include="..\Yi.Framework.Sqlsugar\Yi.Framework.Sqlsugar.csproj" />

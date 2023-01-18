@@ -15,6 +15,7 @@ using Yi.Framework.Domain.Student.Entities;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Uow;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Yi.Framework.Application.Student
 {
@@ -41,6 +42,7 @@ namespace Yi.Framework.Application.Student
         /// Uow
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public async Task<StudentGetOutputDto> PostUow()
         {
             StudentGetOutputDto res = new();
