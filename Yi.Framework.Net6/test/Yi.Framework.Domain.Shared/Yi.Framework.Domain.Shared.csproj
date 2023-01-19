@@ -5,7 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+	<ItemGroup>
+		<Compile Include="..\..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\framework\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
   </ItemGroup>

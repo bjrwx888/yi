@@ -7,7 +7,9 @@
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	  <DocumentationFile>./ApplicationContractsSwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
-
+	<ItemGroup>
+		<Compile Include="..\..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj" />
   </ItemGroup>
