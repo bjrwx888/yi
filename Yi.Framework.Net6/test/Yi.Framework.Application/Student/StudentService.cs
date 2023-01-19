@@ -43,14 +43,14 @@ namespace Yi.Framework.Application.Student
             _studentManager = studentManager;
             _unitOfWorkManager = unitOfWorkManager;
             _jwtTokenManager = jwtTokenManager;
-            _currentUser=currentUser;
+            _currentUser = currentUser;
         }
 
         /// <summary>
         /// 测试token
         /// </summary>
         /// <returns></returns>
-        public  string GetToken()
+        public string GetToken()
         {
             var claimDic = new Dictionary<string, object>() { { TokenTypeConst.Id, "123" }, { TokenTypeConst.UserName, "cc" } };
             return _jwtTokenManager.CreateToken(claimDic);
@@ -64,7 +64,7 @@ namespace Yi.Framework.Application.Student
         [Permission(AuthStudentConst.查询)]
         public async Task<StudentGetOutputDto> PostUow()
         {
-        var o=    _currentUser;
+            var o = _currentUser;
             StudentGetOutputDto res = new();
             using (var uow = _unitOfWorkManager.CreateContext())
             {

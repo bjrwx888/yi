@@ -39,7 +39,7 @@ namespace Yi.Framework.Auth.JwtBearer.Authorization
 
             if (!result)
             {
-                throw new AuthException(message: "您无权限访问该接口");
+                throw new AuthException(message: $"您无权限访问该接口-{ context.HttpContext.Request.Path.Value}");
             }
         }
 

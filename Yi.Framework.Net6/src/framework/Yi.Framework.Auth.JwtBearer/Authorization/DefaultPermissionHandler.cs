@@ -11,7 +11,13 @@ namespace Yi.Framework.Auth.JwtBearer.Authorization
     {
         public bool IsPass(string permission, ICurrentUser currentUser)
         {
-            return true;
+            if (currentUser.Permission is not null)
+            {
+               return currentUser.Permission.Contains(permission);
+
+            }
+
+            return false;
         }
     }
 }

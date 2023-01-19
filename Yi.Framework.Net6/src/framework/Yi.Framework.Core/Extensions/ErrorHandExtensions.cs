@@ -40,10 +40,30 @@ namespace Yi.Framework.Core.Extensions
 
                 var result = new ExceptionModle
                 {
-                    Message= businessEx.Message,
-                    Details= businessEx.Details,
+                    Message = businessEx.Message,
+                    Details = businessEx.Details,
                 };
                 //业务错误，不记录日志
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
+                {
+                    //设置首字母小写
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                }));
+
+            }
+            catch (AuthException ex)
+            {
+                context.Response.ContentType = "application/json;charset=utf-8";
+                //系统错误，记录日志
+                _logger.LogError(ex, $"授权失败:{ex.Message}");
+                //await _errorHandle.Invoer(context, ex);
+                context.Response.StatusCode =(int)ex.Code;
+                //系统错误，需要记录
+                var result = new ExceptionModle
+                {
+                    Message = ex.Message,
+                    Details = "授权失败",
+                };
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
                 {
                     //设置首字母小写

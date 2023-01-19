@@ -32,10 +32,10 @@ namespace Yi.Framework.Auth.JwtBearer
             {
                 option.AddScheme<YiJwtAuthenticationHandler>(YiJwtAuthenticationHandler.YiJwtSchemeName, YiJwtAuthenticationHandler.YiJwtSchemeName);
             });
-            services.AddSingleton<PermissionAttribute>(_=>new PermissionAttribute(string.Empty));
-            services.AddControllers(options => {
-                options.Filters.Add<PermissionAttribute>();
-            });
+            services.AddSingleton<PermissionAttribute>();
+            //services.AddControllers(options => {
+            //    options.Filters.Add<PermissionAttribute>();
+            //});
         }
     }
 }
