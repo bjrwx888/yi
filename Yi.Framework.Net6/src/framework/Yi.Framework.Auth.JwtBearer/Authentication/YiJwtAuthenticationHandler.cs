@@ -3,14 +3,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System.Net;
 using System.Security.Claims;
+using System.Text.Json;
+using Yi.Framework.Core.Helper;
 
-namespace Yi.Framework.Authentication.JwtBearer
+namespace Yi.Framework.Auth.JwtBearer.Authentication
 {
     public class YiJwtAuthenticationHandler : IAuthenticationHandler
     {
-        public YiJwtAuthenticationHandler()
+        private JwtTokenManager _jwtTokenManager;
+        public YiJwtAuthenticationHandler(JwtTokenManager jwtTokenManager)
         {
-
+            _jwtTokenManager = jwtTokenManager;
         }
         public const string YiJwtSchemeName = "YiJwtAuth";
 
@@ -36,13 +39,26 @@ namespace Yi.Framework.Authentication.JwtBearer
         /// <param name="name"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        private AuthenticationTicket GetAuthTicket(string name, string role)
+        private AuthenticationTicket GetAuthTicket(IDictionary<string, object> dicClaims)
         {
-            var claimsIdentity = new ClaimsIdentity(new Claim[]
+            List<Claim> claims = new List<Claim>();
+            foreach (var claim in dicClaims)
             {
-    new Claim(ClaimTypes.Name, name),
-    new Claim(ClaimTypes.Role, role),
-            }, YiJwtSchemeName);
+                var p = (JsonElement)claim.Value;
+                string? resp=null;
+                switch (p.ValueKind)
+                {
+
+                    case JsonValueKind.String:
+                        resp = p.GetString();
+                        break;
+                    case JsonValueKind.Number:
+                        resp = p.GetInt32().ToString();
+                        break;
+                }
+                claims.Add(new Claim(claim.Key, resp ?? ""));
+            }
+            var claimsIdentity = new ClaimsIdentity(claims.ToArray(), YiJwtSchemeName);
             var principal = new ClaimsPrincipal(claimsIdentity);
             return new AuthenticationTicket(principal, _scheme.Name);
         }
@@ -54,29 +70,34 @@ namespace Yi.Framework.Authentication.JwtBearer
         /// <exception cref="NotImplementedException"></exception>
         public Task<AuthenticateResult> AuthenticateAsync()
         {
-            AuthenticateResult result;
+            AuthenticateResult result = AuthenticateResult.Fail("未发现授权令牌");
             _context.Request.Headers.TryGetValue("Authorization", out StringValues values);
             string valStr = values.ToString();
             if (!string.IsNullOrWhiteSpace(valStr))
             {
-                //认证模拟basic认证：cusAuth YWRtaW46YWRtaW4=
-                string[] authVal = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(valStr.Substring(YiJwtSchemeName.Length + 1))).Split(':');
-                //var loginInfo = new Dto.LoginDto() { Username = authVal[0], Password = authVal[1] };
-                //var validVale = _userService.IsValid(loginInfo);
-                bool validVale = true;
-                if (!validVale)
-                    result = AuthenticateResult.Fail("未登陆");
+                var tokenHeader = valStr.Substring(0, 6);
+                if (tokenHeader == "Bearer")
+                {
+                    var token = valStr.Substring(7);
+
+                    var claimDic = _jwtTokenManager.VerifyToken(token, new JwtTokenManager.TokenVerifyErrorAction()
+                    {
+                        TokenExpiredAction = (ex) => { result = AuthenticateResult.Fail("Token过期"); },
+                        SignatureVerificationAction = (ex) => { result = AuthenticateResult.Fail("Token效验失效"); },
+                        TokenNotYetValidAction = (ex) => { result = AuthenticateResult.Fail("Token完全错误"); },
+                        ErrorAction = (ex) => { result = AuthenticateResult.Fail("Token内部错误"); }
+                    });
+                    if (claimDic is not null)
+                    {
+                        //成功
+                        result = AuthenticateResult.Success(GetAuthTicket(claimDic));
+                    }
+                }
                 else
                 {
-                    //这里应该将token进行效验，然后加入解析的claim中即可
-
-                    var ticket = GetAuthTicket("cc", "admin");
-                    result = AuthenticateResult.Success(ticket);
+                    result = AuthenticateResult.Fail("授权令牌格式错误");
                 }
-            }
-            else
-            {
-                result = AuthenticateResult.Fail("未登陆");
+
             }
             return Task.FromResult(result);
         }

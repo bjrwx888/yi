@@ -16,6 +16,11 @@ using Yi.Framework.Ddd.Services;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Uow;
 using Microsoft.AspNetCore.Authorization;
+using Yi.Framework.Auth.JwtBearer.Authentication;
+using Yi.Framework.Core.Const;
+using Yi.Framework.Core.CurrentUsers;
+using Yi.Framework.Auth.JwtBearer.Authorization;
+using Yi.Framework.Domain.Shared.Student.ConstClasses;
 
 namespace Yi.Framework.Application.Student
 {
@@ -29,22 +34,37 @@ namespace Yi.Framework.Application.Student
     {
         private readonly IStudentRepository _studentRepository;
         private readonly StudentManager _studentManager;
-        //private readonly IUnitOfWorkManager _unitOfWorkManager;
-        public StudentService(IStudentRepository studentRepository, StudentManager studentManager, IUnitOfWorkManager unitOfWorkManager)
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly JwtTokenManager _jwtTokenManager;
+        private readonly ICurrentUser _currentUser;
+        public StudentService(IStudentRepository studentRepository, StudentManager studentManager, IUnitOfWorkManager unitOfWorkManager, JwtTokenManager jwtTokenManager, ICurrentUser currentUser)
         {
             _studentRepository = studentRepository;
             _studentManager = studentManager;
             _unitOfWorkManager = unitOfWorkManager;
+            _jwtTokenManager = jwtTokenManager;
+            _currentUser=currentUser;
         }
 
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        /// <summary>
+        /// 测试token
+        /// </summary>
+        /// <returns></returns>
+        public  string GetToken()
+        {
+            var claimDic = new Dictionary<string, object>() { { TokenTypeConst.Id, "123" }, { TokenTypeConst.UserName, "cc" } };
+            return _jwtTokenManager.CreateToken(claimDic);
+        }
+
         /// <summary>
         /// Uow
         /// </summary>
         /// <returns></returns>
         [Authorize]
+        [Permission(AuthStudentConst.查询)]
         public async Task<StudentGetOutputDto> PostUow()
         {
+        var o=    _currentUser;
             StudentGetOutputDto res = new();
             using (var uow = _unitOfWorkManager.CreateContext())
             {

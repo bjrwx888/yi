@@ -47,9 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Office.Excel",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.WeChatPay", "src\module\Yi.Framework.WeChatPay\Yi.Framework.WeChatPay.csproj", "{588D0DA9-303A-4FF0-A2D1-83037E2B269F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Data", "Yi.Framework.Data\Yi.Framework.Data.csproj", "{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Data", "src\framework\Yi.Framework.Data\Yi.Framework.Data.csproj", "{DEE07142-32CE-4B5F-A5A3-452064EBF4A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Authentication.JwtBearer", "src\framework\Yi.Framework.Authentication.JwtBearer\Yi.Framework.Authentication.JwtBearer.csproj", "{D40C583D-58BE-422D-9A57-94DECB751EB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Auth.JwtBearer", "src\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj", "{D40C583D-58BE-422D-9A57-94DECB751EB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,6 +9,12 @@
             服务实现
             </summary>
         </member>
+        <member name="M:Yi.Framework.Application.Student.StudentService.GetToken">
+            <summary>
+            测试token
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.Application.Student.StudentService.PostUow">
             <summary>
             Uow

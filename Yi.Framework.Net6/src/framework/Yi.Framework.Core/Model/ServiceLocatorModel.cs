@@ -8,7 +8,7 @@ namespace Yi.Framework.Core.Model
 {
     public static class ServiceLocatorModel
     {
-        public static IServiceProvider? Instance { get; set; }
+        public static IServiceProvider Instance { get; set; }
     }
 }
 

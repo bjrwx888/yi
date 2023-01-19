@@ -9,7 +9,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Core.CurrentUser;
+using Yi.Framework.Core.Const;
+using Yi.Framework.Core.CurrentUsers;
 
 namespace Yi.Framework.Core.Extensions
 {
@@ -17,7 +18,7 @@ namespace Yi.Framework.Core.Extensions
     {
         public static IServiceCollection AddCurrentUserServer(this IServiceCollection services)
         {
-            return services.AddScoped<ICurrentUser, CurrentUser.CurrentUser>();
+            return services.AddScoped<ICurrentUser, CurrentUser>();
         }
 
 
@@ -51,10 +52,10 @@ namespace Yi.Framework.Core.Extensions
             var claims = authenticateContext.Principal.Claims;
             //通过鉴权之后，开始赋值
             _currentUser.IsAuthenticated = true;
-            //_currentUser.Id = claims.GetClaim(JwtRegisteredClaimNames.Sid) is null ? 0 : Convert.ToInt64(claims.GetClaim(JwtRegisteredClaimNames.Sid));
-            //_currentUser.UserName = claims.GetClaim(SystemConst.UserName) ?? "";
-            //_currentUser.Permission = claims.GetClaims(SystemConst.PermissionClaim);
-            //_currentUser.TenantId = claims.GetClaim(SystemConst.TenantId) is null ? null : Guid.Parse(claims.GetClaim(SystemConst.TenantId)!);
+            _currentUser.Id = claims.GetClaim(TokenTypeConst.Id) is null ? 0 : Convert.ToInt64(claims.GetClaim(TokenTypeConst.Id));
+            _currentUser.UserName = claims.GetClaim(TokenTypeConst.UserName) ?? "";
+            _currentUser.Permission = claims.GetClaims(TokenTypeConst.Permission);
+            _currentUser.TenantId = claims.GetClaim(TokenTypeConst.TenantId) is null ? null : Guid.Parse(claims.GetClaim(TokenTypeConst.TenantId)!);
             await _next(context);
 
         }

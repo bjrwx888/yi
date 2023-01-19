@@ -1,6 +1,7 @@
 ﻿using AspNetCore.Microsoft.AspNetCore.Builder;
 using StartupModules;
 using Yi.Framework.Application;
+using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Sqlsugar;

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj" />
     <ProjectReference Include="..\..\src\framework\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
     <ProjectReference Include="..\Yi.Framework.Application.Contracts\Yi.Framework.Application.Contracts.csproj" />
     <ProjectReference Include="..\Yi.Framework.Domain\Yi.Framework.Domain.csproj" />

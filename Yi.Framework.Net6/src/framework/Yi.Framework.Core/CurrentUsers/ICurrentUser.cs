@@ -4,28 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Core.CurrentUser
+namespace Yi.Framework.Core.CurrentUsers
 {
-    public class CurrentUser : ICurrentUser
+    public interface ICurrentUser
     {
         public bool IsAuthenticated { get; set; }
-
         public long Id { get; set; }
 
-        public string UserName { get; set; } = string.Empty;
+        public string UserName { get; set; }
 
         public Guid? TenantId { get; set; }
 
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; }
 
         public bool EmailVerified { get; set; }
 
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; }
 
         public bool PhoneNumberVerified { get; set; }
 
         public string[]? Roles { get; set; }
 
         public string[]? Permission { get; set; }
+
     }
 }
