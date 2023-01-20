@@ -25,10 +25,11 @@ namespace Yi.Framework.Core.Sqlsugar
 
             services.AddSingleton<IUnitOfWorkManager, UnitOfWorkManager>();
 
+            //这里替换过滤器实现
 
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
             services.AddSqlsugarServer();
-       
+
         }
     }
 }
