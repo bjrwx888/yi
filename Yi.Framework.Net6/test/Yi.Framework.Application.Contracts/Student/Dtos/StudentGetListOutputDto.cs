@@ -12,5 +12,10 @@ namespace Yi.Framework.Application.Contracts.Student.Dtos
         public long Id { get; set; }
         public string Name { get; set; }
         public long Number { get; set; }
+
+        /// <summary>
+        /// 想看一下结果
+        /// </summary>
+        public bool IsDeleted { get; set; }
     }
 }

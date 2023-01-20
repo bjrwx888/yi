@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Sqlsugar.Repositories;
 using Yi.Framework.Domain.Student.Entities;
-using Yi.Framework.Domain.Student.IRepository;
+using Yi.Framework.Domain.Student.Repositories;
 
 namespace Yi.Framework.Sqlsugar.Student
 {

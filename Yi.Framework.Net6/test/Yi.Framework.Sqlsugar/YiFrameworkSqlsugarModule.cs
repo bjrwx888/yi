@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Sqlsugar;
 using Yi.Framework.Domain;
-using Yi.Framework.Domain.Student.IRepository;
+using Yi.Framework.Domain.Student.Repositories;
 using Yi.Framework.Sqlsugar.Student;
 
 namespace Yi.Framework.Sqlsugar

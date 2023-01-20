@@ -9,10 +9,10 @@ using Yi.Framework.Data.Filters;
 
 namespace Yi.Framework.Core.Sqlsugar.Filters
 {
-    public class SqlsugarDataFiter : IDataFilter
+    public class SqlsugarDataFilter : IDataFilter
     {
         private ISqlSugarClient _Db { get; set; }
-        public SqlsugarDataFiter(ISqlSugarClient sqlSugarClient)
+        public SqlsugarDataFilter(ISqlSugarClient sqlSugarClient)
         {
             _Db = sqlSugarClient;
         }
@@ -24,24 +24,27 @@ namespace Yi.Framework.Core.Sqlsugar.Filters
         public IDisposable Disable<TFilter>() where TFilter : class
         {
             _Db.QueryFilter.ClearAndBackup<TFilter>();
-            throw new NotImplementedException();
+            return this;
         }
 
         public IDisposable Enable<TFilter>() where TFilter : class
         {
-            _Db.QueryFilter.Restore();
-            throw new NotImplementedException();
+            throw new NotImplementedException("暂时没有单独还原过滤器的方式");
         }
 
         public bool IsEnabled<TFilter>() where TFilter : class
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("暂时没有判断过滤器的方式");
         }
 
         public void RemoveFilter<TFilter>() where TFilter : class
         {
             _Db.QueryFilter.Clear<TFilter>();
-            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            _Db.QueryFilter.Restore();
         }
     }
 }

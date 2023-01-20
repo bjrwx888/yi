@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
+using Yi.Framework.Data;
 using Yi.Framework.Domain.Shared;
 using Yi.Framework.Domain.Student;
 
 namespace Yi.Framework.Domain
 {
     [DependsOn(
-        typeof(YiFrameworkDomainSharedModule)
+        typeof(YiFrameworkDomainSharedModule),
+               typeof(YiFrameworkDataModule)
         )]
     public class YiFrameworkDomainModule : IStartupModule
     {

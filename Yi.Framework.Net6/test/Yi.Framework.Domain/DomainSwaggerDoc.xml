@@ -19,7 +19,12 @@
             学号
             </summary>
         </member>
-        <member name="T:Yi.Framework.Domain.Student.IRepository.IStudentRepository">
+        <member name="P:Yi.Framework.Domain.Student.Entities.StudentEntity.IsDeleted">
+            <summary>
+            软删除
+            </summary>
+        </member>
+        <member name="T:Yi.Framework.Domain.Student.Repositories.IStudentRepository">
             <summary>
             仓储抽象
             </summary>

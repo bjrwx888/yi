@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Domain.Student.IRepository;
+using Yi.Framework.Domain.Student.Repositories;
 
 namespace Yi.Framework.Domain.Student
 {

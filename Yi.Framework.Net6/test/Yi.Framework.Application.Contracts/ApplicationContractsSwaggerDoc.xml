@@ -9,6 +9,11 @@
             Student输入创建对象
             </summary>
         </member>
+        <member name="P:Yi.Framework.Application.Contracts.Student.Dtos.StudentGetListOutputDto.IsDeleted">
+            <summary>
+            想看一下结果
+            </summary>
+        </member>
         <member name="T:Yi.Framework.Application.Contracts.Student.IStudentService">
             <summary>
             服务抽象

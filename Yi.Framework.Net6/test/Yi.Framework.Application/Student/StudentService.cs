@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Application.Contracts.Student;
 using Yi.Framework.Domain.Student;
-using Yi.Framework.Domain.Student.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using NET.AutoWebApi.Setting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +20,10 @@ using Yi.Framework.Core.Const;
 using Yi.Framework.Core.CurrentUsers;
 using Yi.Framework.Auth.JwtBearer.Authorization;
 using Yi.Framework.Domain.Shared.Student.ConstClasses;
+using Yi.Framework.Domain.Student.Repositories;
+using Yi.Framework.Data.Filters;
+using Yi.Framework.Data.Entities;
+using Yi.Framework.Ddd.Dtos;
 
 namespace Yi.Framework.Application.Student
 {
@@ -37,13 +40,36 @@ namespace Yi.Framework.Application.Student
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly JwtTokenManager _jwtTokenManager;
         private readonly ICurrentUser _currentUser;
-        public StudentService(IStudentRepository studentRepository, StudentManager studentManager, IUnitOfWorkManager unitOfWorkManager, JwtTokenManager jwtTokenManager, ICurrentUser currentUser)
+        private readonly IDataFilter _dataFilter;
+        public StudentService(IStudentRepository studentRepository, StudentManager studentManager, IUnitOfWorkManager unitOfWorkManager, JwtTokenManager jwtTokenManager, ICurrentUser currentUser, IDataFilter dataFilter)
         {
             _studentRepository = studentRepository;
             _studentManager = studentManager;
             _unitOfWorkManager = unitOfWorkManager;
             _jwtTokenManager = jwtTokenManager;
             _currentUser = currentUser;
+            _dataFilter = dataFilter;
+        }
+
+        /// <summary>
+        /// 数据过滤测试
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<PagedResultDto<StudentGetListOutputDto>> GetDataFiterTestAsync(StudentGetListInputVo input)
+        {
+            PagedResultDto<StudentGetListOutputDto> res = new();
+            using (_dataFilter.Disable<ISoftDelete>())
+            {
+
+                res = await base.GetListAsync(input);
+
+
+            }
+
+            var p = await base.GetListAsync(input);
+            return res;
+
         }
 
         /// <summary>

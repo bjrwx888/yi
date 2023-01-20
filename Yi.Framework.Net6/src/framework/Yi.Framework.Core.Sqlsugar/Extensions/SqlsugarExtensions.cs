@@ -81,7 +81,6 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
              {
                  action(db);
              }
-
              db.Aop.DataExecuting = (oldValue, entityInfo) =>
              {
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Data.Filters
 {
-    public interface IDataFilter
+    public interface IDataFilter:IDisposable
     {
         IDisposable Enable<TFilter>() where TFilter :class;
 

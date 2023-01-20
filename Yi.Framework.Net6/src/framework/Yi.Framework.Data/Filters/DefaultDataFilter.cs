@@ -21,12 +21,12 @@ namespace Yi.Framework.Data.Filters
 
         public IDisposable Disable<TFilter>() where TFilter : class
         {
-            return null;
+            return this;
         }
 
         public IDisposable Enable<TFilter>() where TFilter : class
         {
-            return null;
+            return this;
         }
 
         public bool IsEnabled<TFilter>() where TFilter : class
@@ -43,6 +43,11 @@ namespace Yi.Framework.Data.Filters
 
         public void AddFilter<TFilter>(Expression<Func<TFilter, bool>> expression) where TFilter : class
         {
+        }
+
+        public void Dispose()
+        {
+  
         }
     }
 }
