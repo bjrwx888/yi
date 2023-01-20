@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SqlSugarCore" Version="5.1.3.43" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.3.46-preview10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Data\Yi.Framework.Data.csproj" />
     <ProjectReference Include="..\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
     <ProjectReference Include="..\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
   </ItemGroup>
