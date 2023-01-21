@@ -33,6 +33,10 @@ namespace Yi.Framework.Template.ConstClasses
         /// </summary>
         public const string EntityField = "#EntityField#";
 
-        public const string BuildRootPath = "";
+        //public const string BuildRootPath = "../../../_Code";
+
+
+        public const string BuildRootPath = "../../../../../project";
+        public const string BuildEntityPath = "../../../../../project";
     }
 }

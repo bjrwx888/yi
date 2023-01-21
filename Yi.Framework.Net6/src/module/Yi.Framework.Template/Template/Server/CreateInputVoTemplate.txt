@@ -1,14 +1,15 @@
-using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Model.Base;
 
-namespace Yi.Framework.DtoModel.#ModelName#.#EntityName#
+namespace Yi.Framework.Application.Contracts.#ModelName#.Dtos
 {
-    public class #EntityName#CreateUpdateInput : EntityDto<long>
+    /// <summary>
+    /// #EntityName#输入创建对象
+    /// </summary>
+    public class #EntityName#CreateInputVo
     {
 #EntityField#
     }

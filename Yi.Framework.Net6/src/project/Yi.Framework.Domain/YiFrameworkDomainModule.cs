@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
 using Yi.Framework.Domain.Shared;
-using Yi.Framework.Domain.Student;
 
 namespace Yi.Framework.Domain
 {
@@ -25,7 +24,7 @@ namespace Yi.Framework.Domain
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            services.AddTransient<StudentManager>();
+            //services.AddTransient<StudentManager>();
         }
     }
 }

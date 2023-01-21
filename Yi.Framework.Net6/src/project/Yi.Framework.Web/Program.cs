@@ -13,7 +13,6 @@ builder.WebHost.UseStartUrlsServer(builder.Configuration);
 //添加模块
 builder.UseYiModules(typeof(YiFrameworkWebModule));
 
-
 //添加autofac模块,需要添加模块
 builder.Host.ConfigureAutoFacContainer(container =>
 {

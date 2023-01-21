@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Template.ConstClasses;
 
-namespace Yi.Framework.Template.Abstracts
+namespace Yi.Framework.Template.Abstract
 {
 
     public abstract class ProgramTemplateProvider : AbstractTemplateProvider

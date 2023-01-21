@@ -8,11 +8,11 @@
     <DocumentationFile>./ApplicationSwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 	<ItemGroup>
-		<Compile Include="..\..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
 	</ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj" />
-    <ProjectReference Include="..\..\src\framework\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
     <ProjectReference Include="..\Yi.Framework.Application.Contracts\Yi.Framework.Application.Contracts.csproj" />
     <ProjectReference Include="..\Yi.Framework.Domain\Yi.Framework.Domain.csproj" />
   </ItemGroup>

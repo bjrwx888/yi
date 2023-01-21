@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Template.Abstracts
+namespace Yi.Framework.Template.Abstract
 {
     public interface ITemplateProvider
     {

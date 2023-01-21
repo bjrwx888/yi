@@ -19,6 +19,8 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
             var db = app.ApplicationServices.GetRequiredService<ISqlSugarClient>();
             var options = app.ApplicationServices.GetRequiredService<IOptions<DbConnOptions>>();
 
+            //if (options.Value.EnabledCodeFirst == false) return;
+
             var assemblys = new List<Assembly>();
 
             //全盘加载

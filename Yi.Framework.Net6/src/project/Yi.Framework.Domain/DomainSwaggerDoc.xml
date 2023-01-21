@@ -4,35 +4,5 @@
         <name>Yi.Framework.Domain</name>
     </assembly>
     <members>
-        <member name="T:Yi.Framework.Domain.Student.Entities.StudentEntity">
-            <summary>
-            学生实体
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Domain.Student.Entities.StudentEntity.Name">
-            <summary>
-            学生名称
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Domain.Student.Entities.StudentEntity.Number">
-            <summary>
-            学号
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Domain.Student.Entities.StudentEntity.IsDeleted">
-            <summary>
-            软删除
-            </summary>
-        </member>
-        <member name="T:Yi.Framework.Domain.Student.Repositories.IStudentRepository">
-            <summary>
-            仓储抽象
-            </summary>
-        </member>
-        <member name="T:Yi.Framework.Domain.Student.StudentManager">
-            <summary>
-            领域服务
-            </summary>
-        </member>
     </members>
 </doc>

@@ -11,16 +11,19 @@
     <None Update="Template\Server\ConstTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Server\ControllerTemplate.txt">
+    <None Update="Template\Server\GetOutputDtoTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Server\CreateUpdateInputTemplate.txt">
+    <None Update="Template\Server\UpdateInputVoTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Server\GetListInputTemplate.txt">
+    <None Update="Template\Server\CreateInputVoTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Server\GetListOutputTemplate.txt">
+    <None Update="Template\Server\GetListInputVoTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\Server\GetListOutputDtoTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Template\Server\IServiceTemplate.txt">

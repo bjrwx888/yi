@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Model.Base;
+using Yi.Framework.Ddd.Dtos;
 
-namespace Yi.Framework.DtoModel.#ModelName#.#EntityName#
+namespace Yi.Framework.Application.Contracts.#ModelName#.Dtos
 {
-    public class #EntityName#GetListOutput: EntityDto<long>
+    public class #EntityName#GetOutputDto : IEntityDto<long>
     {
 #EntityField#
     }

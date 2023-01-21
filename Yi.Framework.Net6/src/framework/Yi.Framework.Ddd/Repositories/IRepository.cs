@@ -10,7 +10,7 @@ using Yi.Framework.Ddd.Entities;
 
 namespace Yi.Framework.Ddd.Repositories
 {
-    public interface IRepository<T> where T : class, IEntity, new()
+    public interface IRepository<T> 
     {
         //单查
         Task<T> GetByIdAsync(dynamic id);

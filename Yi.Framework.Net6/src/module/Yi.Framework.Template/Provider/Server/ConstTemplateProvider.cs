@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Template.Abstracts;
+using Yi.Framework.Template.Abstract;
 using Yi.Framework.Template.ConstClasses;
 
 namespace Yi.Framework.Template.Provider.Server
@@ -12,7 +12,7 @@ namespace Yi.Framework.Template.Provider.Server
     {
         public ConstTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\..\Yi.Framework.DtoModel\{TemplateConst.ModelName}\{TemplateConst.EntityName}\ConstConfig\{TemplateConst.EntityName}Const.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Domain.Shared\{TemplateConst.ModelName}\ConstClasses\{TemplateConst.EntityName}Const.cs";
             TemplatePath = $@"..\..\..\Template\Server\ConstTemplate.txt";
         }
     }

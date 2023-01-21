@@ -43,7 +43,7 @@
         </member>
         <member name="M:Yi.Framework.Ddd.Services.ReadOnlyAppService`5.GetListAsync(`4)">
             <summary>
-            全查
+            多查
             </summary>
             <param name="input"></param>
             <returns></returns>

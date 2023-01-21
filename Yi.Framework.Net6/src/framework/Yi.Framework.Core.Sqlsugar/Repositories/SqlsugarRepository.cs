@@ -16,7 +16,7 @@ using Yi.Framework.Ddd.Repositories;
 namespace Yi.Framework.Core.Sqlsugar.Repositories
 {
     [AppService(ServiceType = typeof(IRepository<>))]
-    public class SqlsugarRepository<T> : SimpleClient<T>, IRepository<T> where T : class, IEntity, new()
+    public class SqlsugarRepository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
         public SqlsugarRepository(ISqlSugarClient context) : base(context)
         {

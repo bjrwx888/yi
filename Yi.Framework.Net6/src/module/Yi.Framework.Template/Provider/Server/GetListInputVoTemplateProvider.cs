@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Template.Abstracts;
+using Yi.Framework.Template.Abstract;
 using Yi.Framework.Template.ConstClasses;
 
 namespace Yi.Framework.Template.Provider.Server
 {
-    public class GetListInputTemplateProvider : ModelTemplateProvider
+    public class GetListInputVoTemplateProvider : ModelTemplateProvider
     {
-        public GetListInputTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public GetListInputVoTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            BuildPath = $@"..\..\..\..\Yi.Framework.DtoModel\{TemplateConst.ModelName}\{TemplateConst.EntityName}\{TemplateConst.EntityName}GetListInput.cs";
-            TemplatePath = $@"..\..\..\Template\Server\GetListInputTemplate.txt";
-            EntityPath = $@"..\..\..\..\Yi.Framework.Model\{TemplateConst.ModelName}\Entitys\{TemplateConst.EntityName}Entity.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}GetListInputVo.cs";
+            TemplatePath = $@"..\..\..\Template\Server\GetListInputVoTemplate.txt";
+            EntityPath = $@"{TemplateConst.BuildEntityPath}\Yi.Framework.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
         }
     }
 }

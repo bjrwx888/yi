@@ -75,7 +75,7 @@ where TEntityDto : IEntityDto<TKey>
         }
 
         /// <summary>
-        /// 全查
+        /// 多查
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

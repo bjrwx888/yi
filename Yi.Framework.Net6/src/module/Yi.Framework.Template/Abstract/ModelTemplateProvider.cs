@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Template.ConstClasses;
 
-namespace Yi.Framework.Template.Abstracts
+namespace Yi.Framework.Template.Abstract
 {
     public abstract class ModelTemplateProvider : ProgramTemplateProvider
     {
 
         public ModelTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
         {
-            AddIgnoreEntityField("Id", "TenantId");
+            AddIgnoreEntityField(/*"Id", */"TenantId", "IsDeleted");
         }
 
         private string entityPath=string.Empty;
@@ -59,19 +59,27 @@ namespace Yi.Framework.Template.Abstracts
                     continue;
                 }
                 //是字段属性，同时还包含忽略字段
+                bool IsSkip = false;
+
                 foreach (var IgnoreEntityField in IgnoreEntityFields)
                 {
                     if (enetityDatas[i].Contains(IgnoreEntityField))
                     {
                         enetityDatas.RemoveAt(i);
-                        continue;
+                        IsSkip=true;
+                        break;;
                     }
                 }
-                //以}结尾，不包含get不是属性，代表类结尾
-                if (enetityDatas[i].EndsWith("}") && !enetityDatas[i].Contains("get"))
+
+                if (!IsSkip)
                 {
-                    break;
+                    //以}结尾，不包含get不是属性，代表类结尾
+                    if (enetityDatas[i].EndsWith("}") && !enetityDatas[i].Contains("get"))
+                    {
+                        break;
+                    }
                 }
+
             }
 
             //拼接实体字段

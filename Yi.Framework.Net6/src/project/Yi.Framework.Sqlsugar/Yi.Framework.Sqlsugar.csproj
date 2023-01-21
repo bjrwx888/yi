@@ -7,10 +7,10 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
 	</ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\framework\Yi.Framework.Core.Sqlsugar\Yi.Framework.Core.Sqlsugar.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Core.Sqlsugar\Yi.Framework.Core.Sqlsugar.csproj" />
     <ProjectReference Include="..\Yi.Framework.Domain\Yi.Framework.Domain.csproj" />
   </ItemGroup>
 

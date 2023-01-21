@@ -4,19 +4,14 @@
         <name>Yi.Framework.Application.Contracts</name>
     </assembly>
     <members>
-        <member name="T:Yi.Framework.Application.Contracts.Student.Dtos.StudentCreateInputVo">
+        <member name="T:Yi.Framework.Application.Contracts.School.Dtos.StudentCreateInputVo">
             <summary>
             Student输入创建对象
             </summary>
         </member>
-        <member name="P:Yi.Framework.Application.Contracts.Student.Dtos.StudentGetListOutputDto.IsDeleted">
+        <member name="T:Yi.Framework.Application.Contracts.School.IStudentService">
             <summary>
-            想看一下结果
-            </summary>
-        </member>
-        <member name="T:Yi.Framework.Application.Contracts.Student.IStudentService">
-            <summary>
-            服务抽象
+            Student�������
             </summary>
         </member>
     </members>

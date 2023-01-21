@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Application.Contracts.Student.Dtos;
-using Yi.Framework.Domain.Student.Entities;
+using Yi.Framework.Application.Contracts.School.Dtos;
+using Yi.Framework.Domain.School.Entities;
 
-namespace Yi.Framework.Application.Student.MapperConfig
+namespace Yi.Framework.Application.School.MapperConfig
 {
     public class StudentProfile: Profile
     {

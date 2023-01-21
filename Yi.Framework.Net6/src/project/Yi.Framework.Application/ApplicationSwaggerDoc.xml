@@ -4,29 +4,10 @@
         <name>Yi.Framework.Application</name>
     </assembly>
     <members>
-        <member name="T:Yi.Framework.Application.Student.StudentService">
+        <member name="T:Yi.Framework.Application.School.StudentService">
             <summary>
-            服务实现
+            Student服务实现
             </summary>
-        </member>
-        <member name="M:Yi.Framework.Application.Student.StudentService.GetDataFiterTestAsync(Yi.Framework.Application.Contracts.Student.Dtos.StudentGetListInputVo)">
-            <summary>
-            数据过滤测试
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.Application.Student.StudentService.GetToken">
-            <summary>
-            测试token
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.Application.Student.StudentService.PostUow">
-            <summary>
-            Uow
-            </summary>
-            <returns></returns>
         </member>
     </members>
 </doc>

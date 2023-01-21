@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Application.Contracts;
-using Yi.Framework.Application.Contracts.Student;
-using Yi.Framework.Application.Student;
 using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;

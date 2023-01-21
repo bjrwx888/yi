@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Common.Models;
-using Yi.Framework.DtoModel.#ModelName#.#EntityName#;
-using Yi.Framework.Interface.Base.Crud;
+using Yi.Framework.Application.Contracts.#ModelName#.Dtos;
+using Yi.Framework.Ddd.Services.Abstract;
 
-namespace Yi.Framework.Interface.#ModelName#
+namespace Yi.Framework.Application.Contracts.#ModelName#
 {
-    public interface I#EntityName#Service : ICrudAppService<#EntityName#GetListOutput, long, #EntityName#CreateUpdateInput>
+    /// <summary>
+    /// #EntityName#·þÎñ³éÏó
+    /// </summary>
+    public interface I#EntityName#Service : ICrudAppService<#EntityName#GetOutputDto, #EntityName#GetListOutputDto, long, #EntityName#GetListInputVo, #EntityName#CreateInputVo, #EntityName#UpdateInputVo>
     {
-        Task<PageModel<List<#EntityName#GetListOutput>>> PageListAsync(#EntityName#GetListInput input, PageParModel page);
+
     }
 }

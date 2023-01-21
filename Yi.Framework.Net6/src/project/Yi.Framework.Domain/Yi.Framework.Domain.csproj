@@ -8,10 +8,10 @@
 	  <DocumentationFile>./DomainSwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 	<ItemGroup>
-		<Compile Include="..\..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
 	</ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
     <ProjectReference Include="..\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj" />
   </ItemGroup>
 
