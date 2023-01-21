@@ -6,7 +6,6 @@ using Yi.Framework.Web;
 
 TimeTest.Start();
 var builder = WebApplication.CreateBuilder(args);
-
 //…Ë÷√∆Ù∂Øurl
 builder.WebHost.UseStartUrlsServer(builder.Configuration);
 

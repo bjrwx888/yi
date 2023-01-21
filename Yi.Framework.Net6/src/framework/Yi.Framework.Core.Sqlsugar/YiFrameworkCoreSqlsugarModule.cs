@@ -29,7 +29,6 @@ namespace Yi.Framework.Core.Sqlsugar
 
             //这里替换过滤器实现
             services.AddScoped<IDataFilter, SqlsugarDataFilter>();
-          var ss=  Appsettings.appConfiguration("DbConnOptions", "EnabledCodeFirst");
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
             services.AddSqlsugarServer();
 
