@@ -69,7 +69,7 @@ namespace Yi.Framework.Ddd.Services
                 {
                     //使用反射，暂时先使用sqlsuga的雪花id提供
                     //ps: linshi
-                    ReflexHelper.SetModelValue("Id", SnowflakeHelper.NextId, entity);
+                    ReflexHelper.SetModelValue(nameof(IEntity<long>.Id), SnowflakeHelper.NextId, entity);
                 }
             }
 

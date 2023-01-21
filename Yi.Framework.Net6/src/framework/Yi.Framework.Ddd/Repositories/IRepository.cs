@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Enums;
 using Yi.Framework.Ddd.Dtos;
+using Yi.Framework.Ddd.Entities;
 
 namespace Yi.Framework.Ddd.Repositories
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class, IEntity, new()
     {
         //单查
         Task<T> GetByIdAsync(dynamic id);
