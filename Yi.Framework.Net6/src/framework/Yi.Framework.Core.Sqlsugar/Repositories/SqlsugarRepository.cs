@@ -95,7 +95,7 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
             }
             else
             {
-                return await base.DeleteByIdAsync((object)id);
+                return await _Db.Deleteable<T>().In(id).ExecuteCommand() > 0;
             }
 
         }
