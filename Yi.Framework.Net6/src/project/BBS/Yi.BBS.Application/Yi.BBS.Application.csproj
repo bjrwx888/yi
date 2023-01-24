@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>./ApplicationSwaggerDoc.xml</DocumentationFile>
+  </PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj" />
+    <ProjectReference Include="..\..\..\framework\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
+    <ProjectReference Include="..\Yi.BBS.Application.Contracts\Yi.BBS.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Yi.BBS.Domain\Yi.BBS.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ApplicationSwaggerDoc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

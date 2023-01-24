@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.BBS.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Yi.BBS.Application.School.StudentService">
+            <summary>
+            Student服务实现
+            </summary>
+        </member>
+    </members>
+</doc>

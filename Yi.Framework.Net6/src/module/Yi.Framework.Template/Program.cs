@@ -28,7 +28,7 @@ foreach (var entityName in entityNames)
         //option.Add(new ApiTemplateProvider(modelName, entityName));
     });
     //开始构建模板
-    templateFactory.BuildTemplate();
+    //templateFactory.BuildTemplate();
     Console.WriteLine($"Yi.Framework.Template:{entityName}构建完成！");
 }
 
@@ -36,5 +36,5 @@ Console.WriteLine("Yi.Framework.Template:模板全部生成完成！");
 Console.ReadKey();
 
 //根据模板文件生成项目文件
-//var template = "";
-//FileHelper.AllInfoReplace(template, "Template","BBS");
+//var template = "D:\\C#\\Yi\\Yi.Framework.Net6\\src\\project\\BBS";
+//FileHelper.AllInfoReplace(template, "Template", "BBS");
