@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using StartupModules;
 using Yi.Framework.Core.Configuration;
 using Yi.Framework.Core.Sqlsugar.Extensions;
@@ -24,11 +25,8 @@ namespace Yi.Framework.Core.Sqlsugar
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
             services.AddTransient(typeof(IRepository<>), typeof(SqlsugarRepository<>));
-
-            services.AddSingleton<IUnitOfWorkManager, UnitOfWorkManager>();
-
-            //这里替换过滤器实现
-            services.AddScoped<IDataFilter, SqlsugarDataFilter>();
+            services.Replace(new ServiceDescriptor(typeof(IUnitOfWorkManager), typeof(SqlsugarUnitOfWorkManager), ServiceLifetime.Singleton));
+            services.Replace(new ServiceDescriptor(typeof(IDataFilter), typeof(SqlsugarDataFilter), ServiceLifetime.Scoped));
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
             services.AddSqlsugarServer();
 

@@ -12,6 +12,17 @@ namespace Yi.Framework.Core.Attributes
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class AppServiceAttribute : Attribute
     {
+        public AppServiceAttribute() { }
+        public AppServiceAttribute(Type? serviceType)
+        {
+            ServiceType=serviceType;
+        }
+
+        public AppServiceAttribute(Type? serviceType, LifeTime serviceLifetime)
+        {
+            ServiceType = serviceType;
+            ServiceLifetime= serviceLifetime;
+        }
         /// <summary>
         /// 服务声明周期
         /// 不给默认值的话注册的是作用域

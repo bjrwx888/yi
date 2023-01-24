@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Configuration;
 using Yi.Framework.Data.DataSeeds;
+using Yi.Framework.Uow;
 
 namespace Yi.Framework.Data.Extensions
 {
@@ -13,9 +15,29 @@ namespace Yi.Framework.Data.Extensions
     {
         public static IApplicationBuilder UseDataSeedServer(this IApplicationBuilder builder)
         {
-            var dataSeeds = builder.ApplicationServices.GetServices(typeof(IDataSeed<>));
-            //这个种子数据是有问题的，先放个坑
+            if (!Appsettings.appBool("EnabledDataSeed"))
+            {
+                return builder;
+            }
 
+            var dataSeeds = builder.ApplicationServices.GetServices<IDataSeed>();
+            var iUnitOfWorkManager = builder.ApplicationServices.GetRequiredService<IUnitOfWorkManager>();
+            if (dataSeeds is not null)
+            {
+                using (var uow = iUnitOfWorkManager.CreateContext())
+                {
+                    foreach (var seed in dataSeeds)
+                    {
+                        seed.InvokerAsync();
+                    }
+                    var res = uow.Commit();
+
+                    if (!res)
+                    {
+                        throw new ApplicationException("种子数据初始化异常");
+                    }
+                }
+            }
             return builder.UseMiddleware<DataFilterMiddleware>();
         }
     }

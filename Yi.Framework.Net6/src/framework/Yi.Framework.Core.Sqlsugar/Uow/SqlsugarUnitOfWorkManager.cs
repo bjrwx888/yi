@@ -11,19 +11,19 @@ namespace Yi.Framework.Core.Sqlsugar.Uow
     /// <summary>
     /// 此部分为sqlsugr的魔改版本
     /// </summary>
-    internal class UnitOfWorkManager : IUnitOfWorkManager
+    internal class SqlsugarUnitOfWorkManager : IUnitOfWorkManager
     {
-        public UnitOfWorkManager(ISqlSugarClient db)
+        public SqlsugarUnitOfWorkManager(ISqlSugarClient db)
         {
             this.Db = db;
         }
         public ISqlSugarClient Db { get; set; }
         public IUnitOfWork CreateContext(bool isTran = true)
         {
-            UnitOfWork uow = new UnitOfWork();
+            SqlsugarUnitOfWork uow = new SqlsugarUnitOfWork();
             return CreateContext(isTran, uow);
         }
-        private IUnitOfWork CreateContext(bool isTran, UnitOfWork sugarUnitOf)
+        private IUnitOfWork CreateContext(bool isTran, SqlsugarUnitOfWork sugarUnitOf)
         {
             sugarUnitOf.Db = Db;
             sugarUnitOf.Tenant = Db.AsTenant();

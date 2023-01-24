@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
     <ProjectReference Include="..\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
   </ItemGroup>
 
 </Project>

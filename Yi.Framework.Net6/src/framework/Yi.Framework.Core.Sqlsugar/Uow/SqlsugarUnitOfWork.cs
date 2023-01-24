@@ -12,7 +12,7 @@ using Yi.Framework.Uow;
 
 namespace Yi.Framework.Core.Sqlsugar.Uow
 {
-    public class UnitOfWork : IUnitOfWork
+    public class SqlsugarUnitOfWork : IUnitOfWork
     {
         public ISqlSugarClient Db { get; set; }
         public ITenant Tenant { get; set; }

@@ -7,7 +7,7 @@ using Yi.Framework.Ddd.Repositories;
 
 namespace Yi.Framework.Data.DataSeeds
 {
-    public abstract class AbstractDataSeed<TEntity> : IDataSeed<TEntity>
+    public abstract class AbstractDataSeed<TEntity> : IDataSeed
     {
         private readonly IRepository<TEntity> _repository;
         public AbstractDataSeed(IRepository<TEntity> repository)
@@ -35,8 +35,12 @@ namespace Yi.Framework.Data.DataSeeds
         /// 这个用来处理判断是否数据库还存在数据
         /// </summary>
         /// <returns></returns>
-        public virtual bool IsInvoker()
+        public virtual async Task<bool> IsInvoker()
         {
+            if (await _repository.CountAsync(u => true) > 0)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -47,7 +51,7 @@ namespace Yi.Framework.Data.DataSeeds
         public async virtual Task<bool> InvokerAsync()
         {
             bool res = true;
-            if (IsInvoker())
+            if (await IsInvoker())
             {
                 return await DataHandlerAsync();
             }

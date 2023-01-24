@@ -15,7 +15,7 @@ using Yi.Framework.Ddd.Repositories;
 
 namespace Yi.Framework.Core.Sqlsugar.Repositories
 {
-    [AppService(ServiceType = typeof(IRepository<>))]
+    [AppService(typeof(IRepository<>))]
     public class SqlsugarRepository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
     {
         public SqlsugarRepository(ISqlSugarClient context) : base(context)
@@ -95,7 +95,7 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
             }
             else
             {
-                return await _Db.Deleteable<T>().In(id).ExecuteCommand() > 0;
+                return await _Db.Deleteable<T>().In(id).ExecuteCommandAsync() > 0;
             }
 
         }

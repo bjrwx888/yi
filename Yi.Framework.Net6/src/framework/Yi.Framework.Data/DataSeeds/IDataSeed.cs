@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Data.DataSeeds
 {
-    public interface IDataSeed<TEntity>
+    public interface IDataSeed
     {
-        bool IsInvoker();
+      Task<bool> InvokerAsync();
     }
 }
