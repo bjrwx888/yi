@@ -5,13 +5,10 @@ using Yi.Framework.Core.Extensions;
 using Yi.BBS.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-//��������url
 builder.WebHost.UseStartUrlsServer(builder.Configuration);
 
-//����ģ��
 builder.UseYiModules(typeof(YiBBSWebModule));
 
-//����autofacģ��,��Ҫ����ģ��
 builder.Host.ConfigureAutoFacContainer(container =>
 {
     container.RegisterYiModule(AutoFacModuleEnum.PropertiesAutowiredModule, typeof(YiBBSWebModule).Assembly);
@@ -19,7 +16,6 @@ builder.Host.ConfigureAutoFacContainer(container =>
 
 var app = builder.Build();
 
-//ȫ�ִ����м������Ҫ��������
 app.UseErrorHandlingServer();
 
 app.UseAuthentication();

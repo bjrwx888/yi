@@ -10,7 +10,7 @@ namespace Yi.Framework.Template.Provider.Site
 {
     public class ApiTemplateProvider : ProgramTemplateProvider
     {
-        public ApiTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public ApiTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
             BuildPath = $@"..\..\..\Code_Site\src\api\{TemplateConst.LowerModelName}\{TemplateConst.LowerEntityName}Api.js";
             TemplatePath = $@"..\..\..\Template\Site\ApiTemplate.txt";

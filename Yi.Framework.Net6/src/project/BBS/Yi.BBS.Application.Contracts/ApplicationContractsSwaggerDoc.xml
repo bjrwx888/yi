@@ -4,14 +4,14 @@
         <name>Yi.BBS.Application.Contracts</name>
     </assembly>
     <members>
-        <member name="T:Yi.BBS.Application.Contracts.School.Dtos.StudentCreateInputVo">
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.PlateCreateInputVo">
             <summary>
-            Student输入创建对象
+            Plate输入创建对象
             </summary>
         </member>
-        <member name="T:Yi.BBS.Application.Contracts.School.IStudentService">
+        <member name="T:Yi.BBS.Application.Contracts.Forum.IPlateService">
             <summary>
-            Student
+            Plate�������
             </summary>
         </member>
     </members>

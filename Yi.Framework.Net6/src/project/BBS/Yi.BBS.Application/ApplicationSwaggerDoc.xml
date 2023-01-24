@@ -4,9 +4,9 @@
         <name>Yi.BBS.Application</name>
     </assembly>
     <members>
-        <member name="T:Yi.BBS.Application.School.StudentService">
+        <member name="T:Yi.BBS.Application.Forum.PlateService">
             <summary>
-            Student服务实现
+            Plate服务实现
             </summary>
         </member>
     </members>

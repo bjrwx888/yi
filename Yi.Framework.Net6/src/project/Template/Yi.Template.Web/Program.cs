@@ -5,13 +5,13 @@ using Yi.Framework.Core.Extensions;
 using Yi.Template.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-//ÉèÖÃÆô¶¯url
+//è®¾ç½®å¯åŠ¨url
 builder.WebHost.UseStartUrlsServer(builder.Configuration);
 
-//Ìí¼ÓÄ£¿é
+//æ·»åŠ æ¨¡å—
 builder.UseYiModules(typeof(YiTemplateWebModule));
 
-//Ìí¼ÓautofacÄ£¿é,ĞèÒªÌí¼ÓÄ£¿é
+//æ·»åŠ autofacæ¨¡å—,éœ€è¦æ·»åŠ æ¨¡å—
 builder.Host.ConfigureAutoFacContainer(container =>
 {
     container.RegisterYiModule(AutoFacModuleEnum.PropertiesAutowiredModule, typeof(YiTemplateWebModule).Assembly);
@@ -19,7 +19,7 @@ builder.Host.ConfigureAutoFacContainer(container =>
 
 var app = builder.Build();
 
-//È«¾Ö´íÎóÖĞ¼ä¼ş£¬ĞèÒª·ÅÔÚ×îÔç
+//å…¨å±€é”™è¯¯ä¸­é—´ä»¶ï¼Œéœ€è¦æ”¾åœ¨æœ€æ—©
 app.UseErrorHandlingServer();
 
 app.UseAuthentication();

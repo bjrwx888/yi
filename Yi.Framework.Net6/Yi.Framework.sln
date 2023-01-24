@@ -57,17 +57,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{A3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bbs", "bbs", "{B758A87D-0BFA-44A5-BA33-FBA44151CEB4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Domain.Shared", "src\project\BBS\Yi.BBS.Domain.Shared\Yi.BBS.Domain.Shared.csproj", "{DEA3342F-1954-4EE9-9A59-CAF1D7832F33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Domain.Shared", "src\project\bbs\Yi.BBS.Domain.Shared\Yi.BBS.Domain.Shared.csproj", "{DEA3342F-1954-4EE9-9A59-CAF1D7832F33}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Domain", "src\project\BBS\Yi.BBS.Domain\Yi.BBS.Domain.csproj", "{86C82BB6-E333-40E8-8DDE-20C3A538433C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Domain", "src\project\bbs\Yi.BBS.Domain\Yi.BBS.Domain.csproj", "{86C82BB6-E333-40E8-8DDE-20C3A538433C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Application.Contracts", "src\project\BBS\Yi.BBS.Application.Contracts\Yi.BBS.Application.Contracts.csproj", "{679625DD-4BF6-4CD6-99FD-7A3E6D9B04A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Application.Contracts", "src\project\bbs\Yi.BBS.Application.Contracts\Yi.BBS.Application.Contracts.csproj", "{679625DD-4BF6-4CD6-99FD-7A3E6D9B04A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Sqlsugar", "src\project\BBS\Yi.BBS.Sqlsugar\Yi.BBS.Sqlsugar.csproj", "{A8043204-9DAC-4F08-8C73-423CB72927EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Sqlsugar", "src\project\bbs\Yi.BBS.Sqlsugar\Yi.BBS.Sqlsugar.csproj", "{A8043204-9DAC-4F08-8C73-423CB72927EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Web", "src\project\BBS\Yi.BBS.Web\Yi.BBS.Web.csproj", "{83BE964D-D53C-4D1B-B8C6-5306C393C07F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Web", "src\project\bbs\Yi.BBS.Web\Yi.BBS.Web.csproj", "{83BE964D-D53C-4D1B-B8C6-5306C393C07F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Application", "src\project\BBS\Yi.BBS.Application\Yi.BBS.Application.csproj", "{959A33C5-7826-4AE7-AC51-40BDC2B767B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.BBS.Application", "src\project\bbs\Yi.BBS.Application\Yi.BBS.Application.csproj", "{959A33C5-7826-4AE7-AC51-40BDC2B767B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
