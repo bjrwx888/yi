@@ -10,11 +10,11 @@ namespace Yi.Framework.Template.Provider.Server
 {
     public class UpdateInputVoTemplateProvider : ModelTemplateProvider
     {
-        public UpdateInputVoTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public UpdateInputVoTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
-            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}UpdateInputVo.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\{nameSpaces}.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}UpdateInputVo.cs";
             TemplatePath = $@"..\..\..\Template\Server\UpdateInputVoTemplate.txt";
-            EntityPath = $@"{TemplateConst.BuildEntityPath}\Yi.Framework.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
+            EntityPath = $@"{TemplateConst.BuildEntityPath}\{nameSpaces}.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
         }
     }
 }

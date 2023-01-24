@@ -10,15 +10,23 @@ namespace Yi.Framework.Template.Abstract
 
     public abstract class ProgramTemplateProvider : AbstractTemplateProvider
     {
-        public ProgramTemplateProvider(string modelName, string entityName)
+        public ProgramTemplateProvider(string modelName, string entityName,string nameSpaces)
         {
             ModelName = modelName;
             EntityName = entityName;
+            NameSpaces = nameSpaces;
+            base.AddTemplateDic(TemplateConst.NameSpaces, NameSpaces);
             base.AddTemplateDic(TemplateConst.EntityName, EntityName);
             base.AddTemplateDic(TemplateConst.ModelName, ModelName);
             base.AddTemplateDic(TemplateConst.LowerEntityName, EntityName.Substring(0, 1).ToLower() + EntityName.Substring(1));
             base.AddTemplateDic(TemplateConst.LowerModelName, ModelName.ToLower());
         }
+
+
+        /// <summary>
+        /// 命名空间
+        /// </summary>
+        public  string NameSpaces { get; set; }
         /// <summary>
         /// 实体名称
         /// </summary>

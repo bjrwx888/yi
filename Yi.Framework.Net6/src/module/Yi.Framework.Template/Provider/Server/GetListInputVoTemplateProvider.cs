@@ -10,11 +10,11 @@ namespace Yi.Framework.Template.Provider.Server
 {
     public class GetListInputVoTemplateProvider : ModelTemplateProvider
     {
-        public GetListInputVoTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public GetListInputVoTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
-            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}GetListInputVo.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\{nameSpaces}.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}GetListInputVo.cs";
             TemplatePath = $@"..\..\..\Template\Server\GetListInputVoTemplate.txt";
-            EntityPath = $@"{TemplateConst.BuildEntityPath}\Yi.Framework.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
+            EntityPath = $@"{TemplateConst.BuildEntityPath}\{nameSpaces}.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
         }
     }
 }

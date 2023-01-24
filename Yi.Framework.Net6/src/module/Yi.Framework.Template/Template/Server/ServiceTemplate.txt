@@ -1,10 +1,10 @@
-using Yi.Framework.Application.Contracts.#ModelName#;
+using #NameSpaces#.Application.Contracts.#ModelName#;
 using NET.AutoWebApi.Setting;
-using Yi.Framework.Application.Contracts.#ModelName#.Dtos;
-using Yi.Framework.Domain.#ModelName#.Entities;
+using #NameSpaces#.Application.Contracts.#ModelName#.Dtos;
+using #NameSpaces#.Domain.#ModelName#.Entities;
 using Yi.Framework.Ddd.Services;
 
-namespace Yi.Framework.Application.#ModelName#
+namespace #NameSpaces#.Application.#ModelName#
 {
     /// <summary>
     /// #EntityName#服务实现

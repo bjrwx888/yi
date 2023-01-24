@@ -36,7 +36,9 @@ namespace Yi.Framework.Template.ConstClasses
         //public const string BuildRootPath = "../../../_Code";
 
 
-        public const string BuildRootPath = "../../../../../project";
-        public const string BuildEntityPath = "../../../../../project";
+        public const string NameSpaces = "#NameSpaces#";
+
+        public const string BuildRootPath = "../../../../../project/bbs";
+        public const string BuildEntityPath = "../../../../../project/bbs";
     }
 }

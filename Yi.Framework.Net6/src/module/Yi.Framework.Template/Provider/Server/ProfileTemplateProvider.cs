@@ -10,9 +10,9 @@ namespace Yi.Framework.Template.Provider.Server
 {
     public class ProfileTemplateProvider : ProgramTemplateProvider
     {
-        public ProfileTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public ProfileTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
-            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Application\{TemplateConst.ModelName}\MapperConfig\{TemplateConst.EntityName}Profile.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\{nameSpaces}.Application\{TemplateConst.ModelName}\MapperConfig\{TemplateConst.EntityName}Profile.cs";
             TemplatePath = $@"..\..\..\Template\Server\ProfileTemplate.txt";
         }
     }

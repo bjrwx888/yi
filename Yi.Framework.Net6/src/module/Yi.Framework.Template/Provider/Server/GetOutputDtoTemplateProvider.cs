@@ -10,11 +10,11 @@ namespace Yi.Framework.Template.Provider.Server
 {
     public class GetOutputDtoTemplateProvider : ModelTemplateProvider
     {
-        public GetOutputDtoTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public GetOutputDtoTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
-            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}\{TemplateConst.EntityName}GetOutputDto.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\{nameSpaces}.Application.Contracts\{TemplateConst.ModelName}\Dtos\{TemplateConst.EntityName}\{TemplateConst.EntityName}GetOutputDto.cs";
             TemplatePath = $@"..\..\..\Template\Server\GetOutputDtoTemplate.txt";
-            EntityPath = $@"{TemplateConst.BuildEntityPath}\Yi.Framework.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
+            EntityPath = $@"{TemplateConst.BuildEntityPath}\{nameSpaces}.Domain\{TemplateConst.ModelName}\Entities\{TemplateConst.EntityName}Entity.cs";
         }
     }
 }

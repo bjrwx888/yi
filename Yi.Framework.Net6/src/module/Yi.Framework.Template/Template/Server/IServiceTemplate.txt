@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Application.Contracts.#ModelName#.Dtos;
+using #NameSpaces#.Application.Contracts.#ModelName#.Dtos;
 using Yi.Framework.Ddd.Services.Abstract;
 
-namespace Yi.Framework.Application.Contracts.#ModelName#
+namespace #NameSpaces#.Application.Contracts.#ModelName#
 {
     /// <summary>
     /// #EntityName#·þÎñ³éÏó

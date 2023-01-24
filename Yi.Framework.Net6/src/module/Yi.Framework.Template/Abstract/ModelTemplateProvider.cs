@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Yi.Framework.Template.ConstClasses;
 
 namespace Yi.Framework.Template.Abstract
@@ -10,7 +11,7 @@ namespace Yi.Framework.Template.Abstract
     public abstract class ModelTemplateProvider : ProgramTemplateProvider
     {
 
-        public ModelTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public ModelTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
             AddIgnoreEntityField(/*"Id", */"TenantId", "IsDeleted");
         }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Application.Contracts.#ModelName#.Dtos;
-using Yi.Framework.Domain.#ModelName#.Entities;
+using #NameSpaces#.Application.Contracts.#ModelName#.Dtos;
+using #NameSpaces#.Domain.#ModelName#.Entities;
 
-namespace Yi.Framework.Application.#ModelName#.MapperConfig
+namespace #NameSpaces#.Application.#ModelName#.MapperConfig
 {
     public class #EntityName#Profile: Profile
     {

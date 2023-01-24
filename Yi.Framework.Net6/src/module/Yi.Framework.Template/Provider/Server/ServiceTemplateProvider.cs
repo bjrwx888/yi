@@ -10,9 +10,9 @@ namespace Yi.Framework.Template.Provider.Server
 {
     public class ServiceTemplateProvider : ProgramTemplateProvider
     {
-        public ServiceTemplateProvider(string modelName, string entityName) : base(modelName, entityName)
+        public ServiceTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
-            BuildPath = $@"{TemplateConst.BuildRootPath}\Yi.Framework.Application\{TemplateConst.ModelName}\{TemplateConst.EntityName}Service.cs";
+            BuildPath = $@"{TemplateConst.BuildRootPath}\{nameSpaces}.Application\{TemplateConst.ModelName}\{TemplateConst.EntityName}Service.cs";
             TemplatePath = $@"..\..\..\Template\Server\ServiceTemplate.txt";
         }
     }
