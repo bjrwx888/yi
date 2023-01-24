@@ -11,17 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core", "src\framework\Yi.Framework.Core\Yi.Framework.Core.csproj", "{83B2D7AD-ED8E-4392-B0AE-4227498CD75F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Application", "src\project\Yi.Framework.Application\Yi.Framework.Application.csproj", "{456835D1-4968-4195-9993-B2A580E85056}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Template.Application", "src\project\template\Yi.Template.Application\Yi.Template.Application.csproj", "{456835D1-4968-4195-9993-B2A580E85056}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Application.Contracts", "src\project\Yi.Framework.Application.Contracts\Yi.Framework.Application.Contracts.csproj", "{D2378C23-2CFE-468A-924A-B8C9D4A3A8ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Template.Application.Contracts", "src\project\template\Yi.Template.Application.Contracts\Yi.Template.Application.Contracts.csproj", "{D2378C23-2CFE-468A-924A-B8C9D4A3A8ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Domain", "src\project\Yi.Framework.Domain\Yi.Framework.Domain.csproj", "{C02A954D-CCCB-41BD-ADAD-9D7ECBF1A828}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Template.Domain", "src\project\template\Yi.Template.Domain\Yi.Template.Domain.csproj", "{C02A954D-CCCB-41BD-ADAD-9D7ECBF1A828}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Domain.Shared", "src\project\Yi.Framework.Domain.Shared\Yi.Framework.Domain.Shared.csproj", "{26171153-1784-455B-9582-0558AEEC03CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Template.Domain.Shared", "src\project\template\Yi.Template.Domain.Shared\Yi.Template.Domain.Shared.csproj", "{26171153-1784-455B-9582-0558AEEC03CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Sqlsugar", "src\project\Yi.Framework.Sqlsugar\Yi.Framework.Sqlsugar.csproj", "{3C3A7BAC-F27F-433E-BF91-289FA42E4995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Template.Sqlsugar", "src\project\template\Yi.Template.Sqlsugar\Yi.Template.Sqlsugar.csproj", "{3C3A7BAC-F27F-433E-BF91-289FA42E4995}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Web", "src\project\Yi.Framework.Web\Yi.Framework.Web.csproj", "{01CC7B62-F42C-45CE-BACA-F450593A1AF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Template.Web", "src\project\template\Yi.Template.Web\Yi.Template.Web.csproj", "{01CC7B62-F42C-45CE-BACA-F450593A1AF2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.BackgroundJobs.Quartz", "src\module\Yi.Framework.BackgroundJobs.Quartz\Yi.Framework.BackgroundJobs.Quartz.csproj", "{1879A863-9864-4E16-8492-504055807684}"
 EndProject
@@ -51,7 +51,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Data", "src\fr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Auth.JwtBearer", "src\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj", "{D40C583D-58BE-422D-9A57-94DECB751EB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Template", "src\module\Yi.Framework.Template\Yi.Framework.Template.csproj", "{134C4AB9-2AFE-4383-84DE-825DF9499CB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Template", "src\module\Yi.Framework.Template\Yi.Framework.Template.csproj", "{134C4AB9-2AFE-4383-84DE-825DF9499CB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{A3707874-7890-42AF-A686-E3AACD6F108C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bbs", "bbs", "{B758A87D-0BFA-44A5-BA33-FBA44151CEB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,12 +157,12 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{83B2D7AD-ED8E-4392-B0AE-4227498CD75F} = {5F2B846D-96CE-400A-878E-220498F4EE31}
-		{456835D1-4968-4195-9993-B2A580E85056} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
-		{D2378C23-2CFE-468A-924A-B8C9D4A3A8ED} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
-		{C02A954D-CCCB-41BD-ADAD-9D7ECBF1A828} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
-		{26171153-1784-455B-9582-0558AEEC03CF} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
-		{3C3A7BAC-F27F-433E-BF91-289FA42E4995} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
-		{01CC7B62-F42C-45CE-BACA-F450593A1AF2} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
+		{456835D1-4968-4195-9993-B2A580E85056} = {A3707874-7890-42AF-A686-E3AACD6F108C}
+		{D2378C23-2CFE-468A-924A-B8C9D4A3A8ED} = {A3707874-7890-42AF-A686-E3AACD6F108C}
+		{C02A954D-CCCB-41BD-ADAD-9D7ECBF1A828} = {A3707874-7890-42AF-A686-E3AACD6F108C}
+		{26171153-1784-455B-9582-0558AEEC03CF} = {A3707874-7890-42AF-A686-E3AACD6F108C}
+		{3C3A7BAC-F27F-433E-BF91-289FA42E4995} = {A3707874-7890-42AF-A686-E3AACD6F108C}
+		{01CC7B62-F42C-45CE-BACA-F450593A1AF2} = {A3707874-7890-42AF-A686-E3AACD6F108C}
 		{1879A863-9864-4E16-8492-504055807684} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 		{949F35A7-36E4-4080-9940-24BE52532078} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{63BA134E-9D23-4EB8-87E4-B45B33D954F5} = {5F2B846D-96CE-400A-878E-220498F4EE31}
@@ -174,6 +178,8 @@ Global
 		{DEE07142-32CE-4B5F-A5A3-452064EBF4A2} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{D40C583D-58BE-422D-9A57-94DECB751EB4} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{134C4AB9-2AFE-4383-84DE-825DF9499CB4} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
+		{A3707874-7890-42AF-A686-E3AACD6F108C} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
+		{B758A87D-0BFA-44A5-BA33-FBA44151CEB4} = {32A813F5-13B2-4DCA-8B59-F27F1B0D5678}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C1A3808-0F4F-43FB-A9FE-5F27A3BB2ECF}

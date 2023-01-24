@@ -1,4 +1,5 @@
-﻿using Yi.Framework.Template;
+﻿using Yi.Framework.Core.Helper;
+using Yi.Framework.Template;
 using Yi.Framework.Template.Provider.Server;
 using Yi.Framework.Template.Provider.Site;
 
@@ -24,8 +25,6 @@ foreach (var entityName in entityNames)
 
         option.Add(new ConstTemplateProvider(modelName, entityName));
         option.Add(new ProfileTemplateProvider(modelName, entityName));
-
-
         //option.Add(new ApiTemplateProvider(modelName, entityName));
     });
     //开始构建模板
@@ -35,3 +34,7 @@ foreach (var entityName in entityNames)
 
 Console.WriteLine("Yi.Framework.Template:模板全部生成完成！");
 Console.ReadKey();
+
+//根据模板文件生成项目文件
+//var template = "";
+//FileHelper.AllInfoReplace(template, "Template","BBS");

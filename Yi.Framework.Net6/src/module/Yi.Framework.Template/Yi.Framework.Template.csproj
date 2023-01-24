@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Template\Server\ConstTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
