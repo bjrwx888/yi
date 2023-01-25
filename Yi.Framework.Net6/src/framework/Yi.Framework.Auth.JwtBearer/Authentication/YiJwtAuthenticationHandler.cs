@@ -73,7 +73,7 @@ namespace Yi.Framework.Auth.JwtBearer.Authentication
             AuthenticateResult result = AuthenticateResult.Fail("未发现授权令牌");
             _context.Request.Headers.TryGetValue("Authorization", out StringValues values);
             string valStr = values.ToString();
-            if (!string.IsNullOrWhiteSpace(valStr))
+            if (!string.IsNullOrWhiteSpace(valStr) && valStr.Length>10)
             {
                 var tokenHeader = valStr.Substring(0, 6);
                 if (tokenHeader == "Bearer")

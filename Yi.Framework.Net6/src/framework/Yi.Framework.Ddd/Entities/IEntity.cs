@@ -18,6 +18,6 @@ namespace Yi.Framework.Ddd.Entities
         //
         // 摘要:
         //     Unique identifier for this entity.
-        TKey Id { get;}
+        TKey Id { get; set; }
     }
 }

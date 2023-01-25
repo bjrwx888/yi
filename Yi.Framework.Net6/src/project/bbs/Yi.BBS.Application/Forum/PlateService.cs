@@ -3,6 +3,7 @@ using NET.AutoWebApi.Setting;
 using Yi.BBS.Application.Contracts.Forum.Dtos;
 using Yi.BBS.Domain.Forum.Entities;
 using Yi.Framework.Ddd.Services;
+using Yi.BBS.Application.Contracts.Forum.Dtos.Plate;
 
 namespace Yi.BBS.Application.Forum
 {

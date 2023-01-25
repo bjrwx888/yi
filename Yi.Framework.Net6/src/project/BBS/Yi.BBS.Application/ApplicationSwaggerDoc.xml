@@ -4,10 +4,63 @@
         <name>Yi.BBS.Application</name>
     </assembly>
     <members>
+        <member name="T:Yi.BBS.Application.Exhibition.BannerService">
+            <summary>
+            Banner服务实现
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Forum.DiscussService">
+            <summary>
+            Discuss服务实现
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Application.Forum.PlateService">
             <summary>
             Plate服务实现
             </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.GlobalSetting.SettingService">
+            <summary>
+            Setting服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.GlobalSetting.SettingService.GetTitleAsync">
+            <summary>
+            获取配置标题
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Yi.BBS.Application.GlobalSetting.TempService">
+             <summary>
+            临时服务，之后用其他模块代替
+             </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.PostLoginAsync">
+            <summary>
+            登录
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.PostLogged">
+            <summary>
+            判断是否有登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.PostlogOut">
+            <summary>
+            退出登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.GetUserInfoByIdAsync(System.Int64)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

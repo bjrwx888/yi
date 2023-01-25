@@ -41,6 +41,11 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         }
 
 
+        public async Task<bool> UpdateIgnoreNullAsync(T updateObj)
+        {
+            return await _Db.Updateable(updateObj).IgnoreColumns(true).ExecuteCommandAsync() > 0;
+        }
+
         public override async Task<bool> DeleteAsync(T deleteObj)
         {
             //逻辑删除

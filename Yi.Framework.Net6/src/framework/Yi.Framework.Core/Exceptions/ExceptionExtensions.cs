@@ -35,8 +35,8 @@ public static class ExceptionExtensions
     /// <param name="exception"></param>
     /// <param name="defaultLevel"></param>
     /// <returns></returns>
-    public static ResultCodeEnum GetLogErrorCode(this Exception exception, ResultCodeEnum defaultCode = ResultCodeEnum.NotSuccess)
+    public static int GetLogErrorCode(this Exception exception, ResultCodeEnum defaultCode = ResultCodeEnum.NotSuccess)
     {
-        return (exception as IHasErrorCode)?.Code ?? defaultCode;
+        return (exception as IHasErrorCode)?.Code ?? (int)defaultCode;
     }
 }

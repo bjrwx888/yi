@@ -9,7 +9,7 @@ using Yi.Framework.Ddd.Services.Abstract;
 namespace #NameSpaces#.Application.Contracts.#ModelName#
 {
     /// <summary>
-    /// #EntityName#·şÎñ³éÏó
+    /// #EntityName#æœåŠ¡æŠ½è±¡
     /// </summary>
     public interface I#EntityName#Service : ICrudAppService<#EntityName#GetOutputDto, #EntityName#GetListOutputDto, long, #EntityName#GetListInputVo, #EntityName#CreateInputVo, #EntityName#UpdateInputVo>
     {

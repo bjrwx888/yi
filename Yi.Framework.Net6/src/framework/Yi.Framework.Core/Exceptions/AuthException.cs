@@ -14,7 +14,7 @@ namespace Yi.Framework.Core.Exceptions
     IHasErrorDetails,
     IHasLogLevel
     {
-        public ResultCodeEnum Code { get; set; }
+        public int Code { get; set; }
 
         public string? Details { get; set; }
 
@@ -28,7 +28,7 @@ namespace Yi.Framework.Core.Exceptions
     LogLevel logLevel = LogLevel.Warning)
     : base(message, innerException)
         {
-            Code = code;
+            Code =(int) code;
             Details = details;
             LogLevel = logLevel;
         }

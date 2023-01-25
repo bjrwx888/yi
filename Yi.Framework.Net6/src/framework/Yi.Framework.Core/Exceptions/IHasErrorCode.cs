@@ -9,6 +9,6 @@ namespace Yi.Framework.Core.Exceptions
 {
     internal interface IHasErrorCode
     {
-        ResultCodeEnum Code { get; }
+        int Code { get; }
     }
 }

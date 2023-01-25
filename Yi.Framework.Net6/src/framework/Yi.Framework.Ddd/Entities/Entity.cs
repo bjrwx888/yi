@@ -26,7 +26,7 @@ namespace Yi.Framework.Ddd.Entities
     [Serializable]
     public abstract class Entity<TKey> : Entity, IEntity<TKey>, IEntity
     {
-        public virtual TKey Id { get; protected set; }
+        public virtual TKey Id { get; set; }
 
         protected Entity()
         {

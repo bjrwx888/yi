@@ -62,7 +62,7 @@ where TEntityDto : IEntityDto<TKey>
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<TGetOutputDto> GetAsync(TKey id)
+        public virtual async Task<TGetOutputDto> GetAsync(TKey id)
         {
             if (id is null)
             {
@@ -79,7 +79,7 @@ where TEntityDto : IEntityDto<TKey>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
+        public virtual async Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
         {
 
             var totalCount = await _repository.CountAsync(_ => true);

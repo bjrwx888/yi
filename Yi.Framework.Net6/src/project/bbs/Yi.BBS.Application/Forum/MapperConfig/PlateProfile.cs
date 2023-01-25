@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.BBS.Application.Contracts.Forum.Dtos;
+using Yi.BBS.Application.Contracts.Forum.Dtos.Plate;
 using Yi.BBS.Domain.Forum.Entities;
 
 namespace Yi.BBS.Application.Forum.MapperConfig

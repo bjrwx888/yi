@@ -82,6 +82,12 @@ namespace Yi.Framework.Ddd.Services
             return Task.CompletedTask;
         }
 
+        protected virtual Task<TEntity> MapToEntityAsync(TUpdateInput updateInput)
+        {
+            var entity = _mapper.Map<TEntity>(updateInput);
+            return Task.FromResult(entity);
+        }
+
         /// <summary>
         /// 增
         /// </summary>
@@ -125,12 +131,14 @@ namespace Yi.Framework.Ddd.Services
             {
                 throw new ArgumentNullException(nameof(id));
             }
-            var entity = await _repository.GetByIdAsync(id);
+            
+            var entity = await MapToEntityAsync(input);
+            entity.Id = id;
+            await _repository.UpdateIgnoreNullAsync(entity);
 
-            await MapToEntityAsync(input, entity);
-            await _repository.UpdateAsync(entity);
+            var newEntity = await _repository.GetByIdAsync(id);
 
-            return await MapToGetOutputDtoAsync(entity);
+            return await MapToGetOutputDtoAsync(newEntity);
         }
     }
 }

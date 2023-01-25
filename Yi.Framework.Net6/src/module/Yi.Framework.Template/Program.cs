@@ -7,9 +7,19 @@ TemplateFactory templateFactory = new();
 
 //选择需要生成的模板提供者
 
+//string modelName = "GlobalSetting";
+//string nameSpaces = "Yi.BBS";
+//List<string> entityNames = new() { "Setting" };
+
+//string modelName = "Exhibition";
+//string nameSpaces = "Yi.BBS";
+//List<string> entityNames = new() { "Banner" };
 string modelName = "Forum";
 string nameSpaces = "Yi.BBS";
 List<string> entityNames = new() { "Plate" };
+
+
+
 
 foreach (var entityName in entityNames)
 {

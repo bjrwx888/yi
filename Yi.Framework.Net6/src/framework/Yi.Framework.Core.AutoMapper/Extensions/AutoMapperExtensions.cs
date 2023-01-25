@@ -26,6 +26,7 @@ namespace Yi.Framework.Autofac.Extensions
                 }
 
             });
+
             services.AddAutoMapper(profileList.ToArray());
             return services;
         }

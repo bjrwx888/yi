@@ -43,6 +43,7 @@ namespace Yi.Framework.Ddd.Repositories
         Task<bool> UpdateAsync(T updateObj);
         Task<bool> UpdateRangeAsync(List<T> updateObjs);
         Task<bool> UpdateAsync(Expression<Func<T, T>> columns, Expression<Func<T, bool>> whereExpression);
+        Task<bool> UpdateIgnoreNullAsync(T updateObj);
 
         //删除
         Task<bool> DeleteAsync(T deleteObj);

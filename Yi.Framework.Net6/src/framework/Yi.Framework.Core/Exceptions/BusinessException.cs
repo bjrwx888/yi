@@ -14,14 +14,14 @@ namespace Yi.Framework.Core.Exceptions
     IHasErrorDetails,
     IHasLogLevel
     {
-        public ResultCodeEnum Code { get; set; }
+        public int Code { get; set; }
 
         public string? Details { get; set; }
 
         public LogLevel LogLevel { get; set; }
 
         public BusinessException(
-    ResultCodeEnum code = ResultCodeEnum.NotSuccess,
+    int code = (int)ResultCodeEnum.NotSuccess,
     string? message = null,
     string? details = null,
     Exception? innerException = null,
