@@ -12,6 +12,7 @@ namespace Yi.BBS.Domain.Forum.Entities
     [SugarTable("Plate")]
     public class PlateEntity : IEntity<long>, ISoftDelete
     {
+
         [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         public string Name { get; set; }

@@ -4,5 +4,10 @@
         <name>Yi.BBS.Domain</name>
     </assembly>
     <members>
+        <member name="T:Yi.BBS.Domain.Forum.ForumManager">
+            <summary>
+            论坛模块的领域服务
+            </summary>
+        </member>
     </members>
 </doc>

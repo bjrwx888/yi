@@ -13,6 +13,9 @@ namespace Yi.BBS.Domain.Forum.Entities
     [SugarTable("Discuss")]
     public class DiscussEntity : IEntity<long>, ISoftDelete
     {
+        public DiscussEntity()
+        { 
+        }
         public DiscussEntity(long plateId)
         {
             PlateId = plateId;

@@ -12,5 +12,6 @@ namespace Yi.BBS.Domain.Shared.Forum.ConstClasses
 
     public class PlateConst
     {
+        public const string 板块不存在 = "传入的板块id不存在";
     }
 }

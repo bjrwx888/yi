@@ -14,6 +14,22 @@
             Discuss服务实现
             </summary>
         </member>
+        <member name="M:Yi.BBS.Application.Forum.DiscussService.GetPlateIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussGetListInputVo)">
+            <summary>
+            获取改板块下的主题
+            </summary>
+            <param name="plateId"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.DiscussService.CreatePlateIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussCreateInputVo)">
+            <summary>
+            创建主题
+            </summary>
+            <param name="plateId"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.BBS.Application.Forum.PlateService">
             <summary>
             Plate服务实现

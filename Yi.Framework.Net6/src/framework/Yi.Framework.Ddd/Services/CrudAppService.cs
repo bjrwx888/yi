@@ -93,7 +93,7 @@ namespace Yi.Framework.Ddd.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<TGetOutputDto> CreateAsync(TCreateInput input)
+        public virtual async Task<TGetOutputDto> CreateAsync(TCreateInput input)
         {
             var entity = await MapToEntityAsync(input);
 

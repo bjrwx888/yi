@@ -5,6 +5,7 @@ using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 using Yi.BBS.Application;
 using Yi.BBS.Sqlsugar;
+using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
 
 namespace Yi.BBS.Web
 {

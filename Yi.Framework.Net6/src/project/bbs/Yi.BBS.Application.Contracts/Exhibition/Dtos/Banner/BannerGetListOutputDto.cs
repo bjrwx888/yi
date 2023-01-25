@@ -1,3 +1,4 @@
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Yi.BBS.Application.Contracts.Exhibition.Dtos.Banner
 {
     public class BannerGetListOutputDto : IEntityDto<long>
     {
+        
         public long Id { get; set; }
         public string Name { get; set; }
         public string? Logo { get; set; }
