@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NET.AutoWebApi.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -20,6 +21,12 @@ namespace Yi.Framework.Ddd.Entities
         }
 
         public abstract object[] GetKeys();
+
+        //实体比较简化
+        //public bool EntityEquals(IEntity other)
+        //{
+        //    return this.GetKeys().Equals(other.GetKeys());
+        //}
 
     }
 
@@ -46,5 +53,7 @@ namespace Yi.Framework.Ddd.Entities
         {
             return $"[ENTITY: {GetType().Name}] Id = {Id}";
         }
+
+
     }
 }
