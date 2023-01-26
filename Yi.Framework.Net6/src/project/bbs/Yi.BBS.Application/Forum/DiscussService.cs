@@ -10,21 +10,23 @@ using Yi.BBS.Domain.Forum;
 using AutoMapper;
 using SqlSugar;
 using Microsoft.AspNetCore.Routing;
+using Yi.BBS.Domain.Shared.Forum.ConstClasses;
+using Yi.Framework.Ddd.Repositories;
 
 namespace Yi.BBS.Application.Forum
 {
     /// <summary>
-    /// Discuss服务实现
+    /// Discuss应用服务实现,用于参数效验、领域服务业务组合、日志记录、事务处理、账户信息
     /// </summary>
     [AppService]
     public class DiscussService : CrudAppService<DiscussEntity, DiscussGetOutputDto, DiscussGetListOutputDto, long, DiscussGetListInputVo, DiscussCreateInputVo, DiscussUpdateInputVo>,
        IDiscussService, IAutoApiService
     {
-        private readonly ForumManager _forumManager;
-        public DiscussService(ForumManager forumManager)
-        {
-            _forumManager = forumManager;
-        }
+        [Autowired]
+        private ForumManager _forumManager { get; set; }
+
+        [Autowired]
+        private IRepository<PlateEntity> _plateEntityRepository { get; set; }
 
         /// <summary>
         /// 获取改板块下的主题
@@ -41,21 +43,18 @@ namespace Yi.BBS.Application.Forum
             return new PagedResultDto<DiscussGetListOutputDto>(total, items);
         }
 
-        [AutoApi(false)]
-        public override Task<DiscussGetOutputDto> CreateAsync(DiscussCreateInputVo input)
-        {
-            return base.CreateAsync(input);
-        }
-
         /// <summary>
         /// 创建主题
         /// </summary>
-        /// <param name="plateId"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<DiscussGetOutputDto> CreatePlateIdAsync([FromRoute] long plateId, DiscussCreateInputVo input)
+        public override async Task<DiscussGetOutputDto> CreateAsync(DiscussCreateInputVo input)
         {
-            var entity = await _forumManager.CreateDiscussAsync(plateId, input.Title, input.Types, input.Content, input.Introduction);
+            if (!await _plateEntityRepository.IsAnyAsync(x => x.Id == input.plateId))
+            {
+                throw new UserFriendlyException(PlateConst.板块不存在);
+            }
+            var entity = await _forumManager.CreateDiscussAsync(input.plateId, input.Title, input.Types, input.Content, input.Introduction);
             return await MapToGetOutputDtoAsync(entity);
         }
     }

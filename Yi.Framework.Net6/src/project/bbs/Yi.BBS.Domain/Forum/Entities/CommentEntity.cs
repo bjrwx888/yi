@@ -12,6 +12,16 @@ namespace Yi.BBS.Domain.Forum.Entities
     [SugarTable("Comment")]
     public class CommentEntity : IEntity<long>, ISoftDelete
     {
+        public CommentEntity()
+        { 
+        }
+
+        internal CommentEntity(long discussId, long userId)
+        {
+            DiscussId= discussId;
+            UserId = userId;
+        }
+
         [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         public bool IsDeleted { get; set; }

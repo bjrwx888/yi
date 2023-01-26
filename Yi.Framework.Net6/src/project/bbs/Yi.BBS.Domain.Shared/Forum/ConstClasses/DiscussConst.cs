@@ -12,5 +12,6 @@ namespace Yi.BBS.Domain.Shared.Forum.ConstClasses
 
     public class DiscussConst
     {
+        public const string 主题不存在 = "传入的主题id不存在";
     }
 }

@@ -9,9 +9,30 @@
             Banner服务实现
             </summary>
         </member>
+        <member name="T:Yi.BBS.Application.Forum.CommentService">
+            <summary>
+            Comment服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.CommentService.GetDiscussIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListInputVo)">
+            <summary>
+            获取改主题下的评论
+            </summary>
+            <param name="discussId"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.CommentService.CreateAsync(Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo)">
+            <summary>
+            发表评论
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Core.Exceptions.UserFriendlyException"></exception>
+        </member>
         <member name="T:Yi.BBS.Application.Forum.DiscussService">
             <summary>
-            Discuss服务实现
+            Discuss应用服务实现,用于参数效验、领域服务业务组合、日志记录、事务处理、账户信息
             </summary>
         </member>
         <member name="M:Yi.BBS.Application.Forum.DiscussService.GetPlateIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussGetListInputVo)">
@@ -22,11 +43,10 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.BBS.Application.Forum.DiscussService.CreatePlateIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussCreateInputVo)">
+        <member name="M:Yi.BBS.Application.Forum.DiscussService.CreateAsync(Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussCreateInputVo)">
             <summary>
             创建主题
             </summary>
-            <param name="plateId"></param>
             <param name="input"></param>
             <returns></returns>
         </member>

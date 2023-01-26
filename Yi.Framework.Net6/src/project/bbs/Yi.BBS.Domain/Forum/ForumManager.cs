@@ -17,20 +17,17 @@ namespace Yi.BBS.Domain.Forum
     {
         private readonly IRepository<DiscussEntity> _discussRepository;
         private readonly IRepository<PlateEntity> _plateEntityRepository;
-        private readonly IRepository<CommentEntity> commentRepository;
-        public ForumManager(IRepository<DiscussEntity> discussRepository, IRepository<PlateEntity> plateEntityRepository,IRepository<CommentEntity> commentRepository)
+        private readonly IRepository<CommentEntity> _commentRepository;
+        public ForumManager(IRepository<DiscussEntity> discussRepository, IRepository<PlateEntity> plateEntityRepository, IRepository<CommentEntity> commentRepository)
         {
             _discussRepository = discussRepository;
             _plateEntityRepository = plateEntityRepository;
+            _commentRepository = commentRepository;
         }
 
         //主题是不能直接创建的，需要由领域服务统一创建
         public async Task<DiscussEntity> CreateDiscussAsync(long plateId, string title, string types, string content, string? introduction = null)
         {
-            if (!await _plateEntityRepository.IsAnyAsync(x => x.Id == plateId))
-            {
-                throw new UserFriendlyException(PlateConst.板块不存在);
-            }
             var entity = new DiscussEntity(plateId);
             entity.Id = SnowflakeHelper.NextId;
             entity.Title = title;
@@ -38,9 +35,18 @@ namespace Yi.BBS.Domain.Forum
             entity.Introduction = introduction;
             entity.Content = content;
             entity.CreateTime = DateTime.Now;
-            entity.AgreeNum= 0;
-            entity.SeeNum= 0;
+            entity.AgreeNum = 0;
+            entity.SeeNum = 0;
             return await _discussRepository.InsertReturnEntityAsync(entity);
+        }
+
+        public async Task<CommentEntity> CreateCommentAsync(long discussId, long userId, string content)
+        {
+            var entity = new CommentEntity(discussId, userId);
+            entity.Id = SnowflakeHelper.NextId;
+            entity.Content = content;
+            entity.CreateTime = DateTime.Now;
+            return await _commentRepository.InsertReturnEntityAsync(entity);
         }
     }
 }
