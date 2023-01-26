@@ -17,7 +17,8 @@ namespace Yi.BBS.Domain.Forum
     {
         private readonly IRepository<DiscussEntity> _discussRepository;
         private readonly IRepository<PlateEntity> _plateEntityRepository;
-        public ForumManager(IRepository<DiscussEntity> discussRepository, IRepository<PlateEntity> plateEntityRepository)
+        private readonly IRepository<CommentEntity> commentRepository;
+        public ForumManager(IRepository<DiscussEntity> discussRepository, IRepository<PlateEntity> plateEntityRepository,IRepository<CommentEntity> commentRepository)
         {
             _discussRepository = discussRepository;
             _plateEntityRepository = plateEntityRepository;

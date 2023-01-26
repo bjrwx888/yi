@@ -16,7 +16,7 @@ TemplateFactory templateFactory = new();
 //List<string> entityNames = new() { "Banner" };
 string modelName = "Forum";
 string nameSpaces = "Yi.BBS";
-List<string> entityNames = new() { "Plate" };
+List<string> entityNames = new() { "Comment" };
 
 
 
