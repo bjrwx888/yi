@@ -5,7 +5,6 @@ using Yi.Framework.Core.Extensions;
 using Yi.BBS.Web;
 using Yi.BBS.Application;
 
-
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseStartUrlsServer(builder.Configuration);
 

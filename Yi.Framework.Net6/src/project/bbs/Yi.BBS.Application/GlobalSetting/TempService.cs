@@ -62,7 +62,7 @@ namespace Yi.BBS.Application.GlobalSetting
         {
             var dto = new List<ActionJwtDto>();
             dto.Add(new ActionJwtDto { Router = "/index", ActionName = "首页" });
-            //dto.Add(new ActionJwtDto { Router = "", ActionName = "" });
+            //dto.Add(new ActionJwtDto { Router = "/admLable", ActionName = "标签管理" });
             //dto.Add(new ActionJwtDto { Router = "", ActionName = "" });
             //dto.Add(new ActionJwtDto { Router = "", ActionName = "" });
             //dto.Add(new ActionJwtDto { Router = "", ActionName = "" });

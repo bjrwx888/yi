@@ -14,6 +14,11 @@
             Banner抽象
             </summary>
         </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.ArticleCreateInputVo">
+            <summary>
+            Article输入创建对象
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo">
             <summary>
             Comment输入创建对象
@@ -24,9 +29,19 @@
             Discuss输入创建对象
             </summary>
         </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.MyTypeCreateInputVo">
+            <summary>
+            Label输入创建对象
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.Plate.PlateCreateInputVo">
             <summary>
             Plate输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.IArticleService">
+            <summary>
+            Article服务抽象
             </summary>
         </member>
         <member name="T:Yi.BBS.Application.Contracts.Forum.ICommentService">
@@ -37,6 +52,11 @@
         <member name="T:Yi.BBS.Application.Contracts.Forum.IDiscussService">
             <summary>
             Discuss服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.ILabelService">
+            <summary>
+            Label服务抽象
             </summary>
         </member>
         <member name="T:Yi.BBS.Application.Contracts.Forum.IPlateService">

@@ -9,6 +9,27 @@
             Banner服务实现
             </summary>
         </member>
+        <member name="T:Yi.BBS.Application.Forum.ArticleService">
+            <summary>
+            Article服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.ArticleService.GetDiscussIdAsync(System.Int64)">
+            <summary>
+            查询文章
+            </summary>
+            <param name="discussId"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Core.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.ArticleService.CreateAsync(Yi.BBS.Application.Contracts.Forum.Dtos.ArticleCreateInputVo)">
+            <summary>
+            发表文章
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Core.Exceptions.UserFriendlyException"></exception>
+        </member>
         <member name="T:Yi.BBS.Application.Forum.CommentService">
             <summary>
             Comment服务实现
@@ -46,6 +67,25 @@
         <member name="M:Yi.BBS.Application.Forum.DiscussService.CreateAsync(Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussCreateInputVo)">
             <summary>
             创建主题
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.BBS.Application.Forum.MyTypeService">
+            <summary>
+            Label服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.MyTypeService.GetListCurrentAsync(Yi.BBS.Application.Contracts.Forum.Dtos.MyTypeGetListInputVo)">
+            <summary>
+            获取当前用户的主题类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.MyTypeService.CreateAsync(Yi.BBS.Application.Contracts.Forum.Dtos.MyTypeCreateInputVo)">
+            <summary>
+            创建
             </summary>
             <param name="input"></param>
             <returns></returns>

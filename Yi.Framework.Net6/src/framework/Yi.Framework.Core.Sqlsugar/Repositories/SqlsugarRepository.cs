@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
@@ -64,7 +65,7 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         }
         public override async Task<bool> DeleteAsync(List<T> deleteObjs)
         {
-            if (typeof(T) is ISoftDelete)
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(T)))
             {
                 //反射赋值
                 deleteObjs.ForEach(e => ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, e));
@@ -77,7 +78,7 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         }
         public override async Task<bool> DeleteAsync(Expression<Func<T, bool>> whereExpression)
         {
-            if (typeof(T) is ISoftDelete)
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(T)))
             {
                 var entities = await GetListAsync(whereExpression);
                 //反射赋值
@@ -91,8 +92,8 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         }
         public override async Task<bool> DeleteByIdAsync(dynamic id)
         {
-            if (typeof(T) is ISoftDelete)
-            {
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(T)))
+            {   
                 var entity = await GetByIdAsync(id);
                 //反射赋值
                 ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, entity);
@@ -106,9 +107,13 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         }
         public override async Task<bool> DeleteByIdsAsync(dynamic[] ids)
         {
-            if (typeof(T) is ISoftDelete)
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(T)))
             {
                 var entities = await _DbQueryable.In(ids).ToListAsync();
+                if (entities.Count == 0)
+                {
+                    return false;
+                }
                 //反射赋值
                 entities.ForEach(e => ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, e));
                 return await UpdateRangeAsync(entities);

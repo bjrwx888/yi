@@ -11,9 +11,9 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.Ddd.Services.CrudAppService`7.DeleteAsync(`3)">
+        <member name="M:Yi.Framework.Ddd.Services.CrudAppService`7.DeleteAsync(System.String)">
             <summary>
-            删
+            单、多删
             </summary>
             <param name="id"></param>
             <returns></returns>

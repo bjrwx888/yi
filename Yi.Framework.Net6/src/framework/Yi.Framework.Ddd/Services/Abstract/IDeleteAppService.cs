@@ -8,6 +8,6 @@ namespace Yi.Framework.Ddd.Services.Abstract
 {
     public interface IDeleteAppService<in TKey> : IApplicationService
     {
-        Task DeleteAsync(TKey id);
+        Task<bool> DeleteAsync(string id);
     }
 }

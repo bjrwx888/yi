@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -104,19 +106,39 @@ namespace Yi.Framework.Ddd.Services
         }
 
         /// <summary>
-        /// 删
+        /// 单、多删
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task DeleteAsync(TKey id)
+        public async Task<bool> DeleteAsync(string id)
         {
             if (id is null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
-            await _repository.DeleteByIdAsync(id);
+            var idsValue = id.Split(',');
+            if (idsValue is null || idsValue.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+            return await _repository.DeleteByIdsAsync(idsValue.Select(x => (object)x!).ToArray());
         }
+
+        ///// <summary>
+        ///// 删
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentNullException"></exception>
+        //public async Task<bool> DeleteAsync(TKey id)
+        //{
+        //    if (id is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(id));
+        //    }
+        //    return await _repository.DeleteByIdAsync(id);
+        //}
 
         /// <summary>
         /// 改
@@ -131,7 +153,7 @@ namespace Yi.Framework.Ddd.Services
             {
                 throw new ArgumentNullException(nameof(id));
             }
-            
+
             var entity = await MapToEntityAsync(input);
             entity.Id = id;
             await _repository.UpdateIgnoreNullAsync(entity);
