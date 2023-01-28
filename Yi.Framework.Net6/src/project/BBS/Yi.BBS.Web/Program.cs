@@ -15,7 +15,6 @@ builder.Host.ConfigureAutoFacContainer(container =>
     container.RegisterYiModule(AutoFacModuleEnum.PropertiesAutowiredModule,typeof(YiBBSWebModule).Assembly , typeof(YiBBSApplicationModule).Assembly);
 });
 
-
 var app = builder.Build();
 
 app.UseErrorHandlingServer();
