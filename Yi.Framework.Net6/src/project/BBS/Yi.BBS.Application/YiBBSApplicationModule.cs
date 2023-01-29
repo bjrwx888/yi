@@ -17,11 +17,11 @@ using Yi.RBAC.Application;
 namespace Yi.BBS.Application
 {
     [DependsOn(
-             typeof(YiRBACApplicationModule),
+
         typeof(YiBBSApplicationContractsModule),
         typeof(YiBBSDomainModule),
-        typeof(YiFrameworkAuthJwtBearerModule)
-     
+        typeof(YiFrameworkAuthJwtBearerModule),
+        typeof(YiRBACApplicationModule)
         )]
     public class YiBBSApplicationModule : IStartupModule
     {
