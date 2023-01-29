@@ -1,7 +1,9 @@
-﻿using SqlSugar;
+﻿using Microsoft.AspNetCore.Http;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Data.Entities;
@@ -25,5 +27,33 @@ namespace Yi.BBS.Domain.Forum.Entities
         public long ParentId { get; set; }
 
         public List<ArticleEntity> Children { get; set; }
+    }
+
+    public static class ArticleEntityExtensions
+    {
+        /// <summary>
+        /// 平铺自己
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        public static List<ArticleEntity> Tile(this List<ArticleEntity> entities)
+        {
+            var result = new List<ArticleEntity>();
+            return StartRecursion(entities, result);
+        }
+
+        private static List<ArticleEntity> StartRecursion(List<ArticleEntity> entities, List<ArticleEntity> result)
+        {
+            foreach (var entity in entities)
+            {
+                result.Add(entity);
+                if (entity.Children is not null && entity.Children.Where(x => x.IsDeleted == false).Count() > 0)
+                {
+                    StartRecursion(entity.Children, result);
+                }
+            }
+            return result;
+        }
+
     }
 }

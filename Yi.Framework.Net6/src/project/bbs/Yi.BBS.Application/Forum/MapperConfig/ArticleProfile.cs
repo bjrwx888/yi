@@ -16,6 +16,7 @@ namespace Yi.BBS.Application.Forum.MapperConfig
             CreateMap<ArticleGetListInputVo, ArticleEntity>();
             CreateMap<ArticleCreateInputVo, ArticleEntity>();
             CreateMap<ArticleUpdateInputVo, ArticleEntity>();
+            CreateMap<ArticleEntity, ArticleAllOutputDto>();
             CreateMap<ArticleEntity, ArticleGetListOutputDto>();
             CreateMap<ArticleEntity, ArticleGetOutputDto>();
         }

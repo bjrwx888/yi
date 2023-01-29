@@ -15,14 +15,36 @@ namespace Yi.BBS.Application.Forum
     /// Article服务实现
     /// </summary>
     [AppService]
+
     public class ArticleService : CrudAppService<ArticleEntity, ArticleGetOutputDto, ArticleGetListOutputDto, long, ArticleGetListInputVo, ArticleCreateInputVo, ArticleUpdateInputVo>,
        IArticleService, IAutoApiService
     {
         [Autowired]
         private IArticleRepository _articleRepository { get; set; }
 
+
         [Autowired]
         private IRepository<DiscussEntity> _discussRepository { get; set; }
+
+        /// <summary>
+        /// 获取文章全部平铺信息
+        /// </summary>
+        /// <param name="discussId"></param>
+        /// <returns></returns>
+        /// <exception cref="UserFriendlyException"></exception>
+        [Route("/api/article/all/discuss-id/{discussId}")]
+        public async Task<List<ArticleAllOutputDto>> GetAllAsync([FromRoute] long discussId)
+        {
+            if (!await _discussRepository.IsAnyAsync(x => x.Id == discussId))
+            {
+                throw new UserFriendlyException(DiscussConst.主题不存在);
+            }
+
+            var entities = await _articleRepository.GetTreeAsync(x => x.DiscussId == discussId);
+            var result = entities.Tile();
+            var items = _mapper.Map<List<ArticleAllOutputDto>>(result);
+            return items;
+        }
 
         /// <summary>
         /// 查询文章
@@ -37,7 +59,7 @@ namespace Yi.BBS.Application.Forum
                 throw new UserFriendlyException(DiscussConst.主题不存在);
             }
 
-            var entities = await _articleRepository.GetTreeAsync(x=>x.DiscussId==discussId);
+            var entities = await _articleRepository.GetTreeAsync(x => x.DiscussId == discussId);
             var items = await MapToGetListOutputDtosAsync(entities);
             return items;
         }

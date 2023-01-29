@@ -47,5 +47,5 @@ Console.WriteLine("Yi.Framework.Template:模板全部生成完成！");
 Console.ReadKey();
 
 //根据模板文件生成项目文件
-//var template = "D:\\C#\\Yi\\Yi.Framework.Net6\\src\\project\\BBS";
-//FileHelper.AllInfoReplace(template, "Template", "BBS");
+//var template = "D:\\C#\\Yi\\Yi.Framework.Net6\\src\\project\\template";
+//FileHelper.AllInfoReplace(template, "Template", "RBAC");
