@@ -6,24 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.BBS.Application.Contracts;
-using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
-using Yi.Framework.Ddd;
-using Yi.BBS.Domain;
-using Yi.RBAC.Application;
+using Yi.RBAC.Domain.Shared;
 
-namespace Yi.BBS.Application
+namespace Yi.RBAC.Domain
 {
     [DependsOn(
-             typeof(YiRBACApplicationModule),
-        typeof(YiBBSApplicationContractsModule),
-        typeof(YiBBSDomainModule),
-        typeof(YiFrameworkAuthJwtBearerModule)
-     
+        typeof(YiRBACDomainSharedModule),
+               typeof(YiFrameworkDataModule)
         )]
-    public class YiBBSApplicationModule : IStartupModule
+    public class YiRBACDomainModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
@@ -31,6 +24,7 @@ namespace Yi.BBS.Application
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
+            //services.AddTransient<StudentManager>();
         }
     }
 }

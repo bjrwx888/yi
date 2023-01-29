@@ -13,9 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Auth.JwtBearer\Yi.Framework.Auth.JwtBearer.csproj" />
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Uow\Yi.Framework.Uow.csproj" />
-    <ProjectReference Include="..\..\rbac\Yi.RBAC.Application\Yi.RBAC.Application.csproj" />
-    <ProjectReference Include="..\Yi.BBS.Application.Contracts\Yi.BBS.Application.Contracts.csproj" />
-    <ProjectReference Include="..\Yi.BBS.Domain\Yi.BBS.Domain.csproj" />
+    <ProjectReference Include="..\Yi.RBAC.Application.Contracts\Yi.RBAC.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Yi.RBAC.Domain\Yi.RBAC.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="ApplicationSwaggerDoc.xml">

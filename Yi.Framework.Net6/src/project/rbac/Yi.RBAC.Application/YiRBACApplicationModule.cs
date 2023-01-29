@@ -6,24 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.BBS.Application.Contracts;
+using Yi.RBAC.Application.Contracts;
 using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
 using Yi.Framework.Ddd;
-using Yi.BBS.Domain;
-using Yi.RBAC.Application;
+using Yi.RBAC.Domain;
 
-namespace Yi.BBS.Application
+namespace Yi.RBAC.Application
 {
     [DependsOn(
-             typeof(YiRBACApplicationModule),
-        typeof(YiBBSApplicationContractsModule),
-        typeof(YiBBSDomainModule),
+        typeof(YiRBACApplicationContractsModule),
+        typeof(YiRBACDomainModule),
         typeof(YiFrameworkAuthJwtBearerModule)
-     
         )]
-    public class YiBBSApplicationModule : IStartupModule
+    public class YiRBACApplicationModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {

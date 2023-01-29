@@ -3,20 +3,16 @@ using StartupModules;
 using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
-using Yi.BBS.Application;
-using Yi.BBS.Sqlsugar;
-using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
-using Yi.Framework.Core.Autofac;
 using Yi.RBAC.Application;
+using Yi.RBAC.Sqlsugar;
 
-namespace Yi.BBS.Web
+namespace Yi.RBAC.Web
 {
     [DependsOn(
-        typeof(YiFrameworkCoreAutofacModule),
-        typeof(YiBBSSqlsugarModule),
-        typeof(YiBBSApplicationModule)
+        typeof(YiRBACSqlsugarModule),
+        typeof(YiRBACApplicationModule)
         )]
-    public class YiBBSWebModule : IStartupModule
+    public class YiRBACWebModule : IStartupModule
     {
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
@@ -25,12 +21,11 @@ namespace Yi.BBS.Web
             services.AddAutoApiService(opt =>
             {
                 //NETServiceTest所在程序集添加进动态api配置
-                opt.CreateConventional(typeof(YiBBSApplicationModule).Assembly, option => option.RootPath = string.Empty);
                 opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
             });
 
             //添加swagger
-            services.AddSwaggerServer<YiBBSApplicationModule>();
+            services.AddSwaggerServer<YiRBACApplicationModule>();
         }
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
