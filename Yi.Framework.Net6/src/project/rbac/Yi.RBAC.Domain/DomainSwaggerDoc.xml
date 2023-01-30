@@ -4,5 +4,140 @@
         <name>Yi.RBAC.Domain</name>
     </assembly>
     <members>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.UserEntity">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Salt">
+            <summary>
+            加密盐值
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Icon">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Nick">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Ip">
+            <summary>
+            Ip
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Introduction">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.DeptId">
+            <summary>
+            部门id
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.SexEnum">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:Yi.RBAC.Domain.Identity.Entities.SexEnum.Male">
+            <summary>
+            男性
+            </summary>
+        </member>
+        <member name="F:Yi.RBAC.Domain.Identity.Entities.SexEnum.Woman">
+            <summary>
+            女性
+            </summary>
+        </member>
+        <member name="F:Yi.RBAC.Domain.Identity.Entities.SexEnum.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
     </members>
 </doc>
