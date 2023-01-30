@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
 using System;
@@ -8,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Sqlsugar;
-using Yi.BBS.Domain;
-using Yi.RBAC.Sqlsugar;
+using Yi.Template.Domain;
 
-namespace Yi.BBS.Sqlsugar
+namespace Yi.Template.Sqlsugar
 {
     [DependsOn(typeof(YiFrameworkCoreSqlsugarModule),
-        typeof(YiBBSDomainModule),
-        typeof(YiRBACSqlsugarModule))]
-    public class YiBBSSqlsugarModule : IStartupModule
+        typeof(YiTemplateDomainModule))]
+    public class YiTemplateSqlsugarModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {

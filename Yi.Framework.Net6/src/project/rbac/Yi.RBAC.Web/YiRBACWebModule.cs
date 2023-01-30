@@ -3,12 +3,14 @@ using StartupModules;
 using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
+using Yi.Framework.Core.Autofac;
 using Yi.RBAC.Application;
 using Yi.RBAC.Sqlsugar;
 
 namespace Yi.RBAC.Web
 {
     [DependsOn(
+          typeof(YiFrameworkCoreAutofacModule),
         typeof(YiRBACSqlsugarModule),
         typeof(YiRBACApplicationModule)
         )]

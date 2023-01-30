@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.BBS.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Yi.BBS.Application.Contracts.Exhibition.Dtos.Banner.BannerCreateInputVo">
+            <summary>
+            Banner输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Exhibition.IBannerService">
+            <summary>
+            Banner抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.ArticleCreateInputVo">
+            <summary>
+            Article输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo">
+            <summary>
+            Comment输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussCreateInputVo">
+            <summary>
+            Discuss输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.MyTypeCreateInputVo">
+            <summary>
+            Label输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.Plate.PlateCreateInputVo">
+            <summary>
+            Plate输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.IArticleService">
+            <summary>
+            Article服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.ICommentService">
+            <summary>
+            Comment服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.IDiscussService">
+            <summary>
+            Discuss服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.ILabelService">
+            <summary>
+            Label服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.IPlateService">
+            <summary>
+            Plate服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.GlobalSetting.ISettingService">
+            <summary>
+            Setting应用抽象
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.Contracts.GlobalSetting.ISettingService.GetTitleAsync">
+            <summary>
+            获取配置标题
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.BBS.Domain</name>
+    </assembly>
+    <members>
+        <member name="M:Yi.BBS.Domain.Forum.Entities.ArticleEntityExtensions.Tile(System.Collections.Generic.List{Yi.BBS.Domain.Forum.Entities.ArticleEntity})">
+            <summary>
+            平铺自己
+            </summary>
+            <param name="entities"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.BBS.Domain.Forum.ForumManager">
+            <summary>
+            论坛模块的领域服务
+            </summary>
+        </member>
+    </members>
+</doc>

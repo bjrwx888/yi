@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Yi.Template.Application.Contracts.School.Dtos
 {
-    /// <summary>
-    /// Student输入创建对象
-    /// </summary>
-    public class StudentCreateInputVo
+    public class StudentUpdateInputVo
     {
-        public long Id { get; set; }
         public string Name { get; set; }
         public int? Height { get; set; }
         public string? Phone { get; set; }

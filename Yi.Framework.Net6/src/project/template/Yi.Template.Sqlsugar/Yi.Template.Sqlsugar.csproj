@@ -11,8 +11,7 @@
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Core.Sqlsugar\Yi.Framework.Core.Sqlsugar.csproj" />
-    <ProjectReference Include="..\..\rbac\Yi.RBAC.Sqlsugar\Yi.RBAC.Sqlsugar.csproj" />
-    <ProjectReference Include="..\Yi.BBS.Domain\Yi.BBS.Domain.csproj" />
+    <ProjectReference Include="..\Yi.Template.Domain\Yi.Template.Domain.csproj" />
   </ItemGroup>
 
 </Project>

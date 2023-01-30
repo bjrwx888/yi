@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <DocumentationFile>./DomainSwaggerDoc.xml</DocumentationFile>
+  </PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
+    <ProjectReference Include="..\Yi.BBS.Domain.Shared\Yi.BBS.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DomainSwaggerDoc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

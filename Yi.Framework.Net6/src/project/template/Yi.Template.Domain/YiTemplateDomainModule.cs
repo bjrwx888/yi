@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
 using System;
@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
-using Yi.Framework.Core.Sqlsugar;
-using Yi.BBS.Domain;
-using Yi.RBAC.Sqlsugar;
+using Yi.Framework.Data;
+using Yi.Template.Domain.Shared;
 
-namespace Yi.BBS.Sqlsugar
+namespace Yi.Template.Domain
 {
-    [DependsOn(typeof(YiFrameworkCoreSqlsugarModule),
-        typeof(YiBBSDomainModule),
-        typeof(YiRBACSqlsugarModule))]
-    public class YiBBSSqlsugarModule : IStartupModule
+    [DependsOn(
+        typeof(YiTemplateDomainSharedModule),
+               typeof(YiFrameworkDataModule)
+        )]
+    public class YiTemplateDomainModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
@@ -24,7 +24,7 @@ namespace Yi.BBS.Sqlsugar
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            //services.AddTransient<IStudentRepository, StudentRepository>();
+            //services.AddTransient<StudentManager>();
         }
     }
 }

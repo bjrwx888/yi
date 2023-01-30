@@ -7,7 +7,7 @@ using Yi.Framework.Ddd.Dtos;
 
 namespace Yi.Template.Application.Contracts.School.Dtos
 {
-    public class StudentGetListInputVo : PagedAndSortedResultRequestDto
+    public class StudentGetOutputDto : IEntityDto<long>
     {
         public long Id { get; set; }
         public string Name { get; set; }

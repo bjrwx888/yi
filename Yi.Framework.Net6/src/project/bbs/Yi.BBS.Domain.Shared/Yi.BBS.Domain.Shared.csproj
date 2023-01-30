@@ -5,14 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
 	<ItemGroup>
 		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
 	</ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\framework\Yi.Framework.Core.Sqlsugar\Yi.Framework.Core.Sqlsugar.csproj" />
-    <ProjectReference Include="..\..\rbac\Yi.RBAC.Sqlsugar\Yi.RBAC.Sqlsugar.csproj" />
-    <ProjectReference Include="..\Yi.BBS.Domain\Yi.BBS.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\framework\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
+	</ItemGroup>
 
 </Project>
