@@ -4,6 +4,16 @@
         <name>Yi.RBAC.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.UserCreateInputVo">
+            <summary>
+            User输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IUserService">
+            <summary>
+            User服务抽象
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.School.Dtos.StudentCreateInputVo">
             <summary>
             Student输入创建对象

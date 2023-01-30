@@ -119,25 +119,34 @@
             排序
             </summary>
         </member>
-        <member name="T:Yi.RBAC.Domain.Identity.Entities.SexEnum">
+        <member name="M:Yi.RBAC.Domain.Identity.Repositories.IUserRepository.GetUserAllInfoAsync(System.Int64)">
             <summary>
-            性别
+            获取当前登录用户的所有信息
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.UserManager">
+            <summary>
+            用户领域服务
             </summary>
         </member>
-        <member name="F:Yi.RBAC.Domain.Identity.Entities.SexEnum.Male">
+        <member name="M:Yi.RBAC.Domain.Identity.UserManager.LoginValidationAsync(System.String,System.String,System.Action{Yi.RBAC.Domain.Identity.Entities.UserEntity})">
             <summary>
-            男性
+            登录效验
             </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <param name="userAction"></param>
+            <returns></returns>
         </member>
-        <member name="F:Yi.RBAC.Domain.Identity.Entities.SexEnum.Woman">
+        <member name="M:Yi.RBAC.Domain.Identity.UserManager.ExistAsync(System.String,System.Action{Yi.RBAC.Domain.Identity.Entities.UserEntity})">
             <summary>
-            女性
+            判断账户合法存在
             </summary>
-        </member>
-        <member name="F:Yi.RBAC.Domain.Identity.Entities.SexEnum.Unknown">
-            <summary>
-            未知
-            </summary>
+            <param name="userName"></param>
+            <param name="userAction"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.RBAC.Domain.Shared.Identity.EnumClasses;
 
 namespace Yi.RBAC.Application.Contracts.Identity.Dtos
 {

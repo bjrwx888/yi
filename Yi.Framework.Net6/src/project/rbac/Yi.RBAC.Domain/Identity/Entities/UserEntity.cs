@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Data.Auditing;
 using Yi.Framework.Data.Entities;
 using Yi.Framework.Ddd.Entities;
+using Yi.RBAC.Domain.Shared.Identity.EnumClasses;
 
 namespace Yi.RBAC.Domain.Identity.Entities
 {
@@ -129,23 +130,5 @@ namespace Yi.RBAC.Domain.Identity.Entities
         public int OrderNum { get; set; } = 0;
     }
 
-    /// <summary>
-    /// 性别
-    /// </summary>
-    public enum SexEnum
-    {
-        /// <summary>
-        /// 男性
-        /// </summary>
-        Male = 0,
-        /// <summary>
-        /// 女性
-        /// </summary>
-        Woman = 1,
-        /// <summary>
-        /// 未知
-        /// </summary>
-        Unknown = 2
 
-    }
 }

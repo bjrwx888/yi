@@ -12,5 +12,7 @@ namespace Yi.RBAC.Domain.Shared.Identity.ConstClasses
 
     public class UserConst
     {
+        public const string 登录失败_错误 = "登录失败！用户名或密码错误！";
+        public const string 登录失败_不存在 = "登录失败！用户名不存在！";
     }
 }
