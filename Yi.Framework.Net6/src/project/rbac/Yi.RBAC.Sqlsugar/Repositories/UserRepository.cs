@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Sqlsugar.Repositories;
+using Yi.Framework.Ddd.Dtos;
+using Yi.Framework.Ddd.Dtos.Abstract;
 using Yi.Framework.Ddd.Repositories;
 using Yi.RBAC.Domain.Identity.Dtos;
 using Yi.RBAC.Domain.Identity.Entities;
@@ -19,6 +21,17 @@ namespace Yi.RBAC.Sqlsugar.Repositories
     {
         public UserRepository(ISqlSugarClient context) : base(context)
         {
+        }
+
+
+        public async Task<List<UserEntity>> SelctGetListAsync(UserEntity input, IPagedAllResultRequestDto pageInput)
+        {
+            var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!)).
+                         WhereIF(input.Phone is not null, x => x.Phone.ToString()! .Contains(input.Phone.ToString()!)).
+                     WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name!.Contains(input.Name!)).
+       WhereIF(pageInput.StartTime is not null && pageInput.EndTime is not null, x => x.CreationTime >= pageInput.StartTime && x.CreationTime <= pageInput.EndTime).ToPageListAsync(pageInput.PageIndex, pageInput.PageSize);
+
+            return entities;
         }
 
         /// <summary>
@@ -71,7 +84,7 @@ namespace Yi.RBAC.Sqlsugar.Repositories
                 }
 
                 //刚好可以去除一下多余的导航属性
-                role.Menus =new List<MenuEntity>();
+                role.Menus = new List<MenuEntity>();
                 userRoleMenu.Roles.Add(role);
             }
 

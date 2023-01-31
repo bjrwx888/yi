@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Ddd.Dtos;
+using Yi.Framework.Ddd.Dtos.Abstract;
 using Yi.Framework.Ddd.Repositories;
 using Yi.RBAC.Domain.Identity.Dtos;
 using Yi.RBAC.Domain.Identity.Entities;
@@ -18,5 +20,13 @@ namespace Yi.RBAC.Domain.Identity.Repositories
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<UserRoleMenuDto> GetUserAllInfoAsync(long userId);
+
+        /// <summary>
+        /// 动态分页选择
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="pageInput"></param>
+        /// <returns></returns>
+        Task<List<UserEntity>> SelctGetListAsync(UserEntity input, IPagedAllResultRequestDto pageInput);
     }
 }

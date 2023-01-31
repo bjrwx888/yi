@@ -36,6 +36,13 @@
             User服务实现
             </summary>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.UserService.GetListAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.UserGetListInputVo)">
+            <summary>
+            查询用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.RBAC.Application.Identity.UserService.CreateAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.UserCreateInputVo)">
             <summary>
             添加用户

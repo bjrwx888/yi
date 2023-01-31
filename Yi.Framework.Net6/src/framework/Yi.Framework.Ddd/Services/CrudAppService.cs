@@ -57,6 +57,11 @@ namespace Yi.Framework.Ddd.Services
     where TGetListOutputDto : IEntityDto<TKey>
 
     {
+        protected virtual Task<TEntity> MapToEntityAsync(TGetListInput getListinput)
+        {
+            return Task.FromResult(_mapper.Map<TEntity>(getListinput));
+        }
+
 
         protected virtual Task<TEntity> MapToEntityAsync(TCreateInput createInput)
         {
@@ -153,7 +158,6 @@ namespace Yi.Framework.Ddd.Services
             {
                 throw new ArgumentNullException(nameof(id));
             }
-
             var entity = await MapToEntityAsync(input);
             entity.Id = id;
             await _repository.UpdateIgnoreNullAsync(entity);

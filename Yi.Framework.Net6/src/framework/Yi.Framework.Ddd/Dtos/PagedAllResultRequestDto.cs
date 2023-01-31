@@ -8,7 +8,7 @@ using Yi.Framework.Ddd.Services.Abstract;
 
 namespace Yi.Framework.Ddd.Dtos
 {
-    public class PagedAllResultRequestDto : PagedAndSortedResultRequestDto, IPageTimeResultRequestDto, IPagedAndSortedResultRequestDto
+    public class PagedAllResultRequestDto : PagedAndSortedResultRequestDto, IPagedAllResultRequestDto, IPagedAndSortedResultRequestDto, IPageTimeResultRequestDto
     {
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }

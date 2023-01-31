@@ -6,6 +6,8 @@ using Yi.Framework.Ddd.Services;
 using Yi.RBAC.Domain.Shared.Identity.ConstClasses;
 using Yi.RBAC.Domain.Identity;
 using Yi.Framework.Uow;
+using Yi.Framework.Ddd.Dtos;
+using Yi.RBAC.Domain.Identity.Repositories;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -21,6 +23,25 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private IUnitOfWorkManager _unitOfWorkManager { get; set; }
+
+        [Autowired]
+        private IUserRepository _userRepository { get; set; }
+
+        /// <summary>
+        /// 查询用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<PagedResultDto<UserGetListOutputDto>> GetListAsync(UserGetListInputVo input)
+        {
+            var entity = await MapToEntityAsync(input);
+            var entities = await _userRepository.SelctGetListAsync(entity, input);
+            var result = new PagedResultDto<UserGetListOutputDto>();
+            result.Items = await MapToGetListOutputDtosAsync(entities);
+            result.Total = await _repository.CountAsync(_ => true);
+            return result;
+        }
+
         /// <summary>
         /// 添加用户
         /// </summary>

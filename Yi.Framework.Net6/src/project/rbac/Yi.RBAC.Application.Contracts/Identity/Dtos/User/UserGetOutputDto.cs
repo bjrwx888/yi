@@ -28,5 +28,7 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public long? DeptId { get; set; }
         public DateTime CreationTime { get; set; } = DateTime.Now;
         public long? CreatorId { get; set; }
+
+        public bool State { get; set; }
     }
 }
