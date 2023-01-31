@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Ddd.Repositories;
+using Yi.RBAC.Domain.Identity.Dtos;
 using Yi.RBAC.Domain.Identity.Entities;
 using Yi.RBAC.Domain.Shared.Identity.Dtos;
 

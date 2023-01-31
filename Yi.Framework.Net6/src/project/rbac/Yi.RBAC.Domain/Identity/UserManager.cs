@@ -3,70 +3,80 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Core.Exceptions;
 using Yi.Framework.Ddd.Repositories;
 using Yi.RBAC.Domain.Identity.Entities;
-using Yi.RBAC.Domain.Shared.Identity.ConstClasses;
 
 namespace Yi.RBAC.Domain.Identity
 {
-
-    /// <summary>
-    /// 用户领域服务
-    /// </summary>
     [AppService]
     public class UserManager
     {
         private readonly IRepository<UserEntity> _repository;
-        public UserManager(IRepository<UserEntity> repository)
-        {
-            _repository = repository;
-        }
+        private readonly IRepository<UserRoleEntity> _repositoryUserRole;
+        private readonly IRepository<UserPostEntity> _repositoryUserPost;
+        public UserManager(IRepository<UserEntity> repository, IRepository<UserRoleEntity> repositoryUserRole, IRepository<UserPostEntity> repositoryUserPost) =>
+            (_repository, _repositoryUserRole, _repositoryUserPost) =
+            (repository, repositoryUserRole, repositoryUserPost);
 
         /// <summary>
-        /// 登录效验
+        /// 给用户设置角色
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <param name="userAction"></param>
+        /// <param name="userIds"></param>
+        /// <param name="roleIds"></param>
         /// <returns></returns>
-        public async Task LoginValidationAsync(string userName, string password, Action<UserEntity>? userAction = null)
+        public async Task GiveUserSetRoleAsync(List<long> userIds, List<long>? roleIds)
         {
-            var user = new UserEntity();
-            if (await ExistAsync(userName, o => user = o))
+            //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+            await _repositoryUserRole.DeleteAsync(u => userIds.Contains(u.UserId));
+
+            if (roleIds is not null)
             {
-                if (userAction is not null)
+                //遍历用户
+                foreach (var userId in userIds)
                 {
-                    userAction.Invoke(user);
+                    //添加新的关系
+                    List<UserRoleEntity> userRoleEntities = new();
+
+                    foreach (var roleId in roleIds)
+                    {
+                        userRoleEntities.Add(new UserRoleEntity() { Id = SnowflakeHelper.NextId, UserId = userId, RoleId = roleId });
+                    }
+                    //一次性批量添加
+                    await _repositoryUserRole.InsertRangeAsync(userRoleEntities);
                 }
-                if (user.Password != MD5Helper.SHA2Encode(password, user.Salt))
-                {
-                    return;
-                }
-                throw new UserFriendlyException(UserConst.登录失败_错误);
             }
-            throw new UserFriendlyException(UserConst.登录失败_不存在);
         }
 
+
         /// <summary>
-        /// 判断账户合法存在
+        /// 给用户设置岗位
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="userAction"></param>
+        /// <param name="userIds"></param>
+        /// <param name="postIds"></param>
         /// <returns></returns>
-        public async Task<bool> ExistAsync(string userName, Action<UserEntity>? userAction = null)
+        public async Task GiveUserSetPostAsync(List<long> userIds, List<long>? postIds)
         {
-            var user = await _repository.GetFirstAsync(u => u.UserName == userName && u.IsDeleted == false);
-            if (userAction is not null)
+            //删除用户之前所有的用户角色关系（物理删除，没有恢复的必要）
+            await _repositoryUserPost.DeleteAsync(u => userIds.Contains(u.UserId));
+            if (postIds is not null)
             {
-                userAction.Invoke(user);
+                //遍历用户
+                foreach (var userId in userIds)
+                {
+                    //添加新的关系
+                    List<UserPostEntity> userPostEntities = new();
+                    foreach (var post in postIds)
+                    {
+                        userPostEntities.Add(new UserPostEntity() { Id = SnowflakeHelper.NextId, UserId = userId, PostId = post });
+                    }
+
+                    //一次性批量添加
+                    await _repositoryUserPost.InsertRangeAsync(userPostEntities);
+                }
+
             }
-            if (user == null)
-            {
-                return false;
-            }
-            return true;
         }
 
     }
+
 }

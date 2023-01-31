@@ -27,7 +27,7 @@ namespace Yi.RBAC.Application.Identity
         [Autowired]
         private ICurrentUser _currentUser { get; set; }
         [Autowired]
-        private UserManager _userManager { get; set; }
+        private AccountManager _accountManager { get; set; }
 
         /// <summary>
         /// 登录
@@ -38,16 +38,18 @@ namespace Yi.RBAC.Application.Identity
         {
             UserEntity user = new();
             //登录成功
-            await _userManager.LoginValidationAsync(input.UserName, input.Password, x => user = x);
+            await _accountManager.LoginValidationAsync(input.UserName, input.Password, x => user = x);
 
             //获取用户信息
             var userInfo = await _userRepository.GetUserAllInfoAsync(user.Id);
 
-            //发送令牌
-            var claimDic = new Dictionary<string, object>();
-            claimDic.Add(nameof(ICurrentUser.Id), 123456);
+            if (userInfo.PermissionCodes.Count == 0)
+            {
+                throw new UserFriendlyException(UserConst.用户无权限分配);
+            }
 
-            var token = _jwtTokenManager.CreateToken(claimDic);
+            //创建token
+            var token = _jwtTokenManager.CreateToken(_accountManager.UserInfoToClaim(userInfo));
             return token;
         }
     }

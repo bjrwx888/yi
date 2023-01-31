@@ -4,6 +4,387 @@
         <name>Yi.RBAC.Domain</name>
     </assembly>
     <members>
+        <member name="T:Yi.RBAC.Domain.Identity.AccountManager">
+            <summary>
+            用户领域服务
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.AccountManager.LoginValidationAsync(System.String,System.String,System.Action{Yi.RBAC.Domain.Identity.Entities.UserEntity})">
+            <summary>
+            登录效验
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <param name="userAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.AccountManager.ExistAsync(System.String,System.Action{Yi.RBAC.Domain.Identity.Entities.UserEntity})">
+            <summary>
+            判断账户合法存在
+            </summary>
+            <param name="userName"></param>
+            <param name="userAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.AccountManager.UserInfoToClaim(Yi.RBAC.Domain.Identity.Dtos.UserRoleMenuDto)">
+            <summary>
+            令牌转换
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.DeptEntity">
+             <summary>
+             部门表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.DeptName">
+             <summary>
+             部门名称 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.DeptCode">
+             <summary>
+             部门编码 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.Leader">
+             <summary>
+             负责人 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.ParentId">
+             <summary>
+             父级id 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.DeptEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.MenuEntity">
+             <summary>
+             菜单表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.MenuName">
+            <summary>
+            菜单名
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.MenuType">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.PermissionCode">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.ParentId">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.MenuIcon">
+             <summary>
+             菜单图标 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.Router">
+             <summary>
+             菜单组件路由 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.IsLink">
+             <summary>
+             是否为外部链接 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.IsCache">
+             <summary>
+             是否缓存 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.IsShow">
+             <summary>
+             是否显示 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.Component">
+             <summary>
+             组件路径 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.MenuEntity.Query">
+             <summary>
+             路由参数 
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.MenuEntityExtensions">
+            <summary>
+            实体扩展
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.Entities.MenuEntityExtensions.Vue3RouterBuild(System.Collections.Generic.List{Yi.RBAC.Domain.Identity.Entities.MenuEntity})">
+            <summary>
+            构建vue3路由
+            </summary>
+            <param name="menus"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.PostEntity">
+             <summary>
+             岗位表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.PostCode">
+             <summary>
+             岗位编码 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.PostName">
+             <summary>
+             岗位名称 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.PostEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.RoleDeptEntity">
+             <summary>
+             角色部门关系表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleDeptEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleDeptEntity.RoleId">
+             <summary>
+             角色id 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleDeptEntity.DeptId">
+             <summary>
+             部门id 
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.RoleEntity">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.RoleName">
+            <summary>
+            角色名
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.RoleCode">
+             <summary>
+             角色编码 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.DataScope">
+             <summary>
+             角色数据范围 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.RoleMenuEntity">
+             <summary>
+             角色菜单关系表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleMenuEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleMenuEntity.RoleId">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.RoleMenuEntity.MenuId">
+             <summary>
+              
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Domain.Identity.Entities.UserEntity">
             <summary>
             用户表
@@ -119,6 +500,78 @@
             排序
             </summary>
         </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Roles">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Posts">
+            <summary>
+            岗位
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserEntity.Dept">
+            <summary>
+            部门
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.Entities.UserEntity.BuildPassword(System.String)">
+            <summary>
+            构建密码，MD5盐值加密
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.Entities.UserEntity.JudgePassword(System.String)">
+            <summary>
+            判断密码和加密后的密码是否相同
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.UserPostEntity">
+             <summary>
+             用户岗位表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserPostEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserPostEntity.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserPostEntity.PostId">
+             <summary>
+             岗位id 
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Domain.Identity.Entities.UserRoleEntity">
+             <summary>
+             用户角色关系表
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserRoleEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserRoleEntity.RoleId">
+            <summary>
+            角色id
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Identity.Entities.UserRoleEntity.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
         <member name="M:Yi.RBAC.Domain.Identity.Repositories.IUserRepository.GetUserAllInfoAsync(System.Int64)">
             <summary>
             获取当前登录用户的所有信息
@@ -126,26 +579,20 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="T:Yi.RBAC.Domain.Identity.UserManager">
+        <member name="M:Yi.RBAC.Domain.Identity.UserManager.GiveUserSetRoleAsync(System.Collections.Generic.List{System.Int64},System.Collections.Generic.List{System.Int64})">
             <summary>
-            用户领域服务
+            给用户设置角色
             </summary>
-        </member>
-        <member name="M:Yi.RBAC.Domain.Identity.UserManager.LoginValidationAsync(System.String,System.String,System.Action{Yi.RBAC.Domain.Identity.Entities.UserEntity})">
-            <summary>
-            登录效验
-            </summary>
-            <param name="userName"></param>
-            <param name="password"></param>
-            <param name="userAction"></param>
+            <param name="userIds"></param>
+            <param name="roleIds"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.RBAC.Domain.Identity.UserManager.ExistAsync(System.String,System.Action{Yi.RBAC.Domain.Identity.Entities.UserEntity})">
+        <member name="M:Yi.RBAC.Domain.Identity.UserManager.GiveUserSetPostAsync(System.Collections.Generic.List{System.Int64},System.Collections.Generic.List{System.Int64})">
             <summary>
-            判断账户合法存在
+            给用户设置岗位
             </summary>
-            <param name="userName"></param>
-            <param name="userAction"></param>
+            <param name="userIds"></param>
+            <param name="postIds"></param>
             <returns></returns>
         </member>
     </members>

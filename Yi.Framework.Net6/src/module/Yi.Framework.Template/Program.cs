@@ -16,7 +16,7 @@ TemplateFactory templateFactory = new();
 //List<string> entityNames = new() { "Banner" };
 string modelName = "Identity";
 string nameSpaces = "Yi.RBAC";
-List<string> entityNames = new() { "User" };
+List<string> entityNames = new() { "_" };
 
 
 

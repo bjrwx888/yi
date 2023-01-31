@@ -4,24 +4,54 @@
         <name>Yi.RBAC.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.DeptCreateInputVo">
+            <summary>
+            Dept输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.MenuCreateInputVo">
+            <summary>
+            Menu输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.PostCreateInputVo">
+            <summary>
+            Post输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.RoleCreateInputVo">
+            <summary>
+            Role输入创建对象
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.UserCreateInputVo">
             <summary>
             User输入创建对象
             </summary>
         </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IDeptService">
+            <summary>
+            Dept服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IMenuService">
+            <summary>
+            Menu服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IPostService">
+            <summary>
+            Post服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IRoleService">
+            <summary>
+            Role服务抽象
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Identity.IUserService">
             <summary>
             User服务抽象
-            </summary>
-        </member>
-        <member name="T:Yi.RBAC.Application.Contracts.School.Dtos.StudentCreateInputVo">
-            <summary>
-            Student输入创建对象
-            </summary>
-        </member>
-        <member name="T:Yi.RBAC.Application.Contracts.School.IStudentService">
-            <summary>
-            Student
             </summary>
         </member>
     </members>

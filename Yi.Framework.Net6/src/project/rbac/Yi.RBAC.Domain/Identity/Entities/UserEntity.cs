@@ -15,7 +15,7 @@ namespace Yi.RBAC.Domain.Identity.Entities
     /// 用户表
     /// </summary>
     [SugarTable("User")]
-    public class UserEntity : IEntity<long>, ISoftDelete, IAuditedObject, IOrderNum
+    public class UserEntity : IEntity<long>, ISoftDelete, IAuditedObject, IOrderNum,IState
     {
         /// <summary>
         /// 主键
@@ -128,6 +128,71 @@ namespace Yi.RBAC.Domain.Identity.Entities
         /// 排序
         /// </summary>
         public int OrderNum { get; set; } = 0;
+
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public bool State { get; set; } = true;
+
+
+        /// <summary>
+        /// 角色
+        /// </summary>
+        [Navigate(typeof(UserRoleEntity), nameof(UserRoleEntity.UserId), nameof(UserRoleEntity.RoleId))]
+        public List<RoleEntity> Roles { get; set; }
+
+        /// <summary>
+        /// 岗位
+        /// </summary>
+
+        [Navigate(typeof(UserPostEntity), nameof(UserPostEntity.UserId), nameof(UserPostEntity.PostId))]
+        public List<PostEntity> Posts { get; set; }
+
+        /// <summary>
+        /// 部门
+        /// </summary>
+
+        [Navigate(NavigateType.OneToOne, nameof(DeptId))]
+        public DeptEntity? Dept { get; set; }
+
+        /// <summary>
+        /// 构建密码，MD5盐值加密
+        /// </summary>
+        public UserEntity BuildPassword(string? password = null)
+        {
+            //如果不传值，那就把自己的password当作传进来的password
+            if (password == null)
+            {
+                if (Password == null)
+                {
+                    throw new ArgumentNullException(nameof(Password));
+                }
+                password = Password;
+            }
+            Salt = MD5Helper.GenerateSalt();
+            Password = MD5Helper.SHA2Encode(password, Salt);
+            return this;
+        }
+
+        /// <summary>
+        /// 判断密码和加密后的密码是否相同
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool JudgePassword(string password)
+        {
+            if (this.Salt is null)
+            {
+                throw new ArgumentNullException(this.Salt);
+            }
+            var p = MD5Helper.SHA2Encode(password, Salt);
+            if (Password == MD5Helper.SHA2Encode(password, Salt))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
 
