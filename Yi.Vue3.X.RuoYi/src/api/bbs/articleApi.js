@@ -1,9 +1,9 @@
-import request from '@/utils/request'
+﻿import request from '@/utils/request'
 
 // 分页查询
 export function listData(query) {
   return request({
-    url: '/stock/pageList',
+    url: '/article/pageList',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listData(query) {
 // id查询
 export function getData(code) {
   return request({
-    url: '/stock/getById/' + code,
+    url: '/article/getById/' + code,
     method: 'get'
   })
 }
@@ -20,16 +20,16 @@ export function getData(code) {
 // 新增
 export function addData(data) {
   return request({
-    url: '/stock/create',
+    url: '/article/add',
     method: 'post',
     data: data
   })
 }
 
 // 修改
-export function updateData(id,data) {
+export function updateData(data) {
   return request({
-    url: `/stock/update/${id}`,
+    url: '/article/update',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateData(id,data) {
 // 删除
 export function delData(code) {
   return request({
-    url: '/stock/del',
+    url: '/article/delList',
     method: 'delete',
     data:"string"==typeof(code)?[code]:code
   })
