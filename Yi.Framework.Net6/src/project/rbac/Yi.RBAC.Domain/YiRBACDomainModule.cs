@@ -1,3 +1,4 @@
+using Hei.Captcha;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
@@ -8,13 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
+using Yi.Framework.ThumbnailSharp;
 using Yi.RBAC.Domain.Shared;
 
 namespace Yi.RBAC.Domain
 {
     [DependsOn(
         typeof(YiRBACDomainSharedModule),
-               typeof(YiFrameworkDataModule)
+               typeof(YiFrameworkDataModule),
+        typeof(YiFrameworkThumbnailSharpModule)
         )]
     public class YiRBACDomainModule : IStartupModule
     {
@@ -24,7 +27,7 @@ namespace Yi.RBAC.Domain
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            //services.AddTransient<StudentManager>();
+            services.AddHeiCaptcha();
         }
     }
 }

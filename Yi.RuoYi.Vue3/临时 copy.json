@@ -1,0 +1,440 @@
+[
+    {
+        "id": 1621797307555123200,
+        "parentId": 0,
+        "orderNum": 100,
+        "name": "System",
+        "path": "/system",
+        "hidden": false,
+        "redirect": "noRedirect",
+        "component": "Layout",
+        "alwaysShow": true,
+        "meta": {
+            "title": "系统管理",
+            "icon": "system",
+            "noCache": true,
+            "link": ""
+        },
+        "children": [
+            {
+                "id": 1621797307559317541,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "User",
+                "path": "user",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/user/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "用户管理",
+                    "icon": "user",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317546,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Role",
+                "path": "role",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/role/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "角色管理",
+                    "icon": "peoples",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317551,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Menu",
+                "path": "menu",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/menu/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "菜单管理",
+                    "icon": "tree-table",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317556,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Dept",
+                "path": "dept",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/dept/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "部门管理",
+                    "icon": "tree",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317561,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Post",
+                "path": "post",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/post/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "岗位管理",
+                    "icon": "post",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317566,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Dict",
+                "path": "dict",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/dict/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "字典管理",
+                    "icon": "dict",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317571,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Config",
+                "path": "config",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "system/config/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "参数设置",
+                    "icon": "edit",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317576,
+                "parentId": 1621797307555123200,
+                "orderNum": 100,
+                "name": "Log",
+                "path": "log",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "ParentView",
+                "alwaysShow": true,
+                "meta": {
+                    "title": "日志管理",
+                    "icon": "log",
+                    "noCache": true,
+                    "link": ""
+                },
+                "children": [
+                    {
+                        "id": 1621797307559317577,
+                        "parentId": 1621797307559317576,
+                        "orderNum": 100,
+                        "name": "Operlog",
+                        "path": "operlog",
+                        "hidden": false,
+                        "redirect": "noRedirect",
+                        "component": "monitor/operlog/index",
+                        "alwaysShow": false,
+                        "meta": {
+                            "title": "操作日志",
+                            "icon": "form",
+                            "noCache": false,
+                            "link": ""
+                        },
+                        "children": null
+                    },
+                    {
+                        "id": 1621797307559317580,
+                        "parentId": 1621797307559317576,
+                        "orderNum": 100,
+                        "name": "Logininfor",
+                        "path": "logininfor",
+                        "hidden": false,
+                        "redirect": "noRedirect",
+                        "component": "monitor/logininfor/index",
+                        "alwaysShow": false,
+                        "meta": {
+                            "title": "登录日志",
+                            "icon": "logininfor",
+                            "noCache": false,
+                            "link": ""
+                        },
+                        "children": null
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 1621797307559317504,
+        "parentId": 0,
+        "orderNum": 99,
+        "name": "Monitor",
+        "path": "/monitor",
+        "hidden": false,
+        "redirect": "noRedirect",
+        "component": "Layout",
+        "alwaysShow": true,
+        "meta": {
+            "title": "系统监控",
+            "icon": "monitor",
+            "noCache": true,
+            "link": ""
+        },
+        "children": [
+            {
+                "id": 1621797307559317505,
+                "parentId": 1621797307559317504,
+                "orderNum": 100,
+                "name": "Online",
+                "path": "online",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "monitor/online/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "在线用户",
+                    "icon": "online",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            }
+        ]
+    },
+    {
+        "id": 1621797307559317506,
+        "parentId": 0,
+        "orderNum": 98,
+        "name": "Tool",
+        "path": "/tool",
+        "hidden": false,
+        "redirect": "noRedirect",
+        "component": "Layout",
+        "alwaysShow": true,
+        "meta": {
+            "title": "系统工具",
+            "icon": "tool",
+            "noCache": true,
+            "link": ""
+        },
+        "children": [
+            {
+                "id": 1621797307559317507,
+                "parentId": 1621797307559317506,
+                "orderNum": 100,
+                "name": "Localhost:19001",
+                "path": "http://localhost:19001",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": null,
+                "alwaysShow": false,
+                "meta": {
+                    "title": "接口文档",
+                    "icon": "list",
+                    "noCache": true,
+                    "link": "http://localhost:19001"
+                },
+                "children": null
+            }
+        ]
+    },
+    {
+        "id": 1621797307559317508,
+        "parentId": 0,
+        "orderNum": 97,
+        "name": "S",
+        "path": "s",
+        "hidden": false,
+        "redirect": "noRedirect",
+        "component": "Layout",
+        "alwaysShow": true,
+        "meta": {
+            "title": "BBS",
+            "icon": "international",
+            "noCache": true,
+            "link": ""
+        },
+        "children": [
+            {
+                "id": 1621797307559317509,
+                "parentId": 1621797307559317508,
+                "orderNum": 100,
+                "name": "Article",
+                "path": "article",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "bbs/article/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "文章管理",
+                    "icon": "education",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            }
+        ]
+    },
+    {
+        "id": 1621797307559317514,
+        "parentId": 0,
+        "orderNum": 96,
+        "name": "Erp",
+        "path": "/erp",
+        "hidden": false,
+        "redirect": "noRedirect",
+        "component": "Layout",
+        "alwaysShow": true,
+        "meta": {
+            "title": "ERP",
+            "icon": "international",
+            "noCache": true,
+            "link": ""
+        },
+        "children": [
+            {
+                "id": 1621797307559317515,
+                "parentId": 1621797307559317514,
+                "orderNum": 100,
+                "name": "Supplier",
+                "path": "supplier",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "erp/supplier/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "供应商定义",
+                    "icon": "education",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317520,
+                "parentId": 1621797307559317514,
+                "orderNum": 100,
+                "name": "Warehouse",
+                "path": "warehouse",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "erp/warehouse/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "仓库定义",
+                    "icon": "education",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317525,
+                "parentId": 1621797307559317514,
+                "orderNum": 100,
+                "name": "Unit",
+                "path": "unit",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "erp/unit/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "单位定义",
+                    "icon": "education",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317530,
+                "parentId": 1621797307559317514,
+                "orderNum": 100,
+                "name": "Material",
+                "path": "material",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "erp/material/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "物料定义",
+                    "icon": "education",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            },
+            {
+                "id": 1621797307559317535,
+                "parentId": 1621797307559317514,
+                "orderNum": 100,
+                "name": "Purchase",
+                "path": "purchase",
+                "hidden": false,
+                "redirect": "noRedirect",
+                "component": "erp/purchase/index",
+                "alwaysShow": false,
+                "meta": {
+                    "title": "采购订单",
+                    "icon": "education",
+                    "noCache": false,
+                    "link": ""
+                },
+                "children": null
+            }
+        ]
+    },
+    {
+        "id": 1621797307559317540,
+        "parentId": 0,
+        "orderNum": 90,
+        "name": "Yi",
+        "path": "https://gitee.com/ccnetcore/yi",
+        "hidden": false,
+        "redirect": "noRedirect",
+        "component": "Layout",
+        "alwaysShow": false,
+        "meta": {
+            "title": "Yi框架",
+            "icon": "guide",
+            "noCache": true,
+            "link": "https://gitee.com/ccnetcore/yi"
+        },
+        "children": null
+    }
+]

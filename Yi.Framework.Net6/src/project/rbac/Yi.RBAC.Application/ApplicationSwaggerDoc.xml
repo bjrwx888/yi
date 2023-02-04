@@ -11,6 +11,31 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.Get">
+            <summary>
+            查询已登录的账户信息
+            </summary>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Core.Exceptions.AuthException"></exception>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.GetVue3Router">
+            <summary>
+            获取当前登录用户的前端路由
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostLogout">
+            <summary>
+            退出登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.GetCaptchaImage">
+            <summary>
+            生成验证码
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.RBAC.Application.Identity.DeptService">
             <summary>
             Dept服务实现

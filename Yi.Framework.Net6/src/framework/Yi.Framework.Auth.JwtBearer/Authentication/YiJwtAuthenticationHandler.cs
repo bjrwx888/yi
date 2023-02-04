@@ -53,7 +53,7 @@ namespace Yi.Framework.Auth.JwtBearer.Authentication
                         resp = p.GetString();
                         break;
                     case JsonValueKind.Number:
-                        resp = p.GetInt32().ToString();
+                        resp = p.GetInt64().ToString();
                         break;
                 }
                 claims.Add(new Claim(claim.Key, resp ?? ""));
