@@ -19,13 +19,13 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="数据状态" clearable>
+         <el-form-item label="状态" prop="state">
+            <el-select v-model="queryParams.state" placeholder="数据状态" clearable>
                <el-option
                   v-for="dict in sys_normal_disable"
-                  :key="dict.value"
+                  :key="JSON.parse(dict.value)"
                   :label="dict.label"
-                  :value="dict.value"
+                  :value="JSON.parse(dict.value)"
                />
             </el-select>
          </el-form-item>
@@ -96,15 +96,15 @@
          </el-table-column>
          <el-table-column label="字典键值" align="center" prop="dictValue" />
          <el-table-column label="字典排序" align="center" prop="orderNum" />
-         <el-table-column label="状态" align="center" prop="isDeleted">
+         <el-table-column label="状态" align="center" prop="state">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.state" />
             </template>
          </el-table-column>
          <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="创建时间" align="center" prop="creationTime" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
@@ -161,8 +161,8 @@
                   ></el-option>
                </el-select>
             </el-form-item>
-            <el-form-item label="状态" prop="isDeleted">
-               <el-radio-group v-model="form.isDeleted">
+            <el-form-item label="状态" prop="state">
+               <el-radio-group v-model="form.state">
                   <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="JSON.parse(dict.value)">{{dict.label}}</el-radio>
                </el-radio-group>
             </el-form-item>
@@ -217,7 +217,7 @@ const data = reactive({
     pageSize: 10,
     dictName: undefined,
     dictType: undefined,
-    isDeleted: false
+    state: true
   },
   rules: {
     dictLabel: [{ required: true, message: "数据标签不能为空", trigger: "blur" }],
@@ -240,14 +240,14 @@ function getTypes(dictId) {
 /** 查询字典类型列表 */
 function getTypeList() {
   getDictOptionselect().then(response => {
-    typeOptions.value = response.data;
+    typeOptions.value = response.data.items;
   });
 }
 /** 查询字典数据列表 */
 function getList() {
   loading.value = true;
   listData(queryParams.value).then(response => {
-    dataList.value = response.data.data;
+    dataList.value = response.data.items;
     total.value = response.data.total;
     loading.value = false;
   });
@@ -266,7 +266,7 @@ function reset() {
     cssClass: undefined,
     listClass: "default",
     orderNum: 0,
-    isDeleted: false,
+    state: true,
     remark: undefined
   };
   proxy.resetForm("dataRef");

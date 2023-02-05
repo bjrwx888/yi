@@ -28,17 +28,17 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
 
         public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page)
         {
-            return await base.GetPageListAsync(whereExpression, new PageModel { PageIndex = page.PageIndex, PageSize = page.PageSize });
+            return await base.GetPageListAsync(whereExpression, new PageModel { PageIndex = page.PageNum, PageSize = page.PageSize });
         }
 
         public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page, Expression<Func<T, object>>? orderByExpression = null, OrderByEnum orderByType = OrderByEnum.Asc)
         {
-            return await base.GetPageListAsync(whereExpression, new PageModel { PageIndex = page.PageIndex, PageSize = page.PageSize }, orderByExpression, orderByType.EnumToEnum<OrderByType>());
+            return await base.GetPageListAsync(whereExpression, new PageModel { PageIndex = page.PageNum, PageSize = page.PageSize }, orderByExpression, orderByType.EnumToEnum<OrderByType>());
         }
 
         public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page, string? orderBy, OrderByEnum orderByType = OrderByEnum.Asc)
         {
-            return await _DbQueryable.Where(whereExpression).OrderByIF(orderBy is not null, orderBy + " " + orderByType.ToString().ToLower()).ToPageListAsync(page.PageIndex, page.PageSize);
+            return await _DbQueryable.Where(whereExpression).OrderByIF(orderBy is not null, orderBy + " " + orderByType.ToString().ToLower()).ToPageListAsync(page.PageNum, page.PageSize);
         }
 
 

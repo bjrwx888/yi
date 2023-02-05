@@ -9,7 +9,7 @@ namespace Yi.Framework.Ddd.Dtos
 {
     public interface IPagedAndSortedResultRequestDto
     {
-         int PageIndex { get; set; }
+         int PageNum { get; set; }
          int PageSize { get; set; }
          string? SortBy { get; set; }
 

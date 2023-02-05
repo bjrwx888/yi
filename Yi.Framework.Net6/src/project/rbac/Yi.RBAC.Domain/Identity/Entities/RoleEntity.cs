@@ -79,7 +79,7 @@ namespace Yi.RBAC.Domain.Identity.Entities
         /// <summary>
         /// 状态
         /// </summary>
-        public bool State { get; set; }
+        public bool? State { get; set; }
 
 
         [Navigate(typeof(RoleMenuEntity), nameof(RoleMenuEntity.RoleId), nameof(RoleMenuEntity.MenuId))]

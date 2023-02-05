@@ -17,7 +17,6 @@ using Yi.Framework.Core.Exceptions;
 using Yi.Framework.Ddd.Repositories;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.ThumbnailSharp;
-using Yi.RBAC.Application.Contracts.Account.Dtos;
 using Yi.RBAC.Application.Contracts.Identity;
 using Yi.RBAC.Application.Contracts.Identity.Dtos.Account;
 using Yi.RBAC.Domain.Identity;

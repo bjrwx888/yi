@@ -9,7 +9,7 @@ namespace Yi.Framework.Ddd.Dtos
 {
     public class PagedAndSortedResultRequestDto : IPagedAndSortedResultRequestDto
     {
-        public int PageIndex { get; set; } = 1;
+        public int PageNum { get; set; } = 1;
         public int PageSize { get; set; } = int.MaxValue;
         public string? SortBy { get; set; }
         public OrderByEnum SortType { get; set; } = OrderByEnum.Desc;

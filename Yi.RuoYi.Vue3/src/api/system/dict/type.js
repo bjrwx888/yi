@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询字典类型列表
 export function listType(query) {
   return request({
-    url: '/dictionary/pageList',
+    url: '/dictionary-type',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listType(query) {
 // 查询字典类型详细
 export function getType(dictId) {
   return request({
-    url: '/dictionary/getById/' + dictId,
+    url: '/dictionary-type/' + dictId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getType(dictId) {
 // 新增字典类型
 export function addType(data) {
   return request({
-    url: '/dictionary/add',
+    url: '/dictionary-type',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addType(data) {
 // 修改字典类型
 export function updateType(data) {
   return request({
-    url: '/dictionary/update',
+    url: `/dictionary-type/${data.id}`,
     method: 'put',
     data: data
   })
@@ -37,14 +37,9 @@ export function updateType(data) {
 
 // 删除字典类型
 export function delType(dictId) {
-  if("string"==typeof(dictId))
-{
-  dictId=[dictId];
-}
   return request({
-    url: '/dictionary/delList',
+    url: `/dictionary-type/${dictId}`,
     method: 'delete',
-    data:dictId
   })
 }
 
@@ -59,7 +54,7 @@ export function refreshCache() {
 // 获取字典选择框列表
 export function optionselect() {
   return request({
-    url: '/dictionary/getList',
+    url: '/dictionary-type',
     method: 'get'
   })
 }

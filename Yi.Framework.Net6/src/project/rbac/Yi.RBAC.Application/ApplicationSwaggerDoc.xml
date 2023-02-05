@@ -4,7 +4,29 @@
         <name>Yi.RBAC.Application</name>
     </assembly>
     <members>
-        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostLoginAsync(Yi.RBAC.Application.Contracts.Account.Dtos.LoginInputVo)">
+        <member name="T:Yi.RBAC.Application.Dictionary.DictionaryService">
+            <summary>
+            Dictionary服务实现
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Dictionary.DictionaryService._dictionaryRepository">
+            <summary>
+            查询
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Application.Dictionary.DictionaryService.GetDicType(System.String)">
+            <summary>
+            根据字典类型获取字典列表
+            </summary>
+            <param name="dicType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.RBAC.Application.Dictionary.DictionaryTypeService">
+            <summary>
+            DictionaryType服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostLoginAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.LoginInputVo)">
             <summary>
             登录
             </summary>

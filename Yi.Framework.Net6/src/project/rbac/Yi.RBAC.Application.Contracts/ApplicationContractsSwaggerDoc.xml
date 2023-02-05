@@ -4,6 +4,26 @@
         <name>Yi.RBAC.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Yi.RBAC.Application.Contracts.Dictionary.Dtos.DictionaryTypeCreateInputVo">
+            <summary>
+            DictionaryType输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Dictionary.Dtos.DictionaryCreateInputVo">
+            <summary>
+            Dictionary输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Dictionary.IDictionaryService">
+            <summary>
+            Dictionary服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Dictionary.IDictionaryTypeService">
+            <summary>
+            DictionaryType服务抽象
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.DeptCreateInputVo">
             <summary>
             Dept输入创建对象

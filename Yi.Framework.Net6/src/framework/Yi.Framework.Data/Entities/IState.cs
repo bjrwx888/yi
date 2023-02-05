@@ -8,6 +8,6 @@ namespace Yi.Framework.Data.Entities
 {
     public interface IState
     {
-        public bool State { get; set; }
+        public bool? State { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.RBAC.Application.Contracts.Account.Dtos
+namespace Yi.RBAC.Application.Contracts.Identity.Dtos.Account
 {
     public class LoginInputVo
     {

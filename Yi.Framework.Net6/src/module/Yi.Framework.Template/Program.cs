@@ -14,10 +14,13 @@ TemplateFactory templateFactory = new();
 //string modelName = "Exhibition";
 //string nameSpaces = "Yi.BBS";
 //List<string> entityNames = new() { "Banner" };
-string modelName = "Identity";
+//string modelName = "Identity";
+//string nameSpaces = "Yi.RBAC";
+//List<string> entityNames = new() { "_" };
+string modelName = "Dictionary";
 string nameSpaces = "Yi.RBAC";
 List<string> entityNames = new() { "_" };
-
+List<string> entityNames = new() { "_", "_" };
 
 
 
