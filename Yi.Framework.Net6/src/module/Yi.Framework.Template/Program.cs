@@ -19,7 +19,6 @@ TemplateFactory templateFactory = new();
 //List<string> entityNames = new() { "_" };
 string modelName = "Dictionary";
 string nameSpaces = "Yi.RBAC";
-List<string> entityNames = new() { "_" };
 List<string> entityNames = new() { "_", "_" };
 
 
