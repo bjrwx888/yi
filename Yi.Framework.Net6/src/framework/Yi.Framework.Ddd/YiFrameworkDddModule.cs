@@ -12,7 +12,7 @@ using Yi.Framework.Core.AutoMapper;
 namespace Yi.Framework.Ddd
 {
     [DependsOn(
-        typeof(YiFrameworkCoreAutoMapperModule)
+        typeof(YiFrameworkCoreMapsterModule)
         )]
     public class YiFrameworkDddModule:IStartupModule
     {

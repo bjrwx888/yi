@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Uow", "src\fra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.Sqlsugar", "src\framework\Yi.Framework.Core.Sqlsugar\Yi.Framework.Core.Sqlsugar.csproj", "{58F4071D-66B7-4839-A247-79AF0E4E1C8E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.AutoMapper", "src\framework\Yi.Framework.Core.AutoMapper\Yi.Framework.Core.AutoMapper.csproj", "{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core.Mapster", "src\framework\Yi.Framework.Core.AutoMapper\Yi.Framework.Core.Mapster.csproj", "{DFD34702-2EF6-4ECC-AE6E-9A1A3885BD26}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Office.Excel", "src\module\Yi.Framework.Office.Excel\Yi.Framework.Office.Excel.csproj", "{4EEC6607-F0D8-4277-9463-104DA7E184B6}"
 EndProject
@@ -83,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.RBAC.Application", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.RBAC.Web", "src\project\rbac\Yi.RBAC.Web\Yi.RBAC.Web.csproj", "{0C031C7D-6F80-4559-977C-AC001036EC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.ThumbnailSharp", "src\module\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj", "{60E54034-792C-4A90-BCDF-4D5FFB45089E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ThumbnailSharp", "src\module\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj", "{60E54034-792C-4A90-BCDF-4D5FFB45089E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

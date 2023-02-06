@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,8 @@ where TEntityDto : IEntityDto<TKey>
         /// 先暂时用服务定位的方式，之后将更改为属性注入
         /// </summary>
         protected IRepository<TEntity> _repository { get => ServiceLocatorModel.Instance.GetRequiredService<IRepository<TEntity>>(); }
+
+        protected ISugarQueryable<TEntity> _DbQueryable => _repository._DbQueryable;
 
         //Mapper
         protected virtual Task<TGetOutputDto> MapToGetOutputDtoAsync(TEntity entity)

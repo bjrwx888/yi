@@ -4,6 +4,11 @@
         <name>Yi.Framework.Ddd</name>
     </assembly>
     <members>
+        <member name="P:Yi.Framework.Ddd.Repositories.IRepository`1._DbQueryable">
+            <summary>
+            注释一下，严格意义这里应该protected，但是我认为 简易程度 与 耦合程度 中是需要进行衡量的
+            </summary>
+        </member>
         <member name="M:Yi.Framework.Ddd.Services.CrudAppService`7.CreateAsync(`5)">
             <summary>
             增

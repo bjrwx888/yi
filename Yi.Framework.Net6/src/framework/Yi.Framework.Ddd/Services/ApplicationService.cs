@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 
 using Yi.Framework.Core.Model;

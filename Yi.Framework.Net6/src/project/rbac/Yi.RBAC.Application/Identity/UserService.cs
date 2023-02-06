@@ -35,10 +35,17 @@ namespace Yi.RBAC.Application.Identity
         public override async Task<PagedResultDto<UserGetListOutputDto>> GetListAsync(UserGetListInputVo input)
         {
             var entity = await MapToEntityAsync(input);
-            var entities = await _userRepository.SelctGetListAsync(entity, input);
+
+            int total = 0;
+
+            var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!)).
+                          WhereIF(input.Phone is not null, x => x.Phone.ToString()!.Contains(input.Phone.ToString()!)).
+                          WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name!.Contains(input.Name!)).
+                          WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime).ToPageListAsync(input.PageNum, input.PageSize, total);
+
             var result = new PagedResultDto<UserGetListOutputDto>();
             result.Items = await MapToGetListOutputDtosAsync(entities);
-            result.Total = await _repository.CountAsync(_ => true);
+            result.Total = total;
             return result;
         }
 

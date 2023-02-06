@@ -669,14 +669,6 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.RBAC.Domain.Identity.Repositories.IUserRepository.SelctGetListAsync(Yi.RBAC.Domain.Identity.Entities.UserEntity,Yi.Framework.Ddd.Dtos.Abstract.IPagedAllResultRequestDto)">
-            <summary>
-            动态分页选择
-            </summary>
-            <param name="input"></param>
-            <param name="pageInput"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yi.RBAC.Domain.Identity.UserManager.GiveUserSetRoleAsync(System.Collections.Generic.List{System.Int64},System.Collections.Generic.List{System.Int64})">
             <summary>
             给用户设置角色

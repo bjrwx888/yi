@@ -7,7 +7,7 @@ using Yi.BBS.Application.Contracts.Forum.Dtos.Discuss;
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Ddd.Dtos;
 using Yi.BBS.Domain.Forum;
-using AutoMapper;
+using MapsterMapper;
 using SqlSugar;
 using Microsoft.AspNetCore.Routing;
 using Yi.BBS.Domain.Shared.Forum.ConstClasses;

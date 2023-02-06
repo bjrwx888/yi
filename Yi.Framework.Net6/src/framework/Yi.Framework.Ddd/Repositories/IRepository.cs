@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,8 +11,12 @@ using Yi.Framework.Ddd.Entities;
 
 namespace Yi.Framework.Ddd.Repositories
 {
-    public interface IRepository<T> 
+    public interface IRepository<T>
     {
+        /// <summary>
+        /// 注释一下，严格意义这里应该protected，但是我认为 简易程度 与 耦合程度 中是需要进行衡量的
+        /// </summary>
+        ISugarQueryable<T> _DbQueryable { get; }
         //单查
         Task<T> GetByIdAsync(dynamic id);
         Task<T> GetSingleAsync(Expression<Func<T, bool>> whereExpression);

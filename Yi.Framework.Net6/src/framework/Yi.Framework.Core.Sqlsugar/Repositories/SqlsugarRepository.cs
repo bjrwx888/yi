@@ -22,7 +22,10 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         public SqlsugarRepository(ISqlSugarClient context) : base(context)
         {
         }
-        protected ISugarQueryable<T> _DbQueryable { get { return base.AsQueryable(); } set { } }
+        /// <summary>
+        /// 注释一下，严格意义这里应该protected，但是我认为 简易程度 与 耦合程度 中是需要进行衡量的
+        /// </summary>
+        public ISugarQueryable<T> _DbQueryable => base.AsQueryable();
 
         protected ISqlSugarClient _Db { get { return Context; } set { } }
 

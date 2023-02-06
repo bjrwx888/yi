@@ -24,15 +24,6 @@ namespace Yi.RBAC.Sqlsugar.Repositories
         }
 
 
-        public async Task<List<UserEntity>> SelctGetListAsync(UserEntity input, IPagedAllResultRequestDto pageInput)
-        {
-            var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!)).
-                         WhereIF(input.Phone is not null, x => x.Phone.ToString()! .Contains(input.Phone.ToString()!)).
-                     WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name!.Contains(input.Name!)).
-       WhereIF(pageInput.StartTime is not null && pageInput.EndTime is not null, x => x.CreationTime >= pageInput.StartTime && x.CreationTime <= pageInput.EndTime).ToPageListAsync(pageInput.PageNum, pageInput.PageSize);
-
-            return entities;
-        }
 
         /// <summary>
         /// 获取用户id的全部信息

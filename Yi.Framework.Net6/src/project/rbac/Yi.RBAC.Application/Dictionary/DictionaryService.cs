@@ -23,11 +23,15 @@ namespace Yi.RBAC.Application.Dictionary
         private IDictionaryRepository _dictionaryRepository { get; set; }
         public override async Task<PagedResultDto<DictionaryGetListOutputDto>> GetListAsync(DictionaryGetListInputVo input)
         {
-            var data = await _dictionaryRepository.SelectGetListAsync(await MapToEntityAsync(input), input);
+            int total = 0;
+            var entities = await _DbQueryable.WhereIF(input.DictType is not null, x => x.DictType == input.DictType)
+                      .WhereIF(input.DictLabel is not null, x => x.DictLabel!.Contains(input.DictLabel!))
+                      .WhereIF(input.State is not null, x => x.State == input.State)
+                      .ToPageListAsync(input.PageNum, input.PageSize, total);
             return new PagedResultDto<DictionaryGetListOutputDto>
             {
-                Total = data.Total,
-                Items = await MapToGetListOutputDtosAsync(data.Items)
+                Total = total,
+                Items = await MapToGetListOutputDtosAsync(entities)
             };
         }
 

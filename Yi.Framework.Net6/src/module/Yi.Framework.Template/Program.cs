@@ -37,7 +37,6 @@ foreach (var entityName in entityNames)
         option.Add(new GetOutputDtoTemplateProvider(modelName, entityName, nameSpaces));
 
         option.Add(new ConstTemplateProvider(modelName, entityName, nameSpaces));
-        option.Add(new ProfileTemplateProvider(modelName, entityName, nameSpaces));
         //option.Add(new ApiTemplateProvider(modelName, entityName));
     });
     //开始构建模板

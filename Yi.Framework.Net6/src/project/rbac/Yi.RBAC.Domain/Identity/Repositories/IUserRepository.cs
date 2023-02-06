@@ -21,12 +21,5 @@ namespace Yi.RBAC.Domain.Identity.Repositories
         /// <returns></returns>
         Task<UserRoleMenuDto> GetUserAllInfoAsync(long userId);
 
-        /// <summary>
-        /// 动态分页选择
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="pageInput"></param>
-        /// <returns></returns>
-        Task<List<UserEntity>> SelctGetListAsync(UserEntity input, IPagedAllResultRequestDto pageInput);
     }
 }
