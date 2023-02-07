@@ -35,9 +35,7 @@ namespace Yi.Framework.Core
             services.AddAutoIocServer();
 
             services.AddCurrentUserServer();
-            //全局日志
-            GobalLogModel.SqlLogEnable = Appsettings.appBool("SqlLog_Enable");
-            GobalLogModel.LoginCodeEnable = Appsettings.appBool("LoginCode_Enable");
+
         }
     }
 }
