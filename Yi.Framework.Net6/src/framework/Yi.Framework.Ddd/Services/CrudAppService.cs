@@ -79,7 +79,13 @@ namespace Yi.Framework.Ddd.Services
                     ReflexHelper.SetModelValue(nameof(IEntity<long>.Id), SnowflakeHelper.NextId, entity);
                 }
             }
-
+            if (entity is IEntity<Guid> entityForGuidId)
+            {
+                if (entityForGuidId.Id == Guid.Empty)
+                {
+                    ReflexHelper.SetModelValue(nameof(IEntity<long>.Id), new Guid(), entity);
+                }
+            }
 
             return Task.FromResult(entity);
         }

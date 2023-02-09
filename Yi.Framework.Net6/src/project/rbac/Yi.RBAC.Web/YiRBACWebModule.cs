@@ -1,5 +1,6 @@
 using AspNetCore.Microsoft.AspNetCore.Builder;
 using StartupModules;
+using Yi.Framework.AspNetCore;
 using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
@@ -10,6 +11,7 @@ using Yi.RBAC.Sqlsugar;
 namespace Yi.RBAC.Web
 {
     [DependsOn(
+        typeof(YiFrameworkAspNetCoreModule),
           typeof(YiFrameworkCoreAutofacModule),
         typeof(YiRBACSqlsugarModule),
         typeof(YiRBACApplicationModule)

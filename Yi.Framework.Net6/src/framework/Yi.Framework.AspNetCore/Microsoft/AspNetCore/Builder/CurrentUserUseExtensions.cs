@@ -12,22 +12,17 @@ using System.Threading.Tasks;
 using Yi.Framework.Core.Const;
 using Yi.Framework.Core.CurrentUsers;
 
-namespace Yi.Framework.Core.Extensions
+namespace Microsoft.AspNetCore.Builder
 {
-    public static class CurrentUserExtensions
+    public static class CurrentUserUseExtensions
     {
-        public static IServiceCollection AddCurrentUserServer(this IServiceCollection services)
-        {
-            return services.AddScoped<ICurrentUser, CurrentUser>();
-        }
-
-
         public static IApplicationBuilder UseCurrentUserServer(this IApplicationBuilder app)
         {
             return app.UseMiddleware<CurrentUserMiddleware>();
         }
-    }
 
+
+    }
 
     public class CurrentUserMiddleware
     {

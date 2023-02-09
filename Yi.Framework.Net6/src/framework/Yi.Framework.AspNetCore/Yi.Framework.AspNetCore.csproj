@@ -18,4 +18,8 @@
     <Folder Include="Microsoft\Extensions\Hosting\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+  </ItemGroup>
+
 </Project>

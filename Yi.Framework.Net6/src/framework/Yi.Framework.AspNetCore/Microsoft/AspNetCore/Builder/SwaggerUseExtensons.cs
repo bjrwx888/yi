@@ -27,7 +27,8 @@ namespace AspNetCore.Microsoft.AspNetCore.Builder
                 {
                     foreach (var k in swaggerModels)
                     {
-                        c.SwaggerEndpoint(k.url, k.name);
+
+                        c.SwaggerEndpoint(k.Url, k.Name);
                     }
                 }
 
@@ -38,12 +39,17 @@ namespace AspNetCore.Microsoft.AspNetCore.Builder
     }
     public class SwaggerModel
     {
+        public SwaggerModel(string name)
+        {
+            this.Name = name;
+            this.Url = "/swagger/v1/swagger.json";
+        }
         public SwaggerModel(string url, string name)
         {
-            this.url = url;
-            this.name = name;
+            this.Url = url;
+            this.Name = name;
         }
-        public string url { get; set; }
-        public string name { get; set; }
+        public string Url { get; set; }
+        public string Name { get; set; }
     }
 }

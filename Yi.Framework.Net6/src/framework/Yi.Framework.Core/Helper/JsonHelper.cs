@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
@@ -6,7 +8,14 @@ namespace Yi.Framework.Core.Helper
 {
     public class JsonHelper
     {
-
+        public static string ObjToStr<T>(T obj, string dateTimeFormat)
+        {
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter()
+            {
+                DateTimeFormat = dateTimeFormat
+            };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj, Formatting.Indented, timeConverter);
+        }
 
         public static string ObjToStr<T>(T obj)
         {
@@ -28,7 +37,7 @@ namespace Yi.Framework.Core.Helper
             string result = String.Empty;
             try
             {
-                JsonSerializer.Serialize("");
+                System.Text.Json.JsonSerializer.Serialize("");
                 System.Runtime.Serialization.Json.DataContractJsonSerializer serializer =
                 new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
                 using (System.IO.MemoryStream ms = new System.IO.MemoryStream())

@@ -38,6 +38,7 @@ namespace Yi.Framework.Core.Helper
             return assembly.GetTypes().Where(m => m.IsClass
             && className == null ? true : m.Name == className
             && spaceName == null ? true : m.Namespace == spaceName
+            && !m.Name.StartsWith("<>")
              ).ToList();
         }
 

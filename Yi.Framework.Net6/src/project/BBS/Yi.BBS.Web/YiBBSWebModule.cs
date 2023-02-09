@@ -8,10 +8,12 @@ using Yi.BBS.Sqlsugar;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.Core.Autofac;
 using Yi.RBAC.Application;
+using Yi.Framework.AspNetCore;
 
 namespace Yi.BBS.Web
 {
     [DependsOn(
+               typeof(YiFrameworkAspNetCoreModule),
         typeof(YiFrameworkCoreAutofacModule),
         typeof(YiBBSSqlsugarModule),
         typeof(YiBBSApplicationModule)
