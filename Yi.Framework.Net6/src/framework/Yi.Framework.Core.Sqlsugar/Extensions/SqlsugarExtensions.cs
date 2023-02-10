@@ -95,19 +95,16 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
              };
              db.Aop.OnLogExecuting = (s, p) =>
              {
-                 if (GobalLogModel.SqlLogEnable)
-                 {
-                     var _logger = ServiceLocatorModel.Instance?.GetRequiredService<ILogger<SqlSugarClient>>();
+                 var _logger = ServiceLocatorModel.Instance?.GetRequiredService<ILogger<SqlSugarClient>>();
 
-                     StringBuilder sb = new StringBuilder();
-                     sb.Append("执行SQL:" + s.ToString());
-                     foreach (var i in p)
-                     {
-                         sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
-                     }
-                     sb.Append($"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
-                     _logger?.LogInformation(sb.ToString());
+                 StringBuilder sb = new StringBuilder();
+                 sb.Append("执行SQL:" + s.ToString());
+                 foreach (var i in p)
+                 {
+                     sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
                  }
+                 sb.Append($"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
+                 _logger?.LogDebug(sb.ToString());
              };
 
          });

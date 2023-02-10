@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Exceptions;
 
-namespace Yi.Framework.Core.Extensions
+namespace Microsoft.AspNetCore.Builder
 {
 
    internal class ExceptionModle

@@ -24,7 +24,7 @@ namespace Yi.Framework.Core
             //全局错误，需要靠前，放在此处无效
             //app.UseErrorHandlingServer();
 
-            app.UseCurrentUserServer();
+     
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
@@ -34,10 +34,8 @@ namespace Yi.Framework.Core
             //全盘扫描,自动依赖注入
             services.AddAutoIocServer();
 
-            services.AddCurrentUserServer();
-            //全局日志
-            GobalLogModel.SqlLogEnable = Appsettings.appBool("SqlLog_Enable");
-            GobalLogModel.LoginCodeEnable = Appsettings.appBool("LoginCode_Enable");
+
+
         }
     }
 }
