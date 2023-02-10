@@ -5,6 +5,7 @@ using Yi.RBAC.Domain.Identity.Entities;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Dtos;
 using SqlSugar;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -15,6 +16,23 @@ namespace Yi.RBAC.Application.Identity
     public class DeptService : CrudAppService<DeptEntity, DeptGetOutputDto, DeptGetListOutputDto, long, DeptGetListInputVo, DeptCreateInputVo, DeptUpdateInputVo>,
        IDeptService, IAutoApiService
     {
+
+        /// <summary>
+        /// 通过角色id查询该角色全部部门
+        /// </summary>
+        /// <returns></returns>
+        //[Route("{roleId}")]
+        public async Task<List<DeptGetListOutputDto>> GetListRoleIdAsync([FromRoute]long roleId)
+        {
+            var entities= await _DbQueryable.Where(d => SqlFunc.Subqueryable<RoleDeptEntity>().Where(rd => rd.RoleId == roleId && d.Id==rd.DeptId).Any()).ToListAsync();
+            return await MapToGetListOutputDtosAsync(entities);
+        }
+
+        /// <summary>
+        /// 多查
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<PagedResultDto<DeptGetListOutputDto>> GetListAsync(DeptGetListInputVo input)
         {
             RefAsync<int> total = 0;

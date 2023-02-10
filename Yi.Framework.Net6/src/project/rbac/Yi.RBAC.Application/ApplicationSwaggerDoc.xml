@@ -63,6 +63,19 @@
             Dept服务实现
             </summary>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.DeptService.GetListRoleIdAsync(System.Int64)">
+            <summary>
+            通过角色id查询该角色全部部门
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.DeptService.GetListAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.DeptGetListInputVo)">
+            <summary>
+            多查
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.RBAC.Application.Identity.MenuService">
             <summary>
             Menu服务实现
