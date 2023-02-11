@@ -56,7 +56,7 @@ namespace Yi.RBAC.Domain.Identity.Entities
         /// <summary>
         /// 状态
         /// </summary>
-        public bool? State { get; set; }
+        public bool State { get; set; }
 
         /// <summary>
         /// 菜单名

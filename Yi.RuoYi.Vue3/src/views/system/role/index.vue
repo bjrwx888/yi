@@ -442,7 +442,7 @@ function getList() {
   loading.value = true;
   listRole(proxy.addDateRange(queryParams.value, dateRange.value)).then(
     (response) => {
-      roleList.value = response.data.data;
+      roleList.value = response.data.items;
       total.value = response.data.total;
       loading.value = false;
     }
@@ -525,7 +525,7 @@ function handleAuthUser(row) {
 function getMenuTreeselect() {
   listMenu().then((response) => {
     const options = [];
-    response.data.forEach((m) => {
+    response.data.items.forEach((m) => {
       options.push({
         id: m.id,
         label: m.menuName,

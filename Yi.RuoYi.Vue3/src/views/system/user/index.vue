@@ -81,9 +81,9 @@
                         @change="handleStatusChange(scope.row)"></el-switch>
                   </template>
                </el-table-column>
-               <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
+               <el-table-column label="创建时间" align="center" prop="creationTime" v-if="columns[6].visible" width="160">
                   <template #default="scope">
-                     <span>{{ parseTime(scope.row.createTime) }}</span>
+                     <span>{{ parseTime(scope.row.creationTime) }}</span>
                   </template>
                </el-table-column>
                <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
@@ -321,7 +321,7 @@ watch(deptName, val => {
 function getDeptTree() {
    listDept().then(response => {
       const selectList = [];
-      response.data.forEach(res => {
+      response.data.items.forEach(res => {
          selectList.push({ id: res.id, label: res.deptName, parentId: res.parentId, orderNum: res.orderNum, children: [] })
       }
 
@@ -335,7 +335,7 @@ function getList() {
    listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
 
       loading.value = false;
-      userList.value = res.data.data;
+      userList.value = res.data.items;
       total.value = res.data.total;
    });
 };
@@ -469,10 +469,10 @@ function reset() {
    if (postOptions.value.length == 0 || roleOptions.value.length == 0) {
       roleOptionselect().then(response => {
          //岗位从另一个接口获取全量
-         roleOptions.value = response.data;
+         roleOptions.value = response.data.items;
       })
       postOptionselect().then(response => {
-         postOptions.value = response.data;
+         postOptions.value = response.data.items;
 
       }
 
@@ -512,7 +512,6 @@ response.data.posts.forEach(post => {
 });
 
 form.value.deptId= response.data.deptId;
-
 response.data.roles.forEach(role => {
    form.value.roleIds.push(role.id)
 });
@@ -529,7 +528,7 @@ function submitForm() {
    proxy.$refs["userRef"].validate(valid => {
       if (valid) {
          if (form.value.user.id != undefined) {
-            updateUser(form.value).then(response => {
+            updateUser(form.value.user.id,form.value).then(response => {
                proxy.$modal.msgSuccess("修改成功");
                open.value = false;
                getList();

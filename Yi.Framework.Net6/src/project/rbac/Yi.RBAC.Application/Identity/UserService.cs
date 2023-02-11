@@ -8,6 +8,8 @@ using Yi.RBAC.Domain.Identity;
 using Yi.Framework.Uow;
 using Yi.Framework.Ddd.Dtos;
 using Yi.RBAC.Domain.Identity.Repositories;
+using SqlSugar;
+using Mapster;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -36,7 +38,7 @@ namespace Yi.RBAC.Application.Identity
         {
             var entity = await MapToEntityAsync(input);
 
-            int total = 0;
+            RefAsync<int> total = 0;
 
             var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!)).
                           WhereIF(input.Phone is not null, x => x.Phone.ToString()!.Contains(input.Phone.ToString()!)).
@@ -79,6 +81,48 @@ namespace Yi.RBAC.Application.Identity
                 var result = await MapToGetOutputDtoAsync(returnEntity);
                 return result;
             }
+        }
+        /// <summary>
+        /// 单查
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override async Task<UserGetOutputDto> GetAsync(long id)
+        {
+            //使用导航树形查询
+            var entity = await _DbQueryable.Includes(u => u.Roles).Includes(u => u.Posts).Includes(u => u.Dept).InSingleAsync(id);
+
+            return await MapToGetOutputDtoAsync(entity);
+        }
+
+        /// <summary>
+        /// 更新用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async override Task<UserGetOutputDto> UpdateAsync(long id, UserUpdateInputVo input)
+        {
+            if (await _repository.IsAnyAsync(u => input.UserName!.Equals(u.UserName) && !id.Equals(u.Id)))
+            {
+                throw new UserFriendlyException("用户已经在，更新失败");
+            }
+            var entity = await _repository.GetByIdAsync(id);
+            //更新密码，特殊处理
+            if (input.Password is not null)
+            {
+                entity.Password = input.Password;
+                entity.BuildPassword();
+            }
+            await MapToEntityAsync(input, entity);
+            using (var uow = _unitOfWorkManager.CreateContext())
+            {
+                var res1 = await _repository.UpdateAsync(entity);
+                await _userManager.GiveUserSetRoleAsync(new List<long> { id }, input.RoleIds);
+                await _userManager.GiveUserSetPostAsync(new List<long> { id }, input.PostIds);
+                uow.Commit();
+            }
+            return await MapToGetOutputDtoAsync(entity);
         }
     }
 }

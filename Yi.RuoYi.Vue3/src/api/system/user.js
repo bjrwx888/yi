@@ -4,7 +4,7 @@ import { parseStrEmpty } from "@/utils/ruoyi";
 // 查询用户列表
 export function listUser(query) {
   return request({
-    url: '/user/pageList',
+    url: '/user',
     method: 'get',
     params: query
   })
@@ -13,7 +13,7 @@ export function listUser(query) {
 // 查询用户详细
 export function getUser(userId) {
   return request({
-    url: '/user/getById/' + parseStrEmpty(userId),
+    url: '/user/' + parseStrEmpty(userId),
     method: 'get'
   })
 }
@@ -28,24 +28,34 @@ export function addUser(data) {
 }
 
 // 修改用户
-export function updateUser(data) {
+export function updateUser(id, data) {
   return request({
-    url: '/user/update',
+    url: `/user/${id}`,
     method: 'put',
-    data: data
+    data: {
+
+      userName: data.user.userName,
+      nick: data.user.nick,
+      password: data.user.password,
+      phone: data.user.phone,
+      email: data.user.email,
+      sex: data.user.sex,
+      state: data.user.state,
+      remark: data.user.remark,
+      postIds: data.postIds,
+      roleIds: data.roleIds,
+      deptId: data.deptId
+
+
+    }
   })
 }
 
 // 删除用户
 export function delUser(userId) {
-  if("string"==typeof(userId))
-  {
-    userId=[userId];
-  }
   return request({
-    url: '/user/delList',
+    url: `/user/${userId}`,
     method: 'delete',
-    data:userId
   })
 }
 
@@ -85,7 +95,7 @@ export function updateUserProfile(data) {
   return request({
     url: '/user/UpdateProfile',
     method: 'put',
-    data: {user:data}
+    data: { user: data }
   })
 }
 

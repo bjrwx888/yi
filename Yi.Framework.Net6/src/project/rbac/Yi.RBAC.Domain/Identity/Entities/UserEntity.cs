@@ -133,7 +133,7 @@ namespace Yi.RBAC.Domain.Identity.Entities
         /// <summary>
         /// 状态
         /// </summary>
-        public bool? State { get; set; } = true;
+        public bool State { get; set; } = true;
 
 
         /// <summary>
