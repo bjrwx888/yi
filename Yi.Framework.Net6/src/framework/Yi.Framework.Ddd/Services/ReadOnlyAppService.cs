@@ -84,14 +84,15 @@ where TEntityDto : IEntityDto<TKey>
         /// <returns></returns>
         public virtual async Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
         {
-
-            var totalCount = await _repository.CountAsync(_ => true);
+            var totalCount = -1;
 
             var entities = new List<TEntity>();
             var entityDtos = new List<TGetListOutputDto>();
 
-            if (totalCount > 0)
-            {
+            bool isPageList = true;
+
+            //if (totalCount > 0)
+            //{
 
                 //这里还可以追加如果是审计日志，继续拼接条件即可
                 if (input is IPageTimeResultRequestDto timeInput)
@@ -103,6 +104,8 @@ where TEntityDto : IEntityDto<TKey>
                 }
 
 
+
+
                 if (input is IPagedAndSortedResultRequestDto sortInput)
                 { 
                     entities = await _repository.GetPageListAsync(_ => true, sortInput,sortInput.SortBy, sortInput.SortType);
@@ -111,11 +114,17 @@ where TEntityDto : IEntityDto<TKey>
 
                 else
                 {
+                    isPageList = false;
                     entities = await _repository.GetListAsync();
                 }
                 entityDtos = await MapToGetListOutputDtosAsync(entities);
-            }
+            //}
 
+            //如果是分页查询，还需要统计数量
+            if (isPageList)
+            {
+                totalCount = await _repository.CountAsync(_ => true);
+            }
             return new PagedResultDto<TGetListOutputDto>(
                 totalCount,
                 entityDtos

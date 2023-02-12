@@ -21,7 +21,7 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/user/add',
+    url: '/user',
     method: 'post',
     data: data
   })
@@ -32,22 +32,7 @@ export function updateUser(id, data) {
   return request({
     url: `/user/${id}`,
     method: 'put',
-    data: {
-
-      userName: data.user.userName,
-      nick: data.user.nick,
-      password: data.user.password,
-      phone: data.user.phone,
-      email: data.user.email,
-      sex: data.user.sex,
-      state: data.user.state,
-      remark: data.user.remark,
-      postIds: data.postIds,
-      roleIds: data.roleIds,
-      deptId: data.deptId
-
-
-    }
+    data: data
   })
 }
 
@@ -62,13 +47,12 @@ export function delUser(userId) {
 // 用户密码重置
 export function resetUserPwd(id, password) {
   const data = {
-    id,
     password
   }
 
 
   return request({
-    url: '/user/restPassword',
+    url: `/account/rest-password/${id}`,
     method: 'put',
     data: data
   })
@@ -106,7 +90,7 @@ export function updateUserPwd(oldPassword, newPassword) {
     newPassword
   }
   return request({
-    url: '/account/UpdatePassword',
+    url: '/account/password',
     method: 'put',
     data: data
   })

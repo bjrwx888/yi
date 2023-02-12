@@ -24,9 +24,9 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="状态" prop="isDeleted">
+      <el-form-item label="状态" prop="state">
         <el-select
-          v-model="queryParams.isDeleted"
+          v-model="queryParams.state"
           placeholder="角色状态"
           clearable
           style="width: 240px"
@@ -129,7 +129,7 @@
       <el-table-column label="状态" align="center" width="100">
         <template #default="scope">
           <el-switch
-            v-model="scope.row.isDeleted"
+            v-model="scope.row.state"
             :active-value="false"
             :inactive-value="true"
             @change="handleStatusChange(scope.row)"
@@ -214,12 +214,12 @@
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form
         ref="roleRef"
-        :model="form.role"
+        :model="form"
         :rules="rules"
         label-width="100px"
       >
         <el-form-item label="角色名称" prop="roleName">
-          <el-input v-model="form.role.roleName" placeholder="请输入角色名称" />
+          <el-input v-model="form.roleName" placeholder="请输入角色名称" />
         </el-form-item>
         <el-form-item prop="roleCode">
           <template #label>
@@ -235,17 +235,17 @@
               权限字符
             </span>
           </template>
-          <el-input v-model="form.role.roleCode" placeholder="请输入权限字符" />
+          <el-input v-model="form.roleCode" placeholder="请输入权限字符" />
         </el-form-item>
         <el-form-item label="角色顺序" prop="orderNum">
           <el-input-number
-            v-model="form.role.orderNum"
+            v-model="form.orderNum"
             controls-position="right"
             :min="0"
           />
         </el-form-item>
         <el-form-item label="状态">
-          <el-radio-group v-model="form.role.isDeleted">
+          <el-radio-group v-model="form.state">
             <el-radio
               v-for="dict in sys_normal_disable"
               :key="dict.value"
@@ -266,7 +266,7 @@
             >全选/全不选</el-checkbox
           >
           <el-checkbox
-            v-model="form.role.menuCheckStrictly"
+            v-model="form.menuCheckStrictly"
             @change="handleCheckedTreeConnect($event, 'menu')"
             >父子联动
           </el-checkbox>
@@ -276,14 +276,14 @@
             show-checkbox
             ref="menuRef"
             node-key="id"
-            :check-strictly="!form.role.menuCheckStrictly"
+            :check-strictly="!form.menuCheckStrictly"
             empty-text="加载中，请稍候"
             :props="{ label: 'label', children: 'children' }"
           ></el-tree>
         </el-form-item>
         <el-form-item label="备注">
           <el-input
-            v-model="form.role.remark"
+            v-model="form.remark"
             type="textarea"
             placeholder="请输入内容"
           ></el-input>
@@ -306,14 +306,14 @@
     >
       <el-form :model="form" label-width="80px">
         <el-form-item label="角色名称">
-          <el-input v-model="form.role.roleName" :disabled="true" />
+          <el-input v-model="form.roleName" :disabled="true" />
         </el-form-item>
         <el-form-item label="权限字符">
-          <el-input v-model="form.role.roleCode" :disabled="true" />
+          <el-input v-model="form.roleCode" :disabled="true" />
         </el-form-item>
         <el-form-item label="权限范围">
           <el-select
-            v-model="form.role.dataScope"
+            v-model="form.dataScope"
             @change="dataScopeSelectChange"
           >
             <el-option
@@ -325,7 +325,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="数据权限" v-show="form.role.dataScope == 1">
+        <el-form-item label="数据权限" v-show="form.dataScope == 1">
           <el-checkbox
             v-model="deptExpand"
             @change="handleCheckedTreeExpand($event, 'dept')"
@@ -420,7 +420,7 @@ const data = reactive({
     pageSize: 10,
     roleName: undefined,
     roleCode: undefined,
-    isDeleted: undefined,
+    state: undefined,
   },
   rules: {
     roleName: [
@@ -491,17 +491,17 @@ function handleSelectionChange(selection) {
 }
 /** 角色状态修改 */
 function handleStatusChange(row) {
-  let text = row.isDeleted === false ? "启用" : "停用";
+  let text = row.state === false ? "启用" : "停用";
   proxy.$modal
     .confirm('确认要"' + text + '""' + row.roleName + '"角色吗?')
     .then(function () {
-      return changeRoleStatus(row.id, row.isDeleted);
+      return changeRoleStatus(row.id, row.state);
     })
     .then(() => {
       proxy.$modal.msgSuccess(text + "成功");
     })
     .catch(function () {
-      row.isDeleted = row.isDeleted === "0" ? "1" : "0";
+      row.state = row.state === "0" ? "1" : "0";
     });
 }
 /** 更多操作 */
@@ -555,17 +555,16 @@ function reset() {
   deptExpand.value = true;
   deptNodeAll.value = false;
   form.value = {
-    role: {
+  
       id: undefined,
       roleName: undefined,
       roleCode: undefined,
       orderNum: 0,
-      IsDeleted: false,
+      state: false,
       menuCheckStrictly: false,
       deptCheckStrictly: false,
       remark: undefined,
       dataScope: 0,
-    },
     menuIds: [],
     deptIds: [],
   };
@@ -584,8 +583,8 @@ function handleUpdate(row) {
   const roleId = row.id || ids.value;
   getRoleMenuTreeselect(roleId);
   getRole(roleId).then((response) => {
-    form.value.role = response.data;
-    form.value.role.orderNum = Number(form.value.role.orderNum);
+    form.value= response.data;
+    form.value.orderNum = Number(form.value.orderNum);
     open.value = true;
     title.value = "修改角色";
   });
@@ -598,7 +597,7 @@ function getRoleMenuTreeselect(roleId) {
 
   roleMenuTreeselect(roleId).then((response) => {
     const menuIds = [];
-    response.data.forEach((m) => {
+    response.data.item.forEach((m) => {
       menuIds.push(m.id);
     });
 
@@ -680,7 +679,7 @@ function getMenuAllCheckedKeys() {
 function submitForm() {
   proxy.$refs["roleRef"].validate((valid) => {
     if (valid) {
-      if (form.value.role.id != undefined) {
+      if (form.value.id != undefined) {
         form.value.menuIds = getMenuAllCheckedKeys();
         updateRole(form.value).then((response) => {
           proxy.$modal.msgSuccess("修改成功");
@@ -714,14 +713,14 @@ function handleDataScope(row) {
   reset();
   getDeptTree(row.id);
   getRole(row.id).then((response) => {
-    form.value.role = response.data;
+    form.value = response.data;
     openDataScope.value = true;
     title.value = "分配数据权限";
   });
 }
 /** 提交按钮（数据权限） */
 function submitDataScope() {
-  if (form.value.role.id != undefined) {
+  if (form.value.id != undefined) {
     form.value.deptIds = getDeptAllCheckedKeys();
     dataScope(form.value).then((response) => {
       proxy.$modal.msgSuccess("修改成功");

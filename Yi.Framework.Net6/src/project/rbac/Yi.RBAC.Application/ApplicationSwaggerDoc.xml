@@ -58,6 +58,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.UpdatePasswordAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.UpdatePasswordDto)">
+            <summary>
+            更新密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.RestPasswordAsync(System.Int64,Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RestPasswordDto)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="userId"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.RBAC.Application.Identity.DeptService">
             <summary>
             Dept服务实现
@@ -81,6 +96,13 @@
             Menu服务实现
             </summary>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.MenuService.GetListRoleIdAsync(System.Int64)">
+            <summary>
+            查询当前角色的菜单
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.RBAC.Application.Identity.PostService">
             <summary>
             Post服务实现
@@ -90,6 +112,13 @@
             <summary>
             Role服务实现
             </summary>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.RoleService.CreateAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.RoleCreateInputVo)">
+            <summary>
+            添加角色
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Yi.RBAC.Application.Identity.UserService">
             <summary>

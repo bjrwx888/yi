@@ -26,6 +26,8 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public bool State { get; set; }
         public DateTime CreationTime { get; set; }
 
+        public long DeptId { get; set; }
+
         public DeptGetOutputDto Dept { get; set; }
 
         public List<PostGetListOutputDto> Posts { get; set; }
