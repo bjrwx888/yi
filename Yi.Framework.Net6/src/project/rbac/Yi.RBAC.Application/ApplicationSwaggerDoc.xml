@@ -84,13 +84,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.RBAC.Application.Identity.DeptService.GetListAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.DeptGetListInputVo)">
-            <summary>
-            多查
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yi.RBAC.Application.Identity.MenuService">
             <summary>
             Menu服务实现

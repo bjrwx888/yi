@@ -28,24 +28,24 @@ namespace Yi.RBAC.Application.Identity
             return await MapToGetListOutputDtosAsync(entities);
         }
 
-        /// <summary>
-        /// 多查
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public override async Task<PagedResultDto<DeptGetListOutputDto>> GetListAsync(DeptGetListInputVo input)
-        {
-            RefAsync<int> total = 0;
-            var entities = await _DbQueryable
-                           .WhereIF(!string.IsNullOrEmpty(input.DeptName), u => u.DeptName.Contains(input.DeptName!))
-                            .WhereIF(input.State is not null, u => u.State == input.State)
-                           .OrderBy(u => u.OrderNum, OrderByType.Asc)
-                          .ToPageListAsync(input.PageNum, input.PageSize, total);
-            return new PagedResultDto<DeptGetListOutputDto>
-            {
-                Items = await MapToGetListOutputDtosAsync(entities),
-                Total = total
-            };
-        }
+        ///// <summary>
+        ///// 多查
+        ///// </summary>
+        ///// <param name="input"></param>
+        ///// <returns></returns>
+        //public override async Task<PagedResultDto<DeptGetListOutputDto>> GetListAsync(DeptGetListInputVo input)
+        //{
+        //    RefAsync<int> total = 0;
+        //    var entities = await _DbQueryable
+        //                   .WhereIF(!string.IsNullOrEmpty(input.DeptName), u => u.DeptName.Contains(input.DeptName!))
+        //                    .WhereIF(input.State is not null, u => u.State == input.State)
+        //                   .OrderBy(u => u.OrderNum, OrderByType.Asc)
+        //                  .ToPageListAsync(input.PageNum, input.PageSize, total);
+        //    return new PagedResultDto<DeptGetListOutputDto>
+        //    {
+        //        Items = await MapToGetListOutputDtosAsync(entities),
+        //        Total = total
+        //    };
+        //}
     }
 }

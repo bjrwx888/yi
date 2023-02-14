@@ -90,36 +90,83 @@ where TEntityDto : IEntityDto<TKey>
             var entityDtos = new List<TGetListOutputDto>();
 
             bool isPageList = true;
-
-            //if (totalCount > 0)
-            //{
-
-                //这里还可以追加如果是审计日志，继续拼接条件即可
-                if (input is IPageTimeResultRequestDto timeInput)
+            //这里还可以追加如果是审计日志，继续拼接条件即可
+            if (input is IPageTimeResultRequestDto timeInput)
+            {
+                if (timeInput.StartTime is not null)
                 {
-                    if (timeInput.StartTime is not null)
+                    timeInput.EndTime = timeInput.EndTime ?? DateTime.Now;
+                }
+            }
+
+            if (input is IPagedAndSortedResultRequestDto sortInput)
+            {
+                sortInput.Conditions = new List<IConditionalModel>();
+                System.Reflection.PropertyInfo[] properties = sortInput.GetType().GetProperties();
+                string[] vs = new string[] { "PageNum", "PageSize", "SortBy", "SortType", "Conditions" };
+                string[] vs1 = new string[] { "Int32", "Int64", "Double", "Decimal", "String", "Nullable`1" };
+                var diffproperties = properties.Where(p => !vs.Select(v => v).Contains(p.Name)).ToArray();
+                var _properties1 = properties.Where(p => vs1.Select(v => v).Contains(p.PropertyType.Name)).ToArray();
+                if (_properties1.Count() > 0 && diffproperties.Count() > 0 )
+                {
+                    foreach (System.Reflection.PropertyInfo item in _properties1)
                     {
-                        timeInput.EndTime = timeInput.EndTime ?? DateTime.Now;
+                        if (vs.Contains(item.Name) || !vs1.Contains(item.PropertyType.Name))
+                            continue;
+                        object value = item.GetValue(sortInput, null);
+                        if (value is null)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if (item.PropertyType.Name.StartsWith("Nullable`1"))
+                            {
+                                sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.Equal });
+                            }
+                            if (item.PropertyType.Name.StartsWith("Int64"))
+                            {
+
+                                if ((long)value == (long)0)
+                                    continue;
+                                else
+                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.Equal });
+                            }
+                            if (item.PropertyType.Name.StartsWith("String"))
+                            {
+                                if (!string.IsNullOrEmpty((string)value))
+                                {
+                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.Like });
+                                }
+
+                            }
+                            if (item.PropertyType.Name.StartsWith("DateTime"))
+                            {
+                                if (item.Name == "StartTime")
+                                {
+                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.GreaterThanOrEqual });
+                                }
+                                else if (item.Name == "EndTime")
+                                {
+                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.LessThanOrEqual });
+                                }
+                            }
+                        }
                     }
+                    entities = await _repository.GetPageListAsync(sortInput.Conditions, sortInput, sortInput.SortBy, sortInput.SortType);
+                }
+                else {
+                    entities = await _repository.GetPageListAsync(_=>true, sortInput, sortInput.SortBy, sortInput.SortType);
                 }
 
-
-
-
-                if (input is IPagedAndSortedResultRequestDto sortInput)
-                { 
-                    entities = await _repository.GetPageListAsync(_ => true, sortInput,sortInput.SortBy, sortInput.SortType);
-                }
-
-
-                else
-                {
-                    isPageList = false;
-                    entities = await _repository.GetListAsync();
-                }
-                entityDtos = await MapToGetListOutputDtosAsync(entities);
-            //}
-
+               
+            }
+            else
+            {
+                isPageList = false;
+                entities = await _repository.GetListAsync();
+            }
+            entityDtos = await MapToGetListOutputDtosAsync(entities);
             //如果是分页查询，还需要统计数量
             if (isPageList)
             {
