@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Helper;
 using Yi.Framework.Core.Model;
 using Yi.Framework.Ddd.Dtos;
@@ -101,64 +102,59 @@ where TEntityDto : IEntityDto<TKey>
 
             if (input is IPagedAndSortedResultRequestDto sortInput)
             {
-                sortInput.Conditions = new List<IConditionalModel>();
-                System.Reflection.PropertyInfo[] properties = sortInput.GetType().GetProperties();
-                string[] vs = new string[] { "PageNum", "PageSize", "SortBy", "SortType", "Conditions" };
-                string[] vs1 = new string[] { "Int32", "Int64", "Double", "Decimal", "String", "Nullable`1" };
-                var diffproperties = properties.Where(p => !vs.Select(v => v).Contains(p.Name)).ToArray();
-                var _properties1 = properties.Where(p => vs1.Select(v => v).Contains(p.PropertyType.Name)).ToArray();
-                if (_properties1.Count() > 0 && diffproperties.Count() > 0 )
+                var dependsOnbuild = sortInput.GetType().GetCustomAttributes(typeof(QueryParameterAttribute), false).FirstOrDefault() as QueryParameterAttribute;
+                if (dependsOnbuild is null)
                 {
-                    foreach (System.Reflection.PropertyInfo item in _properties1)
+                    entities = await _repository.GetPageListAsync(_ => true, sortInput, sortInput.SortBy, sortInput.SortType);
+                }
+                else
+                {
+                    sortInput.Conditions = new List<IConditionalModel>();
+                    System.Reflection.PropertyInfo[] properties = sortInput.GetType().GetProperties();
+                    foreach (System.Reflection.PropertyInfo item in properties)
                     {
-                        if (vs.Contains(item.Name) || !vs1.Contains(item.PropertyType.Name))
-                            continue;
-                        object value = item.GetValue(sortInput, null);
-                        if (value is null)
+                        var query = item.GetCustomAttributes(typeof(QueryParameterAttribute), false).FirstOrDefault() as QueryParameterAttribute;
+                        if (query is not null)
                         {
-                            continue;
-                        }
-                        else
-                        {
-                            if (item.PropertyType.Name.StartsWith("Nullable`1"))
+                            object value = item.GetValue(sortInput, null);
+                            if (value is not null)
                             {
-                                sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.Equal });
-                            }
-                            if (item.PropertyType.Name.StartsWith("Int64"))
-                            {
-
-                                if ((long)value == (long)0)
-                                    continue;
-                                else
-                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.Equal });
-                            }
-                            if (item.PropertyType.Name.StartsWith("String"))
-                            {
-                                if (!string.IsNullOrEmpty((string)value))
+                                if (value.ToString() == "0")
                                 {
-                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.Like });
+                                    if (query.VerifyIsZero)
+                                    {
+                                        sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
+                                    }
                                 }
+                                else {
+                                    switch (query.ColumnType)
+                                    {
+                                        case ColumnTypeEnum.datetime:
+                                            if (!string.IsNullOrEmpty(query.ColumnName))
+                                            {
+                                                DateTime dt = DateTime.Now;
+                                                DateTime.TryParse(value.ToString(), out dt);
+                                                sortInput.Conditions.Add(new ConditionalModel { FieldValue = dt.ToString("yyyy-MM-dd HH:mm:ss"), FieldName = query.ColumnName, ConditionalType = (ConditionalType)(int)query.QueryOperator });
+                                            }
+                                            else
+                                            {
+                                                sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
+                                            }
+                                            break;
+                                        case ColumnTypeEnum.@bool:
 
-                            }
-                            if (item.PropertyType.Name.StartsWith("DateTime"))
-                            {
-                                if (item.Name == "StartTime")
-                                {
-                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.GreaterThanOrEqual });
-                                }
-                                else if (item.Name == "EndTime")
-                                {
-                                    sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = ConditionalType.LessThanOrEqual });
+                                            break;
+                                        default:
+                                            sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
+                                            break;
+                                    }
+                                   
                                 }
                             }
                         }
                     }
                     entities = await _repository.GetPageListAsync(sortInput.Conditions, sortInput, sortInput.SortBy, sortInput.SortType);
                 }
-                else {
-                    entities = await _repository.GetPageListAsync(_=>true, sortInput, sortInput.SortBy, sortInput.SortType);
-                }
-
                
             }
             else
