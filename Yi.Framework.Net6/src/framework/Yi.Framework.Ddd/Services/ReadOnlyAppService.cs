@@ -142,7 +142,15 @@ where TEntityDto : IEntityDto<TKey>
                                             }
                                             break;
                                         case ColumnTypeEnum.@bool:
-
+                                            string _Value = "";
+                                            if ((bool)value)
+                                            {
+                                                _Value = "1";
+                                            }
+                                            else {
+                                                _Value = "0";
+                                            }
+                                            sortInput.Conditions.Add(new ConditionalModel { FieldValue = _Value, FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
                                             break;
                                         default:
                                             sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
