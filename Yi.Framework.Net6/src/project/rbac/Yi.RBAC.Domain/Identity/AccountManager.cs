@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mapster;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,6 +104,30 @@ namespace Yi.RBAC.Domain.Identity
             return claims;
         }
 
+        public async Task UpdatePasswordAsync(long userId, string newPassword, string oldPassword)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+
+            if (!user.JudgePassword(oldPassword))
+            {
+                throw new UserFriendlyException("无效更新！新密码不能与老密码相同");
+            }
+            user.Password = newPassword;
+            user.BuildPassword();
+            await _repository.UpdateAsync(user);
+        }
+
+
+        public async Task<bool> RestPasswordAsync(long userId, string password)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+            user.Id = userId;
+            user.Password = password;
+            user.BuildPassword();
+            return await _repository.UpdateAsync(user);
+
+
+        }
     }
 
 }

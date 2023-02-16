@@ -55,7 +55,7 @@ namespace Yi.RBAC.Domain.Identity.Entities
         /// <summary>
         /// 状态
         /// </summary>
-        public bool? State { get; set; }
+        public bool State { get; set; }=true;
 
         /// <summary>
         /// 岗位编码 

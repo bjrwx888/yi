@@ -140,5 +140,37 @@ namespace Yi.RBAC.Application.Identity
             var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
             return new CaptchaImageDto { Img = imgbyte, Uuid = code };
         }
+
+        /// <summary>
+        /// 更新密码
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdatePasswordAsync(UpdatePasswordDto input)
+        {
+            if (input.OldPassword.Equals(input.NewPassword))
+            {
+                throw new UserFriendlyException("无效更新！输入的数据，新密码不能与老密码相同");
+            }
+            await _accountManager.UpdatePasswordAsync(_currentUser.Id, input.NewPassword, input.OldPassword);
+            return true;
+        }
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<bool> RestPasswordAsync(long userId, RestPasswordDto input)
+        {
+            if (!string.IsNullOrEmpty(input.Password))
+            {
+                throw new UserFriendlyException("重置密码不能为空！");
+            }
+            await _accountManager.RestPasswordAsync(userId, input.Password);
+            return true;
+        }
     }
 }

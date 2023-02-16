@@ -669,6 +669,14 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Domain.Identity.RoleManager.GiveRoleSetMenuAsync(System.Collections.Generic.List{System.Int64},System.Collections.Generic.List{System.Int64})">
+            <summary>
+            给角色设置菜单
+            </summary>
+            <param name="roleIds"></param>
+            <param name="menuIds"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.RBAC.Domain.Identity.UserManager.GiveUserSetRoleAsync(System.Collections.Generic.List{System.Int64},System.Collections.Generic.List{System.Int64})">
             <summary>
             给用户设置角色

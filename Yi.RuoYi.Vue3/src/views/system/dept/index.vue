@@ -191,7 +191,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listDept(queryParams.value).then(response => {
-    deptList.value = proxy.handleTree(response.data, "id");
+    deptList.value = proxy.handleTree(response.data.items, "id");
     loading.value = false;
   });
 }

@@ -27,5 +27,6 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public List<long>? RoleIds { get; set; }
         public List<long>? PostIds { get; set; }
         public long? DeptId { get; set; }
+        public bool State { get; set; } = true;
     }
 }

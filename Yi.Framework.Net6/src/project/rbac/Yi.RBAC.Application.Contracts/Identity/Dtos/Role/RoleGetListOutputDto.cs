@@ -18,5 +18,7 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public string? Remark { get; set; }
         public DataScopeEnum DataScope { get; set; } = DataScopeEnum.ALL;
         public bool State { get; set; }
+
+        public int OrderNum { get; set; }
     }
 }

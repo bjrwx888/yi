@@ -24,8 +24,8 @@
                   <el-input v-model="queryParams.phone" placeholder="请输入手机号码" clearable style="width: 240px"
                      @keyup.enter="handleQuery" />
                </el-form-item>
-               <el-form-item label="状态" prop="isDeleted">
-                  <el-select v-model="queryParams.isDeleted" placeholder="用户状态" clearable style="width: 240px">
+               <el-form-item label="状态" prop="state">
+                  <el-select v-model="queryParams.state" placeholder="用户状态" clearable style="width: 240px">
                      <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label"
                         :value="dict.value" />
                   </el-select>
@@ -75,15 +75,15 @@
                   :show-overflow-tooltip="true" />
                <el-table-column label="手机号码" align="center" key="phone" prop="phone" v-if="columns[4].visible"
                   width="120" />
-               <el-table-column label="状态" align="isDeleted" key="isDeleted" v-if="columns[5].visible">
+               <el-table-column label="状态" align="state" key="state" v-if="columns[5].visible">
                   <template #default="scope">
-                     <el-switch v-model="scope.row.isDeleted" :active-value=false :inactive-value=true
+                     <el-switch v-model="scope.row.state" :active-value=false :inactive-value=true
                         @change="handleStatusChange(scope.row)"></el-switch>
                   </template>
                </el-table-column>
-               <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
+               <el-table-column label="创建时间" align="center" prop="creationTime" v-if="columns[6].visible" width="160">
                   <template #default="scope">
-                     <span>{{ parseTime(scope.row.createTime) }}</span>
+                     <span>{{ parseTime(scope.row.creationTime) }}</span>
                   </template>
                </el-table-column>
                <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
@@ -114,11 +114,11 @@
 
       <!-- 添加或修改用户配置对话框 -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
-         <el-form :model="form.user" :rules="rules" ref="userRef" label-width="80px">
+         <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
             <el-row>
                <el-col :span="12">
                   <el-form-item label="用户昵称" prop="nick">
-                     <el-input v-model="form.user.nick" placeholder="请输入用户昵称" maxlength="30" />
+                     <el-input v-model="form.nick" placeholder="请输入用户昵称" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -132,24 +132,24 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="手机号码" prop="phone">
-                     <el-input v-model="form.user.phone" placeholder="请输入手机号码" maxlength="11" />
+                     <el-input v-model="form.phone" placeholder="请输入手机号码" maxlength="11" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="邮箱" prop="email">
-                     <el-input v-model="form.user.email" placeholder="请输入邮箱" maxlength="50" />
+                     <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="50" />
                   </el-form-item>
                </el-col>
             </el-row>
             <el-row>
                <el-col :span="12">
                   <el-form-item v-if="form.id == undefined" label="用户账号" prop="userName">
-                     <el-input v-model="form.user.userName" placeholder="请输入用户账号" maxlength="30" />
+                     <el-input v-model="form.userName" placeholder="请输入用户账号" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item v-if="form.id == undefined" label="用户密码" prop="password">
-                     <el-input v-model="form.user.password" placeholder="请输入用户密码" type="password" maxlength="20"
+                     <el-input v-model="form.password" placeholder="请输入用户密码" type="password" maxlength="20"
                         show-password />
                   </el-form-item>
                </el-col>
@@ -157,14 +157,14 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="用户性别">
-                     <el-select v-model="form.user.sex" placeholder="请选择">
+                     <el-select v-model="form.sex" placeholder="请选择">
                         <el-option v-for="dict in sys_user_sex" :key="dict.value" :label="dict.label" :value="JSON.parse(dict.value) "></el-option>
                      </el-select>
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="状态">
-                     <el-radio-group v-model="form.user.isDeleted">
+                     <el-radio-group v-model="form.state">
                         <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="JSON.parse(dict.value)">{{dict.label}}</el-radio>
                      </el-radio-group>
                   </el-form-item>
@@ -175,7 +175,7 @@
                   <el-form-item label="岗位">
                      <el-select v-model="form.postIds" multiple placeholder="请选择">
                         <el-option v-for="item in postOptions" :key="item.id" :label="item.postName"
-                           :value="item.id" :disabled="item.isDeleted == true"></el-option>
+                           :value="item.id" :disabled="item.state == false"></el-option>
                      </el-select>
                   </el-form-item>
                </el-col>
@@ -183,7 +183,7 @@
                   <el-form-item label="角色">
                      <el-select v-model="form.roleIds" multiple placeholder="请选择">
                         <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName" :value="item.id"
-                           :disabled="item.isDeleted ==true"></el-option>
+                           :disabled="item.state ==false"></el-option>
                      </el-select>
                   </el-form-item>
                </el-col>
@@ -191,7 +191,7 @@
             <el-row>
                <el-col :span="24">
                   <el-form-item label="备注">
-                     <el-input v-model="form.user.remark" type="textarea" placeholder="请输入内容"></el-input>
+                     <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
                   </el-form-item>
                </el-col>
             </el-row>
@@ -288,13 +288,14 @@ const columns = ref([
 ]);
 
 const data = reactive({
-   form: {},
+   form : {
+   },
    queryParams: {
       pageNum: 1,
       pageSize: 10,
       userName: undefined,
       phone: undefined,
-      isDeleted: undefined,
+      state: true,
       deptId: undefined
    },
    rules: {
@@ -321,7 +322,7 @@ watch(deptName, val => {
 function getDeptTree() {
    listDept().then(response => {
       const selectList = [];
-      response.data.forEach(res => {
+      response.data.items.forEach(res => {
          selectList.push({ id: res.id, label: res.deptName, parentId: res.parentId, orderNum: res.orderNum, children: [] })
       }
 
@@ -335,7 +336,7 @@ function getList() {
    listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
 
       loading.value = false;
-      userList.value = res.data.data;
+      userList.value = res.data.items;
       total.value = res.data.total;
    });
 };
@@ -374,14 +375,13 @@ function handleExport() {
 };
 /** 用户状态修改  */
 function handleStatusChange(row) {
-   console.log(row)
-   let text = row.isDeleted === false ? "启用" : "停用";
+   let text = row.state === false ? "启用" : "停用";
    proxy.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗?').then(function () {
-      return changeUserStatus(row.id, row.isDeleted);
+      return changeUserStatus(row.id, row.state);
    }).then(() => {
       proxy.$modal.msgSuccess(text + "成功");
    }).catch(function () {
-      row.isDeleted = row.isDeleted === true ? false : true;
+      row.state = row.state === true ? false : true;
    });
 };
 /** 更多操作 */
@@ -450,16 +450,14 @@ function submitFileForm() {
 /** 重置操作表单 */
 function reset() {
    form.value = {
-      user: {
          userName: undefined,
          nick: undefined,
          password: undefined,
          phone: undefined,
          email: undefined,
          sex: undefined,
-         isDeleted: false,
+         state: true,
          remark: undefined,
-      },
       postIds: [],
       roleIds: [],
       deptId: undefined
@@ -469,10 +467,10 @@ function reset() {
    if (postOptions.value.length == 0 || roleOptions.value.length == 0) {
       roleOptionselect().then(response => {
          //岗位从另一个接口获取全量
-         roleOptions.value = response.data;
+         roleOptions.value = response.data.items;
       })
       postOptionselect().then(response => {
-         postOptions.value = response.data;
+         postOptions.value = response.data.items;
 
       }
 
@@ -505,20 +503,20 @@ function handleUpdate(row) {
    getUser(userId).then(response => {
      
 
-      form.value.user = response.data;
-
+      form.value = response.data;
+      form.value.postIds=[];
 response.data.posts.forEach(post => {
    form.value.postIds.push(post.id)
 });
 
 form.value.deptId= response.data.deptId;
-
+form.value.roleIds=[];
 response.data.roles.forEach(role => {
    form.value.roleIds.push(role.id)
 });
 open.value = true;
 title.value = "修改用户";
-form.value.user.password = null;
+form.value.password = null;
 
 
 
@@ -528,8 +526,8 @@ form.value.user.password = null;
 function submitForm() {
    proxy.$refs["userRef"].validate(valid => {
       if (valid) {
-         if (form.value.user.id != undefined) {
-            updateUser(form.value).then(response => {
+         if (form.value.id != undefined) {
+            updateUser(form.value.id,form.value).then(response => {
                proxy.$modal.msgSuccess("修改成功");
                open.value = false;
                getList();

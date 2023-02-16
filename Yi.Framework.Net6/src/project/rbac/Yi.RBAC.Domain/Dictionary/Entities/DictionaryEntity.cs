@@ -33,7 +33,7 @@ namespace Yi.RBAC.Domain.Dictionary.Entities
         /// <summary>
         /// 状态
         /// </summary>
-        public bool? State { get; set; } = true;
+        public bool State { get; set; } = true;
 
         /// <summary>
         /// 描述 

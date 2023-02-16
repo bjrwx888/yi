@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询角色列表
 export function listRole(query) {
   return request({
-    url: '/role/pageList',
+    url: '/role',
     method: 'get',
     params: query
   })
@@ -14,7 +14,7 @@ export function listRole(query) {
 // 查询角色详细
 export function getRole(roleId) {
   return request({
-    url: '/role/getById/' + roleId,
+    url: '/role/' + roleId,
     method: 'get'
   })
 }
@@ -22,7 +22,7 @@ export function getRole(roleId) {
 // 新增角色
 export function addRole(data) {
   return request({
-    url: '/role/add',
+    url: '/role',
     method: 'post',
     data: data
   })
@@ -31,7 +31,7 @@ export function addRole(data) {
 // 修改角色
 export function updateRole(data) {
   return request({
-    url: '/role/update',
+    url: '/role',
     method: 'put',
     data: data
   })
@@ -56,14 +56,9 @@ export function changeRoleStatus(roleId, isDel) {
 
 // 删除角色
 export function delRole(roleId) {
-  if("string"==typeof(roleId))
-  {
-    roleId=[roleId];
-  }
   return request({
-    url: '/role/delList',
+    url: `/role/${roleId}`,
     method: 'delete',
-    data:roleId
   })
 }
 
@@ -122,7 +117,7 @@ export function authUserSelectAll(data) {
 // 获取角色选择框列表
 export function roleOptionselect() {
   return request({
-    url: '/role/getList',
+    url: '/role',
     method: 'get'
   })
 

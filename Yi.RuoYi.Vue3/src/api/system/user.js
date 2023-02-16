@@ -4,7 +4,7 @@ import { parseStrEmpty } from "@/utils/ruoyi";
 // 查询用户列表
 export function listUser(query) {
   return request({
-    url: '/user/pageList',
+    url: '/user',
     method: 'get',
     params: query
   })
@@ -13,7 +13,7 @@ export function listUser(query) {
 // 查询用户详细
 export function getUser(userId) {
   return request({
-    url: '/user/getById/' + parseStrEmpty(userId),
+    url: '/user/' + parseStrEmpty(userId),
     method: 'get'
   })
 }
@@ -21,16 +21,16 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/user/add',
+    url: '/user',
     method: 'post',
     data: data
   })
 }
 
 // 修改用户
-export function updateUser(data) {
+export function updateUser(id, data) {
   return request({
-    url: '/user/update',
+    url: `/user/${id}`,
     method: 'put',
     data: data
   })
@@ -38,27 +38,21 @@ export function updateUser(data) {
 
 // 删除用户
 export function delUser(userId) {
-  if("string"==typeof(userId))
-  {
-    userId=[userId];
-  }
   return request({
-    url: '/user/delList',
+    url: `/user/${userId}`,
     method: 'delete',
-    data:userId
   })
 }
 
 // 用户密码重置
 export function resetUserPwd(id, password) {
   const data = {
-    id,
     password
   }
 
 
   return request({
-    url: '/user/restPassword',
+    url: `/account/rest-password/${id}`,
     method: 'put',
     data: data
   })
@@ -85,7 +79,7 @@ export function updateUserProfile(data) {
   return request({
     url: '/user/UpdateProfile',
     method: 'put',
-    data: {user:data}
+    data: { user: data }
   })
 }
 
@@ -96,7 +90,7 @@ export function updateUserPwd(oldPassword, newPassword) {
     newPassword
   }
   return request({
-    url: '/account/UpdatePassword',
+    url: '/account/password',
     method: 'put',
     data: data
   })
