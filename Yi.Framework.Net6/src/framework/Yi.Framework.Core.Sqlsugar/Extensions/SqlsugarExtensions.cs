@@ -83,7 +83,7 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
              }
              db.Aop.DataExecuting = (oldValue, entityInfo) =>
              {
-
+                 //这里将进行审计日志
                  switch (entityInfo.OperationType)
                  {
                      case DataFilterType.InsertByObject:
