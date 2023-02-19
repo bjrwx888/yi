@@ -9,8 +9,8 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="isDeleted">
-            <el-select v-model="queryParams.isDeleted" placeholder="菜单状态" clearable>
+         <el-form-item label="状态" prop="state">
+            <el-select v-model="queryParams.state" placeholder="菜单状态" clearable>
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
@@ -64,14 +64,14 @@
          <el-table-column prop="permissionCode" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
          <el-table-column prop="router" label="路由" :show-overflow-tooltip="true"></el-table-column>
          <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-         <el-table-column prop="isDeleted" label="状态" width="80">
+         <el-table-column prop="state" label="状态" width="80">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.state" />
             </template>
          </el-table-column>
-         <el-table-column label="创建时间" align="center" prop="createTime">
+         <el-table-column label="创建时间" align="center" prop="creationTime">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width">
@@ -273,7 +273,7 @@
                            菜单状态
                         </span>
                      </template>
-                     <el-radio-group v-model="form.isDeleted">
+                     <el-radio-group v-model="form.state">
                         <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="JSON.parse(dict.value)">{{dict.label}}</el-radio>
                      </el-radio-group>
                   </el-form-item>
@@ -311,7 +311,9 @@ const showChooseIcon = ref(false);
 const iconSelectRef = ref(null);
 
 const data = reactive({
-  form: {},
+  form: {
+
+  },
   queryParams: {
     menuName: undefined,
     visible: undefined
@@ -359,7 +361,7 @@ function reset() {
     isLink: false,
     isCache: false,
     isShow: true,
-    isDeleted: false
+    state: true
   };
   proxy.resetForm("menuRef");
 }

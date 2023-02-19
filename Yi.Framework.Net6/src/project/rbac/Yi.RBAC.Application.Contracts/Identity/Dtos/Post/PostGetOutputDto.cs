@@ -16,5 +16,7 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public string PostCode { get; set; }=string.Empty;
         public string PostName { get; set; } = string.Empty;
         public string? Remark { get; set; }
+
+        public int OrderNum { get; set; }
     }
 }

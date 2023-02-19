@@ -9,13 +9,13 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="isDeleted">
-            <el-select v-model="queryParams.isDeleted" placeholder="部门状态" clearable>
+         <el-form-item label="状态" prop="state">
+            <el-select v-model="queryParams.state" placeholder="部门状态" clearable>
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
-                  :value="dict.value"
+                  :value="JSON.parse(dict.value)"
                />
             </el-select>
          </el-form-item>
@@ -56,14 +56,14 @@
       >
          <el-table-column prop="deptName" label="部门名称" width="260"></el-table-column>
          <el-table-column prop="orderNum" label="排序" width="200"></el-table-column>
-         <el-table-column prop="isDeleted" label="状态" width="100">
+         <el-table-column prop="state" label="状态" width="100">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.state" />
             </template>
          </el-table-column>
-         <el-table-column label="创建时间" align="center" prop="createTime" width="200">
+         <el-table-column label="创建时间" align="center" prop="creationTime" width="200">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -134,11 +134,11 @@
                </el-col>
                <el-col :span="12">
                   <el-form-item label="部门状态">
-                     <el-radio-group v-model="form.isDeleted">
+                     <el-radio-group v-model="form.state">
                         <el-radio
                            v-for="dict in sys_normal_disable"
                            :key="dict.value"
-                           :label="dict.value"
+                           :label="JSON.parse(dict.value)"
                         >{{ dict.label }}</el-radio>
                      </el-radio-group>
                   </el-form-item>
@@ -174,7 +174,7 @@ const data = reactive({
   form: {},
   queryParams: {
     deptName: undefined,
-    isDeleted: undefined
+    state: undefined
   },
   rules: {
     parentId: [{ required: true, message: "上级部门不能为空", trigger: "blur" }],
@@ -204,13 +204,13 @@ function cancel() {
 function reset() {
   form.value = {
     id: undefined,
-    parentId: undefined,
+    parentId: 0,
     deptName: undefined,
     orderNum: 0,
     leader: undefined,
     phone: undefined,
     email: undefined,
-    isDeleted: false
+    state: true
   };
   proxy.resetForm("deptRef");
 }
@@ -227,11 +227,10 @@ function resetQuery() {
 function handleAdd(row) {
   reset();
   listDept().then(response => {
-    deptOptions.value = proxy.handleTree(response.data, "deptId");
     deptOptions.value = proxy.handleTree(response.data, "id");
   });
   if (row != undefined) {
-    form.value.parentId = row.deptId;
+   console.log(row.deptId);
     form.value.parentId = row.id;
   }
   open.value = true;
@@ -248,12 +247,11 @@ function toggleExpandAll() {
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  listDeptExcludeChild(row.deptId).then(response => {
-    deptOptions.value = proxy.handleTree(response.data, "deptId");
+
   listDept().then(response => {
    //前端排除自己
-   
-    deptOptions.value = proxy.handleTree(response.data.filter(i=>i.id!=row.id), "id");
+
+    deptOptions.value = proxy.handleTree(response.data.items.filter(i=>i.id!=row.id), "id");
   });
 
   getDept(row.id).then(response => {
@@ -261,7 +259,7 @@ function handleUpdate(row) {
     open.value = true;
     title.value = "修改部门";
   });
-})
+
 }
 /** 提交按钮 */
 function submitForm() {

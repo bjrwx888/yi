@@ -37,7 +37,7 @@ export function addDept(data) {
 // 修改部门
 export function updateDept(data) {
   return request({
-    url: '/dept',
+    url: `/dept/${data.id}`,
     method: 'put',
     data: data
   })

@@ -17,13 +17,13 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="状态" prop="isDeleted">
-            <el-select v-model="queryParams.isDeleted" placeholder="岗位状态" clearable>
+         <el-form-item label="状态" prop="state">
+            <el-select v-model="queryParams.state" placeholder="岗位状态" clearable>
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
-                  :value="dict.value"
+                  :value="JSON.parse(dict.value)"
                />
             </el-select>
          </el-form-item>
@@ -81,14 +81,14 @@
          <el-table-column label="岗位编码" align="center" prop="postCode" />
          <el-table-column label="岗位名称" align="center" prop="postName" />
          <el-table-column label="岗位排序" align="center" prop="orderNum" />
-         <el-table-column label="状态" align="center" prop="isDeleted">
+         <el-table-column label="状态" align="center" prop="state">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.state" />
             </template>
          </el-table-column>
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="创建时间" align="center" prop="creationTime" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -129,8 +129,8 @@
             <el-form-item label="岗位顺序" prop="orderNum">
                <el-input-number v-model="form.orderNum" controls-position="right" :min="0" />
             </el-form-item>
-            <el-form-item label="岗位状态" prop="isDeleted">
-               <el-radio-group v-model="form.isDeleted">
+            <el-form-item label="岗位状态" prop="state">
+               <el-radio-group v-model="form.state">
                   <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="JSON.parse(dict.value)">{{dict.label}}</el-radio>
                </el-radio-group>
             </el-form-item>
@@ -171,7 +171,7 @@ const data = reactive({
     pageSize: 10,
     postCode: undefined,
     postName: undefined,
-    isDeleted: undefined
+    state: undefined
   },
   rules: {
     postName: [{ required: true, message: "岗位名称不能为空", trigger: "blur" }],
@@ -203,7 +203,7 @@ function reset() {
     postCode: undefined,
     postName: undefined,
     orderNum: 0,
-    isDeleted: false,
+    state: false,
     remark: undefined
   };
   proxy.resetForm("postRef");

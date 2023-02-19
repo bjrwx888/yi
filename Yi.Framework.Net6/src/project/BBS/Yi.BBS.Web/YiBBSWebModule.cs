@@ -9,6 +9,7 @@ using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.Core.Autofac;
 using Yi.RBAC.Application;
 using Yi.Framework.AspNetCore;
+using Yi.Framework.Data.Json;
 
 namespace Yi.BBS.Web
 {
@@ -23,7 +24,9 @@ namespace Yi.BBS.Web
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
             //添加控制器与动态api
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt => {
+                opt.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            }); 
             services.AddAutoApiService(opt =>
             {
                 //NETServiceTest所在程序集添加进动态api配置

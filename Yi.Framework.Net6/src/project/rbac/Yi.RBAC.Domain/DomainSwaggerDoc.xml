@@ -123,6 +123,24 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Domain.Identity.AccountManager.UpdatePasswordAsync(System.Int64,System.String,System.String)">
+            <summary>
+            更新密码
+            </summary>
+            <param name="userId"></param>
+            <param name="newPassword"></param>
+            <param name="oldPassword"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Core.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Yi.RBAC.Domain.Identity.AccountManager.RestPasswordAsync(System.Int64,System.String)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="userId"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.RBAC.Domain.Identity.Entities.DeptEntity">
              <summary>
              部门表

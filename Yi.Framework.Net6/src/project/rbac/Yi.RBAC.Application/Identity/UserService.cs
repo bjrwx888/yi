@@ -40,13 +40,21 @@ namespace Yi.RBAC.Application.Identity
 
             RefAsync<int> total = 0;
 
-            var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!)).
-                          WhereIF(input.Phone is not null, x => x.Phone.ToString()!.Contains(input.Phone.ToString()!)).
-                          WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name!.Contains(input.Name!)).
-                          WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime).ToPageListAsync(input.PageNum, input.PageSize, total);
+            var outPut = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!))
+                         .WhereIF(input.Phone is not null, x => x.Phone.ToString()!.Contains(input.Phone.ToString()!))
+                          .WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name!.Contains(input.Name!))
+                          .WhereIF(input.State is not null, x => x.State == input.State)
+                          .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
+
+                          //这个为过滤当前部门，加入数据权限后，将由数据权限控制
+                          .WhereIF(input.DeptId is not null, x => x.DeptId == input.DeptId)
+
+                          .LeftJoin<DeptEntity>((user, dept) => user.DeptId == dept.Id)
+                          .Select((user, dept) => new UserGetListOutputDto(), true)
+                          .ToPageListAsync(input.PageNum, input.PageSize, total);
 
             var result = new PagedResultDto<UserGetListOutputDto>();
-            result.Items = await MapToGetListOutputDtosAsync(entities);
+            result.Items = outPut;
             result.Total = total;
             return result;
         }

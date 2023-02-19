@@ -27,7 +27,7 @@
                <el-form-item label="状态" prop="state">
                   <el-select v-model="queryParams.state" placeholder="用户状态" clearable style="width: 240px">
                      <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label"
-                        :value="dict.value" />
+                        :value="JSON.parse( dict.value)" />
                   </el-select>
                </el-form-item>
                <el-form-item label="创建时间" style="width: 308px;">
@@ -71,13 +71,13 @@
                   :show-overflow-tooltip="true" />
                <el-table-column label="用户昵称" align="center" key="nick" prop="nick" v-if="columns[2].visible"
                   :show-overflow-tooltip="true" />
-               <el-table-column label="部门" align="center" key="dept.deptName" prop="dept.deptName" v-if="columns[3].visible"
+               <el-table-column label="部门" align="center" key="deptName" prop="deptName" v-if="columns[3].visible"
                   :show-overflow-tooltip="true" />
                <el-table-column label="手机号码" align="center" key="phone" prop="phone" v-if="columns[4].visible"
-                  width="120" />
+                />
                <el-table-column label="状态" align="state" key="state" v-if="columns[5].visible">
                   <template #default="scope">
-                     <el-switch v-model="scope.row.state" :active-value=false :inactive-value=true
+                     <el-switch v-model="scope.row.state" :active-value=true :inactive-value=false
                         @change="handleStatusChange(scope.row)"></el-switch>
                   </template>
                </el-table-column>

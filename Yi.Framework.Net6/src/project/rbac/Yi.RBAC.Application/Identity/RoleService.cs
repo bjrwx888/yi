@@ -41,5 +41,28 @@ namespace Yi.RBAC.Application.Identity
 
             return outputDto;
         }
+
+        /// <summary>
+        /// 修改角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<RoleGetOutputDto> UpdateAsync(long id, RoleUpdateInputVo input)
+        {
+            var dto = new RoleGetOutputDto();
+            using (var uow = _unitOfWorkManager.CreateContext())
+            {
+                var entity = await _repository.GetByIdAsync(id);
+                await MapToEntityAsync(input, entity);
+                await _repository.UpdateAsync(entity);
+
+                await _roleManager.GiveRoleSetMenuAsync(new List<long> { id }, input.MenuIds);
+
+                dto = await MapToGetOutputDtoAsync(entity);
+                uow.Commit();
+            }
+            return dto;
+        }
     }
 }

@@ -18,5 +18,7 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public string? Leader { get; set; }
         public long ParentId { get; set; }
         public string? Remark { get; set; }
+
+        public int OrderNum { get; set; }
     }
 }

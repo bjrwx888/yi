@@ -14,8 +14,6 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public string? Name { get; set; }
         public int? Age { get; set; }
         public string UserName { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string Salt { get; set; } = string.Empty;
         public string? Icon { get; set; }
         public string? Nick { get; set; }
         public string? Email { get; set; }
@@ -30,5 +28,8 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public long? CreatorId { get; set; }
 
         public bool State { get; set; }
+
+
+        public string DeptName { get; set; }
     }
 }

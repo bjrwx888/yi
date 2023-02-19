@@ -14,7 +14,9 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos
         public string? UserName { get; set; }
         public long? Phone { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool? State { get; set; }
+
+        public long? DeptId { get; set; }
 
     }
 }
