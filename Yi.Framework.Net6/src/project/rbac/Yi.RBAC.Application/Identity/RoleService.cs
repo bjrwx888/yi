@@ -6,6 +6,8 @@ using Yi.Framework.Ddd.Services;
 using Yi.RBAC.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Yi.Framework.Uow;
+using Yi.Framework.Ddd.Dtos;
+using SqlSugar;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -21,6 +23,20 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private IUnitOfWorkManager _unitOfWorkManager { get; set; }
+
+
+        public override async Task<PagedResultDto<RoleGetListOutputDto>> GetListAsync(RoleGetListInputVo input)
+        {
+            var entity = await MapToEntityAsync(input);
+
+            RefAsync<int> total = 0;
+
+            var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.RoleCode), x => x.RoleCode.Contains(input.RoleCode!))
+                .WhereIF(!string.IsNullOrEmpty(input.RoleName), x => x.RoleName.Contains(input.RoleName!))
+                        .WhereIF(input.State is not null, x => x.State == input.State)
+                          .ToPageListAsync(input.PageNum, input.PageSize, total);
+            return new PagedResultDto<RoleGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
+        }
 
         /// <summary>
         /// 添加角色

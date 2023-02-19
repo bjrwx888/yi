@@ -5,8 +5,8 @@
         <el-input v-model="queryParams.roleName" placeholder="请输入角色名称" clearable style="width: 240px"
           @keyup.enter="handleQuery" />
       </el-form-item>
-      <el-form-item label="权限字符" prop="roleCode">
-        <el-input v-model="queryParams.roleCode" placeholder="请输入权限字符" clearable style="width: 240px"
+      <el-form-item label="角色编号" prop="roleCode">
+        <el-input v-model="queryParams.roleCode" placeholder="请输入角色编号" clearable style="width: 240px"
           @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="状态" prop="state">

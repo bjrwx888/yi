@@ -7,15 +7,10 @@ using Yi.Framework.Ddd.Dtos;
 
 namespace Yi.RBAC.Application.Contracts.Setting.Dtos
 {
-    public class ConfigGetListInputVo : PagedAndSortedResultRequestDto
+    public class ConfigGetListInputVo : PagedAllResultRequestDto
     {
-        public long Id { get; set; }
-        public string ConfigName { get; set; } = string.Empty;
-        public string ConfigKey { get; set; } = string.Empty;
-        public string ConfigValue { get; set; } = string.Empty;
-        public string? ConfigType { get; set; }
-        public int OrderNum { get; set; }
-        public string? Remark { get; set; }
+        public string? ConfigName { get; set; }
+        public string? ConfigKey { get; set; } 
         public DateTime CreationTime { get; set; }
     }
 }
