@@ -9,11 +9,17 @@ namespace Yi.Framework.Auth.JwtBearer.Authorization
 {
     public class DefaultPermissionHandler : IPermissionHandler
     {
-        public bool IsPass(string permission, ICurrentUser currentUser)
+        private ICurrentUser _currentUser { get; set; }
+
+        public DefaultPermissionHandler(ICurrentUser currentUser)
         {
-            if (currentUser.Permission is not null)
+            _currentUser = currentUser;
+        }
+        public bool IsPass(string permission)
+        {
+            if (_currentUser.Permission is not null)
             {
-               return currentUser.Permission.Contains(permission);
+               return _currentUser.Permission.Contains(permission);
 
             }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,9 @@ using Yi.Framework.Core.Model;
 
 namespace Yi.Framework.Auth.JwtBearer.Authorization
 {
+
     [AttributeUsage(AttributeTargets.Method)]
+
     public class PermissionAttribute : ActionFilterAttribute
     {
         private string Permission { get; set; }
@@ -31,11 +34,7 @@ namespace Yi.Framework.Auth.JwtBearer.Authorization
 
             var permissionHandler = ServiceLocatorModel.Instance.GetRequiredService<IPermissionHandler>();
 
-            var currentUser = ServiceLocatorModel.Instance.GetRequiredService<ICurrentUser>();
-
-
-
-            var result = permissionHandler.IsPass(Permission, currentUser);
+            var result = permissionHandler.IsPass(Permission);
 
             if (!result)
             {

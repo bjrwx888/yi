@@ -15,6 +15,7 @@
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
+    <ProjectReference Include="..\..\..\module\Yi.Framework.EventBus\Yi.Framework.EventBus.csproj" />
     <ProjectReference Include="..\..\..\module\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj" />
     <ProjectReference Include="..\Yi.RBAC.Domain.Shared\Yi.RBAC.Domain.Shared.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Hei.Captcha;
+﻿using Cike.EventBus.DistributedEvent;
+using Hei.Captcha;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Auth.JwtBearer.Authentication;
+using Yi.Framework.Auth.JwtBearer.Authorization;
 using Yi.Framework.Core.CurrentUsers;
 using Yi.Framework.Core.Enums;
 using Yi.Framework.Core.Exceptions;
@@ -25,6 +27,7 @@ using Yi.RBAC.Domain.Identity.Entities;
 using Yi.RBAC.Domain.Identity.Repositories;
 using Yi.RBAC.Domain.Shared.Identity.ConstClasses;
 using Yi.RBAC.Domain.Shared.Identity.Dtos;
+using Yi.RBAC.Domain.Shared.Identity.Etos;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -45,6 +48,9 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private SecurityCodeHelper _securityCode { get; set; }
+
+        [Autowired]
+        private IDistributedEventBus _distributedEventBus { get; set; }
         /// <summary>
         /// 登录
         /// </summary>
@@ -63,6 +69,16 @@ namespace Yi.RBAC.Application.Identity
             {
                 throw new UserFriendlyException(UserConst.用户无权限分配);
             }
+            //这里抛出一个登录的事件
+
+            //不阻碍执行，无需等待
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+            _distributedEventBus.PublishAsync(new LoginEventArgs
+            {
+                UserId = userInfo.User.Id,
+                UserName = user.UserName
+            });
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
 
             //创建token
             var token = _jwtTokenManager.CreateToken(_accountManager.UserInfoToClaim(userInfo));

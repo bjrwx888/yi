@@ -9,6 +9,6 @@ namespace Yi.Framework.Auth.JwtBearer.Authorization
 {
     public interface IPermissionHandler
     {
-        bool IsPass(string permission,ICurrentUser currentUser);
+        bool IsPass(string permission );
     }
 }

@@ -85,6 +85,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.RBAC.Web", "src\project\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ThumbnailSharp", "src\module\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj", "{60E54034-792C-4A90-BCDF-4D5FFB45089E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.EventBus", "src\module\Yi.Framework.EventBus\Yi.Framework.EventBus.csproj", "{FC559052-36EC-4379-B447-298FAD6045F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +233,10 @@ Global
 		{60E54034-792C-4A90-BCDF-4D5FFB45089E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E54034-792C-4A90-BCDF-4D5FFB45089E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60E54034-792C-4A90-BCDF-4D5FFB45089E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC559052-36EC-4379-B447-298FAD6045F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC559052-36EC-4379-B447-298FAD6045F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC559052-36EC-4379-B447-298FAD6045F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC559052-36EC-4379-B447-298FAD6045F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -274,6 +280,7 @@ Global
 		{2074EA00-59A4-49CE-97A6-735F4B77443B} = {07C9E949-DB5E-4315-A497-FF73746667D8}
 		{0C031C7D-6F80-4559-977C-AC001036EC44} = {07C9E949-DB5E-4315-A497-FF73746667D8}
 		{60E54034-792C-4A90-BCDF-4D5FFB45089E} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
+		{FC559052-36EC-4379-B447-298FAD6045F4} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C1A3808-0F4F-43FB-A9FE-5F27A3BB2ECF}

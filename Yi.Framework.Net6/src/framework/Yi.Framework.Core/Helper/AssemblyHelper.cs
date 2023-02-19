@@ -10,6 +10,15 @@ namespace Yi.Framework.Core.Helper
     public static class AssemblyHelper
     {
 
+        /// <summary>
+        /// 此处统一获取程序集，排除微软内部相关
+        /// </summary>
+        /// <returns></returns>
+        public static Assembly[] GetAllLoadAssembly()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies();
+        }
+
         public static List<Assembly> GetReferanceAssemblies(this AppDomain domain)
         {
             var list = new List<Assembly>();

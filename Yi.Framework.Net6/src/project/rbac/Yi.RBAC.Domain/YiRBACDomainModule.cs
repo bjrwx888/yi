@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
+using Yi.Framework.EventBus;
 using Yi.Framework.ThumbnailSharp;
 using Yi.RBAC.Domain.Shared;
 
@@ -17,7 +18,8 @@ namespace Yi.RBAC.Domain
     [DependsOn(
         typeof(YiRBACDomainSharedModule),
                typeof(YiFrameworkDataModule),
-        typeof(YiFrameworkThumbnailSharpModule)
+        typeof(YiFrameworkThumbnailSharpModule),
+        typeof(YiFrameworkEventBusModule)
         )]
     public class YiRBACDomainModule : IStartupModule
     {
