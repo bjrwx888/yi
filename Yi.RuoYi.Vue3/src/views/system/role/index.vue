@@ -51,7 +51,7 @@
       <el-table-column label="显示顺序" prop="orderNum" />
       <el-table-column label="状态" align="center">
         <template #default="scope">
-          <el-switch v-model="scope.row.state" :active-value="true" :inactive-value="true"
+          <el-switch v-model="scope.row.state" :active-value="true" :inactive-value="false"
             @change="handleStatusChange(scope.row)"></el-switch>
         </template>
       </el-table-column>
@@ -296,7 +296,7 @@ function handleSelectionChange(selection) {
 }
 /** 角色状态修改 */
 function handleStatusChange(row) {
-  let text = row.state === false ? "启用" : "停用";
+  let text = row.state === true ? "启用" : "停用";
   proxy.$modal
     .confirm('确认要"' + text + '""' + row.roleName + '"角色吗?')
     .then(function () {
@@ -306,7 +306,7 @@ function handleStatusChange(row) {
       proxy.$modal.msgSuccess(text + "成功");
     })
     .catch(function () {
-      row.state = row.state === "0" ? "1" : "0";
+      row.state = row.state === true ? false : true;
     });
 }
 /** 更多操作 */

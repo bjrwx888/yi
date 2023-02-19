@@ -49,7 +49,7 @@ export function dataScope(data) {
 // 角色状态修改
 export function changeRoleStatus(roleId, isDel) {
   return request({
-    url: `/role/updateStatus?roleId=${roleId}&isDel=${isDel}`,
+    url: `/role/${roleId}/${isDel}`,
     method: 'put'
   })
 }

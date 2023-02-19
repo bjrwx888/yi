@@ -10,6 +10,7 @@ using Yi.Framework.Ddd.Dtos;
 using Yi.RBAC.Domain.Identity.Repositories;
 using SqlSugar;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -130,6 +131,25 @@ namespace Yi.RBAC.Application.Identity
                 await _userManager.GiveUserSetPostAsync(new List<long> { id }, input.PostIds);
                 uow.Commit();
             }
+            return await MapToGetOutputDtoAsync(entity);
+        }
+
+        /// <summary>
+        /// 更新状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        [Route("/api/user/{id}/{state}")]
+        public async Task<UserGetOutputDto> UpdateStateAsync([FromRoute] long id,[FromRoute] bool state)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity is null)
+            {
+                throw new ApplicationException("用户未存在");
+            }
+
+            entity.State = state;
             return await MapToGetOutputDtoAsync(entity);
         }
     }

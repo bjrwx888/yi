@@ -61,7 +61,7 @@ export function resetUserPwd(id, password) {
 // 用户状态修改
 export function changeUserStatus(userId, isDel) {
   return request({
-    url: `/user/updateStatus?userId=${userId}&isDel=${isDel}`,
+    url: `/user/${userId}/${isDel}`,
     method: 'put'
   })
 }
