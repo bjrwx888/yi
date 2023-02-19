@@ -163,5 +163,10 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.RBAC.Application.Setting.ConfigService">
+            <summary>
+            Config服务实现
+            </summary>
+        </member>
     </members>
 </doc>

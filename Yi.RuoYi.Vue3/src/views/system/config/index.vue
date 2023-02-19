@@ -108,9 +108,9 @@
             </template>
          </el-table-column>
          <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="创建时间" align="center" prop="creationTime" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
@@ -213,7 +213,7 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listConfig(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    configList.value = response.data.data;
+    configList.value = response.data.items;
     total.value = response.data.total;
     loading.value = false;
   });
@@ -232,7 +232,7 @@ function reset() {
     configValue: undefined,
     configType: "Y",
     remark: undefined,
-    isDeleted: false
+    state: true
   };
   proxy.resetForm("configRef");
 }

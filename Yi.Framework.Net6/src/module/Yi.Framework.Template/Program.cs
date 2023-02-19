@@ -17,10 +17,12 @@ TemplateFactory templateFactory = new();
 //string modelName = "Identity";
 //string nameSpaces = "Yi.RBAC";
 //List<string> entityNames = new() { "_" };
-string modelName = "Dictionary";
+//string modelName = "Dictionary";
+//string nameSpaces = "Yi.RBAC";
+//List<string> entityNames = new() { "_", "_" };
+string modelName = "Setting";
 string nameSpaces = "Yi.RBAC";
-List<string> entityNames = new() { "_", "_" };
-
+List<string> entityNames = new() { "_" };
 
 
 foreach (var entityName in entityNames)

@@ -74,5 +74,15 @@
             User服务抽象
             </summary>
         </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigCreateInputVo">
+            <summary>
+            Config输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Setting.IConfigService">
+            <summary>
+            Config服务抽象
+            </summary>
+        </member>
     </members>
 </doc>

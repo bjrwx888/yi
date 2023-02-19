@@ -13,7 +13,7 @@ namespace Yi.Framework.Template.Abstract
 
         public ModelTemplateProvider(string modelName, string entityName, string nameSpaces) : base(modelName, entityName, nameSpaces)
         {
-            AddIgnoreEntityField(/*"Id", */"TenantId", "IsDeleted", "LastModifierId", "LastModificationTime","OrderNum");
+            AddIgnoreEntityField(/*"Id", */"TenantId", "IsDeleted", "LastModifierId", "LastModificationTime", "CreatorId");
         }
 
         private string entityPath=string.Empty;
