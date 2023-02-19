@@ -31,7 +31,7 @@ namespace Yi.BBS.Web
             {
                 //NETServiceTest所在程序集添加进动态api配置
                 opt.CreateConventional(typeof(YiBBSApplicationModule).Assembly, option => option.RootPath = string.Empty);
-                opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
+                //opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
             });
 
             //添加swagger
