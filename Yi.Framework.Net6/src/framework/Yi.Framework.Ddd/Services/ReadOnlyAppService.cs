@@ -91,86 +91,36 @@ where TEntityDto : IEntityDto<TKey>
             var entityDtos = new List<TGetListOutputDto>();
 
             bool isPageList = true;
-            //这里还可以追加如果是审计日志，继续拼接条件即可
-            if (input is IPageTimeResultRequestDto timeInput)
-            {
-                if (timeInput.StartTime is not null)
-                {
-                    timeInput.EndTime = timeInput.EndTime ?? DateTime.Now;
-                }
-            }
 
-            if (input is IPagedAndSortedResultRequestDto sortInput)
-            {
-                var dependsOnbuild = sortInput.GetType().GetCustomAttributes(typeof(QueryParameterAttribute), false).FirstOrDefault() as QueryParameterAttribute;
-                if (dependsOnbuild is null)
+            //if (totalCount > 0)
+            //{
+
+                //这里还可以追加如果是审计日志，继续拼接条件即可
+                if (input is IPageTimeResultRequestDto timeInput)
                 {
-                    entities = await _repository.GetPageListAsync(_ => true, sortInput, sortInput.SortBy, sortInput.SortType);
+                    if (timeInput.StartTime is not null)
+                    {
+                        timeInput.EndTime = timeInput.EndTime ?? DateTime.Now;
+                    }
                 }
+
+
+
+
+                if (input is IPagedAndSortedResultRequestDto sortInput)
+                { 
+                    entities = await _repository.GetPageListAsync(_ => true, sortInput,sortInput.SortBy, sortInput.SortType);
+                }
+
+
                 else
                 {
-                    sortInput.Conditions = new List<IConditionalModel>();
-                    System.Reflection.PropertyInfo[] properties = sortInput.GetType().GetProperties();
-                    foreach (System.Reflection.PropertyInfo item in properties)
-                    {
-                        var query = item.GetCustomAttributes(typeof(QueryParameterAttribute), false).FirstOrDefault() as QueryParameterAttribute;
-                        if (query is not null)
-                        {
-                            object value = item.GetValue(sortInput, null);
-                            if (value is not null)
-                            {
-                                if (value.ToString() == "0")
-                                {
-                                    if (query.VerifyIsZero)
-                                    {
-                                        sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
-                                    }
-                                }
-                                else {
-                                    switch (query.ColumnType)
-                                    {
-                                        case ColumnTypeEnum.datetime:
-                                            if (!string.IsNullOrEmpty(query.ColumnName))
-                                            {
-                                                DateTime dt = DateTime.Now;
-                                                DateTime.TryParse(value.ToString(), out dt);
-                                                sortInput.Conditions.Add(new ConditionalModel { FieldValue = dt.ToString("yyyy-MM-dd HH:mm:ss"), FieldName = query.ColumnName, ConditionalType = (ConditionalType)(int)query.QueryOperator });
-                                            }
-                                            else
-                                            {
-                                                sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
-                                            }
-                                            break;
-                                        case ColumnTypeEnum.@bool:
-                                            string _Value = "";
-                                            if ((bool)value)
-                                            {
-                                                _Value = "1";
-                                            }
-                                            else {
-                                                _Value = "0";
-                                            }
-                                            sortInput.Conditions.Add(new ConditionalModel { FieldValue = _Value, FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
-                                            break;
-                                        default:
-                                            sortInput.Conditions.Add(new ConditionalModel { FieldValue = value.ToString(), FieldName = item.Name, ConditionalType = (ConditionalType)(int)query.QueryOperator });
-                                            break;
-                                    }
-                                   
-                                }
-                            }
-                        }
-                    }
-                    entities = await _repository.GetPageListAsync(sortInput.Conditions, sortInput, sortInput.SortBy, sortInput.SortType);
+                    isPageList = false;
+                    entities = await _repository.GetListAsync();
                 }
-               
-            }
-            else
-            {
-                isPageList = false;
-                entities = await _repository.GetListAsync();
-            }
-            entityDtos = await MapToGetListOutputDtosAsync(entities);
+                entityDtos = await MapToGetListOutputDtosAsync(entities);
+            //}
+
             //如果是分页查询，还需要统计数量
             if (isPageList)
             {

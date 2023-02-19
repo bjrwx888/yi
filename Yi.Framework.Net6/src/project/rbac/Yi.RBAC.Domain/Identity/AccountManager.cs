@@ -104,6 +104,14 @@ namespace Yi.RBAC.Domain.Identity
             return claims;
         }
 
+        /// <summary>
+        /// 更新密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="newPassword"></param>
+        /// <param name="oldPassword"></param>
+        /// <returns></returns>
+        /// <exception cref="UserFriendlyException"></exception>
         public async Task UpdatePasswordAsync(long userId, string newPassword, string oldPassword)
         {
             var user = await _repository.GetByIdAsync(userId);
@@ -117,7 +125,12 @@ namespace Yi.RBAC.Domain.Identity
             await _repository.UpdateAsync(user);
         }
 
-
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<bool> RestPasswordAsync(long userId, string password)
         {
             var user = await _repository.GetByIdAsync(userId);

@@ -12,8 +12,9 @@ using Yi.Framework.Core.Exceptions;
 namespace Microsoft.AspNetCore.Builder
 {
 
-   internal class ExceptionModle
+    internal class ExceptionModle
     {
+        public int Code { get; set; }
         public string? Message { get; set; }
         public string? Details { get; set; }
     }
@@ -36,10 +37,11 @@ namespace Microsoft.AspNetCore.Builder
             catch (BusinessException businessEx)
             {
                 context.Response.ContentType = "application/json;charset=utf-8";
-                context.Response.StatusCode = businessEx.Code.GetHashCode();
+                //context.Response.StatusCode = businessEx.Code.GetHashCode();
 
                 var result = new ExceptionModle
                 {
+                    Code = businessEx.Code.GetHashCode(),
                     Message = businessEx.Message,
                     Details = businessEx.Details,
                 };
@@ -57,10 +59,11 @@ namespace Microsoft.AspNetCore.Builder
                 //系统错误，记录日志
                 _logger.LogError(ex, $"授权失败:{ex.Message}");
                 //await _errorHandle.Invoer(context, ex);
-                context.Response.StatusCode =(int)ex.Code;
+                context.Response.StatusCode = (int)ex.Code;
                 //系统错误，需要记录
                 var result = new ExceptionModle
                 {
+                    Code = ex.Code.GetHashCode(),
                     Message = ex.Message,
                     Details = "授权失败",
                 };
@@ -81,6 +84,7 @@ namespace Microsoft.AspNetCore.Builder
                 //系统错误，需要记录
                 var result = new ExceptionModle
                 {
+                    Code = 500,
                     Message = ex.Message,
                     Details = "系统错误",
                 };

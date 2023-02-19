@@ -43,11 +43,7 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         {
             return await _DbQueryable.Where(whereExpression).OrderByIF(orderBy is not null, orderBy + " " + orderByType.ToString().ToLower()).ToPageListAsync(page.PageNum, page.PageSize);
         }
-        public async Task<List<T>> GetPageListAsync(List<IConditionalModel> whereExpression, IPagedAndSortedResultRequestDto page, string? orderBy, OrderByEnum orderByType = OrderByEnum.Asc)
-        {
-            return await _DbQueryable.Where(whereExpression).OrderByIF(orderBy is not null, orderBy + " " + orderByType.ToString().ToLower()).ToPageListAsync(page.PageNum, page.PageSize);
-        }
-        
+
 
         public async Task<bool> UpdateIgnoreNullAsync(T updateObj)
         {

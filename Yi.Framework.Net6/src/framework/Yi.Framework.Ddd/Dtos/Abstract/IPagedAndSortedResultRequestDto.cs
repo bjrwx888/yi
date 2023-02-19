@@ -1,5 +1,4 @@
-﻿using SqlSugar;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +14,5 @@ namespace Yi.Framework.Ddd.Dtos
          string? SortBy { get; set; }
 
         OrderByEnum SortType { get; set; }
-        List<IConditionalModel> Conditions { get; set; }
     }
-
 }
