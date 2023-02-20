@@ -93,6 +93,32 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
+        /// 通过用户id得到用户信息关联角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        [Permission("system:user:query")]
+        public async Task<Result> GetAuthRole([FromRoute] long id)
+        {
+            return Result.Success().SetData(await _iUserService.GetAuthRole(id));
+        }
+
+        /// <summary>
+        /// 更新用户角色信息
+        /// </summary>
+        /// <param name="upUserRoledto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Permission("system:user:edit")]
+        [Log("用户模块", OperEnum.Update)]
+        public async Task<Result> UpdateAuthRole(UpUserRoleDto upUserRoledto)
+        {
+            return Result.Success().SetStatus(await _iUserService.UpdateAuthRole(upUserRoledto.userId, upUserRoledto.roleIds));
+        }
+
+        /// <summary>
         /// 更新用户信息
         /// </summary>
         /// <param name="userDto"></param>

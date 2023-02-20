@@ -112,21 +112,19 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="角色编号" prop="roleCode" width="120" />
+      <el-table-column label="角色编号" prop="id" />
       <el-table-column
         label="角色名称"
         prop="roleName"
         :show-overflow-tooltip="true"
-        width="150"
       />
       <el-table-column
         label="权限字符"
         prop="roleCode"
         :show-overflow-tooltip="true"
-        width="150"
       />
-      <el-table-column label="显示顺序" prop="orderNum" width="100" />
-      <el-table-column label="状态" align="center" width="100">
+      <el-table-column label="显示顺序" prop="orderNum"/>
+      <el-table-column label="状态" align="center">
         <template #default="scope">
           <el-switch
             v-model="scope.row.isDeleted"
@@ -519,7 +517,7 @@ function handleCommand(command, row) {
 }
 /** 分配用户 */
 function handleAuthUser(row) {
-  router.push("/system/role-auth/user/" + row.roleId);
+  router.push("/system/role-auth/user/" + row.id);
 }
 /** 查询菜单树结构 */
 function getMenuTreeselect() {

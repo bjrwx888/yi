@@ -19,8 +19,7 @@ namespace Yi.Framework.Service.RABC
     public partial class UserService : BaseService<UserEntity>, IUserService
     {
         public UserService(IRepository<UserEntity> repository) : base(repository)
-        {
-        }
+        {}
         public async Task<List<UserEntity>> GetListInRole()
         {
             return await _repository._DbQueryable.Includes(u => u.Roles).ToListAsync();
@@ -151,6 +150,32 @@ namespace Yi.Framework.Service.RABC
             return data;
         }
 
+
+        public async Task<UserRoleDto> GetAuthRole(long userId)
+        {
+            var userRole = new UserRoleDto();
+
+            var user = await _repository._DbQueryable.Includes(u => u.Roles.Where(r => r.IsDeleted == false).ToList()).InSingleAsync(userId);
+            if (user is null)
+                return null;
+            userRole.User = user;
+
+
+            var roles = await _repository._Db.Queryable<RoleEntity>().Where(u => u.IsDeleted == false).ToListAsync();
+            if (roles is null)
+                return null;
+            foreach (var item in roles)
+            {
+                var role =  user.Roles.Where(r => r.Id.Equals(item.Id)).FirstOrDefault();
+                if (role is not null)
+                    item.flag = true;
+                else
+                    item.flag = false;
+            }
+            userRole.Roles = roles;
+            return userRole;
+        }
+
         public async Task<UserRoleMenuDto> GetUserAllInfo(long userId)
         {
 
@@ -248,6 +273,11 @@ namespace Yi.Framework.Service.RABC
             return new PageModel<List<UserEntity>>(data, total);
         }
 
+        public async Task<bool> UpdateAuthRole(long userId, List<long> roleIds)
+        {
+            var res1 = await GiveUserSetRole(new List<long> { userId }, roleIds);
+            return res1;
+        }
 
 
 

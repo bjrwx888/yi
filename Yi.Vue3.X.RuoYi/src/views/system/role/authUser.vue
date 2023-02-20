@@ -11,9 +11,9 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="手机号码" prop="phonenumber">
+         <el-form-item label="手机号码" prop="phone">
             <el-input
-               v-model="queryParams.phonenumber"
+               v-model="queryParams.phone"
                placeholder="请输入手机号码"
                clearable
                style="width: 240px"
@@ -60,12 +60,12 @@
       <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
-         <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
+         <el-table-column label="用户昵称" prop="nick" :show-overflow-tooltip="true" />
          <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
-         <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
-         <el-table-column label="状态" align="center" prop="status">
+         <el-table-column label="手机" prop="phone" :show-overflow-tooltip="true" />
+         <el-table-column label="状态" align="center" prop="isDeleted">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.isDeleted" />
             </template>
          </el-table-column>
          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -99,6 +99,7 @@
 <script setup name="AuthUser">
 import selectUser from "./selectUser";
 import { allocatedUserList, authUserCancel, authUserCancelAll } from "@/api/system/role";
+import { reactive } from "vue-demi";
 
 const route = useRoute();
 const { proxy } = getCurrentInstance();
@@ -110,21 +111,21 @@ const showSearch = ref(true);
 const multiple = ref(true);
 const total = ref(0);
 const userIds = ref([]);
-
+const delSelections=reactive([]);
 const queryParams = reactive({
   pageNum: 1,
   pageSize: 10,
   roleId: route.params.roleId,
   userName: undefined,
-  phonenumber: undefined,
+  phone: undefined,
 });
 
 /** 查询授权用户列表 */
 function getList() {
   loading.value = true;
   allocatedUserList(queryParams).then(response => {
-    userList.value = response.rows;
-    total.value = response.total;
+    userList.value = response.data.data;
+    total.value = response.data.total;
     loading.value = false;
   });
 }
@@ -145,7 +146,7 @@ function resetQuery() {
 }
 // 多选框选中数据
 function handleSelectionChange(selection) {
-  userIds.value = selection.map(item => item.userId);
+  userIds.value = selection.map(item => item.id);
   multiple.value = !selection.length;
 }
 /** 打开授权用户表弹窗 */
@@ -155,7 +156,9 @@ function openSelectUser() {
 /** 取消授权按钮操作 */
 function cancelAuthUser(row) {
   proxy.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？').then(function () {
-    return authUserCancel({ userId: row.userId, roleId: queryParams.roleId });
+   delSelections.length=0;
+  delSelections.push(row.id);
+    return authUserCancelAll({ roleId: queryParams.roleId,userIds: delSelections, });
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("取消授权成功");
@@ -164,9 +167,9 @@ function cancelAuthUser(row) {
 /** 批量取消授权按钮操作 */
 function cancelAuthUserAll(row) {
   const roleId = queryParams.roleId;
-  const uIds = userIds.value.join(",");
+
   proxy.$modal.confirm("是否取消选中用户授权数据项?").then(function () {
-    return authUserCancelAll({ roleId: roleId, userIds: uIds });
+    return authUserCancelAll({ roleId: roleId, userIds: userIds.value });
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("取消授权成功");

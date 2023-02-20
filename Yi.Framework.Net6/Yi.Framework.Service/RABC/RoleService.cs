@@ -57,8 +57,6 @@ namespace Yi.Framework.Service.RABC
 
         }
 
-
-
         public async Task<PageModel<List<RoleEntity>>> SelctPageList(RoleEntity role, PageParModel page)
         {
             RefAsync<int> total = 0;

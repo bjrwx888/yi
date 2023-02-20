@@ -4,8 +4,8 @@
       <el-form :model="form" label-width="80px">
          <el-row>
             <el-col :span="8" :offset="2">
-               <el-form-item label="用户昵称" prop="nickName">
-                  <el-input v-model="form.nickName" disabled />
+               <el-form-item label="用户昵称" prop="nick">
+                  <el-input v-model="form.nick" disabled />
                </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
@@ -24,9 +24,9 @@
             </template>
          </el-table-column>
          <el-table-column type="selection" :reserve-selection="true" width="55"></el-table-column>
-         <el-table-column label="角色编号" align="center" prop="roleId" />
+         <el-table-column label="角色编号" align="center" prop="id" />
          <el-table-column label="角色名称" align="center" prop="roleName" />
-         <el-table-column label="权限字符" align="center" prop="roleKey" />
+         <el-table-column label="权限字符" align="center" prop="roleCode" />
          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -58,22 +58,30 @@ const pageSize = ref(10);
 const roleIds = ref([]);
 const roles = ref([]);
 const form = ref({
-  nickName: undefined,
+  nick: undefined,
   userName: undefined,
-  userId: undefined
+  id: undefined
 });
 
+const data = reactive({
+   roleauth: {
+      roleIds:ref([])
+   },
+  
+});
+
+const {  roleauth  } = toRefs(data);
 /** 单击选中行数据 */
 function clickRow(row) {
   proxy.$refs["roleRef"].toggleRowSelection(row);
 };
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
-  roleIds.value = selection.map(item => item.roleId);
+  roleIds.value = selection.map(item => item.id);
 };
 /** 保存选中的数据编号 */
 function getRowKey(row) {
-  return row.roleId;
+  return row.id;
 };
 /** 关闭按钮 */
 function close() {
@@ -82,9 +90,8 @@ function close() {
 };
 /** 提交按钮 */
 function submitForm() {
-  const userId = form.value.userId;
-  const rIds = roleIds.value.join(",");
-  updateAuthRole({ userId: userId, roleIds: rIds }).then(response => {
+  const userId = form.value.id;
+  updateAuthRole({ userId: userId, roleIds: roleIds.value }).then(response => {
     proxy.$modal.msgSuccess("授权成功");
     close();
   });
@@ -95,8 +102,8 @@ function submitForm() {
   if (userId) {
     loading.value = true;
     getAuthRole(userId).then(response => {
-      form.value = response.user;
-      roles.value = response.roles;
+      form.value = response.data.user;
+      roles.value = response.data.roles;
       total.value = roles.value.length;
       nextTick(() => {
         roles.value.forEach(row => {

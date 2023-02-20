@@ -47,6 +47,16 @@ namespace Yi.Framework.Interface.RABC
         /// <returns></returns>
         Task<UserEntity> GetInfoById(long userId);
 
+
+        /// <summary>
+        /// 通过用户id得到用户信息关联角色
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<UserRoleDto> GetAuthRole(long userId);
+
+        Task<bool> UpdateAuthRole(long userId, List<long> roleIds);
+
         /// <summary>
         /// 给用户设置角色，多用户，多角色
         /// </summary>
