@@ -45,9 +45,9 @@
     <!-- 表格数据 -->
     <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="50" align="center" />
-      <el-table-column label="角色编号" prop="roleCode"  />
-      <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true"  />
-      <el-table-column label="权限字符" prop="roleCode" :show-overflow-tooltip="true"  />
+      <el-table-column label="角色编号" prop="roleCode" />
+      <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" />
+      <el-table-column label="权限字符" prop="roleCode" :show-overflow-tooltip="true" />
       <el-table-column label="显示顺序" prop="orderNum" />
       <el-table-column label="状态" align="center">
         <template #default="scope">
@@ -63,7 +63,7 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-tooltip content="修改" placement="top" v-if="scope.row.roleId !== 1">
-            <el-button type="text" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:role:edit']">
+            <el-button type="text" icon="Edit" @click=" handleUpdate(scope.row)" v-hasPermi="['system:role:edit']">
             </el-button>
           </el-tooltip>
           <el-tooltip content="删除" placement="top" v-if="scope.row.roleId !== 1">
@@ -328,7 +328,7 @@ function handleAuthUser(row) {
 }
 /** 查询菜单树结构 */
 function getMenuTreeselect() {
-  listMenu().then((response) => {
+  return listMenu().then((response) => {
     const options = [];
     response.data.items.forEach((m) => {
       options.push({
@@ -339,8 +339,11 @@ function getMenuTreeselect() {
       });
     });
     menuOptions.value = proxy.handleTree(options);
+
+    return response;
   });
 }
+
 /** 所有部门节点数据 */
 function getDeptAllCheckedKeys() {
   // 目前被选中的部门节点
@@ -383,7 +386,7 @@ function handleAdd() {
   title.value = "添加角色";
 }
 /** 修改角色 */
-function handleUpdate(row) {
+ function handleUpdate(row) {
   reset();
   const roleId = row.id || ids.value;
   getRoleMenuTreeselect(roleId);
@@ -395,23 +398,27 @@ function handleUpdate(row) {
   });
 }
 /** 根据角色ID查询菜单树结构 */
-function getRoleMenuTreeselect(roleId) {
+ function getRoleMenuTreeselect(roleId) {
   //1：获取该角色下的全部菜单id
   //2：获取全量菜单
-  getMenuTreeselect();
-
-  roleMenuTreeselect(roleId).then((response) => {
+    const menuTreeselect=getMenuTreeselect();
+    menuTreeselect.then(()=>{
+      nextTick(() => {
+      roleMenuTreeselect(roleId).then((response) => {
     const menuIds = [];
     response.data.forEach((m) => {
       menuIds.push(m.id);
     });
-    nextTick(() => {
+
       menuIds.forEach((v) => {
         menuRef.value.setChecked(v, true, false);
       });
       //这里是要一个当前用户已拥有的菜单的id
     });
   });
+
+    })
+
 
 }
 /** 根据角色ID查询部门树结构 */
