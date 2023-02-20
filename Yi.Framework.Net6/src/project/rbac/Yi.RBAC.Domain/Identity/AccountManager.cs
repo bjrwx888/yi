@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Const;
 using Yi.Framework.Core.CurrentUsers;
 using Yi.Framework.Core.Exceptions;
 using Yi.Framework.Ddd.Repositories;
@@ -82,23 +83,25 @@ namespace Yi.RBAC.Domain.Identity
         public Dictionary<string, object> UserInfoToClaim(UserRoleMenuDto dto)
         {
             var claims = new Dictionary<string, object>();
-            claims.Add(nameof(ICurrentUser.Id), dto.User.Id);
-            claims.Add(nameof(ICurrentUser.UserName), dto.User.UserName);
+            claims.Add(TokenTypeConst.Id, dto.User.Id);
+            claims.Add(TokenTypeConst.UserName, dto.User.UserName);
             if (dto.User.Email is not null)
             {
-                claims.Add(nameof(ICurrentUser.Email), dto.User.Email);
+                claims.Add(TokenTypeConst.Email, dto.User.Email);
             }
             if (dto.User.Phone is not null)
             {
-                claims.Add(nameof(ICurrentUser.PhoneNumber), dto.User.Phone);
+                claims.Add(TokenTypeConst.PhoneNumber, dto.User.Phone);
             }
             if (UserConst.Admin.Equals(dto.User.UserName))
             {
-                claims.Add(nameof(ICurrentUser.Permission), UserConst.AdminPermissionCode);
+                claims.Add(TokenTypeConst.Permission, UserConst.AdminPermissionCode);
+                claims.Add(TokenTypeConst.Roles, UserConst.AdminRolesCode);
             }
             else
             {
-                claims.Add(nameof(ICurrentUser.Permission), dto.PermissionCodes.Where(x => !string.IsNullOrEmpty(x)));
+                claims.Add(TokenTypeConst.Permission, dto.PermissionCodes.Where(x => !string.IsNullOrEmpty(x)));
+                claims.Add(TokenTypeConst.Roles, dto.RoleCodes.Where(x => !string.IsNullOrEmpty(x)));
             }
 
             return claims;
