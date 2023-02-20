@@ -711,6 +711,36 @@
             <param name="postIds"></param>
             <returns></returns>
         </member>
+        <member name="P:Yi.RBAC.Domain.Logs.Entities.LoginLogEntity.LoginUser">
+             <summary>
+             登录用户 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Logs.Entities.LoginLogEntity.LoginLocation">
+             <summary>
+             登录地点 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Logs.Entities.LoginLogEntity.LoginIp">
+             <summary>
+             登录Ip 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Logs.Entities.LoginLogEntity.Browser">
+             <summary>
+             浏览器 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Logs.Entities.LoginLogEntity.Os">
+             <summary>
+             操作系统 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Domain.Logs.Entities.LoginLogEntity.LogMsg">
+             <summary>
+             登录信息 
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Domain.Setting.Entities.ConfigEntity">
             <summary>
             配置表

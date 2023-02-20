@@ -74,6 +74,26 @@
             User服务抽象
             </summary>
         </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.LoginIp">
+             <summary>
+             登录Ip 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.Browser">
+             <summary>
+             浏览器 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.Os">
+             <summary>
+             操作系统 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.LogMsg">
+             <summary>
+             登录信息 
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigCreateInputVo">
             <summary>
             Config输入创建对象
