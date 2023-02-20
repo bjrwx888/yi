@@ -8,24 +8,24 @@ namespace Yi.Framework.Core.CurrentUsers
 {
     public interface ICurrentUser
     {
-        public bool IsAuthenticated { get; set; }
-        public long Id { get; set; }
+        public bool IsAuthenticated { get; }
+        public long Id { get; }
 
-        public string UserName { get; set; }
+        public string UserName { get; }
 
-        public Guid? TenantId { get; set; }
+        public Guid TenantId { get; }
 
-        public string Email { get; set; }
+        public string Email { get; }
 
-        public bool EmailVerified { get; set; }
+        public bool EmailVerified { get; }
 
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get;  }
 
-        public bool PhoneNumberVerified { get; set; }
+        public bool PhoneNumberVerified { get; }
 
-        public string[]? Roles { get; set; }
+        public string[]? Roles { get; }
 
-        public string[]? Permission { get; set; }
+        public string[]? Permission { get; }
 
     }
 }

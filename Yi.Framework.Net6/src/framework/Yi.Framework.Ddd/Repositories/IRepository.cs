@@ -33,7 +33,6 @@ namespace Yi.Framework.Ddd.Repositories
         Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page, Expression<Func<T, object>>? orderByExpression = null, OrderByEnum orderByType = OrderByEnum.Asc);
         Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page, string? orderBy, OrderByEnum orderByType = OrderByEnum.Asc);
 
-
         //插入
         Task<bool> InsertAsync(T insertObj);
         Task<bool> InsertOrUpdateAsync(T data);

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.AspNetCore.CurrentUser;
+using Yi.Framework.Core.CurrentUsers.Accessor;
+using Yi.Framework.Core.CurrentUsers;
 
 namespace Yi.Framework.AspNetCore
 {
@@ -15,12 +18,13 @@ namespace Yi.Framework.AspNetCore
 
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
-            app.UseCurrentUserServer();
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
+            services.AddHttpContextAccessor();
             services.AddCurrentUserServer();
+
         }
     }
 }

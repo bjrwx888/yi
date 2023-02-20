@@ -9,8 +9,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.AspNetCore.CurrentUser;
 using Yi.Framework.Core.Const;
 using Yi.Framework.Core.CurrentUsers;
+using Yi.Framework.Core.CurrentUsers.Accessor;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,7 +20,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddCurrentUserServer(this IServiceCollection services)
         {
-            return services.AddScoped<ICurrentUser, CurrentUser>();
+            services.AddSingleton<ICurrentPrincipalAccessor, HttpContextCurrentPrincipalAccessor>();
+            return services.AddTransient<ICurrentUser, CurrentUser>();
         }
 
 
