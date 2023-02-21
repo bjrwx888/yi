@@ -12,6 +12,7 @@ using SqlSugar;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Auth.JwtBearer.Authorization;
+using Yi.RBAC.Domain.Shared.Logs;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -67,6 +68,7 @@ namespace Yi.RBAC.Application.Identity
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
+        [OperLog("添加用户", OperEnum.Insert)]
         public async override Task<UserGetOutputDto> CreateAsync(UserCreateInputVo input)
         {
             if (string.IsNullOrEmpty(input.Password))
@@ -111,6 +113,7 @@ namespace Yi.RBAC.Application.Identity
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
+        [OperLog("更新用户", OperEnum.Update)]
         public async override Task<UserGetOutputDto> UpdateAsync(long id, UserUpdateInputVo input)
         {
             if (await _repository.IsAnyAsync(u => input.UserName!.Equals(u.UserName) && !id.Equals(u.Id)))
@@ -142,7 +145,8 @@ namespace Yi.RBAC.Application.Identity
         /// <param name="state"></param>
         /// <returns></returns>
         [Route("/api/user/{id}/{state}")]
-        public async Task<UserGetOutputDto> UpdateStateAsync([FromRoute] long id,[FromRoute] bool state)
+        [OperLog("更新用户状态", OperEnum.Update)]
+        public async Task<UserGetOutputDto> UpdateStateAsync([FromRoute] long id, [FromRoute] bool state)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity is null)
@@ -151,6 +155,7 @@ namespace Yi.RBAC.Application.Identity
             }
 
             entity.State = state;
+            await _repository.UpdateAsync(entity);
             return await MapToGetOutputDtoAsync(entity);
         }
     }

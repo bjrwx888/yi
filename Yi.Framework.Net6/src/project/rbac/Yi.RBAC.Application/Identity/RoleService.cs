@@ -99,6 +99,7 @@ namespace Yi.RBAC.Application.Identity
             }
 
             entity.State = state;
+            await _repository.UpdateAsync(entity);
             return await MapToGetOutputDtoAsync(entity);
         }
     }
