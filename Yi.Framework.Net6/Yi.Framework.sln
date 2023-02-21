@@ -85,7 +85,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.RBAC.Web", "src\project\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ThumbnailSharp", "src\module\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj", "{60E54034-792C-4A90-BCDF-4D5FFB45089E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.EventBus", "src\module\Yi.Framework.EventBus\Yi.Framework.EventBus.csproj", "{FC559052-36EC-4379-B447-298FAD6045F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.EventBus", "src\module\Yi.Framework.EventBus\Yi.Framework.EventBus.csproj", "{FC559052-36EC-4379-B447-298FAD6045F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12EA3BCF-8991-4010-B41E-67C476CBA690}"
+	ProjectSection(SolutionItems) = preProject
+		Build.props = Build.props
+		..\readme\git提交规范.txt = ..\readme\git提交规范.txt
+		src\project\rbac\GlobalUsings.cs = src\project\rbac\GlobalUsings.cs
+		Version.cs = Version.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

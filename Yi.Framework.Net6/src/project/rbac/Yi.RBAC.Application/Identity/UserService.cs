@@ -11,6 +11,7 @@ using Yi.RBAC.Domain.Identity.Repositories;
 using SqlSugar;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Yi.Framework.Auth.JwtBearer.Authorization;
 
 namespace Yi.RBAC.Application.Identity
 {

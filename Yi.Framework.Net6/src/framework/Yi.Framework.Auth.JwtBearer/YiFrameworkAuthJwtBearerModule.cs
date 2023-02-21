@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using SF.AspNetCore.Auth.Authorization;
 using StartupModules;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,10 @@ namespace Yi.Framework.Auth.JwtBearer
             services.AddAuthentication(option =>
             {
                 option.AddScheme<YiJwtAuthenticationHandler>(YiJwtAuthenticationHandler.YiJwtSchemeName, YiJwtAuthenticationHandler.YiJwtSchemeName);
+            });
+            services.AddSingleton<PermissionGlobalAttribute>();
+            services.AddControllers(options => {
+                options.Filters.Add<PermissionGlobalAttribute>();
             });
             //services.AddSingleton<PermissionAttribute>();
             //services.AddControllers(options => {

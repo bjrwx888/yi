@@ -17,30 +17,13 @@ namespace Yi.Framework.Auth.JwtBearer.Authorization
 
     public class PermissionAttribute : ActionFilterAttribute
     {
-        private string Permission { get; set; }
+        internal string Code { get; set; }
 
-        public PermissionAttribute(string permission)
+        public PermissionAttribute(string code)
         {
-            this.Permission = permission;
+            this.Code = code;
         }
 
-        /// <summary>
-        /// 动作鉴权
-        /// </summary>
-        /// <param name="context"></param>
-        /// <exception cref="Exception"></exception>
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-
-            var permissionHandler = ServiceLocatorModel.Instance.GetRequiredService<IPermissionHandler>();
-
-            var result = permissionHandler.IsPass(Permission);
-
-            if (!result)
-            {
-                throw new AuthException(message: $"您无权限访问该接口-{ context.HttpContext.Request.Path.Value}");
-            }
-        }
 
     }
 }
