@@ -28,5 +28,6 @@ namespace Yi.RBAC.Application.Logs
                           .ToPageListAsync(input.PageNum, input.PageSize, total);
             return new PagedResultDto<LoginLogGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
         }
+
     }
 }

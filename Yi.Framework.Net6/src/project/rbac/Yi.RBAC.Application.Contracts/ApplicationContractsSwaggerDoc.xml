@@ -94,6 +94,11 @@
              登录信息 
             </summary>
         </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Logs.IOperationLogService">
+            <summary>
+            OperationLog服务抽象
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigCreateInputVo">
             <summary>
             Config输入创建对象
