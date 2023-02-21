@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.AspNetCore.Extensions;
+using Yi.Framework.Core.CurrentUsers;
+using Yi.Framework.Ddd.Repositories;
+using Yi.Framework.Model.RABC.Entitys;
 using Yi.RBAC.Domain.Shared.Logs;
 
 namespace Yi.RBAC.Domain.Logs
@@ -16,13 +19,17 @@ namespace Yi.RBAC.Domain.Logs
     public class GlobalOperLogAttribute : ActionFilterAttribute
     {
         private ILogger<GlobalOperLogAttribute> _logger;
+        private IRepository<OperationLogEntity> _repository;
+        private ICurrentUser _currentUser;
         //注入一个日志服务
-        public GlobalOperLogAttribute(ILogger<GlobalOperLogAttribute> logger)
+        public GlobalOperLogAttribute(ILogger<GlobalOperLogAttribute> logger, IRepository<OperationLogEntity> repository,ICurrentUser currentUser)
         {
             _logger = logger;
+            _repository = repository;
+            _currentUser=currentUser;
         }
 
-        public override void OnResultExecuted(ResultExecutedContext context)
+        public override async void OnResultExecuted(ResultExecutedContext context)
         {
             //判断标签是在方法上
             if (context.ActionDescriptor is not ControllerActionDescriptor controllerActionDescriptor) return;
@@ -49,41 +56,42 @@ namespace Yi.RBAC.Domain.Logs
 
             //日志服务插入一条操作记录即可
 
-            //var logEntity = new OperationLogEntity();
-
-            //logEntity.OperIp = ip;
-            ////logEntity.OperLocation = location;
-            //logEntity.OperType = logAttribute.OperType.GetHashCode();
-            //logEntity.Title = logAttribute.Title;
-            //logEntity.RequestMethod = context.HttpContext.Request.Method;
-            //logEntity.Method = context.HttpContext.Request.Path.Value;
-            //logEntity.IsDeleted = false;
-            //logEntity.OperUser= context.HttpContext.GetUserNameInfo();
+            var logEntity = new OperationLogEntity();
+            logEntity.Id = SnowflakeHelper.NextId;
+            logEntity.OperIp = ip;
             //logEntity.OperLocation = location;
-            //if (logAttribute.IsSaveResponseData)
-            //{
-            //    if (context.Result is ContentResult result && result.ContentType == "application/json")
-            //    {
-            //        logEntity.RequestResult = result.Content?.Replace("\r\n", "").Trim();
-            //    }
-            //   if (context.Result is JsonResult result2)
-            //    {
-            //        logEntity.RequestResult = result2.Value?.ToString();
-            //    }
+            logEntity.OperType = operLogAttribute.OperType;
+            logEntity.Title = operLogAttribute.Title;
+            logEntity.RequestMethod = context.HttpContext.Request.Method;
+            logEntity.Method = context.HttpContext.Request.Path.Value;
+            logEntity.OperLocation = location;
 
-            //    if (context.Result is ObjectResult result3)
-            //    {
-            //        logEntity.RequestResult = JsonHelper.ObjToStr(result3.Value);
-            //    }
 
-            //}
+            logEntity.OperUser = _currentUser.UserName;
+            if (operLogAttribute.IsSaveResponseData)
+            {
+                if (context.Result is ContentResult result && result.ContentType == "application/json")
+                {
+                    logEntity.RequestResult = result.Content?.Replace("\r\n", "").Trim();
+                }
+                if (context.Result is JsonResult result2)
+                {
+                    logEntity.RequestResult = result2.Value?.ToString();
+                }
 
-            //if (logAttribute.IsSaveRequestData)
-            //{
-            //    logEntity.RequestParam = context.HttpContext.GetRequestValue(logEntity.RequestMethod);
-            //}
+                if (context.Result is ObjectResult result3)
+                {
+                    logEntity.RequestResult = JsonHelper.ObjToStr(result3.Value);
+                }
 
-            //_operationLogService._repository.InsertReturnSnowflakeId(logEntity);
+            }
+
+            if (operLogAttribute.IsSaveRequestData)
+            {
+                //logEntity.RequestParam = context.HttpContext.GetRequestValue(logEntity.RequestMethod);
+            }
+
+            await _repository.InsertAsync(logEntity);
 
 
         }

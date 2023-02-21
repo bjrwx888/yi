@@ -7,6 +7,7 @@ using Yi.Framework.Ddd.Dtos;
 using SqlSugar;
 using Yi.RBAC.Application.Contracts.Identity.Dtos;
 using Yi.RBAC.Domain.Identity.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Yi.RBAC.Application.Setting
 {
@@ -14,6 +15,7 @@ namespace Yi.RBAC.Application.Setting
     /// Config服务实现
     /// </summary>
     [AppService]
+
     public class ConfigService : CrudAppService<ConfigEntity, ConfigGetOutputDto, ConfigGetListOutputDto, long, ConfigGetListInputVo, ConfigCreateInputVo, ConfigUpdateInputVo>,
        IConfigService, IAutoApiService
     {
