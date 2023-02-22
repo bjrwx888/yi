@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class OperLogAttribute : Attribute

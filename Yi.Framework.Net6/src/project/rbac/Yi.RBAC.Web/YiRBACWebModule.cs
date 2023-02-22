@@ -7,7 +7,7 @@ using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Autofac;
 using Yi.Framework.Data.Json;
-using Yi.Framework.OperLog;
+using Yi.Framework.OperLogManager;
 using Yi.RBAC.Application;
 using Yi.RBAC.Sqlsugar;
 
@@ -33,7 +33,7 @@ namespace Yi.RBAC.Web
             {
                 //NETServiceTest所在程序集添加进动态api配置
                 opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
-                opt.CreateConventional(typeof(YiFrameworkOperLogModule).Assembly, option => option.RootPath = string.Empty);
+
             });
 
             //添加swagger

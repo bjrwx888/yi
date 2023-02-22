@@ -4,10 +4,10 @@ using StartupModules;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     [DependsOn(typeof(YiFrameworkCoreModule))]
-    public class YiFrameworkOperLogModule : IStartupModule
+    public class YiFrameworkOperLogManagerModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
@@ -18,6 +18,13 @@ namespace Yi.Framework.OperLog
             services.AddControllers(options => {
                 options.Filters.Add<GlobalOperLogAttribute>();
             });
+            services.AddAutoApiService(opt =>
+            {
+                //NETServiceTest所在程序集添加进动态api配置
+                opt.CreateConventional(typeof(YiFrameworkOperLogManagerModule).Assembly, option => option.RootPath = string.Empty);
+
+            });
+      
             services.AddSingleton<GlobalOperLogAttribute>();
         }
     }

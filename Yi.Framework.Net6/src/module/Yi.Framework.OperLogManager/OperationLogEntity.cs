@@ -6,7 +6,7 @@ using SqlSugar;
 using Yi.Framework.Data.Auditing;
 using Yi.Framework.Ddd.Entities;
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     /// <summary>
     /// 操作日志表

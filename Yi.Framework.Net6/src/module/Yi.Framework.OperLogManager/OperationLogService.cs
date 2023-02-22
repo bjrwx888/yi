@@ -5,7 +5,7 @@ using Yi.Framework.Core.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     /// <summary>
     /// OperationLog服务实现

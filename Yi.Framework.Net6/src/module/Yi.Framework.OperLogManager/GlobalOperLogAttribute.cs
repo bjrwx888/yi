@@ -14,7 +14,7 @@ using Yi.Framework.Core.Helper;
 using Yi.Framework.Ddd.Repositories;
 
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     public class GlobalOperLogAttribute : ActionFilterAttribute
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Ddd.Services.Abstract;
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     /// <summary>
     /// OperationLog服务抽象

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.OperLog
+namespace Yi.Framework.OperLogManager
 {
     public enum OperEnum
     {
