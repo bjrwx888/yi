@@ -1,4 +1,5 @@
-﻿using NET.AutoWebApi.Setting;
+﻿using Microsoft.AspNetCore.Mvc;
+using NET.AutoWebApi.Setting;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,10 @@ namespace Yi.RBAC.Application.Logs
             return new PagedResultDto<LoginLogGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
         }
 
+        [NonAction]
+        public override Task<LoginLogGetListOutputDto> UpdateAsync(long id, LoginLogGetListOutputDto input)
+        {
+            return base.UpdateAsync(id, input);
+        }
     }
 }

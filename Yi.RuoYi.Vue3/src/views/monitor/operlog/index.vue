@@ -155,8 +155,8 @@
                </el-col>
                <el-col :span="12">
                   <el-form-item label="操作状态：">
-                     <div v-if="form.isDeleted === false">正常</div>
-                     <div v-else-if="form.isDeleted === true">失败</div>
+                     <div v-if="form.state === true">正常</div>
+                     <div v-else-if="form.state === false">失败</div>
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -212,7 +212,7 @@ const { queryParams, form } = toRefs(data);
 function getList() {
   loading.value = true;
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    operlogList.value = response.data.data;
+    operlogList.value = response.data.items;
     total.value = response.data.total;
     loading.value = false;
   });
