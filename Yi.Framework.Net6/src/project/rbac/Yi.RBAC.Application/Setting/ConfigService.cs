@@ -19,6 +19,11 @@ namespace Yi.RBAC.Application.Setting
     public class ConfigService : CrudAppService<ConfigEntity, ConfigGetOutputDto, ConfigGetListOutputDto, long, ConfigGetListInputVo, ConfigCreateInputVo, ConfigUpdateInputVo>,
        IConfigService, IAutoApiService
     {
+        /// <summary>
+        /// 多查
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<PagedResultDto<ConfigGetListOutputDto>> GetListAsync(ConfigGetListInputVo input)
         {
             var entity = await MapToEntityAsync(input);

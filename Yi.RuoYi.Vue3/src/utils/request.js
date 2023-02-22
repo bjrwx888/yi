@@ -74,14 +74,11 @@ service.interceptors.request.use(config => {
 
 // 响应拦截器
 service.interceptors.response.use(res => {
-    // // 未设置状态码则默认成功状态
-    // const code = res.data.code || 200;
-    // // 获取错误信息
-    // const msg = errorCode[code] || res.data.message || errorCode['default']
-
-   const code=200;
-   const msg="成功";
-
+    // 未设置状态码则默认成功状态
+    const code = res.data.code || 200;
+    // 获取错误信息
+    const msg = errorCode[code] || res.data.message || errorCode['default']
+    
     // 二进制数据则直接返回
     if(res.request.responseType ===  'blob' || res.request.responseType ===  'arraybuffer'){
       return res

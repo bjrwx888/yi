@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.RBAC.Domain.Shared.Logs
+namespace Yi.Framework.OperLog
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class OperLogAttribute : System.Attribute
+    public class OperLogAttribute : Attribute
     {
         /// <summary>
         /// 操作类型
@@ -31,8 +31,8 @@ namespace Yi.RBAC.Domain.Shared.Logs
 
         public OperLogAttribute(string title, OperEnum operationType)
         {
-            this.Title = title;
-            this.OperType = operationType;
+            Title = title;
+            OperType = operationType;
         }
     }
 }

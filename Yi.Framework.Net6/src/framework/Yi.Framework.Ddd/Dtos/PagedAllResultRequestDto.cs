@@ -10,7 +10,14 @@ namespace Yi.Framework.Ddd.Dtos
 {
     public class PagedAllResultRequestDto : PagedAndSortedResultRequestDto, IPagedAllResultRequestDto, IPagedAndSortedResultRequestDto, IPageTimeResultRequestDto
     {
+        /// <summary>
+        /// 查询开始时间条件
+        /// </summary>
         public DateTime? StartTime { get; set; }
+
+        /// <summary>
+        /// 查询结束时间条件
+        /// </summary>
         public DateTime? EndTime { get; set; }
     }
 }

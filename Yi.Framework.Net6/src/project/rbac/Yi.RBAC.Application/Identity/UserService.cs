@@ -12,6 +12,8 @@ using SqlSugar;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Auth.JwtBearer.Authorization;
+using Yi.RBAC.Application.Contracts.Identity.Dtos.User;
+using Yi.Framework.Core.CurrentUsers;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -30,6 +32,9 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private IUserRepository _userRepository { get; set; }
+
+        [Autowired]
+        private ICurrentUser _currentUser { get; set; }
 
         /// <summary>
         /// 查询用户
@@ -136,13 +141,27 @@ namespace Yi.RBAC.Application.Identity
         }
 
         /// <summary>
+        /// 更新个人中心
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<UserGetOutputDto> UpdateProfileAsync(ProfileUpdateInputVo input)
+        {
+            var entity = await _repository.GetByIdAsync(_currentUser.Id);
+            _mapper.Map(input, entity);
+            await _repository.UpdateAsync(entity);
+            var dto = _mapper.Map<UserGetOutputDto>(entity);
+            return dto;
+        }
+
+        /// <summary>
         /// 更新状态
         /// </summary>
         /// <param name="id"></param>
         /// <param name="state"></param>
         /// <returns></returns>
         [Route("/api/user/{id}/{state}")]
-        public async Task<UserGetOutputDto> UpdateStateAsync([FromRoute] long id,[FromRoute] bool state)
+        public async Task<UserGetOutputDto> UpdateStateAsync([FromRoute] long id, [FromRoute] bool state)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity is null)

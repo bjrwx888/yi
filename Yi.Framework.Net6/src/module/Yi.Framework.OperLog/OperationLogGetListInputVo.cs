@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Ddd.Dtos;
-using Yi.RBAC.Domain.Shared.Logs;
 
-namespace Yi.RBAC.Application.Contracts.Logs.Dtos
+namespace Yi.Framework.OperLog
 {
     public class OperationLogGetListInputVo : PagedAllResultRequestDto
     {

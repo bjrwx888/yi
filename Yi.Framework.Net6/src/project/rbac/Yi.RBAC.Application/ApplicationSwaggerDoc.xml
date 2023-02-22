@@ -171,6 +171,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.UserService.UpdateProfileAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.User.ProfileUpdateInputVo)">
+            <summary>
+            更新个人中心
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.RBAC.Application.Identity.UserService.UpdateStateAsync(System.Int64,System.Boolean)">
             <summary>
             更新状态
@@ -179,15 +186,17 @@
             <param name="state"></param>
             <returns></returns>
         </member>
-        <member name="T:Yi.RBAC.Application.Logs.OperationLogService">
-            <summary>
-            OperationLog服务实现
-            </summary>
-        </member>
         <member name="T:Yi.RBAC.Application.Setting.ConfigService">
             <summary>
             Config服务实现
             </summary>
+        </member>
+        <member name="M:Yi.RBAC.Application.Setting.ConfigService.GetListAsync(Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo)">
+            <summary>
+            多查
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

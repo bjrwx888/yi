@@ -10,6 +10,7 @@ using Yi.Framework.Core.Autofac;
 using Yi.RBAC.Application;
 using Yi.Framework.AspNetCore;
 using Yi.Framework.Data.Json;
+using Yi.Framework.OperLog;
 
 namespace Yi.BBS.Web
 {
@@ -31,7 +32,8 @@ namespace Yi.BBS.Web
             {
                 //NETServiceTest所在程序集添加进动态api配置
                 opt.CreateConventional(typeof(YiBBSApplicationModule).Assembly, option => option.RootPath = string.Empty);
-                //opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
+                opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
+                opt.CreateConventional(typeof(YiFrameworkOperLogModule).Assembly, option => option.RootPath = string.Empty);
             });
 
             //添加swagger

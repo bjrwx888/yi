@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.RBAC.Domain.Shared.Logs
+namespace Yi.Framework.OperLog
 {
     public enum OperEnum
     {

@@ -69,7 +69,7 @@ export function changeUserStatus(userId, isDel) {
 // 查询用户个人信息
 export function getUserProfile() {
   return request({
-    url: '/account/getUserAllInfo',
+    url: '/account',
     method: 'get'
   })
 }
@@ -77,9 +77,9 @@ export function getUserProfile() {
 // 修改用户个人信息
 export function updateUserProfile(data) {
   return request({
-    url: '/user/UpdateProfile',
+    url: `/user/profile`,
     method: 'put',
-    data: { user: data }
+    data:  data 
   })
 }
 

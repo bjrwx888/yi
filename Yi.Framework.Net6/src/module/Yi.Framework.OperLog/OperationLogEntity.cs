@@ -5,15 +5,14 @@ using System.Text.Json.Serialization;
 using SqlSugar;
 using Yi.Framework.Data.Auditing;
 using Yi.Framework.Ddd.Entities;
-using Yi.RBAC.Domain.Shared.Logs;
 
-namespace Yi.Framework.Model.RABC.Entitys
+namespace Yi.Framework.OperLog
 {
     /// <summary>
     /// 操作日志表
     ///</summary>
     [SugarTable("OperationLog")]
-    public  class OperationLogEntity : IEntity<long>, ICreationAuditedObject
+    public class OperationLogEntity : IEntity<long>, ICreationAuditedObject
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public long Id { get; set; }

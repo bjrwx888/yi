@@ -10,11 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.AspNetCore.Extensions;
 using Yi.Framework.Core.CurrentUsers;
+using Yi.Framework.Core.Helper;
 using Yi.Framework.Ddd.Repositories;
-using Yi.Framework.Model.RABC.Entitys;
-using Yi.RBAC.Domain.Shared.Logs;
 
-namespace Yi.RBAC.Domain.Logs
+
+namespace Yi.Framework.OperLog
 {
     public class GlobalOperLogAttribute : ActionFilterAttribute
     {
@@ -22,11 +22,11 @@ namespace Yi.RBAC.Domain.Logs
         private IRepository<OperationLogEntity> _repository;
         private ICurrentUser _currentUser;
         //注入一个日志服务
-        public GlobalOperLogAttribute(ILogger<GlobalOperLogAttribute> logger, IRepository<OperationLogEntity> repository,ICurrentUser currentUser)
+        public GlobalOperLogAttribute(ILogger<GlobalOperLogAttribute> logger, IRepository<OperationLogEntity> repository, ICurrentUser currentUser)
         {
             _logger = logger;
             _repository = repository;
-            _currentUser=currentUser;
+            _currentUser = currentUser;
         }
 
         public override async void OnResultExecuted(ResultExecutedContext context)
