@@ -2,6 +2,8 @@ using NET.AutoWebApi.Setting;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Dtos;
 using Yi.Framework.Core.Attributes;
+using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
 
 namespace Yi.Framework.OperLog
 {
