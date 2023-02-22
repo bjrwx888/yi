@@ -34,8 +34,8 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="状态" prop="isDeleted">
-                  <el-select v-model="queryParams.isDeleted" placeholder="日志状态" clearable style="width: 240px">
+         <el-form-item label="状态" prop="state">
+                  <el-select v-model="queryParams.state" placeholder="日志状态" clearable style="width: 240px">
                      <el-option v-for="dict in sys_common_status" :key="dict.value" :label="dict.label"
                         :value="dict.value" />
                   </el-select>
@@ -100,9 +100,9 @@
          <el-table-column label="请求方式" align="center" prop="requestMethod" />
          <el-table-column label="操作人员" align="center" prop="operUser" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" width="100" />
          <el-table-column label="主机" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
-         <el-table-column label="操作状态" align="center" prop="isDeleted">
+         <el-table-column label="操作状态" align="center" prop="state">
             <template #default="scope">
-               <dict-tag :options="sys_common_status" :value="scope.row.isDeleted" />
+               <dict-tag :options="sys_common_status" :value="scope.row.state" />
             </template>
          </el-table-column>
          <el-table-column label="操作日期" align="center" prop="createTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
@@ -163,7 +163,7 @@
                   <el-form-item label="操作时间：">{{ parseTime(form.createTime) }}</el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="异常信息：" v-if="form.isDeleted === 1">{{ form.errorMsg }}</el-form-item>
+                  <el-form-item label="异常信息：" v-if="form.state === 1">{{ form.errorMsg }}</el-form-item>
                </el-col>
             </el-row>
          </el-form>
@@ -202,7 +202,7 @@ const data = reactive({
     title: undefined,
     operUser: undefined,
     operType: undefined,
-    isDeleted: undefined
+    state: undefined
   }
 });
 

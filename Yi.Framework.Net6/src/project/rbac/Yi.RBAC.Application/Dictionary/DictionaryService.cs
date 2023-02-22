@@ -1,5 +1,5 @@
 using Yi.RBAC.Application.Contracts.Dictionary;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.RBAC.Application.Contracts.Dictionary.Dtos;
 using Yi.RBAC.Domain.Dictionary.Entities;
 using Yi.Framework.Ddd.Services;

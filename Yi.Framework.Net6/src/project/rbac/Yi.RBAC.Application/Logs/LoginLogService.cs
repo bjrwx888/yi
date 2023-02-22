@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using SqlSugar;
 using System;
 using System.Collections.Generic;

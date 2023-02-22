@@ -1,5 +1,5 @@
 using Yi.BBS.Application.Contracts.GlobalSetting;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.BBS.Domain.GlobalSetting.Entities;
 using Yi.Framework.Ddd.Services;
 using Microsoft.AspNetCore.Mvc;

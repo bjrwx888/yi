@@ -1,5 +1,5 @@
 using Yi.BBS.Application.Contracts.Exhibition;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.BBS.Application.Contracts.Exhibition.Dtos;
 using Yi.BBS.Domain.Exhibition.Entities;
 using Yi.Framework.Ddd.Services;

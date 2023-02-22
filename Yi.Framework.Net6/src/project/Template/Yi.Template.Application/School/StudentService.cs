@@ -1,5 +1,5 @@
 using Yi.Template.Application.Contracts.School;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.Template.Application.Contracts.School.Dtos;
 using Yi.Template.Domain.School.Entities;
 using Yi.Framework.Ddd.Services;

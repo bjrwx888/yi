@@ -122,7 +122,7 @@ namespace Yi.Framework.Ddd.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<bool> DeleteAsync(string id)
+        public virtual async Task<bool> DeleteAsync(string id)
         {
             if (id is null)
             {

@@ -1,16 +1,16 @@
-using NET.AutoWebApi.Setting;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Dtos;
 using Yi.Framework.Core.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
+using Cike.AutoWebApi.Setting;
 
 namespace Yi.Framework.OperLogManager
 {
     /// <summary>
     /// OperationLog服务实现
     /// </summary>
-    [AppService]
+    //[AppService]
     public class OperationLogService : CrudAppService<OperationLogEntity, OperationLogGetListOutputDto, long, OperationLogGetListInputVo>,
        IOperationLogService, IAutoApiService
     {
