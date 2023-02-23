@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
 using Yi.Framework.EventBus;
+using Yi.Framework.FileManager;
 using Yi.Framework.OperLogManager;
 using Yi.Framework.ThumbnailSharp;
 using Yi.RBAC.Domain.Logs;
@@ -22,7 +23,8 @@ namespace Yi.RBAC.Domain
                typeof(YiFrameworkDataModule),
         typeof(YiFrameworkThumbnailSharpModule),
         typeof(YiFrameworkEventBusModule),
-        typeof(YiFrameworkOperLogManagerModule)
+        typeof(YiFrameworkOperLogManagerModule),
+        typeof(YiFrameworkFileManagerModule)
         )]
     public class YiRBACDomainModule : IStartupModule
     {
