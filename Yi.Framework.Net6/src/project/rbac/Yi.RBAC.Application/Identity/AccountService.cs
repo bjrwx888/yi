@@ -28,6 +28,7 @@ using Yi.RBAC.Domain.Identity.Repositories;
 using Yi.RBAC.Domain.Shared.Identity.ConstClasses;
 using Yi.RBAC.Domain.Shared.Identity.Dtos;
 using Yi.RBAC.Domain.Shared.Identity.Etos;
+using System.Net.WebSockets;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -186,6 +187,20 @@ namespace Yi.RBAC.Application.Identity
                 throw new UserFriendlyException("重置密码不能为空！");
             }
             await _accountManager.RestPasswordAsync(userId, input.Password);
+            return true;
+        }
+
+        /// <summary>
+        /// 更新头像
+        /// </summary>
+        /// <param name="icon"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateIconAsync(UpdateIconDto input)
+        {
+            var entity = await _userRepository.GetByIdAsync(_currentUser.Id);
+            entity.Icon = input.Icon;
+            await _userRepository.UpdateAsync(entity);
+
             return true;
         }
     }

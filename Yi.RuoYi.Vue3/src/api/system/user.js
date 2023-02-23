@@ -82,6 +82,15 @@ export function updateUserProfile(data) {
     data:  data 
   })
 }
+// 只修改用户头像
+export function updateUserIcon(data) {
+  return request({
+    url: `/account/icon`,
+    method: 'put',
+    data:{icon:data}  
+  })
+}
+
 
 // 用户密码重置
 export function updateUserPwd(oldPassword, newPassword) {

@@ -73,6 +73,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.UpdateIconAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.UpdateIconDto)">
+            <summary>
+            更新头像
+            </summary>
+            <param name="icon"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.RBAC.Application.Identity.DeptService">
             <summary>
             Dept服务实现

@@ -54,7 +54,7 @@
 import "vue-cropper/dist/index.css";
 import { VueCropper } from "vue-cropper";
 import { upload } from "@/api/file";
-import { updateUserProfile } from "@/api/system/user";
+import { updateUserIcon } from "@/api/system/user";
 import useUserStore from '@/store/modules/user'
 
 const userStore = useUserStore()
@@ -116,14 +116,11 @@ function uploadImg() {
   proxy.$refs.cropper.getCropBlob(data => {
     let formData = new FormData();
     formData.append("file", data);
-    upload("image",formData).then(response => {
+    upload(formData).then(response => {
       open.value = false;
-      options.img = import.meta.env.VITE_APP_BASE_API +"/file/"+response.data[0];
+      options.img = import.meta.env.VITE_APP_BASE_API +"/file/"+response.data[0].id;
       userStore.avatar = options.img;
-
-
-
-      updateUserProfile({icon:response.data[0]}).then(response2=>{
+      updateUserIcon(response.data[0].id).then(response2=>{
         proxy.$modal.msgSuccess("修改成功");
       visible.value = false;
       })
