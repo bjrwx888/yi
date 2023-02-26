@@ -94,14 +94,59 @@
              登录信息 
             </summary>
         </member>
-        <member name="T:Yi.RBAC.Application.Contracts.Logs.IOperationLogService">
-            <summary>
-            OperationLog服务抽象
-            </summary>
-        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigCreateInputVo">
             <summary>
             Config输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo">
+            <summary>
+            配置查询参数
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo.ConfigName">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo.ConfigKey">
+            <summary>
+            配置键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigName">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigKey">
+            <summary>
+            配置主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigValue">
+            <summary>
+            配置值
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigType">
+            <summary>
+            配置类型
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.OrderNum">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.CreationTime">
+            <summary>
+            创建时间
             </summary>
         </member>
         <member name="T:Yi.RBAC.Application.Contracts.Setting.IConfigService">

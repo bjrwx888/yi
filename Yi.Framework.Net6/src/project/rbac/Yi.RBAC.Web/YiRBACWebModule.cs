@@ -7,6 +7,7 @@ using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Autofac;
 using Yi.Framework.Data.Json;
+using Yi.Framework.OperLogManager;
 using Yi.RBAC.Application;
 using Yi.RBAC.Sqlsugar;
 
@@ -28,11 +29,15 @@ namespace Yi.RBAC.Web
                 opt.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
 
             });
+
+
+            
             services.AddAutoApiService(opt =>
             {
-                //NETServiceTest所在程序集添加进动态api配置
-                opt.CreateConventional(typeof(YiRBACApplicationModule).Assembly, option => option.RootPath = string.Empty);
+                opt.CreateConventional(AssemblyHelper.GetAllLoadAssembly(), option => option.RootPath = string.Empty);
+
             });
+
 
             //添加swagger
             services.AddSwaggerServer<YiRBACApplicationModule>();

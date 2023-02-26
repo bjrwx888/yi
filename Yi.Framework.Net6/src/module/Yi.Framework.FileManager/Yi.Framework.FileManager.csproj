@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\Yi.Framework.AspNetCore\Yi.Framework.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
+    <ProjectReference Include="..\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj" />
+  </ItemGroup>
+
+</Project>

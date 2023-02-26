@@ -20,9 +20,9 @@ TemplateFactory templateFactory = new();
 //string modelName = "Dictionary";
 //string nameSpaces = "Yi.RBAC";
 //List<string> entityNames = new() { "_", "_" };
-string modelName = "Logs";
+string modelName = "Setting";
 string nameSpaces = "Yi.RBAC";
-List<string> entityNames = new() { "_" };
+List<string> entityNames = new() { "File" };
 
 
 foreach (var entityName in entityNames)

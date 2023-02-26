@@ -63,7 +63,7 @@ const actions = { //动作
         return new Promise((resolv, reject) => {
             accountApi.login(form.username.trim(), form.password.trim()).then(resp => {
                     commit('SET_TOKEN', resp.data.token)
-                    commit('SET_USER', resp.data.user)
+                    // commit('SET_USER', resp.data.user)
                      resolv(resp)
             }).catch(error => {
                 reject(error)
@@ -82,16 +82,6 @@ const actions = { //动作
             })
         })
     },
-    Logged({ commit }) {
-        return new Promise((resolv, reject) => {
-            accountApi.logged().then(resp => {
-                resolv(resp)
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    },
-
     // GetUserInfo({ commit, state }) {
     //     return new Promise((resolv, reject) => {
     //         // getUserInfo(state.token).then(response => {

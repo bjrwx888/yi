@@ -1,11 +1,12 @@
 using Yi.RBAC.Application.Contracts.Identity;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.RBAC.Application.Contracts.Identity.Dtos;
 using Yi.RBAC.Domain.Identity.Entities;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Dtos;
 using SqlSugar;
 using Microsoft.AspNetCore.Mvc;
+using Cike.AutoWebApi.Setting;
 
 namespace Yi.RBAC.Application.Identity
 {

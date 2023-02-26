@@ -11,6 +11,57 @@ namespace Yi.Framework.AspNetCore.Extensions
     public static class HttpContextExtensions
     {
         /// <summary>
+        /// 设置文件下载名称
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <param name="fileName"></param>
+        public static void FileInlineHandle(this HttpContext httpContext, string fileName)
+        {
+            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, Encoding.GetEncoding("UTF-8"));
+            httpContext.Response.Headers.Add("Content-Disposition", "inline;filename=" + encodeFilename);
+
+        }
+
+        /// <summary>
+        /// 设置文件附件名称
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <param name="fileName"></param>
+        public static void FileAttachmentHandle(this HttpContext httpContext, string fileName)
+        {
+            string encodeFilename = System.Web.HttpUtility.UrlEncode(fileName, Encoding.GetEncoding("UTF-8"));
+            httpContext.Response.Headers.Add("Content-Disposition", "attachment;filename=" + encodeFilename);
+
+        }
+
+        /// <summary>
+        /// 获取语言种类
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static string GetLanguage(this HttpContext httpContext)
+        {
+            string res = "zh-CN";
+            var str = httpContext.Request.Headers["Accept-Language"].FirstOrDefault();
+            if (str is not null)
+            {
+                res = str.Split(",")[0];
+            }
+            return res;
+
+        }
+
+        /// <summary>
+        /// 判断是否为异步请求
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static bool IsAjaxRequest(this HttpRequest request)
+        {
+            string header = request.Headers["X-Requested-With"];
+            return "XMLHttpRequest".Equals(header);
+        }
+        /// <summary>
         /// 获取客户端IP
         /// </summary>
         /// <param name="context"></param>

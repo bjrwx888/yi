@@ -69,7 +69,7 @@ export function changeUserStatus(userId, isDel) {
 // 查询用户个人信息
 export function getUserProfile() {
   return request({
-    url: '/account/getUserAllInfo',
+    url: '/account',
     method: 'get'
   })
 }
@@ -77,11 +77,20 @@ export function getUserProfile() {
 // 修改用户个人信息
 export function updateUserProfile(data) {
   return request({
-    url: '/user/UpdateProfile',
+    url: `/user/profile`,
     method: 'put',
-    data: { user: data }
+    data:  data 
   })
 }
+// 只修改用户头像
+export function updateUserIcon(data) {
+  return request({
+    url: `/account/icon`,
+    method: 'put',
+    data:{icon:data}  
+  })
+}
+
 
 // 用户密码重置
 export function updateUserPwd(oldPassword, newPassword) {

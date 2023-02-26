@@ -1,21 +1,17 @@
-using Yi.RBAC.Application.Contracts.Logs;
-using NET.AutoWebApi.Setting;
-using Yi.RBAC.Application.Contracts.Logs.Dtos;
-using Yi.RBAC.Domain.Logs.Entities;
 using Yi.Framework.Ddd.Services;
-using Yi.Framework.Model.RABC.Entitys;
 using Yi.Framework.Ddd.Dtos;
-using SqlSugar;
-using Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog;
+using Yi.Framework.Core.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
+using Cike.AutoWebApi.Setting;
 
-namespace Yi.RBAC.Application.Logs
+namespace Yi.Framework.OperLogManager
 {
     /// <summary>
     /// OperationLog服务实现
     /// </summary>
-    [AppService]
-    public class OperationLogService : CrudAppService<OperationLogEntity, OperationLogGetListOutputDto, long, OperationLogGetListInputVo >,
+    //[AppService]
+    public class OperationLogService : CrudAppService<OperationLogEntity, OperationLogGetListOutputDto, long, OperationLogGetListInputVo>,
        IOperationLogService, IAutoApiService
     {
         public override  async Task<PagedResultDto<OperationLogGetListOutputDto>> GetListAsync(OperationLogGetListInputVo input)

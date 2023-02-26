@@ -1,5 +1,5 @@
 using Yi.RBAC.Application.Contracts.Setting;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.RBAC.Application.Contracts.Setting.Dtos;
 using Yi.RBAC.Domain.Setting.Entities;
 using Yi.Framework.Ddd.Services;
@@ -19,6 +19,11 @@ namespace Yi.RBAC.Application.Setting
     public class ConfigService : CrudAppService<ConfigEntity, ConfigGetOutputDto, ConfigGetListOutputDto, long, ConfigGetListInputVo, ConfigCreateInputVo, ConfigUpdateInputVo>,
        IConfigService, IAutoApiService
     {
+        /// <summary>
+        /// 多查
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<PagedResultDto<ConfigGetListOutputDto>> GetListAsync(ConfigGetListInputVo input)
         {
             var entity = await MapToEntityAsync(input);

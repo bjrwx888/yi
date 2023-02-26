@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Data;
 using Yi.Framework.EventBus;
+using Yi.Framework.FileManager;
+using Yi.Framework.OperLogManager;
 using Yi.Framework.ThumbnailSharp;
 using Yi.RBAC.Domain.Logs;
 using Yi.RBAC.Domain.Shared;
@@ -20,7 +22,9 @@ namespace Yi.RBAC.Domain
         typeof(YiRBACDomainSharedModule),
                typeof(YiFrameworkDataModule),
         typeof(YiFrameworkThumbnailSharpModule),
-        typeof(YiFrameworkEventBusModule)
+        typeof(YiFrameworkEventBusModule),
+        typeof(YiFrameworkOperLogManagerModule),
+        typeof(YiFrameworkFileManagerModule)
         )]
     public class YiRBACDomainModule : IStartupModule
     {
@@ -31,10 +35,7 @@ namespace Yi.RBAC.Domain
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
             services.AddHeiCaptcha();
-            services.AddControllers(options => {
-                options.Filters.Add<GlobalOperLogAttribute>();
-            });
-            services.AddSingleton<GlobalOperLogAttribute>();
+
         }
     }
 }

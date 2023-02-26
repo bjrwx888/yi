@@ -12,14 +12,16 @@ router.beforeEach((to, from, next) => {
             next({ path: '/login' });
         }
     } else { //如果有user还要向后端请求是否过期
-        store.dispatch("Logged").then(resp => {
-            if (!resp.status) //表示已经过期
-            {
-                store.dispatch("Logout");
-                next({ path: '/login' });
-            } else {
-                next();
-            }
-        })
+
+        next();
+        // store.dispatch("Logged").then(resp => {
+        //     if (!resp.status) //表示已经过期
+        //     {
+        //         store.dispatch("Logout");
+        //         next({ path: '/login' });
+        //     } else {
+        //         next();
+        //     }
+        // })
     }
 })

@@ -1,4 +1,4 @@
-﻿using NET.AutoWebApi.Setting;
+﻿using Cike.AutoWebApi.Setting;
 using System;
 using System.Collections.Generic;
 using System.Linq;

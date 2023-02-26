@@ -790,55 +790,5 @@
              描述 
             </summary>
         </member>
-        <member name="T:Yi.Framework.Model.RABC.Entitys.OperationLogEntity">
-             <summary>
-             操作日志表
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.Title">
-             <summary>
-             操作模块 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.OperType">
-             <summary>
-             操作类型 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.RequestMethod">
-             <summary>
-             请求方法 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.OperUser">
-             <summary>
-             操作人员 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.OperIp">
-             <summary>
-             操作Ip 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.OperLocation">
-             <summary>
-             操作地点 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.Method">
-             <summary>
-             操作方法 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.RequestParam">
-             <summary>
-             请求参数 
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Model.RABC.Entitys.OperationLogEntity.RequestResult">
-             <summary>
-             请求结果 
-            </summary>
-        </member>
     </members>
 </doc>

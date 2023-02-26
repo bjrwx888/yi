@@ -27,7 +27,11 @@ myaxios.interceptors.request.use(function(config) {
 
 // 响应拦截器
 myaxios.interceptors.response.use(function(response) {
-    // const resp = response.data
+    const resp = response.data
+    if(resp.code!=200)
+    {
+        alert(`错误代码：${resp.code}，原因：${resp.message}`)
+    }
     store.dispatch("closeLoad");
     return response;
 }, function(error) {
@@ -35,7 +39,7 @@ myaxios.interceptors.response.use(function(response) {
     if (resp.code == undefined && resp.msg == undefined) {
         alert(`错误代码：无，原因：与服务器失去连接`)
     } else if (resp.code != 200) {
-        alert(`错误代码：${resp.code}，原因：${resp.msg}`)
+        alert(`错误代码：${resp.code}，原因：${resp.message}`)
     }
     store.dispatch("closeLoad");
     return Promise.reject(error);

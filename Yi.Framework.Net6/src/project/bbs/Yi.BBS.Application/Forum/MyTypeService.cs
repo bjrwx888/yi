@@ -1,5 +1,5 @@
 using Yi.BBS.Application.Contracts.Forum;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.BBS.Application.Contracts.Forum.Dtos;
 using Yi.BBS.Domain.Forum.Entities;
 using Yi.Framework.Ddd.Services;

@@ -120,25 +120,6 @@
             临时服务，之后用其他模块代替
              </summary>
         </member>
-        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.PostLoginAsync">
-            <summary>
-            登录
-            </summary>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.PostLogged">
-            <summary>
-            判断是否有登录
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.BBS.Application.GlobalSetting.TempService.PostlogOut">
-            <summary>
-            退出登录
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Yi.BBS.Application.GlobalSetting.TempService.GetUserInfoByIdAsync(System.Int64)">
             <summary>
             获取用户信息

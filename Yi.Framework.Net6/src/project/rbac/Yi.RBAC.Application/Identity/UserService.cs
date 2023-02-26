@@ -1,5 +1,5 @@
 using Yi.RBAC.Application.Contracts.Identity;
-using NET.AutoWebApi.Setting;
+using Cike.AutoWebApi.Setting;
 using Yi.RBAC.Application.Contracts.Identity.Dtos;
 using Yi.RBAC.Domain.Identity.Entities;
 using Yi.Framework.Ddd.Services;
@@ -12,7 +12,9 @@ using SqlSugar;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Auth.JwtBearer.Authorization;
-using Yi.RBAC.Domain.Shared.Logs;
+using Yi.RBAC.Application.Contracts.Identity.Dtos.User;
+using Yi.Framework.Core.CurrentUsers;
+using Yi.Framework.OperLogManager;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -31,6 +33,9 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private IUserRepository _userRepository { get; set; }
+
+        [Autowired]
+        private ICurrentUser _currentUser { get; set; }
 
         /// <summary>
         /// 查询用户
@@ -139,6 +144,21 @@ namespace Yi.RBAC.Application.Identity
         }
 
         /// <summary>
+        /// 更新个人中心
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [OperLog("更新个人信息", OperEnum.Update)]
+        public async Task<UserGetOutputDto> UpdateProfileAsync(ProfileUpdateInputVo input)
+        {
+            var entity = await _repository.GetByIdAsync(_currentUser.Id);
+            _mapper.Map(input, entity);
+            await _repository.UpdateAsync(entity);
+            var dto = _mapper.Map<UserGetOutputDto>(entity);
+            return dto;
+        }
+
+        /// <summary>
         /// 更新状态
         /// </summary>
         /// <param name="id"></param>
@@ -157,6 +177,11 @@ namespace Yi.RBAC.Application.Identity
             entity.State = state;
             await _repository.UpdateAsync(entity);
             return await MapToGetOutputDtoAsync(entity);
+        }
+        [OperLog("删除用户", OperEnum.Delete)]
+        public override Task<bool> DeleteAsync(string id)
+        {
+            return base.DeleteAsync(id);
         }
     }
 }
