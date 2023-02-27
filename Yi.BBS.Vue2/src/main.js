@@ -13,7 +13,7 @@ import signalr from './utils/signalR'
 // import "mavon-editor/dist/css/index.css";
 
 import store from './store/index'
-import "./permission"
+// import "./permission"
 
 // Vue.component("mavon-editor", mavonEditor);
 Vue.use(signalr);

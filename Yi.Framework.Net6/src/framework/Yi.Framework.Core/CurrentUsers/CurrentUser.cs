@@ -62,7 +62,7 @@ namespace Yi.Framework.Core.CurrentUsers
 
         public long FindUserId()
         {
-            var userIdOrNull = _principalAccessor.Principal.Claims?.FirstOrDefault(c => c.Type == TokenTypeConst.Id);
+            var userIdOrNull = _principalAccessor.Principal?.Claims?.FirstOrDefault(c => c.Type == TokenTypeConst.Id);
             if (userIdOrNull == null || string.IsNullOrWhiteSpace(userIdOrNull.Value))
             {
                 return 0;
