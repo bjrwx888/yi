@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Core.CurrentUsers.Accessor;
 
-namespace Yi.Framework.AspNetCore.CurrentUser
+namespace Yi.Framework.Core.CurrentUsers.Accessor
 {
     public class HttpContextCurrentPrincipalAccessor : ThreadCurrentPrincipalAccessor
     {
