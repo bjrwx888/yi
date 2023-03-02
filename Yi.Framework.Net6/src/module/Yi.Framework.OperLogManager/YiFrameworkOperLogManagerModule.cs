@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
-using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
+using Yi.Framework.Ddd;
 
 namespace Yi.Framework.OperLogManager
 {
-    [DependsOn(typeof(YiFrameworkCoreModule))]
+    [DependsOn(
+          typeof(YiFrameworkDddModule)
+        )]
     public class YiFrameworkOperLogManagerModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
