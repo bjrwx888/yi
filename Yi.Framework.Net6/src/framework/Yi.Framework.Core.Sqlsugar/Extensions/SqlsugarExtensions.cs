@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Autofac.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SqlSugar;
 using System;
@@ -16,8 +17,17 @@ using DbType = SqlSugar.DbType;
 
 namespace Yi.Framework.Core.Sqlsugar.Extensions
 {
+    /// <summary>
+    /// 这一块，需要做成上下文对象，会进行重构
+    /// </summary>
     public static class SqlsugarExtensions
     {
+        public static void AddDbSqlsugarContextServer(this IServiceCollection services)
+        {
+            services.AddTransient(x => x.GetRequiredService<SqlSugarDbContext>().SqlSugarClient);
+            services.AddTransient<SqlSugarDbContext>();
+        }
+
         public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient>? action = null)
         {
             var dbConnOptions = Appsettings.app<DbConnOptions>("DbConnOptions");
