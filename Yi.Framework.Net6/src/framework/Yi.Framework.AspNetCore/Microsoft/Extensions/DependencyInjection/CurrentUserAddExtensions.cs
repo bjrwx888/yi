@@ -9,7 +9,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.AspNetCore.CurrentUser;
 using Yi.Framework.Core.Const;
 using Yi.Framework.Core.CurrentUsers;
 using Yi.Framework.Core.CurrentUsers.Accessor;

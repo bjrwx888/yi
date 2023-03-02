@@ -45,6 +45,29 @@ namespace Yi.Framework.Core.Sqlsugar.Repositories
         }
 
 
+
+
+        public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, int pageNum,int pageSize)
+        {
+            return await base.GetPageListAsync(whereExpression, new PageModel { PageIndex = pageNum, PageSize = pageSize });
+        }
+
+        public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, int pageNum, int pageSize, Expression<Func<T, object>>? orderByExpression = null, OrderByEnum orderByType = OrderByEnum.Asc)
+        {
+            return await base.GetPageListAsync(whereExpression, new PageModel { PageIndex = pageNum, PageSize = pageSize }, orderByExpression, orderByType.EnumToEnum<OrderByType>());
+        }
+
+        public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, int pageNum, int pageSize, string? orderBy, OrderByEnum orderByType = OrderByEnum.Asc)
+        {
+            return await _DbQueryable.Where(whereExpression).OrderByIF(orderBy is not null, orderBy + " " + orderByType.ToString().ToLower()).ToPageListAsync(pageNum, pageSize);
+        }
+
+
+
+
+
+
+
         public async Task<bool> UpdateIgnoreNullAsync(T updateObj)
         {
             return await _Db.Updateable(updateObj).IgnoreColumns(true).ExecuteCommandAsync() > 0;

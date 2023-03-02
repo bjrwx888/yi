@@ -25,7 +25,8 @@ namespace Yi.Framework.Core.Module
 
             foreach (var r in result)
             {
-
+                //添加全局模块程序集
+                ModuleAssembly.Add(r.Assembly);
                 Console.WriteLine($"意框架正在加载模块:{r.Name}");
             }
             return result;

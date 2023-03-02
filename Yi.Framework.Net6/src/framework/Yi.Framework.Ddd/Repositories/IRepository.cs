@@ -29,6 +29,9 @@ namespace Yi.Framework.Ddd.Repositories
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> whereExpression);
 
         //分页查
+        Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, int pageNum, int pageSize);
+        Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, int pageNum, int pageSize, Expression<Func<T, object>>? orderByExpression = null, OrderByEnum orderByType = OrderByEnum.Asc);
+        Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, int pageNum, int pageSize, string? orderBy, OrderByEnum orderByType = OrderByEnum.Asc);
         Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page);
         Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page, Expression<Func<T, object>>? orderByExpression = null, OrderByEnum orderByType = OrderByEnum.Asc);
         Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page, string? orderBy, OrderByEnum orderByType = OrderByEnum.Asc);
@@ -55,5 +58,6 @@ namespace Yi.Framework.Ddd.Repositories
         Task<bool> DeleteAsync(Expression<Func<T, bool>> whereExpression);
         Task<bool> DeleteByIdAsync(dynamic id);
         Task<bool> DeleteByIdsAsync(dynamic[] ids);
+
     }
 }

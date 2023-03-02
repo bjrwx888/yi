@@ -6,6 +6,7 @@ using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Autofac;
+using Yi.Framework.Core.Module;
 using Yi.Framework.Data.Json;
 using Yi.Framework.OperLogManager;
 using Yi.RBAC.Application;
@@ -31,11 +32,10 @@ namespace Yi.RBAC.Web
             });
 
 
-            
             services.AddAutoApiService(opt =>
             {
-                opt.CreateConventional(AssemblyHelper.GetAllLoadAssembly(), option => option.RootPath = string.Empty);
-
+                //NETServiceTest所在程序集添加进动态api配置
+                opt.CreateConventional(ModuleAssembly.Assemblies, option => option.RootPath = string.Empty);
             });
 
 

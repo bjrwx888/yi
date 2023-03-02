@@ -5,6 +5,7 @@ using Yi.Framework.Auth.JwtBearer;
 using Yi.Framework.Core;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Autofac;
+using Yi.Framework.Core.Module;
 using Yi.Framework.Data.Json;
 using Yi.Template.Application;
 using Yi.Template.Sqlsugar;
@@ -28,7 +29,7 @@ namespace Yi.Template.Web
             services.AddAutoApiService(opt =>
             {
                 //NETServiceTest所在程序集添加进动态api配置
-                opt.CreateConventional(typeof(YiTemplateApplicationModule).Assembly, option => option.RootPath = string.Empty);
+                opt.CreateConventional(ModuleAssembly.Assemblies, option => option.RootPath = string.Empty);
             });
 
             //添加swagger

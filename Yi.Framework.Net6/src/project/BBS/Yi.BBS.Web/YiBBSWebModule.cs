@@ -11,6 +11,7 @@ using Yi.RBAC.Application;
 using Yi.Framework.AspNetCore;
 using Yi.Framework.Data.Json;
 using Yi.Framework.OperLogManager;
+using Yi.Framework.Core.Module;
 
 namespace Yi.BBS.Web
 {
@@ -28,10 +29,11 @@ namespace Yi.BBS.Web
             services.AddControllers().AddJsonOptions(opt => {
                 opt.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
             }); 
+
             services.AddAutoApiService(opt =>
             {
                 //NETServiceTest所在程序集添加进动态api配置
-                opt.CreateConventional(typeof(YiBBSApplicationModule).Assembly, option => option.RootPath = string.Empty);
+                opt.CreateConventional(ModuleAssembly.Assemblies, option => option.RootPath = string.Empty);
             });
 
             //添加swagger

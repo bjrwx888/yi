@@ -2,6 +2,7 @@ using AspNetCore.Microsoft.AspNetCore.Hosting;
 using Yi.Framework.Core.Autofac.Extensions;
 using Yi.Framework.Core.Autofac.Modules;
 using Yi.Framework.Core.Extensions;
+using Yi.Framework.Core.Module;
 using Yi.RBAC.Application;
 using Yi.RBAC.Web;
 
@@ -15,7 +16,7 @@ builder.UseYiModules(typeof(YiRBACWebModule));
 //添加autofac模块,需要添加模块
 builder.Host.ConfigureAutoFacContainer(container =>
 {
-    container.RegisterYiModule(AutoFacModuleEnum.PropertiesAutowiredModule, typeof(YiRBACApplicationModule).Assembly);
+    container.RegisterYiModule(AutoFacModuleEnum.PropertiesAutowiredModule, ModuleAssembly.Assemblies);
 });
 var app = builder.Build();
 
