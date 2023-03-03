@@ -28,7 +28,7 @@ namespace Yi.Framework.Core.Extensions
         /// <returns></returns>
         public static IServiceCollection AddAutoIocServer(this IServiceCollection services)
         {
-            var assemblys = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblys = Yi.Framework.Core.Module.ModuleAssembly.Assemblies;
             foreach (var a in assemblys)
             {
                 RegIoc(services, a);

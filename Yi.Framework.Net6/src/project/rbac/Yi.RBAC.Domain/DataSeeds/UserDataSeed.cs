@@ -12,8 +12,8 @@ using Yi.RBAC.Domain.Shared.Identity.EnumClasses;
 namespace Yi.RBAC.Domain.DataSeeds
 {
     //支持依赖注入执行
-    //[AppService(typeof(IDataSeed<>))]
-    
+    [AppService(typeof(IDataSeed<UserEntity>))]
+
     //支持启动时执行
     [AppService(typeof(IDataSeed))]
     public class UserDataSeed : AbstractDataSeed<UserEntity>

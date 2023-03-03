@@ -17,8 +17,7 @@ namespace Yi.BBS.Application.GlobalSetting
     public class TempService : ApplicationService, IAutoApiService
     {
 
-        public TempService(IDataSeed<UserEntity> dataSeed) {
-            dataSeed.InvokerAsync().Wait();
+        public TempService() {
         }
         ///// <summary>
         ///// 登录
