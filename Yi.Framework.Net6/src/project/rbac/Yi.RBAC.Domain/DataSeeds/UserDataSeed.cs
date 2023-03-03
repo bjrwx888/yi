@@ -12,7 +12,7 @@ using Yi.RBAC.Domain.Shared.Identity.EnumClasses;
 namespace Yi.RBAC.Domain.DataSeeds
 {
     //支持依赖注入执行
-    [AppService(typeof(IDataSeed<>))]
+    //[AppService(typeof(IDataSeed<>))]
     
     //支持启动时执行
     [AppService(typeof(IDataSeed))]

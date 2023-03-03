@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cike.EventBus" Version="1.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\通用软件框架\Cike.EventBus\src\Cike.EventBus\Cike.EventBus.csproj" />
     <ProjectReference Include="..\..\framework\Yi.Framework.Core\Yi.Framework.Core.csproj" />
   </ItemGroup>
 

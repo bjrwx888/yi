@@ -60,6 +60,11 @@ namespace Yi.Framework.Core.Extensions
                     //泛型类需要单独进行处理
                     //情况1：使用自定义[AppService(ServiceType = typeof(注册抽象或者接口))]，手动去注册，放type即可
                     var serviceType = serviceAttribute.ServiceType;
+                    //if (serviceType is not null && serviceType.Name.Contains("IDataSeed`"))
+                    //{
+                    //    Console.WriteLine();
+                    //}
+
                     //情况2 自动去找接口，如果存在就是接口，如果不存在就是本身
                     if (serviceType == null)
                     {
