@@ -46,42 +46,53 @@ namespace Yi.Framework.Core.Extensions
 
         private static void RegIocByAttribute(IServiceCollection services, Type type)
         {
-            var serviceAttribute = type.GetCustomAttribute<AppServiceAttribute>();
-            if (serviceAttribute is not null)
+            var serviceAttributes = type.GetCustomAttributes<AppServiceAttribute>();
+            if (serviceAttributes is null)
             {
-                //泛型类需要单独进行处理
-                //情况1：使用自定义[AppService(ServiceType = typeof(注册抽象或者接口))]，手动去注册，放type即可
-                var serviceType = serviceAttribute.ServiceType;
-                //情况2 自动去找接口，如果存在就是接口，如果不存在就是本身
-                if (serviceType == null)
-                {
-                    //获取最远靠近的接口
-                    var p = type.GetInterfaces().ToList();
-                    var firstInter = type.GetInterfaces().Where(u => u.Name ==$"I{type.Name}").LastOrDefault();
-                    if (firstInter is null)
-                    {
-                        serviceType = type;
-                    }
-                    else
-                    {
-                        serviceType = firstInter;
-                    }
-                }
+                return;
+            }
+            //处理多个特性注入情况
+            foreach (var serviceAttribute in serviceAttributes)
+            {
 
-                switch (serviceAttribute.ServiceLifetime)
+                if (serviceAttribute is not null)
                 {
-                    case LifeTime.Singleton:
-                        services.AddSingleton(serviceType, type);
-                        break;
-                    case LifeTime.Scoped:
-                        services.AddScoped(serviceType, type);
-                        break;
-                    case LifeTime.Transient:
-                        services.AddTransient(serviceType, type);
-                        break;
+                    //泛型类需要单独进行处理
+                    //情况1：使用自定义[AppService(ServiceType = typeof(注册抽象或者接口))]，手动去注册，放type即可
+                    var serviceType = serviceAttribute.ServiceType;
+                    //情况2 自动去找接口，如果存在就是接口，如果不存在就是本身
+                    if (serviceType == null)
+                    {
+                        //获取最远靠近的接口
+                        var p = type.GetInterfaces().ToList();
+                        var firstInter = type.GetInterfaces().Where(u => u.Name == $"I{type.Name}").LastOrDefault();
+                        if (firstInter is null)
+                        {
+                            serviceType = type;
+                        }
+                        else
+                        {
+                            serviceType = firstInter;
+                        }
+                    }
+
+                    switch (serviceAttribute.ServiceLifetime)
+                    {
+                        case LifeTime.Singleton:
+                            services.AddSingleton(serviceType, type);
+                            break;
+                        case LifeTime.Scoped:
+                            services.AddScoped(serviceType, type);
+                            break;
+                        case LifeTime.Transient:
+                            services.AddTransient(serviceType, type);
+                            break;
+                    }
+
                 }
 
             }
+
         }
 
         private static void RegIocByInterface(IServiceCollection services, Type type)

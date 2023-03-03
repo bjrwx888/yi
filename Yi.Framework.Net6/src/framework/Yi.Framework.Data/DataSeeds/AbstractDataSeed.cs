@@ -7,7 +7,7 @@ using Yi.Framework.Ddd.Repositories;
 
 namespace Yi.Framework.Data.DataSeeds
 {
-    public abstract class AbstractDataSeed<TEntity> : IDataSeed
+    public abstract class AbstractDataSeed<TEntity> : IDataSeed<TEntity>
     {
         private readonly IRepository<TEntity> _repository;
         public AbstractDataSeed(IRepository<TEntity> repository)

@@ -10,4 +10,8 @@ namespace Yi.Framework.Data.DataSeeds
     {
       Task<bool> InvokerAsync();
     }
+
+    public interface IDataSeed<TEntity>: IDataSeed
+    {
+    }
 }

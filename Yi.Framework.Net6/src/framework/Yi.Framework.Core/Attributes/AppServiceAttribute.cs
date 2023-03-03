@@ -9,7 +9,7 @@ namespace Yi.Framework.Core.Attributes
     /// 1、[AppService]：自动去找接口，如果存在就是接口，如果不存在就是本身
     /// 2、[AppService(ServiceType = typeof(注册抽象或者接口或者本身))]，手动去注册，放type即可
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public class AppServiceAttribute : Attribute
     {
         public AppServiceAttribute() { }

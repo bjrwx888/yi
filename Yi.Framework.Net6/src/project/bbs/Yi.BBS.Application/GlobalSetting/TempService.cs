@@ -5,6 +5,8 @@ using Yi.Framework.Ddd.Services;
 using Microsoft.AspNetCore.Mvc;
 using Yi.BBS.Application.Contracts.GlobalSetting.Dtos.Temp;
 using Yi.BBS.Domain.Shared;
+using Yi.Framework.Data.DataSeeds;
+using Yi.RBAC.Domain.Identity.Entities;
 
 namespace Yi.BBS.Application.GlobalSetting
 {
@@ -14,6 +16,10 @@ namespace Yi.BBS.Application.GlobalSetting
     [AppService]
     public class TempService : ApplicationService, IAutoApiService
     {
+
+        public TempService(IDataSeed<UserEntity> dataSeed) {
+            dataSeed.InvokerAsync().Wait();
+        }
         ///// <summary>
         ///// 登录
         ///// </summary>
