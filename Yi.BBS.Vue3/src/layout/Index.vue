@@ -16,3 +16,10 @@
 import AppHeader from "./AppHeader.vue"
 import AppBody from "./AppBody.vue"
 </script>
+
+<style scoped>
+.el-main{
+  margin: 0;
+padding: 0;
+}
+</style>
