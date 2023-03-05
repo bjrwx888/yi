@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using StartupModules;
 using System;
 using System.Collections.Generic;
@@ -33,9 +35,6 @@ namespace Yi.Framework.Core
             services.AddSingleton(new Appsettings(context.Configuration));
             //全盘扫描,自动依赖注入
             services.AddAutoIocServer();
-
-
-
         }
     }
 }
