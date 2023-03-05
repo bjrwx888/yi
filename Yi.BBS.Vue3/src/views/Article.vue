@@ -3,8 +3,9 @@
         <el-col :span="17">
 
             <el-row class="left-div">
-                <el-col :span="24">
-                    作者信息
+                <el-col :span="24" >
+                   <AvatarInfo :size="50"></AvatarInfo>
+
                     <el-divider />
                     <h2>面试题挑战</h2>
                     文章详情
@@ -51,6 +52,7 @@
 </template>
 <script setup>
 import { h, ref } from 'vue'
+import AvatarInfo from '@/components/AvatarInfo.vue'
 const spacer = h(ElDivider, { direction: 'vertical' })
 </script>
 <style scoped >
