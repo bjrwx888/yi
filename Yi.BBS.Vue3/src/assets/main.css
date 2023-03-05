@@ -3,12 +3,15 @@
   margin: 0 auto;
   font-weight: normal;
 } */
+
 body
 {
   margin: 0 auto;
   font-weight: normal;
-
 }
+a{
+  text-decoration: none;
+  }
 /* 
 #app {
   max-width: 1280px;

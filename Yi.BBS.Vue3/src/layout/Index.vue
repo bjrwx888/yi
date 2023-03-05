@@ -21,5 +21,7 @@ import AppBody from "./AppBody.vue"
 .el-main{
   margin: 0;
 padding: 0;
+min-height: 10rem;
+background-color: #F0F2F5;
 }
 </style>

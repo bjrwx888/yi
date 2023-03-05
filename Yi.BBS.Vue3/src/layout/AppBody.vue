@@ -1,13 +1,10 @@
 
 <template class="back-color"> 
-   <div class="body-main">   
+ 
       <div class="content-main">
       <RouterView />
      </div>
    
-   </div>
-
-
 </template>
 
 <style scoped>
@@ -19,7 +16,7 @@ background-color:#F0F2F5;
 
 }
 .content-main{
-   max-width:1100px;
+   max-width:1200px;
    margin: 0 auto;
 }
 </style>

@@ -1,0 +1,48 @@
+<template>
+    <el-row>
+      <el-col
+      >
+        <el-card :body-style="{ padding: '0px' }" shadow="never">
+          <img
+            src=""
+            class="image"
+          />
+          <div style="padding: 14px">
+            <span>学习教程</span>
+            <div class="bottom">
+              <time class="remarks">{{ remarks }}</time>
+              <RouterLink to="/discuss">    <el-button text class="button" type="primary">进入<el-icon><CaretRight /></el-icon></el-button> </RouterLink> 
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </template>
+  
+  <script lang="ts" setup>
+  import { ref } from 'vue'
+  
+  const remarks = "关于学习的教程"
+  </script>
+  
+  <style>
+  .remarks {
+    font-size: 12px;
+    color: #999;
+  }
+  
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+
+  
+  .image {
+    width: 100%;
+    display: block;
+  }
+  </style>
