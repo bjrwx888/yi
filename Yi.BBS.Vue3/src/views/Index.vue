@@ -1,16 +1,13 @@
-<template>
-  <el-row :gutter="20" class="top-div">
+<template >
+
+  <el-row :gutter="20" class="top-div" >
+
     <el-col :span="17">
-      
-
-      <el-row class="left-top-div" :gutter="20">
-
+      <div class="scrollbar">
+        <ScrollbarInfo/>
+      </div>
+   
      
-        <el-col v-for="i in 9" :key="i" :span="2">
-          最新
-      </el-col>
-
-        </el-row>
       <el-row class="left-div">
 
         <el-col :span="8" v-for="i in 6" class="plate" :style="{  'padding-left': i%3==1?0:0.2+'rem','padding-right': i%3==0?0:0.2+'rem'}" >
@@ -29,11 +26,13 @@
       <el-row class="right-div">
         <el-col :span="24" >
           
-          <InfoCard  header="其他" text="详情">
-          <template #content>
-            等待入驻
-          </template>
-          </InfoCard>
+     
+          <el-carousel trigger="click" height="150px">
+      <el-carousel-item v-for="item in 4" :key="item">
+        <h3 class="small justify-center" text="2xl">你好{{ item }}</h3>
+      </el-carousel-item>
+    </el-carousel>
+
         </el-col>
 
         <el-col :span="24" >
@@ -60,16 +59,24 @@
            </template>
            </InfoCard>
          </el-col>
-
+         <el-col :span="24" >
+          <InfoCard :items=items  header="其他" text="更多">
+           <template #item="temp">
+          {{temp}}
+           </template>
+           </InfoCard>
+         </el-col>
       </el-row>
     </el-col>
   </el-row>
+
 </template>
 
 <script setup>
 import DisscussCard from '@/components/DisscussCard.vue'
 import InfoCard from '@/components/InfoCard.vue'
 import PlateCard from '@/components/PlateCard.vue'
+import ScrollbarInfo from '@/components/ScrollbarInfo.vue'
 const items=[{user:"用户1"},{user:"用户2"},{user:"用户3"}]
 </script>
 <style scoped >
@@ -90,24 +97,14 @@ margin-bottom: 1rem;
 }
 
 
-.left-top-div .el-col
-{
-min-height: 2rem;
-background-color:#FAFAFA;
-margin-bottom: 1rem;
-margin-left: 0.6rem;
-}
+
 .top-div
 {
 
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
-.left-top-div
-{
-  font-size:small;
- text-align: center;
- line-height: 2rem;
+.scrollbar
+{ display: block;
+  margin-bottom: 0.5rem;
 }
-
-
 </style>

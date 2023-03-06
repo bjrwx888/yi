@@ -6,7 +6,8 @@
     @select="handleSelect"
     
   >
-  <RouterLink to="/index">  <el-menu-item class="logo" @click="enterIndex"> Logo</el-menu-item></RouterLink> 
+  <RouterLink to="/index">  <el-menu-item class="logo" @click="enterIndex">   
+    <img class="img-icon" style="width: 35px; height: 35px" src="@/assets/logo.ico"  /> 白了又白</el-menu-item></RouterLink> 
   <RouterLink to="/index"><el-menu-item index="1" @click="enterIndex">主页</el-menu-item></RouterLink>
     <el-sub-menu index="2">
       <template #title>学习</template>
@@ -30,9 +31,9 @@
     <div class="flex-grow" />
 
     <RouterLink to="/discuss"> <el-menu-item index="5">搜索</el-menu-item></RouterLink>
-    <el-menu-item index="6">学习</el-menu-item>
+    <RouterLink to="/addArt"><el-menu-item index="6">分享</el-menu-item></RouterLink>
     <el-sub-menu index="7">
-      <template #title>分享</template>
+      <template #title>学习</template>
       <el-menu-item index="7-1">item one</el-menu-item>
       <el-menu-item index="7-2">item two</el-menu-item>
       <el-menu-item index="7-3">item three</el-menu-item>
@@ -53,8 +54,14 @@ const handleSelect = (key, keyPath) => {
 
 .logo{
   min-width: 14rem;
+  font-size: large;
+  font-weight: 600;
 }
 .flex-grow {
   flex-grow: 1;
+}
+.img-icon
+{
+  margin-right: 0.5rem;
 }
 </style>
