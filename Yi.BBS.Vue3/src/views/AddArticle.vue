@@ -12,7 +12,9 @@
       <el-input placeholder="请输入" />
     </el-form-item>
     <el-form-item label="内容：">
-      <el-input placeholder="请输入" />
+    
+<MavonEdit />
+
     </el-form-item>
     <el-form-item label="分面：">
       <el-input placeholder="请输入" />
@@ -24,6 +26,10 @@
     </el-form>
   </div>
 </template>
+<script setup>
+import MavonEdit from '@/components/MavonEdit.vue'
+
+</script>
 <style scoped>
 .submit-btn
 {
