@@ -5,7 +5,6 @@ using Yi.RBAC.Domain.Dictionary.Entities;
 using Yi.Framework.Ddd.Services;
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Ddd.Dtos;
-using Yi.RBAC.Domain.Dictionary.Repositories;
 
 namespace Yi.RBAC.Application.Dictionary
 {
@@ -19,8 +18,7 @@ namespace Yi.RBAC.Application.Dictionary
         /// <summary>
         /// 查询
         /// </summary>
-        [Autowired]
-        private IDictionaryRepository _dictionaryRepository { get; set; }
+
         public override async Task<PagedResultDto<DictionaryGetListOutputDto>> GetListAsync(DictionaryGetListInputVo input)
         {
             int total = 0;
