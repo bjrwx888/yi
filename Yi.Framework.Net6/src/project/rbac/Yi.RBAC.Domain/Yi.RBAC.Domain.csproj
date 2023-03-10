@@ -15,6 +15,7 @@
 	  <PackageReference Include="UAParser" Version="3.1.47" />
 	</ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Yi.Framework.DictionaryManager\Yi.Framework.DictionaryManager.csproj" />
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
     <ProjectReference Include="..\..\..\module\Yi.Framework.EventBus\Yi.Framework.EventBus.csproj" />
     <ProjectReference Include="..\..\..\module\Yi.Framework.FileManager\Yi.Framework.FileManager.csproj" />

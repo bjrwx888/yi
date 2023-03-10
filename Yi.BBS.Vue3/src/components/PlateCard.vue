@@ -8,9 +8,9 @@
             class="image"
           />
           <div style="padding: 14px">
-            <span>学习教程</span>
+            <span>{{props.name}}</span>
             <div class="bottom">
-              <time class="remarks">{{ remarks }}</time>
+              <time class="remarks">{{ props.introduction }}</time>
               <RouterLink to="/discuss">    <el-button text class="button" type="primary">进入<el-icon><CaretRight /></el-icon></el-button> </RouterLink> 
             </div>
           </div>
@@ -19,10 +19,8 @@
     </el-row>
   </template>
   
-  <script lang="ts" setup>
-  import { ref } from 'vue'
-  
-  const remarks = "关于学习的教程"
+  <script  setup>
+const props = defineProps(['name','introduction'])
   </script>
   
   <style>

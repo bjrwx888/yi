@@ -1,8 +1,8 @@
 
 import axios from 'axios';
+
 const myaxios = axios.create({
-    // baseURL:'/'// 
-    // baseURL: process.env.VUE_APP_BASE_API, // /dev-apis
+    baseURL:import.meta.env.VITE_APP_BASEAPI,
     timeout: 50000,
     // transformResponse: [data => {
     //     const json = JsonBig({
@@ -24,7 +24,7 @@ myaxios.interceptors.request.use(function (config) {
 // 响应拦截器
 myaxios.interceptors.response.use(function (response) {
 
-    return response;
+    return response.data;
 }, function (error) {
     return Promise.reject(error);
 });

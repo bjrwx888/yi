@@ -1,4 +1,5 @@
 <template>
+  <div style="width: 100%;">
     <div class="body-div">
         <el-form  label-width="120px" label-position="left">
 
@@ -28,6 +29,7 @@
     </el-form-item>
     <el-form-item >  <el-button class="submit-btn" type="primary">提交</el-button></el-form-item>
     </el-form>
+  </div>
   </div>
 </template>
 <script setup>

@@ -8,10 +8,10 @@ using Yi.Framework.Data.Auditing;
 using Yi.Framework.Data.Entities;
 using Yi.Framework.Ddd.Entities;
 
-namespace Yi.RBAC.Domain.Dictionary.Entities
+namespace Yi.Framework.DictionaryManager.Entities
 {
     [SugarTable("DictionaryType")]
-    public class DictionaryTypeEntity : AuditedObject,IEntity<long>, ISoftDelete, IOrderNum
+    public class DictionaryTypeEntity : AuditedObject, IEntity<long>, ISoftDelete, IOrderNum
     {
         /// <summary>
         /// 主键

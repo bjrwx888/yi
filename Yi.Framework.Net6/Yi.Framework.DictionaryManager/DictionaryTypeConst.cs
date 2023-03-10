@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.RBAC.Domain.Shared.Dictionary.ConstClasses
+namespace Yi.Framework.DictionaryManager
 {
     /// <summary>
     /// 常量定义
     /// </summary>
 
-    public class DictionaryConst
+    public class DictionaryTypeConst
     {
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Ddd.Dtos;
 
-namespace Yi.RBAC.Application.Contracts.Dictionary.Dtos
+namespace Yi.Framework.DictionaryManager.Dtos.Dictionary
 {
-    public class DictionaryUpdateInputVo
+    public class DictionaryGetOutputDto : IEntityDto<long>
     {
         public long Id { get; set; }
         public DateTime CreationTime { get; set; } = DateTime.Now;

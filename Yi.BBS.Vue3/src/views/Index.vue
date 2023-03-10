@@ -1,4 +1,5 @@
 <template >
+  <div style="width: 1200px;">
   <el-row :gutter="20" class="top-div" >
 
     <el-col :span="17">
@@ -9,12 +10,12 @@
      
       <el-row class="left-div">
 
-        <el-col :span="8" v-for="i in 6" class="plate" :style="{  'padding-left': i%3==1?0:0.2+'rem','padding-right': i%3==0?0:0.2+'rem'}" >
-<PlateCard/>
+        <el-col :span="8" v-for="i in plateList" class="plate" :style="{  'padding-left': i%3==1?0:0.2+'rem','padding-right': i%3==0?0:0.2+'rem'}" >
+          <PlateCard :name="i.name" :introduction="i.introduction"/>
           </el-col>
 
-        <el-col :span="24" v-for="i in 10" :key="i">
-<DisscussCard/>
+        <el-col :span="24" v-for="i in discussList">
+<DisscussCard :title="i.title" :introduction="i.introduction" :createTime="i.createTime"/>
           
         </el-col>
       </el-row>
@@ -74,10 +75,14 @@
            </template>
            </InfoCard>
          </el-col>
+
+         <el-col :span="24" style=" background: transparent;">
+        <BottomInfo/>
+        </el-col>
       </el-row>
     </el-col>
   </el-row>
-
+</div>
 </template>
 
 <script setup>
@@ -86,7 +91,24 @@ import InfoCard from '@/components/InfoCard.vue'
 import PlateCard from '@/components/PlateCard.vue'
 import ScrollbarInfo from '@/components/ScrollbarInfo.vue'
 import AvatarInfo from '@/components/AvatarInfo.vue'
-const items=[{user:"用户1"},{user:"用户2"},{user:"用户3"}]
+import BottomInfo from '@/components/BottomInfo.vue'
+
+import {getList} from '@/apis/plateApi.js'
+import {getList as discussGetList} from '@/apis/discussApi.js'
+import { onMounted, ref } from 'vue'
+var plateList=ref([]);
+var discussList=ref([]);
+  const items=[{user:"用户1"},{user:"用户2"},{user:"用户3"}]
+
+  onMounted(async()=>{
+ const response=  await getList();
+ plateList.value= response.items;
+const discussReponse=await discussGetList();
+discussList.value= discussReponse.items;
+
+  })
+
+
 </script>
 <style scoped >
 .introduce

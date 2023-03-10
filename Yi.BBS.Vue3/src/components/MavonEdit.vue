@@ -3,7 +3,7 @@
   :subfield="subfield" 
   :codeStyle="props.codeStyle" 
   :ishljs="true"
-  :style="{minHeight:props.height,maxHeight:'50rem'}"
+  :style="{minHeight:props.height,maxHeight:'100%'}"
   class="edit"
   @change="change"
   ></mavon-editor>

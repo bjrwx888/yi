@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.RBAC.Application.Contracts.Dictionary.Dtos
+namespace Yi.Framework.DictionaryManager.Dtos.DictionaryType
 {
     public class DictionaryTypeUpdateInputVo
     {

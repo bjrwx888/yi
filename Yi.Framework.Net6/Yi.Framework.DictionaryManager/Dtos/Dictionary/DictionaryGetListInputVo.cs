@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Ddd.Dtos;
 
-namespace Yi.RBAC.Application.Contracts.Dictionary.Dtos
+namespace Yi.Framework.DictionaryManager.Dtos.Dictionary
 {
     public class DictionaryGetListInputVo : PagedAndSortedResultRequestDto
     {

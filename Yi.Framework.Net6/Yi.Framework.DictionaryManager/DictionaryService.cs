@@ -1,12 +1,12 @@
-using Yi.RBAC.Application.Contracts.Dictionary;
 using Cike.AutoWebApi.Setting;
-using Yi.RBAC.Application.Contracts.Dictionary.Dtos;
-using Yi.RBAC.Domain.Dictionary.Entities;
 using Yi.Framework.Ddd.Services;
 using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Ddd.Dtos;
+using Yi.Framework.DictionaryManager.Entities;
+using Yi.Framework.DictionaryManager.Dtos.Dictionary;
+using Yi.Framework.Core.Attributes;
 
-namespace Yi.RBAC.Application.Dictionary
+namespace Yi.Framework.DictionaryManager
 {
     /// <summary>
     /// Dictionary服务实现

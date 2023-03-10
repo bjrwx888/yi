@@ -1,5 +1,5 @@
 <template>
-    <div class="body-div">
+    <div style="width: 1200px;" class="body-div">
 <div class="header">
     <el-form :inline="true" >
             <el-form-item label="标签：" >
@@ -73,7 +73,7 @@ min-height: 1000px;
 .header{
 background-color: #FFFFFF;
 padding: 1rem;
-margin: 2rem 0rem 1rem 0rem;
+margin: 1rem 0rem ;
 }
 .header .el-input
 {

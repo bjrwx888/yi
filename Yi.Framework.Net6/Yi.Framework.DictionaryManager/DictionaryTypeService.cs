@@ -1,12 +1,12 @@
-using Yi.RBAC.Application.Contracts.Dictionary;
 using Cike.AutoWebApi.Setting;
-using Yi.RBAC.Application.Contracts.Dictionary.Dtos;
-using Yi.RBAC.Domain.Dictionary.Entities;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Dtos;
 using SqlSugar;
+using Yi.Framework.DictionaryManager.Dtos.DictionaryType;
+using Yi.Framework.DictionaryManager.Entities;
+using Yi.Framework.Core.Attributes;
 
-namespace Yi.RBAC.Application.Dictionary
+namespace Yi.Framework.DictionaryManager
 {
     /// <summary>
     /// DictionaryType服务实现

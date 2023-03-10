@@ -7,14 +7,13 @@
 
 
 
-        <div class=" item item-title "> <el-link size="100" :underline="false" @click="enterDiscuss">Alibaba Java
-                技术图谱</el-link></div>
-        <div class=" item item-description">一个适合新手的Java学习平台</div>
+        <div class=" item item-title "> <el-link size="100" :underline="false" @click="enterDiscuss">{{props.title}}</el-link></div>
+        <div class=" item item-description">{{props.introduction}}</div>
         <div class=" item item-tag"><el-tag v-for="i in 4" :key="i">教程</el-tag></div>
         <div class=" item item-bottom">
             <el-space :size="10" :spacer="spacer">
                 <div class="item-description">
-                    2022-12-26 15:01:35
+                   {{ props.createTime }}
                 </div>
 
 
@@ -35,6 +34,9 @@
 import { h, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AvatarInfo from './AvatarInfo.vue';
+
+const props = defineProps(['title','introduction','createTime'])
+
 const router = useRouter()
 const spacer = h(ElDivider, { direction: 'vertical' })
 const enterDiscuss = () => {

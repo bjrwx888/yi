@@ -23,8 +23,7 @@
 import { onMounted } from 'vue';
 
 const props = defineProps(['size', 'src','showWatching','time'])
-onMounted(()=>{
-console.log(props.time,"props.time");})
+
 </script>
 <style scoped>
 .mt_1

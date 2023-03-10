@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.RBAC.Application.Contracts.Dictionary.Dtos;
 using Yi.Framework.Ddd.Services.Abstract;
+using Yi.Framework.DictionaryManager.Dtos.Dictionary;
 
-namespace Yi.RBAC.Application.Contracts.Dictionary
+namespace Yi.Framework.DictionaryManager
 {
     /// <summary>
     /// Dictionary服务抽象

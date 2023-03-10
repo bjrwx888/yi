@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Data.DataSeeds;
 using Yi.Framework.Ddd.Repositories;
-using Yi.RBAC.Domain.Dictionary.Entities;
 using Yi.RBAC.Domain.Identity.Entities;
 
 namespace Yi.RBAC.Domain.DataSeeds
