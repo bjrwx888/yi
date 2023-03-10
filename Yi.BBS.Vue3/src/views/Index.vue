@@ -1,5 +1,4 @@
 <template >
-
   <el-row :gutter="20" class="top-div" >
 
     <el-col :span="17">
@@ -36,9 +35,13 @@
         </el-col>
 
         <el-col :span="24" >
-         <InfoCard  header="用户" text="详情">
-          <template #content>
-            你好啊。好兄弟
+         <InfoCard  header="简介" text="详情">
+          <template #content >
+            <div class="introduce">
+
+              没有什么能够阻挡，人类对代码<span style="color: #1890ff;">优雅</span>的最求
+            </div>
+       
           </template>
           </InfoCard>
         </el-col>
@@ -46,7 +49,12 @@
         <el-col :span="24" >
           <InfoCard :items=items  header="本月排行" text="更多">
            <template #item="temp">
-          {{temp}}
+            <AvatarInfo>
+<template #bottom>
+  本月积分：680
+</template>
+              
+            </AvatarInfo>
            </template>
            </InfoCard>
          </el-col>
@@ -55,7 +63,7 @@
          <el-col :span="24" >
           <InfoCard :items=items  header="推荐好友" text="更多">
            <template #item="temp">
-          {{temp}}
+            <AvatarInfo/>
            </template>
            </InfoCard>
          </el-col>
@@ -77,9 +85,15 @@ import DisscussCard from '@/components/DisscussCard.vue'
 import InfoCard from '@/components/InfoCard.vue'
 import PlateCard from '@/components/PlateCard.vue'
 import ScrollbarInfo from '@/components/ScrollbarInfo.vue'
+import AvatarInfo from '@/components/AvatarInfo.vue'
 const items=[{user:"用户1"},{user:"用户2"},{user:"用户3"}]
 </script>
 <style scoped >
+.introduce
+{
+color: rgba(0,0,0,.45);
+font-size: small;
+}
 .plate
 {
   background: transparent !important;

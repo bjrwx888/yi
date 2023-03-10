@@ -11,13 +11,14 @@
     "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.3.4",
     "element-plus": "^2.2.32",
-    "mavon-editor": "^2.10.4",
+    "mavon-editor": "^3.0.0",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "unplugin-auto-import": "^0.15.0",
     "unplugin-vue-components": "^0.24.0",
     "vite": "^4.1.3"

@@ -2,10 +2,7 @@
     <el-card class="box-card" shadow="never">
 
         <div class="card-header">
-            <el-avatar :size="50" />
-            <span class="ml-2">你好</span>
-            <el-tag class="ml-2" type="warning">V6</el-tag>
-            <el-tag class="ml-2" type="danger">管理员</el-tag>
+          <AvatarInfo />
         </div>
 
 
@@ -37,6 +34,7 @@
 <script setup>
 import { h, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import AvatarInfo from './AvatarInfo.vue';
 const router = useRouter()
 const spacer = h(ElDivider, { direction: 'vertical' })
 const enterDiscuss = () => {

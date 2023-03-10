@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps(['items','header','text'])
+const props = defineProps(['items','header','text','hideDivider'])
 
 </script>
 
@@ -21,7 +21,7 @@ const props = defineProps(['items','header','text'])
       <div class="text item">
         <slot name="item" v-bind="item"/>
     </div>
-        <el-divider v-if="i!=props.items.length-1"  />
+        <el-divider v-if="i!=props.items.length-1&&hideDivider==undefined"  />
   </div>
    
     </el-card>
