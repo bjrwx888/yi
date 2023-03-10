@@ -3,7 +3,6 @@ using Cike.AutoWebApi.Setting;
 using Yi.RBAC.Application.Contracts.Dictionary.Dtos;
 using Yi.RBAC.Domain.Dictionary.Entities;
 using Yi.Framework.Ddd.Services;
-using Yi.RBAC.Domain.Dictionary.Repositories;
 using Yi.Framework.Ddd.Dtos;
 using SqlSugar;
 
@@ -17,8 +16,6 @@ namespace Yi.RBAC.Application.Dictionary
        IDictionaryTypeService, IAutoApiService
     {
 
-        [Autowired]
-        private IDictionaryTypeRepository _dictionaryTypeRepository { get; set; }
 
         public async override Task<PagedResultDto<DictionaryTypeGetListOutputDto>> GetListAsync(DictionaryTypeGetListInputVo input)
         {
