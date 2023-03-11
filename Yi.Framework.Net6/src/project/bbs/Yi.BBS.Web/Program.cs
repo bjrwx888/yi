@@ -1,16 +1,22 @@
-using AspNetCore.Microsoft.AspNetCore.Hosting;
+ï»¿using AspNetCore.Microsoft.AspNetCore.Hosting;
 using Yi.Framework.Core.Autofac.Extensions;
 using Yi.Framework.Core.Autofac.Modules;
 using Yi.Framework.Core.Extensions;
 using Yi.BBS.Web;
 using Yi.Framework.Core.Module;
+using NLog.Extensions.Logging;
+using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddLogging(builder => { builder.ClearProviders().AddNLog("nlog.config").SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace); });
+Logger? _logger = LogManager.Setup().LoadConfigurationFromAssemblyResource(typeof(Program).Assembly).GetCurrentClassLogger();
+_logger.Info("-----( Â¯ â–¡ Â¯ )YiFrameowrkæ¡†æž¶å¯åŠ¨-----");
+
 builder.WebHost.UseStartUrlsServer(builder.Configuration);
 
 builder.UseYiModules(typeof(YiBBSWebModule));
 
-//Ìí¼ÓautofacÄ£¿é,ÐèÒªÌí¼ÓÄ£¿é
+//æ·»åŠ autofacæ¨¡å—,éœ€è¦æ·»åŠ æ¨¡å—
 builder.Host.ConfigureAutoFacContainer(container =>
 {
     container.RegisterYiModule(AutoFacModuleEnum.PropertiesAutowiredModule, ModuleAssembly.Assemblies);

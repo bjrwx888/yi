@@ -6,3 +6,10 @@ export function getList(data){
         params:data
     })
 };
+
+export function getListByPlateId(plateId){
+    return myaxios({
+        url: `/discuss/plate-id/${plateId}`,
+        method: 'get'
+    })
+};

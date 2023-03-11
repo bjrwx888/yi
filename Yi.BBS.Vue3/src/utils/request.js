@@ -1,14 +1,21 @@
 
 import axios from 'axios';
-
+// import JsonBig from 'json-bigint'
 const myaxios = axios.create({
     baseURL:import.meta.env.VITE_APP_BASEAPI,
     timeout: 50000,
     // transformResponse: [data => {
-    //     const json = JsonBig({
-    //         storeAsString: true
-    //     })
-    //     return json.parse(data)
+    //     try {
+    //         const json = JsonBig({
+    //             storeAsString: true
+    //           })
+    //         return json.parse(data)
+    //       } catch (err) {
+    //         // 如果转换失败，则包装为统一数据格式并返回
+    //         return {
+    //           data
+    //         }
+    //       }
     // }],
     headers: {
         'Authorization': 'Bearer ' + ""

@@ -11,7 +11,7 @@
             <span>{{props.name}}</span>
             <div class="bottom">
               <time class="remarks">{{ props.introduction }}</time>
-              <RouterLink to="/discuss">    <el-button text class="button" type="primary">进入<el-icon><CaretRight /></el-icon></el-button> </RouterLink> 
+              <RouterLink :to="`/discuss/${props.id}`">    <el-button text class="button" type="primary">进入<el-icon><CaretRight /></el-icon></el-button> </RouterLink> 
             </div>
           </div>
         </el-card>
@@ -20,7 +20,10 @@
   </template>
   
   <script  setup>
-const props = defineProps(['name','introduction'])
+import { onMounted } from 'vue';
+
+const props = defineProps(['name','introduction','id'])
+
   </script>
   
   <style>

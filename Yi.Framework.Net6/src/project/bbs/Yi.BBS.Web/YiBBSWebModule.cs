@@ -12,6 +12,7 @@ using Yi.Framework.AspNetCore;
 using Yi.Framework.Data.Json;
 using Yi.Framework.OperLogManager;
 using Yi.Framework.Core.Module;
+using Microsoft.Extensions.Options;
 
 namespace Yi.BBS.Web
 {
@@ -28,7 +29,8 @@ namespace Yi.BBS.Web
             //添加控制器与动态api
             services.AddControllers().AddJsonOptions(opt => {
                 opt.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
-            }); 
+                opt.JsonSerializerOptions.Converters.Add(new LongToStringConverter());
+        }); 
 
             services.AddAutoApiService(opt =>
             {

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core.Registration;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,11 @@ namespace Yi.Framework.Core.Autofac.Extensions
 
         public static void RegisterYiModule(this ContainerBuilder builder, AutoFacModuleEnum autoFacModuleEnum, params Assembly[] assemblies)
         {
+            Logger? _logger = LogManager.Setup().LoadConfigurationFromAssemblyResource(typeof(AutoFacModuleExtensions).Assembly).GetCurrentClassLogger();
             switch (autoFacModuleEnum)
             {
                 case AutoFacModuleEnum.PropertiesAutowiredModule:
-                    Console.WriteLine($"意框架添加AutoFac模块：{nameof(PropertiesAutowiredModule)}-属性注入模块");
+                    _logger.Info($"意框架添加AutoFac模块：{nameof(PropertiesAutowiredModule)}-属性注入模块");
                     new PropertiesAutowiredModule().Load(builder, assemblies);
                     break;
             }

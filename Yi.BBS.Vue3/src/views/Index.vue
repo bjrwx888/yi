@@ -9,9 +9,8 @@
    
      
       <el-row class="left-div">
-
         <el-col :span="8" v-for="i in plateList" class="plate" :style="{  'padding-left': i%3==1?0:0.2+'rem','padding-right': i%3==0?0:0.2+'rem'}" >
-          <PlateCard :name="i.name" :introduction="i.introduction"/>
+          <PlateCard :name="i.name" :introduction="i.introduction" :id="i.id"/>
           </el-col>
 
         <el-col :span="24" v-for="i in discussList">
@@ -103,10 +102,10 @@ var discussList=ref([]);
   onMounted(async()=>{
  const response=  await getList();
  plateList.value= response.items;
+
 const discussReponse=await discussGetList();
 discussList.value= discussReponse.items;
-
-  })
+  });
 
 
 </script>
