@@ -19,7 +19,13 @@
                                 </template>
                             </InfoCard>
                         </el-col>
-
+                        <el-col :span="24">
+                            <InfoCard :items=items header="推荐好友" text="更多">
+                                <template #item="temp">
+                                    <AvatarInfo />
+                                </template>
+                            </InfoCard>
+                        </el-col>
                     </el-col>
 
                 </el-row>
@@ -33,9 +39,10 @@
                         <AvatarInfo :size="50" :showWatching="true" :time="'2023-03-08 21:09:02'"></AvatarInfo>
 
                         <el-divider />
-                        <h2>面试题挑战</h2>
-                        文章详情
-
+                        
+                        <h2>{{discuss.title}}</h2>
+                       <!-- {{discuss.content}} -->
+                       <ArticleContentInfo/>
 
                         <el-divider class="tab-divider" />
 
@@ -53,7 +60,7 @@
 
                     </el-col>
 
-                    <el-col :span="24">
+                    <el-col :span="24" class="comment">
                         文章评论
                     </el-col>
                 </el-row>
@@ -83,8 +90,7 @@
                                 <div>
                                     <ul class="art-info-ul">
                                         <li v-for="i in 6">
-                                            <el-button style="width: 100%;
-                                              justify-content: left" :key="你好" type="primary" text>{{ i }}：第一小结</el-button>
+                                            <el-button style="width: 100%;justify-content: left" type="primary" text>{{ i }}：第一小结</el-button>
                                         </li>
                                     </ul>
                                 </div>
@@ -111,15 +117,21 @@
     </div>
 </template>
 <script setup>
-import { h, ref } from 'vue'
+import { h, ref ,onMounted } from 'vue'
 import AvatarInfo from '@/components/AvatarInfo.vue'
-import InfoCard from '../components/InfoCard.vue';
+import InfoCard from '@/components/InfoCard.vue';
+import ArticleContentInfo from  '@/components/ArticleContentInfo.vue'
+import { useRoute } from 'vue-router'
+
+import {get as discussGet} from '@/apis/discussApi.js';
+
+//数据定义
+const route=useRoute()
 const spacer = h(ElDivider, { direction: 'vertical' })
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }]
 const handleNodeClick = (data) => {
     console.log(data)
 }
-
 const data = [
     {
         label: 'HTML',
@@ -189,9 +201,25 @@ const data = [
         label: 'Tcp/ip',
     }
 ]
+//主题内容
+const discuss=ref({});
 
+//主题初始化
+const loadDiscuss=async()=>{
+    discuss.value= await discussGet(route.params.discussId);
+}
+
+
+onMounted(async()=>{
+   await loadDiscuss();
+
+})
 </script>
 <style scoped >
+.comment
+{
+    height:40rem;
+}
 .art-info-left {
     margin-bottom: 1rem;
 }

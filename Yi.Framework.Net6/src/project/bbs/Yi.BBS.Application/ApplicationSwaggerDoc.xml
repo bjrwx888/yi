@@ -64,11 +64,10 @@
             Discuss应用服务实现,用于参数效验、领域服务业务组合、日志记录、事务处理、账户信息
             </summary>
         </member>
-        <member name="M:Yi.BBS.Application.Forum.DiscussService.GetPlateIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussGetListInputVo)">
+        <member name="M:Yi.BBS.Application.Forum.DiscussService.GetListAsync(Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussGetListInputVo)">
             <summary>
-            获取改板块下的主题
+            查询
             </summary>
-            <param name="plateId"></param>
             <param name="input"></param>
             <returns></returns>
         </member>

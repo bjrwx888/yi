@@ -20,6 +20,7 @@
     </div>
 </template>
 <script setup>
+
 import { onMounted } from 'vue';
 
 const props = defineProps(['size', 'src','showWatching','time'])

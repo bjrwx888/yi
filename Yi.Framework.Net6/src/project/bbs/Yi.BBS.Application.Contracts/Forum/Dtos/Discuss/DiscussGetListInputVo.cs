@@ -9,5 +9,8 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
 {
     public class DiscussGetListInputVo : PagedAndSortedResultRequestDto
     {
+        public string? Title { get; set; }
+
+        public long? PlateId { get; set; }
     }
 }

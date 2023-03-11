@@ -29,17 +29,19 @@ namespace Yi.BBS.Application.Forum
         private IRepository<PlateEntity> _plateEntityRepository { get; set; }
 
         /// <summary>
-        /// 获取改板块下的主题
+        /// 查询
         /// </summary>
-        /// <param name="plateId"></param>
         /// <param name="input"></param>
         /// <returns></returns>
 
-        public async Task<PagedResultDto<DiscussGetListOutputDto>> GetPlateIdAsync([FromRoute] long plateId, [FromQuery] DiscussGetListInputVo input)
+        public override async Task<PagedResultDto<DiscussGetListOutputDto>> GetListAsync( [FromQuery] DiscussGetListInputVo input)
         {
-            var entities = await _repository.GetPageListAsync(x => x.PlateId == plateId, input);
+            RefAsync<int> total = 0;
+            var entities = await _DbQueryable
+                 .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
+                     .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
+                .ToPageListAsync(input.PageNum, input.PageSize, total);
             var items = await MapToGetListOutputDtosAsync(entities);
-            var total = await _repository.CountAsync(x => x.IsDeleted == false);
             return new PagedResultDto<DiscussGetListOutputDto>(total, items);
         }
 

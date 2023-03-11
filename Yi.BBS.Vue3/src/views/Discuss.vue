@@ -2,20 +2,20 @@
     <div style="width: 1200px;" class="body-div">
 <div class="header">
     <el-form :inline="true" >
-            <el-form-item label="标签：" >
-      <el-input          placeholder="请输入标签"
+            <el-form-item label="标题：" >
+      <el-input  v-model="query.title"        placeholder="请输入标题"
       ></el-input>
     </el-form-item>
       
-    <el-form-item label="内容：">
+    <el-form-item label="标签：">
         <el-input
-        placeholder="搜索当下分类下的内容"
+        placeholder="搜索当下分类下的标签"
 
       />
     </el-form-item>
     <div class="form-right">
             <el-button>重置</el-button>
-             <el-button type="primary">查询</el-button>
+             <el-button type="primary" @click="async()=>{ await loadDiscussList();}">查询</el-button>
             
              <el-dropdown>
     <span class="el-dropdown-link">
@@ -47,31 +47,64 @@
     <el-tab-pane label="最热" name="third">   </el-tab-pane>
   </el-tabs>
 <div class="div-item" v-for="i in discussList" >
-  <DisscussCard :title="i.title" :introduction="i.introduction" :createTime="i.createTime"/>
+  <DisscussCard :title="i.title" :introduction="i.introduction" :createTime="i.createTime" :id="i.id"/>
 </div>
+<div>
+    <el-pagination
+      v-model:current-page="query.pageNum"
+      v-model:page-size="query.pageSize"
+      :page-sizes="[10, 20, 30, 50]"
+      :background="true"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      @size-change="async(val)=>{ await loadDiscussList();}"
+      @current-change="async(val)=>{ await loadDiscussList();}"
+    />
+  </div>
+
+<el-empty v-if="discussList.length==0" description="空空如也" />
     </div>
 </template>
+
+
 <script setup>
 import DisscussCard from '@/components/DisscussCard.vue'
-import {getListByPlateId} from '@/apis/discussApi.js'
-import { onMounted, ref } from 'vue'
-import { useRouter,useRoute } from 'vue-router'
-const router = useRouter()
+import {getList} from '@/apis/discussApi.js'
+import { onMounted, ref,reactive  } from 'vue'
+import { useRoute } from 'vue-router'
+
+//数据定义
 const route=useRoute()
 const activeName = ref('first')
-
 const discussList=ref([]);
+const total=ref(100)
+const query=reactive({
+  pageNum:1,
+  pageSize:10,
+  title:'',
+  plateId:''
+})
 
 const handleClick = (tab, event) => {
   console.log(tab, event)
 }
 
 onMounted(async()=>{
- const response= await getListByPlateId(route.params.plateId);
- discussList.value=response.items;
+ await loadDiscussList();
 })
+
+//加载discuss
+const loadDiscussList=async()=>{
+  query.plateId=route.params.plateId;
+  const response= await getList(query);
+ discussList.value=response.items;
+ total.value=Number( response.total);
+}
+
 </script>
 <style scoped>
+.el-pagination
+{margin: 2rem 0rem 2rem 0rem;justify-content: right;}
 .body-div{
 min-height: 1000px;
 }

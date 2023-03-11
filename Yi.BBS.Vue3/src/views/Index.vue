@@ -14,7 +14,7 @@
           </el-col>
 
         <el-col :span="24" v-for="i in discussList">
-<DisscussCard :title="i.title" :introduction="i.introduction" :createTime="i.createTime"/>
+<DisscussCard :title="i.title" :introduction="i.introduction" :createTime="i.createTime" :id="i.id"/>
           
         </el-col>
       </el-row>

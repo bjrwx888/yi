@@ -7,7 +7,7 @@
 
 
 
-        <div class=" item item-title "> <el-link size="100" :underline="false" @click="enterDiscuss">{{props.title}}</el-link></div>
+        <div class=" item item-title "> <el-link size="100" :underline="false" @click="enterDiscuss(props.id)">{{props.title}}</el-link></div>
         <div class=" item item-description">{{props.introduction}}</div>
         <div class=" item item-tag"><el-tag v-for="i in 4" :key="i">教程</el-tag></div>
         <div class=" item item-bottom">
@@ -35,12 +35,12 @@ import { h, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AvatarInfo from './AvatarInfo.vue';
 
-const props = defineProps(['title','introduction','createTime'])
+const props = defineProps(['title','introduction','createTime','id'])
 
 const router = useRouter()
 const spacer = h(ElDivider, { direction: 'vertical' })
-const enterDiscuss = () => {
-    router.push("/article")
+const enterDiscuss = (id) => {
+    router.push(`/article/${id}`)
 }
 </script>
 <style scoped>
