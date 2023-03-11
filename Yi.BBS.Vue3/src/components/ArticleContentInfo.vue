@@ -1,43 +1,41 @@
 <template>
     <div>
-        <div class="md" v-html="code"></div>
-        {{ code }}
-        <button @click="code='1234'">你好</button>
+        <div class="markdown-body" v-html="outputHtml"></div>
     </div>
 </template>
   
 <script setup>
 import { marked } from 'marked';
 import hljs from "highlight.js";
-import javascript from 'highlight.js/lib/languages/javascript';
-import 'highlight.js/styles/monokai-sublime.css';
-import { onMounted,ref } from 'vue';
-const code =ref( "```javascript\nfunction(){\n\tconsole.log(123)\n}\n```\n"
-+"# 你好世界\n"+
-"## 是我的"
-)
+//可以设置加载样式切换主题
+import 'highlight.js/styles/atom-one-dark.css'
+import '@/assets/github-markdown.css'
+import { ref,watch  } from 'vue';
 
-// const props = defineProps(['code'])
+const outputHtml=ref("")
+const props = defineProps(['code'])
+watch(props,(n,o)=>{
 
-onMounted(() => {
-    // code.value=props.code;
     marked.setOptions({
         renderer: new marked.Renderer(),
-        highlight: function (code) {
-            return hljs.highlightAuto(code.value).value;
-        },
+        highlight: function(code) {
+            return hljs.highlightAuto(code).value;
+          },
         pedantic: false,
-        gfm: true,
-        tables: true,
+        gfm: true,//允许 Git Hub标准的markdown
+        tables: true,//支持表格
+    
         breaks: false,
         sanitize: false,
         smartLists: true,
         smartypants: false,
-        xhtml: false
+        xhtml: false,
+        smartLists: true,
     }
     );
-    code.value = marked(code.value)
-    console.log( code.value," code.value");
+    //需要注意代码块样式
+    outputHtml.value = marked(n.code).replace(/<pre>/g, "<pre class='hljs'>")
 })
 
 </script>
+

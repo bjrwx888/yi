@@ -14,9 +14,10 @@
       />
     </el-form-item>
     <div class="form-right">
+ 
             <el-button>重置</el-button>
              <el-button type="primary" @click="async()=>{ await loadDiscussList();}">查询</el-button>
-            
+             <el-button @click="enterEditArticle" type="primary">分享</el-button>    
              <el-dropdown>
     <span class="el-dropdown-link">
       展开
@@ -71,10 +72,11 @@
 import DisscussCard from '@/components/DisscussCard.vue'
 import {getList} from '@/apis/discussApi.js'
 import { onMounted, ref,reactive  } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 
 //数据定义
 const route=useRoute()
+const router=useRouter()
 const activeName = ref('first')
 const discussList=ref([]);
 const total=ref(100)
@@ -82,7 +84,7 @@ const query=reactive({
   pageNum:1,
   pageSize:10,
   title:'',
-  plateId:''
+  plateId:route.params.plateId
 })
 
 const handleClick = (tab, event) => {
@@ -95,12 +97,15 @@ onMounted(async()=>{
 
 //加载discuss
 const loadDiscussList=async()=>{
-  query.plateId=route.params.plateId;
   const response= await getList(query);
  discussList.value=response.items;
  total.value=Number( response.total);
 }
 
+//进入添加主题页面
+const enterEditArticle=()=>{
+  router.push(`/editArt/discuss/create/${route.params.plateId}`)
+}
 </script>
 <style scoped>
 .el-pagination

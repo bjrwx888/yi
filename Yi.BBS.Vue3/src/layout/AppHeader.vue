@@ -31,7 +31,7 @@
     <div class="flex-grow" />
 
     <RouterLink to="/discuss"> <el-menu-item index="5">搜索</el-menu-item></RouterLink>
-    <RouterLink to="/addArt"><el-menu-item index="6">分享</el-menu-item></RouterLink>
+    <el-menu-item index="6">分享</el-menu-item>
     <el-sub-menu index="7">
       <template #title>学习</template>
       <el-menu-item index="7-1">学习 one</el-menu-item>

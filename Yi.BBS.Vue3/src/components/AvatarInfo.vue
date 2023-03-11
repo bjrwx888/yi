@@ -15,6 +15,7 @@
             </div>
         </div>
         
+
         <el-button v-if="props.showWatching" type="primary" size="default" icon="Plus">关注</el-button>
 
     </div>
@@ -23,7 +24,7 @@
 
 import { onMounted } from 'vue';
 
-const props = defineProps(['size', 'src','showWatching','time'])
+const props = defineProps(['size', 'src','showWatching','time','id'])
 
 </script>
 <style scoped>

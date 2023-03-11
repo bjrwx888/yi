@@ -4,20 +4,15 @@
         <el-row :gutter="20" class="top-div">
 
             <el-col :span="5">
-                <el-row>
-                    <el-col :span="24">
-
-                        <InfoCard class="art-info-left" header="主题信息" text="展开" hideDivider="true">
+                <el-row class="art-info-left">
+         
+                        <el-col :span="24">
+                        <InfoCard  header="主题信息" text="展开" hideDivider="true">
                             <template #content>
+                                <el-button style="width: 100%;margin-bottom: 0.8rem;">首页</el-button>
                                 <el-tree :data="data" @node-click="handleNodeClick" />
                             </template>
                         </InfoCard>
-                        <el-col :span="24">
-                            <InfoCard :items=items header="推荐好友" text="更多">
-                                <template #item="temp">
-                                    <AvatarInfo />
-                                </template>
-                            </InfoCard>
                         </el-col>
                         <el-col :span="24">
                             <InfoCard :items=items header="推荐好友" text="更多">
@@ -26,7 +21,14 @@
                                 </template>
                             </InfoCard>
                         </el-col>
-                    </el-col>
+                        <el-col :span="24">
+                            <InfoCard :items=items header="推荐好友" text="更多">
+                                <template #item="temp">
+                                    <AvatarInfo />
+                                </template>
+                            </InfoCard>
+                        </el-col>
+            
 
                 </el-row>
 
@@ -39,10 +41,8 @@
                         <AvatarInfo :size="50" :showWatching="true" :time="'2023-03-08 21:09:02'"></AvatarInfo>
 
                         <el-divider />
-                        
                         <h2>{{discuss.title}}</h2>
-                       <!-- {{discuss.content}} -->
-                       <ArticleContentInfo/>
+                       <ArticleContentInfo :code="discuss.content"></ArticleContentInfo>
 
                         <el-divider class="tab-divider" />
 
@@ -73,7 +73,14 @@
                         <InfoCard class="art-info-right" header="文章信息" text="更多" hideDivider="true">
                             <template #content>
                                 <div>
+
+                                  
+
                                     <ul class="art-info-ul">
+                                        <li>
+
+                                          <RouterLink :to='`/editArt/discuss/update/${route.params.discussId}`'> <el-button type="primary" size="default" >编辑</el-button></RouterLink>
+                                        </li>
                                         <li>
                                             分类： <span>文章</span>
                                         </li>
@@ -89,8 +96,8 @@
                             <template #content>
                                 <div>
                                     <ul class="art-info-ul">
-                                        <li v-for="i in 6">
-                                            <el-button style="width: 100%;justify-content: left" type="primary" text>{{ i }}：第一小结</el-button>
+                                        <li v-for="(item,i) in catalogueData" :key="i">
+                                            <el-button style="width: 100%;justify-content: left" type="primary" text>{{ `${i+1} ： ${item}` }}</el-button>
                                         </li>
                                     </ul>
                                 </div>
@@ -204,13 +211,25 @@ const data = [
 //主题内容
 const discuss=ref({});
 
+//目录数据
+const catalogueData=ref([]);
+
 //主题初始化
 const loadDiscuss=async()=>{
     discuss.value= await discussGet(route.params.discussId);
+    //加载目录
+    var reg = /(#{1,6})\s(.*)/g;
+    var myArray =discuss.value.content.match(reg);
+if(myArray!=null)
+{
+    catalogueData.value= myArray.map(x=>{ return x.replace(/#/g,"").replace(/\s/g,'')})
+}
+   
+  
 }
 
 
-onMounted(async()=>{
+ onMounted(async()=>{
    await loadDiscuss();
 
 })
@@ -220,7 +239,7 @@ onMounted(async()=>{
 {
     height:40rem;
 }
-.art-info-left {
+.art-info-left .el-col {
     margin-bottom: 1rem;
 }
 

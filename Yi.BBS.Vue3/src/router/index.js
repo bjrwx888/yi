@@ -3,6 +3,10 @@ import Layout from '../layout/Index.vue'
 import NotFound from '../views/NotFound.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    // 始终滚动到顶部
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -26,9 +30,11 @@ const router = createRouter({
           component: () => import('../views/Discuss.vue')
         },
         {
-          name:'addArt',
-          path:'addArt',
-          component:()=>import('../views/AddArticle.vue')
+          //artType：discuss主题、article文章
+          //operType：create创建、update更新
+          name:'editArt',
+          path:'/editArt/:artType/:operType/:id',
+          component:()=>import('../views/EditArticle.vue')
         }
       ]
     },
