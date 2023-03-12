@@ -20,5 +20,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         public int SeeNum { get; set; }
         public string Content { get; set; }
         public string? Color { get; set; }
+
+        public long PlateId { get; set; }
     }
 }

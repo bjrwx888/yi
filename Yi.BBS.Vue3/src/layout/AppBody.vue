@@ -16,9 +16,9 @@ background-color:#F0F2F5;
 
 }
 .content-main{
-   /* max-width:1200px; */
    margin: 0 auto;
    display: flex;
    justify-content: center;
+   min-height: 1150px;
 }
 </style>

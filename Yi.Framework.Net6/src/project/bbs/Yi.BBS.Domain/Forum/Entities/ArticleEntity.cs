@@ -38,6 +38,7 @@ namespace Yi.BBS.Domain.Forum.Entities
         /// <returns></returns>
         public static List<ArticleEntity> Tile(this List<ArticleEntity> entities)
         {
+            if(entities is null)return new List<ArticleEntity>();
             var result = new List<ArticleEntity>();
             return StartRecursion(entities, result);
         }

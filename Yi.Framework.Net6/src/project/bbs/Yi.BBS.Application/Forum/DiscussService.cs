@@ -40,6 +40,7 @@ namespace Yi.BBS.Application.Forum
             var entities = await _DbQueryable
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
+                     .OrderByDescending(x => x.CreateTime)
                 .ToPageListAsync(input.PageNum, input.PageSize, total);
             var items = await MapToGetListOutputDtosAsync(entities);
             return new PagedResultDto<DiscussGetListOutputDto>(total, items);

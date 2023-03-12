@@ -1,34 +1,41 @@
 import myaxios from '@/utils/request'
 export function getList(data){
     return myaxios({
-        url: '/discuss',
+        url: '/article',
         method: 'get',
         params:data
     })
 };
 export function get(id){
     return myaxios({
-        url: `/discuss/${id}`,
+        url: `/article/${id}`,
         method: 'get'
     })
 };
 export function add(data){
     return myaxios({
-        url: `/discuss`,
+        url: `/article`,
         method: 'post',
         data:data
     })
 };
 export function update(id,data){
     return myaxios({
-        url: `/discuss/${id}`,
+        url: `/article/${id}`,
         method: 'put',
         data:data
     })
 };
 export function del(ids){
     return myaxios({
-        url: `/discuss/${ids}`,
+        url: `/article/${ids}`,
         method: 'delete'
     })
 };
+export function all(discussId)
+{
+    return myaxios({
+        url: `/article/all/discuss-id/${discussId}`,
+        method: 'get'
+    })
+}

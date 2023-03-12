@@ -1,111 +1,194 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%">
     <div class="body-div">
-      <el-form label-width="120px" :model="discuss" label-position="left" :rules="rules" ref="ruleFormRef">
-
+      <el-form
+        label-width="120px"
+        :model="editForm"
+        label-position="left"
+        :rules="rules"
+        ref="ruleFormRef"
+      >
         <el-form-item label="分类：">
           <el-radio-group v-model="radio">
-            <el-radio-button label="1">文章</el-radio-button>
-            <el-radio-button label="2">主题</el-radio-button>
-            <el-radio-button label="3">板块</el-radio-button>
-            <el-radio-button label="4">其他</el-radio-button>
+            <el-radio-button label="discuss">主题</el-radio-button>
+            <el-radio-button label="article">文章</el-radio-button>
+            <el-radio-button label="plate">板块</el-radio-button>
+            <el-radio-button label="orther">其他</el-radio-button>
           </el-radio-group>
         </el-form-item>
+        <el-form-item
+          v-if="route.query.artType == 'article'"
+          label="名称："
+          prop="name"
+        >
+          <el-input placeholder="请输入" v-model="editForm.name" />
+        </el-form-item>
         <el-form-item label="标题：" prop="title">
-          <el-input placeholder="请输入" v-model="discuss.title" />
+          <el-input placeholder="请输入" v-model="editForm.title" />
         </el-form-item>
         <el-form-item label="描述：" prop="introduction">
-          <el-input placeholder="请输入" v-model="discuss.introduction" />
+          <el-input placeholder="请输入" v-model="editForm.introduction" />
         </el-form-item>
         <el-form-item label="内容：" prop="content">
-          {{ discuss.content + "[111]" }}
-          <MavonEdit height="30rem" v-model="discuss.content" :codeStyle="codeStyle" />
+          {{ editForm.content + "*" }}
+          <MavonEdit
+            height="30rem"
+            v-model="editForm.content"
+            :codeStyle="codeStyle"
+          />
         </el-form-item>
         <el-form-item label="封面：">
           <el-input placeholder="请输入" />
         </el-form-item>
         <el-form-item label="标签：" prop="types">
-          <el-input placeholder="请输入" v-model="discuss.types" />
+          <el-input placeholder="请输入" v-model="editForm.types" />
         </el-form-item>
-        <el-form-item> <el-button @click="submit(ruleFormRef)" class="submit-btn"
-            type="primary">提交</el-button></el-form-item>
+        <el-form-item>
+          <el-button
+            @click="submit(ruleFormRef)"
+            class="submit-btn"
+            type="primary"
+            >提交</el-button
+          ></el-form-item
+        >
       </el-form>
     </div>
   </div>
 </template>
 <script setup>
-import MavonEdit from '@/components/MavonEdit.vue'
-import { ref, reactive,onMounted } from 'vue';
-import { useRoute } from 'vue-router'
+import MavonEdit from "@/components/MavonEdit.vue";
+import { ref, reactive, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-import { add as discussAdd, update as discussUpdate,get as discussGet } from '@/apis/discussApi.js'
+import {
+  add as discussAdd,
+  update as discussUpdate,
+  get as discussGet,
+} from "@/apis/discussApi.js";
+
+import {
+  add as acticleAdd,
+  update as acticleUpdate,
+  get as acticleGet,
+} from "@/apis/articleApi.js";
 
 //数据定义
-const route = useRoute()
-const radio = ref(1)
-const codeStyle = "atom-one-dark"
-//需要添加的主题信息
-const discuss = reactive({
+const route = useRoute();
+const router = useRouter();
+const radio = ref(route.query.artType);
+const codeStyle = "atom-one-dark";
+
+//整个页面上的表单
+const editForm = reactive({
   title: "",
   types: "",
   introduction: "",
   content: "",
-  plateId: route.params.id
+  name: ""
 });
+
+//组装主题内容： 需要更新主题信息
+const discuss = {
+
+        };
+
+//组装文章内容：需要添加的文章信息
+const article = {
+        };
+
 //定义效验规则
-const ruleFormRef = ref(null)
+const ruleFormRef = ref(null);
 const rules = reactive({
   title: [
-    { required: true, message: '请输入标题', trigger: 'blur' },
-    { min: 3, max: 20, message: '长度 3 到 20', trigger: 'blur' },
+    { required: true, message: "请输入标题", trigger: "blur" },
+    { min: 3, max: 20, message: "长度 3 到 20", trigger: "blur" },
   ],
-
-})
+  content: [
+    { required: true, message: "请输入内容", trigger: "blur" },
+    { min: 10, max: 4000, message: "长度 10 到4000", trigger: "blur" },
+  ],
+});
 //提交按钮,需要区分操作类型
 const submit = async (formEl) => {
-  if (!formEl) return
+  if (!formEl) return;
   await formEl.validate(async (valid, fields) => {
     if (valid) {
-      //创建
-      if (route.params.operType == 'create') {
-        await discussAdd(discuss)
+      //dicuss主题处理
+      if (route.query.artType == "discuss") {
 
-      }
-      //更新
-      else if (route.params.operType == 'update') {
-        await discussUpdate(route.params.id, discuss)
+
+          discuss.title=editForm.title;
+          discuss.types= editForm.types;
+          discuss.introduction= editForm.introduction;
+          discuss.content= editForm.content;
+          discuss.plateId= discuss.plateId??route.query.plateId
+
+        //主题创建
+        if (route.query.operType == "create") {
+          await discussAdd(discuss);
+        }
+        //主题更新
+        else if (route.query.operType == "update") {
+          await discussUpdate(route.query.discussId, discuss);
+        }
       }
 
-      ruleFormRef.value.resetFields();
-      discuss.plateId = route.params.id;
+      //artcle文章处理
+      else if (route.query.artType == "article") {
+//组装文章内容：需要添加的文章信息
+
+        article. content= editForm.content;
+        article.name= editForm.name;
+        article.discussId=route.query.discussId;
+        //文章创建
+        if (route.query.operType == "create") {
+          await acticleAdd(article);
+        }
+        //文章更新
+        else if (route.query.operType == "update") {
+          await articleUpdate(route.query.articleId, article);
+        }
+      }
+
+      //添加成功后跳转到该页面
+      var routerPer = { path: `/discuss/${discuss.plateId}` };
+      router.push(routerPer);
+      // ruleFormRef.value.resetFields();
+      // discuss.plateId = route.query.plateId;
     }
-  })
+  });
+};
 
-}
-
-onMounted(async()=>{
+onMounted(async () => {
   //如果是更新操作，需要先查询
-  if (route.params.operType == 'update') {
-        await loadDiscuss();
-      }
-})
-//加载主题
-const loadDiscuss=async()=>{
- const response= await discussGet(route.params.id);
- discuss.content=  response.content;
- discuss.title=  response.title;
- discuss.types=  response.types;
- discuss.introduction=  response.introduction;
-}
-// const clear = (source) => {
-//   const keys = Object.keys(source);
-//   let obj = {};
-//   keys.forEach((item) => {
-//     obj[item] = "";
-//   });
-//   Object.assign(source, obj);
-// };
+  if (route.query.operType == "update") {
 
+    //更新主题
+    if (route.query.artType == "discuss") {
+      await loadDiscuss();
+
+      //更新文章
+    } else if (route.query.artType == "acticle") {
+      await loadActicle();
+    }
+  }
+});
+//加载主题
+const loadDiscuss = async () => {
+  const response = await discussGet(route.query.discussId);
+  editForm.content = response.content;
+  editForm.title = response.title;
+  editForm.types = response.types;
+  editForm.introduction = response.introduction;
+  discuss.plateId=response.plateId;
+};
+//加载文章
+const loadActicle = async () => {
+  const response = await acticleGet(route.query.acticleId);
+  editForm.content = response.content;
+  editForm.name = response.name;
+  // editForm.discussId = response.discussId;
+};
 </script>
 <style scoped>
 .submit-btn {

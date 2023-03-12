@@ -13,6 +13,8 @@ using Yi.Framework.Core.Configuration;
 using Yi.Framework.Core.Model;
 using Yi.Framework.Core.Sqlsugar.Const;
 using Yi.Framework.Core.Sqlsugar.Options;
+using Yi.Framework.Data.Auditing;
+using Yi.Framework.Data.Entities;
 using DbType = SqlSugar.DbType;
 
 namespace Yi.Framework.Core.Sqlsugar.Extensions
@@ -93,15 +95,46 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
              }
              db.Aop.DataExecuting = (oldValue, entityInfo) =>
              {
-                 //这里将进行审计日志
+
                  switch (entityInfo.OperationType)
                  {
-                     case DataFilterType.InsertByObject:
-                         break;
                      case DataFilterType.UpdateByObject:
+
+                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
+                         {
+                             entityInfo.SetValue(DateTime.Now);
+                         }
+                         //if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
+                         //{
+                         //    if (_currentUser != null)
+                         //    {
+                         //        entityInfo.SetValue(_currentUser.Id);
+                         //    }
+                         //}
+                         break;
+                     case DataFilterType.InsertByObject:
+                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
+                         {
+                             entityInfo.SetValue(DateTime.Now);
+                         }
+                         //if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
+                         //{
+                         //    if (_currentUser != null)
+                         //    {
+                         //        entityInfo.SetValue(_currentUser.Id);
+                         //    }
+                         //}
+
+                         //插入时，需要租户id,先预留
+                         if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
+                         {
+                             //if (this.CurrentTenant is not null)
+                             //{
+                             //    entityInfo.SetValue(this.CurrentTenant.Id);
+                             //}
+                         }
                          break;
                  }
-
              };
              db.Aop.OnLogExecuting = (s, p) =>
              {

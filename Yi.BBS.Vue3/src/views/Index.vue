@@ -94,16 +94,20 @@ import BottomInfo from '@/components/BottomInfo.vue'
 
 import {getList} from '@/apis/plateApi.js'
 import {getList as discussGetList} from '@/apis/discussApi.js'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref ,reactive} from 'vue'
 var plateList=ref([]);
 var discussList=ref([]);
   const items=[{user:"用户1"},{user:"用户2"},{user:"用户3"}]
-
+ //主题查询参数 
+  const query=reactive({
+  pageNum:1,
+  pageSize:10,
+});
   onMounted(async()=>{
  const response=  await getList();
  plateList.value= response.items;
 
-const discussReponse=await discussGetList();
+const discussReponse=await discussGetList(query);
 discussList.value= discussReponse.items;
   });
 

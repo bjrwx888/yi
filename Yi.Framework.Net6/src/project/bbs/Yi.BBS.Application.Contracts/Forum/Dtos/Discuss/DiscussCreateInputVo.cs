@@ -14,7 +14,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         public string Title { get; set; }
         public string Types { get; set; }
         public string? Introduction { get; set; }
-        public DateTime? CreateTime { get; set; }
+        public DateTime? CreateTime { get; set; } = DateTime.Now;
         public string Content { get; set; }
         public string? Color { get; set; }
 

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
-    <ProjectReference Include="..\src\framework\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
+    <ProjectReference Include="..\..\framework\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
   </ItemGroup>
 
 </Project>

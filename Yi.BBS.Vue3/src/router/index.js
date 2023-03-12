@@ -33,7 +33,7 @@ const router = createRouter({
           //artType：discuss主题、article文章
           //operType：create创建、update更新
           name:'editArt',
-          path:'/editArt/:artType/:operType/:id',
+          path:'/editArt',
           component:()=>import('../views/EditArticle.vue')
         }
       ]

@@ -104,7 +104,13 @@ const loadDiscussList=async()=>{
 
 //进入添加主题页面
 const enterEditArticle=()=>{
-  router.push(`/editArt/discuss/create/${route.params.plateId}`)
+  //跳转路由
+var routerPer= { path: '/editArt', query: {
+     operType: 'create',
+     artType:'discuss',
+     plateId:route.params.plateId,
+     }}
+router.push(routerPer);
 }
 </script>
 <style scoped>
