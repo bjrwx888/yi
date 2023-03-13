@@ -21,11 +21,18 @@
     </div>
 </template>
 <script setup>
-
+import useUserStore from '@/stores/user'
 import { onMounted } from 'vue';
-
-const props = defineProps(['size', 'src','showWatching','time','id'])
-
+//userInfo
+//{icon,name,role,id},根据判断userInfo是否等于未定义，来觉得是当前登录用户信息，还是其他人信息
+const props = defineProps(['size', 'src','showWatching','time','userInfo'])
+const userStore=useUserStore();
+const userInfo=reactive({
+    icon:"",
+    name:"",
+    role:"",
+    id:""
+    });
 </script>
 <style scoped>
 .mt_1

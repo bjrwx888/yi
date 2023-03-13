@@ -1,18 +1,21 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-export const userStore = defineStore('user', 
+const useUserStore = defineStore('user', 
 {
     state: () => ({
-        counter: 0,
+      token: '',
+      name: '',
+      avatar: '',
+      roles: ['admin'],
+      permissions: ['*:*:*']
       }),
       getters: {
-        doubleCount: (state) => state.counter*2,
       },
       actions: {
         increment() {
           this.counter+=10
         }
       },
-}
-  )
+})
+export default useUserStore;
   

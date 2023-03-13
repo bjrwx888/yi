@@ -11,6 +11,7 @@
                   >首页</el-button
                 >
                 <el-button
+                 v-hasPer="['bbs:acticle:add']"
                   @click="addArticle(0)"
                   type="primary"
                   style="width: 100%; margin-bottom: 0.8rem; margin-left: 0"
