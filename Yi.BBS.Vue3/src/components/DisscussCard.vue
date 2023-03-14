@@ -2,7 +2,7 @@
     <el-card class="box-card" shadow="never">
 
         <div class="card-header">
-          <AvatarInfo />
+          <AvatarInfo src="asdsadas" :userInfo="{name:'大白子'}" />
         </div>
 
 

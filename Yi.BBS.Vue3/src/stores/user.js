@@ -3,9 +3,10 @@ import { defineStore } from 'pinia'
 const useUserStore = defineStore('user', 
 {
     state: () => ({
+      id:'',
       token: '',
-      name: '',
-      avatar: '',
+      name: '登录用户',
+      icon: null,
       roles: ['admin'],
       permissions: ['*:*:*']
       }),

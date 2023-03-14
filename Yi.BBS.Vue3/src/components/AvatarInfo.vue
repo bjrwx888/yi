@@ -1,10 +1,10 @@
 <template >
     <div class="avatar">
         <div class="avatar-left">
-            <el-avatar :size="props.size" :src="props.src ?? '/src/assets/logo.ico'" />
+            <el-avatar :size="props.size" :src="userInfo.icon ?? '/src/assets/logo.ico'" />
 
             <div>
-                <div class="nick" :class="{mt_1: props.time!='undefined'}"> 大白子</div>
+                <div class="nick" :class="{mt_1: props.time!='undefined'}"> {{userInfo.name}}</div>
                 <div class="remarks" v-if="props.time"> {{props.time}}</div>
                 <div class="remarks">  <slot name="bottom" /></div>
             </div>
@@ -22,17 +22,39 @@
 </template>
 <script setup>
 import useUserStore from '@/stores/user'
-import { onMounted } from 'vue';
+import { reactive, watch ,onMounted  } from 'vue';
 //userInfo
 //{icon,name,role,id},根据判断userInfo是否等于未定义，来觉得是当前登录用户信息，还是其他人信息
-const props = defineProps(['size', 'src','showWatching','time','userInfo'])
+const props = defineProps(['size','showWatching','time','userInfo'])
 const userStore=useUserStore();
 const userInfo=reactive({
     icon:"",
     name:"",
-    role:"",
+    role:[],
     id:""
     });
+
+onMounted(() => {
+    //使用传入值
+    if(props.userInfo!= undefined)
+    {
+        console.log(props.userInfo,"props.userInfo333");
+        userInfo.icon=props.userInfo.icon;
+        userInfo.name=props.userInfo.name;
+        userInfo.role=props.userInfo.role;
+        userInfo.id=props.userInfo.id;
+    }
+
+    //使用当前登录用户
+    else
+    { 
+        userInfo.icon=userStore.icon;
+        userInfo.name=userStore.name;
+        userInfo.role=userStore.role;
+        userInfo.id=userStore.id;
+    }
+})
+
 </script>
 <style scoped>
 .mt_1
