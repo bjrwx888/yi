@@ -24,12 +24,14 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
     /// </summary>
     public static class SqlsugarExtensions
     {
+        //使用上下文对象
         public static void AddDbSqlsugarContextServer(this IServiceCollection services)
         {
-            services.AddTransient(x => x.GetRequiredService<SqlSugarDbContext>().SqlSugarClient);
-            services.AddTransient<SqlSugarDbContext>();
+            services.AddSingleton<ISqlSugarClient>(x => x.GetRequiredService<SqlSugarDbContext>().SqlSugarClient);
+            services.AddSingleton<SqlSugarDbContext>();
         }
 
+        //直接使用sqlsugar
         public static void AddSqlsugarServer(this IServiceCollection services, Action<SqlSugarClient>? action = null)
         {
             var dbConnOptions = Appsettings.app<DbConnOptions>("DbConnOptions");

@@ -21,7 +21,7 @@ namespace Yi.Framework.Core.Sqlsugar
         /// <summary>
         /// SqlSugar 客户端
         /// </summary>
-        public ISqlSugarClient SqlSugarClient { get;  set; }
+        public ISqlSugarClient SqlSugarClient { get; set; }
 
         protected ICurrentUser _currentUser;
 
@@ -33,7 +33,7 @@ namespace Yi.Framework.Core.Sqlsugar
         {
             _currentUser = currentUser;
             _logger = logger;
-            _options= options;
+            _options = options;
             var dbConnOptions = options.Value;
             #region 组装options
             if (dbConnOptions.DbType is null)
@@ -57,7 +57,7 @@ namespace Yi.Framework.Core.Sqlsugar
                 });
             }
             #endregion
-            ISqlSugarClient sqlSugar = new SqlSugarClient(new ConnectionConfig()
+            SqlSugarClient = new SqlSugarScope(new ConnectionConfig()
             {
                 //准备添加分表分库
                 DbType = dbConnOptions.DbType ?? DbType.Sqlite,

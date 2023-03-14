@@ -28,7 +28,9 @@ namespace Yi.Framework.Core.Sqlsugar
             services.Replace(new ServiceDescriptor(typeof(IUnitOfWorkManager), typeof(SqlsugarUnitOfWorkManager), ServiceLifetime.Singleton));
             services.Replace(new ServiceDescriptor(typeof(IDataFilter), typeof(SqlsugarDataFilter), ServiceLifetime.Scoped));
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
-            services.AddSqlsugarServer();
+
+            //使用db上下文
+            services.AddDbSqlsugarContextServer();
 
         }
     }
