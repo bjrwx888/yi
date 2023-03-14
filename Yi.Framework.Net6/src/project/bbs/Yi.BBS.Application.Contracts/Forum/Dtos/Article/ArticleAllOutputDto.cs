@@ -14,5 +14,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
         public string Name { get; set; }
         public long DiscussId { get; set; }
         public long ParentId { get; set; }
+
+        public List<ArticleAllOutputDto> Children { get; set; }
     }
 }

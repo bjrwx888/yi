@@ -15,7 +15,6 @@ import { ref,watch  } from 'vue';
 const outputHtml=ref("")
 const props = defineProps(['code'])
 watch(props,(n,o)=>{
-
     marked.setOptions({
         renderer: new marked.Renderer(),
         highlight: function(code) {

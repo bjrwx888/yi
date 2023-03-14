@@ -41,8 +41,8 @@ namespace Yi.BBS.Application.Forum
             }
 
             var entities = await _articleRepository.GetTreeAsync(x => x.DiscussId == discussId);
-            var result = entities.Tile();
-            var items = _mapper.Map<List<ArticleAllOutputDto>>(result);
+            //var result = entities.Tile();
+            var items = _mapper.Map<List<ArticleAllOutputDto>>(entities);
             return items;
         }
 

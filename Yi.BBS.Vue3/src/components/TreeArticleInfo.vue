@@ -1,7 +1,7 @@
 <template>
       <el-tree
-                  :data="props.data"
-                  :props="defaultProps"
+                  :data="data"
+                  :props="props.defaultProps"
                   @node-click="handleNodeClick"
                   :expand-on-click-node="false"
                   node-key="id"
@@ -9,8 +9,15 @@
 
                 <template #default="{ node, data }">
         <span class="custom-tree-node">
-          <span>{{ node.label }}</span>
+          <span>{{data.name}}</span>
           <span>
+            
+            <a style="color: #409EFF; margin-left: 8px" @click="$emit('create',node, data)" 
+  
+  > + </a>
+            <a style="color: #409EFF; margin-left: 8px" @click="$emit('update',node, data)" 
+  
+  > 编辑 </a>
             <a style="color: #f56c6c; margin-left: 8px" @click="$emit('remove',node, data)" 
   
             > 删除 </a>
@@ -22,6 +29,7 @@
 <script setup>
 
 const props = defineProps(['data'])
+const emits= defineEmits(["handleNodeClick"])
 //数据定义
 //子文章数据
 // const articleData =ref([]);
@@ -37,6 +45,6 @@ const defaultProps = {
 // }
 //点击事件
 const handleNodeClick = (data) => {
-  console.log(data);
+  emits('handleNodeClick',data)
 };
 </script>

@@ -23,7 +23,7 @@
         >
           <el-input placeholder="请输入" v-model="editForm.name" />
         </el-form-item>
-        <el-form-item label="标题：" prop="title">
+        <el-form-item v-else label="标题：" prop="title">
           <el-input placeholder="请输入" v-model="editForm.title" />
         </el-form-item>
         <el-form-item label="描述：" prop="introduction">
@@ -67,9 +67,9 @@ import {
 } from "@/apis/discussApi.js";
 
 import {
-  add as acticleAdd,
-  update as acticleUpdate,
-  get as acticleGet,
+  add as articleAdd,
+  update as articleUpdate,
+  get as articleGet,
 } from "@/apis/articleApi.js";
 
 //数据定义
@@ -136,20 +136,19 @@ const submit = async (formEl) => {
       //artcle文章处理
       else if (route.query.artType == "article") {
 //组装文章内容：需要添加的文章信息
-
-        article. content= editForm.content;
+        article.content= editForm.content;
         article.name= editForm.name;
         article.discussId=route.query.discussId;
+        article.parentId=route.query.parentArticleId
         //文章创建
         if (route.query.operType == "create") {
-          await acticleAdd(article);
+          await articleAdd(article);
         }
         //文章更新
         else if (route.query.operType == "update") {
           await articleUpdate(route.query.articleId, article);
         }
       }
-
       //添加成功后跳转到该页面
       var routerPer = { path: `/discuss/${discuss.plateId}` };
       router.push(routerPer);
@@ -168,8 +167,8 @@ onMounted(async () => {
       await loadDiscuss();
 
       //更新文章
-    } else if (route.query.artType == "acticle") {
-      await loadActicle();
+    } else if (route.query.artType == "article") {
+      await loadArticle();
     }
   }
 });
@@ -183,11 +182,11 @@ const loadDiscuss = async () => {
   discuss.plateId=response.plateId;
 };
 //加载文章
-const loadActicle = async () => {
-  const response = await acticleGet(route.query.acticleId);
+const loadArticle = async () => {
+  const response = await articleGet(route.query.articleId);
   editForm.content = response.content;
   editForm.name = response.name;
-  // editForm.discussId = response.discussId;
+  editForm.discussId = response.discussId;
 };
 </script>
 <style scoped>

@@ -8,17 +8,19 @@
             <InfoCard header="主题信息" text="展开" hideDivider="true">
               <template #content>
                 <el-button style="width: 100%; margin-bottom: 0.8rem"
+                @click="loadDiscuss"
                   >首页</el-button
                 >
                 <el-button
-                 v-hasPer="['bbs:acticle:add']"
+                 v-hasPer="['bbs:article:add']"
                   @click="addArticle(0)"
                   type="primary"
                   style="width: 100%; margin-bottom: 0.8rem; margin-left: 0"
                   >添加子文章</el-button
                 >
           <!--目录在这里 -->
-          <TreeArticleInfo :data="articleData" @remove="delArticle" />
+          <TreeArticleInfo :data="articleData" @remove="delArticle" @update="updateArticle"
+          @create="addNextArticle" @handleNodeClick="handleNodeClick" />
               </template>
             </InfoCard>
           </el-col>
@@ -78,6 +80,7 @@
               <template #content>
                 <div>
                   <ul class="art-info-ul">
+                    
                     <li>
                       <el-button
                         type="primary"
@@ -227,6 +230,48 @@ const updateHander = (discussId) => {
   router.push(routerPer);
 };
 
+//跳转添加子菜单
+const addNextArticle=(node,data)=>{
+  //跳转路由
+  var routerPer = {
+    path: "/editArt",
+    query: {
+      operType: "create",
+      artType: "article",
+      discussId: data.discussId,
+      parentArticleId: data.id,
+    },
+  };
+  router.push(routerPer);
+}
+
+//跳转更新子菜单
+const updateArticle=(node,data)=>{
+  //跳转路由
+  var routerPer = {
+    path: "/editArt",
+    query: {
+      operType: "update",
+      artType: "article",
+      discussId: data.discussId,
+      parentArticleId: data.parentId,
+      articleId:data.id
+    },
+  };
+  router.push(routerPer);
+}
+//单机节点
+const handleNodeClick=(data)=>{
+  //加载目录
+  var reg = /(#{1,6})\s(.*)/g;
+  discuss.value.content=data.content;
+  var myArray = discuss.value.content.match(reg);
+  if (myArray != null) {
+    catalogueData.value = myArray.map((x) => {
+      return x.replace(/#/g, "").replace(/\s/g, "");
+    });
+  }
+}
 //删除子文章
 const delArticle=( node,data)=>{
     ElMessageBox.confirm(`确定是否删除编号[${data.id}]的子文章吗?`, "警告", {

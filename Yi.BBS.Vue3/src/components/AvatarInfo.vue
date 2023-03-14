@@ -38,7 +38,6 @@ onMounted(() => {
     //使用传入值
     if(props.userInfo!= undefined)
     {
-        console.log(props.userInfo,"props.userInfo333");
         userInfo.icon=props.userInfo.icon;
         userInfo.name=props.userInfo.name;
         userInfo.role=props.userInfo.role;
