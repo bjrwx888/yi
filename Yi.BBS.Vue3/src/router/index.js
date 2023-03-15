@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '../layout/Index.vue'
 import NotFound from '../views/NotFound.vue'
+import LoginLayout from '../layout/LoginLayout.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
@@ -8,6 +9,25 @@ const router = createRouter({
     return { top: 0 }
   },
   routes: [
+{
+  path: '/loginLayout',
+      name: 'loginLayout',
+      component: LoginLayout,
+      redirect: '/login' ,
+      children :[
+        {
+          name:'login',
+          path: '/login',
+          component: () => import('../views/Login.vue')
+        },
+        // {
+        //   name:'register',
+        //   path: '/register',
+        //   component: () => import('../views/Register.vue')
+        // },
+      ]
+    },
+
     {
       path: '/',
       name: 'layout',
