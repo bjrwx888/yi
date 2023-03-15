@@ -176,15 +176,20 @@ const loadArticleData=async()=>
 //主题初始化
 const loadDiscuss = async () => {
   discuss.value = await discussGet(route.params.discussId);
-  //加载目录
-  var reg = /(#{1,6})\s(.*)/g;
+  ContentHander();
+};
+//加载文章及目录
+const ContentHander=()=>{
+ //加载目录
+ var reg = /(#{1,6})\s(.*)/g;
   var myArray = discuss.value.content.match(reg);
   if (myArray != null) {
     catalogueData.value = myArray.map((x) => {
       return x.replace(/#/g, "").replace(/\s/g, "");
     });
   }
-};
+
+}
 //添加树型子文章
 const addArticle = (parentArticleId) => {
   //跳转路由
@@ -262,15 +267,8 @@ const updateArticle=(node,data)=>{
 }
 //单机节点
 const handleNodeClick=(data)=>{
-  //加载目录
-  var reg = /(#{1,6})\s(.*)/g;
   discuss.value.content=data.content;
-  var myArray = discuss.value.content.match(reg);
-  if (myArray != null) {
-    catalogueData.value = myArray.map((x) => {
-      return x.replace(/#/g, "").replace(/\s/g, "");
-    });
-  }
+  ContentHander();
 }
 //删除子文章
 const delArticle=( node,data)=>{
