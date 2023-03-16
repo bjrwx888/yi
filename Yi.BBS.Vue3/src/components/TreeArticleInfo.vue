@@ -5,6 +5,7 @@
                   @node-click="handleNodeClick"
                   :expand-on-click-node="false"
                   node-key="id"
+                  :default-expand-all='true'
                 >
 
                 <template #default="{ node, data }">

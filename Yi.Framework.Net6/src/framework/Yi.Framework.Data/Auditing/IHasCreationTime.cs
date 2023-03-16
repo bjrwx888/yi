@@ -6,5 +6,5 @@ namespace Yi.Framework.Data.Auditing;
 public interface IHasCreationTime
 {
 
-    DateTime CreationTime { get; }
+    DateTime CreationTime { get; set; }
 }

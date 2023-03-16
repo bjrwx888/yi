@@ -14,7 +14,7 @@ namespace Yi.RBAC.Domain.Logs.Entities
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public long Id { get; set; }
-        public DateTime CreationTime { get; }
+        public DateTime CreationTime { get; set; }
 
         /// <summary>
         /// 登录用户 

@@ -3,6 +3,7 @@
     :default-active="activeIndex"
     class="el-menu-demo"
     mode="horizontal"
+    ellipsis="false"
     @select="handleSelect"
     
   >
@@ -31,23 +32,31 @@
     <div class="flex-grow" />
 
     <RouterLink to="/discuss"> <el-menu-item index="5">搜索</el-menu-item></RouterLink>
-    <el-menu-item index="6">分享</el-menu-item>
+
     <el-sub-menu index="7">
-      <template #title>学习</template>
+      <template #title>个人中心</template>
       <el-menu-item index="7-1">学习 one</el-menu-item>
       <el-menu-item index="7-2">学习 two</el-menu-item>
-      <el-menu-item index="7-3">学习 three</el-menu-item>
+      <el-menu-item index="7-3" @click="logout">登出</el-menu-item>
     </el-sub-menu>
+
+    <el-menu-item index="6">分享</el-menu-item>
   </el-menu>
 
 </template>
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useUserStore from '@/stores/user.js'
 const router = useRouter()
+const userStore =useUserStore();
 const activeIndex = ref('1')
 const handleSelect = (key, keyPath) => {
   console.log(key, keyPath)
+}
+const logout=async ()=>{
+ await userStore.logOut();
+  router.push("/login");
 }
 </script>
 <style scoped>
