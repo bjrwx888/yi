@@ -40,7 +40,7 @@
 
             <el-divider />
             <h2>{{ discuss.title }}</h2>
-            <ArticleContentInfo :code="discuss.content"></ArticleContentInfo>
+            <ArticleContentInfo :code="discuss.content??''"></ArticleContentInfo>
 
             <el-divider class="tab-divider" />
 

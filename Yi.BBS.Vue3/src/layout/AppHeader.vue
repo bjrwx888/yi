@@ -7,9 +7,9 @@
     @select="handleSelect"
     
   >
-  <RouterLink to="/index">  <el-menu-item class="logo">   
-    <img class="img-icon" style="width: 35px; height: 35px" src="@/assets/logo.ico"  />Yi意社区</el-menu-item></RouterLink> 
-  <RouterLink to="/index"><el-menu-item index="1">主页</el-menu-item></RouterLink>
+ <el-menu-item class="logo"  index="" @click="enterIndex" >   
+    <img class="img-icon" style="width: 35px; height: 35px" src="@/assets/logo.ico"  />Yi意社区</el-menu-item>
+ <el-menu-item index="1" @click="enterIndex">主页</el-menu-item>
     <el-sub-menu index="2">
       <template #title>学习</template>
       <el-menu-item index="2-1">学习 one</el-menu-item>
@@ -32,19 +32,22 @@
     <div class="flex-grow" />
 
     <RouterLink to="/discuss"> <el-menu-item index="5">搜索</el-menu-item></RouterLink>
-
-    <el-sub-menu index="7">
+    <el-menu-item index="6">
+        <AvatarInfo :size='30' :isSelf="true"   />
+    </el-menu-item>
+    <el-sub-menu index="6">
       <template #title>个人中心</template>
-      <el-menu-item index="7-1">学习 one</el-menu-item>
-      <el-menu-item index="7-2">学习 two</el-menu-item>
-      <el-menu-item index="7-3" @click="logout">登出</el-menu-item>
+      <el-menu-item index="6-1">学习 one</el-menu-item>
+      <el-menu-item index="6-2">学习 two</el-menu-item>
+      <el-menu-item index="6-3" @click="logout">登出</el-menu-item>
     </el-sub-menu>
 
-    <el-menu-item index="6">分享</el-menu-item>
+    <el-menu-item index="7">分享</el-menu-item>
   </el-menu>
 
 </template>
 <script setup>
+import AvatarInfo from '@/components/AvatarInfo.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/stores/user.js'
@@ -58,6 +61,9 @@ const logout=async ()=>{
  await userStore.logOut();
   router.push("/login");
 }
+const enterIndex=()=>{
+  router.push("/index");
+};
 </script>
 <style scoped>
 

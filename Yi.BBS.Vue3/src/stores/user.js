@@ -49,7 +49,7 @@ const useUserStore = defineStore('user',
             }
             // this.roles = ["admin"];
             // this.permissions=["*:*:*"]
-            this.name = user.userName
+            this.name = user.name
             this.avatar = avatar;
             resolve(res)
           }).catch(error => {

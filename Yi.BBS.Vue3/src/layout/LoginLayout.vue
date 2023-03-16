@@ -1,18 +1,19 @@
 <template>
-<div class="body-div">
+<div class="body-div" id="body">
+
+
+
+
   <div  class="left">
-    <video width="320" height="240" controls autoplay playsinline loop disablepictureinpicture  poster="/loginBg.png">
+    <video class="videoBG" controls autoplay playsinline loop disablepictureinpicture  poster="/loginBg.png">
     <source src="/loginBg.mp4" type="video/mp4">
     您的浏览器不支持 video 标签。
 </video>
-
-  
 </div>
 
-<div class="right">
 
+<div class="right">
   <RouterView />
-  
 </div>
 
 
@@ -20,11 +21,31 @@
 
 
   </template>
+
+  <script setup>
+import { onMounted } from 'vue';
+
+const screenSize=()=>{
+
+  var screenHeight=document.documentElementclientHeight;
+		var screenWidth=document.documentElement.clientWidth;
+		var body=document.getElementById('body');
+		body.style.width=screenWidth+"px";
+		body.style.height=screenHeight+"px";
+}
+onMounted(()=>{
+  screenSize();
+  window.onresize = () => (() => {
+    screenSize();
+    })();
+})
+
+</script>
 <style scoped>
 .left
 {
   width: 100%;
-  background-color:bisque
+  background-color:#00020E
 }
 .right
 {
@@ -37,12 +58,11 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-height:100%
+
 }
 .videoBG
 {
-height: 200px;
-
+width:100% ;
 }
 
     video::-webkit-media-controls-fullscreen-button {

@@ -1,15 +1,19 @@
 <template >
     <div class="avatar">
-        <div class="avatar-left">
+
+        <div class="avatar-left" >      
             <el-avatar :size="props.size" :src="userInfo.icon ?? '/src/assets/logo.ico'" />
 
-            <div>
+<div v-if="props.isSelf">
+    <div class="nick" > {{userInfo.name}}</div>
+    </div>
+
+            <div v-if="!props.isSelf">
                 <div class="nick" :class="{mt_1: props.time!='undefined'}"> {{userInfo.name}}</div>
                 <div class="remarks" v-if="props.time"> {{props.time}}</div>
                 <div class="remarks">  <slot name="bottom" /></div>
             </div>
-
-            <div class="info">
+            <div class="info" v-if="!props.isSelf">
                 <el-tag class="ml-2" type="warning">V6</el-tag>
                 <el-tag class="ml-2" type="danger">管理员</el-tag>
             </div>
@@ -25,7 +29,7 @@ import useUserStore from '@/stores/user'
 import { reactive, watch ,onMounted  } from 'vue';
 //userInfo
 //{icon,name,role,id},根据判断userInfo是否等于未定义，来觉得是当前登录用户信息，还是其他人信息
-const props = defineProps(['size','showWatching','time','userInfo'])
+const props = defineProps(['size','showWatching','time','userInfo','isSelf'])
 const userStore=useUserStore();
 const userInfo=reactive({
     icon:"",

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '../layout/Index.vue'
-import NotFound from '../views/NotFound.vue'
+import NotFound from '../views/error/404.vue'
 import LoginLayout from '../layout/LoginLayout.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
