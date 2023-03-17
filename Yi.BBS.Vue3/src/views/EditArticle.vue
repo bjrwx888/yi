@@ -125,11 +125,15 @@ const submit = async (formEl) => {
 
         //主题创建
         if (route.query.operType == "create") {
-          await discussAdd(discuss);
+       const response=   await discussAdd(discuss);
+       var routerPer = { path: `/article/${response.id}` };
+      router.push(routerPer);
         }
         //主题更新
         else if (route.query.operType == "update") {
           await discussUpdate(route.query.discussId, discuss);
+          var routerPer = { path: `/article/${route.query.discussId}` };
+      router.push(routerPer);
         }
       }
 
@@ -142,16 +146,21 @@ const submit = async (formEl) => {
         article.parentId=route.query.parentArticleId
         //文章创建
         if (route.query.operType == "create") {
-          await articleAdd(article);
+         const response= await articleAdd(article);
+          var routerPer = { path: `/article/${route.query.discussId}/${response.id}` };
+      router.push(routerPer);
         }
         //文章更新
         else if (route.query.operType == "update") {
           await articleUpdate(route.query.articleId, article);
+
+          var routerPer = { path: `/article/${route.query.discussId}/${route.query.articleId}` };
+      router.push(routerPer);
         }
       }
       //添加成功后跳转到该页面
-      var routerPer = { path: `/discuss/${discuss.plateId}` };
-      router.push(routerPer);
+      // var routerPer = { path: `/discuss/${discuss.plateId}` };
+      // router.push(routerPer);
       // ruleFormRef.value.resetFields();
       // discuss.plateId = route.query.plateId;
     }

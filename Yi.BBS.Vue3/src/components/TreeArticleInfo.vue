@@ -6,6 +6,8 @@
                   :expand-on-click-node="false"
                   node-key="id"
                   :default-expand-all='true'
+                  :highlight-current="true"
+                  :current-node-key="currentNodeKey"
                 >
 
                 <template #default="{ node, data }">
@@ -28,9 +30,13 @@
                 </el-tree>
 </template>
 <script setup>
+import { ref } from 'vue';
 
-const props = defineProps(['data'])
+
+const props = defineProps(['data',"currentNodeKey"])
 const emits= defineEmits(["handleNodeClick"])
+
+const currentNodeKey=props.currentNodeKey;
 //数据定义
 //子文章数据
 // const articleData =ref([]);

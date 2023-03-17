@@ -3,7 +3,7 @@
     :default-active="activeIndex"
     class="el-menu-demo"
     mode="horizontal"
-    ellipsis="false"
+    :ellipsis="false"
     @select="handleSelect"
     
   >
@@ -31,7 +31,10 @@
 
     <div class="flex-grow" />
 
-    <RouterLink to="/discuss"> <el-menu-item index="5">搜索</el-menu-item></RouterLink>
+   <el-menu-item index="5">
+      <el-input  placeholder="请输入关键字" clearable />
+      
+      搜索</el-menu-item>
     <el-menu-item index="6">
         <AvatarInfo :size='30' :isSelf="true"   />
     </el-menu-item>
@@ -42,7 +45,6 @@
       <el-menu-item index="6-3" @click="logout">登出</el-menu-item>
     </el-sub-menu>
 
-    <el-menu-item index="7">分享</el-menu-item>
   </el-menu>
 
 </template>

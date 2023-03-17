@@ -12,7 +12,7 @@
                   style="width: 100%; margin-bottom: 0.8rem; margin-left: 0">添加子文章</el-button>
                 <!--目录在这里 -->
                 <TreeArticleInfo :data="articleData" @remove="delArticle" @update="updateArticle" @create="addNextArticle"
-                  @handleNodeClick="handleNodeClick" />
+                  @handleNodeClick="handleNodeClick" :currentNodeKey="currentNodeKey"/>
               </template>
             </InfoCard>
           </el-col>
@@ -83,7 +83,8 @@
             <InfoCard class="art-info-right" header="目录" hideDivider="true">
               <template #content>
                 <div>
-                  <ul class="art-info-ul">
+                  <el-empty :image-size="100" style="padding: 20px 0;" v-if="catalogueData.length==0" description="无目录" />
+                  <ul v-else class="art-info-ul">
                     <li v-for="(item, i) in catalogueData" :key="i">
                       <el-button style="width: 100%; justify-content: left" type="primary" text>{{ `${i + 1} ： ${item}`
                       }}</el-button>
@@ -134,23 +135,26 @@ const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 const articleData = ref([]);
 //主题内容
 const discuss = ref({});
-
+//当前默认选择的子文章
+const currentNodeKey=route.params.articleId;
 //目录数据
 const catalogueData = ref([]);
 
 //子文章初始化
 const loadArticleData = async () => {
+
   articleData.value = await articleall(route.params.discussId);
 }
 
 //主题初始化
 const loadDiscuss = async (isRewrite) => {
+
   if (isRewrite) {
     //跳转路由
     router.push(`/article/${route.params.discussId}`);
   }
   discuss.value = await discussGet(route.params.discussId);
-  if (route.params.articleId != undefined) {
+  if (route.params.articleId != "") {
     const respose = await articleGet(route.params.articleId);
     discuss.value.content = respose.content;
   }
