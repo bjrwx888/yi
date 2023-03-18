@@ -219,7 +219,8 @@ const dataScopeOptions = ref([
 ]);
 
 const data = reactive({
-  form: {},
+  form: {
+  },
   queryParams: {
     pageNum: 1,
     pageSize: 10,
@@ -368,7 +369,7 @@ function reset() {
     roleName: undefined,
     roleCode: undefined,
     orderNum: 0,
-    state: false,
+    state: true,
     menuCheckStrictly: false,
     deptCheckStrictly: false,
     remark: undefined,

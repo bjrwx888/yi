@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
+import '@/assets/styles/index.scss' // global css
+
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import directive from './directive' // directive
 

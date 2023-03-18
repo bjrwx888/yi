@@ -32,10 +32,13 @@
     <div class="flex-grow" />
 
    <el-menu-item index="5">
-      <el-input  placeholder="请输入关键字" clearable />
-      
-      搜索</el-menu-item>
-    <el-menu-item index="6">
+    <div style="width: 350px;">
+      <el-input style="width: 300px;"  placeholder="全站搜索" clearable  prefix-icon="Search" />
+      <el-button type="primary" plain>搜索</el-button>
+    </div>
+    </el-menu-item>
+   
+    <el-menu-item index="6" @click="enterProfile" >
         <AvatarInfo :size='30' :isSelf="true"   />
     </el-menu-item>
     <el-sub-menu index="6">
@@ -66,6 +69,8 @@ const logout=async ()=>{
 const enterIndex=()=>{
   router.push("/index");
 };
+const enterProfile=()=>{
+  router.push("/profile");}
 </script>
 <style scoped>
 

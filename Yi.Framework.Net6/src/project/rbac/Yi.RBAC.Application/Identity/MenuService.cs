@@ -24,6 +24,7 @@ namespace Yi.RBAC.Application.Identity
 
             var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.MenuName), x => x.MenuName.Contains(input.MenuName!))
                         .WhereIF(input.State is not null, x => x.State == input.State)
+                        .OrderByDescending(x=>x.OrderNum)
                           .ToPageListAsync(input.PageNum, input.PageSize, total);
             return new PagedResultDto<MenuGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
         }

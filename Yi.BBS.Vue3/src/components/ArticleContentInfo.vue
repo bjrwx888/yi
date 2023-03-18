@@ -6,11 +6,14 @@
   
 <script setup>
 import { marked } from 'marked';
+
 import hljs from "highlight.js";
 //可以设置加载样式切换主题
 import 'highlight.js/styles/atom-one-dark.css'
 import '@/assets/github-markdown.css'
 import { ref,watch  } from 'vue';
+
+
 
 const outputHtml=ref("")
 const props = defineProps(['code'])

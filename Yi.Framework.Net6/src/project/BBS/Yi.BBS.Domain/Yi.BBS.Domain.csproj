@@ -12,6 +12,7 @@
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
+    <ProjectReference Include="..\..\rbac\Yi.RBAC.Domain\Yi.RBAC.Domain.csproj" />
     <ProjectReference Include="..\Yi.BBS.Domain.Shared\Yi.BBS.Domain.Shared.csproj" />
   </ItemGroup>
 

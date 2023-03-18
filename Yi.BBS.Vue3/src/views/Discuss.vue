@@ -17,7 +17,7 @@
  
             <el-button>重置</el-button>
              <el-button type="primary" @click="async()=>{ await loadDiscussList();}">查询</el-button>
-             <el-button @click="enterEditArticle" type="primary">分享</el-button>    
+             <el-button @click="enterEditArticle" type="primary"     v-hasPer="['bbs:discuss:add']">分享</el-button>    
              <el-dropdown>
     <span class="el-dropdown-link">
       展开

@@ -15,13 +15,13 @@
           <span>{{data.name}}</span>
           <span>
             
-            <a style="color: #409EFF; margin-left: 8px" @click="$emit('create',node, data)" 
+            <a style="color: #409EFF; margin-left: 8px" @click="$emit('create',node, data)" v-hasPer="['bbs:article:add']"
   
   > + </a>
-            <a style="color: #409EFF; margin-left: 8px" @click="$emit('update',node, data)" 
+            <a style="color: #409EFF; margin-left: 8px" @click="$emit('update',node, data)" v-hasPer="['bbs:article:edit']"
   
   > 编辑 </a>
-            <a style="color: #f56c6c; margin-left: 8px" @click="$emit('remove',node, data)" 
+            <a style="color: #f56c6c; margin-left: 8px" @click="$emit('remove',node, data)" v-hasPer="['bbs:article:remove']"
   
             > 删除 </a>
           </span>

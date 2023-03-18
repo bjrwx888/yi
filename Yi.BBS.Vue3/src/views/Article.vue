@@ -66,8 +66,10 @@
 
                     <li>
                       <el-button type="primary" size="default"
+                      v-hasPer="['bbs:discuss:edit']"
                         @click="updateHander(route.params.discussId)">编辑</el-button>
                       <el-button style="margin-left: 1rem" type="danger"
+                      v-hasPer="['bbs:discuss:remove']"
                         @click="delHander(route.params.discussId)">删除</el-button>
                     </li>
                     <li>分类： <span>文章</span></li>

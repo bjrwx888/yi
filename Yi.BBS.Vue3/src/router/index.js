@@ -9,7 +9,13 @@ const router = createRouter({
     return { top: 0 }
   },
   routes: [
-{
+    {
+      name:'test',
+      path: '/test',
+      component: () => import('../views/Test.vue')
+    },
+    {
+
   path: '/loginLayout',
       name: 'loginLayout',
       component: LoginLayout,
@@ -27,7 +33,6 @@ const router = createRouter({
         // },
       ]
     },
-
     {
       path: '/',
       name: 'layout',
@@ -55,6 +60,12 @@ const router = createRouter({
           name:'editArt',
           path:'/editArt',
           component:()=>import('../views/EditArticle.vue')
+        },
+        {
+          name:'profile',
+          path:'/profile',
+          component:()=>import('../views/profile/Index.vue')
+        
         }
       ]
     },

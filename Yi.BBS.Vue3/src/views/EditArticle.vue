@@ -30,7 +30,6 @@
           <el-input placeholder="请输入" v-model="editForm.introduction" />
         </el-form-item>
         <el-form-item label="内容：" prop="content">
-          {{ editForm.content + "*" }}
           <MavonEdit
             height="30rem"
             v-model="editForm.content"

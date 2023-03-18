@@ -6,10 +6,10 @@ const useUserStore = defineStore('user',
     state: () => ({
       id:'',
       token: getToken(),
-      name: '登录用户',
+      name: '游客',
       icon: null,
       roles: [],
-      permissions: ['*:*:*']
+      permissions: []
       }),
       getters: {
       },
@@ -49,7 +49,7 @@ const useUserStore = defineStore('user',
             }
             // this.roles = ["admin"];
             // this.permissions=["*:*:*"]
-            this.name = user.name
+            this.name = user.nick
             this.avatar = avatar;
             resolve(res)
           }).catch(error => {

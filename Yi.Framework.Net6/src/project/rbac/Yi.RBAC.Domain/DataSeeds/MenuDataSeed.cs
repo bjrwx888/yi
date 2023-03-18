@@ -17,6 +17,10 @@ namespace Yi.RBAC.Domain.DataSeeds
         {
         }
 
+        public override async Task<bool> IsInvoker()
+        {
+            return !await _repository.IsAnyAsync(x => x.MenuName == "系统管理");
+        }
         public override List<MenuEntity> GetSeedData()
         {
             List<MenuEntity> entities = new List<MenuEntity>();
@@ -106,88 +110,6 @@ namespace Yi.RBAC.Domain.DataSeeds
             };
             entities.Add(swagger);
 
-
-            //BBS
-            MenuEntity bbs = new MenuEntity()
-            {
-                Id = SnowflakeHelper.NextId,
-                MenuName = "BBS",
-                MenuType = MenuTypeEnum.Catalogue,
-                Router = "/bbs",
-                IsShow = true,
-                IsLink = false,
-                MenuIcon = "international",
-                OrderNum = 97,
-                ParentId = 0,
-                IsDeleted = false
-            };
-            entities.Add(bbs);
-            //文章管理
-            MenuEntity article = new MenuEntity()
-            {
-                Id = SnowflakeHelper.NextId,
-                MenuName = "文章管理",
-                PermissionCode = "bbs:article:list",
-                MenuType = MenuTypeEnum.Menu,
-                Router = "article",
-                IsShow = true,
-                IsLink = false,
-                IsCache = true,
-                Component = "bbs/article/index",
-                MenuIcon = "education",
-                OrderNum = 100,
-                ParentId = bbs.Id,
-                IsDeleted = false
-            };
-            entities.Add(article);
-
-            MenuEntity articleQuery = new MenuEntity()
-            {
-                Id = SnowflakeHelper.NextId,
-                MenuName = "文章查询",
-                PermissionCode = "bbs:article:query",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = article.Id,
-                IsDeleted = false
-            };
-            entities.Add(articleQuery);
-
-            MenuEntity articleAdd = new MenuEntity()
-            {
-                Id = SnowflakeHelper.NextId,
-                MenuName = "文章新增",
-                PermissionCode = "bbs:article:add",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = article.Id,
-                IsDeleted = false
-            };
-            entities.Add(articleAdd);
-
-            MenuEntity articleEdit = new MenuEntity()
-            {
-                Id = SnowflakeHelper.NextId,
-                MenuName = "文章修改",
-                PermissionCode = "bbs:article:edit",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = article.Id,
-                IsDeleted = false
-            };
-            entities.Add(articleEdit);
-
-            MenuEntity articleRemove = new MenuEntity()
-            {
-                Id = SnowflakeHelper.NextId,
-                MenuName = "文章删除",
-                PermissionCode = "bbs:article:remove",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = article.Id,
-                IsDeleted = false
-            };
-            entities.Add(articleRemove);
 
             //ERP
             MenuEntity erp = new MenuEntity()
@@ -1143,6 +1065,13 @@ namespace Yi.RBAC.Domain.DataSeeds
                 IsDeleted = false
             };
             entities.Add(loginLogRemove);
+
+            //默认值
+            entities.ForEach(m =>
+            {
+                m.IsDeleted = false;
+                m.State = true;
+            });
             return entities;
         }
     }
