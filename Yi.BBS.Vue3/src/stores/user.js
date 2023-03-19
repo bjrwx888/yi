@@ -7,6 +7,7 @@ const useUserStore = defineStore('user',
       id:'',
       token: getToken(),
       name: '游客',
+      userName:'',
       icon: null,
       roles: [],
       permissions: []
@@ -36,7 +37,7 @@ const useUserStore = defineStore('user',
           getInfo().then(response => {
             const res=response;
             const user = res.user
-            const avatar = (user.icon == "" || user.icon == null) ? "" : import.meta.env.VITE_APP_BASE_API + "/file/"+user.icon;
+            const avatar = (user.icon == "" || user.icon == null) ? "/src/assets/logo.ico" : import.meta.env.VITE_APP_BASEAPI + "/file/"+user.icon;
             
             if (res.roleCodes && res.roleCodes.length > 0) { // 验证返回的roles是否是一个非空数组
               this.roles = res.roleCodes
@@ -50,7 +51,8 @@ const useUserStore = defineStore('user',
             // this.roles = ["admin"];
             // this.permissions=["*:*:*"]
             this.name = user.nick
-            this.avatar = avatar;
+            this.icon = avatar;
+            this.userName=user.userName
             resolve(res)
           }).catch(error => {
             reject(error)

@@ -1,49 +1,44 @@
 <template>
-  <div class="user-info-head" @click="editCropper()"><img :src="options.img" title="点击上传头像" class="img-circle img-lg" /></div>
-  <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened"  @close="closeDialog">
+  <div class="user-info-head" @click="editCropper()"><img :src="options.img" title="点击上传头像" class="img-circle img-lg" />
+  </div>
+  <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened" @close="closeDialog">
     <el-row>
-      <el-col :xs="24" :md="12" :style="{height: '350px'}">
-        <vue-cropper
-            ref="cropper"
-            :img="options.img"
-            :info="true"
-            :autoCrop="options.autoCrop"
-            :autoCropWidth="options.autoCropWidth"
-            :autoCropHeight="options.autoCropHeight"
-            :fixedBox="options.fixedBox"
-            @realTime="realTime"
-            v-if="visible"
-        />
+      <el-col :xs="24" :md="12" :style="{ height: '350px' }">
+        <vue-cropper ref="cropper" :img="options.img" :info="true" :autoCrop="options.autoCrop"
+          :autoCropWidth="options.autoCropWidth" :autoCropHeight="options.autoCropHeight" :fixedBox="options.fixedBox"
+          @realTime="realTime" v-if="visible" />
       </el-col>
-      <el-col :xs="24" :md="12" :style="{height: '350px'}">
+      <el-col :xs="24" :md="12" :style="{ height: '350px' }">
         <div class="avatar-upload-preview">
-          <img :src="options.previews.url" :style="options.previews.img"/>
+          <img :src="options.previews.url" :style="options.previews.img" />
         </div>
       </el-col>
     </el-row>
-    <br/>
+    <br />
     <el-row>
       <el-col :lg="2" :md="2">
         <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
           <el-button>
             选择
-            <el-icon class="el-icon--right"><Upload /></el-icon>
+            <el-icon class="el-icon--right">
+              <Upload />
+            </el-icon>
           </el-button>
         </el-upload>
       </el-col>
-      <el-col :lg="{span: 1, offset: 2}" :md="2">
+      <el-col :lg="{ span: 1, offset: 2 }" :md="2">
         <el-button icon="Plus" @click="changeScale(1)"></el-button>
       </el-col>
-      <el-col :lg="{span: 1, offset: 1}" :md="2">
+      <el-col :lg="{ span: 1, offset: 1 }" :md="2">
         <el-button icon="Minus" @click="changeScale(-1)"></el-button>
       </el-col>
-      <el-col :lg="{span: 1, offset: 1}" :md="2">
+      <el-col :lg="{ span: 1, offset: 1 }" :md="2">
         <el-button icon="RefreshLeft" @click="rotateLeft()"></el-button>
       </el-col>
-      <el-col :lg="{span: 1, offset: 1}" :md="2">
+      <el-col :lg="{ span: 1, offset: 1 }" :md="2">
         <el-button icon="RefreshRight" @click="rotateRight()"></el-button>
       </el-col>
-      <el-col :lg="{span: 2, offset: 6}" :md="2">
+      <el-col :lg="{ span: 2, offset: 6 }" :md="2">
         <el-button type="primary" @click="uploadImg()">上传</el-button>
       </el-col>
     </el-row>
@@ -56,11 +51,11 @@ import { VueCropper } from "vue-cropper";
 import { upload } from "@/apis/fileApi";
 import { updateUserIcon } from "@/apis/userApi";
 import useUserStore from '@/stores/user'
-import { ref ,reactive } from "vue";
+import { ref, reactive } from "vue";
 
 const userStore = useUserStore()
 
-const cropper=ref(null);
+const cropper = ref(null);
 
 const open = ref(false);
 const visible = ref(false);
@@ -89,7 +84,7 @@ function requestUpload() {
 };
 /** 向左旋转 */
 function rotateLeft() {
-cropper.value.rotateLeft();
+  cropper.value.rotateLeft();
 };
 /** 向右旋转 */
 function rotateRight() {
@@ -110,30 +105,20 @@ function beforeUpload(file) {
     reader.onload = () => {
       options.img = reader.result;
     };
-    
+
   }
 };
 /** 上传图片 */
-function uploadImg() {
-  cropper.value.getCropBlob(data => {
+async function uploadImg() {
+  await cropper.value.getCropBlob(async data => {
     let formData = new FormData();
     formData.append("file", data);
-    upload(formData).then(response => {
-      open.value = false;
-      options.img = import.meta.env.VITE_APP_BASE_API +"/file/"+response[0].id;
-      userStore.icon = options.img;
-      updateUserIcon(response[0].id).then(response2=>{
-     alert("修改成功");
-      visible.value = false;
-      })
-
-
-
-
-
-
-
-    });
+    const response = await upload(formData)
+    open.value = false;
+    options.img = import.meta.env.VITE_APP_BASEAPI + "/file/" + response[0].id;
+    userStore.icon = options.img;
+    await updateUserIcon(response[0].id);
+    alert("上传成功")
   });
 };
 /** 实时预览 */
@@ -142,10 +127,11 @@ function realTime(data) {
 };
 /** 关闭窗口 */
 function closeDialog() {
-  options.img = userStore.iocn;
+  options.img = userStore.icon;
   options.visible = false;
 };
 </script>
+
 
 <style lang='scss' scoped>
 .user-info-head {
@@ -170,5 +156,25 @@ function closeDialog() {
   cursor: pointer;
   line-height: 110px;
   border-radius: 50%;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.img-lg {
+  width: 120px;
+  height: 120px;
+}
+
+.avatar-upload-preview {
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #ccc;
+  overflow: hidden;
 }
 </style>

@@ -34,7 +34,7 @@ namespace Yi.BBS.Domain.Forum
             entity.Types = types;
             entity.Introduction = introduction;
             entity.Content = content;
-            entity.CreateTime = DateTime.Now;
+            entity.CreationTime = DateTime.Now;
             entity.AgreeNum = 0;
             entity.SeeNum = 0;
             return await _discussRepository.InsertReturnEntityAsync(entity);

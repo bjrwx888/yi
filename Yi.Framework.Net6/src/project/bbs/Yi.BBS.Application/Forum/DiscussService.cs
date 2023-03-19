@@ -12,6 +12,11 @@ using SqlSugar;
 using Microsoft.AspNetCore.Routing;
 using Yi.BBS.Domain.Shared.Forum.ConstClasses;
 using Yi.Framework.Ddd.Repositories;
+using Yi.RBAC.Domain.Identity.Entities;
+using Yi.RBAC.Application.Contracts.Identity.Dtos;
+using Cike.EventBus.DistributedEvent;
+using Yi.BBS.Domain.Shared.Forum.Etos;
+using Yi.BBS.Domain.Shared.Forum.EnumClasses;
 
 namespace Yi.BBS.Application.Forum
 {
@@ -28,6 +33,28 @@ namespace Yi.BBS.Application.Forum
         [Autowired]
         private IRepository<PlateEntity> _plateEntityRepository { get; set; }
 
+        [Autowired]
+        private IDistributedEventBus _distributedEventBus { get; set; }
+
+        /// <summary>
+        /// 单查
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async override Task<DiscussGetOutputDto> GetAsync(long id)
+        {
+            //查询主题发布 浏览主题 事件，浏览数+1
+            var item = await _DbQueryable.LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
+                     .Select((discuss, user) => new DiscussGetOutputDto
+                     {
+                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick,Icon=user.Icon }
+                     }, true).SingleAsync(discuss => discuss.Id==id);
+
+            _distributedEventBus.PublishAsync(new SeeDiscussEventArgs { DiscussId= item.Id, OldSeeNum= item .SeeNum});
+            return item;
+        }
+
+
         /// <summary>
         /// 查询
         /// </summary>
@@ -36,13 +63,19 @@ namespace Yi.BBS.Application.Forum
 
         public override async Task<PagedResultDto<DiscussGetListOutputDto>> GetListAsync( [FromQuery] DiscussGetListInputVo input)
         {
+            //需要关联创建者用户
             RefAsync<int> total = 0;
-            var entities = await _DbQueryable
+            var items = await _DbQueryable
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
-                     .OrderByDescending(x => x.CreateTime)
+                     .Where(x=>x.IsTop==input.IsTop)
+                     .OrderByIF(input.Type==QueryDiscussTypeEnum.New, x =>x.CreationTime,OrderByType.Desc )
+                        .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, x => x.SeeNum, OrderByType.Desc)
+                     .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId==user.Id)
+                     .Select((discuss,user) =>new DiscussGetListOutputDto { 
+                     User=new UserGetListOutputDto() { UserName=user.UserName,Nick=user.Nick, Icon = user.Icon }
+                     },true)
                 .ToPageListAsync(input.PageNum, input.PageSize, total);
-            var items = await MapToGetListOutputDtosAsync(entities);
             return new PagedResultDto<DiscussGetListOutputDto>(total, items);
         }
 

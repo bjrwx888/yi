@@ -43,8 +43,8 @@
     </el-menu-item>
     <el-sub-menu index="6">
       <template #title>个人中心</template>
-      <el-menu-item index="6-1">学习 one</el-menu-item>
-      <el-menu-item index="6-2">学习 two</el-menu-item>
+      <el-menu-item index="6-1" @click="enterProfile">进入个人中心</el-menu-item>
+      <el-menu-item index="6-2" @click="enterProfile">其他</el-menu-item>
       <el-menu-item index="6-3" @click="logout">登出</el-menu-item>
     </el-sub-menu>
 

@@ -121,7 +121,7 @@ namespace Yi.RBAC.Domain.Identity
 
             if (!user.JudgePassword(oldPassword))
             {
-                throw new UserFriendlyException("无效更新！新密码不能与老密码相同");
+                throw new UserFriendlyException("无效更新！原密码错误！");
             }
             user.Password = newPassword;
             user.BuildPassword();

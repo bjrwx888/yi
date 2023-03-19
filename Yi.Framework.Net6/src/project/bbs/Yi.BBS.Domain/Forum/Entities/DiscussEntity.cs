@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Yi.Framework.Data.Auditing;
 using Yi.Framework.Data.Entities;
 using Yi.Framework.Ddd.Entities;
 
 namespace Yi.BBS.Domain.Forum.Entities
 {
     [SugarTable("Discuss")]
-    public class DiscussEntity : IEntity<long>, ISoftDelete
+    public class DiscussEntity : IEntity<long>, ISoftDelete,IAuditedObject
     {
         public DiscussEntity()
         { 
@@ -26,7 +27,6 @@ namespace Yi.BBS.Domain.Forum.Entities
         public string Title { get; set; }
         public string Types { get; set; }
         public string? Introduction { get; set; }
-        public DateTime? CreateTime { get; set; }
         public int AgreeNum { get; set; }
         public int SeeNum { get; set; }
 
@@ -36,7 +36,23 @@ namespace Yi.BBS.Domain.Forum.Entities
 
         public bool IsDeleted { get; set; }
 
+        //是否置顶，默认false
+        public bool IsTop { get; set; }
+
+        
+        //是否私有，默认false
+        public bool IsPrivate { get; set; }
+
+        //私有需要判断code权限
+        public string? PrivateCode { get; set; }
 
         public long PlateId { get; set; }
+        public DateTime CreationTime { get; set; }
+
+        public long? CreatorId { get; set; }
+
+        public long? LastModifierId { get; set; }
+
+        public DateTime? LastModificationTime { get; set; }
     }
 }

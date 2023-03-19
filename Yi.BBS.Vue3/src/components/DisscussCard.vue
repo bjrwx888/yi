@@ -1,8 +1,10 @@
 <template>
-    <el-card class="box-card" shadow="never">
+    
+      <el-badge  :value="props.badge??''" class="box-card"  >
+    <el-card shadow="never" :style="{'border-color':props.color}" >
 
         <div class="card-header">
-          <AvatarInfo src="asdsadas" :userInfo="{name:'大白子'}" />
+          <AvatarInfo  :userInfo="props.user" :time="props.creationTime"/>
         </div>
 
 
@@ -13,7 +15,7 @@
         <div class=" item item-bottom">
             <el-space :size="10" :spacer="spacer">
                 <div class="item-description">
-                   {{ props.createTime }}
+                   {{ props.creationTime }}
                 </div>
 
 
@@ -21,21 +23,22 @@
                     点赞</el-button>
                 <el-button icon="Star" text>
                     收藏</el-button>
-
-                <el-button icon="ChatDotRound" text>
-                    评论</el-button>
+               
+                    <el-button icon="View" text>
+                    浏览数:{{ props.seeNum??0 }}</el-button>
 
 
             </el-space>
         </div>
     </el-card>
+</el-badge>
 </template>
 <script setup>
 import { h, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AvatarInfo from './AvatarInfo.vue';
 
-const props = defineProps(['title','introduction','createTime','id'])
+const props = defineProps(['title','introduction','creationTime','id','user','badge',"color","seeNum"])
 
 const router = useRouter()
 const spacer = h(ElDivider, { direction: 'vertical' })
@@ -44,6 +47,9 @@ const enterDiscuss = (id) => {
 }
 </script>
 <style scoped>
+.el-card{
+    border: 2px solid white 
+}
 
 .item-bottom .el-icon {
     margin-right: 0.4rem;
@@ -63,6 +69,9 @@ const enterDiscuss = (id) => {
 .box-card {
     width: 100%;
     min-height: 15rem;
+    /* right: calc(1px + var(--el-badge-size)/ 2) !important; */
+    /* top: 0 !important;  */
+
 }
 
 .item-title {
@@ -86,4 +95,5 @@ const enterDiscuss = (id) => {
     font-size: initial;
     font-weight: 700;
 }
+
 </style>

@@ -36,8 +36,9 @@
       <el-col :span="14">
         <el-row class="left-div">
           <el-col :span="24">
-            <AvatarInfo :size="50" :showWatching="true" :time="'2023-03-08 21:09:02'"></AvatarInfo>
-
+            <!-- {{ discuss.user }} -->
+            <AvatarInfo :size="50" :showWatching="true" :time="discuss.creationTime"  :userInfo="discuss.user"></AvatarInfo>
+            <!-- :userInfo="{nick:'qwe'} -->
             <el-divider />
             <h2>{{ discuss.title }}</h2>
             <ArticleContentInfo :code="discuss.content??''"></ArticleContentInfo>
@@ -137,6 +138,8 @@ const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 const articleData = ref([]);
 //主题内容
 const discuss = ref({});
+
+
 //当前默认选择的子文章
 const currentNodeKey=route.params.articleId;
 //目录数据

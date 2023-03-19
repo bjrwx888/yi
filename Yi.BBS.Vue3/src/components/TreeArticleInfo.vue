@@ -1,7 +1,7 @@
 <template>
       <el-tree
-                  :data="data"
-                  :props="props.defaultProps"
+                  :data="props.data==''?[]:props.data"
+                  :props="defaultProps"
                   @node-click="handleNodeClick"
                   :expand-on-click-node="false"
                   node-key="id"

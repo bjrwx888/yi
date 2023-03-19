@@ -1,6 +1,9 @@
 <template>
    <el-form ref="userRef" :model="user" :rules="rules" label-width="80px">
-      <el-form-item label="用户昵称" prop="nickName">
+    <el-form-item label="账号" prop="userName">
+         <el-input v-model="user.userName"  disabled />
+      </el-form-item>
+      <el-form-item label="用户昵称" prop="nick">
          <el-input v-model="user.nick" maxlength="30" />
       </el-form-item>
       <el-form-item label="手机号码" prop="phone">
@@ -24,8 +27,9 @@
 
 <script setup>
 import { updateUserProfile } from "@/apis/userApi";
+import useUserStore from "@/stores/user"
 import { ref } from "vue";
-
+const userStore=useUserStore();
 const props = defineProps({
   user: {
     type: Object
@@ -45,6 +49,10 @@ function submit() {
   userRef.value.validate(valid => {
     if (valid) {
       updateUserProfile(props.user).then(response => {
+        console.log(props.user.nick,"props.user.nick")
+        console.log(userStore,"userStore.nick")
+        userStore.name=props.user.nick
+        console.log(userStore.name,"userStore.name");
        alert("修改成功");
       });
     }

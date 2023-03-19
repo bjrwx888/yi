@@ -11,6 +11,7 @@
 		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
 	</ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\rbac\Yi.RBAC.Application.Contracts\Yi.RBAC.Application.Contracts.csproj" />
     <ProjectReference Include="..\Yi.BBS.Domain.Shared\Yi.BBS.Domain.Shared.csproj" />
   </ItemGroup>
 

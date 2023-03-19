@@ -18,7 +18,7 @@
         </el-form-item>
         <el-form-item
           v-if="route.query.artType == 'article'"
-          label="名称："
+          label="子文章名称："
           prop="name"
         >
           <el-input placeholder="请输入" v-model="editForm.name" />
@@ -100,7 +100,10 @@ const ruleFormRef = ref(null);
 const rules = reactive({
   title: [
     { required: true, message: "请输入标题", trigger: "blur" },
-    { min: 3, max: 20, message: "长度 3 到 20", trigger: "blur" },
+    { min: 3, max: 40, message: "长度 3 到 20", trigger: "blur" },
+  ],
+  name: [
+    { required: true, message: "请输入子文章名称", trigger: "blur" },
   ],
   content: [
     { required: true, message: "请输入内容", trigger: "blur" },

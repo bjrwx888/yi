@@ -6,6 +6,23 @@ export function getList(data){
         params:data
     })
 };
+export function getTopList(data){
+
+    if(data==undefined)
+    {
+        data={isTop:true}
+    }
+    else
+    {
+        data["isTop"]=true;
+    }
+
+    return myaxios({
+        url: '/discuss',
+        method: 'get',
+        params:data
+    })
+};
 export function get(id){
     return myaxios({
         url: `/discuss/${id}`,

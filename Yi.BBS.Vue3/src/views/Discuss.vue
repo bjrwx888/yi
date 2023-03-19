@@ -42,13 +42,30 @@
 </div>
 
 
-<el-tabs v-model="activeName"  @tab-click="handleClick">
-    <el-tab-pane label="推荐" name="first">    </el-tab-pane>
-    <el-tab-pane label="最新" name="second">   </el-tab-pane>
-    <el-tab-pane label="最热" name="third">   </el-tab-pane>
+<el-tabs v-model="activeName"  @tab-change="handleClick">
+    <el-tab-pane label="最新" name="new">    </el-tab-pane>
+    <el-tab-pane label="推荐" name="suggest">   </el-tab-pane>
+    <el-tab-pane label="最热" name="host">   </el-tab-pane>
   </el-tabs>
+
+  <el-collapse  >
+      <el-collapse-item >
+        <template #title>
+          <div class="collapse-top">
+          已置顶主题<el-icon class="header-icon">
+            <info-filled />
+          </el-icon>
+          </div>
+        </template>
+<div class="div-item" v-for="i in topDiscussList" >
+  <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :id="i.id" :user="i.user" :color="i.color"  :seeNum="i.seeNum" badge="置顶"/>
+</div>
+</el-collapse-item>
+</el-collapse>
+<el-divider v-show="topDiscussList.length>0" />
+  
 <div class="div-item" v-for="i in discussList" >
-  <DisscussCard :title="i.title" :introduction="i.introduction" :createTime="i.createTime" :id="i.id"/>
+  <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :id="i.id" :color="i.color"  :seeNum="i.seeNum" :user="i.user"/>
 </div>
 <div>
     <el-pagination
@@ -70,25 +87,30 @@
 
 <script setup>
 import DisscussCard from '@/components/DisscussCard.vue'
-import {getList} from '@/apis/discussApi.js'
+import {getList,getTopList} from '@/apis/discussApi.js'
 import { onMounted, ref,reactive  } from 'vue'
 import { useRoute,useRouter } from 'vue-router'
 
 //数据定义
 const route=useRoute()
 const router=useRouter()
-const activeName = ref('first')
+const activeName = ref('new')
+//主题内容
 const discussList=ref([]);
+//置顶主题内容
+const topDiscussList = ref([]);
 const total=ref(100)
 const query=reactive({
   pageNum:1,
   pageSize:10,
   title:'',
-  plateId:route.params.plateId
+  plateId:route.params.plateId,
+  type:activeName.value
 })
 
-const handleClick = (tab, event) => {
-  console.log(tab, event)
+const handleClick =async (tab, event) => {
+  query.type=activeName.value ;
+  await loadDiscussList();
 }
 
 onMounted(async()=>{
@@ -100,6 +122,10 @@ const loadDiscussList=async()=>{
   const response= await getList(query);
  discussList.value=response.items;
  total.value=Number( response.total);
+
+ //全查，无需参数
+const topResponse=await getTopList();
+topDiscussList.value=topResponse.items;
 }
 
 //进入添加主题页面
@@ -129,6 +155,10 @@ min-height: 1000px;
 background-color: #FFFFFF;
 padding: 1rem;
 margin: 1rem 0rem ;
+}
+.collapse-top
+{
+  padding-left: 2rem;
 }
 .header .el-input
 {
