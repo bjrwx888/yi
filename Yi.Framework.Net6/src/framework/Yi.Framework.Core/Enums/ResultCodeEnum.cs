@@ -21,6 +21,11 @@ namespace Yi.Framework.Core.Enums
         /// <summary>
         /// 无权限
         /// </summary>
-        NoPermission = 401
+        NoPermission = 401,
+
+        /// <summary>
+        /// 被拒绝
+        /// </summary>
+        Denied = 403
     }
 }

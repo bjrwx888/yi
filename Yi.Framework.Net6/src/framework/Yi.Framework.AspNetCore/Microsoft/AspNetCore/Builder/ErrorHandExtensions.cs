@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core.Enums;
 using Yi.Framework.Core.Exceptions;
 
 namespace Microsoft.AspNetCore.Builder
@@ -37,7 +38,7 @@ namespace Microsoft.AspNetCore.Builder
             catch (BusinessException businessEx)
             {
                 context.Response.ContentType = "application/json;charset=utf-8";
-                //context.Response.StatusCode = businessEx.Code.GetHashCode();
+                context.Response.StatusCode = (int)ResultCodeEnum.Denied;
 
                 var result = new ExceptionModle
                 {
@@ -59,7 +60,7 @@ namespace Microsoft.AspNetCore.Builder
                 //系统错误，记录日志
                 _logger.LogError(ex, $"授权失败:{ex.Message}");
                 //await _errorHandle.Invoer(context, ex);
-                context.Response.StatusCode = (int)ex.Code;
+                context.Response.StatusCode = (int)ResultCodeEnum.NoPermission;
                 //系统错误，需要记录
                 var result = new ExceptionModle
                 {
@@ -80,7 +81,7 @@ namespace Microsoft.AspNetCore.Builder
                 //系统错误，记录日志
                 _logger.LogError(ex, $"系统错误:{ex.Message}");
                 //await _errorHandle.Invoer(context, ex);
-                context.Response.StatusCode = 500;
+                context.Response.StatusCode = (int)ResultCodeEnum.NotSuccess;
                 //系统错误，需要记录
                 var result = new ExceptionModle
                 {

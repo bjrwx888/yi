@@ -13,7 +13,7 @@ namespace Yi.Framework.Core.Exceptions
     {
         public UserFriendlyException(
 string message,
-int code = (int)ResultCodeEnum.NotSuccess,
+int code = (int)ResultCodeEnum.Denied,
 string? details = null,
 Exception? innerException = null,
 LogLevel logLevel = LogLevel.Warning)

@@ -33,7 +33,7 @@ myaxios.interceptors.request.use(function (config) {
 // 响应拦截器
 myaxios.interceptors.response.use(function (response) {
 
-    return response.data;
+    return response;
 }, function (error) {
     return Promise.reject(error);
 });

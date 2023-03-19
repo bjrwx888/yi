@@ -22,10 +22,11 @@ const useUserStore = defineStore('user',
         const code = userInfo.code
         const uuid = userInfo.uuid
         return new Promise((resolve, reject) => {
-          login(userName, password, code, uuid).then(res => {
+          login(userName, password, code, uuid).then(response => {
+            const res=response.data;
             setToken(res.token);
             this.token = res.token;
-            resolve(res);
+            resolve(response);
           }).catch(error => {
             reject(error)
           })
@@ -35,7 +36,7 @@ const useUserStore = defineStore('user',
       getInfo() {
         return new Promise((resolve, reject) => {
           getInfo().then(response => {
-            const res=response;
+            const res=response.data;
             const user = res.user
             const avatar = (user.icon == "" || user.icon == null) ? "/src/assets/logo.ico" : import.meta.env.VITE_APP_BASEAPI + "/file/"+user.icon;
             

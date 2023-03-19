@@ -21,7 +21,7 @@ namespace Yi.Framework.Core.Exceptions
         public LogLevel LogLevel { get; set; }
 
         public BusinessException(
-    int code = (int)ResultCodeEnum.NotSuccess,
+    int code = (int)ResultCodeEnum.Denied,
     string? message = null,
     string? details = null,
     Exception? innerException = null,

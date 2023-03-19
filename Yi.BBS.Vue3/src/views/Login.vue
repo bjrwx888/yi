@@ -26,9 +26,14 @@ const guestlogin=async ()=>{
 }
 const login=async ()=>{
 const response= await userStore.login(loginForm);
-if( response.code==undefined)
+console.log(response);
+if( response.status==200)
 {
     router.push("/index")
+}
+else
+{
+    alert("登录失败")
 }
 }
 
