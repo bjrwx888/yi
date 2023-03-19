@@ -101,7 +101,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.FileManager", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.MultiTenancy", "src\framework\Yi.Framework.MultiTenancy\Yi.Framework.MultiTenancy.csproj", "{590B1EC0-CDA9-4937-BE07-FBB04437D21F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.DictionaryManager", "src\module\Yi.Framework.DictionaryManager\Yi.Framework.DictionaryManager.csproj", "{8941B30D-698B-477A-8737-43E7B4A8695A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.DictionaryManager", "src\module\Yi.Framework.DictionaryManager\Yi.Framework.DictionaryManager.csproj", "{8941B30D-698B-477A-8737-43E7B4A8695A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
