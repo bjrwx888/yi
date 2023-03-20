@@ -80,11 +80,12 @@ const state = reactive({
 
 function getUser() {
   getUserProfile().then(response => {
-    state.user = response.user;
-    state.dept=response.dept;
-    state.roles=response.roles;
-    state.roleGroup = response.roleGroup;
-    state.postGroup = response.postGroup;
+   const res=response.data;
+    state.user = res.user;
+    state.dept=res.dept;
+    state.roles=res.roles;
+    state.roleGroup = res.roleGroup;
+    state.postGroup = res.postGroup;
   });
 };
 onMounted(()=>{

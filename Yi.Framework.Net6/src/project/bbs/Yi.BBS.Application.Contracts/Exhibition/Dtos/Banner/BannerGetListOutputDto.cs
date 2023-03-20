@@ -15,5 +15,7 @@ namespace Yi.BBS.Application.Contracts.Exhibition.Dtos.Banner
         public string Name { get; set; }
         public string? Logo { get; set; }
         public string? Color { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }

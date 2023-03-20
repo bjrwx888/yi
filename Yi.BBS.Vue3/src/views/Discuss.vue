@@ -120,12 +120,12 @@ onMounted(async()=>{
 //加载discuss
 const loadDiscussList=async()=>{
   const response= await getList(query);
- discussList.value=response.items;
- total.value=Number( response.total);
+ discussList.value=response.data.items;
+ total.value=Number( response.data.total);
 
  //全查，无需参数
 const topResponse=await getTopList();
-topDiscussList.value=topResponse.items;
+topDiscussList.value=topResponse.data.items;
 }
 
 //进入添加主题页面

@@ -120,11 +120,11 @@ return `${import.meta.env.VITE_APP_BASEAPI}/file/${str}`
 
 //关闭文件上传弹窗
 const fileHandleClose=()=>{
-fileDialogVisible=false;
+fileDialogVisible.value=false;
 }
 //文件上传成功后
 const onSuccess=(response)=>{
-  fileUrlList.value.push(response[0].id)
+  fileUrlList.value.push(response.data[0].id)
 }
 //图片上传
 const imgAdd = async (pos, $file) => {
@@ -132,7 +132,7 @@ const imgAdd = async (pos, $file) => {
   var formdata = new FormData();
   formdata.append('file', $file);
   const response = await upload(formdata)
-  const url = `${import.meta.env.VITE_APP_BASEAPI}/file/${response[0].id}`;
+  const url = `${import.meta.env.VITE_APP_BASEAPI}/file/${response.data[0].id}`;
   console.log(url)
   md.value.$img2Url(pos, url);
 

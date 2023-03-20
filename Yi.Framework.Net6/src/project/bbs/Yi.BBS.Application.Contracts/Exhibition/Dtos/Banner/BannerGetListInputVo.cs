@@ -9,5 +9,6 @@ namespace Yi.BBS.Application.Contracts.Exhibition.Dtos.Banner
 {
     public class BannerGetListInputVo : PagedAndSortedResultRequestDto
     {
+        public string Name { get; set; }
     }
 }

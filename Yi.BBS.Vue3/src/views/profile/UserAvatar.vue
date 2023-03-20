@@ -115,9 +115,9 @@ async function uploadImg() {
     formData.append("file", data);
     const response = await upload(formData)
     open.value = false;
-    options.img = import.meta.env.VITE_APP_BASEAPI + "/file/" + response[0].id;
+    options.img = import.meta.env.VITE_APP_BASEAPI + "/file/" + response.data[0].id;
     userStore.icon = options.img;
-    await updateUserIcon(response[0].id);
+    await updateUserIcon(response.data[0].id);
     alert("上传成功")
   });
 };

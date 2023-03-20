@@ -27,8 +27,9 @@
           
      
           <el-carousel trigger="click" height="150px">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3 class="small justify-center" text="2xl">你好{{ item }}</h3>
+      <el-carousel-item v-for="item in bannerList">
+        <div class="carousel-font" :style="{color:item.color}">{{ item.name }}</div>
+        <el-image style="width: 100%; height: 100%" :src="item.logo" fit="cover" />
       </el-carousel-item>
     </el-carousel>
 
@@ -93,22 +94,25 @@ import AvatarInfo from '@/components/AvatarInfo.vue'
 import BottomInfo from '@/components/BottomInfo.vue'
 
 import {getList} from '@/apis/plateApi.js'
+import {getList as bannerGetList} from '@/apis/bannerApi.js'
 import {getList as discussGetList} from '@/apis/discussApi.js'
 import { onMounted, ref ,reactive} from 'vue'
 var plateList=ref([]);
 var discussList=ref([]);
+var bannerList=ref([]);
+
   const items=[{user:"用户1"},{user:"用户2"},{user:"用户3"}]
  //主题查询参数 
   const query=reactive({
   pageNum:1,
   pageSize:10,
 });
-  onMounted(async()=>{
- const response=  await getList();
- plateList.value= response.items;
 
-const discussReponse=await discussGetList(query);
-discussList.value= discussReponse.items;
+//初始化
+  onMounted(async()=>{
+plateList.value= ( await getList()).data.items;
+discussList.value=(await discussGetList(query)).data.items;
+bannerList.value=(await bannerGetList()).data.items
   });
 
 
@@ -134,7 +138,12 @@ margin-bottom: 1rem;
   background-color:#FFFFFF;
   margin-bottom: 1rem;
 }
-
+.carousel-font{
+  position: absolute;
+    z-index: 1;
+    top: 10%;
+    left: 10%;
+}
 
 
 .top-div

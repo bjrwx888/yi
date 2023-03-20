@@ -147,8 +147,8 @@ const catalogueData = ref([]);
 
 //子文章初始化
 const loadArticleData = async () => {
-
-  articleData.value = await articleall(route.params.discussId);
+  const response= await articleall(route.params.discussId)
+  articleData.value = response.data;
 }
 
 //主题初始化
@@ -158,10 +158,10 @@ const loadDiscuss = async (isRewrite) => {
     //跳转路由
     router.push(`/article/${route.params.discussId}`);
   }
-  discuss.value = await discussGet(route.params.discussId);
+  discuss.value = (await discussGet(route.params.discussId)).data;
   if (route.params.articleId != "") {
-    const respose = await articleGet(route.params.articleId);
-    discuss.value.content = respose.content;
+    const response = await articleGet(route.params.articleId);
+    discuss.value.content = response.data.content;
   }
   ContentHander();
 };

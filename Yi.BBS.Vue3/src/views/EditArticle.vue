@@ -128,7 +128,7 @@ const submit = async (formEl) => {
         //主题创建
         if (route.query.operType == "create") {
        const response=   await discussAdd(discuss);
-       var routerPer = { path: `/article/${response.id}` };
+       var routerPer = { path: `/article/${response.data.id}` };
       router.push(routerPer);
         }
         //主题更新
@@ -149,7 +149,7 @@ const submit = async (formEl) => {
         //文章创建
         if (route.query.operType == "create") {
          const response= await articleAdd(article);
-          var routerPer = { path: `/article/${route.query.discussId}/${response.id}` };
+          var routerPer = { path: `/article/${route.query.discussId}/${response.data.id}` };
       router.push(routerPer);
         }
         //文章更新
@@ -186,18 +186,20 @@ onMounted(async () => {
 //加载主题
 const loadDiscuss = async () => {
   const response = await discussGet(route.query.discussId);
-  editForm.content = response.content;
-  editForm.title = response.title;
-  editForm.types = response.types;
-  editForm.introduction = response.introduction;
-  discuss.plateId=response.plateId;
+  const res=response.data
+  editForm.content = res.content;
+  editForm.title = res.title;
+  editForm.types = res.types;
+  editForm.introduction = res.introduction;
+  discuss.plateId=res.plateId;
 };
 //加载文章
 const loadArticle = async () => {
   const response = await articleGet(route.query.articleId);
-  editForm.content = response.content;
-  editForm.name = response.name;
-  editForm.discussId = response.discussId;
+  const res=response.data
+  editForm.content = res.content;
+  editForm.name = res.name;
+  editForm.discussId = res.discussId;
 };
 </script>
 <style scoped>

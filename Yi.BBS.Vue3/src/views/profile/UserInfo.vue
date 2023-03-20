@@ -49,10 +49,7 @@ function submit() {
   userRef.value.validate(valid => {
     if (valid) {
       updateUserProfile(props.user).then(response => {
-        console.log(props.user.nick,"props.user.nick")
-        console.log(userStore,"userStore.nick")
         userStore.name=props.user.nick
-        console.log(userStore.name,"userStore.name");
        alert("修改成功");
       });
     }
