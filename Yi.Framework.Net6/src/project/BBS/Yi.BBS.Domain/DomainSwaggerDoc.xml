@@ -4,6 +4,16 @@
         <name>Yi.BBS.Domain</name>
     </assembly>
     <members>
+        <member name="P:Yi.BBS.Domain.Exhibition.Entities.AgreeEntity.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Exhibition.Entities.AgreeEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
         <member name="M:Yi.BBS.Domain.Forum.Entities.ArticleEntityExtensions.Tile(System.Collections.Generic.List{Yi.BBS.Domain.Forum.Entities.ArticleEntity})">
             <summary>
             平铺自己

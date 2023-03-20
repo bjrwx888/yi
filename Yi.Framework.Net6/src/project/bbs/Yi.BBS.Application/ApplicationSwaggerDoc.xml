@@ -4,6 +4,17 @@
         <name>Yi.BBS.Application</name>
     </assembly>
     <members>
+        <member name="T:Yi.BBS.Application.Exhibition.AgreeService">
+            <summary>
+            点赞功能
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Application.Exhibition.AgreeService.PostOperateAsync(System.Int64)">
+            <summary>
+            点赞,返回true为点赞+1，返回false为点赞-1
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.BBS.Application.Exhibition.BannerService">
             <summary>
             Banner服务实现

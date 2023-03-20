@@ -58,14 +58,14 @@
           </div>
         </template>
 <div class="div-item" v-for="i in topDiscussList" >
-  <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :id="i.id" :user="i.user" :color="i.color"  :seeNum="i.seeNum" badge="置顶"/>
+  <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :user="i.user" :color="i.color"  :seeNum="i.seeNum" badge="置顶"/>
 </div>
 </el-collapse-item>
 </el-collapse>
 <el-divider v-show="topDiscussList.length>0" />
   
 <div class="div-item" v-for="i in discussList" >
-  <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :id="i.id" :color="i.color"  :seeNum="i.seeNum" :user="i.user"/>
+  <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :color="i.color"  :seeNum="i.seeNum" :user="i.user"/>
 </div>
 <div>
     <el-pagination

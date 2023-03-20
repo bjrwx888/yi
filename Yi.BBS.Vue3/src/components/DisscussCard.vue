@@ -19,8 +19,8 @@
                 </div>
 
 
-                <el-button icon="Pointer" text>
-                    点赞</el-button>
+                <el-button icon="Pointer" text @click="agree">
+                    点赞:{{ agreeNum??0 }}</el-button>
                 <el-button icon="Star" text>
                     收藏</el-button>
                
@@ -34,17 +34,38 @@
 </el-badge>
 </template>
 <script setup>
-import { h, ref } from 'vue'
+import { h, ref ,toRef,onMounted} from 'vue'
 import { useRouter } from 'vue-router'
 import AvatarInfo from './AvatarInfo.vue';
+import {operate} from '@/apis/agreeApi'
 
-const props = defineProps(['title','introduction','creationTime','id','user','badge',"color","seeNum"])
+const props = defineProps(['title','introduction','creationTime','id','user','badge',"color","seeNum","agreeNum"])
 
 const router = useRouter()
 const spacer = h(ElDivider, { direction: 'vertical' })
 const enterDiscuss = (id) => {
     router.push(`/article/${id}`)
 }
+const agreeNum=ref(0)
+//点赞操作
+const agree=async ()=>{
+  const response=  await operate(props.id)
+  const res=response.data;
+  //提示框，颜色区分
+  if(res.isArgee)
+  {
+    agreeNum.value+=1;
+    alert(res.message)
+  }
+  else
+  {
+    agreeNum.value-=1;
+    alert(res.message)
+  }
+}
+onMounted(()=>{
+    agreeNum.value=props.agreeNum;
+    })
 </script>
 <style scoped>
 .el-card{
