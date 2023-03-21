@@ -98,7 +98,7 @@ function changeScale(num) {
 /** 上传预处理 */
 function beforeUpload(file) {
   if (file.type.indexOf("image/") == -1) {
-    alert("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+    ElMessage.error("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。")
   } else {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -117,8 +117,15 @@ async function uploadImg() {
     open.value = false;
     options.img = import.meta.env.VITE_APP_BASEAPI + "/file/" + response.data[0].id;
     userStore.icon = options.img;
-    await updateUserIcon(response.data[0].id);
-    alert("上传成功")
+   const iconResponse= await updateUserIcon(response.data[0].id);
+    if(iconResponse.status==200)
+{
+  ElMessage({
+      type: "success",
+      message: "头像更新成功",
+    });
+}
+   
   });
 };
 /** 实时预览 */

@@ -30,7 +30,7 @@
 import errImage from "@/assets/401_images/401.gif";
 import { useRouter } from "vue-router";
 
-// let { proxy } = getCurrentInstance();
+let { proxy } = getCurrentInstance();
 const router=useRouter();
 
 const errGif = ref(errImage + "?" + +new Date());

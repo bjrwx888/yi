@@ -35,6 +35,19 @@ myaxios.interceptors.response.use(function (response) {
 
     return response;
 }, function (error) {
+const response=error.response.data;
+//业务异常+应用异常，统一处理
+ switch(response.code) 
+ {
+
+    case 403:  
+    ElMessage.error(response.message)
+    break;
+    case 500:
+    ElMessage.error(response.message)    
+    break;
+ }
+
     return Promise.reject(error);
 });
 export default myaxios

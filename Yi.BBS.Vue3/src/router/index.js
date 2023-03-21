@@ -51,7 +51,7 @@ const router = createRouter({
         },
         {
           name:'discuss',
-          path: '/discuss/:plateId',
+          path: '/discuss/:plateId?',
           component: () => import('../views/Discuss.vue')
         },
         {

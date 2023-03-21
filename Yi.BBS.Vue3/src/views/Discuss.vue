@@ -114,6 +114,12 @@ const handleClick =async (tab, event) => {
 }
 
 onMounted(async()=>{
+
+  if(route.query.q !=undefined)
+  {
+    query.title=route.query.q??''
+    router.push("/discuss")
+  }
  await loadDiscussList();
 })
 

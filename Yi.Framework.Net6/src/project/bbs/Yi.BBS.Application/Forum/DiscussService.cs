@@ -70,7 +70,8 @@ namespace Yi.BBS.Application.Forum
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
                      .Where(x=>x.IsTop==input.IsTop)
                      .OrderByIF(input.Type==QueryDiscussTypeEnum.New, x =>x.CreationTime,OrderByType.Desc )
-                        .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, x => x.SeeNum, OrderByType.Desc)
+                     .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, x => x.SeeNum, OrderByType.Desc)
+                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, x => x.AgreeNum, OrderByType.Desc)
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId==user.Id)
                      .Select((discuss,user) =>new DiscussGetListOutputDto { 
                      User=new UserGetListOutputDto() { UserName=user.UserName,Nick=user.Nick, Icon = user.Icon }

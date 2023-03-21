@@ -55,12 +55,18 @@ const agree=async ()=>{
   if(res.isArgee)
   {
     agreeNum.value+=1;
-    alert(res.message)
+    ElMessage({
+    message: res.message,
+    type: 'success',
+  })
   }
   else
   {
     agreeNum.value-=1;
-    alert(res.message)
+    ElMessage({
+    message: res.message,
+    type: 'warning',
+  })
   }
 }
 onMounted(()=>{

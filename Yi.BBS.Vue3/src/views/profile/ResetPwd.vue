@@ -43,17 +43,24 @@ const rules = ref({
 
 /** 提交按钮 */
 function submit() {
-  pwdRef.value.validate(valid => {
+  pwdRef.value.validate(async valid => {
     if (valid) {
-      updateUserPwd(user.oldPassword, user.newPassword).then(response => {
-      alert("修改成功");
-      });
+     const response=await updateUserPwd(user.oldPassword, user.newPassword)
+
+     if(response.status==200)
+{
+  ElMessage({
+      type: "success",
+      message: "更新密码成功",
+    });
+}
+   
     }
   });
 };
 /** 关闭按钮 */
 function close() {
-  alert("关闭")
+  
   // proxy.$tab.closePage();
 };
 </script>
