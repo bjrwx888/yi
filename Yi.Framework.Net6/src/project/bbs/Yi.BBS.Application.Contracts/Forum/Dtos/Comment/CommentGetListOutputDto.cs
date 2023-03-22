@@ -19,10 +19,6 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
         public DateTime? CreateTime { get; set; }
         public string Content { get; set; }
 
-        /// <summary>
-        /// 根节点的评论id
-        /// </summary>
-        public long RootId { get; set; }
 
         /// <summary>
         /// 主题id
@@ -31,16 +27,21 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
 
         public long ParentId { get; set; }
 
+        public long RootId { get; set; }
 
         /// <summary>
-        /// 用户,评论人用户信息，被评论的用户信息，是他的上一个节点评论
+        /// 用户,评论人用户信息
         /// </summary>
-        public UserGetOutputDto User { get; set; }
+        public UserGetOutputDto CreateUser { get; set; }
 
+        /// <summary>
+        /// 被评论的用户信息
+        /// </summary>
+        public UserGetOutputDto CommentedUser { get; set; }
 
 
         /// <summary>
-        /// 这个不是一个树形，而是存在一个二维数组，该Children只有一层
+        /// 这个不是一个树形，而是存在一个二维数组，该Children只有在顶级时候，只有一层
         /// </summary>
         public List<CommentGetListOutputDto> Children { get; set; } = new List<CommentGetListOutputDto>();
     }

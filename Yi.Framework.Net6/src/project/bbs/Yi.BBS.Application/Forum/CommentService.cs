@@ -46,24 +46,36 @@ namespace Yi.BBS.Application.Forum
 
             var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Content), x => x.Content.Contains(input.Content))
               .Where(x => x.DiscussId == discussId)
+              .Includes(x=>x.CreateUser)
              .ToListAsync();
 
-            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
-            List<CommentGetListOutputDto>? items = await MapToGetListOutputDtosAsync(entities);
+            //结果初始值，第一层等于全部根节点
+          var outPut = entities.Where(x => x.ParentId == 0).ToList();
 
-            //这里就是dto的处理啦
+            //将全部数据进行hash
+            var dic = entities.ToDictionary(x => x.Id);
 
-            //获取根节点
-            var rootDic = items.Where(x => x.ParentId != 0).ToDictionary(x => x.Id);
 
-            foreach (var comment in items)
+            foreach (var comment in entities)
             {
+                //不是根节点，需要赋值 被评论者用户信息等
                 if (comment.ParentId != 0)
                 {
-                   rootDic[comment.Id].Children.Add(comment);
+                    var parentComment = dic[comment.ParentId];
+                    comment.CommentedUser = parentComment.CreateUser;
                 }
+
+                //root或者parent id，根节点都是等于0的
+                var id = comment.RootId;
+                if (id is not 0)
+                {
+                    dic[id].Children.Add(comment);
+                }
+
             }
-               return new PagedResultDto<CommentGetListOutputDto>(0, items);
+            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
+            List<CommentGetListOutputDto>? items = await MapToGetListOutputDtosAsync(outPut);
+            return new PagedResultDto<CommentGetListOutputDto>(0, items);
         }
 
 
@@ -79,7 +91,7 @@ namespace Yi.BBS.Application.Forum
             {
                 throw new UserFriendlyException(DiscussConst.主题不存在);
             }
-            var entity = await _forumManager.CreateCommentAsync(input.DiscussId, input.Content);
+            var entity = await _forumManager.CreateCommentAsync(input.DiscussId, input.ParentId,input.RootId, input.Content);
             return await MapToGetOutputDtoAsync(entity);
         }
 

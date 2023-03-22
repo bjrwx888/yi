@@ -24,6 +24,71 @@
             Comment输入创建对象
             </summary>
         </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo.Content">
+            <summary>
+            评论id
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo.RootId">
+            <summary>
+            第一层评论id，第一层为0
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentCreateInputVo.ParentId">
+            <summary>
+            被回复的CommentId，第一层为0
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListOutputDto">
+            <summary>
+            评论多反
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListOutputDto.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListOutputDto.CreateUser">
+            <summary>
+            用户,评论人用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListOutputDto.CommentedUser">
+            <summary>
+            被评论的用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListOutputDto.Children">
+            <summary>
+            这个不是一个树形，而是存在一个二维数组，该Children只有在顶级时候，只有一层
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetOutputDto">
+            <summary>
+            单返回，返回单条评论即可
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetOutputDto.User">
+            <summary>
+            用户id联表为用户对象
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetOutputDto.RootId">
+            <summary>
+            根节点的评论id
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetOutputDto.ParentId">
+            <summary>
+            被回复的CommentId
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussCreateInputVo">
             <summary>
             Discuss输入创建对象

@@ -21,6 +21,31 @@
             <param name="entities"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.BBS.Domain.Forum.Entities.CommentEntity">
+            <summary>
+            评论表
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Domain.Forum.Entities.CommentEntity.#ctor">
+            <summary>
+            采用二维数组方式，不使用树形方式
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.CommentEntity.ParentId">
+            <summary>
+            被回复的CommentId
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.CommentEntity.CreateUser">
+            <summary>
+            用户,评论人用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.CommentEntity.CommentedUser">
+            <summary>
+            被评论的用户信息
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Domain.Forum.ForumManager">
             <summary>
             论坛模块的领域服务

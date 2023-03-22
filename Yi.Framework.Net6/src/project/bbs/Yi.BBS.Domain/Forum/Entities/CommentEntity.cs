@@ -33,17 +33,9 @@ namespace Yi.BBS.Domain.Forum.Entities
         [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         public bool IsDeleted { get; set; }
-
-        public DateTime? CreateTime { get; set; }
         public string Content { get; set; }
 
         public long DiscussId { get; set; }
-
-
-        /// <summary>
-        /// 根节点的评论id
-        /// </summary>
-        public long RootId { get; set; }
 
         /// <summary>
         /// 被回复的CommentId
@@ -51,9 +43,24 @@ namespace Yi.BBS.Domain.Forum.Entities
         public long ParentId { get; set; }
         public DateTime CreationTime { get; set; }
 
+        public long RootId { get; set; }
 
+        [SugarColumn(IsIgnore = true)]
+        public List<CommentEntity> Children { get; set; } = new();
+
+
+        /// <summary>
+        /// 用户,评论人用户信息
+        /// </summary>
         [Navigate(NavigateType.OneToOne, nameof(CreatorId))]
-        public UserEntity User { get; set; }
+        public UserEntity CreateUser { get; set; }
+
+        /// <summary>
+        /// 被评论的用户信息
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public UserEntity CommentedUser { get; set; }
+
         public long? CreatorId { get; set; }
 
         public long? LastModifierId { get; set; }

@@ -13,17 +13,23 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
     public class CommentCreateInputVo
     {
 
+        /// <summary>
+        /// 评论id
+        /// </summary>
         public string Content { get; set; }
 
+        /// <summary>
+        /// 主题id
+        /// </summary>
         public long DiscussId { get; set; }
 
         /// <summary>
-        /// 根节点的评论id，这里也可根据树形查询获取到根节点，但是不够优雅，前端是二维数组，选择前端传值即可,如果是根，传0，如果不是
+        /// 第一层评论id，第一层为0
         /// </summary>
         public long RootId { get; set; }
 
         /// <summary>
-        /// 被回复的CommentId
+        /// 被回复的CommentId，第一层为0
         /// </summary>
         public long ParentId { get; set; }
     }

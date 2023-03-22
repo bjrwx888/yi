@@ -51,12 +51,12 @@
         </member>
         <member name="T:Yi.BBS.Application.Forum.CommentService">
             <summary>
-            Comment服务实现
+            评论
             </summary>
         </member>
         <member name="M:Yi.BBS.Application.Forum.CommentService.GetDiscussIdAsync(System.Int64,Yi.BBS.Application.Contracts.Forum.Dtos.CommentGetListInputVo)">
             <summary>
-            获取改主题下的评论
+            获取改主题下的评论,结构为二维列表，该查询无分页
             </summary>
             <param name="discussId"></param>
             <param name="input"></param>
