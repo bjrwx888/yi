@@ -40,12 +40,11 @@ namespace Yi.BBS.Domain.Forum
             return await _discussRepository.InsertReturnEntityAsync(entity);
         }
 
-        public async Task<CommentEntity> CreateCommentAsync(long discussId, long userId, string content)
+        public async Task<CommentEntity> CreateCommentAsync(long discussId, string content)
         {
-            var entity = new CommentEntity(discussId, userId);
+            var entity = new CommentEntity(discussId);
             entity.Id = SnowflakeHelper.NextId;
             entity.Content = content;
-            entity.CreateTime = DateTime.Now;
             return await _commentRepository.InsertReturnEntityAsync(entity);
         }
     }

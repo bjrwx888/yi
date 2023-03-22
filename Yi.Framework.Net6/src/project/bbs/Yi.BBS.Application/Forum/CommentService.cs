@@ -10,11 +10,16 @@ using Yi.Framework.Ddd.Repositories;
 using Yi.BBS.Domain.Shared.Forum.ConstClasses;
 using Yi.BBS.Application.Contracts.Forum.Dtos.Discuss;
 using Yi.Framework.Ddd.Dtos;
+using SqlSugar;
+using System.Security.AccessControl;
+using System.Linq;
+using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace Yi.BBS.Application.Forum
 {
     /// <summary>
-    /// Comment服务实现
+    /// 评论
     /// </summary>
     [AppService]
     public class CommentService : CrudAppService<CommentEntity, CommentGetOutputDto, CommentGetListOutputDto, long, CommentGetListInputVo, CommentCreateInputVo, CommentUpdateInputVo>,
@@ -31,18 +36,34 @@ namespace Yi.BBS.Application.Forum
 
 
         /// <summary>
-        /// 获取改主题下的评论
+        /// 获取改主题下的评论,结构为二维列表，该查询无分页
         /// </summary>
         /// <param name="discussId"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-
         public async Task<PagedResultDto<CommentGetListOutputDto>> GetDiscussIdAsync([FromRoute] long discussId, [FromQuery] CommentGetListInputVo input)
         {
-            var entities = await _repository.GetPageListAsync(x => x.DiscussId == discussId, input);
-            var items = await MapToGetListOutputDtosAsync(entities);
-            var total = await _repository.CountAsync(x => x.IsDeleted == false);
-            return new PagedResultDto<CommentGetListOutputDto>(total, items);
+
+            var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Content), x => x.Content.Contains(input.Content))
+              .Where(x => x.DiscussId == discussId)
+             .ToListAsync();
+
+            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
+            List<CommentGetListOutputDto>? items = await MapToGetListOutputDtosAsync(entities);
+
+            //这里就是dto的处理啦
+
+            //获取根节点
+            var rootDic = items.Where(x => x.ParentId != 0).ToDictionary(x => x.Id);
+
+            foreach (var comment in items)
+            {
+                if (comment.ParentId != 0)
+                {
+                   rootDic[comment.Id].Children.Add(comment);
+                }
+            }
+               return new PagedResultDto<CommentGetListOutputDto>(0, items);
         }
 
 
@@ -54,16 +75,11 @@ namespace Yi.BBS.Application.Forum
         /// <exception cref="UserFriendlyException"></exception>
         public override async Task<CommentGetOutputDto> CreateAsync(CommentCreateInputVo input)
         {
-            //if (_currentUser.Id == default(long))
-            //{
-            //    throw new UserFriendlyException("用户不存在");
-            //}
             if (!await _discussRepository.IsAnyAsync(x => x.Id == input.DiscussId))
             {
                 throw new UserFriendlyException(DiscussConst.主题不存在);
-
             }
-            var entity = await _forumManager.CreateCommentAsync(input.DiscussId, _currentUser.Id, input.Content);
+            var entity = await _forumManager.CreateCommentAsync(input.DiscussId, input.Content);
             return await MapToGetOutputDtoAsync(entity);
         }
 
