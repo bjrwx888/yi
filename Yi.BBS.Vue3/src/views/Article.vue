@@ -53,7 +53,11 @@
             </el-space>
           </el-col>
 
-          <el-col :span="24" class="comment"> 文章评论 </el-col>
+          <el-col :span="24" class="comment"> 
+
+<CommentInfo/>
+
+          </el-col>
         </el-row>
       </el-col>
 
@@ -121,6 +125,7 @@ import { h, ref, onMounted } from "vue";
 import AvatarInfo from "@/components/AvatarInfo.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import ArticleContentInfo from "@/components/ArticleContentInfo.vue";
+import CommentInfo from "@/components/CommentInfo.vue";
 
 import TreeArticleInfo from "@/components/TreeArticleInfo.vue";
 import { useRoute, useRouter } from "vue-router";

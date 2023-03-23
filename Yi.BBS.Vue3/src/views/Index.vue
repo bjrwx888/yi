@@ -40,7 +40,7 @@
           <template #content >
             <div class="introduce">
 
-              没有什么能够阻挡，人类对代码<span style="color: #1890ff;">优雅</span>的最求
+              没有什么能够阻挡，人类对代码<span style="color: #1890ff;">优雅</span>的追求
             </div>
        
           </template>
