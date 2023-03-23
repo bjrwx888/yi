@@ -294,7 +294,7 @@ onMounted(async () => {
 </script>
 <style scoped >
 .comment {
-  height: 40rem;
+  min-height: 40rem;
 }
 
 .art-info-left .el-col {
