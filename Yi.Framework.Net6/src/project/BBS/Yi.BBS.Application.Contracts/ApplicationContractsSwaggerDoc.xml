@@ -94,6 +94,11 @@
             Discuss输入创建对象
             </summary>
         </member>
+        <member name="P:Yi.BBS.Application.Contracts.Forum.Dtos.Discuss.DiscussGetListOutputDto.IsAgree">
+            <summary>
+            是否已点赞
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Application.Contracts.Forum.Dtos.MyTypeCreateInputVo">
             <summary>
             Label输入创建对象

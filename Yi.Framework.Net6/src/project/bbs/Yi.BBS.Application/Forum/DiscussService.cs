@@ -17,6 +17,8 @@ using Yi.RBAC.Application.Contracts.Identity.Dtos;
 using Cike.EventBus.DistributedEvent;
 using Yi.BBS.Domain.Shared.Forum.Etos;
 using Yi.BBS.Domain.Shared.Forum.EnumClasses;
+using Yi.Framework.Core.CurrentUsers;
+using Yi.BBS.Domain.Exhibition.Entities;
 
 namespace Yi.BBS.Application.Forum
 {
@@ -36,6 +38,8 @@ namespace Yi.BBS.Application.Forum
         [Autowired]
         private IDistributedEventBus _distributedEventBus { get; set; }
 
+        [Autowired]
+        private ICurrentUser _currentUser { get; set; }
         /// <summary>
         /// 单查
         /// </summary>
@@ -47,10 +51,13 @@ namespace Yi.BBS.Application.Forum
             var item = await _DbQueryable.LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                      .Select((discuss, user) => new DiscussGetOutputDto
                      {
-                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick,Icon=user.Icon }
-                     }, true).SingleAsync(discuss => discuss.Id==id);
-
-            _distributedEventBus.PublishAsync(new SeeDiscussEventArgs { DiscussId= item.Id, OldSeeNum= item .SeeNum});
+                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
+                     }, true).SingleAsync(discuss => discuss.Id == id);
+            if (item is not null)
+            {
+                _distributedEventBus.PublishAsync(new SeeDiscussEventArgs { DiscussId = item.Id, OldSeeNum = item.SeeNum });
+            }
+          
             return item;
         }
 
@@ -61,21 +68,24 @@ namespace Yi.BBS.Application.Forum
         /// <param name="input"></param>
         /// <returns></returns>
 
-        public override async Task<PagedResultDto<DiscussGetListOutputDto>> GetListAsync( [FromQuery] DiscussGetListInputVo input)
+        public override async Task<PagedResultDto<DiscussGetListOutputDto>> GetListAsync([FromQuery] DiscussGetListInputVo input)
         {
             //需要关联创建者用户
             RefAsync<int> total = 0;
             var items = await _DbQueryable
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
-                     .Where(x=>x.IsTop==input.IsTop)
-                     .OrderByIF(input.Type==QueryDiscussTypeEnum.New, x =>x.CreationTime,OrderByType.Desc )
+                     .Where(x => x.IsTop == input.IsTop)
+                     .OrderByIF(input.Type == QueryDiscussTypeEnum.New, x => x.CreationTime, OrderByType.Desc)
                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, x => x.SeeNum, OrderByType.Desc)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, x => x.AgreeNum, OrderByType.Desc)
-                     .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId==user.Id)
-                     .Select((discuss,user) =>new DiscussGetListOutputDto { 
-                     User=new UserGetListOutputDto() { UserName=user.UserName,Nick=user.Nick, Icon = user.Icon }
-                     },true)
+                     .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
+                     .Select((discuss, user) => new DiscussGetListOutputDto
+                     {
+                         Id=discuss.Id,
+                         IsAgree = SqlFunc.Subqueryable<AgreeEntity>().Where(x => x.CreatorId == _currentUser.Id && x.DiscussId == discuss.Id).Any(),
+                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
+                     }, true)
                 .ToPageListAsync(input.PageNum, input.PageSize, total);
             return new PagedResultDto<DiscussGetListOutputDto>(total, items);
         }

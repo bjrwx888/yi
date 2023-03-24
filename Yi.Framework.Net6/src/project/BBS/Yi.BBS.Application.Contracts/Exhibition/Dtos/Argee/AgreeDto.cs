@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Yi.BBS.Application.Contracts.Exhibition.Dtos.Argee
 {
-    public class ArgeeDto
+    public class AgreeDto
     {
-        public ArgeeDto(bool isArgee)
+        public AgreeDto(bool isAgree)
         {
-            IsArgee = isArgee;
-            if (isArgee)
+            IsAgree = isAgree;
+            if (isAgree)
             {
               
                 Message = "点赞成功，点赞+1";
@@ -24,7 +24,7 @@ namespace Yi.BBS.Application.Contracts.Exhibition.Dtos.Argee
            
         }
 
-        public bool IsArgee { get; set; }
+        public bool IsAgree { get; set; }
         public string Message { get; set; }
     }
 }

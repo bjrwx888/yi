@@ -58,7 +58,9 @@
 <CommentInfo/>
 
           </el-col>
+
         </el-row>
+        <BottomInfo/>
       </el-col>
 
       <el-col :span="5">
@@ -126,7 +128,7 @@ import AvatarInfo from "@/components/AvatarInfo.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import ArticleContentInfo from "@/components/ArticleContentInfo.vue";
 import CommentInfo from "@/components/CommentInfo.vue";
-
+import BottomInfo from '@/components/BottomInfo.vue'
 import TreeArticleInfo from "@/components/TreeArticleInfo.vue";
 import { useRoute, useRouter } from "vue-router";
 

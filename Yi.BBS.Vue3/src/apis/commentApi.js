@@ -13,3 +13,10 @@ export function add(data){
         data:data
     })
 };
+
+export function del(ids){
+    return myaxios({
+        url: `/comment/${ids}`,
+        method: 'delete'
+    })
+};

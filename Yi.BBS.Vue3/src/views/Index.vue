@@ -10,11 +10,11 @@
      
       <el-row class="left-div">
         <el-col :span="8" v-for="i in plateList" class="plate" :style="{  'padding-left': i%3==1?0:0.2+'rem','padding-right': i%3==0?0:0.2+'rem'}" >
-          <PlateCard :name="i.name" :introduction="i.introduction" :id="i.id"/>
+          <PlateCard :name="i.name" :introduction="i.introduction" :id="i.id" />
           </el-col>
 
         <el-col :span="24" v-for="i in discussList">
-<DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :user="i.user" :seeNum="i.seeNum"/>
+<DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :user="i.user" :seeNum="i.seeNum" :isAgree="i.isAgree"/>
           
         </el-col>
         <el-col :span="24">

@@ -19,8 +19,9 @@
                 </div>
 
 
-                <el-button icon="Pointer" text @click="agree">
-                    点赞:{{ agreeNum??0 }}</el-button>
+                <el-button  text @click="agree" >
+                    <el-icon v-if="isAgree" color="#409EFF"><CircleCheckFilled /></el-icon>
+                    <el-icon v-else color="#1E1E1E" ><Pointer /></el-icon>     点赞:{{ agreeNum??0 }}</el-button>
                 <el-button icon="Star" text>
                     收藏</el-button>
                
@@ -39,7 +40,7 @@ import { useRouter } from 'vue-router'
 import AvatarInfo from './AvatarInfo.vue';
 import {operate} from '@/apis/agreeApi'
 
-const props = defineProps(['title','introduction','creationTime','id','user','badge',"color","seeNum","agreeNum"])
+const props = defineProps(['title','introduction','creationTime','id','user','badge',"color","seeNum","agreeNum","isAgree"])
 
 const router = useRouter()
 const spacer = h(ElDivider, { direction: 'vertical' })
@@ -47,13 +48,15 @@ const enterDiscuss = (id) => {
     router.push(`/article/${id}`)
 }
 const agreeNum=ref(0)
+const isAgree=ref(false)
 //点赞操作
 const agree=async ()=>{
   const response=  await operate(props.id)
   const res=response.data;
   //提示框，颜色区分
-  if(res.isArgee)
+  if(res.isAgree)
   {
+    isAgree.value=true;
     agreeNum.value+=1;
     ElMessage({
     message: res.message,
@@ -62,6 +65,7 @@ const agree=async ()=>{
   }
   else
   {
+    isAgree.value=false;
     agreeNum.value-=1;
     ElMessage({
     message: res.message,
@@ -70,6 +74,7 @@ const agree=async ()=>{
   }
 }
 onMounted(()=>{
+    isAgree.value=props.isAgree;
     agreeNum.value=props.agreeNum;
     })
 </script>

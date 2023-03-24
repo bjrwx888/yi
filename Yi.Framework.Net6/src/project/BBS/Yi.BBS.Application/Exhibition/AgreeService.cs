@@ -37,7 +37,7 @@ namespace Yi.BBS.Application.Exhibition
         /// 点赞,返回true为点赞+1，返回false为点赞-1
         /// </summary>
         /// <returns></returns>
-        public async Task<ArgeeDto> PostOperateAsync(long discussId)
+        public async Task<AgreeDto> PostOperateAsync(long discussId)
         {
             var entity = await _repository.GetFirstAsync(x => x.DiscussId == discussId && x.CreatorId == _currentUser.Id);
             //判断是否已经点赞过
@@ -56,7 +56,7 @@ namespace Yi.BBS.Application.Exhibition
                     await _discssRepository.UpdateAsync(discussEntity);
                     uow.Commit();
                 }
-                return new ArgeeDto(true);
+                return new AgreeDto(true);
 
             }
             else
@@ -75,7 +75,7 @@ namespace Yi.BBS.Application.Exhibition
                     uow.Commit();
                 }
 
-                return new ArgeeDto(false);
+                return new AgreeDto(false);
             }
         }
     }

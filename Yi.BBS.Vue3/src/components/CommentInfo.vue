@@ -32,21 +32,23 @@
     <span class="pointer"><el-icon>
         <Pointer />
       </el-icon> 4</span>
-    <el-button @click="replay(item.createUser.nick, item.id, item.id)" size="large" text>回复</el-button>
+    <el-button type="primary" @click="replay(item.createUser.nick, item.id, item.id)" size="large" text>回复</el-button>
+    <el-button  type="danger" @click="delComment(item.id)" size="large" text>删除</el-button>
     <div v-show="replayId == item.id" class="input-reply">
       <el-input v-model="form.content" :placeholder="placeholder" :rows="3" type="textarea"></el-input>
       <div class="btn-reply">
         <el-button @click="addComment" type="primary">回复</el-button>
+        
       </div>
     </div>
 
 
     <!-- 开始子评论主体 -->
     <div v-for="children in item.children" :key="children.id" class="comment2">
-
+     
       <div style="display: flex ;">
         <AvatarInfo :userInfo="children.createUser" />
-        <span style="align-self: center;"> 回复@{{ children.commentedUser.nick }}</span>
+        <span style="align-self: center;color:#606266;"> 回复@{{ children.commentedUser.nick }}</span>
       </div>
       <div class="content">
         {{ children.content }}
@@ -55,8 +57,8 @@
       <span class="pointer"> <el-icon>
           <Pointer />
         </el-icon>0</span>
-      <el-button @click="replay(children.createUser.nick, children.id, item.id)" size="large" text>回复</el-button>
-    
+      <el-button  type="primary" @click="replay(children.createUser.nick, children.id, item.id)" size="large" text>回复</el-button>
+      <el-button  type="danger" @click="delComment(children.id)" size="large" text>删除</el-button>
       <div v-show="replayId == children.id" class="input-reply">
       <el-input v-model="form.content" :placeholder="placeholder" :rows="3" type="textarea"></el-input>
       <div class="btn-reply">
@@ -74,7 +76,7 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getListByDiscussId, add } from "@/apis/commentApi.js";
+import { getListByDiscussId, add ,del} from "@/apis/commentApi.js";
 import AvatarInfo from './AvatarInfo.vue';
 //数据定义
 const route = useRoute();
@@ -129,6 +131,23 @@ const addComment = async () => {
     type: 'success',
   })
 };
+const delComment=async(ids)=>{
+  ElMessageBox.confirm(`确定是否删除编号[${ids}]的评论吗?`, "警告", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(async () => {
+   
+await del(ids);
+await loadComment();
+ElMessage({
+    message: '评论已删除!',
+    type: 'success',
+  })
+  });
+
+
+}
 const replay = async (parentUserName, parentId, rootId) => {
   replayId.value = parentId;
   form.parentId = parentId;

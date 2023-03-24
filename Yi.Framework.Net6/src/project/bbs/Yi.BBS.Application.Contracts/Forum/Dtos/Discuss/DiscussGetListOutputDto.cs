@@ -11,7 +11,10 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
 {
     public class DiscussGetListOutputDto : IEntityDto<long>
     {
-        
+        /// <summary>
+        ///  «∑Ò“—µ„‘ﬁ
+        /// </summary>
+        public bool IsAgree { get; set; }
         public long Id { get; set; }
         public string Title { get; set; }
         public string Types { get; set; }
