@@ -5,7 +5,7 @@
   </el-tabs>
 
   <div class="total">
-    <div style="align-self: center;"> {{total}}个评论</div>
+    <div style="align-self: center;"> 共{{total}}个评论</div>
     <div> <el-radio-group v-model="selectRadio">
         <el-radio-button label="new" name="new">最新</el-radio-button>
         <el-radio-button label="host" name="host">最热</el-radio-button>
@@ -15,7 +15,7 @@
 
   <el-divider />
 
-  <el-input v-model="form.content" placeholder="发表一个友善的评论吧~" :rows="5" type="textarea"></el-input>
+  <el-input v-model="topContent" placeholder="发表一个友善的评论吧~" :rows="5" type="textarea"></el-input>
   <el-button @click="addTopComment" type="primary" class="btn-top-comment">发表评论</el-button>
   <el-button class="btn-top-comment">其他</el-button>
 
@@ -66,11 +66,10 @@
 
     </div>
 
-   
     <el-divider />
+ 
   </div>
-
-
+     <el-empty v-show="commentList.length<=0"  description="评论空空如也，快来抢占沙发~" />
 </template>
 <script setup>
 import { onMounted, reactive, ref } from "vue";
@@ -82,6 +81,7 @@ const route = useRoute();
 const router = useRouter();
 const commentList = ref([]);
 const query = reactive({});
+const topContent=ref('');
 //当前回复id
 const replayId = ref('');
 //回复文本框
@@ -104,6 +104,7 @@ onMounted(async () => {
   await loadComment();
 });
 const loadComment = async () => {
+topContent.value='';
   form.content = '';
   const response = await getListByDiscussId(route.params.discussId, query);
   commentList.value = response.data.items;
@@ -112,6 +113,7 @@ const loadComment = async () => {
 const addTopComment = async () => {
   form.parentId = 0;
   form.rootId = 0;
+ form.content=topContent.value;
   await addComment();
 }
 const addComment = async () => {

@@ -261,12 +261,14 @@ const updateArticle = (node, data) => {
   router.push(routerPer);
 }
 //单机节点
-const handleNodeClick = (data) => {
+const handleNodeClick = async(data) => {
 
   //跳转路由
 
   router.push(`/article/${route.params.discussId}/${data.id}`);
-  discuss.value.content = data.content;
+
+  const response=await articleGet(data.id);
+  discuss.value.content = response.data.content;
   ContentHander();
 }
 //删除子文章

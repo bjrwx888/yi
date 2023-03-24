@@ -21,8 +21,8 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
 
 
 
-        //批量查询，不给内容，性能考虑
-        //public string Content { get; set; }
+     
+        public string Content { get; set; }
 
 
         /// <summary>

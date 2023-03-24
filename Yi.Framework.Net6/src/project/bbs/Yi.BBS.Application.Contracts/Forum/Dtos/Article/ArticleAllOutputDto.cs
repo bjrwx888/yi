@@ -10,7 +10,9 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
     public class ArticleAllOutputDto : IEntityDto<long>
     {
         public long Id { get; set; }
-        public string Content { get; set; }
+
+        //批量查询，不给内容，性能考虑
+        //public string Content { get; set; }
         public string Name { get; set; }
         public long DiscussId { get; set; }
         public long ParentId { get; set; }
