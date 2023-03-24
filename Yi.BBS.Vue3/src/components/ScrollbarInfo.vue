@@ -2,7 +2,7 @@
          <el-scrollbar>
     <div class="scrollbar-flex-content">
       <p v-for="item in 50" :key="item" class="scrollbar-item">
-        推荐{{ item }}
+        推荐
       </p>
     </div>
   </el-scrollbar>

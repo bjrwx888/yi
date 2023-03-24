@@ -17,6 +17,9 @@
 <DisscussCard :title="i.title" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :user="i.user" :seeNum="i.seeNum"/>
           
         </el-col>
+        <el-col :span="24">
+           <el-empty  v-show="discussList.length<=0" description="推荐位置，空空如也" />
+        </el-col>
       </el-row>
 
       </el-col>
@@ -106,6 +109,7 @@ var bannerList=ref([]);
   const query=reactive({
   pageNum:1,
   pageSize:10,
+  isTop:true
 });
 
 //初始化
