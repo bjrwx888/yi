@@ -16,7 +16,9 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
     {
         public long Id { get; set; }
 
-        public DateTime? CreateTime { get; set; }
+
+        public DateTime? CreationTime { get; set; }
+
 
 
         //批量查询，不给内容，性能考虑

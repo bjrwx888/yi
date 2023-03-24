@@ -1,25 +1,98 @@
 <template>
-  <div v-for="item in commentList" :key="item.id">
-    第一级：{{ item.content }},id{{ item.id }}  <el-button @click="replay(item.id,item.id)">回复</el-button>
-    <div v-for="children in item.children" :key="children.id">
-      -->> 第二级 {{ children.content }}, 评论者{{ children.createUser.nick }},
-      被回复者{{ children.commentedUser.nick }},id{{ children.id }}
-      <el-button @click="replay(children.id,item.id)">回复</el-button>
-    </div>
+  <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="评论" name="comment"></el-tab-pane>
+    <el-tab-pane label="相关内容" name="interrelated"></el-tab-pane>
+  </el-tabs>
+
+  <div class="total">
+    <div style="align-self: center;"> {{total}}个评论</div>
+    <div> <el-radio-group v-model="selectRadio">
+        <el-radio-button label="new" name="new">最新</el-radio-button>
+        <el-radio-button label="host" name="host">最热</el-radio-button>
+      </el-radio-group></div>
   </div>
-  <el-input v-model="form.content"></el-input>
-  <el-button @click="addComment">发布</el-button>
+
+
+  <el-divider />
+
+  <el-input v-model="form.content" placeholder="发表一个友善的评论吧~" :rows="5" type="textarea"></el-input>
+  <el-button @click="addTopComment" type="primary" class="btn-top-comment">发表评论</el-button>
+  <el-button class="btn-top-comment">其他</el-button>
+
+
+  <el-divider />
+  <!-- 开始评论主体 -->
+
+  <div v-for="item in commentList" :key="item.id" class="comment1">
+    <AvatarInfo :userInfo="item.createUser" />
+    <div class="content">
+      {{ item.content }}
+    </div>
+    <span class="time"> {{ item.creationTime }} </span>
+    <span class="pointer"><el-icon>
+        <Pointer />
+      </el-icon> 4</span>
+    <el-button @click="replay(item.createUser.nick, item.id, item.id)" size="large" text>回复</el-button>
+    <div v-show="replayId == item.id" class="input-reply">
+      <el-input v-model="form.content" :placeholder="placeholder" :rows="3" type="textarea"></el-input>
+      <div class="btn-reply">
+        <el-button @click="addComment" type="primary">回复</el-button>
+      </div>
+    </div>
+
+
+    <!-- 开始子评论主体 -->
+    <div v-for="children in item.children" :key="children.id" class="comment2">
+
+      <div style="display: flex ;">
+        <AvatarInfo :userInfo="children.createUser" />
+        <span style="align-self: center;"> 回复@{{ children.commentedUser.nick }}</span>
+      </div>
+      <div class="content">
+        {{ children.content }}
+      </div>
+      <span class="time">{{ children.creationTime }} </span>
+      <span class="pointer"> <el-icon>
+          <Pointer />
+        </el-icon>0</span>
+      <el-button @click="replay(children.createUser.nick, children.id, item.id)" size="large" text>回复</el-button>
+    
+      <div v-show="replayId == children.id" class="input-reply">
+      <el-input v-model="form.content" :placeholder="placeholder" :rows="3" type="textarea"></el-input>
+      <div class="btn-reply">
+        <el-button @click="addComment" type="primary">回复</el-button>
+      </div>
+    </div>
+
+    </div>
+
+   
+    <el-divider />
+  </div>
+
+
 </template>
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getListByDiscussId, add } from "@/apis/commentApi.js";
+import AvatarInfo from './AvatarInfo.vue';
 //数据定义
 const route = useRoute();
 const router = useRouter();
 const commentList = ref([]);
 const query = reactive({});
+//当前回复id
+const replayId = ref('');
+//回复文本框
+const placeholder = ref('')
 
+//选择类型：评论
+const activeName = ref('comment');
+//选择 最新
+const selectRadio = ref('new');
+//评论总数
+const total=ref(0);
 const form = reactive({
   content: "",
   discussId: route.params.discussId,
@@ -31,16 +104,79 @@ onMounted(async () => {
   await loadComment();
 });
 const loadComment = async () => {
+  form.content = '';
   const response = await getListByDiscussId(route.params.discussId, query);
   commentList.value = response.data.items;
+  total.value=response.data.total
 };
+const addTopComment = async () => {
+  form.parentId = 0;
+  form.rootId = 0;
+  await addComment();
+}
 const addComment = async () => {
+  if(form.content.length<=0)
+  {
+    ElMessage.error('输入评论不能为空!')
+    return 
+  }
   await add(form);
   await loadComment();
+  ElMessage({
+    message: '评论发表成功!',
+    type: 'success',
+  })
 };
-const replay= async(parentId,rootId)=>{
-    form.parentId=parentId;
-     form.rootId=rootId;
-     await addComment();
+const replay = async (parentUserName, parentId, rootId) => {
+  replayId.value = parentId;
+  form.parentId = parentId;
+  form.rootId = rootId;
+  placeholder.value = `回复@${parentUserName}`;
 }
+
+//切换 评论、相关内容
+const handleClick = () => { }
 </script>
+<style scoped>
+.input-reply {
+  margin-top: 1rem;
+}
+
+.btn-reply {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: end;
+}
+
+.comment1 .pointer {
+  margin: 0 0 0 1rem;
+}
+
+.time {
+  color: #8C8C8C;
+}
+
+.content {
+  margin: 1rem 0;
+}
+
+.total {
+  display: flex;
+
+  justify-content: space-between;
+
+}
+
+.comment2 {
+  margin-left: 3rem;
+}
+
+.el-divider {
+  margin: 1rem 0;
+}
+
+.btn-top-comment {
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+</style>

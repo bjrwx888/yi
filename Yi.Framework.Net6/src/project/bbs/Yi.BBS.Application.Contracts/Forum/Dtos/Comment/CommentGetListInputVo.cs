@@ -10,7 +10,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
 {
     public class CommentGetListInputVo 
     {
-        public DateTime? CreateTime { get; set; }
+        public DateTime? creationTime { get; set; }
         public string? Content { get; set; }
 
         //应该选择具体莫个主题查询

@@ -50,7 +50,7 @@ namespace Yi.BBS.Application.Forum
              .ToListAsync();
 
             //结果初始值，第一层等于全部根节点
-          var outPut = entities.Where(x => x.ParentId == 0).ToList();
+          var outPut = entities.Where(x => x.ParentId == 0).OrderByDescending(x=>x.CreationTime).ToList();
 
             //将全部数据进行hash
             var dic = entities.ToDictionary(x => x.Id);
@@ -73,9 +73,17 @@ namespace Yi.BBS.Application.Forum
                 }
 
             }
+
+            //子类需要排序
+            outPut.ForEach(x =>
+            {
+                x.Children = x.Children.OrderByDescending(x => x.CreationTime).ToList();
+
+            });
+
             //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
             List<CommentGetListOutputDto>? items = await MapToGetListOutputDtosAsync(outPut);
-            return new PagedResultDto<CommentGetListOutputDto>(0, items);
+            return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), items);
         }
 
 
