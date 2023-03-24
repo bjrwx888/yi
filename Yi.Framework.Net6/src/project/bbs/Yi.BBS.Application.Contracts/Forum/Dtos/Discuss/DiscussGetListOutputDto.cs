@@ -19,7 +19,9 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
 
         public int AgreeNum { get; set; }
         public int SeeNum { get; set; }
-        public string Content { get; set; }
+
+        //批量查询，不给内容，性能考虑
+        //public string Content { get; set; }
         public string? Color { get; set; }
 
         public long PlateId { get; set; }
