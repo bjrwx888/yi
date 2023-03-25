@@ -48,7 +48,7 @@
     <el-tab-pane label="最热" name="host">   </el-tab-pane>
   </el-tabs>
 
-  <el-collapse  >
+  <el-collapse class="collapse-list" style="background-color: #F0F2F5;" >
       <el-collapse-item >
         <template #title>
           <div class="collapse-top">
@@ -58,14 +58,14 @@
           </div>
         </template>
 <div class="div-item" v-for="i in topDiscussList" >
-  <DisscussCard :title="i.title" :isAgree="i.isAgree" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :user="i.user" :color="i.color"  :seeNum="i.seeNum" badge="置顶"/>
+  <DisscussCard :discuss="i" badge="置顶"/>
 </div>
 </el-collapse-item>
 </el-collapse>
 <el-divider v-show="topDiscussList.length>0" />
   
 <div class="div-item" v-for="i in discussList" >
-  <DisscussCard :title="i.title" :isAgree="i.isAgree" :introduction="i.introduction" :creationTime="i.creationTime" :agreeNum="i.agreeNum" :id="i.id" :color="i.color"  :seeNum="i.seeNum" :user="i.user"/>
+  <DisscussCard :discuss="i"/>
 </div>
 <div>
     <el-pagination
@@ -209,5 +209,8 @@ display: flex;
 .header .el-input
 {
     width:20rem;
+}
+.collapse-list >>> .el-collapse-item__header {
+border-bottom-color: #F0F2F5 !important;
 }
 </style>

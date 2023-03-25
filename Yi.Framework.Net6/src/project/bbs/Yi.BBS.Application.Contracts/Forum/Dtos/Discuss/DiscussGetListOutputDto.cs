@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.BBS.Domain.Shared.Forum.ConstClasses;
+using Yi.BBS.Domain.Shared.Forum.EnumClasses;
 using Yi.Framework.Ddd.Dtos;
 using Yi.RBAC.Application.Contracts.Identity.Dtos;
 
@@ -32,13 +34,58 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         //是否置顶，默认false
         public bool IsTop { get; set; }
 
+        public DiscussPermissionTypeEnum PermissionType { get; set; }
+        //是否禁止，默认false
+        public bool IsBan { get; set; }
 
-        //是否私有，默认false
-        public bool IsPrivate { get; set; }
+
+        /// <summary>
+        /// 封面
+        /// </summary>
+        public string? Cover { get; set; }
 
         //私有需要判断code权限
         public string? PrivateCode { get; set; }
         public DateTime CreationTime { get; set; }
+
+
+
         public UserGetListOutputDto User { get; set; }
     }
+
+
+    public static class DiscussGetListOutputDtoExtension
+    {
+
+        public static void ApplyPermissionTypeFilter(this List<DiscussGetListOutputDto> dtos, long userId)
+        {
+            dtos?.ForEach(dto =>
+            {
+                switch (dto.PermissionType)
+                {
+                    case DiscussPermissionTypeEnum.Public:
+                        break;
+                    case DiscussPermissionTypeEnum.Oneself:
+                        //当前主题是仅自己可见，同时不是当前登录用户
+                        if (dto.User.Id != userId)
+                        {
+                            dto.Title = DiscussConst.私密;
+                            dto.Introduction= "";
+                            dto.Cover = null;
+                            //被禁止
+                            dto.IsBan = true;
+                        }
+                        break;
+                    case DiscussPermissionTypeEnum.User:
+                        break;
+                    default:
+                        break;
+                }
+
+
+            });
+        }
+
+    }
+
 }

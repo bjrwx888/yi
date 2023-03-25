@@ -34,7 +34,8 @@ namespace Yi.BBS.Application.Forum
         [Autowired]
         private IRepository<DiscussEntity> _discussRepository { get; set; }
 
-
+        [Autowired]
+        private IDiscussService _discussService { get; set; }
         /// <summary>
         /// 获取改主题下的评论,结构为二维列表，该查询无分页
         /// </summary>
@@ -43,6 +44,7 @@ namespace Yi.BBS.Application.Forum
         /// <returns></returns>
         public async Task<PagedResultDto<CommentGetListOutputDto>> GetDiscussIdAsync([FromRoute] long discussId, [FromQuery] CommentGetListInputVo input)
         {
+            await _discussService.VerifyDiscussPermissionAsync(discussId);
 
             var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Content), x => x.Content.Contains(input.Content))
               .Where(x => x.DiscussId == discussId)

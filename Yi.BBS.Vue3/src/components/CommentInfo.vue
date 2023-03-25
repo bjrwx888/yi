@@ -14,13 +14,14 @@
 
 
   <el-divider />
-
+<div v-hasPer="['bbs:comment:add']">
   <el-input v-model="topContent" placeholder="发表一个友善的评论吧~" :rows="5" type="textarea"></el-input>
-  <el-button @click="addTopComment" type="primary" class="btn-top-comment">发表评论</el-button>
+  <el-button @click="addTopComment" type="primary" class="btn-top-comment"  >发表评论</el-button>
   <el-button class="btn-top-comment">其他</el-button>
-
-
+  
   <el-divider />
+</div>
+
   <!-- 开始评论主体 -->
 
   <div v-for="item in commentList" :key="item.id" class="comment1">
@@ -31,13 +32,13 @@
     <span class="time"> {{ item.creationTime }} </span>
     <span class="pointer"><el-icon>
         <Pointer />
-      </el-icon> 4</span>
-    <el-button type="primary" @click="replay(item.createUser.nick, item.id, item.id)" size="large" text>回复</el-button>
-    <el-button  type="danger" @click="delComment(item.id)" size="large" text>删除</el-button>
+      </el-icon> 0</span>
+    <el-button type="primary" @click="replay(item.createUser.nick, item.id, item.id)" size="large" text v-hasPer="['bbs:comment:add']">回复</el-button>
+    <el-button  type="danger" @click="delComment(item.id)" size="large" text v-hasPer="['bbs:comment:remove']">删除</el-button>
     <div v-show="replayId == item.id" class="input-reply">
       <el-input v-model="form.content" :placeholder="placeholder" :rows="3" type="textarea"></el-input>
       <div class="btn-reply">
-        <el-button @click="addComment" type="primary">回复</el-button>
+        <el-button @click="addComment" type="primary" v-hasPer="['bbs:comment:add']">回复</el-button>
         
       </div>
     </div>
@@ -57,12 +58,12 @@
       <span class="pointer"> <el-icon>
           <Pointer />
         </el-icon>0</span>
-      <el-button  type="primary" @click="replay(children.createUser.nick, children.id, item.id)" size="large" text>回复</el-button>
-      <el-button  type="danger" @click="delComment(children.id)" size="large" text>删除</el-button>
+      <el-button  type="primary" @click="replay(children.createUser.nick, children.id, item.id)" size="large" text v-hasPer="['bbs:comment:add']">回复</el-button>
+      <el-button  type="danger" @click="delComment(children.id)" size="large" text v-hasPer="['bbs:comment:remove']">删除</el-button>
       <div v-show="replayId == children.id" class="input-reply">
       <el-input v-model="form.content" :placeholder="placeholder" :rows="3" type="textarea"></el-input>
       <div class="btn-reply">
-        <el-button @click="addComment" type="primary">回复</el-button>
+        <el-button @click="addComment" type="primary" v-hasPer="['bbs:comment:add']">回复</el-button>
       </div>
     </div>
 

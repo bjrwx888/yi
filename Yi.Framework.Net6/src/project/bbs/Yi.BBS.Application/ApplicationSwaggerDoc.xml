@@ -49,6 +49,13 @@
             <returns></returns>
             <exception cref="T:Yi.Framework.Core.Exceptions.UserFriendlyException"></exception>
         </member>
+        <member name="M:Yi.BBS.Application.Forum.ArticleService.VerifyDiscussCreateIdAsync(System.Nullable{System.Int64})">
+            <summary>
+            效验创建权限
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.BBS.Application.Forum.CommentService">
             <summary>
             评论
@@ -95,6 +102,14 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="M:Yi.BBS.Application.Forum.DiscussService.VerifyDiscussPermissionAsync(System.Int64)">
+            <summary>
+            效验主题查询权限
+            </summary>
+            <param name="discussId"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Core.Exceptions.UserFriendlyException"></exception>
         </member>
         <member name="T:Yi.BBS.Application.Forum.MyTypeService">
             <summary>

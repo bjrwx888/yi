@@ -24,6 +24,7 @@ namespace Yi.BBS.Domain.DataSeed
         public override List<MenuEntity> GetSeedData()
         {
             List<MenuEntity> entities = new List<MenuEntity>();
+
             //BBS
             MenuEntity bbs = new MenuEntity()
             {
@@ -39,6 +40,76 @@ namespace Yi.BBS.Domain.DataSeed
                 IsDeleted = false
             };
             entities.Add(bbs);
+
+
+            //评论管理
+            MenuEntity comment = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "评论管理",
+                PermissionCode = "bbs:comment:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "comment",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "bbs/comment/index",
+                MenuIcon = "education",
+                OrderNum = 100,
+                ParentId = bbs.Id,
+                IsDeleted = false
+            };
+            entities.Add(comment);
+
+            MenuEntity commentQuery = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "评论查询",
+                PermissionCode = "bbs:comment:query",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = comment.Id,
+                IsDeleted = false
+            };
+            entities.Add(commentQuery);
+
+            MenuEntity commentAdd = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "评论新增",
+                PermissionCode = "bbs:comment:add",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = comment.Id,
+                IsDeleted = false
+            };
+            entities.Add(commentAdd);
+
+            MenuEntity commentEdit = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "评论修改",
+                PermissionCode = "bbs:comment:edit",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = comment.Id,
+                IsDeleted = false
+            };
+            entities.Add(commentEdit);
+
+            MenuEntity commentRemove = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "评论删除",
+                PermissionCode = "bbs:comment:remove",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = comment.Id,
+                IsDeleted = false
+            };
+            entities.Add(commentRemove);
+
+
             //文章管理
             MenuEntity article = new MenuEntity()
             {

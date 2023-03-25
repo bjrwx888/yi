@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.BBS.Domain.Shared.Forum.EnumClasses;
 
 namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
 {
@@ -19,5 +20,14 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         public string? Color { get; set; }
 
         public long plateId { get; set; }
+
+        /// <summary>
+        /// 默认公开
+        /// </summary>
+        public DiscussPermissionTypeEnum PermissionType { get; set; } = DiscussPermissionTypeEnum.Public;
+        /// <summary>
+        /// 封面
+        /// </summary>
+        public string? Cover { get; set; }
     }
 }

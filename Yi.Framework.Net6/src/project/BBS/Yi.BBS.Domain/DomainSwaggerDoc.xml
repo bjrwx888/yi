@@ -46,6 +46,11 @@
             被评论的用户信息
             </summary>
         </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.DiscussEntity.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Domain.Forum.ForumManager">
             <summary>
             论坛模块的领域服务

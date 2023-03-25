@@ -29,6 +29,10 @@ namespace Yi.BBS.Application.Forum
     public class DiscussService : CrudAppService<DiscussEntity, DiscussGetOutputDto, DiscussGetListOutputDto, long, DiscussGetListInputVo, DiscussCreateInputVo, DiscussUpdateInputVo>,
        IDiscussService, IAutoApiService
     {
+        public DiscussService(ICurrentUser currentUser)
+        {
+            _currentUser = currentUser;
+        }
         [Autowired]
         private ForumManager _forumManager { get; set; }
 
@@ -38,7 +42,7 @@ namespace Yi.BBS.Application.Forum
         [Autowired]
         private IDistributedEventBus _distributedEventBus { get; set; }
 
-        [Autowired]
+        //[Autowired]
         private ICurrentUser _currentUser { get; set; }
         /// <summary>
         /// 单查
@@ -47,12 +51,16 @@ namespace Yi.BBS.Application.Forum
         /// <returns></returns>
         public async override Task<DiscussGetOutputDto> GetAsync(long id)
         {
+
             //查询主题发布 浏览主题 事件，浏览数+1
             var item = await _DbQueryable.LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                      .Select((discuss, user) => new DiscussGetOutputDto
                      {
                          User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
                      }, true).SingleAsync(discuss => discuss.Id == id);
+
+           await VerifyDiscussPermissionAsync(item.Id);
+
             if (item is not null)
             {
                 _distributedEventBus.PublishAsync(new SeeDiscussEventArgs { DiscussId = item.Id, OldSeeNum = item.SeeNum });
@@ -84,9 +92,14 @@ namespace Yi.BBS.Application.Forum
                      {
                          Id=discuss.Id,
                          IsAgree = SqlFunc.Subqueryable<AgreeEntity>().Where(x => x.CreatorId == _currentUser.Id && x.DiscussId == discuss.Id).Any(),
-                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
+                       
+                         User = new UserGetListOutputDto() { Id=user.Id, UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
+                        
                      }, true)
                 .ToPageListAsync(input.PageNum, input.PageSize, total);
+
+            //查询完主题之后，要过滤一下私有的主题信息
+            items.ApplyPermissionTypeFilter(_currentUser.Id);
             return new PagedResultDto<DiscussGetListOutputDto>(total, items);
         }
 
@@ -101,8 +114,33 @@ namespace Yi.BBS.Application.Forum
             {
                 throw new UserFriendlyException(PlateConst.板块不存在);
             }
-            var entity = await _forumManager.CreateDiscussAsync(input.plateId, input.Title, input.Types, input.Content, input.Introduction);
+            var entity = await _forumManager.CreateDiscussAsync(await MapToEntityAsync(input));
             return await MapToGetOutputDtoAsync(entity);
+        }
+
+
+
+
+        /// <summary>
+        /// 效验主题查询权限
+        /// </summary>
+        /// <param name="discussId"></param>
+        /// <returns></returns>
+        /// <exception cref="UserFriendlyException"></exception>
+        public async Task VerifyDiscussPermissionAsync(long discussId)
+        {
+            var discuss = await _repository.GetFirstAsync(x => x.Id == discussId);
+            if (discuss is null)
+            {
+                throw new UserFriendlyException(DiscussConst.主题不存在);
+            }
+            if (discuss.PermissionType == DiscussPermissionTypeEnum.Oneself)
+            {
+                if (discuss.CreatorId != _currentUser.Id)
+                {
+                    throw new UserFriendlyException(DiscussConst.私密);
+                }
+            }
         }
     }
 }

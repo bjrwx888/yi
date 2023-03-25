@@ -18,6 +18,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         //默认查询非置顶
         public bool IsTop { get; set; } = false;
 
+
         //查询方式
         public QueryDiscussTypeEnum Type { get; set; } = QueryDiscussTypeEnum.New;
     }

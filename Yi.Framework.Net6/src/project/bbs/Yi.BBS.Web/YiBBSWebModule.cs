@@ -13,6 +13,7 @@ using Yi.Framework.Data.Json;
 using Yi.Framework.OperLogManager;
 using Yi.Framework.Core.Module;
 using Microsoft.Extensions.Options;
+using System.Text.Json.Serialization;
 
 namespace Yi.BBS.Web
 {
@@ -30,7 +31,8 @@ namespace Yi.BBS.Web
             services.AddControllers().AddJsonOptions(opt => {
                 opt.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
                 opt.JsonSerializerOptions.Converters.Add(new LongToStringConverter());
-        }); 
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            }); 
 
             services.AddAutoApiService(opt =>
             {

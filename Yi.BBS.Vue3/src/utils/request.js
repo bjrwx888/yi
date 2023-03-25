@@ -39,7 +39,9 @@ const response=error.response.data;
 //业务异常+应用异常，统一处理
  switch(response.code) 
  {
-
+    case 401:
+    ElMessage.error('登录已过期')
+    break;
     case 403:  
     ElMessage.error(response.message)
     break;

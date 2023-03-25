@@ -53,7 +53,8 @@ const useUserStore = defineStore('user',
             // this.permissions=["*:*:*"]
             this.name = user.nick
             this.icon = avatar;
-            this.userName=user.userName
+            this.userName=user.userName;
+            this.id=user.id;
             resolve(res)
           }).catch(error => {
             reject(error)

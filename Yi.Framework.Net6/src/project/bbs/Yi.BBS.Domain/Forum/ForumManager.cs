@@ -26,14 +26,9 @@ namespace Yi.BBS.Domain.Forum
         }
 
         //主题是不能直接创建的，需要由领域服务统一创建
-        public async Task<DiscussEntity> CreateDiscussAsync(long plateId, string title, string types, string content, string? introduction = null)
+        public async Task<DiscussEntity> CreateDiscussAsync(DiscussEntity entity)
         {
-            var entity = new DiscussEntity(plateId);
             entity.Id = SnowflakeHelper.NextId;
-            entity.Title = title;
-            entity.Types = types;
-            entity.Introduction = introduction;
-            entity.Content = content;
             entity.CreationTime = DateTime.Now;
             entity.AgreeNum = 0;
             entity.SeeNum = 0;

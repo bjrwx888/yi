@@ -2,7 +2,7 @@
   <div style="width: 100%">
     <div class="body-div">
       <el-form label-width="120px" :model="editForm" label-position="left" :rules="rules" ref="ruleFormRef">
-        <el-form-item label="分类：">
+        <el-form-item label="类型：">
           <el-radio-group v-model="radio">
             <el-radio-button label="discuss">主题</el-radio-button>
             <el-radio-button label="article">文章</el-radio-button>
@@ -10,6 +10,16 @@
             <el-radio-button label="orther">其他</el-radio-button>
           </el-radio-group>
         </el-form-item>
+
+        <el-form-item label="权限：" v-if="route.query.artType == 'discuss'">
+          <el-radio-group v-model="perRadio">
+            <el-radio-button label="Public">公开</el-radio-button>
+            <el-radio-button label="Oneself">仅自己可见</el-radio-button>
+            <el-radio-button label="User">部分用户可见</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+
+
         <el-form-item v-if="route.query.artType == 'article'" label="子文章名称：" prop="name">
           <el-input placeholder="请输入" v-model="editForm.name" />
         </el-form-item>
@@ -22,8 +32,21 @@
         <el-form-item label="内容：" prop="content">
           <MavonEdit height="30rem" v-model="editForm.content" :codeStyle="codeStyle" />
         </el-form-item>
-        <el-form-item label="封面：">
-          <el-input placeholder="请输入" />
+        <el-form-item label="封面：" v-if="route.query.artType == 'discuss'">
+
+<!-- 主题封面选择 -->
+
+<el-upload
+    class="avatar-uploader"
+    :action="fileUploadUrl"
+    :show-file-list="false"
+    :on-success="onSuccess"
+  >
+    <el-image v-if="dialogImageUrl" :src="getUrl(dialogImageUrl)"  style="width: 178px;height: 178px;" class="avatar" />
+    <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+  </el-upload>
+          
+
         </el-form-item>
         <el-form-item label="标签：" prop="types">
           <el-input placeholder="请输入" v-model="editForm.types" />
@@ -54,8 +77,24 @@ import {
 //数据定义
 const route = useRoute();
 const router = useRouter();
+const perRadio=ref("Public");
 const radio = ref(route.query.artType);
 const codeStyle = "atom-one-dark";
+
+//封面完整显示的url
+const fileUploadUrl=`${import.meta.env.VITE_APP_BASEAPI}/file`
+//封面的url
+const dialogImageUrl = ref('')
+
+//文件上传成功后
+const onSuccess=(response)=>{
+  dialogImageUrl.value=response[0].id
+}
+//封面url
+const getUrl= (str)=>{
+return `${import.meta.env.VITE_APP_BASEAPI}/file/${str}`
+}
+
 
 //整个页面上的表单
 const editForm = reactive({
@@ -63,7 +102,7 @@ const editForm = reactive({
   types: "",
   introduction: "",
   content: "",
-  name: ""
+  name: "",
 });
 
 //组装主题内容： 需要更新主题信息
@@ -87,7 +126,7 @@ const rules = reactive({
   ],
   content: [
     { required: true, message: "请输入内容", trigger: "blur" },
-    { min: 10, max: 4000, message: "长度 10 到4000", trigger: "blur" },
+    { min: 10, max: 4000, message: "长度 10 到9999", trigger: "blur" },
   ],
 });
 //提交按钮,需要区分操作类型
@@ -104,7 +143,8 @@ const submit = async (formEl) => {
         discuss.introduction = editForm.introduction;
         discuss.content = editForm.content;
         discuss.plateId = discuss.plateId ?? route.query.plateId
-
+        discuss.cover=dialogImageUrl.value;
+        discuss.permissionType=perRadio.value;
         //主题创建
         if (route.query.operType == "create") {
           const response = await discussAdd(discuss);
@@ -189,6 +229,8 @@ const loadDiscuss = async () => {
   editForm.types = res.types;
   editForm.introduction = res.introduction;
   discuss.plateId = res.plateId;
+  dialogImageUrl.value= res.cover;
+  perRadio.value=res.permissionType;
 };
 //加载文章
 const loadArticle = async () => {
@@ -209,5 +251,35 @@ const loadArticle = async () => {
   background-color: #fff;
   margin: 1.5rem;
   padding: 1.5rem;
+}
+
+
+
+.avatar-uploader >>>.el-upload {
+  border: 1px dashed var(--el-border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+  
+}
+
+.avatar-uploader >>>.el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  text-align: center;
+}
+.el-upload
+{
+  
+
+
 }
 </style>

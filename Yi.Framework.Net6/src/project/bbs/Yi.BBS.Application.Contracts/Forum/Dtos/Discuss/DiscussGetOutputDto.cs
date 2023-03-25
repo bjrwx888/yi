@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.BBS.Domain.Shared.Forum.EnumClasses;
 using Yi.Framework.Ddd.Dtos;
 using Yi.RBAC.Application.Contracts.Identity.Dtos;
 
@@ -25,14 +26,17 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
         //是否置顶，默认false
         public bool IsTop { get; set; }
 
-
+        /// <summary>
+        /// 封面
+        /// </summary>
+        public string? Cover { get; set; }
         //是否私有，默认false
         public bool IsPrivate { get; set; }
 
         //私有需要判断code权限
         public string? PrivateCode { get; set; }
         public DateTime CreationTime { get; set; }
-
+        public DiscussPermissionTypeEnum PermissionType { get; set; }
         public UserGetListOutputDto User { get; set; }
     }
 }

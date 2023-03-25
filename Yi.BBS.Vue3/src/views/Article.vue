@@ -5,7 +5,7 @@
       <el-col :span="5">
         <el-row class="art-info-left">
           <el-col :span="24">
-            <InfoCard header="主题信息" text="展开" hideDivider="true">
+            <InfoCard header="文章信息" text="展开" hideDivider="true">
               <template #content>
                 <el-button style="width: 100%; margin-bottom: 0.8rem" @click="loadDiscuss(true)">首页</el-button>
                 <el-button v-hasPer="['bbs:article:add']" @click="addArticle(0)" type="primary"
@@ -17,14 +17,14 @@
             </InfoCard>
           </el-col>
           <el-col :span="24">
-            <InfoCard :items="items" header="推荐好友" text="更多">
+            <InfoCard :items="items" header="作者分享" text="更多">
               <template #item="temp">
                 <AvatarInfo />
               </template>
             </InfoCard>
           </el-col>
           <el-col :span="24">
-            <InfoCard :items="items" header="推荐好友" text="更多">
+            <InfoCard :items="items" header="内容推荐" text="更多">
               <template #item="temp">
                 <AvatarInfo />
               </template>
@@ -41,6 +41,9 @@
             <!-- :userInfo="{nick:'qwe'} -->
             <el-divider />
             <h2>{{ discuss.title }}</h2>
+            <el-image  :preview-src-list="[getUrl(discuss.cover)]" v-if="discuss.cover" :src="getUrl(discuss.cover)"  style="width: 150px;height: 150px;"  />
+
+            
             <ArticleContentInfo :code="discuss.content??''"></ArticleContentInfo>
 
             <el-divider class="tab-divider" />
@@ -66,7 +69,7 @@
       <el-col :span="5">
         <el-row class="right-div">
           <el-col :span="24">
-            <InfoCard class="art-info-right" header="文章信息" text="更多" hideDivider="true">
+            <InfoCard class="art-info-right" header="主题信息" text="更多" hideDivider="true">
               <template #content>
                 <div>
                   <ul class="art-info-ul">
@@ -79,9 +82,9 @@
                       v-hasPer="['bbs:discuss:remove']"
                         @click="delHander(route.params.discussId)">删除</el-button>
                     </li>
-                    <li>分类： <span>文章</span></li>
+                    <li>分类： <span>主题</span></li>
                     标签：
-                    <el-tag type="success">文章</el-tag>
+                    <el-tag type="success">主题</el-tag>
                     <el-tag type="info">资源</el-tag>
                   </ul>
                 </div>
@@ -104,14 +107,14 @@
             </InfoCard>
           </el-col>
           <el-col :span="24">
-            <InfoCard :items="items" header="推荐好友" text="更多">
+            <InfoCard :items="items" header="其他" text="更多">
               <template #item="temp">
                 <AvatarInfo />
               </template>
             </InfoCard>
           </el-col>
           <el-col :span="24">
-            <InfoCard :items="items" header="推荐好友" text="更多">
+            <InfoCard :items="items" header="其他" text="更多">
               <template #item="temp">
                 <AvatarInfo />
               </template>
@@ -145,7 +148,10 @@ const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 const articleData = ref([]);
 //主题内容
 const discuss = ref({});
-
+//封面url
+const getUrl= (str)=>{
+return `${import.meta.env.VITE_APP_BASEAPI}/file/${str}`
+}
 
 //当前默认选择的子文章
 const currentNodeKey=route.params.articleId;

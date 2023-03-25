@@ -14,6 +14,6 @@ namespace Yi.BBS.Application.Contracts.Forum
     /// </summary>
     public interface IDiscussService : ICrudAppService<DiscussGetOutputDto, DiscussGetListOutputDto, long, DiscussGetListInputVo, DiscussCreateInputVo, DiscussUpdateInputVo>
     {
-
+        Task VerifyDiscussPermissionAsync(long discussId);
     }
 }

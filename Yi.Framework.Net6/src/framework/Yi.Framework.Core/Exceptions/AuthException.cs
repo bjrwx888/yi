@@ -21,8 +21,9 @@ namespace Yi.Framework.Core.Exceptions
         public LogLevel LogLevel { get; set; }
 
         public AuthException(
-    ResultCodeEnum code = ResultCodeEnum.NoPermission,
+
     string? message = null,
+        ResultCodeEnum code = ResultCodeEnum.NoPermission,
     string? details = null,
     Exception? innerException = null,
     LogLevel logLevel = LogLevel.Warning)
