@@ -37,6 +37,8 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos
         public string? PrivateCode { get; set; }
         public DateTime CreationTime { get; set; }
         public DiscussPermissionTypeEnum PermissionType { get; set; }
+
+        public List<long> PermissionUserIds { get; set; }
         public UserGetListOutputDto User { get; set; }
     }
 }

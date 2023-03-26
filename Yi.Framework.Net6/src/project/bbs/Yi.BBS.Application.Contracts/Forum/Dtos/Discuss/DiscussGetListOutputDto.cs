@@ -48,9 +48,18 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         public string? PrivateCode { get; set; }
         public DateTime CreationTime { get; set; }
 
-
+        public List<long> PermissionUserIds { get; set; }
 
         public UserGetListOutputDto User { get; set; }
+
+        public void SetBan()
+        {
+            this.Title = DiscussConst.私密;
+            this.Introduction = "";
+            this.Cover = null;
+            //被禁止
+            this.IsBan = true;
+        }
     }
 
 
@@ -69,20 +78,19 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
                         //当前主题是仅自己可见，同时不是当前登录用户
                         if (dto.User.Id != userId)
                         {
-                            dto.Title = DiscussConst.私密;
-                            dto.Introduction= "";
-                            dto.Cover = null;
-                            //被禁止
-                            dto.IsBan = true;
+                            dto.SetBan();
                         }
                         break;
                     case DiscussPermissionTypeEnum.User:
+                        //当前主题为部分可见，同时不是当前登录用户 也 不在可见用户列表中
+                        if (dto.User.Id != userId && !dto.PermissionUserIds.Contains(userId))
+                        {
+                            dto.SetBan();
+                        }
                         break;
                     default:
                         break;
                 }
-
-
             });
         }
 

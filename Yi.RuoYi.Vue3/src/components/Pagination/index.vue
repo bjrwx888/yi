@@ -7,7 +7,7 @@
       :layout="layout"
       :page-sizes="pageSizes"
       :pager-count="pagerCount"
-      :total="total"
+      :total="Number(total)"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />

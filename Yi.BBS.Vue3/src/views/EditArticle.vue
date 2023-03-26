@@ -18,6 +18,10 @@
             <el-radio-button label="User">部分用户可见</el-radio-button>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="可见用户：" v-if="route.query.artType == 'discuss' && perRadio=='User'">
+          <UserSelectInfo v-model="editForm.permissionUserIds"/>
+        </el-form-item>
+
 
 
         <el-form-item v-if="route.query.artType == 'article'" label="子文章名称：" prop="name">
@@ -59,6 +63,7 @@
 </template>
 <script setup>
 import MavonEdit from "@/components/MavonEdit.vue";
+import UserSelectInfo from '@/components/UserSelectInfo.vue'
 import { ref, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -103,6 +108,7 @@ const editForm = reactive({
   introduction: "",
   content: "",
   name: "",
+  permissionUserIds:[]
 });
 
 //组装主题内容： 需要更新主题信息
@@ -145,6 +151,8 @@ const submit = async (formEl) => {
         discuss.plateId = discuss.plateId ?? route.query.plateId
         discuss.cover=dialogImageUrl.value;
         discuss.permissionType=perRadio.value;
+
+        discuss.permissionUserIds=editForm.permissionUserIds;
         //主题创建
         if (route.query.operType == "create") {
           const response = await discussAdd(discuss);
@@ -231,6 +239,7 @@ const loadDiscuss = async () => {
   discuss.plateId = res.plateId;
   dialogImageUrl.value= res.cover;
   perRadio.value=res.permissionType;
+  editForm.permissionUserIds=res.permissionUserIds;
 };
 //加载文章
 const loadArticle = async () => {

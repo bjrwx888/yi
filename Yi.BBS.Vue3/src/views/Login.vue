@@ -1,6 +1,6 @@
 <template>
     <div class="login-wrapper">
-        <h1>意社区-登录</h1>
+        <h1>{{configStore.name}}-登录</h1>
         <div class="login-form">
             <div class="username form-item">
                 <span>使用邮箱或者手机号</span>
@@ -38,6 +38,8 @@
 import { reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useUserStore from '@/stores/user.js'
+import useConfigStore from "@/stores/config";
+const  configStore= useConfigStore();
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();

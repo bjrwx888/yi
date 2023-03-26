@@ -111,7 +111,7 @@
 
       <pagination
          v-show="total > 0"
-         :total="total"
+         :total="Number(total)"
          v-model:page="queryParams.pageNum"
          v-model:limit="queryParams.pageSize"
          @pagination="getList"

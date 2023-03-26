@@ -8,7 +8,7 @@
     
   >
  <el-menu-item class="logo"  index="" @click="enterIndex" >   
-    <img class="img-icon" style="width: 35px; height: 35px" src="@/assets/logo.ico"  />Yi意社区</el-menu-item>
+    <img class="img-icon" style="width: 35px; height: 35px" src="@/assets/logo.ico"  />{{configStore.name}}</el-menu-item>
  <el-menu-item index="1" @click="enterIndex">主页</el-menu-item>
     <el-sub-menu index="2">
       <template #title>学习</template>
@@ -56,6 +56,8 @@ import AvatarInfo from '@/components/AvatarInfo.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/stores/user.js'
+import useConfigStore from "@/stores/config";
+const  configStore= useConfigStore();
 const router = useRouter()
 const userStore =useUserStore();
 const activeIndex = ref('1')

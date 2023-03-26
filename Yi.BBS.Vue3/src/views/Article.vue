@@ -49,7 +49,7 @@
             <el-divider class="tab-divider" />
 
             <el-space :size="10" :spacer="spacer">
-              <el-button icon="Pointer" text> 4</el-button>
+              <AgreeInfo  :data="discuss"/>
               <el-button icon="Star" text> 0</el-button>
               <el-button icon="Share" text> 分享</el-button>
               <el-button icon="Operation" text> 操作</el-button>
@@ -134,7 +134,7 @@ import CommentInfo from "@/components/CommentInfo.vue";
 import BottomInfo from '@/components/BottomInfo.vue'
 import TreeArticleInfo from "@/components/TreeArticleInfo.vue";
 import { useRoute, useRouter } from "vue-router";
-
+import AgreeInfo from '@/components/AgreeInfo.vue'
 import { get as discussGet, del as discussDel } from "@/apis/discussApi.js";
 import { all as articleall, del as articleDel, get as articleGet } from "@/apis/articleApi.js";
 //数据定义

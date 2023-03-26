@@ -213,4 +213,9 @@ display: flex;
 .collapse-list >>> .el-collapse-item__header {
 border-bottom-color: #F0F2F5 !important;
 }
+
+.el-divider
+{
+  margin: 0.5rem 0;
+}
 </style>

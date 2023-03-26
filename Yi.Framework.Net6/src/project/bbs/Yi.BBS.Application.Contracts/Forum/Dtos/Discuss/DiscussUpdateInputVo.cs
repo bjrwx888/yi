@@ -17,6 +17,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         public string Content { get; set; }
         public string? Color { get; set; }
 
+        public List<long> PermissionUserIds { get; set; }
 
         public DiscussPermissionTypeEnum PermissionType { get; set; }
 

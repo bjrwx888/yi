@@ -1,14 +1,16 @@
 <template>
 <div class="botton-div">
-<a><el-icon><UserFilled /></el-icon>站长：橙子</a>
-<a><el-icon><Search /></el-icon>YiFramework意框架</a>
+<a><el-icon><UserFilled /></el-icon>站长：{{configStore.author}}</a>
+<a><el-icon><Search /></el-icon>{{configStore.bottom}}</a>
 <a><el-icon><View /></el-icon>关于本站</a>
 <a><el-icon><Message /></el-icon>建议反馈</a>
 <p></p>
-<a><el-icon><Position /></el-icon>2023 <span style="color: #40a9ff ;">意社区</span> | 赣ICP备xxxxxx号-4</a>
+<a ><el-icon><Position /></el-icon>{{configStore.icp}}</a>
 </div>
 </template>
 <script setup>
+import useConfigStore from "@/stores/config";
+const  configStore= useConfigStore();
 </script>
 <style scoped>
 .el-icon
@@ -31,6 +33,6 @@ a:hover {
     height: auto;
     width: auto;
     justify-content: center;
-    margin: 1rem auto;
+    margin: 0.5rem auto;
 }
 </style>

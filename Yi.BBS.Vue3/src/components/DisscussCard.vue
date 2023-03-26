@@ -41,8 +41,8 @@
                         <div class="item-description">
                             {{ discuss.creationTime }}
                         </div>
-
-
+<AgreeInfo  :data="discuss"/>
+<!-- 
                         <el-button text @click="agree">
                             <el-icon v-if="discuss.isAgree" color="#409EFF">
                                 <CircleCheckFilled />
@@ -51,7 +51,7 @@
                                 <Pointer />
                             </el-icon> 点赞:{{ discuss.agreeNum ?? 0 }}</el-button>
                         <el-button icon="Star" text>
-                            收藏</el-button>
+                            收藏</el-button> -->
 
                         <el-button icon="View" text>
                             浏览数:{{ discuss.seeNum ?? 0 }}</el-button>
@@ -69,6 +69,7 @@
 import { h, ref, toRef, onMounted ,reactive} from 'vue'
 import { useRouter } from 'vue-router'
 import AvatarInfo from './AvatarInfo.vue';
+import AgreeInfo from './AgreeInfo.vue'
 import { operate } from '@/apis/agreeApi'
 
 const props = defineProps(['discuss','badge'])

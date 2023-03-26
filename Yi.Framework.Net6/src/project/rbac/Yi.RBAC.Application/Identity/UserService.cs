@@ -48,6 +48,8 @@ namespace Yi.RBAC.Application.Identity
 
             RefAsync<int> total = 0;
 
+
+            List<long>? ids = input.Ids?.Split(",").Select(x=>long.Parse(x)).ToList();
             var outPut = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.UserName), x => x.UserName.Contains(input.UserName!))
                          .WhereIF(input.Phone is not null, x => x.Phone.ToString()!.Contains(input.Phone.ToString()!))
                           .WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name!.Contains(input.Name!))
@@ -56,6 +58,9 @@ namespace Yi.RBAC.Application.Identity
 
                           //这个为过滤当前部门，加入数据权限后，将由数据权限控制
                           .WhereIF(input.DeptId is not null, x => x.DeptId == input.DeptId)
+                          
+                          .WhereIF(ids is not null,x=> ids.Contains(x.Id))
+
 
                           .LeftJoin<DeptEntity>((user, dept) => user.DeptId == dept.Id)
                           .Select((user, dept) => new UserGetListOutputDto(), true)

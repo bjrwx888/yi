@@ -51,6 +51,11 @@
             封面
             </summary>
         </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.DiscussEntity.PermissionUserIds">
+            <summary>
+            当PermissionType为部分用户时候，以下列表中的用户+创建者 代表拥有权限
+            </summary>
+        </member>
         <member name="T:Yi.BBS.Domain.Forum.ForumManager">
             <summary>
             论坛模块的领域服务

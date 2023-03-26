@@ -20,11 +20,15 @@ const myaxios = axios.create({
     //       }
     // }],
 })
+
+
+
 // 请求拦截器
 myaxios.interceptors.request.use(function (config) {
     if (getToken()) {
         config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
       }
+
     return config;
 }, function (error) {
     return Promise.reject(error);

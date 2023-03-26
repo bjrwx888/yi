@@ -141,6 +141,13 @@ namespace Yi.BBS.Application.Forum
                     throw new UserFriendlyException(DiscussConst.私密);
                 }
             }
+            if (discuss.PermissionType == DiscussPermissionTypeEnum.User)
+            {
+                if (discuss.CreatorId != _currentUser.Id && !discuss.PermissionUserIds.Contains(_currentUser.Id))
+                {
+                    throw new UserFriendlyException(DiscussConst.私密);
+                }
+            }
         }
     }
 }

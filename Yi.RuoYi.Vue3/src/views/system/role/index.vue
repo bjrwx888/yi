@@ -82,7 +82,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
+    <pagination v-show="total > 0" :total="Number(total)" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
       @pagination="getList" />
 
     <!-- 添加或修改角色配置对话框 -->
