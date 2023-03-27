@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	  <DocumentationFile>./ApplicationContractsSwaggerDoc.xml</DocumentationFile>
+	  <DocumentationFile>./$(AssemblyName)SwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
@@ -14,9 +14,8 @@
     <ProjectReference Include="..\..\rbac\Yi.RBAC.Application.Contracts\Yi.RBAC.Application.Contracts.csproj" />
     <ProjectReference Include="..\Yi.BBS.Domain.Shared\Yi.BBS.Domain.Shared.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Update="ApplicationContractsSwaggerDoc.xml">
+    <None Update="Yi.BBS.Application.ContractsSwaggerDoc.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

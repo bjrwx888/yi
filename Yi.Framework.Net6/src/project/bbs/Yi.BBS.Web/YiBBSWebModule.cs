@@ -18,10 +18,11 @@ using System.Text.Json.Serialization;
 namespace Yi.BBS.Web
 {
     [DependsOn(
+         typeof(YiBBSSqlsugarModule),
                typeof(YiFrameworkAspNetCoreModule),
         typeof(YiFrameworkCoreAutofacModule),
-        typeof(YiBBSSqlsugarModule),
-        typeof(YiBBSApplicationModule)
+        typeof(YiBBSApplicationModule),
+           typeof(YiBBSSqlsugarModule)
         )]
     public class YiBBSWebModule : IStartupModule
     {

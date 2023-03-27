@@ -16,7 +16,7 @@ using Yi.Framework.Ddd;
 namespace Yi.Framework.Data
 {
     [DependsOn(
-        typeof(YiFrameworkDddModule))]
+        typeof(YiFrameworkDddModule)) ]
     public class YiFrameworkDataModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)

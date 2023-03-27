@@ -26,6 +26,8 @@ namespace Yi.BBS.Domain.Forum.Entities
 
         public long ParentId { get; set; }
 
+        [SugarColumn(IsIgnore =true)]
+
         public List<ArticleEntity> Children { get; set; }
     }
 

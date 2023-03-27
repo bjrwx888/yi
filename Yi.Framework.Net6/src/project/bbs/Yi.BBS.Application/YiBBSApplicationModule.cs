@@ -17,7 +17,7 @@ using Yi.RBAC.Application;
 namespace Yi.BBS.Application
 {
     [DependsOn(
-
+               
         typeof(YiBBSApplicationContractsModule),
         typeof(YiBBSDomainModule),
         typeof(YiFrameworkAuthJwtBearerModule),
