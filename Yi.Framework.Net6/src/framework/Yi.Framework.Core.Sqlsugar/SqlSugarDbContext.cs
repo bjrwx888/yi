@@ -131,11 +131,11 @@ namespace Yi.Framework.Core.Sqlsugar
              db.Aop.OnLogExecuting = (s, p) =>
              {
                  StringBuilder sb = new StringBuilder();
-                 sb.Append("执行SQL:" + s.ToString());
-                 foreach (var i in p)
-                 {
-                     sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
-                 }
+                 //sb.Append("执行SQL:" + s.ToString());
+                 //foreach (var i in p)
+                 //{
+                 //    sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
+                 //}
                  sb.Append($"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
                  logger?.LogDebug(sb.ToString());
              };

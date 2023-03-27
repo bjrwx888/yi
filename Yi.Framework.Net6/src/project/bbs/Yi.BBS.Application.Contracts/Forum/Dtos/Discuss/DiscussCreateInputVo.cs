@@ -19,7 +19,7 @@ namespace Yi.BBS.Application.Contracts.Forum.Dtos.Discuss
         public string Content { get; set; }
         public string? Color { get; set; }
 
-        public long plateId { get; set; }
+        public long PlateId { get; set; }
 
         /// <summary>
         /// 默认公开

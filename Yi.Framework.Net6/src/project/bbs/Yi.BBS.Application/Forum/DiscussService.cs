@@ -110,7 +110,7 @@ namespace Yi.BBS.Application.Forum
         /// <returns></returns>
         public override async Task<DiscussGetOutputDto> CreateAsync(DiscussCreateInputVo input)
         {
-            if (!await _plateEntityRepository.IsAnyAsync(x => x.Id == input.plateId))
+            if (!await _plateEntityRepository.IsAnyAsync(x => x.Id == input.PlateId))
             {
                 throw new UserFriendlyException(PlateConst.板块不存在);
             }

@@ -24,7 +24,7 @@ namespace Yi.BBS.Domain
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            //services.AddTransient<StudentManager>();
+
         }
     }
 }

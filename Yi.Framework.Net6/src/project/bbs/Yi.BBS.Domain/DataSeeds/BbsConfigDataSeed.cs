@@ -20,7 +20,7 @@ namespace Yi.BBS.Domain.DataSeed
 
         public override async Task<bool> IsInvoker()
         {
-            return !await _repository.IsAnyAsync(x => x.ConfigKey == "ConfigEntity");
+            return !await _repository.IsAnyAsync(x => x.ConfigKey == "bbs.site.name");
         }
         public override List<ConfigEntity> GetSeedData()
         {

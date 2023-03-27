@@ -60,6 +60,6 @@ namespace Yi.BBS.Domain.Forum.Entities
         /// 当PermissionType为部分用户时候，以下列表中的用户+创建者 代表拥有权限
         /// </summary>
         [SugarColumn(IsJson = true)]//使用json处理
-        public List<long> PermissionUserIds { get; set; }
+        public List<long>? PermissionUserIds { get; set; }
     }
 }
