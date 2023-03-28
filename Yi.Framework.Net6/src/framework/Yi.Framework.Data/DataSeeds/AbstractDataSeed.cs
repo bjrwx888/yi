@@ -37,6 +37,8 @@ namespace Yi.Framework.Data.DataSeeds
         /// <returns></returns>
         public virtual async Task<bool> IsInvoker()
         {
+          var p = await _repository.IsAnyAsync(x=>true);
+            var p2 = await _repository.CountAsync(x => true);
             if (await _repository.CountAsync(u => true) > 0)
             {
                 return false;

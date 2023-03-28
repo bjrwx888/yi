@@ -28,7 +28,7 @@
 </template>
 <script setup>
 import useUserStore from '@/stores/user'
-import { reactive, watch, onMounted, computed } from 'vue';
+import { reactive, watch, onMounted, computed, ref } from 'vue';
 //userInfo
 //{icon,name,role,id},根据判断userInfo是否等于未定义，来觉得是当前登录用户信息，还是其他人信息
 const props = defineProps(['size', 'showWatching', 'time', 'userInfo', 'isSelf'])
@@ -39,20 +39,14 @@ const userInfo = reactive({
     role: [],
     id: ""
 });
-
-const iconUrl = computed(() => {
+const iconUrl=ref('/src/assets/logo.ico');
+const iconUrlHandler = () => {
     if (userInfo.icon == null || userInfo.icon == undefined || userInfo.icon == '') {
 
         return '/src/assets/logo.ico';
     }
-
-    if (userInfo.icon.includes(import.meta.env.VITE_APP_BASEAPI)) {
-        return userInfo.icon;
-    }
-
-
     return `${import.meta.env.VITE_APP_BASEAPI}/file/${userInfo.icon}`;
-})
+}
 
 watch(userStore, (n) => {
     if (props.userInfo == undefined) {
@@ -76,14 +70,18 @@ const Init = () => {
         userInfo.nick = props.userInfo.nick;
         userInfo.role = props.userInfo.role;
         userInfo.id = props.userInfo.id;
+           iconUrl.value=iconUrlHandler(userInfo.icon)
     }
 
     //使用当前登录用户
     else {
+     
         userInfo.icon = userStore.icon;
         userInfo.nick = userStore.name;
         userInfo.role = userStore.role;
         userInfo.id = userStore.id;
+        iconUrl.value=userInfo.icon;
+        
     }
 }
 

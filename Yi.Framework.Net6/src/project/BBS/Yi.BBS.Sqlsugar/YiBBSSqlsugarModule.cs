@@ -10,6 +10,7 @@ using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core.Sqlsugar;
 using Yi.BBS.Domain;
 using Yi.RBAC.Sqlsugar;
+using SqlSugar;
 
 namespace Yi.BBS.Sqlsugar
 {
@@ -20,6 +21,7 @@ namespace Yi.BBS.Sqlsugar
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
+
         }
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)

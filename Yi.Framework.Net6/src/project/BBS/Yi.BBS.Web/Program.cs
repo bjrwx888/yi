@@ -6,6 +6,7 @@ using Yi.BBS.Web;
 using Yi.Framework.Core.Module;
 using NLog.Extensions.Logging;
 using NLog;
+using SqlSugar;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLogging(builder => { builder.ClearProviders().AddNLog("nlog.config").SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace); });
@@ -23,7 +24,8 @@ builder.Host.ConfigureAutoFacContainer(container =>
 });
 
 var app = builder.Build();
-
+var db = app.Services.GetService<ISqlSugarClient>();
+db.DbMaintenance.CreateDatabase();
 app.UseErrorHandlingServer();
 
 app.UseAuthentication();
