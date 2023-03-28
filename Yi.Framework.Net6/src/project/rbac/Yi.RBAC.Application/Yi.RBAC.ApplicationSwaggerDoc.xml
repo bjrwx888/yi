@@ -11,6 +11,19 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostPhoneCaptchaImage(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.PhoneCaptchaImageDto)">
+            <summary>
+            注册 手机验证码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostRegisterAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto)">
+            <summary>
+            注册，需要验证码通过
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.RBAC.Application.Identity.AccountService.Get">
             <summary>
             查询已登录的账户信息

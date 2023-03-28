@@ -57,7 +57,7 @@ namespace Yi.Framework.Core.Sqlsugar
                 });
             }
             #endregion
-            SqlSugarClient = new SqlSugarClient(new ConnectionConfig()
+            SqlSugarClient = new SqlSugarScope(new ConnectionConfig()
             {
                 //准备添加分表分库
                 DbType = dbConnOptions.DbType ?? DbType.Sqlite,

@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/apis/accountApi'
+import { login, logout, getInfo,register } from '@/apis/accountApi'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { defineStore } from 'pinia'
 const useUserStore = defineStore('user', 
@@ -75,7 +75,22 @@ const useUserStore = defineStore('user',
             reject(error)
           })
         })
-      }
+      },
+            // 注册
+            register(userInfo) {
+              const userName = userInfo.userName.trim()
+              const password = userInfo.password.trim()
+              const phone = userInfo.phone;
+              const uuid = userInfo.uuid;
+              const code=userInfo.code;
+              return new Promise((resolve, reject) => {
+                register(userName,password,phone,code,uuid).then(response => {
+                  resolve(response);
+                }).catch(error => {
+                  reject(error)
+                })
+              })
+            },
 
       },
 })

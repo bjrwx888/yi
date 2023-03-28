@@ -19,9 +19,16 @@ export function login(username, password, code, uuid) {
   }
   
   // 注册方法
-  export function register(data) {
+  export function register(userName,password,phone,code,uuid) {
+    const data = {
+      userName,
+      password,
+      phone,
+      code,
+      uuid
+    }
     return request({
-      url: '/register',
+      url: '/account/register',
       headers: {
         isToken: false
       },

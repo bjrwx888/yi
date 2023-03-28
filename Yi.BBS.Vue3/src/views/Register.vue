@@ -4,17 +4,21 @@
         <div class="login-form">
             <div class="username form-item">
                 <span>登录账号</span>
-                <input type="text" class="input-item" v-model="loginForm.userName">
+                <input type="text" class="input-item" v-model="registerForm.userName">
             </div>
             <div class="username form-item">
                 <span>手机号</span>
-                <input type="text" class="input-item" v-model="loginForm.userName">
+                <input style="width: 70%;" type="text" class="input-item" v-model="registerForm.phone">
+                <button v-if="!isSendCaptcha" style="width: 30%;background-color: #C14949;" class="login-btn" @click="captcha" >验证码</button>
+                <button v-else style="width: 30%;background-color:#F0F2F5;" class="login-btn"  >已发送</button>
             </div>
+            
             <div class="password form-item">
                 <span>密码</span>
-                <input type="password" class="input-item" v-model="loginForm.password">
+                <input type="password" class="input-item" v-model="registerForm.password">
             </div>
-            <button class="login-btn" @click="login">注册</button>
+            <RouterLink to="/login"  > 已有账号，前往登录</RouterLink>
+            <button class="login-btn" @click="register">注册</button>
         </div>
         <div class="divider">
             <span class="line"></span>
@@ -32,7 +36,7 @@
     </div>
 </template>
 <script setup>
-import { reactive } from 'vue';
+import { reactive ,ref} from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useUserStore from '@/stores/user.js'
 import useConfigStore from "@/stores/config";
@@ -40,24 +44,34 @@ const  configStore= useConfigStore();
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
-const loginForm = reactive({
+const registerForm = reactive({
     userName: "",
     password: "",
     uuid: "",
     code: ""
 })
 
-const login = async () => {
-    const response = await userStore.login(loginForm).catch((e) => {
-        loginForm.password = "";
+const isSendCaptcha=ref(false)
+
+//验证码
+const captcha=async()=>{
+    isSendCaptcha.value=true;
+}
+
+const register = async () => {
+    const response = await userStore.register(registerForm).catch((e) => {
+        registerForm.userName = "";
+        registerForm.password = "";
     });
+
+    //成功
     if (response!=undefined) {
         ElMessage({
-            message: `您好${loginForm.userName}，登录成功！`,
+            message: `恭喜！${registerForm.userName}，注册成功！请登录！`,
             type: 'success',
         })
 
-        const redirect = route.query?.redirect ?? '/index'
+        const redirect = route.query?.redirect ?? '/login'
         router.push(redirect)
 
     }

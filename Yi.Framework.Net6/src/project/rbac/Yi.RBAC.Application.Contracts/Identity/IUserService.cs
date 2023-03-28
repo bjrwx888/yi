@@ -13,6 +13,5 @@ namespace Yi.RBAC.Application.Contracts.Identity
     /// </summary>
     public interface IUserService : ICrudAppService<UserGetOutputDto, UserGetListOutputDto, long, UserGetListInputVo, UserCreateInputVo, UserUpdateInputVo>
     {
-
     }
 }

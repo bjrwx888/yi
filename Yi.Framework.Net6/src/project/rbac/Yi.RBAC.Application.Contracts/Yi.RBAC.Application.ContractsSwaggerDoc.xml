@@ -4,6 +4,31 @@
         <name>Yi.RBAC.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Uuid">
+            <summary>
+            唯一标识码
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
         <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.DeptCreateInputVo">
             <summary>
             Dept输入创建对象

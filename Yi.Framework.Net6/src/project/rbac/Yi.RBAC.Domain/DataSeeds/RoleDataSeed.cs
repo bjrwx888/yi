@@ -45,6 +45,31 @@ namespace Yi.RBAC.Domain.DataSeeds
             };
             entities.Add(role2);
 
+            RoleEntity role3 = new RoleEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                RoleName = "普通用户",
+                RoleCode = "common",
+                DataScope = DataScopeEnum.ALL,
+                OrderNum = 1,
+                Remark = "正常用户",
+                IsDeleted = false
+            };
+            entities.Add(role3);
+
+            RoleEntity role4 = new RoleEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                RoleName = "游客用户",
+                RoleCode = "guest",
+                DataScope = DataScopeEnum.ALL,
+                OrderNum = 1,
+                Remark = "可简单浏览",
+                IsDeleted = false
+            };
+            entities.Add(role4);
+
+
             return entities;
         }
     }

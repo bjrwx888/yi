@@ -17,9 +17,13 @@ namespace Yi.RBAC.Domain.Shared.Identity.ConstClasses
         public const string 添加失败_密码为空 = "密码为空，添加失败！";
         public const string 添加失败_用户存在 = "用户已经存在，添加失败！";
         public const string 用户无权限分配 = "登录禁用！该用户分配无任何权限，无意义登录！";
+        public const string 用户无角色分配 = "登录禁用！该用户分配无任何角色，无意义登录！";
 
         public const string Admin = "cc";
         public const string AdminRolesCode = "admin";
         public const string AdminPermissionCode = "*:*:*";
+
+        public const string GuestRoleName = "guest";
+        public const string CommonRoleName = "common";
     }
 }

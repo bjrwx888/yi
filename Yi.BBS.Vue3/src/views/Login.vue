@@ -3,24 +3,27 @@
         <h1>{{configStore.name}}-登录</h1>
         <div class="login-form">
             <div class="username form-item">
-                <span>使用邮箱或者手机号</span>
+                <span>使用账号或者手机号</span>
                 <input type="text" class="input-item" v-model="loginForm.userName">
             </div>
             <div class="password form-item">
                 <span>密码</span>
                 <input type="password" class="input-item" v-model="loginForm.password">
             </div>
+
+            <RouterLink to="/register"  > 没有账号？前往注册</RouterLink>
             <button class="login-btn" @click="login">登 录</button>
             <button class="login-btn" @click="guestlogin">游客临时登录</button>
         </div>
 
-<RouterLink to="/register"> 没有账号？前往注册</RouterLink>
+     
 
         <div class="divider">
             <span class="line"></span>
             <span class="divider-text">其他方式登录</span>
             <span class="line"></span>
         </div>
+ 
         <div class="other-login-wrapper">
             <div class="other-login-item">
                 <img src="@/assets/login_images/QQ.png" alt="">

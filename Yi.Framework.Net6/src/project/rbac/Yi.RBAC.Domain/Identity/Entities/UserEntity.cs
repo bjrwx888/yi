@@ -17,6 +17,20 @@ namespace Yi.RBAC.Domain.Identity.Entities
     [SugarTable("User")]
     public class UserEntity : IEntity<long>, ISoftDelete, IAuditedObject, IOrderNum,IState
     {
+        public UserEntity( )
+        {
+
+        }
+        public UserEntity(string userName,string password,long phone,string nick="萌新" )
+        {
+            Id = SnowflakeHelper.NextId;
+            UserName=userName;
+            Password=password;
+            Phone = phone;
+            Nick = nick;
+            BuildPassword();
+        }
+
         /// <summary>
         /// 主键
         /// </summary>

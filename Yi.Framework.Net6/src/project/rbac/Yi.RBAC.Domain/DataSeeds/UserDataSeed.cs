@@ -66,6 +66,27 @@ namespace Yi.RBAC.Domain.DataSeeds
             user2.BuildPassword();
             entities.Add(user2);
 
+            UserEntity user3 = new UserEntity()
+            {
+                Id = SnowFlakeSingle.Instance.NextId(),
+                Name = "游客",
+                UserName = "guest",
+                Nick = "测试",
+                Password = "123456",
+                Email = "454313500@qq.com",
+                Phone = 15900000000,
+                Sex = SexEnum.Woman,
+                Address = "深圳",
+                Age = 18,
+                Introduction = "临时游客",
+                OrderNum = 1,
+                Remark = "懒得创账号",
+                State = true
+
+            };
+            user3.BuildPassword();
+            entities.Add(user3);
+
             return entities;
         }
     }

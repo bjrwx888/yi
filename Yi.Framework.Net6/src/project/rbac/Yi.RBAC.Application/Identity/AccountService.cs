@@ -29,6 +29,7 @@ using Yi.RBAC.Domain.Shared.Identity.ConstClasses;
 using Yi.RBAC.Domain.Shared.Identity.Dtos;
 using Yi.RBAC.Domain.Shared.Identity.Etos;
 using System.Net.WebSockets;
+using Yi.Framework.Uow;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -52,6 +53,19 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private IDistributedEventBus _distributedEventBus { get; set; }
+
+
+        [Autowired]
+        private IUserService _userService { get; set; }
+
+
+        [Autowired]
+        private UserManager _userManager { get; set; }
+
+        [Autowired]
+        private IUnitOfWorkManager _unitOfWorkManager { get; set; }
+
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -66,9 +80,9 @@ namespace Yi.RBAC.Application.Identity
             //获取用户信息
             var userInfo = await _userRepository.GetUserAllInfoAsync(user.Id);
 
-            if (userInfo.PermissionCodes.Count == 0)
+            if (userInfo.RoleCodes.Count == 0)
             {
-                throw new UserFriendlyException(UserConst.用户无权限分配);
+                throw new UserFriendlyException(UserConst.用户无角色分配);
             }
             //这里抛出一个登录的事件
 
@@ -85,6 +99,71 @@ namespace Yi.RBAC.Application.Identity
             var token = _jwtTokenManager.CreateToken(_accountManager.UserInfoToClaim(userInfo));
             return new { Token = token };
         }
+
+        /// <summary>
+        /// 注册 手机验证码
+        /// </summary>
+        /// <returns></returns>
+        public async Task<object> PostPhoneCaptchaImage(PhoneCaptchaImageDto input)
+        {
+
+            //生成一个4位数的验证码
+            //发送短信，同时生成uuid
+            //key： 电话号码  value:验证码+uuid  
+            return new { uuid = Guid.NewGuid() };
+        }
+
+        /// <summary>
+        /// 注册，需要验证码通过
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<object> PostRegisterAsync(RegisterDto input)
+        {
+            if (input.UserName == UserConst.Admin)
+            {
+                throw new UserFriendlyException("用户名无效注册！");
+            }
+
+            if (input.UserName.Length < 2)
+            {
+                throw new UserFriendlyException("账号名需大于等于2位！");
+            }
+            if (input.Password.Length<6)
+            {
+                throw new UserFriendlyException("密码需大于等于6位！");
+            }
+            //效验验证码，根据电话号码获取 value，比对验证码已经uuid
+
+            //输入的用户名与电话号码都不能在数据库中存在
+            UserEntity user = new();
+            var isExist = await _userRepository.IsAnyAsync(x =>
+                  x.UserName == input.UserName
+               || x.Phone == input.Phone
+               || x.UserName == input.Phone.ToString()
+               || x.Phone.ToString() == input.UserName);
+            if (isExist)
+            {
+                throw new UserFriendlyException("用户已存在，注册失败");
+            }
+            using (var uow = _unitOfWorkManager.CreateContext())
+            {
+                var newUser = new UserEntity(input.UserName, input.Password, input.Phone);
+
+                var entity = await _userRepository.InsertReturnEntityAsync(newUser);
+                //赋上一个初始角色
+                var roleRepository = uow.GetRepository<RoleEntity>();
+                var role = await roleRepository.GetFirstAsync(x => x.RoleName == UserConst.GuestRoleName);
+                if (role is not null)
+                {
+                    await _userManager.GiveUserSetRoleAsync(new List<long> { entity.Id }, new List<long> { role.Id });
+                }
+                uow.Commit();
+            }
+
+            return true;
+        }
+
 
         /// <summary>
         /// 查询已登录的账户信息
