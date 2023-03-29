@@ -65,7 +65,8 @@ namespace Yi.RBAC.Application.Identity
         [Autowired]
         private IUnitOfWorkManager _unitOfWorkManager { get; set; }
 
-
+        [Autowired]
+        private IRepository<RoleEntity> _roleRepository { get; set; }
         /// <summary>
         /// 登录
         /// </summary>
@@ -152,7 +153,7 @@ namespace Yi.RBAC.Application.Identity
 
                 var entity = await _userRepository.InsertReturnEntityAsync(newUser);
                 //赋上一个初始角色
-                var roleRepository = uow.GetRepository<RoleEntity>();
+                var roleRepository = _roleRepository;
                 var role = await roleRepository.GetFirstAsync(x => x.RoleName == UserConst.GuestRoleName);
                 if (role is not null)
                 {

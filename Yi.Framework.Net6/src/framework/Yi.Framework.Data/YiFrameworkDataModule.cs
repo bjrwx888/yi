@@ -12,11 +12,13 @@ using Yi.Framework.Data.Entities;
 using Yi.Framework.Data.Extensions;
 using Yi.Framework.Data.Filters;
 using Yi.Framework.Ddd;
+using Yi.Framework.Uow;
 
 namespace Yi.Framework.Data
 {
     [DependsOn(
-        typeof(YiFrameworkDddModule)) ]
+        typeof(YiFrameworkDddModule),
+        typeof(YiFrameworkUowModule)) ]
     public class YiFrameworkDataModule : IStartupModule
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)

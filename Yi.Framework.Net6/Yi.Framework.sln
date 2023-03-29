@@ -103,6 +103,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.MultiTenancy",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.DictionaryManager", "src\module\Yi.Framework.DictionaryManager\Yi.Framework.DictionaryManager.csproj", "{8941B30D-698B-477A-8737-43E7B4A8695A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Sms.Aliyun", "src\module\Yi.Framework.Sms.Aliyun\Yi.Framework.Sms.Aliyun.csproj", "{063178CF-C5B9-463C-A8A4-F32B743818E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -269,6 +271,10 @@ Global
 		{8941B30D-698B-477A-8737-43E7B4A8695A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8941B30D-698B-477A-8737-43E7B4A8695A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8941B30D-698B-477A-8737-43E7B4A8695A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{063178CF-C5B9-463C-A8A4-F32B743818E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{063178CF-C5B9-463C-A8A4-F32B743818E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{063178CF-C5B9-463C-A8A4-F32B743818E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{063178CF-C5B9-463C-A8A4-F32B743818E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -317,6 +323,7 @@ Global
 		{1BF3115D-B027-4805-AF7B-41B3AE9CB355} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 		{590B1EC0-CDA9-4937-BE07-FBB04437D21F} = {5F2B846D-96CE-400A-878E-220498F4EE31}
 		{8941B30D-698B-477A-8737-43E7B4A8695A} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
+		{063178CF-C5B9-463C-A8A4-F32B743818E2} = {EEF5F221-0E32-4A3D-B647-B4B5E7305806}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C1A3808-0F4F-43FB-A9FE-5F27A3BB2ECF}

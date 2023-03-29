@@ -26,7 +26,7 @@ namespace Yi.BBS.Domain.Forum.Entities
         [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         public string Title { get; set; }
-        public string Types { get; set; }
+        public string? Types { get; set; }
         public string? Introduction { get; set; }
         public int AgreeNum { get; set; }
         public int SeeNum { get; set; }
@@ -34,6 +34,8 @@ namespace Yi.BBS.Domain.Forum.Entities
         /// 封面
         /// </summary>
         public string? Cover { get; set; }
+
+        [SugarColumn(Length =9999)]
         public string Content { get; set; }
 
         public string? Color { get; set; }

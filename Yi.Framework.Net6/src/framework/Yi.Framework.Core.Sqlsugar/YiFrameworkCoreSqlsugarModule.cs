@@ -25,7 +25,7 @@ namespace Yi.Framework.Core.Sqlsugar
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
             services.AddTransient(typeof(IRepository<>), typeof(SqlsugarRepository<>));
-            services.Replace(new ServiceDescriptor(typeof(IUnitOfWorkManager), typeof(SqlsugarUnitOfWorkManager), ServiceLifetime.Singleton));
+            //services.Replace(new ServiceDescriptor(typeof(IUnitOfWorkManager), typeof(SqlsugarUnitOfWorkManager), ServiceLifetime.Singleton));
             services.Replace(new ServiceDescriptor(typeof(IDataFilter), typeof(SqlsugarDataFilter), ServiceLifetime.Scoped));
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConnOptions"));
 
