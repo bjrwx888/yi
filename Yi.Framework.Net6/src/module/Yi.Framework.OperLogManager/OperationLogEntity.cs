@@ -59,7 +59,7 @@ namespace Yi.Framework.OperLogManager
         /// <summary>
         /// 请求结果 
         ///</summary>
-        [SugarColumn(ColumnName = "RequestResult")]
+        [SugarColumn(ColumnName = "RequestResult",Length =9999)]
         public string? RequestResult { get; set; }
 
         public DateTime CreationTime { get; set; }
