@@ -8,5 +8,9 @@ namespace Yi.Framework.Sms.Aliyun
 {
     public class SmsAliyunOptions
     {
+        public string AccessKeyId { get; set; }
+        public string AccessKeySecret { get; set; }
+
+        public string SignName { get; set; }
     }
 }

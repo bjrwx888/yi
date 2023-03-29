@@ -8,7 +8,8 @@ namespace Yi.RBAC.Application.Contracts.Identity.Dtos.Account
 {
     public class CaptchaImageDto
     {
-        public string Uuid { get; set; }=string.Empty;
+        public string Code { get; set; } = string.Empty;
+        public Guid Uuid { get; set; } = Guid.Empty;
         public byte[] Img { get; set; }
     }
 }

@@ -4,12 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AlibabaCloud.SDK.Dysmsapi20170525;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Tea;
 
 namespace Yi.Framework.Sms.Aliyun
 {
     public class SmsAliyunManager
     {
+        public Client AliyunClient { get; set; }
+        private ILogger<SmsAliyunManager> _logger;
+        private SmsAliyunOptions Options { get; set; }
+        public SmsAliyunManager(ILogger<SmsAliyunManager> logger,IOptions<SmsAliyunOptions> options)
+        {
+            _logger = logger;
+            AliyunClient = CreateClient(Options.AccessKeyId, Options.AccessKeySecret);
+            Options = options.Value;
+        }
+
         private static Client CreateClient(string accessKeyId, string accessKeySecret)
         {
             AlibabaCloud.OpenApiClient.Models.Config config = new AlibabaCloud.OpenApiClient.Models.Config
@@ -24,12 +36,13 @@ namespace Yi.Framework.Sms.Aliyun
             return new Client(config);
         }
 
-        public Client  AliyunClient { get; set; }
-        public SmsAliyunManager() {
 
-            AliyunClient = CreateClient("accessKeyId", "accessKeySecret");
-        }
-
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <param name="phoneNumbers"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public async Task Send(string phoneNumbers, string code)
         {
             try
@@ -37,21 +50,17 @@ namespace Yi.Framework.Sms.Aliyun
                 AlibabaCloud.SDK.Dysmsapi20170525.Models.SendSmsRequest sendSmsRequest = new AlibabaCloud.SDK.Dysmsapi20170525.Models.SendSmsRequest
                 {
                     PhoneNumbers = phoneNumbers,
-                    SignName = "",
+                    SignName = Options.SignName,
                     TemplateCode = code,
                 };
 
-             var response= await  AliyunClient.SendSmsAsync(sendSmsRequest);
+                var response = await AliyunClient.SendSmsAsync(sendSmsRequest);
             }
-            catch (TeaException error)
-            {
 
-                Console.WriteLine(error.Message); 
-            }
             catch (Exception _error)
             {
-                Console.WriteLine(_error.Message);
+                _logger.LogError(_error, _error.Message);
             }
         }
-    } 
+    }
 }

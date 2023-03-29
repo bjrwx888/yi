@@ -4,6 +4,16 @@
         <name>Yi.RBAC.Application</name>
     </assembly>
     <members>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationCaptcha">
+            <summary>
+            效验图片登录验证码
+            </summary>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationPhone">
+            <summary>
+            效验电话验证码
+            </summary>
+        </member>
         <member name="M:Yi.RBAC.Application.Identity.AccountService.PostLoginAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.LoginInputVo)">
             <summary>
             登录
@@ -66,9 +76,9 @@
         </member>
         <member name="M:Yi.RBAC.Application.Identity.AccountService.UpdateIconAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.UpdateIconDto)">
             <summary>
-            更新头像
+             更新头像
             </summary>
-            <param name="icon"></param>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.RBAC.Application.Identity.DeptService">

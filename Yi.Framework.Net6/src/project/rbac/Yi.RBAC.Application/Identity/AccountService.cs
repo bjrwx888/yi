@@ -30,6 +30,7 @@ using Yi.RBAC.Domain.Shared.Identity.Dtos;
 using Yi.RBAC.Domain.Shared.Identity.Etos;
 using System.Net.WebSockets;
 using Yi.Framework.Uow;
+using Yi.Framework.Caching;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -67,6 +68,26 @@ namespace Yi.RBAC.Application.Identity
 
         [Autowired]
         private IRepository<RoleEntity> _roleRepository { get; set; }
+
+        [Autowired]
+        private CacheManager _cacheManager { get; set; }
+
+        /// <summary>
+        /// 效验图片登录验证码
+        /// </summary>
+        private void ValidationCaptcha()
+        {
+
+        }
+
+        /// <summary>
+        /// 效验电话验证码
+        /// </summary>
+        private void ValidationPhone()
+        {
+
+        }
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -74,6 +95,14 @@ namespace Yi.RBAC.Application.Identity
         /// <returns></returns>
         public async Task<object> PostLoginAsync(LoginInputVo input)
         {
+            if (string.IsNullOrEmpty(input.Password) || string.IsNullOrEmpty(input.UserName))
+            {
+                throw new UserFriendlyException("请输入合理数据！");
+            }
+
+            //效验验证码
+            ValidationCaptcha();
+
             UserEntity user = new();
             //登录成功
             await _accountManager.LoginValidationAsync(input.UserName, input.Password, x => user = x);
@@ -105,13 +134,15 @@ namespace Yi.RBAC.Application.Identity
         /// 注册 手机验证码
         /// </summary>
         /// <returns></returns>
-        public async Task<object> PostPhoneCaptchaImage(PhoneCaptchaImageDto input)
+        public object PostPhoneCaptchaImage(PhoneCaptchaImageDto input)
         {
-
+            var code = _securityCode.GetRandomEnDigitalText(4);
+            var uuid = Guid.NewGuid();
+            _cacheManager.Set($"Yi:Phone:{input.Phone}", $"{code}:{uuid}", new TimeSpan(0, 10, 0));
             //生成一个4位数的验证码
             //发送短信，同时生成uuid
             //key： 电话号码  value:验证码+uuid  
-            return new { uuid = Guid.NewGuid() };
+            return new { Uuid = uuid };
         }
 
         /// <summary>
@@ -130,19 +161,20 @@ namespace Yi.RBAC.Application.Identity
             {
                 throw new UserFriendlyException("账号名需大于等于2位！");
             }
-            if (input.Password.Length<6)
+            if (input.Password.Length < 6)
             {
                 throw new UserFriendlyException("密码需大于等于6位！");
             }
             //效验验证码，根据电话号码获取 value，比对验证码已经uuid
+            ValidationPhone();
+
+
 
             //输入的用户名与电话号码都不能在数据库中存在
             UserEntity user = new();
             var isExist = await _userRepository.IsAnyAsync(x =>
                   x.UserName == input.UserName
-               || x.Phone == input.Phone
-               || x.UserName == input.Phone.ToString()
-               || x.Phone.ToString() == input.UserName);
+               || x.Phone == input.Phone);
             if (isExist)
             {
                 throw new UserFriendlyException("用户已存在，注册失败");
@@ -178,7 +210,7 @@ namespace Yi.RBAC.Application.Identity
             //通过鉴权jwt获取到用户的id
             var userId = _currentUser.Id;
             //此处从缓存中获取即可
-            //var data = _cacheDb.Get<UserRoleMenuDto>($"Yi:UserInfo:{userId}");
+            //var data = _cacheManager.Get<UserRoleMenuDto>($"Yi:UserInfo:{userId}");
             var data = await _userRepository.GetUserAllInfoAsync(userId);
             //系统用户数据被重置，老前端访问重新授权
             if (data is null)
@@ -233,9 +265,9 @@ namespace Yi.RBAC.Application.Identity
             var code = _securityCode.GetRandomEnDigitalText(4);
             //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
             //10分钟过期
-            //_cacheDb.Set($"Yi:Captcha:{uuid}", code, new TimeSpan(0, 10, 0));
+            _cacheManager.Set($"Yi:Captcha:{code}", uuid, new TimeSpan(0, 10, 0));
             var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
-            return new CaptchaImageDto { Img = imgbyte, Uuid = code };
+            return new CaptchaImageDto { Img = imgbyte, Code = code, Uuid = uuid };
         }
 
         /// <summary>
@@ -271,9 +303,9 @@ namespace Yi.RBAC.Application.Identity
         }
 
         /// <summary>
-        /// 更新头像
+        ///  更新头像
         /// </summary>
-        /// <param name="icon"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         public async Task<bool> UpdateIconAsync(UpdateIconDto input)
         {
