@@ -2,15 +2,23 @@
     <div class="login-wrapper">
         <h1>{{configStore.name}}-登录</h1>
         <div class="login-form">
+
+            <el-form  ref="loginFormRef" v-model="loginForm"   :rules="rules" >
+             
             <div class="username form-item">
-                <span>使用账号或者手机号</span>
+                <el-form-item  prop="userName">
+                <span>使用账号</span>
                 <input type="text" class="input-item" v-model="loginForm.userName">
+            </el-form-item>
             </div>
+          
             <div class="password form-item">
+                <el-form-item  prop="password">
                 <span>密码</span>
                 <input type="password" class="input-item" v-model="loginForm.password">
+            </el-form-item>
             </div>
-
+        </el-form>
             <RouterLink to="/register"  > 没有账号？前往注册</RouterLink>
             <button class="login-btn" @click="login">登 录</button>
             <button class="login-btn" @click="guestlogin">游客临时登录</button>
@@ -49,6 +57,17 @@ const  configStore= useConfigStore();
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
+
+const rules = reactive({
+  userName: [
+    { required: true, message: '请输入账号名', trigger: 'blur' },
+    { min: 3,  message: '至少大于等于3位', trigger: 'blur' },
+  ],
+password:[
+{ required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3,  message: '至少大于等于6位', trigger: 'blur' },
+
+]})
 const loginForm = reactive({
     userName: "",
     password: "",

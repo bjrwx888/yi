@@ -23,7 +23,7 @@ namespace Yi.RBAC.Domain.Shared.Identity.ConstClasses
         public const string AdminRolesCode = "admin";
         public const string AdminPermissionCode = "*:*:*";
 
-        public const string GuestRoleName = "guest";
+        public const string GuestRoleCode = "guest";
         public const string CommonRoleName = "common";
     }
 }

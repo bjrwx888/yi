@@ -12,7 +12,10 @@
                 <button v-if="!isSendCaptcha" style="width: 30%;background-color: #C14949;" class="login-btn" @click="captcha" >验证码</button>
                 <button v-else style="width: 30%;background-color:#F0F2F5;" class="login-btn"  >已发送</button>
             </div>
-            
+            <div class="username form-item"  v-show="isSendCaptcha">
+                <span>手机短信验证码</span>
+                <input type="text" class="input-item" v-model="registerForm.code">
+            </div>
             <div class="password form-item">
                 <span>密码</span>
                 <input type="password" class="input-item" v-model="registerForm.password">
