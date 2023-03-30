@@ -65,4 +65,15 @@ export function logout() {
       timeout: 20000
     })
   }
-  
+    // 获取短信验证码
+    export function getCodePhone(phone) {
+      return request({
+        url: '/account/captcha-phone',
+        headers: {
+          isToken: false
+        },
+        method: 'post',
+        timeout: 20000,
+        data:{phone}
+      })
+    }

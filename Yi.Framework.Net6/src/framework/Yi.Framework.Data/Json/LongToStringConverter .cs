@@ -7,9 +7,13 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using SqlSugar;
 
 namespace Yi.Framework.Data.Json
 {
+    /// <summary>
+    /// 长整形转字符串
+    /// </summary>
     public class LongToStringConverter : JsonConverter<long>
     {
         public override long Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -26,6 +30,7 @@ namespace Yi.Framework.Data.Json
                 {
                     return number;
                 }
+                return 0;
             }
 
             return reader.GetInt64();
@@ -37,3 +42,4 @@ namespace Yi.Framework.Data.Json
         }
     }
 }
+

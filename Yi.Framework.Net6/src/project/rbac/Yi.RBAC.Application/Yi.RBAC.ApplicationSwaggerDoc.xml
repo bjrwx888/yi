@@ -33,7 +33,7 @@
             </summary>
             <param name="str_handset"></param>
         </member>
-        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostCaptchatPhone(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.PhoneCaptchaImageDto)">
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostCaptchaPhone(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.PhoneCaptchaImageDto)">
             <summary>
             注册 手机验证码
             </summary>

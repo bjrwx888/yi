@@ -102,7 +102,7 @@ namespace Yi.RBAC.Application.Identity
         private void ValidationPhoneCaptcha(RegisterDto input)
         {
             var value = _cacheManager.Get<string>($"Yi:Phone:{input.Phone}");
-            if (value is not null && value.Equals($"{input.Code}:{input.Uuid}"))
+            if (value is not null && value.Equals($"{input.Code}"))
             {
                 return;
             }
@@ -212,7 +212,7 @@ namespace Yi.RBAC.Application.Identity
             {
                 code = "8888";
             }
-            _cacheManager.Set($"Yi:Phone:{input.Phone}", $"{code}:{uuid}", new TimeSpan(0, 10, 0));
+            _cacheManager.Set($"Yi:Phone:{input.Phone}", $"{code}", new TimeSpan(0, 10, 0));
 
 
             return new { Uuid = uuid };

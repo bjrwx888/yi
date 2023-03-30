@@ -16,9 +16,15 @@
                 <span>手机短信验证码</span>
                 <input type="text" class="input-item" v-model="registerForm.code">
             </div>
+
+            
             <div class="password form-item">
                 <span>密码</span>
                 <input type="password" class="input-item" v-model="registerForm.password">
+            </div>
+             <div class="password form-item">
+                <span>确认密码</span>
+                <input type="password" class="input-item" v-model="passwordConfirm">
             </div>
             <RouterLink to="/login"  > 已有账号，前往登录</RouterLink>
             <button class="login-btn" @click="register">注册</button>
@@ -41,30 +47,48 @@
 <script setup>
 import { reactive ,ref} from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import {getCodePhone} from '@/apis/accountApi'
 import useUserStore from '@/stores/user.js'
 import useConfigStore from "@/stores/config";
 const  configStore= useConfigStore();
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
+const passwordConfirm=ref('');
 const registerForm = reactive({
     userName: "",
     password: "",
     uuid: "",
-    code: ""
+    code: "",
+    phone:""
 })
 
 const isSendCaptcha=ref(false)
-
+ 
 //验证码
 const captcha=async()=>{
-    isSendCaptcha.value=true;
+        isSendCaptcha.value=true;
+  const response=  await getCodePhone(registerForm.phone);
+      ElMessage({
+            message: `已向${registerForm.phone}发送验证码，请注意查收`,
+            type: 'success',
+        })
+
+    
 }
 
 const register = async () => {
+
+if(registerForm.password!=passwordConfirm.value)
+{
+ ElMessage.error('两次密码输入不一致')
+    return;
+}
+
+
     const response = await userStore.register(registerForm).catch((e) => {
-        registerForm.userName = "";
-        registerForm.password = "";
+        registerForm.password="";
+        passwordConfirm.value="";
     });
 
     //成功
