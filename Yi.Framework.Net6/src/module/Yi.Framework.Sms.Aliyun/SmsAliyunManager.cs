@@ -55,7 +55,8 @@ namespace Yi.Framework.Sms.Aliyun
                 {
                     PhoneNumbers = phoneNumbers,
                     SignName = Options.SignName,
-                    TemplateCode = code,
+                    TemplateCode = Options.TemplateCode,
+                    TemplateParam = System.Text.Json.JsonSerializer.Serialize(new {  code })
                 };
 
                 var response = await AliyunClient.SendSmsAsync(sendSmsRequest);

@@ -13,6 +13,8 @@ namespace Yi.Framework.Sms.Aliyun
 
         public string SignName { get; set; }
 
+
+        public string TemplateCode { get; set; }
         public bool EnableFeature { get; set; } = true;
     }
 }
