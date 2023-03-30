@@ -130,17 +130,15 @@ namespace Yi.Framework.FileManager
                         try
                         {
                             result = _thumbnailSharpManager.CreateThumbnailBytes(thumbnailSize: 300, imageStream: stream, imageFormat: Format.Jpeg);
+                            if(result is null) throw new ArgumentNullException(nameof(result));
                         }
                         catch
                         {
                             result = new byte[stream.Length];
                             stream.Read(result, 0, result.Length);
-                            // 设置当前流的位置为流的开始
-                            stream.Seek(0, SeekOrigin.Begin);
                         }
                         finally
                         {
-
                             await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
                         }
                     }

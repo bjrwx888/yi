@@ -84,10 +84,11 @@ namespace Yi.BBS.Application.Forum
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
                      .Where(x => x.IsTop == input.IsTop)
-                     .OrderByIF(input.Type == QueryDiscussTypeEnum.New, x => x.CreationTime, OrderByType.Desc)
-                     .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, x => x.SeeNum, OrderByType.Desc)
-                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, x => x.AgreeNum, OrderByType.Desc)
+
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
+                      .OrderByIF(input.Type == QueryDiscussTypeEnum.New, discuss => discuss.CreationTime, OrderByType.Desc)
+                     .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, discuss => discuss.SeeNum, OrderByType.Desc)
+                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, discuss => discuss.AgreeNum, OrderByType.Desc)
                      .Select((discuss, user) => new DiscussGetListOutputDto
                      {
                          Id=discuss.Id,
