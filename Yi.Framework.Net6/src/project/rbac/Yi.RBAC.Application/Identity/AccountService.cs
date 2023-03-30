@@ -31,6 +31,9 @@ using Yi.RBAC.Domain.Shared.Identity.Etos;
 using System.Net.WebSockets;
 using Yi.Framework.Uow;
 using Yi.Framework.Caching;
+using Yi.Framework.Sms.Aliyun;
+using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 
 namespace Yi.RBAC.Application.Identity
 {
@@ -72,20 +75,38 @@ namespace Yi.RBAC.Application.Identity
         [Autowired]
         private CacheManager _cacheManager { get; set; }
 
-        /// <summary>
-        /// 效验图片登录验证码
-        /// </summary>
-        private void ValidationCaptcha()
-        {
+        [Autowired]
+        private SmsAliyunManager _smsAliyunManager { get; set; }
 
+        [Autowired]
+        private IOptions<SmsAliyunOptions> _smsAliyunManagerOptions { get; set; }
+
+        /// <summary>
+        /// 效验图片登录验证码,无需和账号绑定
+        /// </summary>
+        private void ValidationImageCaptcha(LoginInputVo input)
+        {
+            //登录不想要验证码 ，不效验
+            return;
+            var value = _cacheManager.Get<string>($"Yi:Captcha:{input.Code}");
+            if (value is not null && value.Equals(input.Uuid))
+            {
+                return;
+            }
+            throw new UserFriendlyException("验证码错误");
         }
 
         /// <summary>
-        /// 效验电话验证码
+        /// 效验电话验证码，需要与电话号码绑定
         /// </summary>
-        private void ValidationPhone()
+        private void ValidationPhoneCaptcha(RegisterDto input)
         {
-
+            var value = _cacheManager.Get<string>($"Yi:Phone:{input.Phone}");
+            if (value is not null && value.Equals($"{input.Code}:{input.Uuid}"))
+            {
+                return;
+            }
+            throw new UserFriendlyException("验证码错误");
         }
 
         /// <summary>
@@ -101,7 +122,7 @@ namespace Yi.RBAC.Application.Identity
             }
 
             //效验验证码
-            ValidationCaptcha();
+            ValidationImageCaptcha(input);
 
             UserEntity user = new();
             //登录成功
@@ -131,17 +152,69 @@ namespace Yi.RBAC.Application.Identity
         }
 
         /// <summary>
+        /// 生成验证码
+        /// </summary>
+        /// <returns></returns>
+
+        [AllowAnonymous]
+        public CaptchaImageDto GetCaptchaImage()
+        {
+            var uuid = Guid.NewGuid();
+            var code = _securityCode.GetRandomEnDigitalText(4);
+            //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
+            //10分钟过期
+            _cacheManager.Set($"Yi:Captcha:{code}", uuid, new TimeSpan(0, 10, 0));
+            var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
+            return new CaptchaImageDto { Img = imgbyte, Code = code, Uuid = uuid };
+        }
+
+        /// <summary>
+        /// 验证电话号码
+        /// </summary>
+        /// <param name="str_handset"></param>
+         private  void ValidationPhone(string str_handset)
+        {
+            var res= Regex.IsMatch(str_handset, "^(0\\d{2,3}-?\\d{7,8}(-\\d{3,5}){0,1})|(((13[0-9])|(15([0-3]|[5-9]))|(18[0-9])|(17[0-9])|(14[0-9]))\\d{8})$");
+            if (res == false)
+            {
+                throw new UserFriendlyException("手机号码格式错误！请检查");
+            }
+        }
+
+
+        /// <summary>
         /// 注册 手机验证码
         /// </summary>
         /// <returns></returns>
-        public object PostPhoneCaptchaImage(PhoneCaptchaImageDto input)
+        [AllowAnonymous]
+        public async Task<object> PostCaptchaPhone(PhoneCaptchaImageDto input)
         {
-            var code = _securityCode.GetRandomEnDigitalText(4);
-            var uuid = Guid.NewGuid();
-            _cacheManager.Set($"Yi:Phone:{input.Phone}", $"{code}:{uuid}", new TimeSpan(0, 10, 0));
+            ValidationPhone(input.Phone);
+            var value = _cacheManager.Get<string>($"Yi:Phone:{input.Phone}");
+
+            //防止暴刷
+            if (value is not null)
+            {
+                throw new UserFriendlyException($"{input.Phone}已发送过验证码，10分钟后可重试");
+            }
             //生成一个4位数的验证码
             //发送短信，同时生成uuid
             //key： 电话号码  value:验证码+uuid  
+            var code = _securityCode.GetRandomEnDigitalText(4);
+            var uuid = Guid.NewGuid();
+
+            //未开启短信验证，默认8888
+            if (_smsAliyunManagerOptions.Value.EnableFeature)
+            {
+                await _smsAliyunManager.Send(input.Phone, code);
+            }
+            else
+            {
+                code = "8888";
+            }
+            _cacheManager.Set($"Yi:Phone:{input.Phone}", $"{code}:{uuid}", new TimeSpan(0, 10, 0));
+
+
             return new { Uuid = uuid };
         }
 
@@ -150,6 +223,7 @@ namespace Yi.RBAC.Application.Identity
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public async Task<object> PostRegisterAsync(RegisterDto input)
         {
             if (input.UserName == UserConst.Admin)
@@ -166,7 +240,7 @@ namespace Yi.RBAC.Application.Identity
                 throw new UserFriendlyException("密码需大于等于6位！");
             }
             //效验验证码，根据电话号码获取 value，比对验证码已经uuid
-            ValidationPhone();
+            ValidationPhoneCaptcha(input);
 
 
 
@@ -251,23 +325,6 @@ namespace Yi.RBAC.Application.Identity
         public Task<bool> PostLogout()
         {
             return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 生成验证码
-        /// </summary>
-        /// <returns></returns>
-
-        [AllowAnonymous]
-        public CaptchaImageDto GetCaptchaImage()
-        {
-            var uuid = Guid.NewGuid();
-            var code = _securityCode.GetRandomEnDigitalText(4);
-            //将uuid与code，Redis缓存中心化保存起来，登录根据uuid比对即可
-            //10分钟过期
-            _cacheManager.Set($"Yi:Captcha:{code}", uuid, new TimeSpan(0, 10, 0));
-            var imgbyte = _securityCode.GetEnDigitalCodeByte(code);
-            return new CaptchaImageDto { Img = imgbyte, Code = code, Uuid = uuid };
         }
 
         /// <summary>

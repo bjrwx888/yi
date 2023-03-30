@@ -15,11 +15,15 @@ namespace Yi.Framework.Sms.Aliyun
         public Client AliyunClient { get; set; }
         private ILogger<SmsAliyunManager> _logger;
         private SmsAliyunOptions Options { get; set; }
-        public SmsAliyunManager(ILogger<SmsAliyunManager> logger,IOptions<SmsAliyunOptions> options)
+        public SmsAliyunManager(ILogger<SmsAliyunManager> logger, IOptions<SmsAliyunOptions> options)
         {
-            _logger = logger;
-            AliyunClient = CreateClient(Options.AccessKeyId, Options.AccessKeySecret);
             Options = options.Value;
+            if (Options.EnableFeature)
+            {
+                _logger = logger;
+                AliyunClient = CreateClient(Options.AccessKeyId, Options.AccessKeySecret);
+            }
+
         }
 
         private static Client CreateClient(string accessKeyId, string accessKeySecret)

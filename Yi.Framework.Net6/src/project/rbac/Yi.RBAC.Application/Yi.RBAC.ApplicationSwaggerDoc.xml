@@ -4,14 +4,14 @@
         <name>Yi.RBAC.Application</name>
     </assembly>
     <members>
-        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationCaptcha">
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationImageCaptcha(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.LoginInputVo)">
             <summary>
-            效验图片登录验证码
+            效验图片登录验证码,无需和账号绑定
             </summary>
         </member>
-        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationPhone">
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationPhoneCaptcha(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto)">
             <summary>
-            效验电话验证码
+            效验电话验证码，需要与电话号码绑定
             </summary>
         </member>
         <member name="M:Yi.RBAC.Application.Identity.AccountService.PostLoginAsync(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.LoginInputVo)">
@@ -21,7 +21,19 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostPhoneCaptchaImage(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.PhoneCaptchaImageDto)">
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.GetCaptchaImage">
+            <summary>
+            生成验证码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.ValidationPhone(System.String)">
+            <summary>
+            验证电话号码
+            </summary>
+            <param name="str_handset"></param>
+        </member>
+        <member name="M:Yi.RBAC.Application.Identity.AccountService.PostCaptchatPhone(Yi.RBAC.Application.Contracts.Identity.Dtos.Account.PhoneCaptchaImageDto)">
             <summary>
             注册 手机验证码
             </summary>
@@ -50,12 +62,6 @@
         <member name="M:Yi.RBAC.Application.Identity.AccountService.PostLogout">
             <summary>
             退出登录
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.RBAC.Application.Identity.AccountService.GetCaptchaImage">
-            <summary>
-            生成验证码
             </summary>
             <returns></returns>
         </member>
