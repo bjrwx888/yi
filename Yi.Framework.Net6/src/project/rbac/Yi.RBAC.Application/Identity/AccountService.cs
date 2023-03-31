@@ -104,6 +104,8 @@ namespace Yi.RBAC.Application.Identity
             var value = _cacheManager.Get<string>($"Yi:Phone:{input.Phone}");
             if (value is not null && value.Equals($"{input.Code}"))
             {
+                //成功，需要清空
+                _cacheManager.Del($"Yi:Phone:{input.Phone}");
                 return;
             }
             throw new UserFriendlyException("验证码错误");
