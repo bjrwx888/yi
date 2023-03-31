@@ -174,13 +174,19 @@ namespace Yi.RBAC.Application.Identity
         /// 验证电话号码
         /// </summary>
         /// <param name="str_handset"></param>
-         private  void ValidationPhone(string str_handset)
+         private  async Task ValidationPhone(string str_handset)
         {
             var res= Regex.IsMatch(str_handset, "^(0\\d{2,3}-?\\d{7,8}(-\\d{3,5}){0,1})|(((13[0-9])|(15([0-3]|[5-9]))|(18[0-9])|(17[0-9])|(14[0-9]))\\d{8})$");
             if (res == false)
             {
                 throw new UserFriendlyException("手机号码格式错误！请检查");
             }
+            if (await _userRepository.IsAnyAsync(x => x.Phone.ToString() == str_handset))
+            {
+                throw new UserFriendlyException("该手机号已被注册！");
+
+            }
+
         }
 
 
@@ -191,7 +197,7 @@ namespace Yi.RBAC.Application.Identity
         [AllowAnonymous]
         public async Task<object> PostCaptchaPhone(PhoneCaptchaImageDto input)
         {
-            ValidationPhone(input.Phone);
+           await ValidationPhone(input.Phone);
             var value = _cacheManager.Get<string>($"Yi:Phone:{input.Phone}");
 
             //防止暴刷
