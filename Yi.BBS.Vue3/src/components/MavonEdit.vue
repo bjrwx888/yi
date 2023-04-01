@@ -133,7 +133,7 @@ const imgAdd = async (pos, $file) => {
   var formdata = new FormData();
   formdata.append('file', $file);
   const response = await upload(formdata)
-  const url = `${import.meta.env.VITE_APP_BASEAPI}/file/${response.data[0].id}`;
+  const url = `${import.meta.env.VITE_APP_BASEAPI}/file/${response.data[0].id}/true`;
   console.log(url)
   md.value.$img2Url(pos, url);
 
