@@ -116,6 +116,7 @@ function handleLogin() {
         router.push({ path: redirect.value || "/" });
       }).catch(() => {
         loading.value = false;
+     
         // 重新获取验证码
         if (captchaEnabled.value) {
           getCode();
@@ -126,6 +127,7 @@ function handleLogin() {
 }
 
 function getCode() {
+
   getCodeImg().then(res => {
     captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled;
     if (captchaEnabled.value) {
