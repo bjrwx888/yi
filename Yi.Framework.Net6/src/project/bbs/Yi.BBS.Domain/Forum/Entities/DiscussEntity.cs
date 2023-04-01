@@ -35,7 +35,7 @@ namespace Yi.BBS.Domain.Forum.Entities
         /// </summary>
         public string? Cover { get; set; }
 
-        [SugarColumn(Length =9999)]
+        [SugarColumn(Length =999999)]
         public string Content { get; set; }
 
         public string? Color { get; set; }

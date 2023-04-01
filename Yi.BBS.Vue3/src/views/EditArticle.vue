@@ -132,7 +132,7 @@ const rules = reactive({
   ],
   content: [
     { required: true, message: "请输入内容", trigger: "blur" },
-    { min: 10, max: 4000, message: "长度 10 到9999", trigger: "blur" },
+    { min: 10, message: "长度 大于 10", trigger: "blur" },
   ],
 });
 //提交按钮,需要区分操作类型

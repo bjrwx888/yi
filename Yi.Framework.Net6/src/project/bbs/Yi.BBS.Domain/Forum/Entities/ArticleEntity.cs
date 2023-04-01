@@ -18,7 +18,7 @@ namespace Yi.BBS.Domain.Forum.Entities
         public long Id { get; set; }
         public bool IsDeleted { get; set; }
 
-        [SugarColumn(Length = 9999)]
+        [SugarColumn(Length = 999999)]
         public string Content { get; set; }
         public string Name { get; set; }
 
