@@ -4,11 +4,13 @@ using StartupModules;
 using Yi.Framework.Core.Attributes;
 using Yi.Framework.Core;
 using Yi.Framework.Ddd;
+using Yi.Framework.ImageSharp;
 
 namespace Yi.Framework.FileManager
 {
     [DependsOn(
-          typeof(YiFrameworkDddModule)
+          typeof(YiFrameworkDddModule),
+        typeof(YiFrameworkImageSharpModule)
         )]
     public class YiFrameworkFileManagerModule : IStartupModule
     {

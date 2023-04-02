@@ -12,17 +12,30 @@ namespace Yi.Framework.Core.Module
 
     internal class ModuleManager
     {
+        /// <summary>
+        /// 全部程序集
+        /// </summary>
         private List<Type> ResultType = new List<Type>();
+
+        /// <summary>
+        /// 开始程序集
+        /// </summary>
         private Type StartType;
         public ModuleManager(Type startType)
         {
             StartType = startType;
         }
 
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <returns></returns>
         public List<Type> Invoker()
         {
             StartBFSNodes(StartType);
-           var result= RemoveDuplicate(ResultType);
+            ResultType= ResultType.Distinct().ToList();
+            var result = StartTopologicalSortNodes().Reverse().ToList();
+
             Logger? _logger = LogManager.Setup().LoadConfigurationFromAssemblyResource(typeof(ModuleManager).Assembly).GetCurrentClassLogger();
             foreach (var r in result)
             {
@@ -33,17 +46,37 @@ namespace Yi.Framework.Core.Module
             return result;
         }
 
-        private Type[]? GetDependsOnType(Type type)
-        {
-            var dependsOnbuild = type.GetCustomAttributes(typeof(DependsOnAttribute), false).FirstOrDefault() as DependsOnAttribute;
-            if (dependsOnbuild is null)
-            {
-                return new Type[0];
-            }
-            return dependsOnbuild.GetDependedTypes();
 
+        private Type[] StartTopologicalSortNodes()
+        {
+            List<TopologicalSortNode<Type>> topologicalSortNodes = new List<TopologicalSortNode<Type>>();
+
+
+            //添加注册到节点
+            foreach (var res in ResultType)
+            {
+                var typeNode = new TopologicalSortNode<Type>(res);
+                topologicalSortNodes.Add(typeNode);
+            }
+
+            Dictionary<Type, TopologicalSortNode<Type>> nodeDic = topologicalSortNodes.ToDictionary(x => x.Data);
+
+
+            //各个节点互相添加依赖
+            foreach (var node in topologicalSortNodes)
+            {
+                GetDependsOnType(node.Data)?.ToList().ForEach(x => node.AddDependent(nodeDic[x]));
+            }
+
+          
+
+            return TopologicalSortNode<Type>.TopologicalSort(topologicalSortNodes).Select(x => x.Data).ToArray();
         }
 
+        /// <summary>
+        /// BFS获取全部程序集
+        /// </summary>
+        /// <param name="node"></param>
         private void StartBFSNodes(Type node)
         {
             ResultType.Add(node);
@@ -57,29 +90,30 @@ namespace Yi.Framework.Core.Module
             }
         }
 
-        private List<Type> RemoveDuplicate(List<Type> array)
+
+        /// <summary>
+        /// 获取模块 需依赖的模块
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private Type[]? GetDependsOnType(Type type)
         {
-            HashSet<Type> s = new HashSet<Type>();
-            List<Type> list = new List<Type>();
-            for (int i = array.Count - 1; i >= 0; i--)
+            var dependsOnbuild = type.GetCustomAttributes(typeof(DependsOnAttribute), false).FirstOrDefault() as DependsOnAttribute;
+            if (dependsOnbuild is null)
             {
-                if (!s.Contains(array[i]))
-                {
-                    s.Add(array[i]);
-                    list.Add(array[i]);
-                }
+                return new Type[0];
             }
-            ResultType = list;
-            return list;
+            return dependsOnbuild.GetDependedTypes();
         }
+
 
         public List<Assembly> ToAssemblyList()
         {
             return ResultType.Select(a => a.Assembly).ToList();
         }
-        public Assembly[] ToAssemblyArray()
+        public Assembly[] ToAssemblyArray(List<Type> types)
         {
-            return ResultType.Select(a => a.Assembly).ToArray();
+            return types.Select(a => a.Assembly).ToArray();
         }
     }
 }

@@ -83,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.RBAC.Application", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.RBAC.Web", "src\project\rbac\Yi.RBAC.Web\Yi.RBAC.Web.csproj", "{0C031C7D-6F80-4559-977C-AC001036EC44}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ThumbnailSharp", "src\module\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj", "{60E54034-792C-4A90-BCDF-4D5FFB45089E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ImageSharp", "src\module\Yi.Framework.ImageSharp\Yi.Framework.ImageSharp.csproj", "{60E54034-792C-4A90-BCDF-4D5FFB45089E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.EventBus", "src\module\Yi.Framework.EventBus\Yi.Framework.EventBus.csproj", "{FC559052-36EC-4379-B447-298FAD6045F4}"
 EndProject
@@ -103,7 +103,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.MultiTenancy",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.DictionaryManager", "src\module\Yi.Framework.DictionaryManager\Yi.Framework.DictionaryManager.csproj", "{8941B30D-698B-477A-8737-43E7B4A8695A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Sms.Aliyun", "src\module\Yi.Framework.Sms.Aliyun\Yi.Framework.Sms.Aliyun.csproj", "{063178CF-C5B9-463C-A8A4-F32B743818E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Sms.Aliyun", "src\module\Yi.Framework.Sms.Aliyun\Yi.Framework.Sms.Aliyun.csproj", "{063178CF-C5B9-463C-A8A4-F32B743818E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

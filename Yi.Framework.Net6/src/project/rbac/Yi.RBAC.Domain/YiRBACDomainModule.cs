@@ -15,7 +15,6 @@ using Yi.Framework.EventBus;
 using Yi.Framework.FileManager;
 using Yi.Framework.OperLogManager;
 using Yi.Framework.Sms.Aliyun;
-using Yi.Framework.ThumbnailSharp;
 using Yi.RBAC.Domain.Logs;
 using Yi.RBAC.Domain.Shared;
 
@@ -24,7 +23,6 @@ namespace Yi.RBAC.Domain
     [DependsOn(
         typeof(YiRBACDomainSharedModule),
                typeof(YiFrameworkDataModule),
-        typeof(YiFrameworkThumbnailSharpModule),
         typeof(YiFrameworkEventBusModule),
         typeof(YiFrameworkOperLogManagerModule),
         typeof(YiFrameworkFileManagerModule),

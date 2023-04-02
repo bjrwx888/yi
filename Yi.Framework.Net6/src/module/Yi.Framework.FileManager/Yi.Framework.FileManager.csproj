@@ -12,7 +12,7 @@
     <ProjectReference Include="..\..\framework\Yi.Framework.Core\Yi.Framework.Core.csproj" />
     <ProjectReference Include="..\..\framework\Yi.Framework.Data\Yi.Framework.Data.csproj" />
     <ProjectReference Include="..\..\framework\Yi.Framework.Ddd\Yi.Framework.Ddd.csproj" />
-    <ProjectReference Include="..\Yi.Framework.ThumbnailSharp\Yi.Framework.ThumbnailSharp.csproj" />
+    <ProjectReference Include="..\Yi.Framework.ImageSharp\Yi.Framework.ImageSharp.csproj" />
   </ItemGroup>
 
 </Project>

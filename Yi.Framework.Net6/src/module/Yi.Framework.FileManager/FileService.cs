@@ -17,7 +17,7 @@ using Yi.Framework.Core.Helper;
 using Yi.Framework.Ddd.Repositories;
 using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Services.Abstract;
-using Yi.Framework.ThumbnailSharp;
+using Yi.Framework.ImageSharp;
 
 namespace Yi.Framework.FileManager
 {
@@ -27,13 +27,13 @@ namespace Yi.Framework.FileManager
     public class FileService : ApplicationService, IFileService, IAutoApiService
     {
         private readonly IRepository<FileEntity> _repository;
-        private readonly ThumbnailSharpManager _thumbnailSharpManager;
+        private readonly ImageSharpManager _imageSharpManager;
         private readonly HttpContext _httpContext;
-        public FileService(IRepository<FileEntity> repository, ThumbnailSharpManager thumbnailSharpManager, IHttpContextAccessor httpContextAccessor
+        public FileService(IRepository<FileEntity> repository, ImageSharpManager imageSharpManager, IHttpContextAccessor httpContextAccessor
            )
         {
             _repository = repository;
-            _thumbnailSharpManager = thumbnailSharpManager;
+            _imageSharpManager = imageSharpManager;
             if (httpContextAccessor.HttpContext is null)
             {
                 throw new ApplicationException("HttpContext为空");
@@ -125,21 +125,16 @@ namespace Yi.Framework.FileManager
                         {
                             Directory.CreateDirectory(thumbnailPath);
                         }
-                        //保存至缩略图路径
-                        byte[] result = null!;
+                        string thumbnailFilePath = Path.Combine(thumbnailPath, filename);
                         try
                         {
-                            result = _thumbnailSharpManager.CreateThumbnailBytes(thumbnailSize: 300, imageStream: stream, imageFormat: Format.Jpeg);
-                            if(result is null) throw new ArgumentNullException(nameof(result));
+                            _imageSharpManager.ImageCompress(f.FileName, f.OpenReadStream(), thumbnailFilePath);
                         }
                         catch
                         {
-                            result = new byte[stream.Length];
-                            stream.Read(result, 0, result.Length);
-                        }
-                        finally
-                        {
-                            await System.IO.File.WriteAllBytesAsync(Path.Combine(thumbnailPath, filename), result);
+                            var result = new byte[stream.Length];
+                            await stream.ReadAsync(result, 0, result.Length);
+                            await File.WriteAllBytesAsync(thumbnailFilePath, result);
                         }
                     }
 

@@ -6,7 +6,6 @@ using Yi.Framework.Ddd.Services;
 using Yi.Framework.Ddd.Dtos;
 using SqlSugar;
 using Microsoft.AspNetCore.Mvc;
-using Cike.AutoWebApi.Setting;
 
 namespace Yi.RBAC.Application.Identity
 {

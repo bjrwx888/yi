@@ -23,9 +23,9 @@ namespace Yi.Framework.Core.Extensions
         public static WebApplicationBuilder UseYiModules(this WebApplicationBuilder builder, Type startType)
         {
             var moduleManager = new ModuleManager(startType);
-            moduleManager.Invoker();
+            
            
-            Assembly[] assemblies2 = moduleManager.ToAssemblyArray();
+            Assembly[] assemblies2 = moduleManager.ToAssemblyArray(moduleManager.Invoker());
             return builder.UseStartupModules(delegate (StartupModulesOptions options)
             {
                 options.DiscoverStartupModules(assemblies2);

@@ -16,7 +16,7 @@ namespace Yi.Framework.Core.Helper
 
         public static List<string> ImageType { get; set; } = new List<string>
         {
-            ".jpg",".png",".jpge",".gif"
+            ".jpg",".png",".jpge"
         };
 
         private static Hashtable _mimeMappingTable;
