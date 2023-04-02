@@ -89,6 +89,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.EventBus", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12EA3BCF-8991-4010-B41E-67C476CBA690}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
 		Build.props = Build.props
 		..\readme\git提交规范.txt = ..\readme\git提交规范.txt
 		src\project\rbac\GlobalUsings.cs = src\project\rbac\GlobalUsings.cs
