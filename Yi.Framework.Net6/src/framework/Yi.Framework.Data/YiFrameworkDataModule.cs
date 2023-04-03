@@ -23,6 +23,8 @@ namespace Yi.Framework.Data
     {
         public void Configure(IApplicationBuilder app, ConfigureMiddlewareContext context)
         {
+           
+
             //使用了过滤器
             app.UseDataFiterServer();
 

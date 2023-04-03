@@ -20,7 +20,7 @@ namespace Yi.Framework.Data.Extensions
             {
                 return builder;
             }
-
+           
             var dataSeeds = builder.ApplicationServices.GetServices<IDataSeed>();
             var iUnitOfWorkManager = builder.ApplicationServices.GetRequiredService<IUnitOfWorkManager>();
             if (dataSeeds is not null)

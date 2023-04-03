@@ -13,8 +13,7 @@ using Yi.BBS.Domain.Shared;
 namespace Yi.BBS.Domain
 {
     [DependsOn(
-        typeof(YiBBSDomainSharedModule),
-               typeof(YiFrameworkDataModule)
+        typeof(YiBBSDomainSharedModule)
         )]
     public class YiBBSDomainModule : IStartupModule
     {

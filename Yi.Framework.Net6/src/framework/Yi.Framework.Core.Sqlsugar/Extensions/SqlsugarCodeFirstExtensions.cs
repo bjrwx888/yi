@@ -21,6 +21,7 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
 
             if (options.Value.EnabledCodeFirst == false) return;
 
+            db.DbMaintenance.CreateDatabase();
             var assemblys = new List<Assembly>();
 
             //全盘加载
@@ -46,7 +47,6 @@ namespace Yi.Framework.Core.Sqlsugar.Extensions
 
         private static void TableInvoer(ISqlSugarClient _Db, List<Type> typeList)
         {
-            _Db.DbMaintenance.CreateDatabase();
             foreach (var t in typeList)
             {
                 //扫描如果存在SugarTable特性 并且 不是分表模型，直接codefirst

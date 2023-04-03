@@ -25,7 +25,6 @@ builder.Host.ConfigureAutoFacContainer(container =>
 
 var app = builder.Build();
 var db = app.Services.GetService<ISqlSugarClient>();
-db.DbMaintenance.CreateDatabase();
 app.UseErrorHandlingServer();
 
 app.UseAuthentication();

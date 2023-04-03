@@ -19,10 +19,9 @@ namespace Yi.BBS.Web
 {
     [DependsOn(
          typeof(YiBBSSqlsugarModule),
-               typeof(YiFrameworkAspNetCoreModule),
+         typeof(YiFrameworkAspNetCoreModule),
         typeof(YiFrameworkCoreAutofacModule),
-        typeof(YiBBSApplicationModule),
-           typeof(YiBBSSqlsugarModule)
+        typeof(YiBBSApplicationModule)
         )]
     public class YiBBSWebModule : IStartupModule
     {
