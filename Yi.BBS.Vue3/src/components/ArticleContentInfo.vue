@@ -27,7 +27,7 @@ watch(props,(n,o)=>{
         gfm: true,//允许 Git Hub标准的markdown
         tables: true,//支持表格
     
-        breaks: false,
+        breaks: true,
         sanitize: false,
         smartLists: true,
         smartypants: false,
