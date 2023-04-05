@@ -1,4 +1,0 @@
-#安卓生成环境路径前缀
-VUE_APP_BASE_API='https://jiftcc.com:20001'
-#生成环境路径前缀
-VUE_APP_BASE_API='/prod-apis'
