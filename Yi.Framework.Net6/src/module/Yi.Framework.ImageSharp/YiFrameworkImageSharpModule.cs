@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Hei.Captcha;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using StartupModules;
 using System;
@@ -18,6 +19,7 @@ namespace Yi.Framework.ImageSharp
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
             services.AddSingleton<ImageSharpManager>();
+            services.AddHeiCaptcha();
         }
     }
 }

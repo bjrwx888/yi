@@ -13,6 +13,7 @@ using Yi.Framework.Ddd;
 using Yi.Framework.DictionaryManager;
 using Yi.Framework.EventBus;
 using Yi.Framework.FileManager;
+using Yi.Framework.ImageSharp;
 using Yi.Framework.OperLogManager;
 using Yi.Framework.Sms.Aliyun;
 using Yi.RBAC.Domain.Logs;
@@ -28,7 +29,8 @@ namespace Yi.RBAC.Domain
         typeof(YiFrameworkFileManagerModule),
         typeof(YiFrameworkDictionaryManagerModule),
         typeof(YiFrameworkCachingMemoryCacheModule),
-        typeof(YiFrameworkSmsAliyunModule)
+        typeof(YiFrameworkSmsAliyunModule),
+        typeof(YiFrameworkImageSharpModule)
         )]
     public class YiRBACDomainModule : IStartupModule
     {
@@ -38,8 +40,6 @@ namespace Yi.RBAC.Domain
 
         public void ConfigureServices(IServiceCollection services, ConfigureServicesContext context)
         {
-            services.AddHeiCaptcha();
-
         }
     }
 }

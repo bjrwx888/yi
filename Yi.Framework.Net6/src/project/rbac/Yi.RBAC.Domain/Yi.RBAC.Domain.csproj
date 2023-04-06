@@ -11,7 +11,6 @@
 		<Compile Include="..\GlobalUsings.cs" Link="Properties\GlobalUsings.cs" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Hei.Captcha" Version="0.3.0" />
 	  <PackageReference Include="UAParser" Version="3.1.47" />
 	</ItemGroup>
   <ItemGroup>
