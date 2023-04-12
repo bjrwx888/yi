@@ -1,0 +1,17 @@
+using #NameSpaces#.Application.Contracts.#ModelName#;
+using Cike.AutoWebApi.Setting;
+using #NameSpaces#.Application.Contracts.#ModelName#.Dtos;
+using #NameSpaces#.Domain.#ModelName#.Entities;
+using Yi.Framework.Ddd.Services;
+
+namespace #NameSpaces#.Application.#ModelName#
+{
+    /// <summary>
+    /// #EntityName#服务实现
+    /// </summary>
+    [AppService]
+    public class #EntityName#Service : CrudAppService<#EntityName#Entity, #EntityName#GetOutputDto, #EntityName#GetListOutputDto, long, #EntityName#GetListInputVo, #EntityName#CreateInputVo, #EntityName#UpdateInputVo>,
+       I#EntityName#Service, IAutoApiService
+    {
+    }
+}

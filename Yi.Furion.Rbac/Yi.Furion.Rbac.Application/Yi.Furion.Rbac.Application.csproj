@@ -22,7 +22,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Yi.Furion.Rbac.Core\Yi.Furion.Rbac.Core.csproj" />
+		<ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
+		<ProjectReference Include="..\Yi.Furion.Rbac.EntityFramework.Core\Yi.Furion.Rbac.Sqlsugar.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

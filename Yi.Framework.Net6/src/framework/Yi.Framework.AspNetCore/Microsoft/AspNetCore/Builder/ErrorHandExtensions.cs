@@ -1,0 +1,109 @@
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yi.Framework.Core.Enums;
+using Yi.Framework.Core.Exceptions;
+
+namespace Microsoft.AspNetCore.Builder
+{
+
+    internal class ExceptionModle
+    {
+        public int Code { get; set; }
+        public string? Message { get; set; }
+        public string? Details { get; set; }
+    }
+    public class ErrorHandMiddleware
+    {
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ErrorHandMiddleware> _logger;
+        //private readonly IErrorHandle _errorHandle;
+        public ErrorHandMiddleware(RequestDelegate next, ILoggerFactory loggerFactory /*, IErrorHandle errorHandle*/)
+        {
+            this._next = next;
+            this._logger = loggerFactory.CreateLogger<ErrorHandMiddleware>();
+        }
+        public async Task InvokeAsync(HttpContext context)
+        {
+            try
+            {
+                await _next(context);
+            }
+            catch (BusinessException businessEx)
+            {
+                context.Response.ContentType = "application/json;charset=utf-8";
+                context.Response.StatusCode = (int)ResultCodeEnum.Denied;
+
+                var result = new ExceptionModle
+                {
+                    Code = businessEx.Code.GetHashCode(),
+                    Message = businessEx.Message,
+                    Details = businessEx.Details,
+                };
+                //业务错误，不记录日志
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
+                {
+                    //设置首字母小写
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                }));
+
+            }
+            catch (AuthException ex)
+            {
+                context.Response.ContentType = "application/json;charset=utf-8";
+                //系统错误，记录日志
+                _logger.LogError(ex, $"授权失败:{ex.Message}");
+                //await _errorHandle.Invoer(context, ex);
+                context.Response.StatusCode = (int)ResultCodeEnum.NoPermission;
+                //系统错误，需要记录
+                var result = new ExceptionModle
+                {
+                    Code = ex.Code.GetHashCode(),
+                    Message = ex.Message,
+                    Details = "授权失败",
+                };
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
+                {
+                    //设置首字母小写
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                }));
+
+            }
+            catch (Exception ex)
+            {
+                context.Response.ContentType = "application/json;charset=utf-8";
+                //系统错误，记录日志
+                _logger.LogError(ex, $"系统错误:{ex.Message}");
+                //await _errorHandle.Invoer(context, ex);
+                context.Response.StatusCode = (int)ResultCodeEnum.NotSuccess;
+                //系统错误，需要记录
+                var result = new ExceptionModle
+                {
+                    Code = 500,
+                    Message = ex.Message,
+                    Details = "系统错误",
+                };
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result, new JsonSerializerSettings()
+                {
+                    //设置首字母小写
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                }));
+            }
+        }
+
+    }
+
+    public static class ErrorHandExtensions
+    {
+        public static IApplicationBuilder UseErrorHandlingServer(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<ErrorHandMiddleware>();
+        }
+    }
+}

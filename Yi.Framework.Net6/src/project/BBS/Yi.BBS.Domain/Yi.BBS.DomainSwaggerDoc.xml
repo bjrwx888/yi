@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.BBS.Domain</name>
+    </assembly>
+    <members>
+        <member name="P:Yi.BBS.Domain.Exhibition.Entities.AgreeEntity.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Exhibition.Entities.AgreeEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Domain.Forum.Entities.ArticleEntityExtensions.Tile(System.Collections.Generic.List{Yi.BBS.Domain.Forum.Entities.ArticleEntity})">
+            <summary>
+            平铺自己
+            </summary>
+            <param name="entities"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.BBS.Domain.Forum.Entities.CommentEntity">
+            <summary>
+            评论表
+            </summary>
+        </member>
+        <member name="M:Yi.BBS.Domain.Forum.Entities.CommentEntity.#ctor">
+            <summary>
+            采用二维数组方式，不使用树形方式
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.CommentEntity.ParentId">
+            <summary>
+            被回复的CommentId
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.CommentEntity.CreateUser">
+            <summary>
+            用户,评论人用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.CommentEntity.CommentedUser">
+            <summary>
+            被评论的用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.DiscussEntity.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Yi.BBS.Domain.Forum.Entities.DiscussEntity.PermissionUserIds">
+            <summary>
+            当PermissionType为部分用户时候，以下列表中的用户+创建者 代表拥有权限
+            </summary>
+        </member>
+        <member name="T:Yi.BBS.Domain.Forum.ForumManager">
+            <summary>
+            论坛模块的领域服务
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Sqlsugar\" />
+    <ProjectReference Include="..\Yi.Furion.Rbac.Core\Yi.Furion.Rbac.Core.csproj" />
   </ItemGroup>
 
 </Project>
