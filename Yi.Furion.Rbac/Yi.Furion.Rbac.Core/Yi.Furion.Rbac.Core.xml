@@ -4,5 +4,619 @@
         <name>Yi.Furion.Rbac.Core</name>
     </assembly>
     <members>
+        <member name="T:Yi.Furion.Rbac.Core.ConstClasses.DeptConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.ConstClasses.MenuConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.ConstClasses.PostConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.ConstClasses.RoleConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.ConstClasses.UserConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.DeptEntity">
+             <summary>
+             部门表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.DeptName">
+             <summary>
+             部门名称 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.DeptCode">
+             <summary>
+             部门编码 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.Leader">
+             <summary>
+             负责人 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.ParentId">
+             <summary>
+             父级id 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.DeptEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.LoginLogEntity.LoginUser">
+             <summary>
+             登录用户 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.LoginLogEntity.LoginLocation">
+             <summary>
+             登录地点 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.LoginLogEntity.LoginIp">
+             <summary>
+             登录Ip 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.LoginLogEntity.Browser">
+             <summary>
+             浏览器 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.LoginLogEntity.Os">
+             <summary>
+             操作系统 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.LoginLogEntity.LogMsg">
+             <summary>
+             登录信息 
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.MenuEntity">
+             <summary>
+             菜单表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.MenuName">
+            <summary>
+            菜单名
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.MenuType">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.PermissionCode">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.ParentId">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.MenuIcon">
+             <summary>
+             菜单图标 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.Router">
+             <summary>
+             菜单组件路由 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.IsLink">
+             <summary>
+             是否为外部链接 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.IsCache">
+             <summary>
+             是否缓存 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.IsShow">
+             <summary>
+             是否显示 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.Component">
+             <summary>
+             组件路径 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.MenuEntity.Query">
+             <summary>
+             路由参数 
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.MenuEntityExtensions">
+            <summary>
+            实体扩展
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Rbac.Core.Entities.MenuEntityExtensions.Vue3RouterBuild(System.Collections.Generic.List{Yi.Furion.Rbac.Core.Entities.MenuEntity})">
+            <summary>
+            构建vue3路由
+            </summary>
+            <param name="menus"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.PostEntity">
+             <summary>
+             岗位表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.PostCode">
+             <summary>
+             岗位编码 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.PostName">
+             <summary>
+             岗位名称 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.PostEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.RoleDeptEntity">
+             <summary>
+             角色部门关系表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleDeptEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleDeptEntity.RoleId">
+             <summary>
+             角色id 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleDeptEntity.DeptId">
+             <summary>
+             部门id 
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.RoleEntity">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.RoleName">
+            <summary>
+            角色名
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.RoleCode">
+             <summary>
+             角色编码 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.Remark">
+             <summary>
+             描述 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.DataScope">
+             <summary>
+             角色数据范围 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.RoleMenuEntity">
+             <summary>
+             角色菜单关系表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleMenuEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleMenuEntity.RoleId">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.RoleMenuEntity.MenuId">
+             <summary>
+              
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.UserEntity">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.IsDeleted">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Salt">
+            <summary>
+            加密盐值
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Icon">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Nick">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Ip">
+            <summary>
+            Ip
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Introduction">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.DeptId">
+            <summary>
+            部门id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.LastModifierId">
+            <summary>
+            最后修改者
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.LastModificationTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.OrderNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Roles">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Posts">
+            <summary>
+            岗位
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserEntity.Dept">
+            <summary>
+            部门
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Rbac.Core.Entities.UserEntity.BuildPassword(System.String)">
+            <summary>
+            构建密码，MD5盐值加密
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Rbac.Core.Entities.UserEntity.JudgePassword(System.String)">
+            <summary>
+            判断密码和加密后的密码是否相同
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.UserPostEntity">
+             <summary>
+             用户岗位表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserPostEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserPostEntity.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserPostEntity.PostId">
+             <summary>
+             岗位id 
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.Entities.UserRoleEntity">
+             <summary>
+             用户角色关系表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserRoleEntity.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserRoleEntity.RoleId">
+            <summary>
+            角色id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Rbac.Core.Entities.UserRoleEntity.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Rbac.Core.EnumClasses.SexEnum">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:Yi.Furion.Rbac.Core.EnumClasses.SexEnum.Male">
+            <summary>
+            男性
+            </summary>
+        </member>
+        <member name="F:Yi.Furion.Rbac.Core.EnumClasses.SexEnum.Woman">
+            <summary>
+            女性
+            </summary>
+        </member>
+        <member name="F:Yi.Furion.Rbac.Core.EnumClasses.SexEnum.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
     </members>
 </doc>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Yi.Furion.Rbac.Web.Core.Handlers;
 
 namespace Yi.Furion.Rbac.Web.Core;
 
@@ -17,6 +18,8 @@ public class Startup : AppStartup
 
         services.AddControllers()
                 .AddInjectWithUnifyResult();
+
+        services.AddEventBus();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

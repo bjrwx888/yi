@@ -1,7 +1,7 @@
 ﻿using Furion;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Yi.Furion.Rbac.EntityFramework.Core;
+namespace Yi.Furion.Rbac.Sqlsugar.Core;
 
 public class Startup : AppStartup
 {

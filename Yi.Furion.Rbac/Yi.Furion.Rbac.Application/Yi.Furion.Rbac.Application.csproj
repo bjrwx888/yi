@@ -23,11 +23,12 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
+		<ProjectReference Include="..\Yi.Framework.Module\Yi.Framework.Module.csproj" />
 		<ProjectReference Include="..\Yi.Furion.Rbac.EntityFramework.Core\Yi.Furion.Rbac.Sqlsugar.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="System\Services\" />
+	  <Folder Include="System\Dtos\" />
 	</ItemGroup>
 
 </Project>

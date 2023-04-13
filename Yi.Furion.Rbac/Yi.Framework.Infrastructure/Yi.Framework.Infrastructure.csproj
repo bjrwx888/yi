@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,8 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Yi.Furion.Rbac.Core\Yi.Furion.Rbac.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+
+		<PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.8.7.41" />
+		<PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.8.7.41" />
+		<PackageReference Include="Furion.Pure" Version="4.8.7.45" />
+
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.67-preview06" />
+		<PackageReference Include="IPTools.China" Version="1.6.0" />
+	</ItemGroup>
 
 </Project>
