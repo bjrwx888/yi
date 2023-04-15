@@ -7,7 +7,6 @@ using Yi.Framework.Infrastructure.CurrentUsers;
 using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Framework.Infrastructure.Exceptions;
-using Yi.Framework.Infrastructure.Uow;
 using Yi.Framework.Module.ImageSharp.HeiCaptcha;
 using Yi.Framework.Module.Sms.Aliyun;
 using Yi.Furion.Rbac.Application.System.Domain;
@@ -53,7 +52,6 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         private UserManager _userManager { get; set; }
 
 
-        private IUnitOfWorkManager _unitOfWorkManager { get; set; }
 
 
         private IRepository<RoleEntity> _roleRepository { get; set; }
@@ -222,6 +220,7 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         /// <param name="input"></param>
         /// <returns></returns>
         [AllowAnonymous]
+        [UnitOfWork]
         public async Task<object> PostRegisterAsync(RegisterDto input)
         {
             if (input.UserName == UserConst.Admin)
@@ -251,8 +250,7 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
             {
                 throw new UserFriendlyException("用户已存在，注册失败");
             }
-            using (var uow = _unitOfWorkManager.CreateContext())
-            {
+
                 var newUser = new UserEntity(input.UserName, input.Password, input.Phone);
 
                 var entity = await _userRepository.InsertReturnEntityAsync(newUser);
@@ -263,9 +261,6 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
                 {
                     await _userManager.GiveUserSetRoleAsync(new List<long> { entity.Id }, new List<long> { role.Id });
                 }
-                uow.Commit();
-            }
-
             return true;
         }
 

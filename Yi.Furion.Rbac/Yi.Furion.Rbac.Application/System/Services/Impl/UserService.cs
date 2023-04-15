@@ -3,7 +3,6 @@ using Yi.Framework.Infrastructure.CurrentUsers;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Framework.Infrastructure.Exceptions;
-using Yi.Framework.Infrastructure.Uow;
 using Yi.Framework.Module.OperLogManager;
 using Yi.Furion.Rbac.Application.System.Domain;
 using Yi.Furion.Rbac.Application.System.Dtos.User;
@@ -73,6 +72,7 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
         [OperLog("添加用户", OperEnum.Insert)]
+        [UnitOfWork]
         public async override Task<UserGetOutputDto> CreateAsync(UserCreateInputVo input)
         {
             if (string.IsNullOrEmpty(input.Password))
@@ -118,6 +118,7 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         /// <param name="input"></param>
         /// <returns></returns>
         [OperLog("更新用户", OperEnum.Update)]
+        [UnitOfWork]
         public async override Task<UserGetOutputDto> UpdateAsync(long id, UserUpdateInputVo input)
         {
             if (await _repository.IsAnyAsync(u => input.UserName!.Equals(u.UserName) && !id.Equals(u.Id)))

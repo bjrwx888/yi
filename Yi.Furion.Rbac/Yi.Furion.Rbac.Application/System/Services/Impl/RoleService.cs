@@ -1,7 +1,6 @@
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
-using Yi.Framework.Infrastructure.Uow;
 using Yi.Furion.Rbac.Application.System.Domain;
 using Yi.Furion.Rbac.Application.System.Dtos.Role;
 using Yi.Furion.Rbac.Core.Entities;
@@ -40,6 +39,7 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public override async Task<RoleGetOutputDto> CreateAsync(RoleCreateInputVo input)
         {
             RoleGetOutputDto outputDto;
@@ -61,6 +61,7 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public override async Task<RoleGetOutputDto> UpdateAsync(long id, RoleUpdateInputVo input)
         {
             var dto = new RoleGetOutputDto();

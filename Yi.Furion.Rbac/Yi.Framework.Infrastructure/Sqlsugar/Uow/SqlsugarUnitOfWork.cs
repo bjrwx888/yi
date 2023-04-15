@@ -1,51 +1,71 @@
 ﻿using Furion;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Repositories;
-using Yi.Framework.Infrastructure.Uow;
 
 namespace Yi.Framework.Infrastructure.Sqlsugar.Uow
 {
-    public class SqlsugarUnitOfWork : IUnitOfWork, ISingleton
+    public class SqlsugarUnitOfWork : IUnitOfWork
     {
-        public ISqlSugarClient Db { get; set; }
-        public ITenant Tenant { get; set; }
-        public bool IsTran { get; set; }
-        public bool IsCommit { get; set; }
-        public bool IsClose { get; set; }
+        // <summary>
+        /// SqlSugar 对象
+        /// </summary>
+        private readonly ISqlSugarClient _sqlSugarClient;
 
-        public void Dispose()
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="sqlSugarClient"></param>
+        public SqlsugarUnitOfWork(ISqlSugarClient sqlSugarClient)
         {
-
-            if (IsTran && IsCommit == false)
-            {
-                Tenant.RollbackTran();
-            }
-            if (Db.Ado.Transaction == null && IsClose == false)
-            {
-                Db.Close();
-            }
+            _sqlSugarClient = sqlSugarClient;
         }
 
-        public bool Commit()
+        /// <summary>
+        /// 开启工作单元处理
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="unitOfWork"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void BeginTransaction(FilterContext context, UnitOfWorkAttribute unitOfWork)
         {
-            if (IsTran && IsCommit == false)
-            {
-                Tenant.CommitTran();
-                IsCommit = true;
-            }
-            if (Db.Ado.Transaction == null && IsClose == false)
-            {
-                Db.Close();
-                IsClose = true;
-            }
-            return IsCommit;
+            _sqlSugarClient.AsTenant().BeginTran();
         }
 
-        public IRepository<T> GetRepository<T>()
+        /// <summary>
+        /// 提交工作单元处理
+        /// </summary>
+        /// <param name="resultContext"></param>
+        /// <param name="unitOfWork"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void CommitTransaction(FilterContext resultContext, UnitOfWorkAttribute unitOfWork)
         {
-            return App.GetRequiredService<IRepository<T>>();
+            _sqlSugarClient.AsTenant().CommitTran();
+        }
+
+        /// <summary>
+        /// 回滚工作单元处理
+        /// </summary>
+        /// <param name="resultContext"></param>
+        /// <param name="unitOfWork"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void RollbackTransaction(FilterContext resultContext, UnitOfWorkAttribute unitOfWork)
+        {
+            _sqlSugarClient.AsTenant().RollbackTran();
+        }
+
+        /// <summary>
+        /// 执行完毕（无论成功失败）
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="resultContext"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void OnCompleted(FilterContext context, FilterContext resultContext)
+        {
+            _sqlSugarClient.Dispose();
         }
     }
 }
