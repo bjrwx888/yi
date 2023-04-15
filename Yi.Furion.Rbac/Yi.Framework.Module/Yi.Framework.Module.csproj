@@ -5,6 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
+    <None Remove="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
+    <None Remove="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
+    <None Remove="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
+  </ItemGroup>
 	
 	<ItemGroup>
   <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="2.0.23" />
@@ -14,6 +21,13 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
+    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
+    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
+    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
   </ItemGroup>
 
 </Project>

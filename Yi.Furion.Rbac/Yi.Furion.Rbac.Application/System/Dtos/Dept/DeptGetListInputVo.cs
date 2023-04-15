@@ -10,7 +10,5 @@ namespace Yi.Furion.Rbac.Application.System.Dtos.Dept
         public string DeptCode { get; set; }
         public string Leader { get; set; }
 
-        public DateTime? StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
     }
 }

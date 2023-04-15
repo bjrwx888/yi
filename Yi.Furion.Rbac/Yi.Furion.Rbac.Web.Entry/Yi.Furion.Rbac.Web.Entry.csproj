@@ -23,6 +23,17 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Yi.Furion.Rbac.Web.Core\Yi.Furion.Rbac.Web.Core.csproj" />
 	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <None Update="ip2region.db">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="yi-sqlsugar-dev.db">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 	<ProjectExtensions>
 		<VisualStudio>
 			<UserProperties properties_4launchsettings_1json__JsonSchema="" />

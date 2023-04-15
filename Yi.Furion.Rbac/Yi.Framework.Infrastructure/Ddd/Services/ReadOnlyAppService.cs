@@ -1,4 +1,5 @@
 ﻿using Furion;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
@@ -76,7 +77,7 @@ where TEntityDto : IEntityDto<TKey>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
+        public virtual async Task<PagedResultDto<TGetListOutputDto>> GetListAsync([FromQuery]TGetListInput input)
         {
             var totalCount = -1;
 

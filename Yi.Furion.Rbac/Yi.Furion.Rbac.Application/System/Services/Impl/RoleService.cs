@@ -14,13 +14,12 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
     public class RoleService : CrudAppService<RoleEntity, RoleGetOutputDto, RoleGetListOutputDto, long, RoleGetListInputVo, RoleCreateInputVo, RoleUpdateInputVo>,
        IRoleService, ITransient, IDynamicApiController
     {
-        public RoleService(RoleManager roleManager, IUnitOfWorkManager unitOfWorkManager) =>
-            (_roleManager, _unitOfWorkManager) =
-            (roleManager, unitOfWorkManager);
+        public RoleService(RoleManager roleManager) =>
+            (_roleManager) =
+            (roleManager);
         private RoleManager _roleManager { get; set; }
 
-        
-        private IUnitOfWorkManager _unitOfWorkManager { get; set; }
+
 
 
         public override async Task<PagedResultDto<RoleGetListOutputDto>> GetListAsync(RoleGetListInputVo input)
@@ -44,14 +43,14 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         public override async Task<RoleGetOutputDto> CreateAsync(RoleCreateInputVo input)
         {
             RoleGetOutputDto outputDto;
-            using (var uow = _unitOfWorkManager.CreateContext())
-            {
+            //using (var uow = _unitOfWorkManager.CreateContext())
+            //{
                 var entity = await MapToEntityAsync(input);
                 await _repository.InsertAsync(entity);
                 outputDto = await MapToGetOutputDtoAsync(entity);
                 await _roleManager.GiveRoleSetMenuAsync(new List<long> { entity.Id }, input.MenuIds);
-                uow.Commit();
-            }
+            //    uow.Commit();
+            //}
 
             return outputDto;
         }
@@ -65,8 +64,8 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
         public override async Task<RoleGetOutputDto> UpdateAsync(long id, RoleUpdateInputVo input)
         {
             var dto = new RoleGetOutputDto();
-            using (var uow = _unitOfWorkManager.CreateContext())
-            {
+            //using (var uow = _unitOfWorkManager.CreateContext())
+            //{
                 var entity = await _repository.GetByIdAsync(id);
                 await MapToEntityAsync(input, entity);
                 await _repository.UpdateAsync(entity);
@@ -74,8 +73,8 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
                 await _roleManager.GiveRoleSetMenuAsync(new List<long> { id }, input.MenuIds);
 
                 dto = await MapToGetOutputDtoAsync(entity);
-                uow.Commit();
-            }
+            //    uow.Commit();
+            //}
             return dto;
         }
 

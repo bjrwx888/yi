@@ -16,8 +16,7 @@ public class Startup : AppStartup
 
         services.AddCorsAccessor();
 
-        services.AddControllers()
-                .AddInjectWithUnifyResult();
+        services.AddControllers().AddInject();
 
         services.AddEventBus();
     }

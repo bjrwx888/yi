@@ -27,7 +27,6 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
             (_userRepository, _currentUser, _accountManager, _menuRepository, _smsAliyunManager, _smsAliyunManagerOptions, _securityCode, _memoryCache, _eventPublisher) =
             (userRepository, currentUser, accountManager, menuRepository, smsAliyunManager, smsAliyunManagerOptions, securityCode, memoryCache, eventPublisher);
 
-        private JwtTokenManager _jwtTokenManager { get; set; }
 
         private IUserRepository _userRepository { get; set; }
 
@@ -140,8 +139,8 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
 #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
 
             //创建token
-            var token = _jwtTokenManager.CreateToken(_accountManager.UserInfoToClaim(userInfo));
-            return new { Token = token };
+            var accessToken = JWTEncryption.Encrypt(_accountManager.UserInfoToClaim(userInfo));
+            return new { Token = accessToken };
         }
 
         /// <summary>

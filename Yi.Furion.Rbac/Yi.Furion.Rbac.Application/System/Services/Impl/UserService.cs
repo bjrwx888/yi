@@ -21,15 +21,11 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
     {
 
 
-        public UserService(UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser, IUnitOfWorkManager unitOfWorkManager) =>
-            (_userManager, _userRepository, _currentUser, _unitOfWorkManager) = 
-            (userManager, userRepository, currentUser, unitOfWorkManager);
+        public UserService(UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser) =>
+            (_userManager, _userRepository, _currentUser) = 
+            (userManager, userRepository, currentUser);
         private UserManager _userManager { get; set; }
 
-        
-        private IUnitOfWorkManager _unitOfWorkManager { get; set; }
-
-        
         private IUserRepository _userRepository { get; set; }
 
         
@@ -91,16 +87,16 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
 
             entities.BuildPassword();
 
-            using (var uow = _unitOfWorkManager.CreateContext())
-            {
+            //using (var uow = _unitOfWorkManager.CreateContext())
+            //{
                 var returnEntity = await _repository.InsertReturnEntityAsync(entities);
                 await _userManager.GiveUserSetRoleAsync(new List<long> { returnEntity.Id }, input.RoleIds);
                 await _userManager.GiveUserSetPostAsync(new List<long> { returnEntity.Id }, input.PostIds);
-                uow.Commit();
+                //uow.Commit();
 
                 var result = await MapToGetOutputDtoAsync(returnEntity);
                 return result;
-            }
+            //}
         }
         /// <summary>
         /// 单查
@@ -136,13 +132,13 @@ namespace Yi.Furion.Rbac.Application.System.Services.Impl
                 entity.BuildPassword();
             }
             await MapToEntityAsync(input, entity);
-            using (var uow = _unitOfWorkManager.CreateContext())
-            {
+            //using (var uow = _unitOfWorkManager.CreateContext())
+            //{
                 var res1 = await _repository.UpdateAsync(entity);
                 await _userManager.GiveUserSetRoleAsync(new List<long> { id }, input.RoleIds);
                 await _userManager.GiveUserSetPostAsync(new List<long> { id }, input.PostIds);
-                uow.Commit();
-            }
+            //    uow.Commit();
+            //}
             return await MapToGetOutputDtoAsync(entity);
         }
 

@@ -9,16 +9,17 @@ using Yi.Furion.Rbac.Core.Etos;
 
 namespace Yi.Furion.Rbac.Application.System.Event
 {
-    public class LoginEventHandler : IEventSubscriber, ISingleton
+    public class LoginEventHandler : IEventSubscriber,ISingleton
     {
         private readonly IRepository<LoginLogEntity> _loginLogRepository;
-        private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private  HttpContext _httpContext=> _httpContextAccessor.HttpContext;
         public LoginEventHandler(IRepository<LoginLogEntity> loginLogRepository, IHttpContextAccessor httpContextAccessor)
         {
             _loginLogRepository = loginLogRepository;
-            _httpContext = httpContextAccessor.HttpContext;
+            _httpContextAccessor = httpContextAccessor;
         }
-        [EventSubscribe(nameof(LoginEventSource))]
+        //[EventSubscribe(nameof(LoginEventSource))]
         public Task HandlerAsync(EventHandlerExecutingContext context)
         {
            var eventData=(LoginEventArgs)context.Source.Payload;
