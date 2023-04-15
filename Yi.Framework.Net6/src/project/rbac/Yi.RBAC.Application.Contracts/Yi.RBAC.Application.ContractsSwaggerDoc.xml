@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.RBAC.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Uuid">
+            <summary>
+            唯一标识码
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Identity.Dtos.Account.RegisterDto.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.DeptCreateInputVo">
+            <summary>
+            Dept输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.MenuCreateInputVo">
+            <summary>
+            Menu输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.PostCreateInputVo">
+            <summary>
+            Post输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.RoleCreateInputVo">
+            <summary>
+            Role输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.Dtos.UserCreateInputVo">
+            <summary>
+            User输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IDeptService">
+            <summary>
+            Dept服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IMenuService">
+            <summary>
+            Menu服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IPostService">
+            <summary>
+            Post服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IRoleService">
+            <summary>
+            Role服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Identity.IUserService">
+            <summary>
+            User服务抽象
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.LoginIp">
+             <summary>
+             登录Ip 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.Browser">
+             <summary>
+             浏览器 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.Os">
+             <summary>
+             操作系统 
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Logs.Dtos.LoginLog.LoginLogGetListOutputDto.LogMsg">
+             <summary>
+             登录信息 
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigCreateInputVo">
+            <summary>
+            Config输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo">
+            <summary>
+            配置查询参数
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo.ConfigName">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListInputVo.ConfigKey">
+            <summary>
+            配置键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigName">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigKey">
+            <summary>
+            配置主键
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigValue">
+            <summary>
+            配置值
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.ConfigType">
+            <summary>
+            配置类型
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.OrderNum">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Yi.RBAC.Application.Contracts.Setting.Dtos.ConfigGetListOutputDto.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Yi.RBAC.Application.Contracts.Setting.IConfigService">
+            <summary>
+            Config服务抽象
+            </summary>
+        </member>
+    </members>
+</doc>

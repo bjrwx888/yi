@@ -1,0 +1,23 @@
+using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using #NameSpaces#.Application.Contracts.#ModelName#.Dtos;
+using #NameSpaces#.Domain.#ModelName#.Entities;
+
+namespace #NameSpaces#.Application.#ModelName#.MapperConfig
+{
+    public class #EntityName#Profile: Profile
+    {
+        public #EntityName#Profile()
+        {
+            CreateMap<#EntityName#GetListInputVo, #EntityName#Entity>();
+            CreateMap<#EntityName#CreateInputVo, #EntityName#Entity>();
+            CreateMap<#EntityName#UpdateInputVo, #EntityName#Entity>();
+            CreateMap<#EntityName#Entity, #EntityName#GetListOutputDto>();
+            CreateMap<#EntityName#Entity, #EntityName#GetOutputDto>();
+        }
+    }
+}

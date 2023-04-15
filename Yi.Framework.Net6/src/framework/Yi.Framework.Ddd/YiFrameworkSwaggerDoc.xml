@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.Framework.Ddd</name>
+    </assembly>
+    <members>
+        <member name="P:Yi.Framework.Ddd.Dtos.PagedAllResultRequestDto.StartTime">
+            <summary>
+            查询开始时间条件
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Dtos.PagedAllResultRequestDto.EndTime">
+            <summary>
+            查询结束时间条件
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Dtos.PagedAndSortedResultRequestDto.PageNum">
+            <summary>
+            查询当前页条件
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Dtos.PagedAndSortedResultRequestDto.PageSize">
+            <summary>
+            查询分页大小条件
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Dtos.PagedAndSortedResultRequestDto.SortBy">
+            <summary>
+            查询排序字段条件
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Dtos.PagedAndSortedResultRequestDto.SortType">
+            <summary>
+            查询排序类别条件
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Repositories.IRepository`1._DbQueryable">
+            <summary>
+            注释一下，严格意义这里应该protected，但是我认为 简易程度 与 耦合程度 中是需要进行衡量的
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.Ddd.Services.CrudAppService`7.CreateAsync(`5)">
+            <summary>
+            增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.Ddd.Services.CrudAppService`7.DeleteAsync(System.String)">
+            <summary>
+            单、多删
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Yi.Framework.Ddd.Services.CrudAppService`7.UpdateAsync(`3,`6)">
+            <summary>
+            改
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Yi.Framework.Ddd.Services.ReadOnlyAppService`5._repository">
+            <summary>
+            先暂时用服务定位的方式，之后将更改为属性注入
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.Ddd.Services.ReadOnlyAppService`5.GetAsync(`3)">
+            <summary>
+            单查
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Yi.Framework.Ddd.Services.ReadOnlyAppService`5.GetListAsync(`4)">
+            <summary>
+            多查
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
