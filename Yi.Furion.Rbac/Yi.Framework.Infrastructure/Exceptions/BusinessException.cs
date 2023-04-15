@@ -1,10 +1,13 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using Furion.FriendlyException;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Yi.Framework.Infrastructure.Enums;
 
 namespace Yi.Framework.Infrastructure.Exceptions
 {
-    public class BusinessException : Exception,
+    public class BusinessException : AppFriendlyException,
         IHasErrorCode,
     IHasErrorDetails,
     IHasLogLevel
@@ -26,6 +29,10 @@ namespace Yi.Framework.Infrastructure.Exceptions
             Code = code;
             Details = details;
             LogLevel = logLevel;
+            base.ErrorCode= code;
+            base.StatusCode = StatusCodes.Status403Forbidden;
+            base.ErrorMessage = $"{message}{(details is not null? ":"+details:"")}";
+            base.ValidationException = true;
         }
 
         /// <summary>
@@ -35,12 +42,6 @@ namespace Yi.Framework.Infrastructure.Exceptions
             : base(serializationInfo, context)
         {
 
-        }
-
-        public BusinessException WithData(string name, object value)
-        {
-            Data[name] = value;
-            return this;
         }
 
     }

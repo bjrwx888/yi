@@ -1,10 +1,12 @@
 ﻿using System.Runtime.Serialization;
+using Furion.FriendlyException;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Yi.Framework.Infrastructure.Enums;
 
 namespace Yi.Framework.Infrastructure.Exceptions
 {
-    public class AuthException : Exception,
+    public class AuthException : AppFriendlyException,
         IHasErrorCode,
     IHasErrorDetails,
     IHasLogLevel
@@ -27,6 +29,12 @@ namespace Yi.Framework.Infrastructure.Exceptions
             Code = (int)code;
             Details = details;
             LogLevel = logLevel;
+
+
+            base.ErrorCode = code;
+            base.StatusCode = StatusCodes.Status401Unauthorized;
+            base.ErrorMessage = $"{message}{(details is not null ? ":" + details : "")}";
+            base.ValidationException = true;
         }
 
         /// <summary>
@@ -38,11 +46,7 @@ namespace Yi.Framework.Infrastructure.Exceptions
 
         }
 
-        public AuthException WithData(string name, object value)
-        {
-            Data[name] = value;
-            return this;
-        }
+
 
     }
 }
