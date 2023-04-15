@@ -29,5 +29,9 @@
     <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
     <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="DictionaryManager\" />
+  </ItemGroup>
 
 </Project>

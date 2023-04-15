@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<DocumentationFile>Yi.Furion.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+
+
+	<ItemGroup>
+		<None Remove="Yi.Furion.Core.xml" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <PackageReference Include="UAParser" Version="3.1.47" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <Folder Include="Bbs\" />
+	</ItemGroup>
+
+
+
+</Project>

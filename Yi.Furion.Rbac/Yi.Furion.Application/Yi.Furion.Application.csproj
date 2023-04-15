@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<DocumentationFile>Yi.Furion.Application.xml</DocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+
+
+	<ItemGroup>
+		<None Remove="applicationsettings.json" />
+		<None Remove="Yi.Furion.Application.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="applicationsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
+		<ProjectReference Include="..\Yi.Framework.Module\Yi.Framework.Module.csproj" />
+		<ProjectReference Include="..\Yi.Furion.Sqlsugar.Core\Yi.Furion.Sqlsugar.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Bbs\" />
+	</ItemGroup>
+
+</Project>
