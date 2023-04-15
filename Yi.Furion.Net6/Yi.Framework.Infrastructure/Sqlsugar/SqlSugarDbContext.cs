@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Infrastructure.CurrentUsers;
+using Yi.Framework.Infrastructure.Data.Auditing;
+using Yi.Framework.Infrastructure.Data.Entities;
 
 namespace Yi.Framework.Infrastructure.Sqlsugar
 {
@@ -83,45 +85,45 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
              db.Aop.DataExecuting = (oldValue, entityInfo) =>
              {
 
-                 //switch (entityInfo.OperationType)
-                 //{
-                 //    case DataFilterType.UpdateByObject:
+                 switch (entityInfo.OperationType)
+                 {
+                     case DataFilterType.UpdateByObject:
 
-                 //        if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
-                 //        {
-                 //            entityInfo.SetValue(DateTime.Now);
-                 //        }
-                 //        if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
-                 //        {
-                 //            if (_currentUser != null)
-                 //            {
-                 //                entityInfo.SetValue(_currentUser.Id);
-                 //            }
-                 //        }
-                 //        break;
-                 //    case DataFilterType.InsertByObject:
-                 //        if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
-                 //        {
-                 //            entityInfo.SetValue(DateTime.Now);
-                 //        }
-                 //        if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
-                 //        {
-                 //            if (_currentUser != null)
-                 //            {
-                 //                entityInfo.SetValue(_currentUser.Id);
-                 //            }
-                 //        }
+                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
+                         {
+                             entityInfo.SetValue(DateTime.Now);
+                         }
+                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
+                         {
+                             if (_currentUser != null)
+                             {
+                                 entityInfo.SetValue(_currentUser.Id);
+                             }
+                         }
+                         break;
+                     case DataFilterType.InsertByObject:
+                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
+                         {
+                             entityInfo.SetValue(DateTime.Now);
+                         }
+                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
+                         {
+                             if (_currentUser != null)
+                             {
+                                 entityInfo.SetValue(_currentUser.Id);
+                             }
+                         }
 
-                 //        //插入时，需要租户id,先预留
-                 //        if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
-                 //        {
-                 //            //if (this.CurrentTenant is not null)
-                 //            //{
-                 //            //    entityInfo.SetValue(this.CurrentTenant.Id);
-                 //            //}
-                 //        }
-                 //        break;
-                 //}
+                         //插入时，需要租户id,先预留
+                         if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
+                         {
+                             //if (this.CurrentTenant is not null)
+                             //{
+                             //    entityInfo.SetValue(this.CurrentTenant.Id);
+                             //}
+                         }
+                         break;
+                 }
              };
              db.Aop.OnLogExecuting = (s, p) =>
              {

@@ -4,6 +4,195 @@
         <name>Yi.Furion.Application</name>
     </assembly>
     <members>
+        <member name="T:Yi.Furion.Application.Bbs.Domain.ForumManager">
+            <summary>
+            论坛模块的领域服务
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.IArticleService">
+            <summary>
+            Article服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.IBannerService">
+            <summary>
+            Banner抽象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.ICommentService">
+            <summary>
+            Comment服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.IDiscussService">
+            <summary>
+            Discuss服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.ILabelService">
+            <summary>
+            Label服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.AgreeService">
+            <summary>
+            点赞功能
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.AgreeService.PostOperateAsync(System.Int64)">
+            <summary>
+            点赞,返回true为点赞+1，返回false为点赞-1
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.ArticleService">
+            <summary>
+            Article服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.ArticleService.GetAllAsync(System.Int64)">
+            <summary>
+            获取文章全部平铺信息
+            </summary>
+            <param name="discussId"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Infrastructure.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.ArticleService.GetDiscussIdAsync(System.Int64)">
+            <summary>
+            查询文章
+            </summary>
+            <param name="discussId"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Infrastructure.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.ArticleService.CreateAsync(Yi.Furion.Core.Bbs.Dtos.Article.ArticleCreateInputVo)">
+            <summary>
+            发表文章
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Infrastructure.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.ArticleService.VerifyDiscussCreateIdAsync(System.Nullable{System.Int64})">
+            <summary>
+            效验创建权限
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.BannerService">
+            <summary>
+            Banner服务实现
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.CommentService">
+            <summary>
+            评论
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.CommentService.GetDiscussIdAsync(System.Int64,Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetListInputVo)">
+            <summary>
+            获取改主题下的评论,结构为二维列表，该查询无分页
+            </summary>
+            <param name="discussId"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.CommentService.CreateAsync(Yi.Furion.Core.Bbs.Dtos.Comment.CommentCreateInputVo)">
+            <summary>
+            发表评论
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Infrastructure.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.DiscussService">
+            <summary>
+            Discuss应用服务实现,用于参数效验、领域服务业务组合、日志记录、事务处理、账户信息
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.DiscussService.GetAsync(System.Int64)">
+            <summary>
+            单查
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.DiscussService.GetListAsync(Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussGetListInputVo)">
+            <summary>
+            查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.DiscussService.CreateAsync(Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussCreateInputVo)">
+            <summary>
+            创建主题
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.DiscussService.VerifyDiscussPermissionAsync(System.Int64)">
+            <summary>
+            效验主题查询权限
+            </summary>
+            <param name="discussId"></param>
+            <returns></returns>
+            <exception cref="T:Yi.Framework.Infrastructure.Exceptions.UserFriendlyException"></exception>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.MyTypeService">
+            <summary>
+            Label服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.MyTypeService.GetListCurrentAsync(Yi.Furion.Core.Bbs.Dtos.MyType.MyTypeGetListInputVo)">
+            <summary>
+            获取当前用户的主题类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.MyTypeService.CreateAsync(Yi.Furion.Core.Bbs.Dtos.MyType.MyTypeCreateInputVo)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.PlateService">
+            <summary>
+            Plate服务实现
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.Impl.SettingService">
+            <summary>
+            Setting服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.SettingService.GetTitleAsync">
+            <summary>
+            获取配置标题
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.IPlateService">
+            <summary>
+            Plate服务抽象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Application.Bbs.Services.ISettingService">
+            <summary>
+            Setting应用抽象
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.ISettingService.GetTitleAsync">
+            <summary>
+            获取配置标题
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Furion.Application.Rbac.Domain.AccountManager">
             <summary>
             用户领域服务
@@ -75,56 +264,6 @@
             <param name="postIds"></param>
             <returns></returns>
         </member>
-        <member name="P:Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
-        <member name="P:Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto.Password">
-            <summary>
-            密码
-            </summary>
-        </member>
-        <member name="P:Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto.Uuid">
-            <summary>
-            唯一标识码
-            </summary>
-        </member>
-        <member name="P:Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto.Phone">
-            <summary>
-            电话
-            </summary>
-        </member>
-        <member name="P:Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto.Code">
-            <summary>
-            验证码
-            </summary>
-        </member>
-        <member name="T:Yi.Furion.Application.Rbac.Dtos.Dept.DeptCreateInputVo">
-            <summary>
-            Dept输入创建对象
-            </summary>
-        </member>
-        <member name="T:Yi.Furion.Application.Rbac.Dtos.Menu.MenuCreateInputVo">
-            <summary>
-            Menu输入创建对象
-            </summary>
-        </member>
-        <member name="T:Yi.Furion.Application.Rbac.Dtos.Post.PostCreateInputVo">
-            <summary>
-            Post输入创建对象
-            </summary>
-        </member>
-        <member name="T:Yi.Furion.Application.Rbac.Dtos.Role.RoleCreateInputVo">
-            <summary>
-            Role输入创建对象
-            </summary>
-        </member>
-        <member name="T:Yi.Furion.Application.Rbac.Dtos.User.UserCreateInputVo">
-            <summary>
-            User输入创建对象
-            </summary>
-        </member>
         <member name="M:Yi.Furion.Application.Rbac.Event.LoginEventHandler.GetClientInfo(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
             获取客户端信息
@@ -139,6 +278,11 @@
             <param name="context"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.Furion.Application.Rbac.Services.IConfigService">
+            <summary>
+            Config服务抽象
+            </summary>
+        </member>
         <member name="T:Yi.Furion.Application.Rbac.Services.IDeptService">
             <summary>
             Dept服务抽象
@@ -149,17 +293,17 @@
             Menu服务抽象
             </summary>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.ValidationImageCaptcha(Yi.Furion.Application.Rbac.Dtos.Account.LoginInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.ValidationImageCaptcha(Yi.Furion.Core.Rbac.Dtos.Account.LoginInputVo)">
             <summary>
             效验图片登录验证码,无需和账号绑定
             </summary>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.ValidationPhoneCaptcha(Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.ValidationPhoneCaptcha(Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto)">
             <summary>
             效验电话验证码，需要与电话号码绑定
             </summary>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.PostLoginAsync(Yi.Furion.Application.Rbac.Dtos.Account.LoginInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.PostLoginAsync(Yi.Furion.Core.Rbac.Dtos.Account.LoginInputVo)">
             <summary>
             登录
             </summary>
@@ -178,13 +322,13 @@
             </summary>
             <param name="str_handset"></param>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.PostCaptchaPhone(Yi.Furion.Application.Rbac.Dtos.Account.PhoneCaptchaImageDto)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.PostCaptchaPhone(Yi.Furion.Core.Rbac.Dtos.Account.PhoneCaptchaImageDto)">
             <summary>
             注册 手机验证码
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.PostRegisterAsync(Yi.Furion.Application.Rbac.Dtos.Account.RegisterDto)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.PostRegisterAsync(Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto)">
             <summary>
             注册，需要验证码通过
             </summary>
@@ -210,14 +354,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.UpdatePasswordAsync(Yi.Furion.Application.Rbac.Dtos.Account.UpdatePasswordDto)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.UpdatePasswordAsync(Yi.Furion.Core.Rbac.Dtos.Account.UpdatePasswordDto)">
             <summary>
             更新密码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.RestPasswordAsync(System.Int64,Yi.Furion.Application.Rbac.Dtos.Account.RestPasswordDto)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.RestPasswordAsync(System.Int64,Yi.Furion.Core.Rbac.Dtos.Account.RestPasswordDto)">
             <summary>
             重置密码
             </summary>
@@ -225,9 +369,21 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.UpdateIconAsync(Yi.Furion.Application.Rbac.Dtos.Account.UpdateIconDto)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.AccountService.UpdateIconAsync(Yi.Furion.Core.Rbac.Dtos.Account.UpdateIconDto)">
             <summary>
              更新头像
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Application.Rbac.Services.Impl.ConfigService">
+            <summary>
+            Config服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.ConfigService.GetListAsync(Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListInputVo)">
+            <summary>
+            多查
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -243,7 +399,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.DeptService.GetListAsync(Yi.Furion.Application.Rbac.Dtos.Dept.DeptGetListInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.DeptService.GetListAsync(Yi.Furion.Core.Rbac.Dtos.Dept.DeptGetListInputVo)">
             <summary>
             多查
             </summary>
@@ -272,14 +428,14 @@
             Role服务实现
             </summary>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.RoleService.CreateAsync(Yi.Furion.Application.Rbac.Dtos.Role.RoleCreateInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.RoleService.CreateAsync(Yi.Furion.Core.Rbac.Dtos.Role.RoleCreateInputVo)">
             <summary>
             添加角色
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.RoleService.UpdateAsync(System.Int64,Yi.Furion.Application.Rbac.Dtos.Role.RoleUpdateInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.RoleService.UpdateAsync(System.Int64,Yi.Furion.Core.Rbac.Dtos.Role.RoleUpdateInputVo)">
             <summary>
             修改角色
             </summary>
@@ -300,14 +456,14 @@
             User服务实现
             </summary>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.GetListAsync(Yi.Furion.Application.Rbac.Dtos.User.UserGetListInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.GetListAsync(Yi.Furion.Core.Rbac.Dtos.User.UserGetListInputVo)">
             <summary>
             查询用户
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.CreateAsync(Yi.Furion.Application.Rbac.Dtos.User.UserCreateInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.CreateAsync(Yi.Furion.Core.Rbac.Dtos.User.UserCreateInputVo)">
             <summary>
             添加用户
             </summary>
@@ -322,7 +478,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.UpdateAsync(System.Int64,Yi.Furion.Application.Rbac.Dtos.User.UserUpdateInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.UpdateAsync(System.Int64,Yi.Furion.Core.Rbac.Dtos.User.UserUpdateInputVo)">
             <summary>
             更新用户
             </summary>
@@ -330,7 +486,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.UpdateProfileAsync(Yi.Furion.Application.Rbac.Dtos.User.ProfileUpdateInputVo)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.UserService.UpdateProfileAsync(Yi.Furion.Core.Rbac.Dtos.User.ProfileUpdateInputVo)">
             <summary>
             更新个人中心
             </summary>

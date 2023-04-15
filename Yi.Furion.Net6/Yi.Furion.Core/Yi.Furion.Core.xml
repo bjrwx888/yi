@@ -4,29 +4,406 @@
         <name>Yi.Furion.Core</name>
     </assembly>
     <members>
-        <member name="T:Yi.Furion.Core.Rbac.ConstClasses.DeptConst">
+        <member name="T:Yi.Furion.Core.Bbs.Consts.ArticleConst">
             <summary>
             常量定义
             </summary>
         </member>
-        <member name="T:Yi.Furion.Core.Rbac.ConstClasses.MenuConst">
+        <member name="T:Yi.Furion.Core.Bbs.Consts.CommentConst">
             <summary>
             常量定义
             </summary>
         </member>
-        <member name="T:Yi.Furion.Core.Rbac.ConstClasses.PostConst">
+        <member name="T:Yi.Furion.Core.Bbs.Consts.DiscussConst">
             <summary>
             常量定义
             </summary>
         </member>
-        <member name="T:Yi.Furion.Core.Rbac.ConstClasses.RoleConst">
+        <member name="T:Yi.Furion.Core.Bbs.Consts.LabelConst">
             <summary>
             常量定义
             </summary>
         </member>
-        <member name="T:Yi.Furion.Core.Rbac.ConstClasses.UserConst">
+        <member name="T:Yi.Furion.Core.Bbs.Consts.PlateConst">
             <summary>
             常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Article.ArticleCreateInputVo">
+            <summary>
+            Article输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Banner.BannerCreateInputVo">
+            <summary>
+            Banner输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Comment.CommentCreateInputVo">
+            <summary>
+            Comment输入创建对象
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentCreateInputVo.Content">
+            <summary>
+            评论id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentCreateInputVo.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentCreateInputVo.RootId">
+            <summary>
+            第一层评论id，第一层为0
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentCreateInputVo.ParentId">
+            <summary>
+            被回复的CommentId，第一层为0
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetListOutputDto">
+            <summary>
+            评论多反
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetListOutputDto.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetListOutputDto.CreateUser">
+            <summary>
+            用户,评论人用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetListOutputDto.CommentedUser">
+            <summary>
+            被评论的用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetListOutputDto.Children">
+            <summary>
+            这个不是一个树形，而是存在一个二维数组，该Children只有在顶级时候，只有一层
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetOutputDto">
+            <summary>
+            单返回，返回单条评论即可
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetOutputDto.User">
+            <summary>
+            用户id联表为用户对象
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetOutputDto.RootId">
+            <summary>
+            根节点的评论id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Comment.CommentGetOutputDto.ParentId">
+            <summary>
+            被回复的CommentId
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussCreateInputVo">
+            <summary>
+            Discuss输入创建对象
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussCreateInputVo.PermissionType">
+            <summary>
+            默认公开
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussCreateInputVo.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussGetListOutputDto.IsAgree">
+            <summary>
+            是否已点赞
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussGetListOutputDto.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussGetOutputDto.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Dtos.Discuss.DiscussUpdateInputVo.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.MyType.MyTypeCreateInputVo">
+            <summary>
+            Label输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Dtos.Plate.PlateCreateInputVo">
+            <summary>
+            Plate输入创建对象
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.AgreeEntity.DiscussId">
+            <summary>
+            主题id
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.AgreeEntity.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Core.Bbs.Entities.ArticleEntityExtensions.Tile(System.Collections.Generic.List{Yi.Furion.Core.Bbs.Entities.ArticleEntity})">
+            <summary>
+            平铺自己
+            </summary>
+            <param name="entities"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Core.Bbs.Entities.CommentEntity">
+            <summary>
+            评论表
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Core.Bbs.Entities.CommentEntity.#ctor">
+            <summary>
+            采用二维数组方式，不使用树形方式
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.CommentEntity.ParentId">
+            <summary>
+            被回复的CommentId
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.CommentEntity.CreateUser">
+            <summary>
+            用户,评论人用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.CommentEntity.CommentedUser">
+            <summary>
+            被评论的用户信息
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.DiscussEntity.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Bbs.Entities.DiscussEntity.PermissionUserIds">
+            <summary>
+            当PermissionType为部分用户时候，以下列表中的用户+创建者 代表拥有权限
+            </summary>
+        </member>
+        <member name="F:Yi.Furion.Core.Bbs.Enums.DiscussPermissionTypeEnum.Public">
+            <summary>
+            默认：公开
+            </summary>
+        </member>
+        <member name="F:Yi.Furion.Core.Bbs.Enums.DiscussPermissionTypeEnum.Oneself">
+            <summary>
+            仅自己可见
+            </summary>
+        </member>
+        <member name="F:Yi.Furion.Core.Bbs.Enums.DiscussPermissionTypeEnum.User">
+            <summary>
+            部分用户可见
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Consts.DeptConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Consts.MenuConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Consts.PostConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Consts.RoleConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Consts.UserConst">
+            <summary>
+            常量定义
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto.Uuid">
+            <summary>
+            唯一标识码
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto.Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Account.RegisterDto.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.Config.ConfigCreateInputVo">
+            <summary>
+            Config输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListInputVo">
+            <summary>
+            配置查询参数
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListInputVo.ConfigName">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListInputVo.ConfigKey">
+            <summary>
+            配置键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.ConfigName">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.ConfigKey">
+            <summary>
+            配置主键
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.ConfigValue">
+            <summary>
+            配置值
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.ConfigType">
+            <summary>
+            配置类型
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.OrderNum">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Config.ConfigGetListOutputDto.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.Dept.DeptCreateInputVo">
+            <summary>
+            Dept输入创建对象
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.LoginLog.LoginLogGetListOutputDto.LoginIp">
+             <summary>
+             登录Ip 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.LoginLog.LoginLogGetListOutputDto.Browser">
+             <summary>
+             浏览器 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.LoginLog.LoginLogGetListOutputDto.Os">
+             <summary>
+             操作系统 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.LoginLog.LoginLogGetListOutputDto.LogMsg">
+             <summary>
+             登录信息 
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.Menu.MenuCreateInputVo">
+            <summary>
+            Menu输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.Post.PostCreateInputVo">
+            <summary>
+            Post输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.Role.RoleCreateInputVo">
+            <summary>
+            Role输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Dtos.User.UserCreateInputVo">
+            <summary>
+            User输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.Rbac.Entities.ConfigEntity">
+            <summary>
+            配置表
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Entities.ConfigEntity.ConfigName">
+             <summary>
+             配置名称 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Entities.ConfigEntity.ConfigKey">
+             <summary>
+             配置键 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Entities.ConfigEntity.ConfigValue">
+             <summary>
+             配置值 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Entities.ConfigEntity.ConfigType">
+             <summary>
+             配置类别 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Entities.ConfigEntity.OrderNum">
+             <summary>
+             排序字段 
+            </summary>
+        </member>
+        <member name="P:Yi.Furion.Core.Rbac.Entities.ConfigEntity.Remark">
+             <summary>
+             描述 
             </summary>
         </member>
         <member name="T:Yi.Furion.Core.Rbac.Entities.DeptEntity">
@@ -598,22 +975,22 @@
             用户id
             </summary>
         </member>
-        <member name="T:Yi.Furion.Core.Rbac.EnumClasses.SexEnum">
+        <member name="T:Yi.Furion.Core.Rbac.Enums.SexEnum">
             <summary>
             性别
             </summary>
         </member>
-        <member name="F:Yi.Furion.Core.Rbac.EnumClasses.SexEnum.Male">
+        <member name="F:Yi.Furion.Core.Rbac.Enums.SexEnum.Male">
             <summary>
             男性
             </summary>
         </member>
-        <member name="F:Yi.Furion.Core.Rbac.EnumClasses.SexEnum.Woman">
+        <member name="F:Yi.Furion.Core.Rbac.Enums.SexEnum.Woman">
             <summary>
             女性
             </summary>
         </member>
-        <member name="F:Yi.Furion.Core.Rbac.EnumClasses.SexEnum.Unknown">
+        <member name="F:Yi.Furion.Core.Rbac.Enums.SexEnum.Unknown">
             <summary>
             未知
             </summary>

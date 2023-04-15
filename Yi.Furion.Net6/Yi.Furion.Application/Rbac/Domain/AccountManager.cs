@@ -2,7 +2,7 @@
 using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Framework.Infrastructure.Exceptions;
 using Yi.Framework.Infrastructure.Helper;
-using Yi.Furion.Core.Rbac.ConstClasses;
+using Yi.Furion.Core.Rbac.Consts;
 using Yi.Furion.Core.Rbac.Dtos;
 using Yi.Furion.Core.Rbac.Entities;
 

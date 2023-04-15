@@ -27,5 +27,7 @@ namespace Yi.Furion.Core.Rbac.Etos
     {
         public long UserId { get; set; }
         public string UserName { get; set; }
+
+        public HttpContext httpContext { get; set; }
     }
 }

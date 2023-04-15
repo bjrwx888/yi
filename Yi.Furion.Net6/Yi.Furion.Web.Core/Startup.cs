@@ -19,6 +19,8 @@ public class Startup : AppStartup
         services.AddControllers().AddInjectWithUnifyResult();
 
         services.AddEventBus();
+
+        services.AddHttpContextAccessor();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

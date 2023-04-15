@@ -9,25 +9,22 @@ using Yi.Furion.Core.Rbac.Etos;
 
 namespace Yi.Furion.Application.Rbac.Event
 {
-    public class LoginEventHandler : IEventSubscriber, ISingleton
+    public class LoginEventHandler : IEventSubscriber,ISingleton
     {
         private readonly IRepository<LoginLogEntity> _loginLogRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private HttpContext _httpContext => _httpContextAccessor.HttpContext;
-        public LoginEventHandler(IRepository<LoginLogEntity> loginLogRepository, IHttpContextAccessor httpContextAccessor)
+        public LoginEventHandler(IRepository<LoginLogEntity> loginLogRepository)
         {
             _loginLogRepository = loginLogRepository;
-            _httpContextAccessor = httpContextAccessor;
         }
         //[EventSubscribe(nameof(LoginEventSource))]
         public Task HandlerAsync(EventHandlerExecutingContext context)
         {
             var eventData = (LoginEventArgs)context.Source.Payload;
-            var loginLogEntity = GetLoginLogInfo(_httpContext);
+            var loginLogEntity = GetLoginLogInfo(eventData.httpContext);
             loginLogEntity.Id = SnowflakeHelper.NextId;
             loginLogEntity.LogMsg = eventData.UserName + "登录系统";
             loginLogEntity.LoginUser = eventData.UserName;
-            loginLogEntity.LoginIp = _httpContext.GetClientIp();
+            loginLogEntity.LoginIp = eventData.httpContext.GetClientIp();
 
             _loginLogRepository.InsertAsync(loginLogEntity);
             return Task.CompletedTask;

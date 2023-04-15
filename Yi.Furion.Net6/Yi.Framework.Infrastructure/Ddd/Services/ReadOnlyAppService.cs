@@ -77,6 +77,7 @@ where TEntityDto : IEntityDto<TKey>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Route("")]
         public virtual async Task<PagedResultDto<TGetListOutputDto>> GetListAsync([FromQuery]TGetListInput input)
         {
             var totalCount = -1;

@@ -27,8 +27,4 @@
 		<ProjectReference Include="..\Yi.Furion.Sqlsugar.Core\Yi.Furion.Sqlsugar.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Bbs\" />
-	</ItemGroup>
-
 </Project>

@@ -1,0 +1,21 @@
+using Yi.Framework.Infrastructure.Ddd.Dtos;
+
+namespace Yi.Furion.Core.Rbac.Dtos.Config
+{
+    /// <summary>
+    /// ≈‰÷√≤È—Ø≤Œ ˝
+    /// </summary>
+    public class ConfigGetListInputVo : PagedAllResultRequestDto
+    {
+        /// <summary>
+        /// ≈‰÷√√˚≥∆
+        /// </summary>
+        public string ConfigName { get; set; }
+
+        /// <summary>
+        /// ≈‰÷√º¸
+        /// </summary>
+        public string ConfigKey { get; set; }
+
+    }
+}

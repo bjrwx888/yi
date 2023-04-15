@@ -5,8 +5,8 @@ using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Framework.Infrastructure.Exceptions;
 using Yi.Framework.Module.OperLogManager;
 using Yi.Furion.Application.Rbac.Domain;
-using Yi.Furion.Application.Rbac.Dtos.User;
-using Yi.Furion.Core.Rbac.ConstClasses;
+using Yi.Furion.Core.Rbac.Consts;
+using Yi.Furion.Core.Rbac.Dtos.User;
 using Yi.Furion.Core.Rbac.Entities;
 using Yi.Furion.Sqlsugar.Core.Repositories;
 

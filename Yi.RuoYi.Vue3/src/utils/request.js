@@ -127,7 +127,7 @@ service.interceptors.response.use(res => {
       return Promise.reject('error')
     } else {
 
-      return  Promise.resolve(res)
+      return  Promise.resolve(res.data)
     }
     
   },

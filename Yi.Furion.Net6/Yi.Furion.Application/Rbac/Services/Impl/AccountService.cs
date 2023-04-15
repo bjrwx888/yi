@@ -10,9 +10,9 @@ using Yi.Framework.Infrastructure.Exceptions;
 using Yi.Framework.Module.ImageSharp.HeiCaptcha;
 using Yi.Framework.Module.Sms.Aliyun;
 using Yi.Furion.Application.Rbac.Domain;
-using Yi.Furion.Application.Rbac.Dtos.Account;
-using Yi.Furion.Core.Rbac.ConstClasses;
+using Yi.Furion.Core.Rbac.Consts;
 using Yi.Furion.Core.Rbac.Dtos;
+using Yi.Furion.Core.Rbac.Dtos.Account;
 using Yi.Furion.Core.Rbac.Entities;
 using Yi.Furion.Core.Rbac.Etos;
 using Yi.Furion.Sqlsugar.Core.Repositories;
@@ -22,9 +22,9 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class AccountService : ApplicationService, ITransient, IDynamicApiController
     {
 
-        public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher) =>
-            (_userRepository, _currentUser, _accountManager, _menuRepository, _smsAliyunManager, _smsAliyunManagerOptions, _securityCode, _memoryCache, _eventPublisher) =
-            (userRepository, currentUser, accountManager, menuRepository, smsAliyunManager, smsAliyunManagerOptions, securityCode, memoryCache, eventPublisher);
+        public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher,IHttpContextAccessor httpContextAccessor) =>
+            (_userRepository, _currentUser, _accountManager, _menuRepository, _smsAliyunManager, _smsAliyunManagerOptions, _securityCode, _memoryCache, _eventPublisher, _httpContextAccessor) =
+            (userRepository, currentUser, accountManager, menuRepository, smsAliyunManager, smsAliyunManagerOptions, securityCode, memoryCache, eventPublisher, httpContextAccessor);
 
 
         private IUserRepository _userRepository { get; set; }
@@ -62,6 +62,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
         private SmsAliyunManager _smsAliyunManager { get; set; }
 
+        private IHttpContextAccessor _httpContextAccessor { get; set; }
 
         private IOptions<SmsAliyunOptions> _smsAliyunManagerOptions { get; set; }
 
@@ -124,17 +125,18 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             //这里抛出一个登录的事件
 
             //不阻碍执行，无需等待
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
 
-            _eventPublisher.PublishAsync(new LoginEventSource(new LoginEventArgs
+
+          await  _eventPublisher.PublishAsync(new LoginEventSource(new LoginEventArgs
             {
 
                 UserId = userInfo.User.Id,
-                UserName = user.UserName
+                UserName = user.UserName,
+                httpContext= _httpContextAccessor.HttpContext
 
-            })
-       );
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+          })
+       );;
+
 
             //创建token
             var accessToken = JWTEncryption.Encrypt(_accountManager.UserInfoToClaim(userInfo));
@@ -295,6 +297,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <returns></returns>
         [Authorize]
+        [Route("Vue3Router")]
         public async Task<List<Vue3RouterDto>> GetVue3Router()
         {
             var userId = _currentUser.Id;

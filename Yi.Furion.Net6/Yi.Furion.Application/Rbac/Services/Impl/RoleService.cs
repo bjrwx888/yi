@@ -2,7 +2,7 @@ using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Furion.Application.Rbac.Domain;
-using Yi.Furion.Application.Rbac.Dtos.Role;
+using Yi.Furion.Core.Rbac.Dtos.Role;
 using Yi.Furion.Core.Rbac.Entities;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl

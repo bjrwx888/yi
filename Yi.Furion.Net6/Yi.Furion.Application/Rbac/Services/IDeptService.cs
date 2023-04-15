@@ -1,5 +1,5 @@
 using Yi.Framework.Infrastructure.Ddd.Services.Abstract;
-using Yi.Furion.Application.Rbac.Dtos.Dept;
+using Yi.Furion.Core.Rbac.Dtos.Dept;
 
 namespace Yi.Furion.Application.Rbac.Services
 {

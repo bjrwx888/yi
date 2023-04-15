@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Furion.DependencyInjection;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Sqlsugar.Repositories;
-using Yi.Furion.Core.Rbac.ConstClasses;
+using Yi.Furion.Core.Rbac.Consts;
 using Yi.Furion.Core.Rbac.Dtos;
 using Yi.Furion.Core.Rbac.Entities;
 

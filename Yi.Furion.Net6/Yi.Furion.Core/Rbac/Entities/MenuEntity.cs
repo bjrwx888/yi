@@ -7,7 +7,7 @@ using Yi.Framework.Infrastructure.Data.Entities;
 using Yi.Framework.Infrastructure.Ddd.Entities;
 using Yi.Framework.Infrastructure.Helper;
 using Yi.Furion.Core.Rbac.Dtos;
-using Yi.Furion.Core.Rbac.EnumClasses;
+using Yi.Furion.Core.Rbac.Enums;
 
 namespace Yi.Furion.Core.Rbac.Entities
 {
