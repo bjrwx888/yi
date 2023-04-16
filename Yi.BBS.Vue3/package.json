@@ -13,6 +13,7 @@
     "echarts": "^5.4.2",
     "element-plus": "^2.2.32",
     "highlight": "^0.2.4",
+    "i": "^0.3.7",
     "marked": "^4.2.12",
     "mavon-editor": "^3.0.0",
     "nprogress": "^0.2.0",

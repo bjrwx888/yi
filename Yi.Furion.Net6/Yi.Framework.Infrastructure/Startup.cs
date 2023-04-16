@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Profiling.SqlFormatters;
 using Yi.Framework.Infrastructure.AspNetCore;
+using Yi.Framework.Infrastructure.Data;
 using Yi.Framework.Infrastructure.Data.Filters;
 using Yi.Framework.Infrastructure.Sqlsugar;
 using Yi.Framework.Infrastructure.Sqlsugar.Filters;
@@ -29,6 +30,6 @@ public class Startup : AppStartup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-       
+        app.UseDataFiterServer();
     }
 }

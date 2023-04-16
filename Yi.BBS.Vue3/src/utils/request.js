@@ -36,8 +36,12 @@ myaxios.interceptors.request.use(function (config) {
 
 // 响应拦截器
 myaxios.interceptors.response.use(function (response) {
-
-    return response;
+    //业务错误
+    if(response.data.statusCode==403)
+    {
+        ElMessage.error(response.data.errors)
+    }
+    return response.data;
 }, function (error) {
 const response=error.response.data;
 //业务异常+应用异常，统一处理

@@ -81,6 +81,16 @@ service.interceptors.request.use(config => {
 
 // 响应拦截器
 service.interceptors.response.use(res => {
+
+    //业务错误
+    if(res.data.statusCode==403)
+    {
+      ElMessage({
+        message: res.data.errors,
+        type: 'error'
+      })
+    }
+
     // 未设置状态码则默认成功状态
     const code = res.status || 200;
 

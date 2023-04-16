@@ -93,7 +93,7 @@ const dialogImageUrl = ref('')
 
 //文件上传成功后
 const onSuccess=(response)=>{
-  dialogImageUrl.value=response[0].id
+  dialogImageUrl.value=response.data[0].id
 }
 //封面url
 const getUrl= (str)=>{

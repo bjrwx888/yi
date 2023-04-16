@@ -55,10 +55,9 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
                          User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
                      }, true).SingleAsync(discuss => discuss.Id == id);
 
-            await VerifyDiscussPermissionAsync(item.Id);
-
             if (item is not null)
             {
+                await VerifyDiscussPermissionAsync(item.Id);
                 _eventPublisher.PublishAsync(new SeeDiscussEventSource(new SeeDiscussEventArgs { DiscussId = item.Id, OldSeeNum = item.SeeNum }));
             }
 

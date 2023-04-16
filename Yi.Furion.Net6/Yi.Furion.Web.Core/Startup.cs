@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Yi.Framework.Infrastructure.Data.Json;
 using Yi.Furion.Web.Core.Handlers;
 
 namespace Yi.Furion.Web.Core;
@@ -16,7 +17,10 @@ public class Startup : AppStartup
 
         services.AddCorsAccessor();
 
-        services.AddControllers().AddInjectWithUnifyResult();
+        services.AddControllers().AddInjectWithUnifyResult().AddJsonOptions(x => {
+            //x.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            x.JsonSerializerOptions.Converters.Add(new LongToStringConverter());
+        });
 
         services.AddEventBus();
 

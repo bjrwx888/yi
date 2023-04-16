@@ -124,7 +124,7 @@ fileDialogVisible.value=false;
 }
 //文件上传成功后
 const onSuccess=(response)=>{
-  fileUrlList.value.push(response[0].id)
+  fileUrlList.value.push(response.data[0].id)
  
 }
 //图片上传
