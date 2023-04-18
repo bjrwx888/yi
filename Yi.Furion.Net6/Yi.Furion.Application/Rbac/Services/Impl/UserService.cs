@@ -1,4 +1,5 @@
 using SqlSugar;
+using Yi.Framework.Infrastructure.Attributes;
 using Yi.Framework.Infrastructure.CurrentUsers;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
@@ -35,6 +36,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Permission("system:user:list")]
         public override async Task<PagedResultDto<UserGetListOutputDto>> GetListAsync(UserGetListInputVo input)
         {
             var entity = await MapToEntityAsync(input);

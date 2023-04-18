@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Profiling.SqlFormatters;
 using Yi.Framework.Infrastructure.AspNetCore;
+using Yi.Framework.Infrastructure.Auth;
 using Yi.Framework.Infrastructure.Data;
 using Yi.Framework.Infrastructure.Data.Filters;
 using Yi.Framework.Infrastructure.Sqlsugar;
@@ -26,6 +27,13 @@ public class Startup : AppStartup
         services.AddUnitOfWork<SqlsugarUnitOfWork>();
 
         services.AddTransient<IDataFilter, SqlsugarDataFilter>();
+
+
+        services.AddSingleton<IPermissionHandler, DefaultPermissionHandler>();
+        services.AddSingleton<PermissionGlobalAttribute>();
+        services.AddControllers(options => {
+            options.Filters.Add<PermissionGlobalAttribute>();
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
