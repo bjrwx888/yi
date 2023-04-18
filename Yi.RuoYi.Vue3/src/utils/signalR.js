@@ -31,7 +31,7 @@ export default {
     })
     this.receiveMsg(connection);
     // 启动
-    // this.start();
+    this.start();
   },
   /**
    * 调用 this.signalR.start().then(async () => { await this.SR.invoke("method")})

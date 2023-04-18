@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Yi.Framework.Infrastructure.Data.Json;
+using Yi.Furion.Application.Rbac.SignalRHub;
 using Yi.Furion.Web.Core.Handlers;
 
 namespace Yi.Furion.Web.Core;
@@ -25,6 +26,7 @@ public class Startup : AppStartup
         services.AddEventBus();
 
         services.AddHttpContextAccessor();
+        services.AddSignalR();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,9 +46,9 @@ public class Startup : AppStartup
         app.UseAuthorization();
 
         app.UseInject(string.Empty);
-
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapHub<OnlineUserHub>("/api/hub/main");
             endpoints.MapControllers();
         });
     }
