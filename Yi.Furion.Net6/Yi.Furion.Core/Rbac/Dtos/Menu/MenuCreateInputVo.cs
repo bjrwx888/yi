@@ -24,5 +24,6 @@ namespace Yi.Furion.Core.Rbac.Dtos.Menu
         public string Remark { get; set; }
         public string Component { get; set; }
         public string Query { get; set; }
+        public int OrderNum { get; set; }
     }
 }
