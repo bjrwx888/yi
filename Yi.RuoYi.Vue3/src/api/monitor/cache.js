@@ -11,7 +11,7 @@ export function getCache() {
 // 查询缓存名称列表
 export function listCacheName() {
   return request({
-    url: '/monitor/cache/getNames',
+    url: '/monitor-cache/name',
     method: 'get'
   })
 }
@@ -19,7 +19,7 @@ export function listCacheName() {
 // 查询缓存键名列表
 export function listCacheKey(cacheName) {
   return request({
-    url: '/monitor/cache/getKeys/' + cacheName,
+    url: '/monitor-cache/key/' + cacheName,
     method: 'get'
   })
 }
@@ -27,7 +27,7 @@ export function listCacheKey(cacheName) {
 // 查询缓存内容
 export function getCacheValue(cacheName, cacheKey) {
   return request({
-    url: '/monitor/cache/getValue/' + cacheName + '/' + cacheKey,
+    url: '/monitor-cache/value/' + cacheName + '/' + cacheKey,
     method: 'get'
   })
 }
