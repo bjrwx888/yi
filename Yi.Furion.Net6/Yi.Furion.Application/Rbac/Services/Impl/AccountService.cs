@@ -1,8 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using Furion.EventBus;
+using IPTools.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using SqlSugar;
+using UAParser;
+using Yi.Framework.Infrastructure.AspNetCore;
 using Yi.Framework.Infrastructure.CurrentUsers;
 using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Framework.Infrastructure.Ddd.Services;
@@ -22,7 +26,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class AccountService : ApplicationService, ITransient, IDynamicApiController
     {
 
-        public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher,IHttpContextAccessor httpContextAccessor) =>
+        public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher, IHttpContextAccessor httpContextAccessor) =>
             (_userRepository, _currentUser, _accountManager, _menuRepository, _smsAliyunManager, _smsAliyunManagerOptions, _securityCode, _memoryCache, _eventPublisher, _httpContextAccessor) =
             (userRepository, currentUser, accountManager, menuRepository, smsAliyunManager, smsAliyunManagerOptions, securityCode, memoryCache, eventPublisher, httpContextAccessor);
 
@@ -123,19 +127,14 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
                 throw new UserFriendlyException(UserConst.用户无角色分配);
             }
             //这里抛出一个登录的事件
-
-            //不阻碍执行，无需等待
-
-
-          await  _eventPublisher.PublishAsync(new LoginEventSource(new LoginEventArgs
+            var loginLogEntity = _httpContextAccessor.HttpContext.GetLoginLogInfo();
+            await _eventPublisher.PublishAsync(new LoginEventSource(new LoginEventArgs
             {
-
                 UserId = userInfo.User.Id,
                 UserName = user.UserName,
-                httpContext= _httpContextAccessor.HttpContext
-
-          })
-       );;
+                LoginLogEntity = loginLogEntity
+            })
+        ); 
 
 
             //创建token

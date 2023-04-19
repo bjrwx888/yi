@@ -1,5 +1,8 @@
 ﻿using System;
+using IPTools.Core;
 using SqlSugar;
+using UAParser;
+using Yi.Framework.Infrastructure.AspNetCore;
 using Yi.Framework.Infrastructure.Data.Auditing;
 using Yi.Framework.Infrastructure.Ddd.Entities;
 
@@ -44,5 +47,46 @@ namespace Yi.Furion.Core.Rbac.Entities
         public string LogMsg { get; set; }
 
         public long? CreatorId { get; set; }
+    }
+
+    public static class LoginLogEntityExtensions { 
+    
+    
+
+    /// <summary>
+    /// 记录用户登陆信息
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public static LoginLogEntity GetLoginLogInfo(this HttpContext context)
+    {
+        ClientInfo GetClientInfo(HttpContext context)
+        {
+            var str = context.GetUserAgent();
+            var uaParser = Parser.GetDefault();
+            ClientInfo c = uaParser.Parse(str);
+            return c;
+        }
+        var ipAddr = context.GetClientIp();
+        IpInfo location;
+        if (ipAddr == "127.0.0.1")
+        {
+            location = new IpInfo() { Province = "本地", City = "本机" };
+        }
+        else
+        {
+            location = IpTool.Search(ipAddr);
+        }
+        ClientInfo clientInfo = GetClientInfo(context);
+        LoginLogEntity entity = new()
+        {
+            Browser = clientInfo.Device.Family,
+            Os = clientInfo.OS.ToString(),
+            LoginIp = ipAddr,
+            LoginLocation = location.Province + "-" + location.City
+        };
+
+        return entity;
+    }
     }
 }

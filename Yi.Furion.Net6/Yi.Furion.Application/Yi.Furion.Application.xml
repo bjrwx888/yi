@@ -264,20 +264,6 @@
             <param name="postIds"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Event.LoginEventHandler.GetClientInfo(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-            获取客户端信息
-            </summary>
-            <param name="context"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Furion.Application.Rbac.Event.LoginEventHandler.GetLoginLogInfo(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-            记录用户登陆信息
-            </summary>
-            <param name="context"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yi.Furion.Application.Rbac.Services.IConfigService">
             <summary>
             Config服务抽象

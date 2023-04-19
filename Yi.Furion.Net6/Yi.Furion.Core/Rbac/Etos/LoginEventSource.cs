@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Furion.EventBus;
+using Yi.Furion.Core.Rbac.Entities;
 
 namespace Yi.Furion.Core.Rbac.Etos
 {
@@ -28,6 +29,6 @@ namespace Yi.Furion.Core.Rbac.Etos
         public long UserId { get; set; }
         public string UserName { get; set; }
 
-        public HttpContext httpContext { get; set; }
+        public LoginLogEntity LoginLogEntity { get; set; }
     }
 }
