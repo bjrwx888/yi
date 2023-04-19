@@ -23,7 +23,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
-		<ProjectReference Include="..\Yi.Framework.Module\Yi.Framework.Module.csproj" />
 		<ProjectReference Include="..\Yi.Furion.Sqlsugar.Core\Yi.Furion.Sqlsugar.Core.csproj" />
 	</ItemGroup>
 
