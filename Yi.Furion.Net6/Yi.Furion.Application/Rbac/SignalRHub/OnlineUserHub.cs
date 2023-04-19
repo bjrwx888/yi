@@ -42,7 +42,7 @@ namespace Yi.Furion.Application.Rbac.SignalRHub
             var loginUser = GetLoginLogInfo(_httpContext);
             var user = clientUsers.Any(u => u.ConnnectionId == Context.ConnectionId);
             //判断用户是否存在，否则添加集合
-            if (!user )
+            if (!user)
             {
                 OnlineUserModel users = new(Context.ConnectionId)
                 {
@@ -57,9 +57,10 @@ namespace Yi.Furion.Application.Rbac.SignalRHub
                 _logger.LogInformation($"{DateTime.Now}：{name},{Context.ConnectionId}连接服务端success，当前已连接{clientUsers.Count}个");
 
                 //Clients.All.SendAsync(HubsConstant.MoreNotice, SendNotice());
+                //当有人加入，向全部客户端发送当前总数
+                Clients.All.SendAsync("onlineNum", clientUsers.Count);
             }
-            //当有人加入，向全部客户端发送当前总数
-            Clients.All.SendAsync("onlineNum", clientUsers.Count);
+          
             //Clients.All.SendAsync(HubsConstant.OnlineUser, clientUsers);
             return base.OnConnectedAsync();
         }

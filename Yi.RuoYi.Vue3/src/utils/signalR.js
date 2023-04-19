@@ -13,7 +13,8 @@ export default {
   baseUrl: '',
   init(url) {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(url, { accessTokenFactory: () => getToken() })
+      .withUrl(url,  {
+        headers: { Authorization: `Bearer ${getToken()}` }})
       .withAutomaticReconnect()//自动重新连接
       .configureLogging(signalR.LogLevel.Information)
       .build();
