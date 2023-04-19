@@ -539,19 +539,5 @@
             <param name="exception"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.SignalRHub.OnlineUserHub.GetClientInfo(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-            获取客户端信息
-            </summary>
-            <param name="context"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Furion.Application.Rbac.SignalRHub.OnlineUserHub.GetLoginLogInfo(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-            记录用户登陆信息
-            </summary>
-            <param name="context"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

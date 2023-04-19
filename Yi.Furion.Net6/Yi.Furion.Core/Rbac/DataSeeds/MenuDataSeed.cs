@@ -91,7 +91,24 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
             };
             entities.Add(online);
 
-
+            //服务监控
+            MenuEntity server = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "服务监控",
+                PermissionCode = "monitor:server:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "server",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "monitor/server/index",
+                MenuIcon = "server",
+                OrderNum = 98,
+                ParentId = monitoring.Id,
+                IsDeleted = false
+            };
+            entities.Add(online);
 
 
             //系统工具
