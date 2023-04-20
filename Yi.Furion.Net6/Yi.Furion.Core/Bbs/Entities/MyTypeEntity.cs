@@ -12,8 +12,8 @@ namespace Yi.Furion.Core.Bbs.Entities
         public bool IsDeleted { get; set; }
 
         public string Name { get; set; }
-        public string Color { get; set; }
-        public string BackgroundColor { get; set; }
+        public string? Color { get; set; }
+        public string? BackgroundColor { get; set; }
 
         public long UserId { get; set; }
     }

@@ -10,12 +10,12 @@ namespace Yi.Furion.Core.Rbac.Dtos.Config
         /// <summary>
         /// ≈‰÷√√˚≥∆
         /// </summary>
-        public string ConfigName { get; set; }
+        public string? ConfigName { get; set; }
 
         /// <summary>
         /// ≈‰÷√º¸
         /// </summary>
-        public string ConfigKey { get; set; }
+        public string? ConfigKey { get; set; }
 
     }
 }

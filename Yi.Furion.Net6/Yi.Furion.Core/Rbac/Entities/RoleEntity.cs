@@ -66,7 +66,7 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// 描述 
         ///</summary>
         [SugarColumn(ColumnName = "Remark")]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
         /// <summary>
         /// 角色数据范围 
         ///</summary>
@@ -80,9 +80,9 @@ namespace Yi.Furion.Core.Rbac.Entities
 
 
         [Navigate(typeof(RoleMenuEntity), nameof(RoleMenuEntity.RoleId), nameof(RoleMenuEntity.MenuId))]
-        public List<MenuEntity> Menus { get; set; }
+        public List<MenuEntity>? Menus { get; set; }
 
         [Navigate(typeof(RoleDeptEntity), nameof(RoleDeptEntity.RoleId), nameof(RoleDeptEntity.DeptId))]
-        public List<DeptEntity> Depts { get; set; }
+        public List<DeptEntity>? Depts { get; set; }
     }
 }

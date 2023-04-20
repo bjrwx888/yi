@@ -6,7 +6,7 @@ namespace Yi.Furion.Core.Rbac.Dtos.Menu
     {
 
         public bool? State { get; set; }
-        public string MenuName { get; set; }
+        public string? MenuName { get; set; }
 
     }
 }

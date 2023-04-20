@@ -121,7 +121,7 @@ namespace Yi.Furion.Core.Rbac.Entities
         public string? Query { get; set; }
 
         [SugarColumn(IsIgnore = true)]
-        public List<MenuEntity> Children { get; set; }
+        public List<MenuEntity>? Children { get; set; }
     }
 
     /// <summary>

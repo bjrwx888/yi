@@ -24,7 +24,7 @@ namespace Yi.Furion.Core.Rbac.Dtos.Account
         /// <summary>
         /// 唯一标识码
         /// </summary>
-        public string Uuid { get; set; }
+        public string? Uuid { get; set; }
 
         /// <summary>
         /// 电话
@@ -34,6 +34,6 @@ namespace Yi.Furion.Core.Rbac.Dtos.Account
         /// <summary>
         /// 验证码
         /// </summary>
-        public string Code { get; set; }
+        public string? Code { get; set; }
     }
 }

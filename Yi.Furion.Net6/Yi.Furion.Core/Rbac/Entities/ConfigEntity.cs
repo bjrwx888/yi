@@ -32,7 +32,7 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// 配置类别 
         ///</summary>
         [SugarColumn(ColumnName = "ConfigType")]
-        public string ConfigType { get; set; }
+        public string? ConfigType { get; set; }
 
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// 描述 
         ///</summary>
         [SugarColumn(ColumnName = "Remark")]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
         public bool IsDeleted { get; set; }
 
         public DateTime CreationTime { get; set; }

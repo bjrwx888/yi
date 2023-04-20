@@ -21,7 +21,7 @@ namespace Yi.Furion.Core.Rbac.Dtos.Config
         /// <summary>
         /// 配置类型
         /// </summary>
-        public string ConfigType { get; set; }
+        public string? ConfigType { get; set; }
         /// <summary>
         /// 排序字段
         /// </summary>
@@ -30,7 +30,7 @@ namespace Yi.Furion.Core.Rbac.Dtos.Config
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         /// <summary>
         /// 创建时间

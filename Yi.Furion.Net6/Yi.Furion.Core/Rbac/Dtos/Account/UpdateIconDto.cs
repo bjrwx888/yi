@@ -8,6 +8,6 @@ namespace Yi.Furion.Core.Rbac.Dtos.Account
 {
     public class UpdateIconDto
     {
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
     }
 }

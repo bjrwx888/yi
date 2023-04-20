@@ -17,8 +17,8 @@ namespace Yi.Furion.Core.Rbac.Dtos.Dept
         public bool State { get; set; }
         public string DeptName { get; set; } = string.Empty;
         public string DeptCode { get; set; } = string.Empty;
-        public string Leader { get; set; }
+        public string? Leader { get; set; }
         public long ParentId { get; set; }
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
     }
 }

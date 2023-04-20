@@ -8,9 +8,9 @@ namespace Yi.Furion.Core.Rbac.Dtos.Role
     /// </summary>
     public class RoleCreateInputVo
     {
-        public string RoleName { get; set; }
-        public string RoleCode { get; set; }
-        public string Remark { get; set; }
+        public string? RoleName { get; set; }
+        public string? RoleCode { get; set; }
+        public string? Remark { get; set; }
         public DataScopeEnum DataScope { get; set; } = DataScopeEnum.ALL;
         public bool State { get; set; } = true;
 

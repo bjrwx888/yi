@@ -16,14 +16,14 @@ namespace Yi.Furion.Core.Bbs.Dtos.Discuss
         public long Id { get; set; }
         public string Title { get; set; }
         public string Types { get; set; }
-        public string Introduction { get; set; }
+        public string? Introduction { get; set; }
 
         public int AgreeNum { get; set; }
         public int SeeNum { get; set; }
 
         //批量查询，不给内容，性能考虑
         //public string Content { get; set; }
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
         public long PlateId { get; set; }
 
@@ -38,10 +38,10 @@ namespace Yi.Furion.Core.Bbs.Dtos.Discuss
         /// <summary>
         /// 封面
         /// </summary>
-        public string Cover { get; set; }
+        public string? Cover { get; set; }
 
         //私有需要判断code权限
-        public string PrivateCode { get; set; }
+        public string? PrivateCode { get; set; }
         public DateTime CreationTime { get; set; }
 
         public List<long> PermissionUserIds { get; set; }
@@ -50,11 +50,11 @@ namespace Yi.Furion.Core.Bbs.Dtos.Discuss
 
         public void SetBan()
         {
-            Title = DiscussConst.私密;
-            Introduction = "";
-            Cover = null;
+            this.Title = DiscussConst.私密;
+            this.Introduction = "";
+            this.Cover = null;
             //被禁止
-            IsBan = true;
+            this.IsBan = true;
         }
     }
 

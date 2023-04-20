@@ -11,7 +11,7 @@ namespace Yi.Furion.Core.Rbac.Dtos.Post
         public bool State { get; set; }
         public string PostCode { get; set; } = string.Empty;
         public string PostName { get; set; } = string.Empty;
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         public int OrderNum { get; set; }
     }

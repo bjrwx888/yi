@@ -21,20 +21,20 @@ namespace Yi.Furion.Core.Bbs.Entities
 
         [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
-        public string Title { get; set; }
-        public string Types { get; set; }
-        public string Introduction { get; set; }
+        public string? Title { get; set; }
+        public string? Types { get; set; }
+        public string? Introduction { get; set; }
         public int AgreeNum { get; set; }
         public int SeeNum { get; set; }
         /// <summary>
         /// 封面
         /// </summary>
-        public string Cover { get; set; }
+        public string? Cover { get; set; }
 
         [SugarColumn(Length = 999999)]
         public string Content { get; set; }
 
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -58,6 +58,6 @@ namespace Yi.Furion.Core.Bbs.Entities
         /// 当PermissionType为部分用户时候，以下列表中的用户+创建者 代表拥有权限
         /// </summary>
         [SugarColumn(IsJson = true)]//使用json处理
-        public List<long> PermissionUserIds { get; set; }
+        public List<long>? PermissionUserIds { get; set; }
     }
 }

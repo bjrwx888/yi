@@ -4,8 +4,8 @@ namespace Yi.Furion.Core.Rbac.Dtos.LoginLog
 {
     public class LoginLogGetListInputVo : PagedAllResultRequestDto
     {
-        public string LoginUser { get; set; }
+        public string? LoginUser { get; set; }
 
-        public string LoginIp { get; set; }
+        public string? LoginIp { get; set; }
     }
 }

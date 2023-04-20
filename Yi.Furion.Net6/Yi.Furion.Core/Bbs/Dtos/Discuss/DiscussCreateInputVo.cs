@@ -13,11 +13,11 @@ namespace Yi.Furion.Core.Bbs.Dtos.Discuss
     public class DiscussCreateInputVo
     {
         public string Title { get; set; }
-        public string Types { get; set; }
-        public string Introduction { get; set; }
+        public string? Types { get; set; }
+        public string? Introduction { get; set; }
         public DateTime? CreateTime { get; set; } = DateTime.Now;
         public string Content { get; set; }
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
         public long PlateId { get; set; }
 
@@ -28,6 +28,6 @@ namespace Yi.Furion.Core.Bbs.Dtos.Discuss
         /// <summary>
         /// 封面
         /// </summary>
-        public string Cover { get; set; }
+        public string? Cover { get; set; }
     }
 }

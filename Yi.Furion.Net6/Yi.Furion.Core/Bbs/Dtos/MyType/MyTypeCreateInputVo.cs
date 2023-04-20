@@ -12,7 +12,7 @@ namespace Yi.Furion.Core.Bbs.Dtos.MyType
     public class MyTypeCreateInputVo
     {
         public string Name { get; set; }
-        public string Color { get; set; }
-        public string BackgroundColor { get; set; }
+        public string? Color { get; set; }
+        public string? BackgroundColor { get; set; }
     }
 }
