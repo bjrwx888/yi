@@ -30,9 +30,6 @@
 	  <None Update="ip2region.db">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="yi-sqlsugar-dev.db">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 
@@ -41,6 +38,17 @@
 	  <Folder Include="wwwroot\File\" />
 	  <Folder Include="wwwroot\Image\" />
 	  <Folder Include="wwwroot\Thumbnail\" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <Content Update="appsettings.Development.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="appsettings.Production.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 	<ProjectExtensions>
 		<VisualStudio>

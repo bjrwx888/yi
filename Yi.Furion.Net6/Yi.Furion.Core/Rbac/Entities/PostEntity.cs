@@ -69,6 +69,6 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// 描述 
         ///</summary>
         [SugarColumn(ColumnName = "Remark")]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
     }
 }

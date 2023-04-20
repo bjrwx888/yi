@@ -4,6 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<NoWarn>1701;1702;1591</NoWarn>
 		<DocumentationFile>Yi.Furion.Core.xml</DocumentationFile>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 

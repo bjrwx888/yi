@@ -69,7 +69,7 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// 负责人 
         ///</summary>
         [SugarColumn(ColumnName = "Leader")]
-        public string Leader { get; set; }
+        public string? Leader { get; set; }
         /// <summary>
         /// 父级id 
         ///</summary>
@@ -80,6 +80,6 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// 描述 
         ///</summary>
         [SugarColumn(ColumnName = "Remark")]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
     }
 }

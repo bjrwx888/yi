@@ -26,23 +26,23 @@ namespace Yi.Framework.Infrastructure.Data.DataSeeds
             {
                 //using (var uow = iUnitOfWorkManager.CreateContext())
                 //{
-                var res = await iUnitOfWorkManager.Ado.UseTranAsync(async () =>
-                    {
+                //var res = await iUnitOfWorkManager.Ado.UseTranAsync(async () =>
+                //    {
                         foreach (var seed in dataSeeds)
                         {
                             await seed.InvokerAsync();
                         }
-                    });
+                    //});
 
                 //var res = uow.Commit();
 
-                if (!res.IsSuccess)
-                {
-                    throw new ApplicationException("种子数据初始化异常");
-                }
+                //if (!res.IsSuccess)
+                //{
+                    //throw new ApplicationException("种子数据初始化异常");
+                //}
                 //}
             }
-            return builder.UseMiddleware<DataFilterMiddleware>();
+            return builder;
         }
     }
 }

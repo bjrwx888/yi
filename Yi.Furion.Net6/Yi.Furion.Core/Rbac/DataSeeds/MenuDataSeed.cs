@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Yi.Framework.Infrastructure.Data.DataSeeds;
 using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Framework.Infrastructure.Helper;
@@ -89,7 +90,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 ParentId = monitoring.Id,
                 IsDeleted = false
             };
-            entities.Add(online);
+            entities.Add(cache);
 
             //服务监控
             MenuEntity server = new MenuEntity()
@@ -108,7 +109,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 ParentId = monitoring.Id,
                 IsDeleted = false
             };
-            entities.Add(online);
+            entities.Add(server);
 
 
             //系统工具
@@ -1104,6 +1105,16 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 m.IsDeleted = false;
                 m.State = true;
             });
+
+            var p = entities.GroupBy(x => x.Id);
+            foreach (var k in p)
+            {
+                if (k.ToList().Count > 1)
+                {
+                    Console.WriteLine("菜单id重复");
+                }
+
+            }
             return entities;
         }
     }

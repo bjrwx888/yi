@@ -68,28 +68,28 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// <summary>
         /// 头像
         /// </summary>
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
 
         /// <summary>
         /// 昵称
         /// </summary>
-        public string Nick { get; set; }
+        public string? Nick { get; set; }
 
         /// <summary>
         /// 邮箱
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Ip
         /// </summary>
-        public string Ip { get; set; }
+        public string? Ip { get; set; }
 
         /// <summary>
         /// 地址
         /// </summary>
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         /// <summary>
         /// 电话
@@ -99,12 +99,12 @@ namespace Yi.Furion.Core.Rbac.Entities
         /// <summary>
         /// 简介
         /// </summary>
-        public string Introduction { get; set; }
+        public string? Introduction { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         /// <summary>
         /// 性别

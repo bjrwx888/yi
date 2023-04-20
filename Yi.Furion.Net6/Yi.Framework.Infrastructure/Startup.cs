@@ -7,6 +7,7 @@ using StackExchange.Profiling.SqlFormatters;
 using Yi.Framework.Infrastructure.AspNetCore;
 using Yi.Framework.Infrastructure.Auth;
 using Yi.Framework.Infrastructure.Data;
+using Yi.Framework.Infrastructure.Data.DataSeeds;
 using Yi.Framework.Infrastructure.Data.Filters;
 using Yi.Framework.Infrastructure.Sqlsugar;
 using Yi.Framework.Infrastructure.Sqlsugar.Filters;
@@ -31,13 +32,17 @@ public class Startup : AppStartup
 
         services.AddSingleton<IPermissionHandler, DefaultPermissionHandler>();
         services.AddSingleton<PermissionGlobalAttribute>();
-        services.AddControllers(options => {
+        services.AddControllers(options =>
+        {
             options.Filters.Add<PermissionGlobalAttribute>();
         });
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseSqlsugarCodeFirstServer();
+        await app.UseDataSeedServer();
         app.UseDataFiterServer();
+
     }
 }
