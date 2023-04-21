@@ -1,4 +1,5 @@
 ﻿using Furion;
+using Furion.Schedule;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,8 @@ public class Startup : AppStartup
         {
             options.Filters.Add<PermissionGlobalAttribute>();
         });
+
+
     }
 
     public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)

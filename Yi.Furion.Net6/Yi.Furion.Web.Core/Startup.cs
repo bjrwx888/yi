@@ -1,9 +1,11 @@
 ﻿using Furion;
+using Furion.Schedule;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Yi.Framework.Infrastructure.Data.Json;
+using Yi.Furion.Application.Rbac.Job;
 using Yi.Furion.Application.Rbac.SignalRHub;
 using Yi.Furion.Web.Core.Handlers;
 
@@ -27,6 +29,13 @@ public class Startup : AppStartup
 
         services.AddHttpContextAccessor();
         services.AddSignalR();
+
+        services.AddSchedule(options =>
+        {
+            // 注册作业，并配置作业触发器
+            //options.AddJob<SystemDataJob>(Triggers.Daily()); // 表示每秒执行
+            options.AddJob<SystemDataJob>(Triggers.Cron("0 0 0,12 ? * ?")); // 表示每秒执行
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
