@@ -5,7 +5,7 @@ using Yi.Framework.Module.DictionaryManager.Entities;
 
 namespace Yi.Furion.Core.Rbac.DataSeeds
 {
-    public class DictionaryDataSeed : AbstractDataSeed<DictionaryEntity>
+    public class DictionaryDataSeed : AbstractDataSeed<DictionaryEntity>, ITransient
     {
         public DictionaryDataSeed(IRepository<DictionaryEntity> repository) : base(repository)
         {
@@ -23,6 +23,8 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "性别男",
                 IsDeleted = false,
+                State = true
+
             };
             entities.Add(dictInfo1);
 
@@ -35,6 +37,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "性别女",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo2);
 
@@ -47,6 +50,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 98,
                 Remark = "性别未知",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo3);
 
@@ -61,6 +65,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "显示菜单",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo4);
 
@@ -73,6 +78,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "隐藏菜单",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo5);
 
@@ -87,6 +93,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "正常状态",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo6);
             DictionaryEntity dictInfo7 = new DictionaryEntity()
@@ -98,6 +105,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "停用状态",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo7);
@@ -113,6 +121,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "正常状态",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo8);
             DictionaryEntity dictInfo9 = new DictionaryEntity()
@@ -124,6 +133,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "停用状态",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo9);
@@ -140,6 +150,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "默认分组",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo10);
             DictionaryEntity dictInfo11 = new DictionaryEntity()
@@ -151,6 +162,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "系统分组",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo11);
 
@@ -165,6 +177,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "系统默认是",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo12);
             DictionaryEntity dictInfo13 = new DictionaryEntity()
@@ -176,6 +189,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "系统默认否",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo13);
@@ -191,6 +205,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "通知",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo14);
             DictionaryEntity dictInfo15 = new DictionaryEntity()
@@ -202,6 +217,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "公告",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo15);
 
@@ -214,6 +230,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "正常状态",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo16);
             DictionaryEntity dictInfo17 = new DictionaryEntity()
@@ -225,6 +242,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "关闭状态",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo17);
@@ -238,6 +256,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "新增操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo18);
             DictionaryEntity dictInfo19 = new DictionaryEntity()
@@ -249,6 +268,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "修改操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo19);
             DictionaryEntity dictInfo22 = new DictionaryEntity()
@@ -260,6 +280,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 98,
                 Remark = "删除操作",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo22);
@@ -272,6 +293,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 97,
                 Remark = "授权操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo23);
             DictionaryEntity dictInfo24 = new DictionaryEntity()
@@ -283,6 +305,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 96,
                 Remark = "导出操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo24);
             DictionaryEntity dictInfo25 = new DictionaryEntity()
@@ -294,6 +317,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 95,
                 Remark = "导入操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo25);
             DictionaryEntity dictInfo26 = new DictionaryEntity()
@@ -305,6 +329,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 94,
                 Remark = "强退操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo26);
             DictionaryEntity dictInfo27 = new DictionaryEntity()
@@ -316,6 +341,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 93,
                 Remark = "生成代码操作",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo27);
             DictionaryEntity dictInfo28 = new DictionaryEntity()
@@ -327,6 +353,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 92,
                 Remark = "清空数据操作",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo28);
@@ -342,6 +369,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "正常状态",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dictInfo20);
             DictionaryEntity dictInfo21 = new DictionaryEntity()
@@ -353,6 +381,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 99,
                 Remark = "失败状态",
                 IsDeleted = false,
+                State = true,
                 ListClass = "danger"
             };
             entities.Add(dictInfo21);

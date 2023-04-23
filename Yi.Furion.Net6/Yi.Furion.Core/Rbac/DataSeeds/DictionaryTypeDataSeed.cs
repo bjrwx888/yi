@@ -22,6 +22,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "用户性别列表",
                 IsDeleted = false,
+                State=true
             };
             entities.Add(dict1);
 
@@ -33,6 +34,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "菜单状态列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict2);
 
@@ -44,6 +46,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "系统开关列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict3);
 
@@ -55,6 +58,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "任务状态列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict4);
 
@@ -66,6 +70,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "任务分组列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict5);
 
@@ -77,6 +82,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "系统是否列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict6);
 
@@ -88,6 +94,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "通知类型列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict7);
             DictionaryTypeEntity dict8 = new DictionaryTypeEntity()
@@ -98,6 +105,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "通知状态列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict8);
 
@@ -109,6 +117,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "操作类型列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict9);
 
@@ -121,6 +130,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 OrderNum = 100,
                 Remark = "登录状态列表",
                 IsDeleted = false,
+                State = true
             };
             entities.Add(dict10);
             return entities;

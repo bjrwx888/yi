@@ -460,7 +460,7 @@
         </member>
         <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.GetList(Yi.Furion.Core.Rbac.Dtos.Task.TaskGetListInput)">
             <summary>
-            多询job
+            多查job
             </summary>
             <returns></returns>
         </member>

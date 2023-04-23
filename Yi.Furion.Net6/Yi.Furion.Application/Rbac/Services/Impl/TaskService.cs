@@ -24,16 +24,18 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <param name="jobId"></param>
         /// <returns></returns>
-        public SchedulerModel GetById(string jobId)
+        [HttpGet("{jobId}")]
+        public SchedulerModel GetById([FromRoute]string jobId)
         {
             var result = _schedulerFactory.TryGetJob(jobId, out var scheduler);
             return scheduler.GetModel();
         }
 
         /// <summary>
-        /// 多询job
+        /// 多查job
         /// </summary>
         /// <returns></returns>
+        [HttpGet("")]
         public PagedResultDto<SchedulerModel> GetList([FromQuery]TaskGetListInput input)
         {
             var data = _schedulerFactory.GetJobsOfModels().Skip(input.PageNum * input.PageSize).Take(input.PageSize).OrderByDescending(x => x.JobDetail.UpdatedTime).ToList();
@@ -92,6 +94,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <param name="jobId"></param>
         /// <returns></returns>
+        [HttpPut]
         public ScheduleResult Pause(string jobId)
         {
             var res = _schedulerFactory.TryGetJob(jobId, out var scheduler);
@@ -105,6 +108,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <param name="jobId"></param>
         /// <returns></returns>
+        [HttpPut]
         public ScheduleResult Start(string jobId)
         {
             var res = _schedulerFactory.TryGetJob(jobId, out var scheduler);
