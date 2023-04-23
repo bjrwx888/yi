@@ -10,8 +10,6 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     {
         public override async Task<PagedResultDto<LoginLogGetListOutputDto>> GetListAsync(LoginLogGetListInputVo input)
         {
-            var entity = await MapToEntityAsync(input);
-
             RefAsync<int> total = 0;
 
             var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.LoginIp), x => x.LoginIp.Contains(input.LoginIp!))

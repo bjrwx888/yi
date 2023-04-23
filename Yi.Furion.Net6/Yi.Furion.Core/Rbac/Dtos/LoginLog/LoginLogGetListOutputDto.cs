@@ -4,8 +4,7 @@ namespace Yi.Furion.Core.Rbac.Dtos.LoginLog
 {
     public class LoginLogGetListOutputDto : EntityDto<long>
     {
-        public DateTime CreationTime { get; }
-
+        public DateTime CreationTime { get; set; }
 
         public string? LoginUser { get; set; }
 

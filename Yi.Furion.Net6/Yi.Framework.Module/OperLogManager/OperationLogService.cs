@@ -16,8 +16,6 @@ namespace Yi.Framework.Module.OperLogManager
     {
         public override async Task<PagedResultDto<OperationLogGetListOutputDto>> GetListAsync(OperationLogGetListInputVo input)
         {
-            var entity = await MapToEntityAsync(input);
-
             RefAsync<int> total = 0;
 
             var entities = await _DbQueryable.WhereIF(!string.IsNullOrEmpty(input.OperUser), x => x.OperUser.Contains(input.OperUser!))
