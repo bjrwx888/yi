@@ -451,6 +451,55 @@
             <param name="state"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.GetById(System.String)">
+            <summary>
+            单查job
+            </summary>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.GetList(Yi.Furion.Core.Rbac.Dtos.Task.TaskGetListInput)">
+            <summary>
+            多询job
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.Create(Yi.Furion.Core.Rbac.Dtos.Task.TaskCreateInput)">
+            <summary>
+            创建job
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.Remove(System.String)">
+            <summary>
+            移除job
+            </summary>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.Pause(System.String)">
+            <summary>
+            暂停job
+            </summary>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.Start(System.String)">
+            <summary>
+            开始job
+            </summary>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.TaskService.Update(System.String,Yi.Furion.Core.Rbac.Dtos.Task.TaskUpdateInput)">
+            <summary>
+            更新job
+            </summary>
+            <param name="jobId"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Furion.Application.Rbac.Services.Impl.UserService">
             <summary>
             User服务实现

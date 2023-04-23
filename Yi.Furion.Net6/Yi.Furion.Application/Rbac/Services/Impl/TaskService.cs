@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Furion.Schedule;
 using Furion.TimeCrontab;
+using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
+using Yi.Furion.Application.Rbac.Job;
+using Yi.Furion.Core.Rbac.Dtos.Task;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
@@ -16,28 +19,55 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         {
             _schedulerFactory = schedulerFactory;
         }
-        public object GetById(string jobId)
+        /// <summary>
+        /// 单查job
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public SchedulerModel GetById(string jobId)
         {
             var result = _schedulerFactory.TryGetJob(jobId, out var scheduler);
             return scheduler.GetModel();
         }
-        public object Get()
+
+        /// <summary>
+        /// 多询job
+        /// </summary>
+        /// <returns></returns>
+        public PagedResultDto<SchedulerModel> GetList([FromQuery]TaskGetListInput input)
         {
-            return _schedulerFactory.GetJobsOfModels();
+            var data = _schedulerFactory.GetJobsOfModels().Skip(input.PageNum * input.PageSize).Take(input.PageSize).OrderByDescending(x => x.JobDetail.UpdatedTime).ToList();
+            return new PagedResultDto<SchedulerModel>(data.Count(), data);
         }
-        public object Create()
+
+        /// <summary>
+        /// 创建job
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public ScheduleResult Create(TaskCreateInput input)
         {
+
+
             //jobBuilder
-            var jobBuilder = JobBuilder.Create("YourProject", "YourProject.MyJob");
+            var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobTypeFullName).SetJobId(input.JobId).SetGroupName(input.GroupName);
+                //.SetConcurrent(input.Concurrent).SetDescription(input.Description).SetProperties(Newtonsoft.Json.JsonConvert.SerializeObject(input.Properties));
 
             //triggerBuilder
             //毫秒
-            var triggerBuilder = Triggers.Period(5000);
-            //cron
-            var triggerBuilder2 = Triggers.Cron("* * * * *", CronStringFormat.Default);
+            TriggerBuilder triggerBuilder = null;
+            switch (input.Type)
+            {
+                case Core.Rbac.Enums.JobTypeEnum.Cron:
+                    triggerBuilder = Triggers.Cron(input.Cron, CronStringFormat.WithSeconds);
+                    break;
+                case Core.Rbac.Enums.JobTypeEnum.Millisecond:
+                    triggerBuilder = Triggers.Period(input.Millisecond);
+                    break;
+            }
 
             //作业计划,单个jobBuilder与多个triggerBuilder组合
-            var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggerBuilder, triggerBuilder2);
+            var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggerBuilder);
 
 
             //调度中心工厂，使用作业计划管理job,返回调度中心单个
@@ -45,24 +75,70 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
             return result;
         }
-        public object Remove(string jobId)
+
+        /// <summary>
+        /// 移除job
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public ScheduleResult Remove(string jobId)
         {
             var res = _schedulerFactory.TryRemoveJob(jobId, out var scheduler);
             return res;
         }
-        public object Update()
+
+        /// <summary>
+        /// 暂停job
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public ScheduleResult Pause(string jobId)
+        {
+            var res = _schedulerFactory.TryGetJob(jobId, out var scheduler);
+
+            scheduler.Pause();
+            return res;
+        }
+
+        /// <summary>
+        /// 开始job
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public ScheduleResult Start(string jobId)
+        {
+            var res = _schedulerFactory.TryGetJob(jobId, out var scheduler);
+            scheduler.Start();
+            return res;
+        }
+
+        /// <summary>
+        /// 更新job
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public ScheduleResult Update(string jobId,TaskUpdateInput input)
         {
             //jobBuilder
-            var jobBuilder = JobBuilder.Create("YourProject", "YourProject.MyJob");
+            var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobTypeFullName).SetJobId(jobId).SetGroupName(input.GroupName)
+                .SetConcurrent(input.Concurrent).SetDescription(input.Description).SetProperties(Newtonsoft.Json.JsonConvert.SerializeObject(input.Properties));
 
             //triggerBuilder
             //毫秒
-            var triggerBuilder = Triggers.Period(5000);
-            //cron
-            var triggerBuilder2 = Triggers.Cron("* * * * *", CronStringFormat.Default);
+            TriggerBuilder triggerBuilder = null;
+            switch (input.Type)
+            {
+                case Core.Rbac.Enums.JobTypeEnum.Cron:
+                    triggerBuilder = Triggers.Cron(input.Cron, CronStringFormat.WithSeconds);
+                    break;
+                case Core.Rbac.Enums.JobTypeEnum.Millisecond:
+                    triggerBuilder = Triggers.Period(input.Millisecond);
+                    break;
+            }
 
             //作业计划,单个jobBuilder与多个triggerBuilder组合
-            var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggerBuilder, triggerBuilder2);
+            var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggerBuilder);
 
 
             var result = _schedulerFactory.TryUpdateJob(schedulerBuilder, out var scheduler);
