@@ -36,8 +36,8 @@ public class Startup : AppStartup
         services.AddSchedule(options =>
         {
             // 注册作业，并配置作业触发器
-            //options.AddJob<SystemDataJob>(Triggers.Daily()); // 表示每秒执行
-            options.AddJob<SystemDataJob>(Triggers.Cron("0 0 0,12 ? * ?",CronStringFormat.WithSeconds)); // 表示每秒执行
+            options.AddJob<SystemDataJob>(Triggers.Period(10000)); // 表示每秒执行
+          //  options.AddJob<SystemDataJob>(Triggers.Cron("0 0 0,12 ? * ?",CronStringFormat.WithSeconds)); // 表示每秒执行
         });
         services.AddFileLogging("application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
         {
