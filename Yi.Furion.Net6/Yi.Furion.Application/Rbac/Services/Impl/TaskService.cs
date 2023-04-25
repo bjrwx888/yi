@@ -156,5 +156,16 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             var result = _schedulerFactory.TryUpdateJob(schedulerBuilder, out var scheduler);
             return result;
         }
+
+        [HttpPost]
+        public bool RunOnce(string jobId)
+        {
+            var result = _schedulerFactory.TryGetJob(jobId, out var scheduler);
+
+            var triggerBuilder = Triggers.Period(100).SetRunOnStart(true).SetMaxNumberOfRuns(1);
+            scheduler.AddTrigger(triggerBuilder);
+            //设置启动时执行一次，然后最大只执行一次
+            return true;
+        }
     }
 }
