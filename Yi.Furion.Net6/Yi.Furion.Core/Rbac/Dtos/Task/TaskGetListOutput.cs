@@ -81,5 +81,14 @@ namespace Yi.Furion.Core.Rbac.Dtos.Task
         /// 作业信息额外数据运行时实例
         /// </summary>
         internal string RuntimeProperties { get; set; }
+
+
+        /// <summary>
+        /// 触发器参数
+        /// </summary>
+        public string TriggerArgs { get; set; }
+
+        //状态
+        public string Status { get; set; }
     }
 }

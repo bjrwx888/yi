@@ -30,6 +30,10 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             var result = _schedulerFactory.TryGetJob(jobId, out var scheduler);
             var data = scheduler.GetModel();
             var output = data.JobDetail.Adapt<TaskGetOutput>();
+            output.TriggerArgs = data.Triggers[0].Args;
+            output.NextRunTime = data.Triggers[0].NextRunTime;
+            output.LastRunTime = data.Triggers[0].LastRunTime;
+            output.NumberOfRuns = data.Triggers[0].NumberOfRuns;
             return output;
         }
 
@@ -43,10 +47,14 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             var data = _schedulerFactory.GetJobsOfModels().Skip((input.PageNum - 1) * input.PageSize).Take(input.PageSize).OrderByDescending(x => x.JobDetail.UpdatedTime)
 
                 .ToList();
-            var output = data.Select(x => x.JobDetail).Adapt<List<TaskGetListOutput>>();
-
-
-
+            var output = data.Select(x => { 
+                
+               var res= new TaskGetListOutput();
+                res= x.JobDetail.Adapt<TaskGetListOutput>();
+                res.TriggerArgs = x.Triggers[0].Args;
+                res.Status = x.Triggers[0].Status.ToString();
+                return res;
+            } ).ToList(); 
             return new PagedResultDto<TaskGetListOutput>(data.Count(), output);
         }
 
@@ -60,8 +68,8 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
 
             //jobBuilder
-            var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobTypeFullName).SetJobId(input.JobId).SetGroupName(input.GroupName);
-            //.SetConcurrent(input.Concurrent).SetDescription(input.Description).SetProperties(Newtonsoft.Json.JsonConvert.SerializeObject(input.Properties));
+            var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobType).SetJobId(input.JobId).SetGroupName(input.GroupName)
+            .SetConcurrent(input.Concurrent).SetDescription(input.Description);
 
             //triggerBuilder
             //毫秒
@@ -133,8 +141,8 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         public ScheduleResult Update(string jobId, TaskUpdateInput input)
         {
             //jobBuilder
-            var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobTypeFullName).SetJobId(jobId).SetGroupName(input.GroupName)
-                .SetConcurrent(input.Concurrent).SetDescription(input.Description).SetProperties(Newtonsoft.Json.JsonConvert.SerializeObject(input.Properties));
+            var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobType).SetJobId(jobId).SetGroupName(input.GroupName)
+                .SetConcurrent(input.Concurrent).SetDescription(input.Description);
 
             //triggerBuilder
             //毫秒

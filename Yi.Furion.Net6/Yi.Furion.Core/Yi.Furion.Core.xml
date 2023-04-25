@@ -430,6 +430,11 @@
             作业信息额外数据运行时实例
             </summary>
         </member>
+        <member name="P:Yi.Furion.Core.Rbac.Dtos.Task.TaskGetListOutput.TriggerArgs">
+            <summary>
+            触发器参数
+            </summary>
+        </member>
         <member name="P:Yi.Furion.Core.Rbac.Dtos.Task.TaskGetOutput.JobId">
             <summary>
             作业 Id

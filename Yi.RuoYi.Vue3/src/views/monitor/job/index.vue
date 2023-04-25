@@ -99,13 +99,13 @@
          </el-table-column>
          <el-table-column label="程序集" align="center" prop="assemblyName" :show-overflow-tooltip="true" />
                   <el-table-column label="类型" align="center" prop="jobType" :show-overflow-tooltip="true" />
-         <el-table-column label="cron执行表达式" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
-   <el-table-column label="毫秒间隔周期" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
-<el-table-column label="参数" align="center" prop="properties" :show-overflow-tooltip="true" /> 
+   <el-table-column label="触发器参数" align="center" prop="triggerArgs" :show-overflow-tooltip="true" />
+<el-table-column label="Job参数" align="center" prop="properties" :show-overflow-tooltip="true" /> 
    
                <el-table-column label="是否并行" align="center" prop="concurrent" :show-overflow-tooltip="true" /> 
                    <el-table-column label="最后更新时间" align="center" prop="updatedTime" :show-overflow-tooltip="true" /> 
    
+                   <el-table-column label="状态" align="center" prop="status" :show-overflow-tooltip="true" /> 
                 <el-table-column label="描述" align="center" prop="description" :show-overflow-tooltip="true" /> 
          <!-- <el-table-column label="状态" align="center">
             <template #default="scope">
@@ -207,7 +207,7 @@
 
 
 
-                  <el-form-item prop="jobTypeFullName">
+                  <el-form-item prop="jobType">
                      <template #label>
                         <span>
                            job类名
@@ -223,7 +223,7 @@
                            </el-tooltip>
                         </span>
                      </template>
-                     <el-input v-model="form.jobTypeFullName" placeholder="请输入调用程序集下的job完整类名" />
+                     <el-input v-model="form.jobType" placeholder="请输入调用程序集下的job完整类名" />
                   </el-form-item>
 
 
@@ -315,21 +315,24 @@
          <el-form :model="form" label-width="120px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="任务编号：">{{ form.jobId }}</el-form-item>
-                  <el-form-item label="任务名称：">{{ form.jobName }}</el-form-item>
+                  <el-form-item label="任务Id：">{{ form.jobId }}</el-form-item>
+                  <el-form-item label="任务分组：">{{ form.groupName }}</el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="任务分组：">{{ jobGroupFormat(form) }}</el-form-item>
-                  <el-form-item label="创建时间：">{{ form.createTime }}</el-form-item>
+                  <el-form-item label="任务所在程序集：">{{ form.assemblyName }}</el-form-item>
+                  <el-form-item label="任务完整类名：">{{ form.jobType }}</el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="cron表达式：">{{ form.cronExpression }}</el-form-item>
+                  <el-form-item label="触发器参数：">{{ form.triggerArgs }}</el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="下次执行时间：">{{ parseTime(form.nextValidTime) }}</el-form-item>
+                  <el-form-item label="下次执行时间：">{{ parseTime(form.nextRunTime) }}</el-form-item>
                </el-col>
-               <el-col :span="24">
-                  <el-form-item label="调用目标方法：">{{ form.invokeTarget }}</el-form-item>
+               <el-col :span="12">
+                  <el-form-item label="最后执行时间：">{{ parseTime(form.lastRunTime) }}</el-form-item>
+               </el-col>
+               <el-col :span="12">
+                  <el-form-item label="已执行次数：">{{ form.numberOfRuns }}</el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="任务状态：">
@@ -339,18 +342,18 @@
                </el-col>
                <el-col :span="12">
                   <el-form-item label="是否并发：">
-                     <div v-if="form.concurrent == 0">允许</div>
-                     <div v-else-if="form.concurrent == 1">禁止</div>
+                     <div v-if="form.concurrent == true">允许</div>
+                     <div v-else-if="form.concurrent == false">禁止</div>
                   </el-form-item>
                </el-col>
-               <el-col :span="12">
+               <!-- <el-col :span="12">
                   <el-form-item label="执行策略：">
                      <div v-if="form.misfirePolicy == 0">默认策略</div>
                      <div v-else-if="form.misfirePolicy == 1">立即执行</div>
                      <div v-else-if="form.misfirePolicy == 2">执行一次</div>
                      <div v-else-if="form.misfirePolicy == 3">放弃执行</div>
                   </el-form-item>
-               </el-col>
+               </el-col> -->
             </el-row>
          </el-form>
          <template #footer>
@@ -395,9 +398,9 @@ const data = reactive({
     status: undefined
   },
   rules: {
-    JobId: [{ required: true, message: "任务Id不能为空", trigger: "blur" }],
+    jobId: [{ required: true, message: "任务Id不能为空", trigger: "blur" }],
     assemblyName: [{ required: true, message: "Job程序集不能为空", trigger: "blur" }],
-    jobTypeFullName: [{ required: true, message: "Job全类名不能为空", trigger: "blur" }]
+    jobType: [{ required: true, message: "Job全类名不能为空", trigger: "blur" }]
   }
 });
 
@@ -518,8 +521,9 @@ function handleAdd() {
 }
 /** 修改按钮操作 */
 function handleUpdate(row) {
-IsAdd.value=false;
+
   reset();
+  IsAdd.value=false;
   const jobId = row.jobId || ids.value;
   getJob(jobId).then(response => {
     form.value = response.data;
@@ -530,7 +534,9 @@ IsAdd.value=false;
 /** 提交按钮 */
 function submitForm() {
   proxy.$refs["jobRef"].validate(valid => {
-    if (valid) {
+   console.log(valid,"123");
+    if (true) {
+    
       if (IsAdd.value) {
         addJob(form.value).then(response => {
           proxy.$modal.msgSuccess("新增成功");
@@ -539,7 +545,7 @@ function submitForm() {
         });
       } else {
 
-        updateJob(form.value).then(response => {
+        updateJob(form.value.jobId,form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
