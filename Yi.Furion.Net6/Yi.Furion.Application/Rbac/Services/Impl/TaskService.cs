@@ -25,10 +25,12 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// <param name="jobId"></param>
         /// <returns></returns>
         [HttpGet("{jobId}")]
-        public SchedulerModel GetById([FromRoute] string jobId)
+        public TaskGetOutput GetById([FromRoute] string jobId)
         {
             var result = _schedulerFactory.TryGetJob(jobId, out var scheduler);
-            return scheduler.GetModel();
+            var data = scheduler.GetModel();
+            var output = data.JobDetail.Adapt<TaskGetOutput>();
+            return output;
         }
 
         /// <summary>
