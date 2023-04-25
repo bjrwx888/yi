@@ -111,6 +111,25 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
             };
             entities.Add(server);
 
+            //定时任务
+            MenuEntity task = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "定时任务",
+                PermissionCode = "monitor:job:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "job",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "monitor/job/index",
+                MenuIcon = "server",
+                OrderNum = 97,
+                ParentId = monitoring.Id,
+                IsDeleted = false
+            };
+            entities.Add(task);
+
 
             //系统工具
             MenuEntity tool = new MenuEntity()

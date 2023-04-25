@@ -25,7 +25,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// <param name="jobId"></param>
         /// <returns></returns>
         [HttpGet("{jobId}")]
-        public SchedulerModel GetById([FromRoute]string jobId)
+        public SchedulerModel GetById([FromRoute] string jobId)
         {
             var result = _schedulerFactory.TryGetJob(jobId, out var scheduler);
             return scheduler.GetModel();
@@ -36,10 +36,16 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
-        public PagedResultDto<SchedulerModel> GetList([FromQuery]TaskGetListInput input)
+        public PagedResultDto<TaskGetListOutput> GetList([FromQuery] TaskGetListInput input)
         {
-            var data = _schedulerFactory.GetJobsOfModels().Skip(input.PageNum * input.PageSize).Take(input.PageSize).OrderByDescending(x => x.JobDetail.UpdatedTime).ToList();
-            return new PagedResultDto<SchedulerModel>(data.Count(), data);
+            var data = _schedulerFactory.GetJobsOfModels().Skip((input.PageNum - 1) * input.PageSize).Take(input.PageSize).OrderByDescending(x => x.JobDetail.UpdatedTime)
+
+                .ToList();
+            var output = data.Select(x => x.JobDetail).Adapt<List<TaskGetListOutput>>();
+
+
+
+            return new PagedResultDto<TaskGetListOutput>(data.Count(), output);
         }
 
         /// <summary>
@@ -53,7 +59,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
             //jobBuilder
             var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobTypeFullName).SetJobId(input.JobId).SetGroupName(input.GroupName);
-                //.SetConcurrent(input.Concurrent).SetDescription(input.Description).SetProperties(Newtonsoft.Json.JsonConvert.SerializeObject(input.Properties));
+            //.SetConcurrent(input.Concurrent).SetDescription(input.Description).SetProperties(Newtonsoft.Json.JsonConvert.SerializeObject(input.Properties));
 
             //triggerBuilder
             //毫秒
@@ -122,7 +128,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// <param name="jobId"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        public ScheduleResult Update(string jobId,TaskUpdateInput input)
+        public ScheduleResult Update(string jobId, TaskUpdateInput input)
         {
             //jobBuilder
             var jobBuilder = JobBuilder.Create(input.AssemblyName, input.JobTypeFullName).SetJobId(jobId).SetGroupName(input.GroupName)

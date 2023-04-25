@@ -87,17 +87,29 @@
       </el-row>
 
       <el-table v-loading="loading" :data="jobList" @selection-change="handleSelectionChange">
+
+
+
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="任务编号" width="100" align="center" prop="jobId" />
-         <el-table-column label="任务名称" align="center" prop="jobName" :show-overflow-tooltip="true" />
-         <el-table-column label="任务组名" align="center" prop="jobGroup">
-            <template #default="scope">
+
+         <el-table-column label="任务Id" width="100" align="center" prop="jobId" />
+
+         <el-table-column label="任务组名" align="center" prop="groupName">
+            <!-- <template #default="scope">
                <dict-tag :options="sys_job_group" :value="scope.row.jobGroup" />
-            </template>
+            </template> -->
          </el-table-column>
-         <el-table-column label="调用目标字符串" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
+         <el-table-column label="程序集" align="center" prop="assemblyName" :show-overflow-tooltip="true" />
+                  <el-table-column label="类型" align="center" prop="jobType" :show-overflow-tooltip="true" />
          <el-table-column label="cron执行表达式" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
-         <el-table-column label="状态" align="center">
+   <el-table-column label="毫秒间隔周期" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
+<el-table-column label="参数" align="center" prop="properties" :show-overflow-tooltip="true" /> 
+   
+               <el-table-column label="是否并行" align="center" prop="concurrent" :show-overflow-tooltip="true" /> 
+                   <el-table-column label="最后更新时间" align="center" prop="updatedTime" :show-overflow-tooltip="true" /> 
+   
+                <el-table-column label="描述" align="center" prop="description" :show-overflow-tooltip="true" /> 
+         <!-- <el-table-column label="状态" align="center">
             <template #default="scope">
                <el-switch
                   v-model="scope.row.status"
@@ -106,7 +118,7 @@
                   @change="handleStatusChange(scope.row)"
                ></el-switch>
             </template>
-         </el-table-column>
+         </el-table-column> -->
          <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-tooltip content="修改" placement="top">
