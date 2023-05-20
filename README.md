@@ -231,11 +231,13 @@ SHOP电商系统（持续迭代）
 
 [朝夕教育]https://www.zhaoxiedu.net
 
-[Sqlsugar]https://www.donet5.com/Home/Doc
+[Sqlsugar老杰哥]https://www.donet5.com/Home/Doc
 
-[RuYiAdmin]https://gitee.com/pang-mingjun/RuYiAdmin
+[RuYiAdmin如意老兄]https://gitee.com/pang-mingjun/RuYiAdmin
 
-[ZrAdminNetCore]https://gitee.com/izory/ZrAdminNetCore
+[ZrAdminNetCore字母老哥]https://gitee.com/izory/ZrAdminNetCore
+
+[Admin.NET周哥]https://gitee.com/zuohuaijun/Admin.NET
 
 ****
 ### 联系我们：
