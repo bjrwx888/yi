@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ElNotification , ElMessageBox, ElMessage, ElLoading } from 'element-plus'
+import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
 import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 import { tansParams, blobValidate } from '@/utils/ruoyi'
@@ -20,7 +20,7 @@ const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   // 超时
   timeout: 10000,
-  transformResponse: [ data => {
+  transformResponse: [data => {
     const json = JsonBig({
       storeAsString: true
     })
@@ -76,120 +76,26 @@ service.interceptors.request.use(config => {
 
   return config
 }, error => {
-    Promise.reject(error)
+  Promise.reject(error)
 })
 
 // 响应拦截器
 service.interceptors.response.use(res => {
-
-    //业务错误
-    if(res.data.statusCode==403)
-    {
-      ElMessage({
-        message: res.data.errors,
-        type: 'error'
-      })
-    }
-
-    // 未设置状态码则默认成功状态
-    const code = res.status || 200;
-
-    // 获取错误信息
-    const msg = errorCode[code] || res.data.message || errorCode['default']
-
-    // 二进制数据则直接返回
-    if(res.request.responseType ===  'blob' || res.request.responseType ===  'arraybuffer'){
-      return res
-    }
-    if (code === 401) {
-  
-      if (!isRelogin.show) {
-    
-        isRelogin.show = true;
-        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).then(() => {
-        isRelogin.show = false;
-        useUserStore().logOut().then(() => {
-          location.href = '/index';
-        })
-      }).catch(() => {
-        isRelogin.show = false;
-      });
-    }
-
-      return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
-    } 
-    else if (code === 500) {
-    
-      ElMessage({
-        message: msg,
-        type: 'error'
-      })
-      return Promise.reject(new Error(msg))
-    } else if (code !== 200) {
-      ElNotification.error({
-        title: msg
-      })
-      return Promise.reject('error')
-    } else {
-
-      return  Promise.resolve(res.data)
-    }
-    
-  },
-  error=>{
-    const response=error.response;
-    const code=response.status
-    const msg=response.data.message
-   if(code==403)
-   {
-    ElMessage({
-      message: msg,
-      type: 'error'
-    })
-   }
-   else if (code === 401) {
-  
-    if (!isRelogin.show) {
-  
-      isRelogin.show = true;
-      ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    ).then(() => {
-      isRelogin.show = false;
-      useUserStore().logOut().then(() => {
-        location.href = '/index';
-      })
-    }).catch(() => {
-      isRelogin.show = false;
-    });
+  // 二进制数据则直接返回
+  if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
+    return res
   }
+  const code = res.data.statusCode || 200;
+  // 获取错误信息
+  const msg = res.data.errors;
 
-    return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
-  } 
-  else if (code === 500) {
-  
-    ElMessage({
-      message: msg,
-      type: 'error'
-    })
-    return Promise.reject(new Error(msg))
-  } else if (code !== 200) {
-    ElNotification.error({
-      title: msg
-    })
-    return Promise.reject('error')
-  } else {
-
-    return  Promise.resolve(res)
-  }
+  handler(code, msg);
+  return Promise.resolve(res.data);
+},
+  error => {
+    const code = error.response.status;
+    const msg = error.response.data.message;
+    handler(code, msg);
   }
 )
 
@@ -217,6 +123,50 @@ export function download(url, params, filename) {
     ElMessage.error('下载文件出现错误，请联系管理员！')
     downloadLoadingInstance.close();
   })
+}
+
+const handler = (code, msg) => {
+  switch (code) {
+    //服务器异常
+    case 500:
+      ElMessage({
+        message: msg,
+        type: 'error'
+      });
+      break;
+    //业务异常
+    case 403:
+    ElNotification.error({
+      title: msg
+    })
+      break;
+
+      //未授权
+    case 401:
+        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+        .then(() => {
+          isRelogin.show = false;
+          useUserStore().logOut().then(() => {
+            location.href = '/index';
+          })
+        }).catch(() => {
+          isRelogin.show = false;
+        });
+      break;
+    case 404:
+      ElMessage({
+        message: "404未找到资源",
+        type: 'error'
+      });
+      break;
+      //正常
+    case 200:
+      break;
+  }
 }
 
 export default service

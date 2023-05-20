@@ -37,7 +37,7 @@ namespace Yi.Furion.Application.Rbac.Job
             _db.DbMaintenance.TruncateTable<DictionaryEntity>();
             _db.DbMaintenance.TruncateTable<DictionaryTypeEntity>();
            await _dataSeedExecuteHandler.Invoker();
-            _logger.LogWarning("数据已经重置还原");
+            _logger.LogWarning("------->数据已经重置还原<-------");
         }
     }
 }

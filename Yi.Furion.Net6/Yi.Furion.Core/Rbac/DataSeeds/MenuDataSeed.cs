@@ -123,7 +123,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 IsLink = false,
                 IsCache = true,
                 Component = "monitor/job/index",
-                MenuIcon = "server",
+                MenuIcon = "job",
                 OrderNum = 97,
                 ParentId = monitoring.Id,
                 IsDeleted = false
