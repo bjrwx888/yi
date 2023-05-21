@@ -12,6 +12,12 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class DeptService : CrudAppService<DeptEntity, DeptGetOutputDto, DeptGetListOutputDto, long, DeptGetListInputVo, DeptCreateInputVo, DeptUpdateInputVo>,
        IDeptService, ITransient, IDynamicApiController
     {
+        [NonAction]
+        public async Task<List<long>> GetChiIds(long deptId)
+        {
+           var entities= await _DbQueryable.ToChildListAsync(x=>x.ParentId,deptId);
+            return entities.Select(x => x.Id).ToList();
+        }
 
         /// <summary>
         /// 通过角色id查询该角色全部部门

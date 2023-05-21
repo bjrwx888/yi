@@ -21,13 +21,13 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     {
 
 
-        public UserService(UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser) =>
-            (_userManager, _userRepository, _currentUser) =
-            (userManager, userRepository, currentUser);
+        public UserService(UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser, IDeptService deptService) =>
+            (_userManager, _userRepository, _currentUser, _deptService) =
+            (userManager, userRepository, currentUser, deptService);
         private UserManager _userManager { get; set; }
 
         private IUserRepository _userRepository { get; set; }
-
+        private IDeptService _deptService { get; set; }
 
         private ICurrentUser _currentUser { get; set; }
 
@@ -42,6 +42,11 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             var entity = await MapToEntityAsync(input);
 
             RefAsync<int> total = 0;
+            List<long> deptIds = null;
+            if (input.DeptId is not null)
+            {
+                deptIds= await _deptService.GetChiIds(input.DeptId ?? 0);
+            }
 
 
             List<long> ids = input.Ids?.Split(",").Select(x => long.Parse(x)).ToList();
@@ -52,7 +57,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
                           .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
 
                           //这个为过滤当前部门，加入数据权限后，将由数据权限控制
-                          .WhereIF(input.DeptId is not null, x => x.DeptId == input.DeptId)
+                          .WhereIF(input.DeptId is not null, x => deptIds.Contains(x.DeptId??-1))
 
                           .WhereIF(ids is not null, x => ids.Contains(x.Id))
 
