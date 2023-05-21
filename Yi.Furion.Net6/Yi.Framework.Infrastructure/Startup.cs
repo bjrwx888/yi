@@ -21,13 +21,6 @@ public class Startup : AppStartup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddCurrentUserServer();
-
-        services.Configure<DbConnOptions>(App.Configuration.GetSection("DbConnOptions"));
-
-        services.AddDbSqlsugarContextServer();
-
-        services.AddUnitOfWork<SqlsugarUnitOfWork>();
-
         services.AddTransient<IDataFilter, SqlsugarDataFilter>();
 
 

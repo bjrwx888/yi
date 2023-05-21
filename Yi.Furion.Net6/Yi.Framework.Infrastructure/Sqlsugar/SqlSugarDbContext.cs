@@ -13,7 +13,7 @@ using Yi.Framework.Infrastructure.Data.Entities;
 
 namespace Yi.Framework.Infrastructure.Sqlsugar
 {
-    public class SqlSugarDbContext
+    public  class SqlSugarDbContext
     {
         /// <summary>
         /// SqlSugar 客户端
@@ -81,69 +81,79 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
             },
          db =>
          {
-
-             db.Aop.DataExecuting = (oldValue, entityInfo) =>
-             {
-
-                 switch (entityInfo.OperationType)
-                 {
-                     case DataFilterType.UpdateByObject:
-
-                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
-                         {
-                             entityInfo.SetValue(DateTime.Now);
-                         }
-                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
-                         {
-                             if (_currentUser != null)
-                             {
-                                 entityInfo.SetValue(_currentUser.Id);
-                             }
-                         }
-                         break;
-                     case DataFilterType.InsertByObject:
-                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
-                         {
-                             entityInfo.SetValue(DateTime.Now);
-                         }
-                         if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
-                         {
-                             if (_currentUser != null)
-                             {
-                                 entityInfo.SetValue(_currentUser.Id);
-                             }
-                         }
-
-                         //插入时，需要租户id,先预留
-                         if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
-                         {
-                             //if (this.CurrentTenant is not null)
-                             //{
-                             //    entityInfo.SetValue(this.CurrentTenant.Id);
-                             //}
-                         }
-                         break;
-                 }
-             };
-             db.Aop.OnLogExecuting = (s, p) =>
-             {
-                 StringBuilder sb = new StringBuilder();
-                 //sb.Append("执行SQL:" + s.ToString());
-                 //foreach (var i in p)
-                 //{
-                 //    sb.Append($"\r\n参数:{i.ParameterName},参数值:{i.Value}");
-                 //}
-                 sb.Append($"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
-                 logger?.LogDebug(sb.ToString());
-             };
+             db.Aop.DataExecuting = DataExecuting;
+             db.Aop.OnLogExecuting = OnLogExecuting;
              //扩展
              OnSqlSugarClientConfig(db);
          });
         }
 
-        //上下文对象扩展
+        /// <summary>
+        /// 上下文对象扩展
+        /// </summary>
+        /// <param name="sqlSugarClient"></param>
         protected virtual void OnSqlSugarClientConfig(ISqlSugarClient sqlSugarClient)
         {
+        }
+
+        /// <summary>
+        /// 数据
+        /// </summary>
+        /// <param name="oldValue"></param>
+        /// <param name="entityInfo"></param>
+        protected virtual void DataExecuting(object oldValue, DataFilterModel entityInfo)
+        {
+            switch (entityInfo.OperationType)
+            {
+                case DataFilterType.UpdateByObject:
+
+                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
+                    {
+                        entityInfo.SetValue(DateTime.Now);
+                    }
+                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
+                    {
+                        if (_currentUser != null)
+                        {
+                            entityInfo.SetValue(_currentUser.Id);
+                        }
+                    }
+                    break;
+                case DataFilterType.InsertByObject:
+                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
+                    {
+                        entityInfo.SetValue(DateTime.Now);
+                    }
+                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
+                    {
+                        if (_currentUser != null)
+                        {
+                            entityInfo.SetValue(_currentUser.Id);
+                        }
+                    }
+
+                    //插入时，需要租户id,先预留
+                    if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
+                    {
+                        //if (this.CurrentTenant is not null)
+                        //{
+                        //    entityInfo.SetValue(this.CurrentTenant.Id);
+                        //}
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 日志
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="p"></param>
+        protected virtual void OnLogExecuting(string s, SugarParameter[] p)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"\r\n 完整SQL：{UtilMethods.GetSqlString(DbType.MySql, s, p)}");
+            _logger?.LogDebug(sb.ToString());
         }
     }
 }

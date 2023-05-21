@@ -19,7 +19,7 @@ namespace Yi.Framework.Infrastructure.Sqlsugar.Repositories
         /// </summary>
         public ISugarQueryable<T> _DbQueryable => AsQueryable();
 
-        protected ISqlSugarClient _Db { get { return Context; } set { } }
+        public ISqlSugarClient _Db { get { return Context; }}
 
         public async Task<List<T>> GetPageListAsync(Expression<Func<T, bool>> whereExpression, IPagedAndSortedResultRequestDto page)
         {

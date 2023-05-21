@@ -1,9 +1,13 @@
+using Furion.DatabaseAccessor;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
+using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Framework.Infrastructure.Ddd.Services;
+using Yi.Framework.Infrastructure.Helper;
 using Yi.Furion.Application.Rbac.Domain;
 using Yi.Furion.Core.Rbac.Dtos.Role;
 using Yi.Furion.Core.Rbac.Entities;
+using Yi.Furion.Core.Rbac.Enums;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
@@ -13,13 +17,34 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class RoleService : CrudAppService<RoleEntity, RoleGetOutputDto, RoleGetListOutputDto, long, RoleGetListInputVo, RoleCreateInputVo, RoleUpdateInputVo>,
        IRoleService, ITransient, IDynamicApiController
     {
-        public RoleService(RoleManager roleManager) =>
-            _roleManager =
-            roleManager;
+        public RoleService(RoleManager roleManager, IRepository<RoleDeptEntity> roleDeptRepository) =>
+           (_roleManager, _roleDeptRepository) =
+            (roleManager, roleDeptRepository);
         private RoleManager _roleManager { get; set; }
 
+        private IRepository<RoleDeptEntity> _roleDeptRepository;
 
 
+        public async Task<List<long>> GetDeptIdsAsync(long roleId)
+        {
+            var entities = await _roleDeptRepository.GetListAsync(x => x.RoleId == roleId);
+            return entities.Select(x => x.DeptId).ToList();
+
+        }
+
+        [UnitOfWork]
+        public async Task UpdateDataScpoceAsync(UpdateDataScpoceInput input)
+        {
+            //只有自定义的需要特殊处理
+            if (input.DataScope == DataScopeEnum.CUSTOM)
+            {
+                await _roleDeptRepository.DeleteAsync(x => x.RoleId == input.RoleId);
+                var insertEntities = input.DeptIds.Select(x => new RoleDeptEntity {Id=SnowflakeHelper.NextId, DeptId = x, RoleId = input.RoleId }).ToList();
+                await _roleDeptRepository.InsertRangeAsync(insertEntities);
+            }
+            await _repository._Db.Updateable(new RoleEntity() { Id = input.RoleId, DataScope = input.DataScope }).UpdateColumns(x => x.DataScope).ExecuteCommandAsync();
+
+        }
 
         public override async Task<PagedResultDto<RoleGetListOutputDto>> GetListAsync(RoleGetListInputVo input)
         {

@@ -426,7 +426,7 @@ function handleAdd() {
 function getDeptTree(roleId) {
   return listDept().then((response) => {
     const selectList = [];
-    response.data.forEach((res) => {
+    response.data.items.forEach((res) => {
       selectList.push({
         id: res.id,
         label: res.deptName,
@@ -439,7 +439,7 @@ function getDeptTree(roleId) {
 
     let deptIds = [];
     roleDeptTreeselect(roleId).then((response) => {
-      deptIds = response.data.map((x) => x.id);
+      deptIds = response.data;
       // nextTick(() => {
       if (deptRef.value) {
         deptRef.value.setCheckedKeys(deptIds);
@@ -534,7 +534,13 @@ function handleDataScope(row) {
 function submitDataScope() {
   if (form.value.id != undefined) {
     form.value.deptIds = getDeptAllCheckedKeys();
-    dataScope(form.value).then((response) => {
+const data={
+  roleId:form.value.id,
+  deptIds:form.value.deptIds,
+  dataScope:form.value.dataScope
+}
+console.log(data)
+    dataScope(data).then((response) => {
       proxy.$modal.msgSuccess("修改成功");
       openDataScope.value = false;
       getList();

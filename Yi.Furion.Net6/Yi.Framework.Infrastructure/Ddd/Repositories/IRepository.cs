@@ -11,6 +11,7 @@ namespace Yi.Framework.Infrastructure.Ddd.Repositories
         /// 注释一下，严格意义这里应该protected，但是我认为 简易程度 与 耦合程度 中是需要进行衡量的
         /// </summary>
         ISugarQueryable<T> _DbQueryable { get; }
+        ISqlSugarClient _Db { get; }
         //单查
         Task<T> GetByIdAsync(dynamic id);
         Task<T> GetSingleAsync(Expression<Func<T, bool>> whereExpression);

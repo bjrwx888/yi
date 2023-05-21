@@ -13,7 +13,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
        IDeptService, ITransient, IDynamicApiController
     {
         [NonAction]
-        public async Task<List<long>> GetChiIds(long deptId)
+        public async Task<List<long>> GetChildListAsync(long deptId)
         {
            var entities= await _DbQueryable.ToChildListAsync(x=>x.ParentId,deptId);
             return entities.Select(x => x.Id).ToList();

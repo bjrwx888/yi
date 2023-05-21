@@ -45,7 +45,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             List<long> deptIds = null;
             if (input.DeptId is not null)
             {
-                deptIds= await _deptService.GetChiIds(input.DeptId ?? 0);
+                deptIds= await _deptService.GetChildListAsync(input.DeptId ?? 0);
             }
 
 
