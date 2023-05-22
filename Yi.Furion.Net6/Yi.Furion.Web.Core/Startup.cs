@@ -39,7 +39,7 @@ public class Startup : AppStartup
             options.AddJob<TestJob>(Triggers.Period(10000));
             options.AddJob<SystemDataJob>(Triggers.Cron("0 0 0,12 ? * ?",CronStringFormat.WithSeconds)); // 表示每天凌晨与12点
         });
-        services.AddFileLogging("application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
+        services.AddFileLogging("log/application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
         {
             options.Append = true;
             options.MinimumLevel = LogLevel.Information;

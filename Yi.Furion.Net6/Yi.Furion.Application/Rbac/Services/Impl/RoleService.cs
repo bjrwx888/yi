@@ -24,14 +24,6 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
         private IRepository<RoleDeptEntity> _roleDeptRepository;
 
-
-        public async Task<List<long>> GetDeptIdsAsync(long roleId)
-        {
-            var entities = await _roleDeptRepository.GetListAsync(x => x.RoleId == roleId);
-            return entities.Select(x => x.DeptId).ToList();
-
-        }
-
         [UnitOfWork]
         public async Task UpdateDataScpoceAsync(UpdateDataScpoceInput input)
         {

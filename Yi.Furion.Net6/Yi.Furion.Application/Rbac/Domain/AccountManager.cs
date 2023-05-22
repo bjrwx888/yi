@@ -76,6 +76,10 @@ namespace Yi.Furion.Application.Rbac.Domain
             var claims = new Dictionary<string, object>();
             claims.Add(TokenTypeConst.Id, dto.User.Id);
             claims.Add(TokenTypeConst.UserName, dto.User.UserName);
+            if (dto.User.DeptId is not null)
+            {
+                claims.Add(TokenTypeConst.DeptId, dto.User.DeptId);
+            }
             if (dto.User.Email is not null)
             {
                 claims.Add(TokenTypeConst.Email, dto.User.Email);

@@ -9,5 +9,6 @@ namespace Yi.Furion.Application.Rbac.Services
     public interface IDeptService : ICrudAppService<DeptGetOutputDto, DeptGetListOutputDto, long, DeptGetListInputVo, DeptCreateInputVo, DeptUpdateInputVo>
     {
         Task<List<long>> GetChildListAsync(long deptId);
+        Task<List<DeptGetListOutputDto>> GetListRoleIdAsync([FromRoute] long roleId);
     }
 }

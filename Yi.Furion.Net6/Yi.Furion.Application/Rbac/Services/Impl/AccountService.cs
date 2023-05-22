@@ -23,7 +23,7 @@ using Yi.Furion.Sqlsugar.Core.Repositories;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
-    public class AccountService : ApplicationService, ITransient, IDynamicApiController
+    public class AccountService : ApplicationService, IAccountService, ITransient, IDynamicApiController
     {
 
         public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher, IHttpContextAccessor httpContextAccessor) =>

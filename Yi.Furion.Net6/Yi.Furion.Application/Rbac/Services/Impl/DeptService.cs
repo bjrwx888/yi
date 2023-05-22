@@ -3,6 +3,7 @@ using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Furion.Core.Rbac.Dtos.Dept;
 using Yi.Furion.Core.Rbac.Entities;
+using Yi.Furion.Sqlsugar.Core.Repositories;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
@@ -12,11 +13,12 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class DeptService : CrudAppService<DeptEntity, DeptGetOutputDto, DeptGetListOutputDto, long, DeptGetListInputVo, DeptCreateInputVo, DeptUpdateInputVo>,
        IDeptService, ITransient, IDynamicApiController
     {
+        private IDeptRepository _deptRepository;
+        public DeptService(IDeptRepository deptRepository) { _deptRepository = deptRepository; }
         [NonAction]
         public async Task<List<long>> GetChildListAsync(long deptId)
         {
-           var entities= await _DbQueryable.ToChildListAsync(x=>x.ParentId,deptId);
-            return entities.Select(x => x.Id).ToList();
+            return await _deptRepository.GetChildListAsync(deptId);
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         //[Route("{roleId}")]
         public async Task<List<DeptGetListOutputDto>> GetListRoleIdAsync([FromRoute] long roleId)
         {
-            var entities = await _DbQueryable.Where(d => SqlFunc.Subqueryable<RoleDeptEntity>().Where(rd => rd.RoleId == roleId && d.Id == rd.DeptId).Any()).ToListAsync();
+            var entities = await _deptRepository.GetListRoleIdAsync(roleId);
             return await MapToGetListOutputDtosAsync(entities);
         }
 

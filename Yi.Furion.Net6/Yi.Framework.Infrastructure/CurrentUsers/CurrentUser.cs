@@ -20,6 +20,9 @@ namespace Yi.Framework.Infrastructure.CurrentUsers
 
         public long Id => FindUserId();
 
+        public long DeptId => FindDeptId();
+
+
         public string UserName => this.FindClaimValue(TokenTypeConst.UserName);
 
         /// <summary>
@@ -59,7 +62,21 @@ namespace Yi.Framework.Infrastructure.CurrentUsers
             return FindClaim(claimType)?.Value;
         }
 
+        public long FindDeptId()
+        {
+            var deptIdOrNull = _principalAccessor.Principal?.Claims?.FirstOrDefault(c => c.Type == TokenTypeConst.DeptId);
+            if (deptIdOrNull == null || string.IsNullOrWhiteSpace(deptIdOrNull.Value))
+            {
+                return 0;
+            }
 
+            if (long.TryParse(deptIdOrNull.Value, out long deptId))
+            {
+                return deptId;
+            }
+
+            return 0;
+        }
         public long FindUserId()
         {
             var userIdOrNull = _principalAccessor.Principal?.Claims?.FirstOrDefault(c => c.Type == TokenTypeConst.Id);

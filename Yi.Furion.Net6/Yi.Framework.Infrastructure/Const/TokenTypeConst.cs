@@ -14,6 +14,8 @@ namespace Yi.Framework.Infrastructure.Const
 
         public const string TenantId = nameof(TenantId);
 
+        public const string DeptId= nameof(DeptId);
+
         public const string Email = nameof(Email);
 
         public const string PhoneNumber = nameof(PhoneNumber);

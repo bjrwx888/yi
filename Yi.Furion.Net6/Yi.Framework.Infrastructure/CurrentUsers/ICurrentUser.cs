@@ -11,6 +11,8 @@ namespace Yi.Framework.Infrastructure.CurrentUsers
         public bool IsAuthenticated { get; }
         public long Id { get; }
 
+        public long DeptId { get; }
+
         public string UserName { get; }
 
         public Guid TenantId { get; }

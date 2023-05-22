@@ -1,5 +1,6 @@
 ﻿using Furion;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Schema;
 using Yi.Framework.Infrastructure.Sqlsugar;
 
 namespace Yi.Furion.Sqlsugar.Core;
