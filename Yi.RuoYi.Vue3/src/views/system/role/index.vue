@@ -439,7 +439,7 @@ function getDeptTree(roleId) {
 
     let deptIds = [];
     roleDeptTreeselect(roleId).then((response) => {
-      deptIds = response.data;
+      deptIds = response.data.map(x=>x.id);
       // nextTick(() => {
       if (deptRef.value) {
         deptRef.value.setCheckedKeys(deptIds);

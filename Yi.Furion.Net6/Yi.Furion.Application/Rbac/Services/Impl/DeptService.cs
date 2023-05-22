@@ -26,7 +26,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// </summary>
         /// <returns></returns>
         //[Route("{roleId}")]
-        public async Task<List<DeptGetListOutputDto>> GetListRoleIdAsync([FromRoute] long roleId)
+        public async Task<List<DeptGetListOutputDto>> GetRoleIdAsync([FromRoute] long roleId)
         {
             var entities = await _deptRepository.GetListRoleIdAsync(roleId);
             return await MapToGetListOutputDtosAsync(entities);

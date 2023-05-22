@@ -379,7 +379,7 @@
             Dept服务实现
             </summary>
         </member>
-        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.DeptService.GetListRoleIdAsync(System.Int64)">
+        <member name="M:Yi.Furion.Application.Rbac.Services.Impl.DeptService.GetRoleIdAsync(System.Int64)">
             <summary>
             通过角色id查询该角色全部部门
             </summary>
