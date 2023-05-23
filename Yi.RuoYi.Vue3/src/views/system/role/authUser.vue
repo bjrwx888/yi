@@ -11,9 +11,9 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="手机号码" prop="phonenumber">
+         <el-form-item label="手机号码" prop="phone">
             <el-input
-               v-model="queryParams.phonenumber"
+               v-model="queryParams.phone"
                placeholder="请输入手机号码"
                clearable
                style="width: 240px"
@@ -60,17 +60,17 @@
       <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
-         <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
+         <el-table-column label="用户昵称" prop="nick" :show-overflow-tooltip="true" />
          <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
-         <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
-         <el-table-column label="状态" align="center" prop="status">
+         <el-table-column label="手机" prop="phone" :show-overflow-tooltip="true" />
+         <el-table-column label="状态" align="center" prop="state">
             <template #default="scope">
-               <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="sys_normal_disable" :value="scope.row.state" />
             </template>
          </el-table-column>
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="创建时间" align="center" prop="creationTime" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -116,15 +116,15 @@ const queryParams = reactive({
   pageSize: 10,
   roleId: route.params.roleId,
   userName: undefined,
-  phonenumber: undefined,
+  phone: undefined,
 });
 
 /** 查询授权用户列表 */
 function getList() {
   loading.value = true;
-  allocatedUserList(queryParams).then(response => {
-    userList.value = response.rows;
-    total.value = response.total;
+  allocatedUserList(queryParams.roleId,queryParams).then(response => {
+    userList.value = response.data.items;
+    total.value = response.data.total;
     loading.value = false;
   });
 }
@@ -155,7 +155,7 @@ function openSelectUser() {
 /** 取消授权按钮操作 */
 function cancelAuthUser(row) {
   proxy.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？').then(function () {
-    return authUserCancel({ userId: row.userId, roleId: queryParams.roleId });
+    return authUserCancel({ userIds: [row.id], roleId: queryParams.roleId });
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("取消授权成功");

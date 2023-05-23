@@ -346,7 +346,6 @@ const usePermissionStore = defineStore(
 //       }
 //   }
 // ];
-console.log(response.data,"response.data")
      const res=response.data;
 
 const sdata = JSON.parse(JSON.stringify(res))

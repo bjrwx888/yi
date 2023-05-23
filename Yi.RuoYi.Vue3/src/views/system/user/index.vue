@@ -100,10 +100,10 @@
                         <el-button type="text" icon="Key" @click="handleResetPwd(scope.row)"
                            v-hasPermi="['system:user:resetPwd']"></el-button>
                      </el-tooltip>
-                     <el-tooltip content="分配角色" placement="top" v-if="scope.row.userName != 'cc'">
+                     <!-- <el-tooltip content="分配角色" placement="top" v-if="scope.row.userName != 'cc'">
                         <el-button type="text" icon="CircleCheck" @click="handleAuthRole(scope.row)"
                            v-hasPermi="['system:user:edit']"></el-button>
-                     </el-tooltip>
+                     </el-tooltip> -->
                   </template>
                </el-table-column>
             </el-table>

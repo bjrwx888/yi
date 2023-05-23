@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using Furion.DatabaseAccessor;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
@@ -6,6 +8,7 @@ using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Framework.Infrastructure.Helper;
 using Yi.Furion.Application.Rbac.Domain;
 using Yi.Furion.Core.Rbac.Dtos.Role;
+using Yi.Furion.Core.Rbac.Dtos.User;
 using Yi.Furion.Core.Rbac.Entities;
 using Yi.Furion.Core.Rbac.Enums;
 
@@ -17,13 +20,14 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class RoleService : CrudAppService<RoleEntity, RoleGetOutputDto, RoleGetListOutputDto, long, RoleGetListInputVo, RoleCreateInputVo, RoleUpdateInputVo>,
        IRoleService, ITransient, IDynamicApiController
     {
-        public RoleService(RoleManager roleManager, IRepository<RoleDeptEntity> roleDeptRepository) =>
-           (_roleManager, _roleDeptRepository) =
-            (roleManager, roleDeptRepository);
+        public RoleService(RoleManager roleManager, IRepository<RoleDeptEntity> roleDeptRepository, IRepository<UserRoleEntity> userRoleRepository) =>
+           (_roleManager, _roleDeptRepository, _userRoleRepository) =
+            (roleManager, roleDeptRepository, userRoleRepository);
         private RoleManager _roleManager { get; set; }
 
         private IRepository<RoleDeptEntity> _roleDeptRepository;
 
+        private IRepository<UserRoleEntity> _userRoleRepository;
         [UnitOfWork]
         public async Task UpdateDataScpoceAsync(UpdateDataScpoceInput input)
         {
@@ -31,7 +35,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             if (input.DataScope == DataScopeEnum.CUSTOM)
             {
                 await _roleDeptRepository.DeleteAsync(x => x.RoleId == input.RoleId);
-                var insertEntities = input.DeptIds.Select(x => new RoleDeptEntity {Id=SnowflakeHelper.NextId, DeptId = x, RoleId = input.RoleId }).ToList();
+                var insertEntities = input.DeptIds.Select(x => new RoleDeptEntity { Id = SnowflakeHelper.NextId, DeptId = x, RoleId = input.RoleId }).ToList();
                 await _roleDeptRepository.InsertRangeAsync(insertEntities);
             }
             await _repository._Db.Updateable(new RoleEntity() { Id = input.RoleId, DataScope = input.DataScope }).UpdateColumns(x => x.DataScope).ExecuteCommandAsync();
@@ -115,6 +119,72 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             entity.State = state;
             await _repository.UpdateAsync(entity);
             return await MapToGetOutputDtoAsync(entity);
+        }
+
+
+        /// <summary>
+        /// 获取角色下的用户
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="input"></param>
+        /// <param name="isAllocated">是否在该角色下</param>
+        /// <returns></returns>
+        [Route("/api/role/auth-user/{roleId}/{isAllocated}")]
+        public async Task<PagedResultDto<UserGetListOutputDto>> GetAuthUserByRoleIdAsync([FromRoute] long roleId, [FromRoute] bool isAllocated, [FromQuery] RoleAuthUserGetListInput input)
+        {
+
+            //角色下已授权用户
+            if (isAllocated == true)
+            {
+                RefAsync<int> total = 0;
+                var output = await _userRoleRepository._DbQueryable
+                             .LeftJoin<UserEntity>((ur, u) => ur.UserId == u.Id && ur.RoleId == roleId)
+                               .Where((ur, u) => ur.RoleId == roleId)
+                             .WhereIF(!string.IsNullOrEmpty(input.UserName), (ur, u) => u.UserName.Contains(input.UserName))
+                             .WhereIF(input.Phone is not null, (ur, u) => u.Phone.ToString().Contains(input.Phone.ToString()))
+                             .Select((ur, u) => new UserGetListOutputDto { Id = u.Id }, true)
+                             .ToPageListAsync(input.PageNum, input.PageSize, total);
+                return new PagedResultDto<UserGetListOutputDto>(total, output);
+            }
+            //角色下未授权用户
+            else
+            {
+                RefAsync<int> total = 0;
+                var entities = await _userRoleRepository._Db.Queryable<UserEntity>()
+                    .Where(u => SqlFunc.Subqueryable<UserRoleEntity>().Where(x => x.RoleId == roleId).Where(x => x.UserId == u.Id).NotAny())
+                       .WhereIF(!string.IsNullOrEmpty(input.UserName), u => u.UserName.Contains(input.UserName))
+                             .WhereIF(input.Phone is not null, u => u.Phone.ToString().Contains(input.Phone.ToString()))
+                    .ToPageListAsync(input.PageNum, input.PageSize, total);
+                var output = entities.Adapt<List<UserGetListOutputDto>>();
+                return new PagedResultDto<UserGetListOutputDto>(total, output);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// 批量给用户授权
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task CreateAuthUserAsync(RoleAuthUserCreateOrDeleteInput input)
+        {
+            var userRoleEntities = input.UserIds.Select(u => new UserRoleEntity { Id = SnowflakeHelper.NextId, RoleId = input.RoleId, UserId = u }).ToList();
+            await _userRoleRepository.InsertRangeAsync(userRoleEntities);
+        }
+
+
+        /// <summary>
+        /// 批量取消授权
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task DeleteAuthUserAsync(RoleAuthUserCreateOrDeleteInput input)
+        {
+            await _userRoleRepository._Db.Deleteable<UserRoleEntity>().Where(x => x.RoleId == input.RoleId)
+                .Where(x => input.UserIds.Contains(x.UserId))
+                .ExecuteCommandAsync(); ;
         }
     }
 }

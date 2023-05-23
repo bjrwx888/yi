@@ -10,9 +10,9 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="手机号码" prop="phonenumber">
+         <el-form-item label="手机号码" prop="phone">
             <el-input
-               v-model="queryParams.phonenumber"
+               v-model="queryParams.phone"
                placeholder="请输入手机号码"
                clearable
                @keyup.enter="handleQuery"
@@ -27,17 +27,17 @@
          <el-table @row-click="clickRow" ref="refTable" :data="userList" @selection-change="handleSelectionChange" height="260px">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
-            <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
+            <el-table-column label="用户昵称" prop="nick" :show-overflow-tooltip="true" />
             <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
-            <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
-            <el-table-column label="状态" align="center" prop="status">
+            <el-table-column label="手机" prop="phone" :show-overflow-tooltip="true" />
+            <el-table-column label="状态" align="center" prop="state">
                <template #default="scope">
-                  <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
+                  <dict-tag :options="sys_normal_disable" :value="scope.row.state" />
                </template>
             </el-table-column>
-            <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+            <el-table-column label="创建时间" align="center" prop="creationTime" width="180">
                <template #default="scope">
-                  <span>{{ parseTime(scope.row.createTime) }}</span>
+                  <span>{{ parseTime(scope.row.creationTime) }}</span>
                </template>
             </el-table-column>
          </el-table>
@@ -80,7 +80,7 @@ const queryParams = reactive({
   pageSize: 10,
   roleId: undefined,
   userName: undefined,
-  phonenumber: undefined
+  phone: undefined
 });
 
 // 显示弹框
@@ -95,13 +95,13 @@ function clickRow(row) {
 }
 // 多选框选中数据
 function handleSelectionChange(selection) {
-  userIds.value = selection.map(item => item.userId);
+  userIds.value = selection.map(item => item.id);
 }
 // 查询表数据
 function getList() {
-  unallocatedUserList(queryParams).then(res => {
-    userList.value = res.rows;
-    total.value = res.total;
+  unallocatedUserList(queryParams.roleId,queryParams).then(res => {
+    userList.value = res.data.items;
+    total.value = res.data.total;
   });
 }
 /** 搜索按钮操作 */
@@ -123,8 +123,8 @@ function handleSelectUser() {
     proxy.$modal.msgError("请选择要分配的用户");
     return;
   }
-  authUserSelectAll({ roleId: roleId, userIds: uIds }).then(res => {
-    proxy.$modal.msgSuccess(res.msg);
+  authUserSelectAll({ roleId: roleId, userIds: [uIds] }).then(res => {
+    proxy.$modal.msgSuccess("成功");
     if (res.code === 200) {
       visible.value = false;
       emit("ok");
