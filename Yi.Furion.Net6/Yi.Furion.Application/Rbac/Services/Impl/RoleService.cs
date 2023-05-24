@@ -132,35 +132,44 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         [Route("/api/role/auth-user/{roleId}/{isAllocated}")]
         public async Task<PagedResultDto<UserGetListOutputDto>> GetAuthUserByRoleIdAsync([FromRoute] long roleId, [FromRoute] bool isAllocated, [FromQuery] RoleAuthUserGetListInput input)
         {
-
+            PagedResultDto<UserGetListOutputDto> output;
             //角色下已授权用户
             if (isAllocated == true)
             {
-                RefAsync<int> total = 0;
-                var output = await _userRoleRepository._DbQueryable
-                             .LeftJoin<UserEntity>((ur, u) => ur.UserId == u.Id && ur.RoleId == roleId)
-                               .Where((ur, u) => ur.RoleId == roleId)
-                             .WhereIF(!string.IsNullOrEmpty(input.UserName), (ur, u) => u.UserName.Contains(input.UserName))
-                             .WhereIF(input.Phone is not null, (ur, u) => u.Phone.ToString().Contains(input.Phone.ToString()))
-                             .Select((ur, u) => new UserGetListOutputDto { Id = u.Id }, true)
-                             .ToPageListAsync(input.PageNum, input.PageSize, total);
-                return new PagedResultDto<UserGetListOutputDto>(total, output);
+                output = await GetAllocatedAuthUserByRoleIdAsync(roleId, input);
             }
             //角色下未授权用户
             else
             {
-                RefAsync<int> total = 0;
-                var entities = await _userRoleRepository._Db.Queryable<UserEntity>()
-                    .Where(u => SqlFunc.Subqueryable<UserRoleEntity>().Where(x => x.RoleId == roleId).Where(x => x.UserId == u.Id).NotAny())
-                       .WhereIF(!string.IsNullOrEmpty(input.UserName), u => u.UserName.Contains(input.UserName))
-                             .WhereIF(input.Phone is not null, u => u.Phone.ToString().Contains(input.Phone.ToString()))
-                    .ToPageListAsync(input.PageNum, input.PageSize, total);
-                var output = entities.Adapt<List<UserGetListOutputDto>>();
-                return new PagedResultDto<UserGetListOutputDto>(total, output);
+                output = await GetNotAllocatedAuthUserByRoleIdAsync(roleId, input);
             }
+            return output;
         }
 
+        private async Task<PagedResultDto<UserGetListOutputDto>> GetAllocatedAuthUserByRoleIdAsync(long roleId, RoleAuthUserGetListInput input)
+        {
+            RefAsync<int> total = 0;
+            var output = await _userRoleRepository._DbQueryable
+                         .LeftJoin<UserEntity>((ur, u) => ur.UserId == u.Id && ur.RoleId == roleId)
+                           .Where((ur, u) => ur.RoleId == roleId)
+                         .WhereIF(!string.IsNullOrEmpty(input.UserName), (ur, u) => u.UserName.Contains(input.UserName))
+                         .WhereIF(input.Phone is not null, (ur, u) => u.Phone.ToString().Contains(input.Phone.ToString()))
+                         .Select((ur, u) => new UserGetListOutputDto { Id = u.Id }, true)
+                         .ToPageListAsync(input.PageNum, input.PageSize, total);
+            return new PagedResultDto<UserGetListOutputDto>(total, output);
+        }
 
+        private async Task<PagedResultDto<UserGetListOutputDto>> GetNotAllocatedAuthUserByRoleIdAsync(long roleId, RoleAuthUserGetListInput input)
+        {
+            RefAsync<int> total = 0;
+            var entities = await _userRoleRepository._Db.Queryable<UserEntity>()
+                   .Where(u => SqlFunc.Subqueryable<UserRoleEntity>().Where(x => x.RoleId == roleId).Where(x => x.UserId == u.Id).NotAny())
+                      .WhereIF(!string.IsNullOrEmpty(input.UserName), u => u.UserName.Contains(input.UserName))
+                            .WhereIF(input.Phone is not null, u => u.Phone.ToString().Contains(input.Phone.ToString()))
+                   .ToPageListAsync(input.PageNum, input.PageSize, total);
+            var output = entities.Adapt<List<UserGetListOutputDto>>();
+            return new PagedResultDto<UserGetListOutputDto>(total, output);
+        }
 
 
         /// <summary>
