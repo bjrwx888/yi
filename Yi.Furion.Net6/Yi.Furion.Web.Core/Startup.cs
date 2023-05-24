@@ -69,6 +69,15 @@ public class Startup : AppStartup
         app.UseAuthorization();
 
         app.UseInject(string.Empty);
+      
+    }
+}
+
+[AppStartup(-1)]
+public class EndStartup : AppStartup
+{
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHub<OnlineUserHub>("/api/hub/main");

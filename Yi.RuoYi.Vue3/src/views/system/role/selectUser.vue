@@ -118,14 +118,16 @@ const emit = defineEmits(["ok"]);
 /** 选择授权用户操作 */
 function handleSelectUser() {
   const roleId = queryParams.roleId;
-  const uIds = userIds.value.join(",");
-  if (uIds == "") {
+
+  const uIds = userIds.value;
+  if (uIds == []) {
     proxy.$modal.msgError("请选择要分配的用户");
     return;
   }
-  authUserSelectAll({ roleId: roleId, userIds: [uIds] }).then(res => {
-    proxy.$modal.msgSuccess("成功");
-    if (res.code === 200) {
+  
+  authUserSelectAll({ roleId: roleId, userIds:uIds }).then(res => {
+    if (res.statusCode == 200) {
+      proxy.$modal.msgSuccess("成功");
       visible.value = false;
       emit("ok");
     }

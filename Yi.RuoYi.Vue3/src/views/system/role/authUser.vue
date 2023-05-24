@@ -145,7 +145,7 @@ function resetQuery() {
 }
 // 多选框选中数据
 function handleSelectionChange(selection) {
-  userIds.value = selection.map(item => item.userId);
+  userIds.value = selection.map(item => item.id);
   multiple.value = !selection.length;
 }
 /** 打开授权用户表弹窗 */
@@ -164,7 +164,7 @@ function cancelAuthUser(row) {
 /** 批量取消授权按钮操作 */
 function cancelAuthUserAll(row) {
   const roleId = queryParams.roleId;
-  const uIds = userIds.value.join(",");
+  const uIds = userIds.value;
   proxy.$modal.confirm("是否取消选中用户授权数据项?").then(function () {
     return authUserCancelAll({ roleId: roleId, userIds: uIds });
   }).then(() => {

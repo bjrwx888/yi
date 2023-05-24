@@ -34,11 +34,5 @@ public class Startup : AppStartup
 
     }
 
-    public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-        app.UseSqlsugarCodeFirstServer();
-        await app.UseDataSeedServer();
-        app.UseDataFiterServer();
 
-    }
 }
