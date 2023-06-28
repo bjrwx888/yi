@@ -69,8 +69,8 @@ password:[
 
 ]})
 const loginForm = reactive({
-    userName: "",
-    password: "",
+    userName: "cc",
+    password: "123456",
     uuid: "",
     code: ""
 })
