@@ -24,7 +24,7 @@ public class Startup : AppStartup
         services.AddCorsAccessor();
 
         services.AddControllers().AddInjectWithUnifyResult().AddJsonOptions(x => {
-            //x.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            x.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
             x.JsonSerializerOptions.Converters.Add(new LongToStringConverter());
         });
 
