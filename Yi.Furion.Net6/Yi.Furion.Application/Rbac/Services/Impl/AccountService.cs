@@ -346,7 +346,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         [HttpPut]
         public async Task<bool> RestPasswordAsync(long userId, RestPasswordDto input)
         {
-            if (!string.IsNullOrEmpty(input.Password))
+            if (string.IsNullOrEmpty(input.Password))
             {
                 throw new UserFriendlyException("重置密码不能为空！");
             }
