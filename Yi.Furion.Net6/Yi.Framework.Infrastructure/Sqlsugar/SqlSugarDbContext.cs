@@ -13,7 +13,7 @@ using Yi.Framework.Infrastructure.Data.Entities;
 
 namespace Yi.Framework.Infrastructure.Sqlsugar
 {
-    public  class SqlSugarDbContext
+    public class SqlSugarDbContext
     {
         /// <summary>
         /// SqlSugar 客户端
@@ -109,7 +109,11 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
 
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
                     {
-                        entityInfo.SetValue(DateTime.Now);
+                        //为空或者为默认最小值
+                        if (oldValue is null || DateTime.MinValue.Equals((DateTime)oldValue))
+                        {
+                            entityInfo.SetValue(DateTime.Now);
+                        }
                     }
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
                     {
@@ -122,7 +126,11 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
                 case DataFilterType.InsertByObject:
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
                     {
-                        entityInfo.SetValue(DateTime.Now);
+                        //为空或者为默认最小值
+                        if (oldValue is null || DateTime.MinValue.Equals((DateTime)oldValue))
+                        {
+                            entityInfo.SetValue(DateTime.Now);
+                        }
                     }
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
                     {
