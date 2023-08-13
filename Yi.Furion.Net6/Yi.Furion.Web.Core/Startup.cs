@@ -50,6 +50,8 @@ public class Startup : AppStartup
                 return string.Format(fileName, DateTime.UtcNow);
             };
         });
+
+        services.AddMonitorLogging();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
