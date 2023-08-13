@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "YI",
+  "classifications": [ "Common", "Code" ],
+  "identity": "yi",
+  "name": "YI",
+  "shortName": "yi",
+  "sourceName": "Yi.Furion",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "exclude": [ "Server.Bin/**/*", "obj/**/*", "*.user", "*.vspscc", "*.vssscc", "*.cache",".git/**/*",".vs/**/*" ]
+        }
+      ]
+    }
+  ]
+   
+}

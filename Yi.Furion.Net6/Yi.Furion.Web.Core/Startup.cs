@@ -24,7 +24,7 @@ public class Startup : AppStartup
         services.AddCorsAccessor();
 
         services.AddControllers().AddInjectWithUnifyResult().AddJsonOptions(x => {
-            //x.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            x.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
             x.JsonSerializerOptions.Converters.Add(new LongToStringConverter());
         });
 
@@ -36,7 +36,7 @@ public class Startup : AppStartup
         services.AddSchedule(options =>
         {
             // 注册作业，并配置作业触发器
-            options.AddJob<TestJob>(Triggers.Period(10000));
+            //options.AddJob<TestJob>(Triggers.Period(10000));
             options.AddJob<SystemDataJob>(Triggers.Cron("0 0 0,12 ? * ?",CronStringFormat.WithSeconds)); // 表示每天凌晨与12点
         });
         services.AddFileLogging("log/application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
