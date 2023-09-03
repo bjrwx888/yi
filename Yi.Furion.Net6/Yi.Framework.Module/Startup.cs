@@ -8,6 +8,7 @@ using Yi.Framework.Infrastructure.Sqlsugar;
 using Yi.Framework.Module.Caching;
 using Yi.Framework.Module.ImageSharp.HeiCaptcha;
 using Yi.Framework.Module.Sms.Aliyun;
+using Yi.Framework.Module.WeChat;
 
 namespace Yi.Framework.Module;
 
@@ -26,6 +27,8 @@ public class Startup : AppStartup
         services.Configure<SmsAliyunOptions>(App.Configuration.GetSection("SmsAliyunOptions"));
 
         services.Configure<CachingConnOptions>(App.Configuration.GetSection("CachingConnOptions"));
+
+        services.Configure<WeChatOptions>(App.Configuration.GetSection("WeChatOptions"));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
