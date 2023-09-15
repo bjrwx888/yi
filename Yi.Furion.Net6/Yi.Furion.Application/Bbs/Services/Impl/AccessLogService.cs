@@ -57,6 +57,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
                 processedData.Add(dayOfWeek, new AccessLogDto());
             }
 
+
             // 处理原始数据
             foreach (var item in data)
             {
@@ -66,7 +67,14 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
                 processedData[dayOfWeek] = item.Adapt<AccessLogDto>();
 
             }
-            return processedData.Values.ToArray();
+            var result = processedData.Values.ToList();
+
+            //此时的时间是周日-周一-周二，需要处理
+            var first = result[0]; // 获取第一个元素
+            result.RemoveAt(0); // 移除第一个元素
+            result.Add(first); // 将第一个元素添加到末尾
+
+            return result.ToArray();
         }
     }
 }
