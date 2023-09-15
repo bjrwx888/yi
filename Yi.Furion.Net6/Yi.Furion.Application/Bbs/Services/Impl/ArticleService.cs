@@ -13,6 +13,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
     /// <summary>
     /// Article服务实现
     /// </summary>
+    [ApiDescriptionSettings("BBS")]
 
     public class ArticleService : CrudAppService<ArticleEntity, ArticleGetOutputDto, ArticleGetListOutputDto, long, ArticleGetListInputVo, ArticleCreateInputVo, ArticleUpdateInputVo>,
        IArticleService, IDynamicApiController, ITransient

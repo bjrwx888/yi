@@ -10,6 +10,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     /// <summary>
     /// Menu服务实现
     /// </summary>
+    [ApiDescriptionSettings("RBAC")]
     public class MenuService : CrudAppService<MenuEntity, MenuGetOutputDto, MenuGetListOutputDto, long, MenuGetListInputVo, MenuCreateInputVo, MenuUpdateInputVo>,
        IMenuService, ITransient, IDynamicApiController
     {

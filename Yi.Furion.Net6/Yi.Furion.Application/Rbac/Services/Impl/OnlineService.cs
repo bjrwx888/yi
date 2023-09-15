@@ -11,6 +11,7 @@ using Yi.Furion.Application.Rbac.SignalRHub.Model;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
+    [ApiDescriptionSettings("RBAC")]
     public class OnlineService:IOnlineService,IDynamicApiController,ITransient
     {
         private ILogger<OnlineService> _logger;

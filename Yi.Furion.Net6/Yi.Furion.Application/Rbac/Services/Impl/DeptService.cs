@@ -10,6 +10,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     /// <summary>
     /// Dept服务实现
     /// </summary>
+    [ApiDescriptionSettings("RBAC")]
     public class DeptService : CrudAppService<DeptEntity, DeptGetOutputDto, DeptGetListOutputDto, long, DeptGetListInputVo, DeptCreateInputVo, DeptUpdateInputVo>,
        IDeptService, ITransient, IDynamicApiController
     {

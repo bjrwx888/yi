@@ -1,5 +1,6 @@
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
+using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Dtos;
 using Yi.Framework.Infrastructure.Ddd.Services;
@@ -11,6 +12,7 @@ namespace Yi.Framework.Module.DictionaryManager
     /// <summary>
     /// DictionaryType服务实现
     /// </summary>
+    [ApiDescriptionSettings("DictionaryManager")]
     public class DictionaryTypeService : CrudAppService<DictionaryTypeEntity, DictionaryTypeGetOutputDto, DictionaryTypeGetListOutputDto, long, DictionaryTypeGetListInputVo, DictionaryTypeCreateInputVo, DictionaryTypeUpdateInputVo>,
        IDictionaryTypeService, IDynamicApiController, ITransient
     {

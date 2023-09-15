@@ -14,6 +14,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
     /// <summary>
     /// 评论
     /// </summary>
+    [ApiDescriptionSettings("BBS")]
     public class CommentService : CrudAppService<CommentEntity, CommentGetOutputDto, CommentGetListOutputDto, long, CommentGetListInputVo, CommentCreateInputVo, CommentUpdateInputVo>,
        ICommentService, IDynamicApiController, ITransient
     {

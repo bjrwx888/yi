@@ -19,6 +19,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
     /// <summary>
     /// Discuss应用服务实现,用于参数效验、领域服务业务组合、日志记录、事务处理、账户信息
     /// </summary>
+    [ApiDescriptionSettings("BBS")]
     public class DiscussService : CrudAppService<DiscussEntity, DiscussGetOutputDto, DiscussGetListOutputDto, long, DiscussGetListInputVo, DiscussCreateInputVo, DiscussUpdateInputVo>,
        IDiscussService,IDynamicApiController,ITransient
     {

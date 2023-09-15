@@ -5,6 +5,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
     /// <summary>
     /// Setting服务实现
     /// </summary>
+    [ApiDescriptionSettings("BBS")]
     public class SettingService : ApplicationService,
        ISettingService,IDynamicApiController,ITransient
     {

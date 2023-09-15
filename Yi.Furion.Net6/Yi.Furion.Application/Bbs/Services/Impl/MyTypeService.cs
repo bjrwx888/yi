@@ -11,6 +11,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
     /// <summary>
     /// Label服务实现
     /// </summary>
+    [ApiDescriptionSettings("BBS")]
     public class MyTypeService : CrudAppService<MyTypeEntity, MyTypeOutputDto, MyTypeGetListOutputDto, long, MyTypeGetListInputVo, MyTypeCreateInputVo, MyTypeUpdateInputVo>,
        ILabelService, IDynamicApiController, ITransient
     {

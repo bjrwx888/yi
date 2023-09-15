@@ -12,6 +12,7 @@ using Yi.Furion.Core.Rbac.Dtos.MonitorCache;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
+    [ApiDescriptionSettings("RBAC")]
     public class MonitorCacheService : IMonitorCacheService, IDynamicApiController, ITransient
     {
         private static List<MonitorCacheNameGetListOutputDto> monitorCacheNames => new List<MonitorCacheNameGetListOutputDto>()

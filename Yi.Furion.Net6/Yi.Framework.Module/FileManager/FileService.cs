@@ -16,6 +16,7 @@ namespace Yi.Framework.Module.FileManager
     /// <summary>
     /// 文件处理
     /// </summary>
+    [ApiDescriptionSettings("FileManager")]
     public class FileService : ApplicationService, IFileService, IDynamicApiController, ITransient
     {
         private readonly IRepository<FileEntity> _repository;

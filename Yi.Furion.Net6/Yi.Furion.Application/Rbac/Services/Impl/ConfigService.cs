@@ -9,7 +9,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     /// <summary>
     /// Config服务实现
     /// </summary>
-
+    [ApiDescriptionSettings("RBAC")]
     public class ConfigService : CrudAppService<ConfigEntity, ConfigGetOutputDto, ConfigGetListOutputDto, long, ConfigGetListInputVo, ConfigCreateInputVo, ConfigUpdateInputVo>,
        IConfigService,IDynamicApiController,ITransient
     {

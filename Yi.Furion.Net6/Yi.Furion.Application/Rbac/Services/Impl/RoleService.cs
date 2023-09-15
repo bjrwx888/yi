@@ -17,6 +17,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     /// <summary>
     /// Role服务实现
     /// </summary>
+    [ApiDescriptionSettings("RBAC")]
     public class RoleService : CrudAppService<RoleEntity, RoleGetOutputDto, RoleGetListOutputDto, long, RoleGetListInputVo, RoleCreateInputVo, RoleUpdateInputVo>,
        IRoleService, ITransient, IDynamicApiController
     {

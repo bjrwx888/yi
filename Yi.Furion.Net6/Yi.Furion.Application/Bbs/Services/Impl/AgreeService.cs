@@ -11,6 +11,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
     /// <summary>
     /// 点赞功能
     /// </summary>
+    [ApiDescriptionSettings("BBS")]
     public class AgreeService : ApplicationService, IApplicationService, IDynamicApiController, ITransient
     {
         public AgreeService(IRepository<AgreeEntity> repository, IRepository<DiscussEntity> discssRepository, ICurrentUser currentUser)

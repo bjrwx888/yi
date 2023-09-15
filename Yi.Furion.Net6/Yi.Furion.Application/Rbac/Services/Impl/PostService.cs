@@ -9,6 +9,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     /// <summary>
     /// Post服务实现
     /// </summary>
+    [ApiDescriptionSettings("RBAC")]
     public class PostService : CrudAppService<PostEntity, PostGetOutputDto, PostGetListOutputDto, long, PostGetListInputVo, PostCreateInputVo, PostUpdateInputVo>,
        IPostService, ITransient, IDynamicApiController
     {

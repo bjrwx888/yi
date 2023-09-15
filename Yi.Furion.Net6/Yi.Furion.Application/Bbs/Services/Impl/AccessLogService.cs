@@ -10,6 +10,7 @@ using Yi.Furion.Core.Bbs.Entities;
 
 namespace Yi.Furion.Application.Bbs.Services.Impl
 {
+    [ApiDescriptionSettings("BBS")]
     public class AccessLogService : IAccessLogService,IDynamicApiController
     {
         private readonly IRepository<AccessLogEntity> _repository;

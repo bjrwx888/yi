@@ -14,7 +14,7 @@ using Yi.Framework.Infrastructure.Helper;
 
 namespace Yi.Furion.Application.Rbac.Services
 {
-
+    [ApiDescriptionSettings("RBAC")]
     public class MonitorServerService: IMonitorServerService,IDynamicApiController, ITransient
     {
         private IWebHostEnvironment _hostEnvironment;

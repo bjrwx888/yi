@@ -6,6 +6,7 @@ using Yi.Furion.Core.Rbac.Entities;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
+    [ApiDescriptionSettings("RBAC")]
     public class LoginLogService : CrudAppService<LoginLogEntity, LoginLogGetListOutputDto, long, LoginLogGetListInputVo>,IDynamicApiController,ITransient
     {
         public override async Task<PagedResultDto<LoginLogGetListOutputDto>> GetListAsync(LoginLogGetListInputVo input)

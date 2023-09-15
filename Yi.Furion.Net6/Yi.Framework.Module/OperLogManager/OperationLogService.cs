@@ -11,6 +11,7 @@ namespace Yi.Framework.Module.OperLogManager
     /// OperationLog服务实现
     /// </summary>
     //[AppService]
+    [ApiDescriptionSettings("OperLogManager")]
     public class OperationLogService : CrudAppService<OperationLogEntity, OperationLogGetListOutputDto, long, OperationLogGetListInputVo>,
        IOperationLogService, IDynamicApiController, ITransient
     {

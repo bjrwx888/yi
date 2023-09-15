@@ -16,6 +16,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     /// <summary>
     /// User服务实现
     /// </summary>
+    [ApiDescriptionSettings("RBAC")]
     public class UserService : CrudAppService<UserEntity, UserGetOutputDto, UserGetListOutputDto, long, UserGetListInputVo, UserCreateInputVo, UserUpdateInputVo>,
        IUserService, ITransient, IDynamicApiController
     {

@@ -12,6 +12,7 @@ using Yi.Furion.Core.Rbac.Dtos.Task;
 
 namespace Yi.Furion.Application.Rbac.Services.Impl
 {
+    [ApiDescriptionSettings("RBAC")]
     public class TaskService : ApplicationService, ITaskService, IDynamicApiController, ITransient
     {
         private readonly ISchedulerFactory _schedulerFactory;

@@ -7,11 +7,13 @@ using Yi.Framework.Infrastructure.Ddd.Services;
 using Yi.Framework.Module.DictionaryManager.Dtos.Dictionary;
 using Yi.Framework.Module.DictionaryManager.Entities;
 
+
 namespace Yi.Framework.Module.DictionaryManager
 {
     /// <summary>
     /// Dictionary服务实现
     /// </summary>
+    [ApiDescriptionSettings("DictionaryManager")]
     public class DictionaryService : CrudAppService<DictionaryEntity, DictionaryGetOutputDto, DictionaryGetListOutputDto, long, DictionaryGetListInputVo, DictionaryCreateInputVo, DictionaryUpdateInputVo>,
        IDictionaryService,IDynamicApiController,ITransient
     {
