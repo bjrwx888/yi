@@ -103,6 +103,7 @@ import AvatarInfo from '@/components/AvatarInfo.vue'
 import BottomInfo from '@/components/BottomInfo.vue'
 import VisitsLineChart from '@/components/echars/VisitsLineChart.vue'
 
+import { access } from '@/apis/accessApi.js'
 import { getList } from '@/apis/plateApi.js'
 import { getList as bannerGetList } from '@/apis/bannerApi.js'
 import { getList as discussGetList } from '@/apis/discussApi.js'
@@ -121,6 +122,7 @@ const query = reactive({
 
 //初始化
 onMounted(async () => {
+  await access();
   plateList.value = (await getList()).data.items;
   discussList.value = (await discussGetList(query)).data.items;
   bannerList.value = (await bannerGetList()).data.items

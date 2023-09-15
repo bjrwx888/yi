@@ -34,6 +34,18 @@
             Label服务抽象
             </summary>
         </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.AccessLogService.AccessAsync">
+            <summary>
+            触发
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Furion.Application.Bbs.Services.Impl.AccessLogService.GetWeekAsync">
+            <summary>
+            获取当前周数据
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Furion.Application.Bbs.Services.Impl.AgreeService">
             <summary>
             点赞功能

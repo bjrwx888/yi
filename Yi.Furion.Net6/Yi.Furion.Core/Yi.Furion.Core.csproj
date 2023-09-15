@@ -28,10 +28,4 @@
 
 
 
-	<ItemGroup>
-	  <Folder Include="Bbs\Dtos\" />
-	</ItemGroup>
-
-
-
 </Project>
