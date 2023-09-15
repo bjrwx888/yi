@@ -53,8 +53,6 @@ public class Startup : AppStartup
         });
 
         services.AddMonitorLogging();
-
-        services.AddHealthChecks();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,7 +61,6 @@ public class Startup : AppStartup
         {
             app.UseDeveloperExceptionPage();
         }
-        app.UseHealthChecks();
         app.UseHttpsRedirection();
 
         app.UseRouting();
