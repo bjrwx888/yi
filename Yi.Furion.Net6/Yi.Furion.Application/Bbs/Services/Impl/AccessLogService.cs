@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,8 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
 
         private AccessLogDto[] WeekTimeHandler(AccessLogEntity[] data)
         {
-            data = data.Where(x => x.CreationTime.DayOfWeek == DateTime.Now.DayOfWeek).ToArray();
+            data = data.Where(x=>x.CreationTime>=EasyTool.DateTimeUtil.GetFirstDayOfWeek()).OrderByDescending(x=>x.CreationTime).DistinctBy(x=>x.CreationTime.DayOfWeek).ToArray();
+          
             Dictionary<DayOfWeek, AccessLogDto> processedData = new Dictionary<DayOfWeek, AccessLogDto>();
 
             // 初始化字典，将每天的数据都设为0
