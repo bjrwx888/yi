@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyTool.Extension;
 using Mapster;
 using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Furion.Core.Bbs.Dtos.AccessLog;
@@ -11,10 +13,41 @@ using Yi.Furion.Core.Bbs.Entities;
 namespace Yi.Furion.Application.Bbs.Services.Impl
 {
     [ApiDescriptionSettings("BBS")]
-    public class AccessLogService : IAccessLogService,IDynamicApiController
+    public class AccessLogService : IAccessLogService, IDynamicApiController
     {
         private readonly IRepository<AccessLogEntity> _repository;
         public AccessLogService(IRepository<AccessLogEntity> repository) { _repository = repository; }
+
+        public DateTime GetWeekFirst()
+        {
+            var week = DateTime.Now.DayOfWeek;
+            switch (week)
+            {
+                case DayOfWeek.Sunday:
+                    return DateTime.Now.AddDays(-6).Date;
+
+                case DayOfWeek.Monday:
+                    return DateTime.Now.AddDays(-0).Date;
+
+                case DayOfWeek.Tuesday:
+                    return DateTime.Now.AddDays(-1).Date;
+
+                case DayOfWeek.Wednesday:
+                    return DateTime.Now.AddDays(-2).Date;
+
+                case DayOfWeek.Thursday:
+                    return DateTime.Now.AddDays(-3).Date;
+
+                case DayOfWeek.Friday:
+                    return DateTime.Now.AddDays(-4).Date;
+
+                case DayOfWeek.Saturday:
+                    return DateTime.Now.AddDays(-5).Date;
+
+                default:
+                    throw new ArgumentException("日期错误");
+            }
+        }
 
         /// <summary>
         /// 触发
@@ -49,7 +82,8 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
 
         private AccessLogDto[] WeekTimeHandler(AccessLogEntity[] data)
         {
-            data = data.Where(x => x.CreationTime.DayOfWeek == DateTime.Now.DayOfWeek).ToArray();
+            data = data.Where(x => x.CreationTime >= GetWeekFirst()).OrderByDescending(x => x.CreationTime).DistinctBy(x => x.CreationTime.DayOfWeek).ToArray();
+
             Dictionary<DayOfWeek, AccessLogDto> processedData = new Dictionary<DayOfWeek, AccessLogDto>();
 
             // 初始化字典，将每天的数据都设为0
@@ -64,7 +98,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
             {
                 DayOfWeek dayOfWeek = item.CreationTime.DayOfWeek;
                 // 如果当天有数据，则更新字典中的值为对应的Number
-                var sss= data.Adapt<AccessLogDto>(); 
+                var sss = data.Adapt<AccessLogDto>();
                 processedData[dayOfWeek] = item.Adapt<AccessLogDto>();
 
             }
