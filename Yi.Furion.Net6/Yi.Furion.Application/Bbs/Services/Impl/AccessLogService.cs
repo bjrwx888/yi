@@ -24,25 +24,25 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
             switch (week)
             {
                 case DayOfWeek.Sunday:
-                    return DateTime.Now.AddDays(-7).Date;
+                    return DateTime.Now.AddDays(-6).Date;
 
                 case DayOfWeek.Monday:
-                    return DateTime.Now.AddDays(-1).Date;
+                    return DateTime.Now.AddDays(-0).Date;
 
                 case DayOfWeek.Tuesday:
-                    return DateTime.Now.AddDays(-2).Date;
+                    return DateTime.Now.AddDays(-1).Date;
 
                 case DayOfWeek.Wednesday:
-                    return DateTime.Now.AddDays(-3).Date;
+                    return DateTime.Now.AddDays(-2).Date;
 
                 case DayOfWeek.Thursday:
-                    return DateTime.Now.AddDays(-4).Date;
+                    return DateTime.Now.AddDays(-3).Date;
 
                 case DayOfWeek.Friday:
-                    return DateTime.Now.AddDays(-5).Date;
+                    return DateTime.Now.AddDays(-4).Date;
 
                 case DayOfWeek.Saturday:
-                    return DateTime.Now.AddDays(-6).Date;
+                    return DateTime.Now.AddDays(-5).Date;
 
                 default:
                     throw new ArgumentException("日期错误");
