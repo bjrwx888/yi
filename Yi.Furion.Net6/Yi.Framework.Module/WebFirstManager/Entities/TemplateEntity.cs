@@ -9,7 +9,7 @@ using Yi.Framework.Infrastructure.Ddd.Entities;
 
 namespace Yi.Framework.Module.WebFirstManager.Entities
 {
-    public class TemplateEntity : IEntity<long>, ICreationAuditedObject
+    public class TemplateEntity : IEntity<long>
     {
 
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
@@ -20,9 +20,9 @@ namespace Yi.Framework.Module.WebFirstManager.Entities
         /// </summary>
         public string TemplateStr { get; set; } = string.Empty;
 
-
-        public long? CreatorId { get; set; }
-
-        public DateTime CreationTime { get; set; }
+        /// <summary>
+        /// 生成路径
+        /// </summary>
+        public string BuildPath { get; set; }
     }
 }

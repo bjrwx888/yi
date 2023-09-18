@@ -8,20 +8,19 @@ using Yi.Framework.Infrastructure.Ddd.Entities;
 
 namespace Yi.Framework.Module.WebFirstManager.Entities
 {
-    public class TemplateVarEntity : IEntity<long>
+    public class TableEntity : IEntity<long>
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public long Id { get; set; }
+        /// <summary>
+        /// 表名
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
-        /// 变量名称
+        /// 备注
         /// </summary>
-        public string Name { get; set; }=string.Empty;
-
-        /// <summary>
-        /// 变量值
-        /// </summary>
-        public string Value { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
     }
 }
