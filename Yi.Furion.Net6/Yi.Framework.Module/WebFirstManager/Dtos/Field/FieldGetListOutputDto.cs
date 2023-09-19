@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SqlSugar;
-using Yi.Framework.Infrastructure.Ddd.Entities;
+using Yi.Framework.Infrastructure.Ddd.Dtos.Abstract;
 using Yi.Framework.Module.WebFirstManager.Enums;
 
-namespace Yi.Framework.Module.WebFirstManager.Entities
+namespace Yi.Framework.Module.WebFirstManager.Dtos.Field
 {
-    public class FieldEntity : IEntity<long>
+    public class FieldGetListOutputDto:IEntityDto<long>
     {
-        [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         /// <summary>
         /// 字段名称

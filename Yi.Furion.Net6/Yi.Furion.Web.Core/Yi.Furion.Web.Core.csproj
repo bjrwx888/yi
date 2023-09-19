@@ -4,7 +4,6 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<DocumentationFile>Yi.Furion.Web.Core.xml</DocumentationFile>
 	</PropertyGroup>
 
 

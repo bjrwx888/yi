@@ -10,7 +10,7 @@ namespace Yi.Framework.Module.WebFirstManager.Entities
 {
     public class TableEntity : IEntity<long>
     {
-        [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
+        [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         /// <summary>
         /// 表名
@@ -22,5 +22,10 @@ namespace Yi.Framework.Module.WebFirstManager.Entities
         /// </summary>
         public string? Description { get; set; }
 
+        /// <summary>
+        /// 一表多字段
+        /// </summary>
+        [Navigate(NavigateType.OneToMany, nameof(FieldEntity.TableId))]
+        public List<FieldEntity> Fields { get; set; }
     }
 }

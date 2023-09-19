@@ -12,7 +12,7 @@ namespace Yi.Framework.Module.WebFirstManager.Entities
     public class TemplateEntity : IEntity<long>
     {
 
-        [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
+        [SugarColumn( IsPrimaryKey = true)]
         public long Id { get; set; }
 
         /// <summary>

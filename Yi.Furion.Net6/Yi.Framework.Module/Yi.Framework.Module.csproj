@@ -1,39 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<DocumentationFile>Yi.Framework.Module.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
-    <None Remove="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
-    <None Remove="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
-    <None Remove="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
-  </ItemGroup>
-	
 	<ItemGroup>
-  <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="2.0.23" />
-  <PackageReference Include="CSRedisCore" Version="3.8.670" />
-		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
-  <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
-  <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
+		<None Remove="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
+		<None Remove="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
+		<None Remove="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
+		<None Remove="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
 	</ItemGroup>
-	
-  <ItemGroup>
-    <ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
-  </ItemGroup>
-	
-  <ItemGroup>
-    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
-    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
-    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
-    <EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
-  </ItemGroup>
-	
-  <ItemGroup>
-    <Folder Include="DictionaryManager\" />
-  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="2.0.23" />
+		<PackageReference Include="CSRedisCore" Version="3.8.670" />
+		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Yi.Framework.Infrastructure\Yi.Framework.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
+		<EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
+		<EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
+		<EmbeddedResource Include="ImageSharp\HeiCaptcha\fonts\STCAIYUN.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="DictionaryManager\" />
+		<Folder Include="WebFirstManager\Dtos\Template\" />
+		<Folder Include="WebFirstManager\Dtos\Table\" />
+		<Folder Include="WebFirstManager\Dtos\TemplateVar\" />
+	</ItemGroup>
+
+
 
 </Project>

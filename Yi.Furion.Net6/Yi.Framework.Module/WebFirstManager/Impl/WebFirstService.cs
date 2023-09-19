@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Furion.DependencyInjection;
+using Furion.DynamicApiController;
 using Mapster;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Infrastructure.Ddd.Repositories;
 using Yi.Framework.Infrastructure.Ddd.Services;
-using Yi.Framework.Module.WebFirstManager.Dtos;
+using Yi.Framework.Module.WebFirstManager.Dtos.WebFirst;
 using Yi.Framework.Module.WebFirstManager.Entities;
 
 namespace Yi.Framework.Module.WebFirstManager.Impl
 {
-    public class WebFirstService : ApplicationService, IWebFirstService
+    [ApiDescriptionSettings("WebFirstManager")]
+    public class WebFirstService : ApplicationService, IWebFirstService,IDynamicApiController,ITransient
     {
         private IRepository<TemplateEntity> _repository;
         public WebFirstService(IRepository<TemplateEntity> repository) { _repository = repository; }

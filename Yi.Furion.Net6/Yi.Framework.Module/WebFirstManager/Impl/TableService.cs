@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Yi.Framework.Module.WebFirstManager.Impl
 {
     [ApiDescriptionSettings("WebFirstManager")]
-    public class TemplateVarService: ITemplateVarService, IDynamicApiController, ITransient
+    public class TableService:ITableService, ITransient,IDynamicApiController
     {
     }
 }
