@@ -386,6 +386,11 @@
             <param name="code"></param>
             <returns></returns>
         </member>
+        <member name="T:Yi.Framework.Module.WebFirstManager.Domain.TemplateManager">
+            <summary>
+            模板领域服务
+            </summary>
+        </member>
         <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldCreateInput.Name">
             <summary>
             字段名称
@@ -556,11 +561,10 @@
             字段管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.GetAsync(System.Guid)">
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostBuildAsync">
             <summary>
-            根据模板id生成对应的结果
+            一键构建
             </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.Module.WeChat.IWeChatManager.Code2SessionAsync(Yi.Framework.Module.WeChat.Model.Code2SessionInput)">

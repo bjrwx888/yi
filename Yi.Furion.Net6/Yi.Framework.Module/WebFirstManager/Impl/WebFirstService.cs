@@ -16,22 +16,36 @@ using Yi.Framework.Module.WebFirstManager.Entities;
 namespace Yi.Framework.Module.WebFirstManager.Impl
 {
     [ApiDescriptionSettings("WebFirstManager")]
-    public class WebFirstService : ApplicationService, IWebFirstService,IDynamicApiController,ITransient
+    public class WebFirstService : ApplicationService, IWebFirstService, IDynamicApiController, ITransient
     {
         private IRepository<TemplateEntity> _repository;
-        public WebFirstService(IRepository<TemplateEntity> repository) { _repository = repository; }
-
-        /// <summary>
-        /// 根据模板id生成对应的结果
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<WebFirstGetOutputDto> GetAsync(Guid id)
+        private IRepository<TemplateVarEntity> _varRepository;
+        public WebFirstService(IRepository<TemplateEntity> repository, IRepository<TemplateVarEntity> varRepository)
         {
-            var entity = await _repository.GetByIdAsync(id);
-
-            return entity.Adapt<WebFirstGetOutputDto>();
+            _repository = repository;
+            _varRepository = varRepository;
         }
 
+        /// <summary>
+        /// 一键构建
+        /// </summary>
+        /// <returns></returns>
+        public async Task PostBuildAsync()
+        {
+            //获取全部模板
+            var templates = await _repository.GetListAsync();
+            var varTemps = await _varRepository.GetListAsync();
+
+        }
+
+        private async Task BuildSingleAsync(TemplateEntity template, List<TemplateVarEntity> templateVars)
+        {
+            foreach (var tempVar in templateVars)
+                template.TemplateStr.Replace(tempVar.Value, "model");
+
+
+
+
+        }
     }
 }
