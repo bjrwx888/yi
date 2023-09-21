@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SqlSugar;
 using Yi.Framework.Infrastructure.AspNetCore;
 using Yi.Framework.Infrastructure.Sqlsugar;
 using Yi.Framework.Module.Caching;
@@ -33,6 +34,6 @@ public class Startup : AppStartup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-
+       var db= app.ApplicationServices.GetRequiredService<ISqlSugarClient>();
     }
 }

@@ -8,6 +8,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="WebFirstManager\Dtos\TemplateVar\**" />
+	  <EmbeddedResource Remove="WebFirstManager\Dtos\TemplateVar\**" />
+	  <None Remove="WebFirstManager\Dtos\TemplateVar\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="ImageSharp\HeiCaptcha\fonts\Candara.ttf" />
 		<None Remove="ImageSharp\HeiCaptcha\fonts\impact.ttf" />
 		<None Remove="ImageSharp\HeiCaptcha\fonts\monbaiti.ttf" />
@@ -35,9 +41,7 @@
 
 	<ItemGroup>
 		<Folder Include="DictionaryManager\" />
-		<Folder Include="WebFirstManager\Dtos\Template\" />
 		<Folder Include="WebFirstManager\Dtos\Table\" />
-		<Folder Include="WebFirstManager\Dtos\TemplateVar\" />
 	</ItemGroup>
 
 

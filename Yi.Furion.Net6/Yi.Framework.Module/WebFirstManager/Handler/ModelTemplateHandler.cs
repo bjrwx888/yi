@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EasyTool;
+using Furion.DependencyInjection;
 
 namespace Yi.Framework.Module.WebFirstManager.Handler
 {
-    internal class ModelTemplateHandler : TemplateHandlerBase, ITemplateHandler
+    internal class ModelTemplateHandler : TemplateHandlerBase, ITemplateHandler, ISingleton
     {
         public string Invoker(string str)
         {

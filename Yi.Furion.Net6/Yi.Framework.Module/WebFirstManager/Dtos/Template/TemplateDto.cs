@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Module.WebFirstManager
+namespace Yi.Framework.Module.WebFirstManager.Dtos.Template
 {
-    public interface ITemplateVarService
+    public class TemplateDto
     {
     }
 }

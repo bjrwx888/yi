@@ -546,25 +546,28 @@
             生成路径
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Entities.TemplateVarEntity.Name">
-            <summary>
-            变量名称
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Entities.TemplateVarEntity.Value">
-            <summary>
-            变量值
-            </summary>
-        </member>
         <member name="T:Yi.Framework.Module.WebFirstManager.Impl.FieldService">
             <summary>
             字段管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostBuildAsync">
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostBuildCodeAsync">
             <summary>
-            一键构建
+            一键构建生成代码
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostBuildTableAsync">
+            <summary>
+            一键构建生成表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.BuildSingleTableAsync(Yi.Framework.Module.WebFirstManager.Entities.TableEntity)">
+            <summary>
+            每次去构建一张表的数据
+            </summary>
+            <param name="table"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.Module.WeChat.IWeChatManager.Code2SessionAsync(Yi.Framework.Module.WeChat.Model.Code2SessionInput)">

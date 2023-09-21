@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Furion.DependencyInjection;
+﻿using Furion.DependencyInjection;
+using Yi.Framework.Infrastructure.Ddd.Repositories;
+using Yi.Framework.Module.WebFirstManager.Entities;
 using Yi.Framework.Module.WebFirstManager.Handler;
 
 namespace Yi.Framework.Module.WebFirstManager.Domain
@@ -13,12 +10,37 @@ namespace Yi.Framework.Module.WebFirstManager.Domain
     /// </summary>
     public class TemplateManager : ITransient
     {
-        public ITemplateHandler TemplateVar { get; set; }
-
-
-        public string Replate(string templateStr, string templateVar, string tableName)
+        private IEnumerable<ITemplateHandler> _templateHandlers;
+        private IRepository<TemplateEntity> _repository;
+        private IRepository<FieldEntity> _fieldRepository;
+        public TemplateManager(IEnumerable<ITemplateHandler> templateHandlers, IRepository<FieldEntity> fieldRepository, IRepository<TemplateEntity> repository)
         {
-          return  templateStr.Replace(templateVar, tableName);
+            _templateHandlers = templateHandlers;
+            _repository = repository;
+            _fieldRepository = fieldRepository;
+        }
+        public async Task HandlerAsync(TableEntity tableEntity)
+        {
+            var templates = await _repository.GetListAsync();
+            var fields = await _fieldRepository.GetListAsync();
+            foreach (var template in templates)
+            {
+                string templateStr = template.TemplateStr;
+                foreach (var templateHandler in _templateHandlers)
+                {
+                    templateHandler.SetTable(tableEntity);
+                    templateHandler.SetFields(fields);
+                    templateStr = templateHandler.Invoker(templateStr);
+                }
+
+                await BuildToFileAsync(templateStr, template);
+            }
+        }
+
+
+        private async Task BuildToFileAsync(string str, TemplateEntity templateEntity)
+        {
+            await File.WriteAllTextAsync(str, templateEntity.BuildPath);
         }
     }
 
