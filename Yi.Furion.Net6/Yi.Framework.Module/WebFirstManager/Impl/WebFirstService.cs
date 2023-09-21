@@ -37,7 +37,7 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
             var tables = await _tableRepository.GetListAsync();
             foreach (var table in tables)
             {
-                await BuildSingleTableAsync(table);
+                await _templateManager.HandlerAsync(table);
             }
 
         }
@@ -49,22 +49,6 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
         /// <returns></returns>
         public async Task PostBuildTableAsync()
         {
-        }
-
-
-
-
-
-
-
-        /// <summary>
-        /// 每次去构建一张表的数据
-        /// </summary>
-        /// <param name="table"></param>
-        /// <returns></returns>
-        private async Task BuildSingleTableAsync(TableEntity table)
-        {
-            await _templateManager.HandlerAsync(table);
         }
     }
 }
