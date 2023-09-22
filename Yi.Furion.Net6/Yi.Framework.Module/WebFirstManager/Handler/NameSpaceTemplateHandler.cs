@@ -7,11 +7,11 @@ using Furion.DependencyInjection;
 
 namespace Yi.Framework.Module.WebFirstManager.Handler
 {
-    internal class NameSpaceTemplateHandler : TemplateHandlerBase, ITemplateHandler, ISingleton
+    public class NameSpaceTemplateHandler : TemplateHandlerBase, ITemplateHandler, ISingleton
     {
         public string Invoker(string str)
         {
-            return str.Replace("@Namespace", "");
+            return str.Replace("@namespace", "");
         }
     }
 }

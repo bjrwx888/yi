@@ -40,7 +40,8 @@ namespace Yi.Framework.Module.WebFirstManager.Domain
 
         private async Task BuildToFileAsync(string str, TemplateEntity templateEntity)
         {
-            await File.WriteAllTextAsync(str, templateEntity.BuildPath);
+
+            //await File.WriteAllTextAsync(str, templateEntity.BuildPath);
         }
     }
 

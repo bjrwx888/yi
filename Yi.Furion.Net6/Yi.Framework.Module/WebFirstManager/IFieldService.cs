@@ -8,7 +8,7 @@ using Yi.Framework.Module.WebFirstManager.Dtos.Field;
 
 namespace Yi.Framework.Module.WebFirstManager
 {
-    public interface IFieldService : ICrudAppService<FieldGetOutDto, FieldGetListOutputDto, long, FieldGetListInput, FieldCreateInput, FieldUpdateInput>
+    public interface IFieldService : ICrudAppService<FieldDto, long, FieldGetListInput>
     {
     }
 }

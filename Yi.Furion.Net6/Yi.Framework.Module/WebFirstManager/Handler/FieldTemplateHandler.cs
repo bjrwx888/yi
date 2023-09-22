@@ -1,20 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using EasyTool;
 using Furion.DependencyInjection;
 
 namespace Yi.Framework.Module.WebFirstManager.Handler
 {
-    internal class FieldTemplateHandler : TemplateHandlerBase, ITemplateHandler,ISingleton
+    public class FieldTemplateHandler : TemplateHandlerBase, ITemplateHandler, ISingleton
     {
         public string Invoker(string str)
         {
-            //从数据库中获取到全部字段，然后根据字段生成字符串，进行替换
-            return str.Replace("@field", "");
+            return str.Replace("@field", BuildFields());
         }
 
 
+        /// <summary>
+        /// 生成Fields
+        /// </summary>
+        /// <returns></returns>
+        public string BuildFields()
+        {
+            StringBuilder fieldStrs = new StringBuilder();
+
+
+            foreach (var field in Fields)
+            {
+                var typeStr = EnumUtil.GetDescriptionByValue(field.FieldType);
+                var nameStr = field.Name;
+
+                //添加备注
+                if (string.IsNullOrEmpty(field.Description))
+                {
+                    var desStr = "/// <summary>" +
+                               @$"///{field.Description}" +
+                                 "/// </summary>";
+                    fieldStrs.AppendLine(desStr);
+                }
+
+                //添加长度
+                if (field.Length != 0)
+                {
+                    var lengthStr = $"[SugarColumn(Length ={field.Length})]";
+                    fieldStrs.AppendLine(lengthStr);
+                }
+
+                //添加字段
+                var fieldStr = $"public {typeStr} {nameStr} {{ get; set; }}";
+
+                fieldStrs.AppendLine(fieldStr);
+            }
+
+            return fieldStrs.ToString();
+        }
     }
 }

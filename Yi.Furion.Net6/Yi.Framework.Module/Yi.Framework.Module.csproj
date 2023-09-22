@@ -41,7 +41,6 @@
 
 	<ItemGroup>
 		<Folder Include="DictionaryManager\" />
-		<Folder Include="WebFirstManager\Dtos\Table\" />
 	</ItemGroup>
 
 

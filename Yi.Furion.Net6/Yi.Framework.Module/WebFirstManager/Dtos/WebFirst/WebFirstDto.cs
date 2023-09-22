@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Module.WebFirstManager.Dtos.WebFirst
 {
-    public class WebFirstGetOutputDto
+    public class WebFirstDto
     {
     }
 }

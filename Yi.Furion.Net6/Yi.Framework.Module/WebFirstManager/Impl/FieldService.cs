@@ -16,7 +16,7 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
     /// 字段管理
     /// </summary>
     [ApiDescriptionSettings("WebFirstManager")]
-    public class FieldService:CrudAppService<FieldEntity,FieldGetOutDto,FieldGetListOutputDto,long,FieldGetListInput,FieldCreateInput,FieldUpdateInput> ,IFieldService,ITransient,IDynamicApiController
+    public class FieldService:CrudAppService<FieldEntity, FieldDto,long, FieldGetListInput> ,IFieldService,ITransient,IDynamicApiController
     {
     }
 }

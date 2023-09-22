@@ -391,27 +391,27 @@
             模板领域服务
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldCreateInput.Name">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldDto.Name">
             <summary>
             字段名称
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldCreateInput.IsRequired">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldDto.IsRequired">
             <summary>
             是否必填
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldCreateInput.IsKey">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldDto.IsKey">
             <summary>
             是否主键
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldCreateInput.IsAutoAdd">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldDto.IsAutoAdd">
             <summary>
             是否自增
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldCreateInput.IsPublic">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldDto.IsPublic">
             <summary>
             是否公共
             </summary>
@@ -421,79 +421,29 @@
             字段名称
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetListOutputDto.Name">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Table.TableDto.Name">
             <summary>
-            字段名称
+            表名
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetListOutputDto.IsRequired">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Table.TableDto.Description">
             <summary>
-            是否必填
+            备注
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetListOutputDto.IsKey">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Table.TableDto.Fields">
             <summary>
-            是否主键
+            一表多字段
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetListOutputDto.IsAutoAdd">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Template.TemplateDto.TemplateStr">
             <summary>
-            是否自增
+            模板字符串
             </summary>
         </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetListOutputDto.IsPublic">
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Template.TemplateDto.BuildPath">
             <summary>
-            是否公共
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetOutDto.Name">
-            <summary>
-            字段名称
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetOutDto.IsRequired">
-            <summary>
-            是否必填
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetOutDto.IsKey">
-            <summary>
-            是否主键
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetOutDto.IsAutoAdd">
-            <summary>
-            是否自增
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldGetOutDto.IsPublic">
-            <summary>
-            是否公共
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldUpdateInput.Name">
-            <summary>
-            字段名称
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldUpdateInput.IsRequired">
-            <summary>
-            是否必填
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldUpdateInput.IsKey">
-            <summary>
-            是否主键
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldUpdateInput.IsAutoAdd">
-            <summary>
-            是否自增
-            </summary>
-        </member>
-        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Field.FieldUpdateInput.IsPublic">
-            <summary>
-            是否公共
+            生成路径
             </summary>
         </member>
         <member name="P:Yi.Framework.Module.WebFirstManager.Entities.FieldEntity.Name">
@@ -546,28 +496,39 @@
             生成路径
             </summary>
         </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Handler.FieldTemplateHandler.BuildFields">
+            <summary>
+            生成Fields
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Framework.Module.WebFirstManager.Impl.FieldService">
             <summary>
             字段管理
             </summary>
         </member>
-        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostBuildCodeAsync">
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostWebBuildCodeAsync">
             <summary>
-            一键构建生成代码
+            Web To Code
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostBuildTableAsync">
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostWebBuildDbAsync">
             <summary>
-            一键构建生成表
+            Web To Db
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.BuildSingleTableAsync(Yi.Framework.Module.WebFirstManager.Entities.TableEntity)">
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostCodeBuildWebAsync">
             <summary>
-            每次去构建一张表的数据
+            Code To Web
             </summary>
-            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostCodeBuildDbAsync">
+            <summary>
+            Code To Db
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.Module.WeChat.IWeChatManager.Code2SessionAsync(Yi.Framework.Module.WeChat.Model.Code2SessionInput)">

@@ -9,6 +9,7 @@ using Yi.Framework.Module.WebFirstManager.Enums;
 
 namespace Yi.Framework.Module.WebFirstManager.Entities
 {
+    [SugarTable("Field")]
     public class FieldEntity : IEntity<long>
     {
         [SugarColumn(IsPrimaryKey = true)]

@@ -28,10 +28,10 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
         }
 
         /// <summary>
-        /// 一键构建生成代码
+        /// Web To Code
         /// </summary>
         /// <returns></returns>
-        public async Task PostBuildCodeAsync()
+        public async Task PostWebBuildCodeAsync()
         {
             //获取全部表
             var tables = await _tableRepository.GetListAsync();
@@ -44,10 +44,27 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
 
 
         /// <summary>
-        /// 一键构建生成表
+        /// Web To Db
         /// </summary>
         /// <returns></returns>
-        public async Task PostBuildTableAsync()
+        public async Task PostWebBuildDbAsync()
+        {
+        }
+
+        /// <summary>
+        /// Code To Web
+        /// </summary>
+        /// <returns></returns>
+        public async Task PostCodeBuildWebAsync()
+        {
+        }
+
+
+        /// <summary>
+        /// Code To Db
+        /// </summary>
+        /// <returns></returns>
+        public async Task PostCodeBuildDbAsync()
         {
         }
     }

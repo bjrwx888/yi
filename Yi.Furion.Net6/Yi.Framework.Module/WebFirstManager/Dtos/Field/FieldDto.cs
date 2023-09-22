@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Infrastructure.Ddd.Dtos.Abstract;
 using Yi.Framework.Module.WebFirstManager.Enums;
 
 namespace Yi.Framework.Module.WebFirstManager.Dtos.Field
 {
-    public class FieldCreateInput
+    public class FieldDto : IEntityDto<long>
     {
         /// <summary>
         /// 字段名称
@@ -41,5 +42,6 @@ namespace Yi.Framework.Module.WebFirstManager.Dtos.Field
         /// 是否公共
         /// </summary>
         public bool IsPublic { get; set; }
+        public long Id { get; set; }
     }
 }

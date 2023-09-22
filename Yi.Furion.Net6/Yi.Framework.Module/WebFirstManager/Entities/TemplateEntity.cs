@@ -9,6 +9,7 @@ using Yi.Framework.Infrastructure.Ddd.Entities;
 
 namespace Yi.Framework.Module.WebFirstManager.Entities
 {
+    [SugarTable("Template")]
     public class TemplateEntity : IEntity<long>
     {
 

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SqlSugar;
-using Yi.Framework.Infrastructure.Ddd.Entities;
+using Yi.Framework.Infrastructure.Ddd.Dtos.Abstract;
+using Yi.Framework.Module.WebFirstManager.Entities;
 
-namespace Yi.Framework.Module.WebFirstManager.Entities
+namespace Yi.Framework.Module.WebFirstManager.Dtos.Table
 {
-    [SugarTable("Table")]
-    public class TableEntity : IEntity<long>
+    public class TableDto: IEntityDto<long>
     {
-        [SugarColumn(IsPrimaryKey = true)]
         public long Id { get; set; }
         /// <summary>
         /// 表名
@@ -21,13 +20,11 @@ namespace Yi.Framework.Module.WebFirstManager.Entities
         /// <summary>
         /// 备注
         /// </summary>
-
         public string? Description { get; set; }
 
         /// <summary>
         /// 一表多字段
         /// </summary>
-        [Navigate(NavigateType.OneToMany, nameof(FieldEntity.TableId))]
         public List<FieldEntity> Fields { get; set; }
     }
 }
