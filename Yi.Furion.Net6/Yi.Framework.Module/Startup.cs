@@ -28,6 +28,5 @@ public class Startup : AppStartup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-       var db= app.ApplicationServices.GetRequiredService<ISqlSugarClient>();
     }
 }
