@@ -23,6 +23,7 @@ public class Startup : AppStartup
         services.AddCurrentUserServer();
         services.AddTransient<IDataFilter, SqlsugarDataFilter>();
 
+        services.AddDbSqlsugarContextServer();
 
         services.AddSingleton<IPermissionHandler, DefaultPermissionHandler>();
         services.AddSingleton<PermissionGlobalAttribute>();
