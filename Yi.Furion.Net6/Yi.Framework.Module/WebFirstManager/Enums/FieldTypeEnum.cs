@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasyTool;
+
 
 namespace Yi.Framework.Module.WebFirstManager.Enums
 {
     public enum FieldTypeEnum
     {
-        [Description("string")]
+        [Description("String")]
         String,
 
-        [Description("int")]
+        [Description("Int32")]
         Int,
 
-        [Description("long")]
-        Long
+        [Description("Int64")]
+        Long,
     }
 }

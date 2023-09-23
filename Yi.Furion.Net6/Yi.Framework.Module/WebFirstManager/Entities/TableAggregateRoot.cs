@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlSugar;
 using Yi.Framework.Infrastructure.Ddd.Entities;
+using Yi.Framework.Infrastructure.Helper;
 
 namespace Yi.Framework.Module.WebFirstManager.Entities
 {
     [SugarTable("Table")]
-    public class TableEntity : IEntity<long>
+    public class TableAggregateRoot : IAggregateRoot<long>
     {
         [SugarColumn(IsPrimaryKey = true)]
-        public long Id { get; set; }
+        public long Id { get; set; } = SnowflakeHelper.NextId;
         /// <summary>
         /// 表名
         /// </summary>

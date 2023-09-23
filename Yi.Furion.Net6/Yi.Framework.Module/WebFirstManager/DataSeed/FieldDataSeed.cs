@@ -14,14 +14,14 @@ namespace Yi.Framework.Module.WebFirstManager.DataSeed
 {
     public class FieldDataSeed : AbstractDataSeed<FieldEntity>, ITransient
     {
-        private TableEntity _tableEntity;
+        private TableAggregateRoot _tableEntity;
         public FieldDataSeed(IRepository<FieldEntity> repository) : base(repository)
         {
         }
 
         public override async Task<bool> IsInvoker()
         {
-            var tableRepository = App.GetRequiredService<IRepository<TableEntity>>();
+            var tableRepository = App.GetRequiredService<IRepository<TableAggregateRoot>>();
              _tableEntity = await tableRepository.GetFirstAsync(x => x.Name == "Test");
             if (_tableEntity is null)
             {

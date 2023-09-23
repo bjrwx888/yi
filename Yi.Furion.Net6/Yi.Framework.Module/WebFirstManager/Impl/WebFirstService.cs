@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Mapster;
@@ -19,12 +20,14 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
     [ApiDescriptionSettings("WebFirstManager")]
     public class WebFirstService : ApplicationService, IWebFirstService, IDynamicApiController, ITransient
     {
-        private IRepository<TableEntity> _tableRepository;
-        private TemplateManager _templateManager;
-        public WebFirstService(IRepository<TableEntity> tableRepository, TemplateManager templateManager)
+        private IRepository<TableAggregateRoot> _tableRepository;
+        private CodeFileManager _codeFileManager;
+        private WebTemplateManager _webTemplateManager;
+        public WebFirstService(IRepository<TableAggregateRoot> tableRepository, CodeFileManager codeFileManager, WebTemplateManager webTemplateManager)
         {
             _tableRepository = tableRepository;
-            _templateManager = templateManager;
+            _codeFileManager = codeFileManager;
+            _webTemplateManager= webTemplateManager;
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
             var tables = await _tableRepository.GetListAsync();
             foreach (var table in tables)
             {
-                await _templateManager.HandlerAsync(table);
+                await _codeFileManager.BuildWebToCodeAsync(table);
             }
 
         }
@@ -55,8 +58,18 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
         /// Code To Web
         /// </summary>
         /// <returns></returns>
+        [UnitOfWork]
         public async Task PostCodeBuildWebAsync()
         {
+            var tableAggregateRoots =await  _webTemplateManager.BuildCodeToWebAsync();
+            //覆盖数据库，将聚合根保存到数据库
+            _tableRepository._Db.DbMaintenance.TruncateTable<TableAggregateRoot>();
+            _tableRepository._Db.DbMaintenance.TruncateTable<FieldEntity>();
+
+            //导航插入即可
+            await _tableRepository._Db.InsertNav(tableAggregateRoots).Include(x => x.Fields).ExecuteCommandAsync();
+
+         
         }
 
 

@@ -11,17 +11,17 @@ using Yi.Framework.Module.WebFirstManager.Entities;
 
 namespace Yi.Framework.Module.WebFirstManager.DataSeed
 {
-    public class TableDataSeed : AbstractDataSeed<TableEntity>, ITransient
+    public class TableDataSeed : AbstractDataSeed<TableAggregateRoot>, ITransient
     {
-        public TableDataSeed(IRepository<TableEntity> repository) : base(repository)
+        public TableDataSeed(IRepository<TableAggregateRoot> repository) : base(repository)
         {
         }
 
-        public override List<TableEntity> GetSeedData()
+        public override List<TableAggregateRoot> GetSeedData()
         {
-            var entities=new List<TableEntity>();
+            var entities=new List<TableAggregateRoot>();
 
-            entities.Add(new TableEntity
+            entities.Add(new TableAggregateRoot
             {
                 Id=SnowflakeHelper.NextId,
                 Name="Test",

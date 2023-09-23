@@ -9,17 +9,11 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
 {
     public class TemplateHandlerBase
     {
-        protected TableEntity Table { get; set; }
-        protected List<FieldEntity> Fields { get; set; }
+        protected TableAggregateRoot Table { get; set; }
 
-        public void SetTable(TableEntity table)
+        public void SetTable(TableAggregateRoot table)
         {
             Table = table;
-        }
-
-        public void SetFields(List<FieldEntity> fields)
-        {
-            Fields = fields;
         }
     }
 }

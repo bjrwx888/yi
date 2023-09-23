@@ -21,7 +21,7 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
             StringBuilder fieldStrs = new StringBuilder();
 
 
-            foreach (var field in Fields)
+            foreach (var field in Table.Fields)
             {
                 var typeStr = EnumUtil.GetDescriptionByValue(field.FieldType);
                 var nameStr = field.Name;

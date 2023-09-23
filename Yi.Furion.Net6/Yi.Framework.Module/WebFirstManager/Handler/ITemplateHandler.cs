@@ -9,9 +9,7 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
 {
     public interface ITemplateHandler
     {
-        void SetTable(TableEntity table);
-        void SetFields(List<FieldEntity> fields);
-
+        void SetTable(TableAggregateRoot table);
         string Invoker(string str);
     }
 }

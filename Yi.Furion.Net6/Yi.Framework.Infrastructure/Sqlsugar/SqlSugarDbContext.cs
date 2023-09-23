@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Yi.Framework.Infrastructure.CurrentUsers;
 using Yi.Framework.Infrastructure.Data.Auditing;
 using Yi.Framework.Infrastructure.Data.Entities;
+using Yi.Framework.Infrastructure.Ddd.Entities;
+using Yi.Framework.Infrastructure.Helper;
 
 namespace Yi.Framework.Infrastructure.Sqlsugar
 {
@@ -124,6 +126,15 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
                     }
                     break;
                 case DataFilterType.InsertByObject:
+                    if (entityInfo.PropertyName.Equals(nameof(IEntity<long>.Id)))
+                    {
+                        //主键为空或者为默认最小值
+                        if (oldValue is 0)
+                        {
+                            entityInfo.SetValue(SnowflakeHelper.NextId);
+                        }
+                    }
+
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
                     {
                         //为空或者为默认最小值

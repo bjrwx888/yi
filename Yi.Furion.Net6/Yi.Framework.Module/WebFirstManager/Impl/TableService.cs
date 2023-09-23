@@ -14,7 +14,7 @@ using Yi.Framework.Module.WebFirstManager.Entities;
 namespace Yi.Framework.Module.WebFirstManager.Impl
 {
     [ApiDescriptionSettings("WebFirstManager")]
-    public class TableService : CrudAppService<TableEntity, TableDto, long, TableGetListInput> ,ITableService, ITransient, IDynamicApiController
+    public class TableService : CrudAppService<TableAggregateRoot, TableDto, long, TableGetListInput> ,ITableService, ITransient, IDynamicApiController
     {
     }
 }
