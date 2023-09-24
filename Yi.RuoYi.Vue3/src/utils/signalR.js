@@ -51,11 +51,11 @@ async close(){
       //使用async和await 或 promise的then 和catch 处理来自服务端的异常
       await this.SR.start();
       //console.assert(this.SR.state === signalR.HubConnectionState.Connected);
-      console.log('signalR 连接成功了', this.SR.state);
+      //console.log('signalR 连接成功了', this.SR.state);
       return true;
     } catch (error) {
       that.failNum--;
-      console.log(`失败重试剩余次数${that.failNum}`, error)
+      //console.log(`失败重试剩余次数${that.failNum}`, error)
       if (that.failNum > 0) {
         setTimeout(async () => {
           await this.SR.start()
