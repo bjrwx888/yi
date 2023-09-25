@@ -21,6 +21,7 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
         public override List<MenuEntity> GetSeedData()
         {
             List<MenuEntity> entities = new List<MenuEntity>();
+
             //系统管理
             MenuEntity system = new MenuEntity()
             {
@@ -36,6 +37,45 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
                 IsDeleted = false
             };
             entities.Add(system);
+
+            //WebFirst
+            MenuEntity webfirst = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "WebFirst",
+                MenuType = MenuTypeEnum.Catalogue,
+                Router = "/webfirst",
+                IsShow = true,
+                IsLink = false,
+                MenuIcon = "build",
+                OrderNum = 91,
+                ParentId = 0,
+                IsDeleted = false
+            };
+            entities.Add(webfirst);
+
+            //数据表管理
+            MenuEntity table = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "数据表管理",
+                PermissionCode = "webfirst:table:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "table",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "webfirst/table/index",
+                MenuIcon = "online",
+                OrderNum = 100,
+                ParentId = webfirst.Id,
+                IsDeleted = false
+            };
+            entities.Add(table);
+
+
+
+
 
             //系统监控
             MenuEntity monitoring = new MenuEntity()

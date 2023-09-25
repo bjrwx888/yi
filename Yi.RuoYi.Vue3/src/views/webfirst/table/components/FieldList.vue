@@ -2,6 +2,6 @@
 字段:{{ field }}
 </template>
 <script setup>
-import useFieldHook from '../hooks/fieldHook'
-const {field}=useFieldHook();
+import useField from '../hooks/useField'
+const {field}=useField();
 </script>
