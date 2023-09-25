@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 
-		<PackageReference Include="EasyTool.Core" Version="2023.914.2-pre-230916124403" />
+		<PackageReference Include="EasyTool.Core" Version="2023.917.1-pre-230918120857" />
 
 		<PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.8.8.43" />
 		<PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.8.8.43" />
