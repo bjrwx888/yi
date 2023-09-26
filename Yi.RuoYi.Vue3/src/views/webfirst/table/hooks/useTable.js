@@ -1,9 +1,11 @@
+import {listData} from "@/api/webfirst/tableApi.js"
 
 const useTable=()=>{
-    const table=ref("数据表选择")
-    onMounted(() => {
-        console.log(`the component is now mounted. table`)
+    const dataList=ref([]);
+    onMounted( async() => {
+    const response= await listData();
+    dataList.value=response.data.items;
       });
-      return {table};
+    return {dataList};
 }
 export default useTable;

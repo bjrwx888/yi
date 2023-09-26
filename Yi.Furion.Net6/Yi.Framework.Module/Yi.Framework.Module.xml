@@ -523,6 +523,12 @@
             字段管理
             </summary>
         </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.FieldService.GetFieldTypeEnum">
+            <summary>
+            获取类型枚举
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostWebBuildCodeAsync">
             <summary>
             Web To Code
