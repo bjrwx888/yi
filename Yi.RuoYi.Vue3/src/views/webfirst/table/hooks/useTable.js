@@ -1,6 +1,6 @@
 
 const useTable=()=>{
-    const table=ref("bg")
+    const table=ref("数据表选择")
     onMounted(() => {
         console.log(`the component is now mounted. table`)
       });
