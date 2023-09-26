@@ -1,9 +1,11 @@
 import request from '@/utils/request'
-
+/* 以下为api的模板，通用的crud，将以下变量替换即可：
+@model@ : 实体模型
+*/
 // 分页查询
 export function listData(query) {
   return request({
-    url: '/table',
+    url: '/@model@',
     method: 'get',
     params: query
   })
@@ -12,7 +14,7 @@ export function listData(query) {
 // id查询
 export function getData(id) {
   return request({
-    url: `/table/${id}`,
+    url: `/@model@/${id}`,
     method: 'get'
   })
 }
@@ -20,7 +22,7 @@ export function getData(id) {
 // 新增
 export function addData(data) {
   return request({
-    url: '/table',
+    url: '/@model@',
     method: 'post',
     data: data
   })
@@ -29,7 +31,7 @@ export function addData(data) {
 // 修改
 export function updateData(id,data) {
   return request({
-    url: `/table/${id}`,
+    url: `/@model@/${id}`,
     method: 'put',
     data: data
   })
@@ -38,7 +40,7 @@ export function updateData(id,data) {
 // 删除
 export function delData(ids) {
   return request({
-    url: `/table/${ids}`,
+    url: `/@model@/${ids}`,
     method: 'delete',
   })
 }

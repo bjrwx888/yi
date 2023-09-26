@@ -1,15 +1,21 @@
 
 <template>
+    <!-- <div>
+该文件为通用Crud模板文件，按照规范只需要 替换以下变量即可，
+@Name@ ： 实体中文名称
+@per:per@ ：crud权限编码
+@api@ : api文件路径,例如：webfirst/tableApi
+    </div> -->
     <div class="app-container">
         <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="100px">
-            <el-form-item label="表名称" prop="name">
-                <el-input v-model="queryParams.name" placeholder="请输入表名称" clearable style="width: 240px"
+            <el-form-item label="@Name@名称" prop="name">
+                <el-input v-model="queryParams.name" placeholder="请输入@Name@名称" clearable style="width: 240px"
                     @keyup.enter="handleQuery" prop="name" />
             </el-form-item>
-            <!-- <el-form-item label="表编号" prop="code">
-                <el-input v-model="queryParams.code" placeholder="请输入表编号" clearable style="width: 240px"
+            <el-form-item label="@Name@编号" prop="code">
+                <el-input v-model="queryParams.code" placeholder="请输入@Name@编号" clearable style="width: 240px"
                     @keyup.enter="handleQuery" prop="code" />
-            </el-form-item> -->
+            </el-form-item>
             <!-- <el-form-item label="状态" prop="isDeleted">
             <el-select
               v-model="queryParams.isDeleted"
@@ -43,20 +49,19 @@
 
         <el-row :gutter="10" class="mb8">
             <el-col :span="1.5">
-                <el-button type="primary" plain icon="Plus" @click="handleAdd"
-                    v-hasPermi="['webfirst:table:add']">新增</el-button>
+                <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['@per:per@:add']">新增</el-button>
             </el-col>
             <el-col :span="1.5">
                 <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
-                    v-hasPermi="['webfirst:table:edit']">修改</el-button>
+                    v-hasPermi="['@per:per@:edit']">修改</el-button>
             </el-col>
             <el-col :span="1.5">
                 <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
-                    v-hasPermi="['webfirst:table:remove']">删除</el-button>
+                    v-hasPermi="['@per:per@:remove']">删除</el-button>
             </el-col>
             <el-col :span="1.5">
                 <el-button type="warning" plain icon="Download" @click="handleExport"
-                    v-hasPermi="['webfirst:table:export']">导出</el-button>
+                    v-hasPermi="['@per:per@:export']">导出</el-button>
             </el-col>
             <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
@@ -65,19 +70,26 @@
             <el-table-column type="selection" width="55" align="center" />
 
             <!-----------------------这里开始就是数据表单的全部列------------------------>
+            <el-table-column label="@Name@编号" align="center" prop="code" />
 
-            <el-table-column label="表名称" align="center" prop="name" :show-overflow-tooltip="true" />
+            <el-table-column label="@Name@名称" align="center" prop="name" :show-overflow-tooltip="true" />
 
-           
-         
-
-           <el-table-column
-            label="描述"
+            <el-table-column label="备注" align="center" prop="remarks" :show-overflow-tooltip="true" />
+            <!-- <el-table-column label="状态" align="center" prop="isDeleted">
+            <template #default="scope">
+              <dict-tag
+                :options="sys_normal_disable"
+                :value="scope.row.isDeleted"
+              />
+            </template>
+          </el-table-column> -->
+            <!-- <el-table-column
+            label="备注"
             align="center"
-            prop="description"
+            prop="remark"
             :show-overflow-tooltip="true"
           />
-          <!-- <el-table-column
+          <el-table-column
             label="创建时间"
             align="center"
             prop="createTime"
@@ -104,9 +116,12 @@
         <!-- ---------------------这里是新增和更新的对话框--------------------- -->
         <el-dialog :title="title" v-model="open" width="600px" append-to-body>
             <el-form ref="dataRef" :model="form" :rules="rules" label-width="100px">
+                <el-form-item label="@Name@编码" prop="code">
+                    <el-input v-model="form.code" placeholder="请输入@Name@编码" />
+                </el-form-item>
 
-                <el-form-item label="表名称" prop="name">
-                    <el-input v-model="form.name" placeholder="请输入表名称" />
+                <el-form-item label="@Name@名称" prop="name">
+                    <el-input v-model="form.name" placeholder="请输入@Name@名称" />
                 </el-form-item>
 
                 <!-- <el-form-item label="状态" prop="isDeleted">
@@ -119,8 +134,8 @@
                 >
               </el-radio-group>
             </el-form-item> -->
-                <el-form-item label="描述" prop="description">
-                    <el-input v-model="form.description" type="textarea" placeholder="请输入内容"></el-input>
+                <el-form-item label="备注" prop="remarks">
+                    <el-input v-model="form.remarks" type="textarea" placeholder="请输入内容"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -140,7 +155,9 @@ import {
     delData,
     addData,
     updateData,
-} from "@/api/webfirst/tableApi";
+} from "@/api/@model@";
+import { ref } from "@vue/reactivity";
+
 
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
@@ -164,8 +181,8 @@ const data = reactive({
         code: undefined,
     },
     rules: {
-        code: [{ required: true, message: "表编号不能为空", trigger: "blur" }],
-        name: [{ required: true, message: "表名称不能为空", trigger: "blur" }],
+        code: [{ required: true, message: "@Name@编号不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "@Name@名称不能为空", trigger: "blur" }],
     },
 });
 
@@ -209,7 +226,7 @@ function resetQuery() {
 function handleAdd() {
     reset();
     open.value = true;
-    title.value = "添加表";
+    title.value = "添加@Name@";
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
@@ -224,7 +241,7 @@ function handleUpdate(row) {
     getData(id).then((response) => {
         form.value = response.data;
         open.value = true;
-        title.value = "修改表";
+        title.value = "修改@Name@";
     });
 }
 /** 提交按钮 */
