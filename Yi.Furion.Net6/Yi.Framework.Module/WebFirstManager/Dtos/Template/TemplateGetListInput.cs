@@ -9,5 +9,11 @@ namespace Yi.Framework.Module.WebFirstManager.Dtos.Template
 {
     public class TemplateGetListInput : PagedAndSortedResultRequestDto
     {
+
+        /// <summary>
+        /// 模板名称
+        /// </summary>
+        public string? Name { get; set; }
+
     }
 }

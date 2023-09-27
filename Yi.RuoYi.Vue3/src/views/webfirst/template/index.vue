@@ -7,35 +7,20 @@
       v-show="showSearch"
       label-width="100px"
     >
-      <el-form-item label="表名称" prop="name">
+      <el-form-item label="模板名称" prop="name">
         <el-input
           v-model="queryParams.name"
-          placeholder="请输入表名称"
+          placeholder="请输入模板名称"
           clearable
           style="width: 240px"
           @keyup.enter="handleQuery"
           prop="name"
         />
       </el-form-item>
-      <!-- <el-form-item label="表编号" prop="code">
-                <el-input v-model="queryParams.code" placeholder="请输入表编号" clearable style="width: 240px"
+      <!-- <el-form-item label="模板编号" prop="code">
+                <el-input v-model="queryParams.code" placeholder="请输入模板编号" clearable style="width: 240px"
                     @keyup.enter="handleQuery" prop="code" />
             </el-form-item> -->
-      <!-- <el-form-item label="状态" prop="isDeleted">
-            <el-select
-              v-model="queryParams.isDeleted"
-              placeholder="状态"
-              clearable
-              style="width: 240px"
-            >
-              <el-option
-                v-for="dict in sys_normal_disable"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
-            </el-select>
-          </el-form-item> -->
       <!-- <el-form-item label="创建时间" style="width: 308px">
             <el-date-picker
               v-model="dateRange"
@@ -61,7 +46,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['webfirst:table:add']"
+          v-hasPermi="['webfirst:template:add']"
           >新增</el-button
         >
       </el-col>
@@ -72,7 +57,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['webfirst:table:edit']"
+          v-hasPermi="['webfirst:template:edit']"
           >修改</el-button
         >
       </el-col>
@@ -83,7 +68,7 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['webfirst:table:remove']"
+          v-hasPermi="['webfirst:template:remove']"
           >删除</el-button
         >
       </el-col>
@@ -93,41 +78,8 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['webfirst:table:export']"
+          v-hasPermi="['webfirst:template:export']"
           >导出</el-button
-        >
-      </el-col>
-
-      <!-- <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Switch"
-          @click="handleExport"
-          v-hasPermi="['webfirst:table:export']"
-          >同步数据库WebToDb</el-button
-        >
-      </el-col> -->
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Switch"
-          @click="handleWebToCode"
-          :disabled="ids.length==0"
-          v-hasPermi="['webfirst:table:export']"
-          >代码生成WebToCode</el-button
-        >
-      </el-col>
-
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="Switch"
-          @click="handleCodeToWeb"
-          v-hasPermi="['webfirst:table:export']"
-          >实体同步CodeToWeb</el-button
         >
       </el-col>
       <right-toolbar
@@ -146,16 +98,31 @@
       <!-----------------------这里开始就是数据表单的全部列------------------------>
 
       <el-table-column
-        label="表名称"
+        label="模板名称"
         align="center"
         prop="name"
         :show-overflow-tooltip="true"
       />
-
       <el-table-column
-        label="描述"
+        label="生成路径"
         align="center"
-        prop="description"
+        prop="buildPath"
+        :show-overflow-tooltip="true"
+      />
+
+      <!-- <el-table-column label="备注" align="center" prop="remarks" :show-overflow-tooltip="true" /> -->
+      <!-- <el-table-column label="状态" align="center" prop="isDeleted">
+            <template #default="scope">
+              <dict-tag
+                :options="sys_normal_disable"
+                :value="scope.row.isDeleted"
+              />
+            </template>
+          </el-table-column> -->
+      <el-table-column
+        label="备注"
+        align="center"
+        prop="remarks"
         :show-overflow-tooltip="true"
       />
       <!-- <el-table-column
@@ -178,14 +145,14 @@
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['business:article:edit']"
+            v-hasPermi="['webfirst:template:edit']"
             >修改</el-button
           >
           <el-button
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['business:article:remove']"
+            v-hasPermi="['webfirst:template:remove']"
             >删除</el-button
           >
         </template>
@@ -201,10 +168,16 @@
     />
 
     <!-- ---------------------这里是新增和更新的对话框--------------------- -->
-    <el-dialog :title="title" v-model="open" width="600px" append-to-body>
+    <el-dialog :title="title" v-model="open" width="1200px" append-to-body>
       <el-form ref="dataRef" :model="form" :rules="rules" label-width="100px">
-        <el-form-item label="表名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入表名称" />
+        <el-form-item label="模板名称" prop="name">
+          <el-input v-model="form.name" placeholder="请输入模板名称" />
+        </el-form-item>
+
+        <el-form-item label="构建路径" prop="buildPath">
+          
+          <el-input v-model="form.buildPath" placeholder="请输入构建路径" />
+          <el-button type="primary" @click="openDir(form.buildPath)">打开目录</el-button>
         </el-form-item>
 
         <!-- <el-form-item label="状态" prop="isDeleted">
@@ -217,9 +190,25 @@
                 >
               </el-radio-group>
             </el-form-item> -->
-        <el-form-item label="描述" prop="description">
+
+            <TempalteTip/>
+        <el-form-item label="模板内容" prop="templateStr">
           <el-input
-            v-model="form.description"
+            v-model="form.templateStr"
+            type="textarea"
+            :rows="30"
+            placeholder="请输入模板内容"
+          ></el-input>
+       
+        </el-form-item>
+        
+        <ReplaceText style="margin-bottom: 15px;" :text="form.templateStr" @handleText='hanldeReplaceText'></ReplaceText>
+
+
+
+        <el-form-item label="备注" prop="remarks">
+          <el-input
+            v-model="form.remarks"
             type="textarea"
             placeholder="请输入内容"
           ></el-input>
@@ -242,8 +231,11 @@ import {
   delData,
   addData,
   updateData,
-} from "@/api/webfirst/tableApi";
-import { codeToWeb,webToCode } from "@/api/webfirst/webfirstApi";
+} from "@/api/webfirst/templateApi";
+import {openPath} from "@/api/webfirst/webfirstApi";
+import { ref } from "@vue/reactivity";
+import ReplaceText from './components/ReplaceText'
+import TempalteTip from './components/TempalteTip.vue'
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
 
@@ -263,11 +255,12 @@ const data = reactive({
     pageNum: 1,
     pageSize: 10,
     name: undefined,
-    code: undefined,
   },
   rules: {
-    code: [{ required: true, message: "表编号不能为空", trigger: "blur" }],
-    name: [{ required: true, message: "表名称不能为空", trigger: "blur" }],
+    name: [{ required: true, message: "模板名称不能为空", trigger: "blur" }],
+    buildPath: [
+      { required: true, message: "构建路径不能为空", trigger: "blur" },
+    ],
   },
 });
 
@@ -309,7 +302,7 @@ function resetQuery() {
 function handleAdd() {
   reset();
   open.value = true;
-  title.value = "添加表";
+  title.value = "添加模板";
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
@@ -324,7 +317,7 @@ function handleUpdate(row) {
   getData(id).then((response) => {
     form.value = response.data;
     open.value = true;
-    title.value = "修改表";
+    title.value = "修改模板";
   });
 }
 /** 提交按钮 */
@@ -364,21 +357,21 @@ function handleDelete(row) {
 /** 导出按钮操作 */
 function handleExport() {}
 
-/** CodeToWeb */
-const handleCodeToWeb = async () => {
-  await codeToWeb();
-  proxy.$modal.msgSuccess("实体同步成功");
-  getList();
-};
 
-/** CodeToWeb */
-const handleWebToCode = async () => {
-  const response= await webToCode(ids.value);
+/** 处理字符串替换 */
+function hanldeReplaceText(text)
+{
+    form.value.templateStr=text;
+}
+getList();
+
+/** 打开目录 */
+async function openDir(path)
+{
+  const response= await openPath(path);
   if(response.statusCode==200)
   {
-    proxy.$modal.msgSuccess("代码生成成功");
+    proxy.$modal.msgSuccess("目录打开成功");
   }
-
-};
-getList();
+}
 </script>

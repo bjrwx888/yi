@@ -73,6 +73,47 @@ namespace Yi.Furion.Core.Rbac.DataSeeds
             };
             entities.Add(table);
 
+            //字段管理
+            MenuEntity field = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "字段管理",
+                PermissionCode = "webfirst:field:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "field",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "webfirst/field/index",
+                MenuIcon = "number",
+                OrderNum = 99,
+                ParentId = webfirst.Id,
+                IsDeleted = false
+            };
+            entities.Add(field);
+
+
+            //模板管理
+            MenuEntity template = new MenuEntity()
+            {
+                Id = SnowflakeHelper.NextId,
+                MenuName = "模板管理",
+                PermissionCode = "webfirst:template:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "template",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "webfirst/template/index",
+                MenuIcon = "documentation",
+                OrderNum = 98,
+                ParentId = webfirst.Id,
+                IsDeleted = false
+            };
+            entities.Add(template);
+
+
+
 
 
 

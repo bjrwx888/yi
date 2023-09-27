@@ -103,9 +103,9 @@
                 <template #default="scope">
 
                     <el-button type="text" icon="Edit" @click="handleUpdate(scope.row)"
-                        v-hasPermi="['business:article:edit']">修改</el-button>
+                        v-hasPermi="['@per:per@:edit']">修改</el-button>
                     <el-button type="text" icon="Delete" @click="handleDelete(scope.row)"
-                        v-hasPermi="['business:article:remove']">删除</el-button>
+                        v-hasPermi="['@per:per@:remove']">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -155,7 +155,7 @@ import {
     delData,
     addData,
     updateData,
-} from "@/api/@model@";
+} from "@/api/@api@";
 import { ref } from "@vue/reactivity";
 
 

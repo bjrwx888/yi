@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EasyTool;
 using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
@@ -82,7 +82,7 @@ namespace Yi.Framework.Module.WebFirstManager.Domain
         {
             var fieldEntity = new FieldEntity();
             fieldEntity.Name = propertyInfo.Name;
-            var enumName = typeof(FieldTypeEnum).GetFields(BindingFlags.Static | BindingFlags.Public).Where(x => x.GetCustomAttribute<DescriptionAttribute>()?.Description == propertyInfo.PropertyType.Name).FirstOrDefault()?.Name;
+            var enumName = typeof(FieldTypeEnum).GetFields(BindingFlags.Static | BindingFlags.Public).Where(x => x.GetCustomAttribute<DisplayAttribute>()?.Name== propertyInfo.PropertyType.Name).FirstOrDefault()?.Name;
             if (enumName is null)
             {
                 fieldEntity.FieldType = FieldTypeEnum.String;
@@ -91,7 +91,7 @@ namespace Yi.Framework.Module.WebFirstManager.Domain
             }
             else
             {
-                fieldEntity.FieldType = EnumUtil.Parse<FieldTypeEnum>(enumName);
+                fieldEntity.FieldType =EasyTool.EnumUtil.Parse<FieldTypeEnum>(enumName);
             }
 
             var colum = propertyInfo.GetCustomAttribute<SugarColumn>();

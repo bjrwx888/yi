@@ -10,6 +10,6 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
     public interface ITemplateHandler
     {
         void SetTable(TableAggregateRoot table);
-        string Invoker(string str);
+        HandledTemplate Invoker(string str, string path);
     }
 }

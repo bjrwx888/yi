@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yi.Framework.Infrastructure.Ddd.Dtos.Abstract;
+﻿using Yi.Framework.Infrastructure.Ddd.Dtos.Abstract;
 
 namespace Yi.Framework.Module.WebFirstManager.Dtos.Template
 {
@@ -20,5 +15,16 @@ namespace Yi.Framework.Module.WebFirstManager.Dtos.Template
         /// 生成路径
         /// </summary>
         public string BuildPath { get; set; }
+
+
+        /// <summary>
+        /// 模板名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string? Remarks { get; set; }
     }
 }

@@ -10,9 +10,12 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
 {
     public class ModelTemplateHandler : TemplateHandlerBase, ITemplateHandler, ISingleton
     {
-        public string Invoker(string str)
+        public HandledTemplate Invoker(string str, string path)
         {
-            return str.Replace("@model", StrUtil.ToFirstLetterLowerCase(Table.Name)).Replace("@Model", StrUtil.ToFirstLetterUpperCase(Table.Name));
+            var output = new HandledTemplate();
+            output.TemplateStr= str.Replace("@model", StrUtil.ToFirstLetterLowerCase(Table.Name)).Replace("@Model", StrUtil.ToFirstLetterUpperCase(Table.Name));
+            output.BuildPath = path.Replace("@model", StrUtil.ToFirstLetterLowerCase(Table.Name)).Replace("@Model", StrUtil.ToFirstLetterUpperCase(Table.Name));
+            return output;
         }
     }
 }

@@ -22,25 +22,29 @@ namespace Yi.Framework.Module.WebFirstManager.Domain
         public async Task BuildWebToCodeAsync(TableAggregateRoot tableEntity)
         {
             var templates = await _repository.GetListAsync();
-            var fields = await _fieldRepository.GetListAsync();
             foreach (var template in templates)
             {
-                string templateStr = template.TemplateStr;
+                var handledTempalte = new HandledTemplate();
+                handledTempalte.TemplateStr= template.TemplateStr;
+                handledTempalte.BuildPath = template.BuildPath;
                 foreach (var templateHandler in _templateHandlers)
                 {
                     templateHandler.SetTable(tableEntity);
-                    templateStr = templateHandler.Invoker(templateStr);
+                    handledTempalte = templateHandler.Invoker(handledTempalte.TemplateStr, handledTempalte.BuildPath);
                 }
+                await BuildToFileAsync(handledTempalte);
 
-                await BuildToFileAsync(templateStr, template);
             }
         }
 
 
-        private async Task BuildToFileAsync(string str, TemplateEntity templateEntity)
+        private async Task BuildToFileAsync(HandledTemplate handledTemplate)
         {
-
-            //await File.WriteAllTextAsync(str, templateEntity.BuildPath);
+            if (!Directory.Exists(Path.GetDirectoryName(handledTemplate.BuildPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(handledTemplate.BuildPath));
+            }
+            await File.WriteAllTextAsync(handledTemplate.BuildPath,handledTemplate.TemplateStr);
         }
 
 

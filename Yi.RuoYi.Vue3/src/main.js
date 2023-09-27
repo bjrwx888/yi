@@ -21,7 +21,7 @@ import { download } from '@/utils/ruoyi.js'
 import 'virtual:svg-icons-register'
 import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
-import signalR from '@/utils/signalR'
+// import signalR from '@/utils/signalR'
 
 import './permission' // permission control
 
@@ -80,7 +80,7 @@ app.use(ElementPlus, {
 })
 // app.prototype.signalr = signalR
 
-signalR.init(`${import.meta.env.VITE_APP_BASE_WS}/hub/main`);
+// signalR.init(`${import.meta.env.VITE_APP_BASE_WS}/hub/main`);
 // signalR.start();
 app.mount('#app')
 

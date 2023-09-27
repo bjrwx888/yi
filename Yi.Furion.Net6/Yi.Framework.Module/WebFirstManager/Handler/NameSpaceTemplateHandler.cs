@@ -9,9 +9,12 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
 {
     public class NameSpaceTemplateHandler : TemplateHandlerBase, ITemplateHandler, ISingleton
     {
-        public string Invoker(string str)
+        public HandledTemplate Invoker(string str, string path)
         {
-            return str.Replace("@namespace", "");
+            var output = new HandledTemplate();
+            output.TemplateStr = str.Replace("@namespace", "");
+            output.BuildPath = path;
+            return output;
         }
     }
 }

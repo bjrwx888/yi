@@ -462,6 +462,21 @@
             生成路径
             </summary>
         </member>
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Template.TemplateDto.Name">
+            <summary>
+            模板名称
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Template.TemplateDto.Remarks">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Module.WebFirstManager.Dtos.Template.TemplateGetListInput.Name">
+            <summary>
+            模板名称
+            </summary>
+        </member>
         <member name="P:Yi.Framework.Module.WebFirstManager.Entities.FieldEntity.Name">
             <summary>
             字段名称
@@ -512,6 +527,16 @@
             生成路径
             </summary>
         </member>
+        <member name="P:Yi.Framework.Module.WebFirstManager.Entities.TemplateEntity.Name">
+            <summary>
+            模板名称
+            </summary>
+        </member>
+        <member name="P:Yi.Framework.Module.WebFirstManager.Entities.TemplateEntity.Remarks">
+            <summary>
+            备注
+            </summary>
+        </member>
         <member name="M:Yi.Framework.Module.WebFirstManager.Handler.FieldTemplateHandler.BuildFields">
             <summary>
             生成Fields
@@ -529,7 +554,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostWebBuildCodeAsync">
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostWebBuildCodeAsync(System.Collections.Generic.List{System.Int64})">
             <summary>
             Web To Code
             </summary>
@@ -550,6 +575,12 @@
         <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostCodeBuildDbAsync">
             <summary>
             Code To Db
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostDir(System.String)">
+            <summary>
+            打开目录
             </summary>
             <returns></returns>
         </member>
