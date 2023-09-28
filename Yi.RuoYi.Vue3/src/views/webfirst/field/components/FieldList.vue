@@ -41,6 +41,7 @@
           v-hasPermi="['system:config:add']"
           >新增</el-button
         >
+        <!-- :disabled="props.table.name==null" -->
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -94,7 +95,11 @@
     </template>
           </el-table-column>
 
-      <el-table-column label="长度" align="center" prop="length" />
+      <el-table-column label="长度" align="center" prop="length" >
+        <template #default="scope">
+           {{ scope.row.length==0?'-':scope.row.length }}
+           </template>
+      </el-table-column>
 
       <el-table-column label="是否必填" align="center" prop="isRequired" >
            <template #default="scope">

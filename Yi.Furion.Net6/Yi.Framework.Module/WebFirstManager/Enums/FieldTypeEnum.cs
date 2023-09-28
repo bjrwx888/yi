@@ -19,5 +19,14 @@ namespace Yi.Framework.Module.WebFirstManager.Enums
 
         [Display(Name = "long", Description = "Int64")]
         Long,
+
+        [Display(Name ="bool",Description = "Boolean")]
+        Bool,
+
+        [Display(Name = "decimal",Description = "Decimal")]
+        Decimal,
+
+        [Display(Name = "DateTime", Description = "DateTime")]
+        DateTime,
     }
 }

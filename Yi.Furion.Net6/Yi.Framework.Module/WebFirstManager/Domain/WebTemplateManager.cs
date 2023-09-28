@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +12,7 @@ using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Mapster.Utils;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1.Ntt;
 using SqlSugar;
@@ -78,22 +80,56 @@ namespace Yi.Framework.Module.WebFirstManager.Domain
         }
 
 
-        private  FieldEntity PropertyMapperToFiled(PropertyInfo propertyInfo)
+        private FieldEntity PropertyMapperToFiled(PropertyInfo propertyInfo)
         {
             var fieldEntity = new FieldEntity();
             fieldEntity.Name = propertyInfo.Name;
-            var enumName = typeof(FieldTypeEnum).GetFields(BindingFlags.Static | BindingFlags.Public).Where(x => x.GetCustomAttribute<DisplayAttribute>()?.Name== propertyInfo.PropertyType.Name).FirstOrDefault()?.Name;
-            if (enumName is null)
+
+
+            //获取数据类型，包括可空类型
+            Type? fieldType = null;
+            // 如果字段类型是 Nullable<T> 泛型类型
+            if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                fieldEntity.FieldType = FieldTypeEnum.String;
-                 Console.Out.WriteLine($"字段类型：{propertyInfo.PropertyType.Name}，未定义");
-                //throw new ApplicationException($"字段类型：{propertyInfo.PropertyType.Name}，未定义");
+                Type nullableType = Nullable.GetUnderlyingType(propertyInfo.PropertyType)!;
+                fieldType = nullableType;
             }
             else
             {
-                fieldEntity.FieldType =EasyTool.EnumUtil.Parse<FieldTypeEnum>(enumName);
+                fieldType = propertyInfo.PropertyType;
             }
 
+            //判断类型
+            var enumName = typeof(FieldTypeEnum).GetFields(BindingFlags.Static | BindingFlags.Public).Where(x => x.GetCustomAttribute<DisplayAttribute>()?.Description == fieldType.Name).FirstOrDefault()?.Name;
+            if (enumName is null)
+            {
+                fieldEntity.FieldType = FieldTypeEnum.String;
+               // App.GetRequiredService<ILogger<WebTemplateManager>>().LogError($"字段类型：{propertyInfo.PropertyType.Name}，未定义");
+            }
+            else
+            {
+                fieldEntity.FieldType = EasyTool.EnumUtil.Parse<FieldTypeEnum>(enumName);
+            }
+
+            //判断是否可空
+            if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                fieldEntity.IsRequired = false;
+            }
+            else
+            {
+                fieldEntity.IsRequired = true;
+            }
+
+
+
+            //判断是否主键
+            if (propertyInfo.GetCustomAttribute<SugarColumn>()?.IsPrimaryKey == true)
+            {
+                fieldEntity.IsKey = true;
+            }
+
+            //判断长度
             var colum = propertyInfo.GetCustomAttribute<SugarColumn>();
             if (colum is not null && colum.Length != 0)
             {

@@ -53,8 +53,15 @@ namespace Yi.Framework.Module.WebFirstManager.Handler
                     fieldStrs.AppendLine(lengthStr);
                 }
 
+                //添加可空类型
+                string nullStr ="";
+                if (field.IsRequired == false)
+                {
+                    nullStr = "?";
+                }
+
                 //添加字段
-                var fieldStr = $"public {typeStr} {nameStr} {{ get; set; }}";
+                var fieldStr = $"public {typeStr}{nullStr} {nameStr} {{ get; set; }}";
 
                 fieldStrs.AppendLine(fieldStr);
             }
