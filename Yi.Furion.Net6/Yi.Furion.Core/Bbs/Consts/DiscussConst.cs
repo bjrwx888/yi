@@ -12,8 +12,8 @@ namespace Yi.Furion.Core.Bbs.Consts
 
     public class DiscussConst
     {
-        public const string 主题不存在 = "传入的主题id不存在";
+        public const string No_Exist = "传入的主题id不存在";
 
-        public const string 私密 = "【私密】您无该主题权限，可联系作者申请开放";
+        public const string Privacy = "【私密】您无该主题权限，可联系作者申请开放";
     }
 }

@@ -125,7 +125,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
             if (userInfo.RoleCodes.Count == 0)
             {
-                throw new UserFriendlyException(UserConst.用户无角色分配);
+                throw new UserFriendlyException(UserConst.No_Role);
             }
             //这里抛出一个登录的事件
             var loginLogEntity = _httpContextAccessor.HttpContext.GetLoginLogInfo();

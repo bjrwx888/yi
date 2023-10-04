@@ -85,11 +85,11 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         {
             if (string.IsNullOrEmpty(input.Password))
             {
-                throw new UserFriendlyException(UserConst.添加失败_密码为空);
+                throw new UserFriendlyException(UserConst.Login_Passworld_Error);
             }
             if (await _repository.IsAnyAsync(u => input.UserName.Equals(u.UserName)))
             {
-                throw new UserFriendlyException(UserConst.添加失败_用户存在);
+                throw new UserFriendlyException(UserConst.User_Exist);
             }
             var entities = await MapToEntityAsync(input);
 

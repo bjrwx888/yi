@@ -40,9 +40,9 @@ namespace Yi.Furion.Application.Rbac.Domain
                 {
                     return;
                 }
-                throw new UserFriendlyException(UserConst.登录失败_错误);
+                throw new UserFriendlyException(UserConst.Login_Error);
             }
-            throw new UserFriendlyException(UserConst.登录失败_不存在);
+            throw new UserFriendlyException(UserConst.Login_User_No_Exist);
         }
 
         /// <summary>

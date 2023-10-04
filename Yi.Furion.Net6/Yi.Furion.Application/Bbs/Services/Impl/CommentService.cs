@@ -98,7 +98,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
         {
             if (!await _discussRepository.IsAnyAsync(x => x.Id == input.DiscussId))
             {
-                throw new UserFriendlyException(DiscussConst.主题不存在);
+                throw new UserFriendlyException(DiscussConst.No_Exist);
             }
             var entity = await _forumManager.CreateCommentAsync(input.DiscussId, input.ParentId, input.RootId, input.Content);
             return await MapToGetOutputDtoAsync(entity);

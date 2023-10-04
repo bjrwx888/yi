@@ -12,6 +12,6 @@ namespace Yi.Furion.Core.Bbs.Consts
 
     public class PlateConst
     {
-        public const string 板块不存在 = "传入的板块id不存在";
+        public const string No_Exist = "传入的板块id不存在";
     }
 }

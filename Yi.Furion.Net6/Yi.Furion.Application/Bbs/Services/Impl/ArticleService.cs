@@ -63,7 +63,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
         {
             if (!await _discussRepository.IsAnyAsync(x => x.Id == discussId))
             {
-                throw new UserFriendlyException(DiscussConst.主题不存在);
+                throw new UserFriendlyException(DiscussConst.No_Exist);
             }
 
             var entities = await _articleRepository.GetTreeAsync(x => x.DiscussId == discussId);
@@ -82,11 +82,11 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
             var discuss = await _discussRepository.GetFirstAsync(x => x.Id == input.DiscussId);
             if (discuss is null)
             {
-                throw new UserFriendlyException(DiscussConst.主题不存在);
+                throw new UserFriendlyException(DiscussConst.No_Exist);
             }
             if (input.ParentId != 0 && !await _repository.IsAnyAsync(x => x.Id == input.ParentId))
             {
-                throw new UserFriendlyException(ArticleConst.文章不存在);
+                throw new UserFriendlyException(ArticleConst.No_Exist);
             }
             await VerifyDiscussCreateIdAsync(discuss.CreatorId);
             return await base.CreateAsync(input);

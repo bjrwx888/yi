@@ -109,7 +109,7 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
         {
             if (!await _plateEntityRepository.IsAnyAsync(x => x.Id == input.PlateId))
             {
-                throw new UserFriendlyException(PlateConst.板块不存在);
+                throw new UserFriendlyException(PlateConst.No_Exist);
             }
             var entity = await _forumManager.CreateDiscussAsync(await MapToEntityAsync(input));
             return await MapToGetOutputDtoAsync(entity);
@@ -129,20 +129,20 @@ namespace Yi.Furion.Application.Bbs.Services.Impl
             var discuss = await _repository.GetFirstAsync(x => x.Id == discussId);
             if (discuss is null)
             {
-                throw new UserFriendlyException(DiscussConst.主题不存在);
+                throw new UserFriendlyException(DiscussConst.No_Exist);
             }
             if (discuss.PermissionType == DiscussPermissionTypeEnum.Oneself)
             {
                 if (discuss.CreatorId != _currentUser.Id)
                 {
-                    throw new UserFriendlyException(DiscussConst.私密);
+                    throw new UserFriendlyException(DiscussConst.Privacy);
                 }
             }
             if (discuss.PermissionType == DiscussPermissionTypeEnum.User)
             {
                 if (discuss.CreatorId != _currentUser.Id && !discuss.PermissionUserIds.Contains(_currentUser.Id))
                 {
-                    throw new UserFriendlyException(DiscussConst.私密);
+                    throw new UserFriendlyException(DiscussConst.Privacy);
                 }
             }
         }

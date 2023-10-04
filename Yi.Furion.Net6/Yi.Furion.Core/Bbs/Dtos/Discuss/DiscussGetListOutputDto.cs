@@ -50,7 +50,7 @@ namespace Yi.Furion.Core.Bbs.Dtos.Discuss
 
         public void SetBan()
         {
-            this.Title = DiscussConst.Ë½ÃÜ;
+            this.Title = DiscussConst.Privacy;
             this.Introduction = "";
             this.Cover = null;
             //±»½ûÖ¹
