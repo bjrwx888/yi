@@ -18,6 +18,9 @@ using Yi.Framework.Module.WebFirstManager.Entities;
 
 namespace Yi.Framework.Module.WebFirstManager.Impl
 {
+    /// <summary>
+    /// WebFirst
+    /// </summary>
     [ApiDescriptionSettings("WebFirstManager")]
     public class WebFirstService : ApplicationService, IWebFirstService, IDynamicApiController, ITransient
     {
