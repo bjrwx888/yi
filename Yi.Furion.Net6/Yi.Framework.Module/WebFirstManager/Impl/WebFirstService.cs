@@ -35,6 +35,15 @@ namespace Yi.Framework.Module.WebFirstManager.Impl
         }
 
         /// <summary>
+        /// 测试
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetTest()
+        {
+            return "hello！";
+        }
+
+        /// <summary>
         /// Web To Code
         /// </summary>
         /// <returns></returns>
