@@ -554,6 +554,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService">
+            <summary>
+            WebFirst
+            </summary>
+        </member>
+        <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.GetTest2">
+            <summary>
+            测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.Module.WebFirstManager.Impl.WebFirstService.PostWebBuildCodeAsync(System.Collections.Generic.List{System.Int64})">
             <summary>
             Web To Code

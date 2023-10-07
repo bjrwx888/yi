@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Furion;
 using Furion.Schedule;
 using Furion.TimeCrontab;
@@ -38,7 +39,7 @@ public class Startup : AppStartup
         {
             // 注册作业，并配置作业触发器
             //options.AddJob<TestJob>(Triggers.Period(10000));
-           //options.AddJob<SystemDataJob>(Triggers.Period(10000));
+            //options.AddJob<SystemDataJob>(Triggers.Period(10000));
             options.AddJob<SystemDataJob>(Triggers.Cron("0 0 0,12 ? * ?", CronStringFormat.WithSeconds)); // 表示每天凌晨与12点
         });
         services.AddFileLogging("log/application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
@@ -72,7 +73,19 @@ public class Startup : AppStartup
         app.UseAuthorization();
 
         app.UseInject(string.Empty);
+    }
 
+    private string ConverStr(string utf8mb3String)
+    {
+        // 将 utf8mb3String 转换为 UTF-8mb3 编码的字节数组
+        byte[] utf8mb3Bytes = Encoding.UTF8.GetBytes(utf8mb3String);
+
+        // 将 UTF-8mb3 编码的字节数组转换为 UTF-8mb4 编码的字节数组
+        byte[] utf8mb4Bytes = Encoding.Convert(Encoding.UTF8, new UTF8Encoding(true), utf8mb3Bytes);
+
+        // 将 UTF-8mb4 编码的字节数组转换为字符串
+        string utf8mb4String = Encoding.UTF8.GetString(utf8mb4Bytes);
+        return utf8mb4String;
     }
 }
 

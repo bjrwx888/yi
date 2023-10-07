@@ -4,6 +4,23 @@
         <name>Yi.Furion.Application</name>
     </assembly>
     <members>
+        <member name="T:Yi.Furion.Application.App.Services.Impl.TrendsService">
+            <summary>
+            Trends服务实现
+            </summary>
+        </member>
+        <member name="M:Yi.Furion.Application.App.Services.Impl.TrendsService.GetListAsync(Yi.Furion.Core.App.Dtos.Trends.TrendsGetListInput)">
+            <summary>
+            多查
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Furion.Application.App.Services.ITrendsService">
+            <summary>
+            Trends服务抽象
+            </summary>
+        </member>
         <member name="T:Yi.Furion.Application.Bbs.Domain.ForumManager">
             <summary>
             论坛模块的领域服务

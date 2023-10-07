@@ -12,16 +12,16 @@ using Microsoft.Extensions.Options;
 using Yi.Framework.Infrastructure.Extensions;
 using Yi.Framework.Infrastructure.Helper;
 
-namespace Yi.Furion.Application.Rbac.Services
+namespace Yi.Furion.Application.Rbac.Services.Impl
 {
     [ApiDescriptionSettings("RBAC")]
-    public class MonitorServerService: IMonitorServerService,IDynamicApiController, ITransient
+    public class MonitorServerService : IMonitorServerService, IDynamicApiController, ITransient
     {
         private IWebHostEnvironment _hostEnvironment;
         private IHttpContextAccessor _httpContextAccessor;
         public MonitorServerService(IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
-            this._hostEnvironment = hostEnvironment;
+            _hostEnvironment = hostEnvironment;
             _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet("info")]

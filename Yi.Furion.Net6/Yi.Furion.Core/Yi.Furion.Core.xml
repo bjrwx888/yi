@@ -4,6 +4,21 @@
         <name>Yi.Furion.Core</name>
     </assembly>
     <members>
+        <member name="T:Yi.Furion.Core.App.Dtos.Trends.TrendsCreateInput">
+            <summary>
+            Trends输入创建对象
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.App.Dtos.Trends.TrendsGetListInput">
+            <summary>
+            查询参数
+            </summary>
+        </member>
+        <member name="T:Yi.Furion.Core.App.Entities.TrendsEntity">
+            <summary>
+            动态
+            </summary>
+        </member>
         <member name="T:Yi.Furion.Core.Bbs.Consts.ArticleConst">
             <summary>
             常量定义
