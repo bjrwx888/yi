@@ -10,7 +10,7 @@ namespace Yi.Furion.Application.App.Services.Impl
     /// <summary>
     /// Trends服务实现
     /// </summary>
-    [ApiDescriptionSettings("App")]
+    [ApiDescriptionSettings("APP")]
     public class TrendsService : CrudAppService<TrendsEntity, TrendsGetOutputDto, TrendsGetListOutputDto, long, TrendsGetListInput, TrendsCreateInput, TrendsUpdateInputVo>,
        ITrendsService, IDynamicApiController, ITransient
     {
