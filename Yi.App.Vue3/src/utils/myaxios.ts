@@ -5,37 +5,43 @@ import axios from 'axios'
 import JsonBig from 'json-bigint'
 import { getToken } from '@/utils/auth'
 import { useRouter } from "vue-router";
-import useUserStore from '@/store/modules/user'
+import useUserStore from '@/store/modules/user.js'
 import { Notify } from 'vant';
 // import VuetifyDialogPlugin from 'vuetify-dialog/nuxt/index';
 export let isRelogin = { show: false };
 const myaxios = axios.create({
-        // baseURL:'/'// 
-        baseURL: import.meta.env.VITE_APP_BASE_API, // /dev-apis
-        timeout: 50000,
-        headers: {
-            'Authorization': 'Bearer ' + ""
-        },
-        //雪花id精度问题
-        transformResponse: [ data => {
-            const json = JsonBig({
-              storeAsString: true
-            })
-            return json.parse(data)
-          }],
-    })
-    // 请求拦截器
-myaxios.interceptors.request.use(function(config:any) {
-    const isToken = (config.headers || {}).isToken === false
-    // 是否需要防止数据重复提交
-    const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
-    if (getToken() && !isToken) {
-        config.headers['Authorization'] = 'Bearer ' + getToken()
-      }
-    // store.dispatch("openLoad");
-    return config;
-}, function(error) {
-    return Promise.reject(error);
+  // baseURL:'/'// 
+  baseURL: import.meta.env.VITE_APP_BASE_API, // /dev-apis
+  timeout: 50000,
+  headers: {
+    'Authorization': 'Bearer ' + ""
+  },
+  //雪花id精度问题
+  transformResponse: [data => {
+    const json = JsonBig({
+      storeAsString: true
+    });
+    try {
+      return json.parse(data);
+    }
+    catch
+    {
+      return data;
+    }
+  }],
+})
+// 请求拦截器
+myaxios.interceptors.request.use(function (config:any) {
+  const isToken = (config.headers || {}).isToken === false
+  // 是否需要防止数据重复提交
+  const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
+  if (getToken() && !isToken) {
+    config.headers['Authorization'] = 'Bearer ' + getToken()
+  }
+  // store.dispatch("openLoad");
+  return config;
+}, function (error) {
+  return Promise.reject(error);
 });
 
 // 响应拦截器
@@ -53,18 +59,25 @@ myaxios.interceptors.response.use(async function(response) {
   }
     // store.dispatch("closeLoad");
     return resp;
-}, async function(error) {
+}, 
+async function(error) {
+const code=error.response.status;
+const message=error.message;
 //未授权、失败
 if(error.response==undefined)
 {
   Notify({ type: 'danger', message: `服务器异常:${error.message}` });
+
+  // useUserStore().logOut().then(() => {
+  //   location.href = '/';
+  // })
+
   return Promise.reject(error);;
 }
 
-const resp = error.response.data
-if (resp.code == undefined && resp.message == undefined) {
+if (code == undefined &&message == undefined) {
     Notify({ type: 'danger', message: '未知错误' });
-} else if (resp.code == 401) {
+} else if (code == 401) {
     // if (!isRelogin.show) {
       Notify({ type: 'warning', message: '登录过期' });
     //登出
@@ -73,9 +86,10 @@ if (resp.code == undefined && resp.message == undefined) {
       })
       isRelogin.show = false;
     // }
-} else if (resp.code !== 200) {
-    Notify({ type: 'danger', message: `错误代码：${resp.code}，原因：${resp.message}` });
+} else if (code !== 200) {
+    Notify({ type: 'danger', message: `错误代码：${code}，原因：${message}` });
 }
     return Promise.reject(error);
 });
+
 export default myaxios

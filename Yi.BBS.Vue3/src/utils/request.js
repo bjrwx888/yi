@@ -43,18 +43,19 @@ myaxios.interceptors.response.use(function (response) {
     }
     return response.data;
 }, function (error) {
-const response=error.response.data;
+    const code = error.response.status;
+    const msg = error.message;
 //业务异常+应用异常，统一处理
- switch(response.code) 
+ switch(code) 
  {
     case 401:
     ElMessage.error('登录已过期')
     break;
     case 403:  
-    ElMessage.error(response.message)
+    ElMessage.error(msg)
     break;
     case 500:
-    ElMessage.error(response.message)    
+    ElMessage.error(msg)    
     break;
  }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Furion;
 using Furion.Schedule;
 using Furion.TimeCrontab;
@@ -73,6 +72,7 @@ public class Startup : AppStartup
         app.UseAuthorization();
 
         app.UseInject(string.Empty);
+
     }
 }
 

@@ -33,7 +33,7 @@ export function register(data:any) {
 // 获取用户详细信息
 export function getInfo() {
   return myaxios({
-    url: '/account/getUserAllInfo',
+    url: '/account',
     method: 'get'
   })
 }

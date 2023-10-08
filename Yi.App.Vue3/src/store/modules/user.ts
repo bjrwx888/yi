@@ -21,21 +21,23 @@ const useUserStore = defineStore(
         return new Promise((resolve, reject) => {
        
           login(username, password, code, uuid).then(res => {
-            if(!res.status)
+            if(!(res as any).succeeded)
             {
               reject(res)
             }
             setToken(res.data.token);
             this.token = res.data.token;
-            resolve(res);
+    
+          return  resolve(res);
           }).catch(error => {
-            reject(error)
+            return  reject(error)
           })
         })
       },
       // 获取用户信息
       getInfo() {
         return new Promise((resolve, reject) => {
+       
           getInfo().then(response => {
             const res=response.data;
             const user = res.user
@@ -55,9 +57,9 @@ const useUserStore = defineStore(
             this.user.username = user.userName;
             this.user.nick=user.nick
             this.user.icon = user.icon;
-            resolve(res)
+           resolve(res)
           }).catch(error => {
-            reject(error)
+           reject(error)
           })
 
 

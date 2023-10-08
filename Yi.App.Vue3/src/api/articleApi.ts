@@ -1,17 +1,16 @@
 import myaxios from '@/utils/myaxios'
-import { ArticleEntity } from '@/type/interface/ArticleEntity'
 
 export default {
     add(data:any) {
         return myaxios({
-            url: `/article/add`,
+            url: `/Trends`,
             method: 'post',
             data: data
         })
     },
     pageList(data:any) {
         return myaxios({
-          url: '/article/pageList',
+          url: '/Trends',
           method: 'get',
           params: data
         })
