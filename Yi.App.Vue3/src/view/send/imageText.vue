@@ -97,8 +97,8 @@ const afterRead = (file: any) => {
     });
   }
 
-  fileApi.upload("image", formData).then((response: any) => {
-    images.value.push(...response.data);
+  fileApi.upload(formData).then((response: any) => {
+    images.value.push(...response.data.map((x:any)=>x.id));
 
     if (file.length == undefined) {
       file.status = "done";

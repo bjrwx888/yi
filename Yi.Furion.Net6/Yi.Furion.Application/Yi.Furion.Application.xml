@@ -16,6 +16,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Furion.Application.App.Services.Impl.TrendsService.CreateAsync(Yi.Furion.Core.App.Dtos.Trends.TrendsCreateInput)">
+            <summary>
+            发布文章
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yi.Furion.Application.App.Services.ITrendsService">
             <summary>
             Trends服务抽象

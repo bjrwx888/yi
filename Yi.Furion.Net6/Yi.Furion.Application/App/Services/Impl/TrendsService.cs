@@ -27,8 +27,23 @@ namespace Yi.Furion.Application.App.Services.Impl
 
             var entities = await _DbQueryable
                           .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
+                          .OrderByDescending(x=>x.CreationTime)
                           .ToPageListAsync(input.PageNum, input.PageSize, total);
             return new PagedResultDto<TrendsGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
+        }
+
+        /// <summary>
+        /// 发布文章
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override Task<TrendsGetOutputDto> CreateAsync(TrendsCreateInput input)
+        {
+            if (string.IsNullOrEmpty(input.Title))
+            {
+                input.Title = input.Content.Substring(0, Math.Min(5, input.Content.Length));
+            }
+            return base.CreateAsync(input);
         }
     }
 }
