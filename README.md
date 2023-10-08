@@ -30,19 +30,42 @@ Yi框架最新版本标签：`v3.0.0`，具体版本可以查看标签迭代
 
 **分支：**
 
-（本项目由EFCore版本历经3年不断迭代至Sqlsugar版本，现EFcore版本已弃用，目前sqlsugar已带业务功能）
+（本项目由EFCore版本历经4年不断迭代至Sqlsugar版本，现EFcore版本已弃用，目前sqlsugar已带业务功能）
 
-- **Framework**: 框架分支，所有东西都在这里
+- (推荐) **Furion**: 基于Furion分支，回归开发本质，极度简单，用起来贼爽
 
-- **Furion**: 基于Furion分支，回归开发本质，极度简单，用起来贼爽
+- ~~**Framework**~~: 框架分支，所有东西都在这里
 
 - ~~**SqlSugar**:.Net6 DDD领域驱动设计 简单分层微服务架构~~
 
 - ~~**SqlSugar-Dev**：为sqlsugar分支的实时开发版本~~
 
-- ~~**ec**: EFcore完整电商项目~~
+- ~~**abp**:基于abp.vnext项目~~
 
 ****
+
+**目录：**
+
+Yi后端框架分为3个部分：
+
+- Infrastructure（基础设施，框架底层+sqlsugar+furion）
+- Module（应用模块，可选项，例如缓存模块、微信模块、文件模块、日志模块等）
+- Application（业务模块，用于开发）
+
+另外，光说不练假把式，我们不仅仅提供一个空白的框架，还同时提供3个基于yi框架的业务模块，没有听错，目前为1个后端，支持3个前端。各个模块关系解耦，可单独使用其中的任意业务模块
+
+- Yi.RuoYi.Vue3：Ruoyi后台管理系统Rbac Vue3前端（推荐）
+
+- Yi.Furion.Net6：.NET6后端（推荐）
+
+- Yi.App.Vue3：移动端App Vue3前端
+
+- Yi.BBS.Vue3：Web网页端BBS论坛 Vue3+Ts前端
+
+后续我们持续更新各大应用模块及业务模块：shop商场、erp进销存、mes工厂系统等
+
+业务支持并扩展至各个领域，用于具体项目的二次开发极大复用后端代码及前端代码，以通用的部分+不通的部分快速二开
+
 
 ### 演示地址：
 
@@ -54,14 +77,15 @@ Bbs社区系统：[ccnetcore.com](https://ccnetcore.com)  (已上线，欢迎加
 
 Rbac后台管理系统：[yi.ccnetcore.com](http://yi.ccnetcore.com)    (已上线)~~管理员账号：cc 、 123456~~
 
-网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~(目前使用单体架构)
+App移动端系统：[xxx](xxx)正在部署
+
+网关地址：~~[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)~~(目前使用单体架构部署，无需网关)
 
 ### 支持:
 
 - [x] 完全支持单体应用架构
 - [x] 完全支持分布式应用架构
 - [x] 完全支持微服务架构
-- [ ] 即将支持网格服务架构（我们将在后续版本加入dapr）
 
 ****
 ### 详细到爆炸的Yi框架教程导航：
