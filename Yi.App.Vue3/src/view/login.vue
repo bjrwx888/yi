@@ -36,8 +36,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import useUserStore from "@/store/modules/user";
+import useUserStore from "@/store/modules/user.js";
 import { Toast } from "vant";
+import { debug } from "console";
 
 const router = useRouter();
 const redirect = ref(undefined);
@@ -55,15 +56,16 @@ const login = () => {
     .login(loginForm.value)
     .then((response: any) => {
       Toast({
-        message: response.message,
+        message: "登录成功",
         position: "bottom",
       });
+   
       router.push({ path: redirect.value || "/" });
     })
     .catch((response:any) => {
       loginForm.value.password="";
       Toast({
-        message: response.message,
+        message: response.errors,
         position: "bottom",
       });
       // loading.value = false;

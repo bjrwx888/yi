@@ -24,7 +24,13 @@ const service = axios.create({
     const json = JsonBig({
       storeAsString: true
     })
-    return json.parse(data)
+    try {
+      return json.parse(data)
+    }
+    catch
+    {
+      return data;
+    }
   }],
 })
 
@@ -94,7 +100,7 @@ service.interceptors.response.use(res => {
 },
   error => {
     const code = error.response.status;
-    const msg = error.response.data.message;
+    const msg = error.message;
     handler(code, msg);
   }
 )
@@ -136,18 +142,18 @@ const handler = (code, msg) => {
       break;
     //业务异常
     case 403:
-    ElNotification.error({
-      title: msg
-    })
+      ElNotification.error({
+        title: msg
+      })
       break;
 
-      //未授权
+    //未授权
     case 401:
-        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
+      ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
         .then(() => {
           isRelogin.show = false;
           useUserStore().logOut().then(() => {
@@ -163,7 +169,7 @@ const handler = (code, msg) => {
         type: 'error'
       });
       break;
-      //正常
+    //正常
     case 200:
       break;
   }

@@ -93,7 +93,7 @@ import AppGrid from "@/components/AppGrid.vue";
 import { AppGridData } from "@/type/class/AppGridData";
 import { ref } from "vue";
 import { Dialog } from "vant";
-import useUserStore from "@/store/modules/user";
+import useUserStore from "@/store/modules/user.js";
 import { storeToRefs } from 'pinia';
 import   AppUserIcon from "@/components/AppUserIcon.vue";
 const show = ref<boolean>(false);

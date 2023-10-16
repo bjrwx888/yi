@@ -58,9 +58,14 @@
               text="评论"
               @click="openComment(item.id)"
             />
-            <van-grid-item
+            <!-- <van-grid-item
               icon="good-job-o"
               :text="`点赞:${item.agreeNum}`"
+              @click="aggreeHand(item.id)"
+            /> -->
+                      <van-grid-item
+              icon="good-job-o"
+              :text="`点赞:10`"
               @click="aggreeHand(item.id)"
             />
           </van-grid>
@@ -113,7 +118,6 @@ import AppUserIcon from "@/components/AppUserIcon.vue";
 import articleApi from "@/api/articleApi";
 import agreeApi from "@/api/agreeApi";
 import commentApi from "@/api/commentApi";
-import { ArticleEntity } from "@/type/interface/ArticleEntity";
 const VanImagePreview = ImagePreview.Component;
 const url = `${import.meta.env.VITE_APP_BASE_API}/file/`;
 const data = reactive({
@@ -174,19 +178,17 @@ const onLoad = async () => {
   // 异步更新数据
   // setTimeout 仅做示例，真实场景中一般为 ajax 请求
   articleApi.pageList(queryParams.value).then((response: any) => {
-    if (response.data.data.length == 0) {
+    if (response.data.items.length == 0) {
       console.log("结束");
       finished.value = true;
     } else {
       console.log("执行");
-      articleList.value.push(...response.data.data);
+      articleList.value.push(...response.data.items);
       totol.value = response.data.totol;
       queryParams.value.pageNum += 1;
     }
 
     loading.value = false;
-
-    console.log(loading.value);
   });
 };
 const onRefresh = () => {
