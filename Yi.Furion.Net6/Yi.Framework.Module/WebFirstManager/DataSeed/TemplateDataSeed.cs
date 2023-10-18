@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,7 @@ namespace Yi.Framework.Module.WebFirstManager.DataSeed
             entities.Add(new TemplateEntity
             {
                 Id = SnowflakeHelper.NextId,
+                Name="你好世界1",
                 TemplateStr = "你好世界 :@model",
                 BuildPath = ""
             });
@@ -30,6 +31,7 @@ namespace Yi.Framework.Module.WebFirstManager.DataSeed
             entities.Add(new TemplateEntity
             {
                 Id = SnowflakeHelper.NextId,
+                Name="你好世界2",
                 TemplateStr = "你好世界2 :@Model",
                 BuildPath = ""
             });
