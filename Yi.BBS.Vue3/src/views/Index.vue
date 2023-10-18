@@ -67,7 +67,7 @@
               <template #item="temp">
                 <AvatarInfo>
                   <template #bottom>
-                    本月积分：680
+                    本月积分：290
                   </template>
 
                 </AvatarInfo>
