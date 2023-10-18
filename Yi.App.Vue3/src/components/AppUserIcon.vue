@@ -13,7 +13,7 @@ const url = `${import.meta.env.VITE_APP_BASE_API}/file/`;
 const getUrl = () => {
   const src = props.src;
   if (src === null || typeof src === "undefined" || src.trim() === "") {
-    return "/src/assets/icon.jpg";
+    return "@/assets/icon.jpg";
 
     // 字符串为 null、未定义或为空字符串
   } else {
