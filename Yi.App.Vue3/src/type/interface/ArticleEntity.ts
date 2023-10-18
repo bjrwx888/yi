@@ -3,6 +3,6 @@ export interface ArticleEntity{
     content: string;
     images:string[];
     isDeleted:boolean;
-    createTime:string;
+    creationTime:string;
 }
 // import { ArticleEntity } from '@/type/interface/ArticleEntity'

@@ -21,7 +21,7 @@
             item.user == null ? "-" : item.user.nick ?? item.user.username
           }}</span>
           <br />
-          <app-createTime :time="item.createTime" />
+          <app-createTime :time="item.creationTime" />
         </van-col>
 
         <van-col span="6" class="down">
