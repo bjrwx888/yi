@@ -37,7 +37,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         public List<string> GetKey([FromRoute] string cacaheName)
         {
             var output = _cacheClient.Keys($"{cacaheName}:*");
-            return new List<string>() { "1233124", "3124", "1231251", "12312412" };
+            return output.ToList();
         }
 
         //全部不为空
