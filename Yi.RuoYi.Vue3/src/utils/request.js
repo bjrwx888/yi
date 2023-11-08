@@ -89,7 +89,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(res => {
   // 二进制数据则直接返回
   if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
-    return res
+    return res.data
   }
   const code = res.data.statusCode || 200;
   // 获取错误信息
