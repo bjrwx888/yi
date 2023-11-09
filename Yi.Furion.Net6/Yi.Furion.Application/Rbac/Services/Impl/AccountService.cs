@@ -127,6 +127,11 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
             {
                 throw new UserFriendlyException(UserConst.No_Role);
             }
+            if (userInfo.PermissionCodes.Count == 0)
+            {
+                throw new UserFriendlyException(UserConst.No_Permission);
+            }
+
             //这里抛出一个登录的事件
             var loginLogEntity = _httpContextAccessor.HttpContext.GetLoginLogInfo();
             await _eventPublisher.PublishAsync(new LoginEventSource(new LoginEventArgs
@@ -345,7 +350,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<bool> RestPasswordAsync(long userId, RestPasswordDto input)
+        public async Task<bool> RestPasswordAsync(long userId,[FromBody] RestPasswordDto input)
         {
             if (string.IsNullOrEmpty(input.Password))
             {

@@ -8,6 +8,6 @@ namespace Yi.Furion.Core.Rbac.Dtos.Account
 {
     public class RestPasswordDto
     {
-        public string Password = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
 }
