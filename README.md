@@ -268,6 +268,8 @@ SHOP电商系统（持续迭代）
 
 [Admin.NET周哥]https://gitee.com/zuohuaijun/Admin.NET
 
+[Furion百小僧]https://furion.baiqian.ltd/
+
 ****
 ### 联系我们：
 
