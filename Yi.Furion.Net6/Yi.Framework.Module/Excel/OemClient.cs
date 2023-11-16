@@ -12,8 +12,14 @@ using Org.BouncyCastle.Utilities.Collections;
 
 namespace Yi.Framework.Module.Excel
 {
-    internal class OemClient
+    public class OemClient
     {
+        /// <summary>
+        /// 导出excel
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entityList"></param>
+        /// <param name="filePath"></param>
         public void Export<T>(List<T> entityList, string filePath)
         {
             var properties = typeof(T).GetProperties().Where(x => x.GetCustomAttribute<DisplayNameAttribute>() is not null).Where(x => x.GetGetMethod().IsPublic).ToList();
@@ -53,7 +59,12 @@ namespace Yi.Framework.Module.Excel
             workbook.Dispose();
         }
 
-
+        /// <summary>
+        /// 导入excel
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public List<T> Import<T>(string filePath) where T : new()
         {
             List<T> result = new();
