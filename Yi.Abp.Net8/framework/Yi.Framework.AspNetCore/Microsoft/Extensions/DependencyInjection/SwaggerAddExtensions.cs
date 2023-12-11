@@ -14,7 +14,7 @@ namespace Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection
             var serviceProvider = services.BuildServiceProvider();
             var mvcOptions = serviceProvider.GetRequiredService<IOptions<AbpAspNetCoreMvcOptions>>();
 
-            var mvcSettings = mvcOptions.Value.ConventionalControllers.ConventionalControllerSettings.Where(x => x.RemoteServiceName != "default").DistinctBy(x => x.RemoteServiceName);
+            var mvcSettings = mvcOptions.Value.ConventionalControllers.ConventionalControllerSettings.DistinctBy(x => x.RemoteServiceName);
 
 
             services.AddAbpSwaggerGen(
@@ -26,7 +26,6 @@ namespace Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection
                 {
                     options.SwaggerDoc(setting.RemoteServiceName, new OpenApiInfo { Title = setting.RemoteServiceName, Version = "v1" });
                 }
-                options.SwaggerDoc("default", new OpenApiInfo { Title = "default", Version = "v1" });
 
                 // 根据分组名称过滤 API 文档
                 options.DocInclusionPredicate((docName, apiDesc) =>
