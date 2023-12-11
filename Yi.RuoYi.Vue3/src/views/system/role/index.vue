@@ -82,7 +82,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total > 0" :total="Number(total)" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
+    <pagination v-show="total > 0" :total="Number(total)" v-model:page="queryParams.skipCount" v-model:limit="queryParams.maxResultCount"
       @pagination="getList" />
 
     <!-- 添加或修改角色配置对话框 -->
@@ -222,8 +222,8 @@ const data = reactive({
   form: {
   },
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    skipCount: 1,
+    maxResultCount: 10,
     roleName: undefined,
     roleCode: undefined,
     state: undefined,
@@ -249,14 +249,14 @@ function getList() {
   listRole(proxy.addDateRange(queryParams.value, dateRange.value)).then(
     (response) => {
       roleList.value = response.data.items;
-      total.value = response.data.total;
+      total.value = response.data.totalCount;
       loading.value = false;
     }
   );
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.skipCount = 1;
   getList();
 }
 /** 重置按钮操作 */

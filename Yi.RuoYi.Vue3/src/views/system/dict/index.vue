@@ -107,9 +107,10 @@
          <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true"/>
          <el-table-column label="字典类型" align="center" :show-overflow-tooltip="true">
             <template #default="scope">
-               <router-link :to="'/system/dict-data/index/' + scope.row.id" class="link-type">
-                  <span>{{ scope.row.dictType }}</span>
-               </router-link>
+               <!-- <router-link :to="'/system/dict-data/index/' + scope.row.id" class="link-type">
+                  
+               </router-link> -->
+               <span @click="handleToPath(scope.row.id)">{{ scope.row.dictType }}</span>
             </template>
          </el-table-column>
          <el-table-column label="状态" align="center" prop="state">
@@ -145,8 +146,8 @@
       <pagination
          v-show="total > 0"
          :total="Number(total)"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.skipCount"
+         v-model:limit="queryParams.maxResultCount"
          @pagination="getList"
       />
 
@@ -181,6 +182,7 @@
 <script setup name="Dict">
 import useDictStore from '@/store/modules/dict'
 import { listType, getType, delType, addType, updateType, refreshCache } from "@/api/system/dict/type";
+import router from '../../../router';
 
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
@@ -199,8 +201,8 @@ const dateRange = ref([]);
 const data = reactive({
   form: {},
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    skipCount: 1,
+    maxResultCount: 10,
     dictName: undefined,
     dictType: undefined,
     state: true
@@ -218,7 +220,7 @@ function getList() {
   loading.value = true;
   listType(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
     typeList.value = response.data.items;
-    total.value = response.data.total;
+    total.value = response.data.totalCount;
     loading.value = false;
   });
 }
@@ -234,7 +236,7 @@ function reset() {
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.skipCount = 1;
   getList();
 }
 /** 重置按钮操作 */
@@ -310,4 +312,13 @@ function handleRefreshCache() {
 }
 
 getList();
+
+const handleToPath = (id) => {
+   router.push({
+      path:'/system/dict-data/index',
+      query:{
+         dictId:id
+      }
+   })
+}
 </script>

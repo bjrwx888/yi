@@ -47,7 +47,8 @@ export function updateData(data) {
 export function delData(dictCode) {
 console.log(dictCode,"dictCode")
   return request({
-    url: `/dictionary/${dictCode}`,
-    method: 'delete'
+    url: `/dictionary`,
+    method: 'delete',
+    params:{id:dictCode}
   })
 }

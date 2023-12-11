@@ -100,15 +100,15 @@
          <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
          <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
          <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
-         <el-table-column label="登录状态" align="center" prop="isDeleted">
+         <!-- <el-table-column label="登录状态" align="center" prop="isDeleted">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.isDeleted" />
             </template>
-         </el-table-column>
+         </el-table-column> -->
          <el-table-column label="描述" align="center" prop="msg" />
-         <el-table-column label="访问时间" align="center" prop="createTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
+         <el-table-column label="访问时间" align="center" prop="creationTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
       </el-table>
@@ -116,8 +116,8 @@
       <pagination
          v-show="total > 0"
          :total="Number(total)"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.skipCount"
+         v-model:limit="queryParams.maxResultCount"
          @pagination="getList"
       />
    </div>
@@ -142,8 +142,8 @@ const defaultSort = ref({ prop: "createTime", order: "descending" });
 
 // 查询参数
 const queryParams = ref({
-  pageNum: 1,
-  pageSize: 10,
+  skipCount: 1,
+  maxResultCount: 10,
   loginIp: undefined,
   loginUser: undefined,
   isDeleted: undefined,
@@ -156,13 +156,13 @@ function getList() {
   loading.value = true;
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
     logininforList.value = response.data.items;
-    total.value = response.data.total;
+    total.value = response.data.totalCount;
     loading.value = false;
   });
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.skipCount = 1;
   getList();
 }
 /** 重置按钮操作 */

@@ -41,7 +41,7 @@ myaxios.interceptors.response.use(function (response) {
     {
         ElMessage.error(response.data.errors)
     }
-    return response.data;
+    return response;
 }, function (error) {
     const code = error.response.status;
     const msg = error.message;

@@ -1,6 +1,6 @@
 {
   "name": "ruoyi",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "意框架管理系统",
   "author": "意框架",
   "license": "MIT",
@@ -28,6 +28,7 @@
     "json-bigint": "^1.0.0",
     "nprogress": "0.2.0",
     "pinia": "2.0.14",
+    "qs": "^6.11.2",
     "typeface-roboto": "^1.1.13",
     "vue": "3.2.37",
     "vue-cropper": "1.0.3",

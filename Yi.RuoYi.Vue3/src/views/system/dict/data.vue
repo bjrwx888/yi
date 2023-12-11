@@ -128,8 +128,8 @@
       <pagination
          v-show="total > 0"
          :total="Number(total)"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.skipCount"
+         v-model:limit="queryParams.maxResultCount"
          @pagination="getList"
       />
 
@@ -213,8 +213,8 @@ const listClassOptions = ref([
 const data = reactive({
   form: {},
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    skipCount: 1,
+    maxResultCount: 10,
     dictName: undefined,
     dictType: undefined,
     state: true
@@ -248,7 +248,7 @@ function getList() {
   loading.value = true;
   listData(queryParams.value).then(response => {
     dataList.value = response.data.items;
-    total.value = response.data.total;
+    total.value = response.data.totalCount;
     loading.value = false;
   });
 }
@@ -273,7 +273,7 @@ function reset() {
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.skipCount = 1;
   getList();
 }
 /** 返回按钮操作 */
@@ -350,6 +350,6 @@ function handleExport() {
   }, `dict_data_${new Date().getTime()}.xlsx`);
 }
 
-getTypes(route.params && route.params.dictId);
+getTypes(route.query && route.query.dictId);
 getTypeList();
 </script>

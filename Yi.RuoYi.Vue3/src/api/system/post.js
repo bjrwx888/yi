@@ -38,8 +38,9 @@ export function updatePost(data) {
 // 删除岗位
 export function delPost(postId) {
   return request({
-    url: `/post/${postId}`,
-    method: 'delete'
+    url: `/post`,
+    method: 'delete',
+    params:{id:postId}
   })
 }
 

@@ -7,7 +7,7 @@ import cache from '@/plugins/cache'
 import { saveAs } from 'file-saver'
 import useUserStore from '@/store/modules/user'
 import JsonBig from 'json-bigint'
-
+import qs from 'qs'
 
 let downloadLoadingInstance;
 // 是否显示重新登录
@@ -20,6 +20,26 @@ const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   // 超时
   timeout: 10000,
+  //处理批零参数
+  paramsSerializer:params => {
+    // return qs.stringify(params,{indices:false})
+    console.log(params,"params")
+//     if(params.id!=undefined)
+//     {
+//       if(Array.isArray(params.id) )
+//       {
+//         return "id="+params.id.join("&id=")
+//       }
+//       else
+//       {
+//         return "id="+params.id;
+//       }
+    
+//     }
+// return request.param(params);
+return qs.stringify(params, {arrayFormat: 'repeat'});
+  },
+
   transformResponse: [data => {
     const json = JsonBig({
       storeAsString: true
@@ -87,21 +107,29 @@ service.interceptors.request.use(config => {
 
 // 响应拦截器
 service.interceptors.response.use(res => {
-  // 二进制数据则直接返回
-  if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
-    return res.data
-  }
-  const code = res.data.statusCode || 200;
-  // 获取错误信息
-  const msg = res.data.errors;
 
-  handler(code, msg);
-  return Promise.resolve(res.data);
+  // //如果code为200，不需要处理，直接返回数据即可
+  // console.log(res,"res")
+  // // 二进制数据则直接返回
+  // if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
+  //   return res.data
+  // }
+
+  // const code = res.data.status || 200;
+  // // 获取错误信息
+  // const msg = `${res.data.errors.message},详细信息：${details}` ;
+
+  // handler(code, msg);
+  return Promise.resolve(res);
 },
   error => {
-    const code = error.response.status;
-    const msg = error.message;
+
+    console.log(error.response,"error")
+    const errorRes=error.response;
+    const code = errorRes.status || 200;
+    const msg = `${errorRes.data?.error?.message}` ;
     handler(code, msg);
+    return Promise.reject(error)
   }
 )
 
@@ -146,7 +174,12 @@ const handler = (code, msg) => {
         title: msg
       })
       break;
-
+    //接口异常
+    case 400:
+        ElNotification.error({
+          title: msg
+        })
+        break;
     //未授权
     case 401:
       ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {

@@ -20,6 +20,7 @@ export function getUser(userId) {
 
 // 新增用户
 export function addUser(data) {
+  data.phone=data.phone==""?null:data.phone;
   return request({
     url: '/user',
     method: 'post',
@@ -29,6 +30,7 @@ export function addUser(data) {
 
 // 修改用户
 export function updateUser(id, data) {
+  data.phone=data.phone==""?null:data.phone;
   return request({
     url: `/user/${id}`,
     method: 'put',
@@ -39,8 +41,9 @@ export function updateUser(id, data) {
 // 删除用户
 export function delUser(userId) {
   return request({
-    url: `/user/${userId}`,
+    url: `/user`,
     method: 'delete',
+    params:{id:userId}
   })
 }
 

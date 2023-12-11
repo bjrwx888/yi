@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\..\common.props" />
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <PackageReference Include="IPTools.China" Version="1.6.0" />
+
+    <PackageReference Include="UAParser" Version="3.1.47" />
+
+    <PackageReference Include="Volo.Abp.AspNetCore.SignalR" Version="7.4.3" />
+
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="7.4.2" />
+	  <PackageReference Include="Volo.Abp.Caching" Version="7.4.2" />
+
+	  
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\Yi.Framework.SqlSugarCore.Abstractions\Yi.Framework.SqlSugarCore.Abstractions.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Rbac.Domain.Shared\Yi.Framework.Rbac.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

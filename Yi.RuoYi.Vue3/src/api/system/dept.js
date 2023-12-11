@@ -27,6 +27,7 @@ export function getDept(deptId) {
 
 // 新增部门
 export function addDept(data) {
+  data.phone=data.phone==""?null:data.phone;
   return request({
     url: '/dept',
     method: 'post',
@@ -36,6 +37,7 @@ export function addDept(data) {
 
 // 修改部门
 export function updateDept(data) {
+  data.phone=data.phone==""?null:data.phone;
   return request({
     url: `/dept/${data.id}`,
     method: 'put',
@@ -46,8 +48,9 @@ export function updateDept(data) {
 // 删除部门
 export function delDept(deptId) {
   return request({
-    url: `/dept/${deptId}`,
-    method: 'delete'
+    url: `/dept`,
+    method: 'delete',
+    params:{id:deptId}
   })
 }
 

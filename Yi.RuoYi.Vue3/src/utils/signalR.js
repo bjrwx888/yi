@@ -10,14 +10,27 @@ export default {
   SR: {},
   // 失败连接重试次数
   failNum: 4,
-  baseUrl: '',
-  init(url) {
+  async init(url) {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(url,  {
-        headers: { Authorization: `Bearer ${getToken()}` }})
+      .withUrl(`${import.meta.env.VITE_APP_BASE_WS}/` + url,
+        {
+          headers: {
+            'Authorization': `Bearer ${getToken()}`
+          },
+          accessTokenFactory: () => {
+            // 返回授权 token
+            return `${getToken()}`;
+        }
+        }
+      )
+
       .withAutomaticReconnect()//自动重新连接
       .configureLogging(signalR.LogLevel.Information)
       .build();
+ 
+    console.log(connection, "connection")
+
+
     this.SR = connection;
     // 断线重连
     connection.onclose(async () => {
@@ -32,16 +45,22 @@ export default {
     })
     this.receiveMsg(connection);
     // 启动
-    this.start();
+    await this.start();
   },
   /**
    * 调用 this.signalR.start().then(async () => { await this.SR.invoke("method")})
    * @returns 
    */
-async close(){
-  var that = this;
-  await this.SR.stop();
-},
+  async close() {
+    try {
+      var that = this;
+      await this.SR.stop();
+    }
+    catch
+    {
+
+    }
+  },
 
 
   async start() {
@@ -49,6 +68,7 @@ async close(){
 
     try {
       //使用async和await 或 promise的then 和catch 处理来自服务端的异常
+      console.log(this.SR, "执行连接");
       await this.SR.start();
       //console.assert(this.SR.state === signalR.HubConnectionState.Connected);
       //console.log('signalR 连接成功了', this.SR.state);
@@ -72,7 +92,7 @@ async close(){
     });
     connection.on("forceOut", (msg) => {
       useUserStore().logOut().then(() => {
-        ElMessage.error(msg);
+        alert(msg);
         location.href = '/index';
       })
     });

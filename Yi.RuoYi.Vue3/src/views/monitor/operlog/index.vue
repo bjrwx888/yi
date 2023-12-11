@@ -105,9 +105,9 @@
                <dict-tag :options="sys_common_status" :value="scope.row.state" />
             </template>
          </el-table-column>
-         <el-table-column label="操作日期" align="center" prop="createTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
+         <el-table-column label="操作日期" align="center" prop="creationTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime) }}</span>
+               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -125,8 +125,8 @@
       <pagination
          v-show="total > 0"
          :total="Number(total)"
-         v-model:page="queryParams.pageNum"
-         v-model:limit="queryParams.pageSize"
+         v-model:page="queryParams.skipCount"
+         v-model:limit="queryParams.maxResultCount"
          @pagination="getList"
       />
 
@@ -135,7 +135,7 @@
          <el-form :model="form" label-width="100px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="操作模块：">{{ form.title }} / {{ typeFormat(form) }}</el-form-item>
+                  <el-form-item label="操作模块：">{{ form.title }}</el-form-item>
                   <el-form-item
                     label="登录信息："
                   >{{ form.operUser }} / {{ form.operIp }} / {{ form.operLocation }}</el-form-item>
@@ -153,14 +153,14 @@
                <el-col :span="24">
                   <el-form-item label="返回参数：">{{ form.requestResult }}</el-form-item>
                </el-col>
-               <el-col :span="12">
+               <!-- <el-col :span="12">
                   <el-form-item label="操作状态：">
                      <div v-if="form.state === true">正常</div>
                      <div v-else-if="form.state === false">失败</div>
                   </el-form-item>
-               </el-col>
+               </el-col> -->
                <el-col :span="12">
-                  <el-form-item label="操作时间：">{{ parseTime(form.createTime) }}</el-form-item>
+                  <el-form-item label="操作时间：">{{ parseTime(form.creationTime) }}</el-form-item>
                </el-col>
                <el-col :span="24">
                   <el-form-item label="异常信息：" v-if="form.state === 1">{{ form.errorMsg }}</el-form-item>
@@ -197,8 +197,8 @@ const defaultSort = ref({ prop: "operTime", order: "descending" });
 const data = reactive({
   form: {},
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    skipCount: 1,
+    maxResultCount: 10,
     title: undefined,
     operUser: undefined,
     operType: undefined,
@@ -213,7 +213,7 @@ function getList() {
   loading.value = true;
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
     operlogList.value = response.data.items;
-    total.value = response.data.total;
+    total.value = response.data.totalCount;
     loading.value = false;
   });
 }
@@ -223,7 +223,7 @@ function typeFormat(row, column) {
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.skipCount = 1;
   getList();
 }
 /** 重置按钮操作 */

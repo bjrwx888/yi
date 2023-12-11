@@ -193,7 +193,9 @@ getCookie();
 
   width: 33%;
   height: 40px;
-  float: right;
+  margin-left:auto;
+  border: 1px solid #DCDFE6 !important;
+  border-radius: 4px;
 
   img {
 
@@ -214,7 +216,7 @@ getCookie();
   letter-spacing: 1px;
 }
 .login-code-img {
-  height: 40px;
-  padding-left: 12px;
+  height: 100%;
+  width: 100%;
 }
 </style>

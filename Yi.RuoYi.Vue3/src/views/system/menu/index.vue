@@ -310,13 +310,14 @@ const refreshTable = ref(true);
 const showChooseIcon = ref(false);
 const iconSelectRef = ref(null);
 
+const guidEmpty="00000000-0000-0000-0000-000000000000";
 const data = reactive({
   form: {
 
   },
   queryParams: {
     menuName: undefined,
-    visible: undefined
+    visible: true
   },
   rules: {
     menuName: [{ required: true, message: "菜单名称不能为空", trigger: "blur" }],
@@ -330,6 +331,7 @@ const { queryParams, form, rules } = toRefs(data);
 /** 查询菜单列表 */
 function getList() {
   loading.value = true;
+  console.log(queryParams.value,"queryParams.value");
   listMenu(queryParams.value).then(response => {
     menuList.value = proxy.handleTree(response.data.items, "id");
     loading.value = false;
@@ -339,7 +341,7 @@ function getList() {
 function getTreeselect() {
   menuOptions.value = [];
   listMenu().then(response => {
-    const menu = { id: 0, menuName: "主类目", children: [] };
+    const menu = { id: guidEmpty, menuName: "主类目", children: [] };
     menu.children = proxy.handleTree(response.data.items, "id");
     menuOptions.value.push(menu);
   });
@@ -353,7 +355,7 @@ function cancel() {
 function reset() {
   form.value = {
     id: undefined,
-    parentId: 0,
+    parentId: guidEmpty,
     menuName: undefined,
     menuIcon: undefined,
     menuType: 0,
@@ -399,7 +401,7 @@ function handleAdd(row) {
   if (row != null && row.id) {
     form.value.parentId = row.id;
   } else {
-    form.value.parentId = 0;
+    form.value.parentId = "00000000-0000-0000-0000-000000000000";
   }
   open.value = true;
   title.value = "添加菜单";

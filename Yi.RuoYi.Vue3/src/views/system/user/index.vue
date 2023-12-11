@@ -107,8 +107,8 @@
                   </template>
                </el-table-column>
             </el-table>
-            <pagination v-show="total > 0"          :total="Number(total)" v-model:page="queryParams.pageNum"
-               v-model:limit="queryParams.pageSize" @pagination="getList" />
+            <pagination v-show="total > 0"          :total="Number(total)" v-model:page="queryParams.skipCount"
+               v-model:limit="queryParams.maxResultCount" @pagination="getList" />
          </el-col>
       </el-row>
 
@@ -291,8 +291,8 @@ const data = reactive({
    form : {
    },
    queryParams: {
-      pageNum: 1,
-      pageSize: 10,
+      skipCount: 1,
+      maxResultCount: 10,
       userName: undefined,
       phone: undefined,
       state: true,
@@ -337,7 +337,7 @@ function getList() {
 
       loading.value = false;
       userList.value = res.data.items;
-      total.value = res.data.total;
+      total.value = res.data.totalCount;
    });
 };
 /** 节点单击事件 */
@@ -347,7 +347,7 @@ function handleNodeClick(data) {
 };
 /** 搜索按钮操作 */
 function handleQuery() {
-   queryParams.value.pageNum = 1;
+   queryParams.value.skipCount = 1;
    getList();
 };
 /** 重置按钮操作 */
