@@ -76,7 +76,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
         {
 
             var dbContext = await CreateDbContextAsync(unitOfWork);
-            Console.WriteLine("111111：" + dbContext.SqlSugarClient.ContextID);
+           // Console.WriteLine("111111：" + dbContext.SqlSugarClient.ContextID);
             return dbContext;
         }
 
@@ -101,14 +101,14 @@ namespace Yi.Framework.SqlSugarCore.Uow
                 unitOfWork.AddTransactionApi(transactionApiKey, transaction);
 
 
-                await Console.Out.WriteLineAsync("开始新的事务");
+                //await Console.Out.WriteLineAsync("开始新的事务");
                 Console.WriteLine(dbContext.SqlSugarClient.ContextID);
                 await dbContext.SqlSugarClient.Ado.BeginTranAsync();
                 return dbContext;
             }
             else
             {
-                await Console.Out.WriteLineAsync("继续老的事务");
+               // await Console.Out.WriteLineAsync("继续老的事务");
                 Console.WriteLine(activeTransaction.DbContext.SqlSugarClient);
                 await activeTransaction.DbContext.SqlSugarClient.Ado.BeginTranAsync();
                 return (TDbContext)activeTransaction.DbContext;

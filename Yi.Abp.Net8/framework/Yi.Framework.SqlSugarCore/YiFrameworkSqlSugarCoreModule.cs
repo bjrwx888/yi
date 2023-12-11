@@ -61,7 +61,7 @@ namespace Yi.Framework.SqlSugarCore
             {
                 CodeFirst(service);
             }
-            if (options.EnabledCodeFirst)
+            if (options.EnabledDbSeed)
             {
                 await DataSeedAsync(service);
             }
@@ -70,9 +70,6 @@ namespace Yi.Framework.SqlSugarCore
         private void CodeFirst(IServiceProvider service)
         {
 
-            var options = service.GetRequiredService<IOptions<DbConnOptions>>().Value;
-            if (options.EnabledCodeFirst)
-            {
                 var moduleContainer = service.GetRequiredService<IModuleContainer>();
                 var db = service.GetRequiredService<ISqlSugarDbContext>().SqlSugarClient;
 
@@ -85,7 +82,7 @@ namespace Yi.Framework.SqlSugarCore
                 {
                     db.CodeFirst.InitTables(types.ToArray());
                 }
-            }
+        
         }
 
         private async Task DataSeedAsync(IServiceProvider service)

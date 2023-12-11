@@ -12,7 +12,7 @@ namespace Yi.Framework.SqlSugarCore
     {
         public Task SaveAsync(AuditLogInfo auditInfo)
         {
-            Console.WriteLine(auditInfo.ExecutionTime);
+            //Console.WriteLine(auditInfo.ExecutionTime);
             return Task.CompletedTask;
         }
     }

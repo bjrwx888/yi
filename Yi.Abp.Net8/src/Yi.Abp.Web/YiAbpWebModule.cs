@@ -18,6 +18,7 @@ using Yi.Abp.SqlsugarCore;
 using Yi.Framework.AspNetCore;
 using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
+using Yi.Framework.Bbs.Application;
 using Yi.Framework.Rbac.Application;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 
@@ -43,6 +44,7 @@ namespace Yi.Abp.Web
         {
             var configuration = context.Services.GetConfiguration();
             var service = context.Services;
+
             //请求日志
             Configure<AbpAuditingOptions>(optios =>
             {
@@ -55,6 +57,7 @@ namespace Yi.Abp.Web
             {
                 options.ConventionalControllers.Create(typeof(YiAbpApplicationModule).Assembly,options=>options.RemoteServiceName="default");
                 options.ConventionalControllers.Create(typeof(YiFrameworkRbacApplicationModule).Assembly, options => options.RemoteServiceName = "rbac");
+                options.ConventionalControllers.Create(typeof(YiFrameworkBbsApplicationModule).Assembly, options => options.RemoteServiceName = "bbs");
             });
 
             //设置api格式
@@ -67,21 +70,13 @@ namespace Yi.Abp.Web
             {
                 options.OutputDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             });
-
             Configure<AbpAntiForgeryOptions>(options =>
             {
                 options.AutoValidate = false;
-
             });
 
             //Swagger
-            context.Services.AddYiSwaggerGen<YiAbpWebModule>(
-                options =>
-                {
-                    options.DocInclusionPredicate((docName, description) => true);
-                    options.CustomSchemaIds(type => type.FullName);
-                }
-            );
+            context.Services.AddYiSwaggerGen<YiAbpWebModule>();
 
             //跨域
             context.Services.AddCors(options =>
@@ -102,9 +97,6 @@ namespace Yi.Abp.Web
                         .AllowCredentials();
                 });
             });
-
-
-
 
             //jwt鉴权
             var section = configuration.GetSection(nameof(JwtOptions));
@@ -153,17 +145,29 @@ namespace Yi.Abp.Web
 
 
             app.UseRouting();
+            
+            //跨域
             app.UseCors(DefaultCorsPolicyName);
+            
+            //鉴权
             app.UseAuthentication();
 
+            //swagger
             app.UseYiSwagger();
-            //app.UseYiApiHandlinge();
+
+            //工作单元
             app.UseUnitOfWork();
+
+            //授权
             app.UseAuthorization();
+
+            //审计日志
             app.UseAuditing();
 
+            //日志记录
             app.UseAbpSerilogEnrichers();
 
+            //终节点
             app.UseConfiguredEndpoints();
 
             return Task.CompletedTask;

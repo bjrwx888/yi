@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -9,7 +10,7 @@ namespace Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection
 {
     public static class SwaggerAddExtensions
     {
-        public static IServiceCollection AddYiSwaggerGen<Program>(this IServiceCollection services, Action<SwaggerGenOptions>? action)
+        public static IServiceCollection AddYiSwaggerGen<Program>(this IServiceCollection services, Action<SwaggerGenOptions>? action=null)
         {
             var serviceProvider = services.BuildServiceProvider();
             var mvcOptions = serviceProvider.GetRequiredService<IOptions<AbpAspNetCoreMvcOptions>>();
@@ -20,11 +21,18 @@ namespace Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection
             services.AddAbpSwaggerGen(
             options =>
             {
-
-                // 配置分组,还需要去重
-                foreach (var setting in mvcSettings)
+                if (action is not null)
                 {
-                    options.SwaggerDoc(setting.RemoteServiceName, new OpenApiInfo { Title = setting.RemoteServiceName, Version = "v1" });
+                    action.Invoke(options);
+                }
+
+                // 配置分组,还需要去重,支持重写,如果外部传入后，将以外部为准
+                foreach (var setting in mvcSettings.OrderBy(x => x.RemoteServiceName))
+                {
+                    if (!options.SwaggerGeneratorOptions.SwaggerDocs.ContainsKey(setting.RemoteServiceName))
+                    {
+                        options.SwaggerDoc(setting.RemoteServiceName, new OpenApiInfo { Title = setting.RemoteServiceName, Version = "v1" });
+                    }
                 }
 
                 // 根据分组名称过滤 API 文档
@@ -38,10 +46,9 @@ namespace Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection
                             return docName == settingOrNull.RemoteServiceName;
                         }
                     }
-                    return docName == "default";
+                    return false;
                 });
 
-                //options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
                 if (basePath is not null)
@@ -68,12 +75,6 @@ namespace Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection
                 {
                     [scheme] = new string[0]
                 });
-
-
-                if (action is not null)
-                {
-                    action.Invoke(options);
-                }
             }
         );
 

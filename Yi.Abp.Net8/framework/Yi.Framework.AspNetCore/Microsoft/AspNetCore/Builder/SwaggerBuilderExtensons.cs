@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Volo.Abp.AspNetCore.Mvc;
 
 namespace Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder
 {
@@ -6,25 +9,26 @@ namespace Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder
     {
         public static IApplicationBuilder UseYiSwagger(this IApplicationBuilder app, params SwaggerModel[] swaggerModels)
         {
+            var mvcOptions = app.ApplicationServices.GetRequiredService<IOptions<AbpAspNetCoreMvcOptions>>().Value;
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                // 配置 Swagger UI 面板链接,添加的顺序，就是排序
-                c.SwaggerEndpoint("/swagger/default/swagger.json", "default");
-                c.SwaggerEndpoint("/swagger/rbac/swagger.json", "rbac");
-
-                //if (swaggerModels.Length == 0)
-                //{
-                //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
-                //}
-                //else
-                //{
-                //    foreach (var k in swaggerModels)
-                //    {
-
-                //        c.SwaggerEndpoint(k.Url, k.Name);
-                //    }
-                //}
+                foreach (var setting in mvcOptions.ConventionalControllers.ConventionalControllerSettings)
+                {
+                    c.SwaggerEndpoint($"/swagger/{setting.RemoteServiceName}/swagger.json", setting.RemoteServiceName);
+                }
+                if (mvcOptions.ConventionalControllers.ConventionalControllerSettings.Count==0&&swaggerModels.Length == 0)
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
+                }
+                else
+                {
+                    foreach (var k in swaggerModels)
+                    {
+                        c.SwaggerEndpoint(k.Url, k.Name);
+                    }
+                }
 
             });
             return app;

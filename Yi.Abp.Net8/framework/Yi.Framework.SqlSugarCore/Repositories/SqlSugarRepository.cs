@@ -29,7 +29,7 @@ namespace Yi.Framework.SqlSugarCore.Repositories
         {
 
             var db = (await _sugarDbContextProvider.GetDbContextAsync()).SqlSugarClient;
-            await Console.Out.WriteLineAsync("获取的id：" + db.ContextID);
+            //await Console.Out.WriteLineAsync("获取的id：" + db.ContextID);
             return db;
         }
 
