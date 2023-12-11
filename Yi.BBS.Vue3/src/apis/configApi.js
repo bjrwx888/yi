@@ -1,9 +1,9 @@
-import myaxios from '@/utils/request'
+import request from "@/config/axios/service";
 
 //获取配置
-export function getAll(){
-    return myaxios({
-        url: '/config',
-        method: 'get'
-    })
-};
+export function getAll() {
+  return request({
+    url: "/config",
+    method: "get",
+  });
+}

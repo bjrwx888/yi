@@ -62,6 +62,11 @@ namespace Yi.Framework.Ddd.Application
         {
         }
 
+        public override Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
+        {
+            throw new NotImplementedException($"【{typeof(TEntity)}】实体的CrudAppService，查询为具体业务，通用查询几乎无实际场景，请重写实现！");
+        }
+
         /// <summary>
         /// 偷梁换柱
         /// </summary>
@@ -72,7 +77,7 @@ namespace Yi.Framework.Ddd.Application
         {
             await Repository.DeleteManyAsync(id);
         }
-        [RemoteService(isEnabled:false)]
+        [RemoteService(isEnabled: false)]
         public override Task DeleteAsync(TKey id)
         {
             return base.DeleteAsync(id);
