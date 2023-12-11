@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Furion.Authorization;
 using Furion.EventBus;
 using IPTools.Core;
 using Microsoft.AspNetCore.Http;
@@ -27,10 +28,10 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
     public class AccountService : ApplicationService, IAccountService, ITransient, IDynamicApiController
     {
 
-        public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher, IHttpContextAccessor httpContextAccessor) =>
-            (_userRepository, _currentUser, _accountManager, _menuRepository, _smsAliyunManager, _smsAliyunManagerOptions, _securityCode, _memoryCache, _eventPublisher, _httpContextAccessor) =
-            (userRepository, currentUser, accountManager, menuRepository, smsAliyunManager, smsAliyunManagerOptions, securityCode, memoryCache, eventPublisher, httpContextAccessor);
-
+        public AccountService(IUserRepository userRepository, ICurrentUser currentUser, AccountManager accountManager, IRepository<MenuEntity> menuRepository, SmsAliyunManager smsAliyunManager, IOptions<SmsAliyunOptions> smsAliyunManagerOptions, SecurityCodeHelper securityCode, IMemoryCache memoryCache, IEventPublisher eventPublisher, IHttpContextAccessor httpContextAccessor,IOptions<JWTSettingsOptions> jwtOptions) =>
+            (_userRepository, _currentUser, _accountManager, _menuRepository, _smsAliyunManager, _smsAliyunManagerOptions, _securityCode, _memoryCache, _eventPublisher, _httpContextAccessor, _jwtOptions) =
+            (userRepository, currentUser, accountManager, menuRepository, smsAliyunManager, smsAliyunManagerOptions, securityCode, memoryCache, eventPublisher, httpContextAccessor, jwtOptions);
+        private IOptions<JWTSettingsOptions> _jwtOptions;
 
         private IUserRepository _userRepository { get; set; }
 
@@ -144,7 +145,7 @@ namespace Yi.Furion.Application.Rbac.Services.Impl
 
 
             //创建token
-            var accessToken = JWTEncryption.Encrypt(_accountManager.UserInfoToClaim(userInfo));
+            var accessToken = JWTEncryption.Encrypt(_accountManager.UserInfoToClaim(userInfo), _jwtOptions.Value.ExpiredTime);
             return new { Token = accessToken };
         }
 

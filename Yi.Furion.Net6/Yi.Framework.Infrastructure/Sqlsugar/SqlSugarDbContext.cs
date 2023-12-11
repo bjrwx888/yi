@@ -112,7 +112,7 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
                     {
                         //不等于默认最小值，其他null或者有值都进行赋值
-                        if (!DateTime.MinValue.Equals((DateTime)oldValue))
+                        if (!DateTime.MinValue.Equals(oldValue))
                         {
                             entityInfo.SetValue(DateTime.Now);
                         }
@@ -138,7 +138,7 @@ namespace Yi.Framework.Infrastructure.Sqlsugar
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
                     {
                         //为空或者为默认最小值都进行赋值
-                        if (oldValue is null || DateTime.MinValue.Equals((DateTime)oldValue))
+                        if (oldValue is null || DateTime.MinValue.Equals(oldValue))
                         {
                             entityInfo.SetValue(DateTime.Now);
                         }
