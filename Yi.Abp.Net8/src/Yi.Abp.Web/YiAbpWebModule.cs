@@ -53,8 +53,8 @@ namespace Yi.Abp.Web
             //动态Api
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
-                options.ConventionalControllers.Create(typeof(YiAbpApplicationModule).Assembly);
-                options.ConventionalControllers.Create(typeof(YiFrameworkRbacApplicationModule).Assembly);
+                options.ConventionalControllers.Create(typeof(YiAbpApplicationModule).Assembly,options=>options.RemoteServiceName="default");
+                options.ConventionalControllers.Create(typeof(YiFrameworkRbacApplicationModule).Assembly, options => options.RemoteServiceName = "rbac");
             });
 
             //设置api格式

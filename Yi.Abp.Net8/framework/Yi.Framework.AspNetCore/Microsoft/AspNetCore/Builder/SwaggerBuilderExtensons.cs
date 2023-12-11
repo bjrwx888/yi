@@ -9,18 +9,22 @@ namespace Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                if (swaggerModels.Length == 0)
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
-                }
-                else
-                {
-                    foreach (var k in swaggerModels)
-                    {
+                // 配置 Swagger UI 面板链接,添加的顺序，就是排序
+                c.SwaggerEndpoint("/swagger/default/swagger.json", "default");
+                c.SwaggerEndpoint("/swagger/rbac/swagger.json", "rbac");
 
-                        c.SwaggerEndpoint(k.Url, k.Name);
-                    }
-                }
+                //if (swaggerModels.Length == 0)
+                //{
+                //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
+                //}
+                //else
+                //{
+                //    foreach (var k in swaggerModels)
+                //    {
+
+                //        c.SwaggerEndpoint(k.Url, k.Name);
+                //    }
+                //}
 
             });
             return app;

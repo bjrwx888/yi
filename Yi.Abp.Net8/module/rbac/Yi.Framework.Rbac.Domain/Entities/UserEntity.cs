@@ -2,7 +2,7 @@
 using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
-using Yi.Framework.Core;
+using Yi.Framework.Core.Data;
 using Yi.Framework.Core.Helper;
 using Yi.Framework.Rbac.Domain.Shared.Enums;
 
