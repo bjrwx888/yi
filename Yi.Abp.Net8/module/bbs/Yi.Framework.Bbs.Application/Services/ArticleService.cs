@@ -3,8 +3,12 @@ using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using SqlSugar;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Repositories;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Article;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.Plate;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Repositories;
@@ -37,6 +41,19 @@ namespace Yi.Framework.Bbs.Application.Services
         private IArticleRepository _articleRepository { get; set; }
         private ISqlSugarRepository<DiscussEntity> _discussRepository { get; set; }
         private IDiscussService _discussService { get; set; }
+
+        public override async Task<PagedResultDto<ArticleGetListOutputDto>> GetListAsync(ArticleGetListInputVo input)
+        {
+            RefAsync<int> total = 0;
+
+            var entities = await _articleRepository._DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name.Contains(input.Name!))
+                //.WhereIF(!string.IsNullOrEmpty(input.Code), x => x.Name.Contains(input.Code!))
+                          .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
+                          .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
+            return new PagedResultDto<ArticleGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
+        }
+
+
         /// <summary>
         /// 获取文章全部平铺信息
         /// </summary>

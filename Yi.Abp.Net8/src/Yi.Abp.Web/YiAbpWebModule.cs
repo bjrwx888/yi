@@ -55,7 +55,7 @@ namespace Yi.Abp.Web
             //动态Api
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
-                options.ConventionalControllers.Create(typeof(YiAbpApplicationModule).Assembly,options=>options.RemoteServiceName="default");
+                options.ConventionalControllers.Create(typeof(YiAbpApplicationModule).Assembly, options => options.RemoteServiceName = "default");
                 options.ConventionalControllers.Create(typeof(YiFrameworkRbacApplicationModule).Assembly, options => options.RemoteServiceName = "rbac");
                 options.ConventionalControllers.Create(typeof(YiFrameworkBbsApplicationModule).Assembly, options => options.RemoteServiceName = "bbs");
             });
@@ -63,7 +63,6 @@ namespace Yi.Abp.Web
             //设置api格式
             service.AddControllers().AddNewtonsoftJson(options =>
             {
-               // options.SerializerSettings.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
             Configure<AbpJsonOptions>(options =>
@@ -76,7 +75,10 @@ namespace Yi.Abp.Web
             });
 
             //Swagger
-            context.Services.AddYiSwaggerGen<YiAbpWebModule>();
+            context.Services.AddYiSwaggerGen<YiAbpWebModule>(options =>
+            {
+                options.SwaggerDoc("default", new OpenApiInfo { Title = "Yi.Framework.Abp", Version = "v1",Description="集大成者" });
+            });
 
             //跨域
             context.Services.AddCors(options =>
@@ -145,10 +147,10 @@ namespace Yi.Abp.Web
 
 
             app.UseRouting();
-            
+
             //跨域
             app.UseCors(DefaultCorsPolicyName);
-            
+
             //鉴权
             app.UseAuthentication();
 

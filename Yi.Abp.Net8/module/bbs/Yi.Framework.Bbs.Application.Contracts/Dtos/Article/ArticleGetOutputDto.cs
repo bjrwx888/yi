@@ -8,5 +8,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Article
         public string Name { get; set; }
         public Guid DiscussId { get; set; }
         public Guid ParentId { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }

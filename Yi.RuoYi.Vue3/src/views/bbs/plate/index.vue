@@ -1,22 +1,17 @@
 
 <template>
-    <!-- <div>
-该文件为通用Crud模板文件，按照规范只需要 替换以下变量即可，
-@Name@ ： 实体中文名称
-@per:per@ ：crud权限编码
-@api@ : api文件路径,例如：webfirst/tableApi
-    </div> -->
+
     <div class="app-container">
         <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="100px">
-            <el-form-item label="@Name@名称" prop="name">
-                <el-input v-model="queryParams.name" placeholder="请输入@Name@名称" clearable style="width: 240px"
+            <el-form-item label="板块名称" prop="name">
+                <el-input v-model="queryParams.name" placeholder="请输入板块名称" clearable style="width: 240px"
                     @keyup.enter="handleQuery" prop="name" />
             </el-form-item>
-            <el-form-item label="@Name@编号" prop="code">
-                <el-input v-model="queryParams.code" placeholder="请输入@Name@编号" clearable style="width: 240px"
+            <el-form-item label="板块编号" prop="code">
+                <el-input v-model="queryParams.code" placeholder="请输入板块编号" clearable style="width: 240px"
                     @keyup.enter="handleQuery" prop="code" />
             </el-form-item>
-            <!-- <el-form-item label="状态" prop="isDeleted">
+            <el-form-item label="状态" prop="isDeleted">
             <el-select
               v-model="queryParams.isDeleted"
               placeholder="状态"
@@ -30,8 +25,8 @@
                 :value="dict.value"
               />
             </el-select>
-          </el-form-item> -->
-            <!-- <el-form-item label="创建时间" style="width: 308px">
+          </el-form-item>
+            <el-form-item label="创建时间" style="width: 308px">
             <el-date-picker
               v-model="dateRange"
               value-format="YYYY-MM-DD"
@@ -40,7 +35,7 @@
               start-placeholder="开始日期"
               end-placeholder="结束日期"
             ></el-date-picker>
-          </el-form-item> -->
+          </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
                 <el-button icon="Refresh" @click="resetQuery">重置</el-button>
@@ -49,19 +44,19 @@
 
         <el-row :gutter="10" class="mb8">
             <el-col :span="1.5">
-                <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['@per:per@:add']">新增</el-button>
+                <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['bbs:plate:add']">新增</el-button>
             </el-col>
             <el-col :span="1.5">
                 <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
-                    v-hasPermi="['@per:per@:edit']">修改</el-button>
+                    v-hasPermi="['bbs:plate:edit']">修改</el-button>
             </el-col>
             <el-col :span="1.5">
                 <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
-                    v-hasPermi="['@per:per@:remove']">删除</el-button>
+                    v-hasPermi="['bbs:plate:remove']">删除</el-button>
             </el-col>
             <el-col :span="1.5">
                 <el-button type="warning" plain icon="Download" @click="handleExport"
-                    v-hasPermi="['@per:per@:export']">导出</el-button>
+                    v-hasPermi="['bbs:plate:export']">导出</el-button>
             </el-col>
             <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
@@ -70,11 +65,11 @@
             <el-table-column type="selection" width="55" align="center" />
 
             <!-----------------------这里开始就是数据表单的全部列------------------------>
-            <el-table-column label="@Name@编号" align="center" prop="code" />
+            <el-table-column label="板块编号" align="center" prop="code" />
 
-            <el-table-column label="@Name@名称" align="center" prop="name" :show-overflow-tooltip="true" />
+            <el-table-column label="板块名称" align="center" prop="name" :show-overflow-tooltip="true" />
 
-            <el-table-column label="备注" align="center" prop="remarks" :show-overflow-tooltip="true" />
+         <!-- <el-table-column label="备注" align="center" prop="remarks" :show-overflow-tooltip="true" /> -->
             <!-- <el-table-column label="状态" align="center" prop="isDeleted">
             <template #default="scope">
               <dict-tag
@@ -83,10 +78,10 @@
               />
             </template>
           </el-table-column> -->
-            <!-- <el-table-column
-            label="备注"
+            <el-table-column
+            label="简介"
             align="center"
-            prop="remark"
+            prop="introduction"
             :show-overflow-tooltip="true"
           />
           <el-table-column
@@ -98,14 +93,14 @@
             <template #default="scope">
               <span>{{ parseTime(scope.row.creationTime) }}</span>
             </template>
-          </el-table-column> -->
+          </el-table-column>
             <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
                 <template #default="scope">
 
                     <el-button type="text" icon="Edit" @click="handleUpdate(scope.row)"
-                        v-hasPermi="['@per:per@:edit']">修改</el-button>
+                        v-hasPermi="['bbs:plate:edit']">修改</el-button>
                     <el-button type="text" icon="Delete" @click="handleDelete(scope.row)"
-                        v-hasPermi="['@per:per@:remove']">删除</el-button>
+                        v-hasPermi="['bbs:plate:remove']">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -116,14 +111,16 @@
         <!-- ---------------------这里是新增和更新的对话框--------------------- -->
         <el-dialog :title="title" v-model="open" width="600px" append-to-body>
             <el-form ref="dataRef" :model="form" :rules="rules" label-width="100px">
-                <el-form-item label="@Name@编码" prop="code">
-                    <el-input v-model="form.code" placeholder="请输入@Name@编码" />
+                <el-form-item label="板块编码" prop="code">
+                    <el-input v-model="form.code" placeholder="请输入板块编码" />
                 </el-form-item>
 
-                <el-form-item label="@Name@名称" prop="name">
-                    <el-input v-model="form.name" placeholder="请输入@Name@名称" />
+                <el-form-item label="板块名称" prop="name">
+                    <el-input v-model="form.name" placeholder="请输入板块名称" />
                 </el-form-item>
-
+                <el-form-item label="板块Logo" prop="logo">
+                    <el-input v-model="form.logo" placeholder="请输入板块图片连接" />
+                </el-form-item>
                 <!-- <el-form-item label="状态" prop="isDeleted">
               <el-radio-group v-model="form.isDeleted">
                 <el-radio
@@ -134,8 +131,8 @@
                 >
               </el-radio-group>
             </el-form-item> -->
-                <el-form-item label="备注" prop="remarks">
-                    <el-input v-model="form.remarks" type="textarea" placeholder="请输入内容"></el-input>
+                <el-form-item label="简介" prop="introduction">
+                    <el-input v-model="form.introduction" type="textarea" placeholder="请输入内容"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -155,7 +152,7 @@ import {
     delData,
     addData,
     updateData,
-} from "@/api/@api@";
+} from "@/api/bbs/plateApi";
 import { ref } from "@vue/reactivity";
 
 
@@ -181,8 +178,8 @@ const data = reactive({
         code: undefined,
     },
     rules: {
-        code: [{ required: true, message: "@Name@编号不能为空", trigger: "blur" }],
-        name: [{ required: true, message: "@Name@名称不能为空", trigger: "blur" }],
+        code: [{ required: true, message: "板块编号不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "板块名称不能为空", trigger: "blur" }],
     },
 });
 
@@ -226,7 +223,7 @@ function resetQuery() {
 function handleAdd() {
     reset();
     open.value = true;
-    title.value = "添加@Name@";
+    title.value = "添加板块";
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
@@ -241,7 +238,7 @@ function handleUpdate(row) {
     getData(id).then((response) => {
         form.value = response.data;
         open.value = true;
-        title.value = "修改@Name@";
+        title.value = "修改板块";
     });
 }
 /** 提交按钮 */
