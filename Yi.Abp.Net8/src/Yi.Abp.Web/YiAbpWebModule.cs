@@ -10,7 +10,6 @@ using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
-using Volo.Abp.Json;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
@@ -43,6 +42,7 @@ namespace Yi.Abp.Web
         public override Task ConfigureServicesAsync(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
+            var host = context.Services.GetHostingEnvironment();
             var service = context.Services;
 
             //请求日志
@@ -74,7 +74,7 @@ namespace Yi.Abp.Web
             //Swagger
             context.Services.AddYiSwaggerGen<YiAbpWebModule>(options =>
             {
-                options.SwaggerDoc("default", new OpenApiInfo { Title = "Yi.Framework.Abp", Version = "v1",Description="集大成者" });
+                options.SwaggerDoc("default", new OpenApiInfo { Title = "Yi.Framework.Abp", Version = "v1", Description = "集大成者" });
             });
 
             //跨域
@@ -153,6 +153,8 @@ namespace Yi.Abp.Web
 
             //swagger
             app.UseYiSwagger();
+
+
 
             //工作单元
             app.UseUnitOfWork();

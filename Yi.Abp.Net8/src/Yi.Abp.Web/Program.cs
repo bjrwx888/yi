@@ -1,9 +1,15 @@
 using Serilog;
+using Serilog.Events;
 using Yi.Abp.Web;
 
-//创建日志
+//创建日志,可使用{SourceContext}记录
 Log.Logger = new LoggerConfiguration()
-.WriteTo.Async(c => c.File("Logs/logs.txt", rollingInterval: RollingInterval.Day))
+.MinimumLevel.Debug()
+.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+.MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics",LogEventLevel.Error)
+.MinimumLevel.Override("Quartz", LogEventLevel.Warning)
+.Enrich.FromLogContext()
+.WriteTo.Async(c => c.File("Logs/log-.txt", rollingInterval: RollingInterval.Day))
 .WriteTo.Async(c => c.Console())
 .CreateLogger();
 

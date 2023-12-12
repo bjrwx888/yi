@@ -20,8 +20,7 @@ namespace Yi.Framework.SqlSugarCore
         }
         public Task SaveAsync(AuditLogInfo auditInfo)
         {
-            _logger.LogDebug(JsonHelper.ObjToStr(auditInfo, "yyyy-MM-dd HH:mm:ss"));
-            //Console.WriteLine(auditInfo.ExecutionTime);
+            _logger.LogDebug("Yi-请求追踪:"+JsonHelper.ObjToStr(auditInfo, "yyyy-MM-dd HH:mm:ss"));
             return Task.CompletedTask;
         }
     }

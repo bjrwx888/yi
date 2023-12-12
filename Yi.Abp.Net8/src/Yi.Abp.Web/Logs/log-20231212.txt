@@ -1,0 +1,115 @@
+2023-12-12 17:16:19.024 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-12 17:16:21.768 +08:00 [INF] Loaded ABP modules:
+2023-12-12 17:16:21.769 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-12 17:16:21.769 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-12 17:16:21.769 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-12 17:16:21.769 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-12 17:16:21.769 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-12 17:16:21.769 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-12 17:16:21.769 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-12 17:16:21.769 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-12 17:16:21.769 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-12 17:16:21.769 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-12 17:16:21.769 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-12 17:16:21.769 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-12 17:16:21.769 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-12 17:16:21.769 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-12 17:16:21.769 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-12 17:16:21.769 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-12 17:16:21.936 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.958 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.960 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.961 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.962 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.965 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.967 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.967 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.968 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.969 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.970 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.972 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.972 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.973 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.974 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.974 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.977 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.978 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.979 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.981 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.981 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.982 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.983 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:21.983 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-12 17:16:22.126 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dept`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.140 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dictionary`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.142 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.145 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'系统管理' )  AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.147 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Post`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.149 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Role`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.151 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-12 17:16:22.419 +08:00 [INF] User profile is available. Using 'C:\Users\chenchun\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-12 17:16:22.468 +08:00 [INF] Initialized all ABP modules.
+2023-12-12 17:16:22.536 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-12 17:16:22.536 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-12 17:16:22.537 +08:00 [INF] Hosting environment: Development
+2023-12-12 17:16:22.537 +08:00 [INF] Content root path: E:\code\csharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web

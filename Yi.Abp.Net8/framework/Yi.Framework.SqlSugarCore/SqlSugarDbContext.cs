@@ -222,7 +222,7 @@ namespace Yi.Framework.SqlSugarCore
         {
             if (Options.EnabledSqlLog)
             {
-                Logger.CreateLogger<SqlSugarDbContext>().LogDebug("SQL执行:"+UtilMethods.GetSqlString(DbType.SqlServer, sql, pars));
+                Logger.CreateLogger<SqlSugarDbContext>().LogDebug("Yi-SQL执行:"+UtilMethods.GetSqlString(DbType.SqlServer, sql, pars));
             }
          
         }

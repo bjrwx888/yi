@@ -15,11 +15,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
         public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
-
-
-            await Console.Out.WriteLineAsync("事务提交");
-
-            Console.WriteLine(_sqlsugarDbContext.SqlSugarClient.ContextID + "---------------");
             await _sqlsugarDbContext.SqlSugarClient.Ado.CommitTranAsync();
         }
 
@@ -30,8 +25,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
         public async Task RollbackAsync(CancellationToken cancellationToken = default)
         {
-            await Console.Out.WriteLineAsync("事务回滚");
-            Console.WriteLine(_sqlsugarDbContext.SqlSugarClient.ContextID);
             await _sqlsugarDbContext.SqlSugarClient.Ado.RollbackTranAsync();
         }
     }
