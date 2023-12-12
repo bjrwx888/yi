@@ -6,30 +6,21 @@
         <div class="username form-item">
           <el-form-item prop="userName">
             <span>使用账号</span>
-            <el-input
-              v-model="loginForm.userName"
-              class="input-item"
-            ></el-input>
-            <!-- <input
+            <input
               type="text"
               class="input-item"
               v-model="loginForm.userName"
-            /> -->
+            />
           </el-form-item>
         </div>
         <div class="password form-item">
           <el-form-item prop="password">
             <span>密码</span>
-            <el-input
-              type="password"
-              v-model="loginForm.password"
-              class="input-item"
-            ></el-input>
-            <!-- <input
+            <input
               type="password"
               class="input-item"
               v-model="loginForm.password"
-            /> -->
+            />
           </el-form-item>
         </div>
       </el-form>
@@ -106,18 +97,6 @@ const login = async (formEl) => {
       }
     }
   });
-  // const response = await userStore.login(loginForm).catch((e) => {
-  //   loginForm.password = "";
-  // });
-  // if (response != undefined) {
-  //   ElMessage({
-  //     message: `您好${loginForm.userName}，登录成功！`,
-  //     type: "success",
-  //   });
-
-  //   const redirect = route.query?.redirect ?? "/index";
-  //   router.push(redirect);
-  // }
 };
 </script>
 <style src="@/assets/styles/login.scss" scoped></style>
