@@ -131,8 +131,8 @@ onMounted(async () => {
   plateList.value = plateData.items;
   const { data: discussData } = await discussGetList(query);
   discussList.value = discussData.items;
-  const { data: bannerData } = await bannerGetList();
-  bannerList.value = bannerData.items;
+  // const { data: bannerData } = await bannerGetList();
+  // bannerList.value = bannerData.items;
 });
 </script>
 <style scoped>

@@ -1,17 +1,17 @@
-import request from '@/utils/request'  
+import request from "@/config/axios/service";
+
 // 触发访问
 export function access() {
   return request({
-    url: '/access-log',
-    method: 'post'
-  })
+    url: "/access-log",
+    method: "post",
+  });
 }
-
 
 // 获取本周数据
 export function getWeek() {
   return request({
-    url: '/access-log/week',
-    method: 'get'
-  })
+    url: "/access-log/week",
+    method: "get",
+  });
 }

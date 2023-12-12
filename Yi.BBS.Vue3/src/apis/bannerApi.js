@@ -1,8 +1,9 @@
-import myaxios from '@/utils/request'
-export function getList(data){
-    return myaxios({
-        url: '/banner',
-        method: 'get',
-        params:data
-    })
-};
+import request from "@/config/axios/service";
+
+export function getList(data) {
+  return request({
+    url: "/banner",
+    method: "get",
+    params: data,
+  });
+}
