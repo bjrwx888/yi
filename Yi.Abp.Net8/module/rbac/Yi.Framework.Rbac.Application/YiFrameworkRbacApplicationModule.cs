@@ -29,7 +29,6 @@ namespace Yi.Framework.Rbac.Application
 
         public async override Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
         {
-            //await context.AddBackgroundWorkerAsync<TestJob>();
         }
     }
 }

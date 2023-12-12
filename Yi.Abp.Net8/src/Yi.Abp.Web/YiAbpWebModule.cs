@@ -65,10 +65,7 @@ namespace Yi.Abp.Web
             {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
-            Configure<AbpJsonOptions>(options =>
-            {
-                options.OutputDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-            });
+
             Configure<AbpAntiForgeryOptions>(options =>
             {
                 options.AutoValidate = false;
