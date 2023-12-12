@@ -24,7 +24,7 @@ using Yi.Framework.Rbac.Domain.Shared.Options;
 namespace Yi.Abp.Web
 {
     [DependsOn(
-         typeof(YiAbpSqlSugarCoreModule),
+        typeof(YiAbpSqlSugarCoreModule),
         typeof(YiAbpApplicationModule),
 
         typeof(AbpAspNetCoreMvcModule),
@@ -142,7 +142,6 @@ namespace Yi.Abp.Web
             var env = context.GetEnvironment();
             var app = context.GetApplicationBuilder();
 
-
             app.UseRouting();
 
             //跨域
@@ -153,8 +152,6 @@ namespace Yi.Abp.Web
 
             //swagger
             app.UseYiSwagger();
-
-
 
             //工作单元
             app.UseUnitOfWork();

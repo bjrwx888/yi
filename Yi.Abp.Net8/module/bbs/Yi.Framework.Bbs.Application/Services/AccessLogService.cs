@@ -48,7 +48,7 @@ namespace Yi.Framework.Bbs.Application.Services
         /// 触发
         /// </summary>
         /// <returns></returns>
-        [HttpPost("")]
+        [HttpPost("access-log")]
         public async Task AccessAsync()
         {
             //可判断http重复，防止同一ip多次访问
