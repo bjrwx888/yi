@@ -28,6 +28,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A5375C6-1D55-4E93-9B19-736F1C68CBC3}"
 	ProjectSection(SolutionItems) = preProject
 		common.props = common.props
+		end.sh = end.sh
+		start.sh = start.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SqlSugarCore.Abstractions", "framework\Yi.Framework.SqlSugarCore.Abstractions\Yi.Framework.SqlSugarCore.Abstractions.csproj", "{FD6D6860-3753-4747-8A26-977E4A3001F9}"
@@ -58,13 +60,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bbs", "bbs", "{E902A945-4F4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Bbs.Domain.Shared", "module\bbs\Yi.Framework.Bbs.Domain.Shared\Yi.Framework.Bbs.Domain.Shared.csproj", "{EB9349E2-256D-41EB-A345-21635A1361B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Bbs.Domain", "module\bbs\Yi.Framework.Bbs.Domain\Yi.Framework.Bbs.Domain.csproj", "{4EABBC84-BCED-46C1-8CF1-62A7B8081ED7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Bbs.Domain", "module\bbs\Yi.Framework.Bbs.Domain\Yi.Framework.Bbs.Domain.csproj", "{4EABBC84-BCED-46C1-8CF1-62A7B8081ED7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Bbs.Application.Contracts", "module\bbs\Yi.Framework.Bbs.Application.Contracts\Yi.Framework.Bbs.Application.Contracts.csproj", "{7E569FD9-B1AB-4848-8AB7-FD9EFA1DBA20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Bbs.Application.Contracts", "module\bbs\Yi.Framework.Bbs.Application.Contracts\Yi.Framework.Bbs.Application.Contracts.csproj", "{7E569FD9-B1AB-4848-8AB7-FD9EFA1DBA20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Bbs.Application", "module\bbs\Yi.Framework.Bbs.Application\Yi.Framework.Bbs.Application.csproj", "{AD4EE9E6-F4A3-4139-AF05-71388167DE5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Bbs.Application", "module\bbs\Yi.Framework.Bbs.Application\Yi.Framework.Bbs.Application.csproj", "{AD4EE9E6-F4A3-4139-AF05-71388167DE5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Bbs.SqlSugarCore", "module\bbs\Yi.Framework.Bbs.SqlSugarCore\Yi.Framework.Bbs.SqlSugarCore.csproj", "{6C86BA71-9F87-4E2C-B467-2950D77DCDFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Bbs.SqlSugarCore", "module\bbs\Yi.Framework.Bbs.SqlSugarCore\Yi.Framework.Bbs.SqlSugarCore.csproj", "{6C86BA71-9F87-4E2C-B467-2950D77DCDFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
