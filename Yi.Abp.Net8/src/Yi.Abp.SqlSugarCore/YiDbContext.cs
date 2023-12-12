@@ -28,11 +28,7 @@ namespace Yi.Abp.SqlSugarCore
 
         protected override void OnLogExecuting(string sql, SugarParameter[] pars)
         {
-            //获取原生SQL推荐 5.1.4.63  性能OK
-            //UtilMethods.GetNativeSql(sql,pars)
-
-            //获取无参数化SQL 影响性能只适合调试
-            this.Logger.CreateLogger<YiDbContext>().LogInformation(UtilMethods.GetSqlString(DbType.SqlServer, sql, pars)); 
+            base.OnLogExecuting(sql, pars);
         }
 
         protected override void OnLogExecuted(string sql, SugarParameter[] pars)

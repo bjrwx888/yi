@@ -10,7 +10,6 @@ using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
-using Volo.Abp.Json;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
@@ -25,7 +24,7 @@ using Yi.Framework.Rbac.Domain.Shared.Options;
 namespace Yi.Abp.Web
 {
     [DependsOn(
-         typeof(YiAbpSqlSugarCoreModule),
+        typeof(YiAbpSqlSugarCoreModule),
         typeof(YiAbpApplicationModule),
 
         typeof(AbpAspNetCoreMvcModule),
@@ -43,6 +42,7 @@ namespace Yi.Abp.Web
         public override Task ConfigureServicesAsync(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
+            var host = context.Services.GetHostingEnvironment();
             var service = context.Services;
 
             //请求日志
@@ -65,10 +65,7 @@ namespace Yi.Abp.Web
             {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
-            Configure<AbpJsonOptions>(options =>
-            {
-                options.OutputDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-            });
+
             Configure<AbpAntiForgeryOptions>(options =>
             {
                 options.AutoValidate = false;
@@ -77,7 +74,7 @@ namespace Yi.Abp.Web
             //Swagger
             context.Services.AddYiSwaggerGen<YiAbpWebModule>(options =>
             {
-                options.SwaggerDoc("default", new OpenApiInfo { Title = "Yi.Framework.Abp", Version = "v1",Description="集大成者" });
+                options.SwaggerDoc("default", new OpenApiInfo { Title = "Yi.Framework.Abp", Version = "v1", Description = "集大成者" });
             });
 
             //跨域
@@ -144,7 +141,6 @@ namespace Yi.Abp.Web
 
             var env = context.GetEnvironment();
             var app = context.GetApplicationBuilder();
-
 
             app.UseRouting();
 
