@@ -4335,3 +4335,890 @@ Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime
 2023-12-13 16:29:01.769 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:29:01'.
 2023-12-13 16:29:01.769 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.DiscussService.GetListAsync (Yi.Framework.Bbs.Application)'
 2023-12-13 16:29:01.769 +08:00 [INF] Route matched with {action = "GetList", controller = "Discuss", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss.DiscussGetListOutputDto]] GetListAsync(Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss.DiscussGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.DiscussService (Yi.Framework.Bbs.Application).
+2023-12-13 16:30:18.049 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-13 16:30:20.678 +08:00 [INF] Loaded ABP modules:
+2023-12-13 16:30:20.678 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-13 16:30:20.678 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-13 16:30:20.678 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-13 16:30:20.678 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-13 16:30:20.678 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-13 16:30:20.678 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-13 16:30:20.678 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-13 16:30:20.678 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-13 16:30:20.678 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-13 16:30:20.678 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-13 16:30:20.678 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-13 16:30:20.678 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-13 16:30:20.678 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-13 16:30:20.678 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-13 16:30:20.678 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-13 16:30:20.678 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-13 16:30:20.867 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.891 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.892 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.893 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.895 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.897 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.899 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.900 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.901 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.902 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.903 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.905 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.906 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.906 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.907 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.908 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.911 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.912 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.914 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.916 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.916 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.917 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.918 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:20.918 +08:00 [DBG] Yi-SQL执行:select Name from sqlite_master where type='table' and name<>'sqlite_sequence' order by name;
+2023-12-13 16:30:21.038 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dept`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.050 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dictionary`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.052 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.054 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'系统管理' )  AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.057 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Post`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.058 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Role`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.060 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:30:21.326 +08:00 [INF] User profile is available. Using 'C:\Users\chenchun\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-13 16:30:21.373 +08:00 [INF] Initialized all ABP modules.
+2023-12-13 16:30:21.446 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-13 16:30:21.446 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-13 16:30:21.446 +08:00 [INF] Hosting environment: Development
+2023-12-13 16:30:21.446 +08:00 [INF] Content root path: E:\code\csharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-13 16:31:33.245 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:33.245 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.ConfigService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:33.284 +08:00 [INF] Route matched with {action = "Get", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto] Get() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:31:33.289 +08:00 [INF] Route matched with {action = "GetList", controller = "Config", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Config.ConfigGetListOutputDto]] GetListAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Config.ConfigGetListInputVo) on controller Yi.Framework.Rbac.Application.Services.ConfigService (Yi.Framework.Rbac.Application).
+2023-12-13 16:31:33.424 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:31:33.433 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Config`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-13 16:31:33.435 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`ConfigName`,`ConfigKey`,`ConfigValue`,`ConfigType`,`OrderNum`,`Remark`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Config`   WHERE ( `IsDeleted` = 0 )   LIMIT 0,10
+2023-12-13 16:31:33.455 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.Config.ConfigGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-13 16:31:33.473 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:31:33.483 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:31:33.505 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.ConfigService.GetListAsync (Yi.Framework.Rbac.Application) in 212.9098ms
+2023-12-13 16:31:33.505 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.ConfigService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:33.533 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "36532e8b-109b-c6dd-fa9e-3a0f5fe48619",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:33",
+  "ExecutionDuration": 282,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/config",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.ConfigService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"configName\":null,\"configKey\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":0,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-13 16:31:33",
+      "ExecutionDuration": 66,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:33.579 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto'.
+2023-12-13 16:31:33.595 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application) in 310.0017ms
+2023-12-13 16:31:33.595 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:33.597 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "36532e8b-109b-c6dd-fa9e-3a0f5fe48619",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:33",
+  "ExecutionDuration": 370,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "Get",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:31:33",
+      "ExecutionDuration": 178,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:33.826 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:33'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:31:33.827 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:33'.
+2023-12-13 16:31:33.836 +08:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2023-12-13 16:31:33.849 +08:00 [INF] AuthenticationScheme: Bearer was challenged.
+2023-12-13 16:31:46.823 +08:00 [INF] CORS policy execution failed.
+2023-12-13 16:31:46.823 +08:00 [INF] Request origin http://127.0.0.1:18001 does not have permission to access the resource.
+2023-12-13 16:31:46.825 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:46'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:31:46.825 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:46'.
+2023-12-13 16:31:46.826 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLogout (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:46.829 +08:00 [INF] Route matched with {action = "PostLogout", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Boolean] PostLogout() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:31:46.831 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Boolean'.
+2023-12-13 16:31:46.831 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostLogout (Yi.Framework.Rbac.Application) in 2.0982ms
+2023-12-13 16:31:46.831 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLogout (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:46.832 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:46",
+  "ExecutionDuration": 6,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/logout",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostLogout",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:31:46",
+      "ExecutionDuration": 0,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.261 +08:00 [INF] CORS policy execution failed.
+2023-12-13 16:31:48.261 +08:00 [INF] Request origin http://127.0.0.1:18001 does not have permission to access the resource.
+2023-12-13 16:31:48.262 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:48.265 +08:00 [INF] Route matched with {action = "PostLogin", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostLoginAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.LoginInputVo) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:31:48.300 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`   WHERE (( `UserName` = N'cc' ) AND ( `State` = 1 ))  AND ( `IsDeleted` = 0 )  ORDER BY DATETIME('now')    LIMIT 0,1
+2023-12-13 16:31:48.304 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:31:48.307 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:31:48.308 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:31:48.392 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-13 16:31:48.394 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application) in 128.9105ms
+2023-12-13 16:31:48.394 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:48.395 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:48",
+  "ExecutionDuration": 133,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/login",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostLoginAsync",
+      "Parameters": "{\"input\":{\"userName\":\"cc\",\"password\":\"123456\",\"uuid\":\"\",\"code\":\"\"}}",
+      "ExecutionTime": "2023-12-13 16:31:48",
+      "ExecutionDuration": 103,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.403 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:48.404 +08:00 [INF] Route matched with {action = "Get", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto] Get() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:31:48.405 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:31:48.407 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:31:48.410 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:31:48.411 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto'.
+2023-12-13 16:31:48.411 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application) in 7.4088ms
+2023-12-13 16:31:48.411 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:48.412 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "36532e8b-109b-c6dd-fa9e-3a0f5fe48619",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:48",
+  "ExecutionDuration": 8,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "Get",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:31:48",
+      "ExecutionDuration": 6,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.417 +08:00 [INF] 用户【36532e8b-109b-c6dd-fa9e-3a0f5fe48619:cc】登入系统
+2023-12-13 16:31:48.421 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:48.421 +08:00 [INF] Route matched with {action = "Get", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto] Get() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:31:48.423 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:31:48.424 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:31:48.428 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:31:48.429 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto'.
+2023-12-13 16:31:48.429 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application) in 7.9379ms
+2023-12-13 16:31:48.429 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:31:48.429 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "36532e8b-109b-c6dd-fa9e-3a0f5fe48619",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:48",
+  "ExecutionDuration": 8,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "Get",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:31:48",
+      "ExecutionDuration": 7,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.482 +08:00 [DBG] Yi-SQL执行:INSERT INTO `LoginLog`  
+           (`Id`,`CreationTime`,`LoginUser`,`LoginLocation`,`LoginIp`,`Browser`,`Os`,`LogMsg`,`CreatorId`)
+     VALUES
+           (N'42118ce7-6fa3-ab02-31bc-3a0f747a8adb','2023-12-13 16:31:48.450',N'cc',N'本地-本机',N'127.0.0.1',N'Other',N'Windows 10',N'cc登录系统',null) ;
+2023-12-13 16:31:48.689 +08:00 [INF] CORS policy execution failed.
+2023-12-13 16:31:48.689 +08:00 [INF] Request origin http://127.0.0.1:18001 does not have permission to access the resource.
+2023-12-13 16:31:48.690 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:31:48.690 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:31:48.690 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+2023-12-13 16:31:48.690 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+2023-12-13 16:31:48.691 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.AccessAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:31:48.691 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.GetWeekAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:31:48.696 +08:00 [INF] Route matched with {action = "GetWeek", controller = "AccessLog", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Bbs.Application.Contracts.Dtos.AccessLog.AccessLogDto[]] GetWeekAsync() on controller Yi.Framework.Bbs.Application.Services.AccessLogService (Yi.Framework.Bbs.Application).
+2023-12-13 16:31:48.696 +08:00 [INF] Route matched with {action = "Access", controller = "AccessLog", area = ""}. Executing controller action with signature System.Threading.Tasks.Task AccessAsync() on controller Yi.Framework.Bbs.Application.Services.AccessLogService (Yi.Framework.Bbs.Application).
+2023-12-13 16:31:48.705 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Number`,`LastModificationTime`,`CreationTime` FROM `AccessLog`    ORDER BY `CreationTime` DESC LIMIT 0,1
+2023-12-13 16:31:48.712 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:31:48.712 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+2023-12-13 16:31:48.713 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.PlateService.GetListAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:31:48.717 +08:00 [INF] Route matched with {action = "GetList", controller = "Plate", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Plate.PlateGetListOutputDto]] GetListAsync(Yi.Framework.Bbs.Application.Contracts.Dtos.Plate.PlateGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.PlateService (Yi.Framework.Bbs.Application).
+2023-12-13 16:31:48.719 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Number`,`LastModificationTime`,`CreationTime` FROM `AccessLog`    ORDER BY `CreationTime` DESC LIMIT 0,7
+2023-12-13 16:31:48.739 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Plate`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-13 16:31:48.740 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Code`,`Name`,`Logo`,`Introduction`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Plate`   WHERE ( `IsDeleted` = 0 )   LIMIT 0,10
+2023-12-13 16:31:48.741 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Bbs.Application.Contracts.Dtos.AccessLog.AccessLogDto[]'.
+2023-12-13 16:31:48.743 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.AccessLogService.GetWeekAsync (Yi.Framework.Bbs.Application) in 46.5703ms
+2023-12-13 16:31:48.743 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.GetWeekAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:31:48.743 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:48",
+  "ExecutionDuration": 53,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/access-log/week",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.AccessLogService",
+      "MethodName": "GetWeekAsync",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:31:48",
+      "ExecutionDuration": 42,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.756 +08:00 [DBG] Yi-SQL执行:UPDATE `AccessLog`  SET
+             `Number` =(  `Number` + 1  )   WHERE ( `Id` = N'947fd485-3518-1852-96fd-3a0f746d5a4e' )
+2023-12-13 16:31:48.758 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Bbs.Application.Contracts.Dtos.Plate.PlateGetListOutputDto, Yi.Framework.Bbs.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-13 16:31:48.758 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.AccessLogService.AccessAsync (Yi.Framework.Bbs.Application) in 61.5922ms
+2023-12-13 16:31:48.758 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.AccessAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:31:48.758 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:48",
+  "ExecutionDuration": 68,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 204,
+  "Url": "/api/app/access-log",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.AccessLogService",
+      "MethodName": "AccessAsync",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:31:48",
+      "ExecutionDuration": 59,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.764 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.PlateService.GetListAsync (Yi.Framework.Bbs.Application) in 46.65ms
+2023-12-13 16:31:48.764 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.PlateService.GetListAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:31:48.765 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:31:48",
+  "ExecutionDuration": 51,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/plate",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.PlateService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"name\":null,\"code\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":0,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-13 16:31:48",
+      "ExecutionDuration": 27,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:31:48.820 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:31:48.820 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:31:48'.
+2023-12-13 16:31:48.820 +08:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2023-12-13 16:31:48.820 +08:00 [INF] AuthenticationScheme: Bearer was challenged.
+2023-12-13 16:32:58.000 +08:00 [INF] CORS policy execution failed.
+2023-12-13 16:32:58.000 +08:00 [INF] Request origin http://127.0.0.1:18001 does not have permission to access the resource.
+2023-12-13 16:32:58.000 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:32:58'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:32:58.001 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:32:58'.
+2023-12-13 16:32:58.001 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLogout (Yi.Framework.Rbac.Application)'
+2023-12-13 16:32:58.001 +08:00 [INF] Route matched with {action = "PostLogout", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Boolean] PostLogout() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:32:58.002 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Boolean'.
+2023-12-13 16:32:58.003 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostLogout (Yi.Framework.Rbac.Application) in 1.1494ms
+2023-12-13 16:32:58.003 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLogout (Yi.Framework.Rbac.Application)'
+2023-12-13 16:32:58.003 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:32:58",
+  "ExecutionDuration": 2,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/logout",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostLogout",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:32:58",
+      "ExecutionDuration": 0,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:32:59.929 +08:00 [INF] CORS policy execution failed.
+2023-12-13 16:32:59.929 +08:00 [INF] Request origin http://127.0.0.1:18001 does not have permission to access the resource.
+2023-12-13 16:32:59.930 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-13 16:32:59.930 +08:00 [INF] Route matched with {action = "PostLogin", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostLoginAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.LoginInputVo) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:32:59.934 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`   WHERE (( `UserName` = N'cc' ) AND ( `State` = 1 ))  AND ( `IsDeleted` = 0 )  ORDER BY DATETIME('now')    LIMIT 0,1
+2023-12-13 16:32:59.934 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:32:59.936 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:32:59.938 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:33:00.002 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-13 16:33:00.003 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application) in 72.5306ms
+2023-12-13 16:33:00.003 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-13 16:33:00.003 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:32:59",
+  "ExecutionDuration": 73,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/login",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostLoginAsync",
+      "Parameters": "{\"input\":{\"userName\":\"cc\",\"password\":\"123456\",\"uuid\":\"\",\"code\":\"\"}}",
+      "ExecutionTime": "2023-12-13 16:32:59",
+      "ExecutionDuration": 70,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:33:00.004 +08:00 [INF] 用户【36532e8b-109b-c6dd-fa9e-3a0f5fe48619:cc】登入系统
+2023-12-13 16:33:00.011 +08:00 [DBG] Yi-SQL执行:INSERT INTO `LoginLog`  
+           (`Id`,`CreationTime`,`LoginUser`,`LoginLocation`,`LoginIp`,`Browser`,`Os`,`LogMsg`,`CreatorId`)
+     VALUES
+           (N'48cc3386-2692-686c-1243-3a0f747ba268','2023-12-13 16:33:00.010',N'cc',N'本地-本机',N'127.0.0.1',N'Other',N'Windows 10',N'cc登录系统',null) ;
+2023-12-13 16:33:00.022 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:33:00.022 +08:00 [INF] Route matched with {action = "Get", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto] Get() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:33:00.024 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:33:00.025 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:33:00.028 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:33:00.029 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto'.
+2023-12-13 16:33:00.030 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application) in 7.2894ms
+2023-12-13 16:33:00.030 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:33:00.030 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "36532e8b-109b-c6dd-fa9e-3a0f5fe48619",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:33:00",
+  "ExecutionDuration": 8,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "Get",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:33:00",
+      "ExecutionDuration": 6,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:33:00.041 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:33:00.041 +08:00 [INF] Route matched with {action = "Get", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto] Get() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-13 16:33:00.042 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    AND ( `IsDeleted` = 0 ) 
+2023-12-13 16:33:00.044 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '36532e8b-109b-c6dd-fa9e-3a0f5fe48619'    
+2023-12-13 16:33:00.046 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-13 16:33:00.047 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto'.
+2023-12-13 16:33:00.047 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application) in 6.2732ms
+2023-12-13 16:33:00.047 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-13 16:33:00.047 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "36532e8b-109b-c6dd-fa9e-3a0f5fe48619",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:33:00",
+  "ExecutionDuration": 7,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "Get",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:33:00",
+      "ExecutionDuration": 5,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:33:00.120 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:33:00.120 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+2023-12-13 16:33:00.121 +08:00 [INF] CORS policy execution failed.
+2023-12-13 16:33:00.121 +08:00 [INF] Request origin http://127.0.0.1:18001 does not have permission to access the resource.
+2023-12-13 16:33:00.128 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.GetWeekAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:33:00.128 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:33:00.128 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+2023-12-13 16:33:00.128 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:33:00.128 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+2023-12-13 16:33:00.128 +08:00 [INF] Route matched with {action = "GetWeek", controller = "AccessLog", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Bbs.Application.Contracts.Dtos.AccessLog.AccessLogDto[]] GetWeekAsync() on controller Yi.Framework.Bbs.Application.Services.AccessLogService (Yi.Framework.Bbs.Application).
+2023-12-13 16:33:00.129 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.PlateService.GetListAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:33:00.129 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.AccessAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:33:00.129 +08:00 [INF] Route matched with {action = "GetList", controller = "Plate", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Plate.PlateGetListOutputDto]] GetListAsync(Yi.Framework.Bbs.Application.Contracts.Dtos.Plate.PlateGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.PlateService (Yi.Framework.Bbs.Application).
+2023-12-13 16:33:00.129 +08:00 [INF] Route matched with {action = "Access", controller = "AccessLog", area = ""}. Executing controller action with signature System.Threading.Tasks.Task AccessAsync() on controller Yi.Framework.Bbs.Application.Services.AccessLogService (Yi.Framework.Bbs.Application).
+2023-12-13 16:33:00.129 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Number`,`LastModificationTime`,`CreationTime` FROM `AccessLog`    ORDER BY `CreationTime` DESC LIMIT 0,7
+2023-12-13 16:33:00.130 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Number`,`LastModificationTime`,`CreationTime` FROM `AccessLog`    ORDER BY `CreationTime` DESC LIMIT 0,1
+2023-12-13 16:33:00.130 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Bbs.Application.Contracts.Dtos.AccessLog.AccessLogDto[]'.
+2023-12-13 16:33:00.131 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.AccessLogService.GetWeekAsync (Yi.Framework.Bbs.Application) in 2.3143ms
+2023-12-13 16:33:00.131 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.GetWeekAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:33:00.131 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:33:00",
+  "ExecutionDuration": 6,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/access-log/week",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.AccessLogService",
+      "MethodName": "GetWeekAsync",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:33:00",
+      "ExecutionDuration": 1,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:33:00.132 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Plate`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-13 16:33:00.132 +08:00 [DBG] Yi-SQL执行:UPDATE `AccessLog`  SET
+             `Number` =(  `Number` + 1  )   WHERE ( `Id` = N'947fd485-3518-1852-96fd-3a0f746d5a4e' )
+2023-12-13 16:33:00.132 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Code`,`Name`,`Logo`,`Introduction`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Plate`   WHERE ( `IsDeleted` = 0 )   LIMIT 0,10
+2023-12-13 16:33:00.134 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.AccessLogService.AccessAsync (Yi.Framework.Bbs.Application) in 4.6276ms
+2023-12-13 16:33:00.134 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.AccessLogService.AccessAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:33:00.134 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:33:00",
+  "ExecutionDuration": 5,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 204,
+  "Url": "/api/app/access-log",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.AccessLogService",
+      "MethodName": "AccessAsync",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-13 16:33:00",
+      "ExecutionDuration": 4,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:33:00.134 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Bbs.Application.Contracts.Dtos.Plate.PlateGetListOutputDto, Yi.Framework.Bbs.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-13 16:33:00.135 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.PlateService.GetListAsync (Yi.Framework.Bbs.Application) in 5.6071ms
+2023-12-13 16:33:00.135 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.PlateService.GetListAsync (Yi.Framework.Bbs.Application)'
+2023-12-13 16:33:00.135 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-13 16:33:00",
+  "ExecutionDuration": 6,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::ffff:127.0.0.1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/plate",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.PlateService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"name\":null,\"code\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":0,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-13 16:33:00",
+      "ExecutionDuration": 5,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-13 16:33:00.168 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2023-12-13 16:33:00.168 +08:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '2023/12/13 6:24:29', Current time (UTC): '2023/12/13 8:33:00'.
+2023-12-13 16:33:00.168 +08:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2023-12-13 16:33:00.168 +08:00 [INF] AuthenticationScheme: Bearer was challenged.

@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp;
@@ -71,7 +72,7 @@ namespace Yi.Framework.Bbs.Application.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-
+        [Authorize]
         public override async Task<PagedResultDto<DiscussGetListOutputDto>> GetListAsync([FromQuery] DiscussGetListInputVo input)
         {
             //需要关联创建者用户
