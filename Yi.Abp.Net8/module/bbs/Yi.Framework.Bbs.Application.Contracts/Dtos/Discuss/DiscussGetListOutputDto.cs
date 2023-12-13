@@ -8,9 +8,9 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
     public class DiscussGetListOutputDto : EntityDto<Guid>
     {
         /// <summary>
-        /// 是否已点赞
+        /// 是否已点赞，默认未登录不点赞
         /// </summary>
-        public bool IsAgree { get; set; }
+        public bool IsAgree { get; set; } = false;
         public string Title { get; set; }
         public string Types { get; set; }
         public string? Introduction { get; set; }

@@ -1,8 +1,11 @@
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.EventBus.Local;
+using Volo.Abp.Users;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
@@ -69,7 +72,6 @@ namespace Yi.Framework.Bbs.Application.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-
         public override async Task<PagedResultDto<DiscussGetListOutputDto>> GetListAsync([FromQuery] DiscussGetListInputVo input)
         {
             //需要关联创建者用户
@@ -86,7 +88,7 @@ namespace Yi.Framework.Bbs.Application.Services
                      .Select((discuss, user) => new DiscussGetListOutputDto
                      {
                          Id = discuss.Id,
-                         IsAgree = SqlFunc.Subqueryable<AgreeEntity>().Where(x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
+                         IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
 
                          User = new UserGetListOutputDto() { Id = user.Id, UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
 

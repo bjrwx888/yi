@@ -16,6 +16,8 @@ namespace Yi.Framework.SqlSugarCore.Repositories
         private ISugarDbContextProvider<ISqlSugarDbContext> _sugarDbContextProvider;
         public IAsyncQueryableExecuter AsyncExecuter { get; }
 
+        public bool? IsChangeTrackingEnabled => false;
+
         public SqlSugarRepository(ISugarDbContextProvider<ISqlSugarDbContext> sugarDbContextProvider)
         {
             _sugarDbContextProvider = sugarDbContextProvider;
