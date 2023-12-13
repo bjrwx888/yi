@@ -54,7 +54,7 @@
           <el-col :span="24">
             <InfoCard header="访问统计" class="VisitsLineChart" text="详情">
               <template #content>
-                <VisitsLineChart />
+                <VisitsLineChart :option="statisOptions" class="statisChart" />
               </template>
             </InfoCard>
           </el-col>
@@ -99,22 +99,25 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref, reactive, computed } from "vue";
 import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
 import ScrollbarInfo from "@/components/ScrollbarInfo.vue";
 import AvatarInfo from "@/components/AvatarInfo.vue";
 import BottomInfo from "@/components/BottomInfo.vue";
-import VisitsLineChart from "@/components/echars/VisitsLineChart.vue";
+import VisitsLineChart from "./components/VisitsLineChart.vue";
 
 import { access } from "@/apis/accessApi.js";
 import { getList } from "@/apis/plateApi.js";
 import { getList as bannerGetList } from "@/apis/bannerApi.js";
 import { getList as discussGetList } from "@/apis/discussApi.js";
+import { getWeek } from "@/apis/accessApi.js";
+
 var plateList = ref([]);
 var discussList = ref([]);
 var bannerList = ref([]);
+const weekList = ref([]);
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -131,8 +134,22 @@ onMounted(async () => {
   plateList.value = plateData.items;
   const { data: discussData } = await discussGetList(query);
   discussList.value = discussData.items;
-  // const { data: bannerData } = await bannerGetList();
-  // bannerList.value = bannerData.items;
+  const { data: bannerData } = await bannerGetList();
+  bannerList.value = bannerData.items;
+  const { data: weekData } = await getWeek();
+  weekList.value = weekData;
+});
+
+// 访问统计
+const statisOptions = computed(() => {
+  return {
+    xAxis: {
+      data: weekList.value.map((item) => item.creationTime),
+    },
+    series: {
+      data: weekList.value.map((item) => item.number),
+    },
+  };
 });
 </script>
 <style scoped>
@@ -173,5 +190,10 @@ onMounted(async () => {
 }
 .VisitsLineChart >>> .el-card__body {
   padding: 0.5rem;
+}
+
+.statisChart {
+  width: 100%;
+  height: 300px;
 }
 </style>

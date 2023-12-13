@@ -41,7 +41,7 @@ const router = createRouter({
         {
           name: "index",
           path: "/index",
-          component: () => import("../views/Index.vue"),
+          component: () => import("../views/home/Index.vue"),
         },
         {
           name: "article",
