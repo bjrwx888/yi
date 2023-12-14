@@ -12,7 +12,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
         public string Content { get; set; }
         public string? Color { get; set; }
 
-        public List<Guid> PermissionUserIds { get; set; }
+        public List<Guid>? PermissionUserIds { get; set; }
 
         public DiscussPermissionTypeEnum PermissionType { get; set; }
 

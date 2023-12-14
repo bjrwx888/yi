@@ -55,7 +55,7 @@ namespace Yi.Framework.Bbs.Application.Services
 
 
         /// <summary>
-        /// 获取文章全部平铺信息
+        /// 获取文章全部树级信息
         /// </summary>
         /// <param name="discussId"></param>
         /// <returns></returns>
