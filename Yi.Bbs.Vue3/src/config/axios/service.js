@@ -4,10 +4,11 @@ import { config } from "@/config/axios/config";
 import { Session } from "@/utils/storage";
 import useAuths from "@/hooks/useAuths";
 
+const { VITE_APP_ENV_NAME } = import.meta.env;
 const { getToken } = useAuths();
 
-const { request_timeout } = config;
-export const PATH_URL = import.meta.env.VITE_APP_BASEAPI;
+const { base_url, request_timeout, pre_interface } = config;
+export const PATH_URL = base_url[VITE_APP_ENV_NAME] + pre_interface;
 
 // 配置新建一个 axios 实例
 const service = axios.create({

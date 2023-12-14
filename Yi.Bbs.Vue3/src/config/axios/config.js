@@ -6,7 +6,7 @@ const config = {
     // 开发环境接口前缀
     dev: import.meta.env.VITE_APP_BASEAPI,
     // 打包生产环境接口前缀
-    pro: window.location.protocol + "//" + window.location.hostname + ":19001",
+    pro: import.meta.env.VITE_APP_BASEAPI,
   },
 
   /**
