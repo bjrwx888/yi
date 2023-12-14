@@ -14,12 +14,11 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
     public class SeeDiscussEventHandler : ILocalEventHandler<SeeDiscussEventArgs>, ITransientDependency
     {
         private IRepository<DiscussEntity, Guid> _repository;
-        public SeeDiscussEventHandler(IRepository<DiscussEntity,Guid> repository)
+        public SeeDiscussEventHandler(IRepository<DiscussEntity, Guid> repository)
         {
             _repository = repository;
         }
-
-        public async Task  HandleEventAsync(SeeDiscussEventArgs eventData)
+        public async Task HandleEventAsync(SeeDiscussEventArgs eventData)
         {
             var entity = await _repository.GetAsync(eventData.DiscussId);
             if (entity is not null)
@@ -28,6 +27,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
                 await _repository.UpdateAsync(entity);
             }
         }
+
 
 
 
