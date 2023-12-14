@@ -8,7 +8,7 @@ const { VITE_APP_ENV_NAME } = import.meta.env;
 const { getToken } = useAuths();
 
 const { base_url, request_timeout, pre_interface } = config;
-export const PATH_URL = base_url[VITE_APP_ENV_NAME] + pre_interface;
+export const PATH_URL = base_url[VITE_APP_ENV_NAME];
 
 // 配置新建一个 axios 实例
 const service = axios.create({
