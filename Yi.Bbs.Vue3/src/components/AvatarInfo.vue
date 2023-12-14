@@ -59,7 +59,7 @@ const iconUrlHandler = () => {
   ) {
     return "/favicon.ico";
   }
-  return `${import.meta.env.VITE_APP_BASEAPI}${userInfo.icon}`;
+  return `/favicon.ico`;
 };
 
 watch(userStore, (n) => {
