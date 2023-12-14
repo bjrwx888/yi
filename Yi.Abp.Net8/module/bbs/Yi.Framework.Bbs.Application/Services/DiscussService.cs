@@ -12,6 +12,7 @@ using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
+using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 using Yi.Framework.Rbac.Domain.Entities;
@@ -58,9 +59,7 @@ namespace Yi.Framework.Bbs.Application.Services
             if (item is not null)
             {
                 await VerifyDiscussPermissionAsync(item.Id);
-
-                throw new NotImplementedException("等待更新消息通知");
-                //_eventPublisher.PublishAsync(new SeeDiscussEventSource(new SeeDiscussEventArgs { DiscussId = item.Id, OldSeeNum = item.SeeNum }));
+                await _localEventBus.PublishAsync(new SeeDiscussEventArgs { DiscussId = item.Id, OldSeeNum = item.SeeNum });
             }
 
             return item;

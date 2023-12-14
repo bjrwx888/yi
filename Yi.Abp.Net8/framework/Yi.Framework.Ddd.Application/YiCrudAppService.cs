@@ -62,9 +62,22 @@ namespace Yi.Framework.Ddd.Application
         {
         }
 
-        public override Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
+        public override async Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
         {
-            throw new NotImplementedException($"【{typeof(TEntity)}】实体的CrudAppService，查询为具体业务，通用查询几乎无实际场景，请重写实现！");
+            List<TEntity>? entites = null;
+            //区分多查还是批量查
+            if (input is IPagedResultRequest pagedInput)
+            {
+                entites = await Repository.GetPagedListAsync(pagedInput.SkipCount, pagedInput.MaxResultCount, string.Empty);
+            }
+            else
+            {
+                entites = await Repository.GetListAsync();
+            }
+            var total = await Repository.CountAsync();
+            var output = await MapToGetListOutputDtosAsync(entites);
+            return new PagedResultDto<TGetListOutputDto>(total, output);
+            //throw new NotImplementedException($"【{typeof(TEntity)}】实体的CrudAppService，查询为具体业务，通用查询几乎无实际场景，请重写实现！");
         }
 
         /// <summary>
