@@ -50,14 +50,14 @@ const userInfo = reactive({
   role: [],
   id: "",
 });
-const iconUrl = ref("/src/assets/logo.ico");
+const iconUrl = ref("../../src/assets/common/icons/logo.ico");
 const iconUrlHandler = () => {
   if (
     userInfo.icon == null ||
     userInfo.icon == undefined ||
     userInfo.icon == ""
   ) {
-    return "/src/assets/logo.ico";
+    return "../../src/assets/common/icons/logo.ico";
   }
   return `${import.meta.env.VITE_APP_BASEAPI}/file/${userInfo.icon}`;
 };
@@ -88,7 +88,6 @@ const Init = () => {
     userInfo.role = props.userInfo.role;
     userInfo.id = props.userInfo.id;
     iconUrl.value = iconUrlHandler(userInfo.icon);
-    console.log("使用传入值:", iconUrl.value);
   }
 
   //使用当前登录用户
@@ -97,8 +96,7 @@ const Init = () => {
     userInfo.nick = userStore.name;
     userInfo.role = userStore.role;
     userInfo.id = userStore.id;
-    iconUrl.value = userInfo.icon;
-    console.log("当前登陆:", iconUrl.value);
+    iconUrl.value = iconUrlHandler(userInfo.icon);
   }
 };
 </script>
