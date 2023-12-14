@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Yi.Framework.Rbac.Domain\Yi.Framework.Rbac.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
 </Project>
