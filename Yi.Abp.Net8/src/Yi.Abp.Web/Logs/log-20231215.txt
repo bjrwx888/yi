@@ -1,0 +1,84 @@
+2023-12-15 00:10:51.343 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-15 00:10:57.118 +08:00 [INF] Loaded ABP modules:
+2023-12-15 00:10:57.120 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-15 00:10:57.120 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-15 00:10:57.120 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-15 00:10:57.120 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-15 00:10:57.120 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-15 00:10:57.120 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-15 00:10:57.120 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-15 00:10:57.120 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-15 00:10:57.120 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-15 00:10:57.120 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-15 00:10:57.120 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-15 00:10:57.120 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-15 00:10:57.120 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-15 00:10:57.120 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-15 00:10:57.120 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-15 00:10:57.120 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-15 00:10:57.120 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-15 00:10:57.120 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-15 00:10:57.120 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-15 00:10:57.121 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-15 00:10:57.121 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-15 00:10:57.121 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-15 00:10:58.044 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-15 00:10:58.208 +08:00 [INF] Initialized all ABP modules.
+2023-12-15 00:10:58.431 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-15 00:10:58.431 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-15 00:10:58.431 +08:00 [INF] Hosting environment: Development
+2023-12-15 00:10:58.431 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
