@@ -26,7 +26,7 @@
       </el-form>
       <RouterLink to="/register"> 没有账号？前往注册</RouterLink>
       <button class="login-btn" @click="login(loginFormRef)">登 录</button>
-      <button class="login-btn" @click="guestlogin">游客临时登录</button>
+      <button class="login-btn" @click="guestlogin">访客</button>
     </div>
 
     <div class="divider">
@@ -76,9 +76,6 @@ const loginForm = reactive({
   code: "",
 });
 const guestlogin = async () => {
-  loginForm.userName = "guest";
-  loginForm.password = "123456";
-  await userStore.login(loginForm);
   const redirect = route.query?.redirect ?? "/index";
   router.push(redirect);
 };
