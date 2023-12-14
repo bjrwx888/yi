@@ -22,7 +22,8 @@
     "vue": "^3.2.47",
     "vue-cropper": "1.0.3",
     "vue-router": "^4.1.6",
-    "yarm": "^0.4.0"
+    "yarm": "^0.4.0",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
