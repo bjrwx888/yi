@@ -37,5 +37,9 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
+    // 增加新的配置
+    build: {
+      assetsInlineLimit: 1,
+    },
   };
 });
