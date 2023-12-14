@@ -50,14 +50,14 @@ const userInfo = reactive({
   role: [],
   id: "",
 });
-const iconUrl = ref("../../src/assets/common/icons/logo.ico");
+const iconUrl = ref("/logo.ico");
 const iconUrlHandler = () => {
   if (
     userInfo.icon == null ||
     userInfo.icon == undefined ||
     userInfo.icon == ""
   ) {
-    return "../../src/assets/common/icons/logo.ico";
+    return "/logo.ico";
   }
   return `${import.meta.env.VITE_APP_BASEAPI}/file/${userInfo.icon}`;
 };
