@@ -1,6 +1,7 @@
 ﻿using Volo.Abp.Application.Services;
+using Volo.Abp.DependencyInjection;
 
-namespace Yi.Abp.Application
+namespace Yi.Abp.Application.Services
 {
     public class TestService : ApplicationService
     {

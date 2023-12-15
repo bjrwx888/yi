@@ -186,6 +186,7 @@ namespace Yi.Framework.Rbac.Application.Services
             return await MapToGetOutputDtoAsync(entity);
         }
         [OperLog("删除用户", OperEnum.Delete)]
+        [Permission("system:user:delete")]
         public override async Task DeleteAsync(Guid id)
         {
             await base.DeleteAsync(id);
