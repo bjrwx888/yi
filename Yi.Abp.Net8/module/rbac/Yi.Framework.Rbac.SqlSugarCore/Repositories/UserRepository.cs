@@ -73,7 +73,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.Repositories
 
             user.Roles = new List<RoleEntity>();
             userRoleMenu.User = user.Adapt<UserDto>();
-
+            userRoleMenu.Menus = userRoleMenu.Menus.OrderByDescending(x => x.OrderNum).ToHashSet();
             return userRoleMenu;
         }
     }

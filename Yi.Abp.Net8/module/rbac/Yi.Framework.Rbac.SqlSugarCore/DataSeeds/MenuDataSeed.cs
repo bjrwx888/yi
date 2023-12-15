@@ -652,7 +652,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsCache = true,
                 Component = "system/role/index",
                 MenuIcon = "peoples",
-                OrderNum = 100,
+                OrderNum = 99,
                 ParentId = system.Id,
                 IsDeleted = false
             };
@@ -720,7 +720,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsCache = true,
                 Component = "system/menu/index",
                 MenuIcon = "tree-table",
-                OrderNum = 100,
+                OrderNum = 98,
                 ParentId = system.Id,
                 IsDeleted = false
             };
@@ -787,7 +787,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsCache = true,
                 Component = "system/dept/index",
                 MenuIcon = "tree",
-                OrderNum = 100,
+                OrderNum = 97,
                 ParentId = system.Id,
                 IsDeleted = false
             };
@@ -856,7 +856,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsCache = true,
                 Component = "system/post/index",
                 MenuIcon = "post",
-                OrderNum = 100,
+                OrderNum = 96,
                 ParentId = system.Id,
                 IsDeleted = false
             };
@@ -923,7 +923,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsCache = true,
                 Component = "system/dict/index",
                 MenuIcon = "dict",
-                OrderNum = 100,
+                OrderNum = 95,
                 ParentId = system.Id,
                 IsDeleted = false
             };
@@ -991,7 +991,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsCache = true,
                 Component = "system/config/index",
                 MenuIcon = "edit",
-                OrderNum = 100,
+                OrderNum = 94,
                 ParentId = system.Id,
                 IsDeleted = false
             };
@@ -1058,7 +1058,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsShow = true,
                 IsLink = false,
                 MenuIcon = "log",
-                OrderNum = 100,
+                OrderNum = 93,
                 ParentId = system.Id,
                 IsDeleted = false
             };

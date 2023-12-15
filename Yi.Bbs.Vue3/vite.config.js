@@ -27,7 +27,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     server: {
-      port: 18000,
+      port: 18001,
       open: true,
       proxy: {
         [env.VITE_APP_BASEAPI]: {
@@ -36,6 +36,10 @@ export default defineConfig(({ command, mode }) => {
           rewrite: (path) => path.replace(/^\/api-dev/, ""),
         },
       },
+    },
+    // 增加新的配置
+    build: {
+      assetsInlineLimit: 0,
     },
   };
 });

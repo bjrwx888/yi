@@ -7,12 +7,27 @@
           <el-col :span="24">
             <InfoCard header="文章信息" text="展开" hideDivider="true">
               <template #content>
-                <el-button style="width: 100%; margin-bottom: 0.8rem" @click="loadDiscuss(true)">首页</el-button>
-                <el-button v-hasPer="['bbs:article:add']" @click="addArticle(0)" type="primary"
-                  style="width: 100%; margin-bottom: 0.8rem; margin-left: 0">添加子文章</el-button>
+                <el-button
+                  style="width: 100%; margin-bottom: 0.8rem"
+                  @click="loadDiscuss(true)"
+                  >首页</el-button
+                >
+                <el-button
+                  v-hasPer="['bbs:article:add']"
+                  @click="addArticle('00000000-0000-0000-0000-000000000000')"
+                  type="primary"
+                  style="width: 100%; margin-bottom: 0.8rem; margin-left: 0"
+                  >添加子文章</el-button
+                >
                 <!--目录在这里 -->
-                <TreeArticleInfo :data="articleData" @remove="delArticle" @update="updateArticle" @create="addNextArticle"
-                  @handleNodeClick="handleNodeClick" :currentNodeKey="currentNodeKey"/>
+                <TreeArticleInfo
+                  :data="articleData"
+                  @remove="delArticle"
+                  @update="updateArticle"
+                  @create="addNextArticle"
+                  @handleNodeClick="handleNodeClick"
+                  :currentNodeKey="currentNodeKey"
+                />
               </template>
             </InfoCard>
           </el-col>
@@ -37,50 +52,70 @@
         <el-row class="left-div">
           <el-col :span="24">
             <!-- {{ discuss.user }} -->
-            <AvatarInfo :size="50" :showWatching="true" :time="discuss.creationTime"  :userInfo="discuss.user"></AvatarInfo>
+            <AvatarInfo
+              :size="50"
+              :showWatching="true"
+              :time="discuss.creationTime"
+              :userInfo="discuss.user"
+            ></AvatarInfo>
             <!-- :userInfo="{nick:'qwe'} -->
             <el-divider />
             <h2>{{ discuss.title }}</h2>
-            <el-image  :preview-src-list="[getUrl(discuss.cover)]" v-if="discuss.cover" :src="getUrl(discuss.cover)"  style="width: 150px;height: 150px;"  />
+            <el-image
+              :preview-src-list="[getUrl(discuss.cover)]"
+              v-if="discuss.cover"
+              :src="getUrl(discuss.cover)"
+              style="width: 150px; height: 150px"
+            />
 
-            
-            <ArticleContentInfo :code="discuss.content??''"></ArticleContentInfo>
+            <ArticleContentInfo
+              :code="discuss.content ?? ''"
+            ></ArticleContentInfo>
 
             <el-divider class="tab-divider" />
 
             <el-space :size="10" :spacer="spacer">
-              <AgreeInfo  :data="discuss"/>
+              <AgreeInfo :data="discuss" />
               <el-button icon="Star" text> 0</el-button>
               <el-button icon="Share" text> 分享</el-button>
               <el-button icon="Operation" text> 操作</el-button>
             </el-space>
           </el-col>
 
-          <el-col :span="24" class="comment"> 
-
-<CommentInfo/>
-
+          <el-col :span="24" class="comment">
+            <CommentInfo />
           </el-col>
-
         </el-row>
-        <BottomInfo/>
+        <BottomInfo />
       </el-col>
 
       <el-col :span="5">
         <el-row class="right-div">
           <el-col :span="24">
-            <InfoCard class="art-info-right" header="主题信息" text="更多" hideDivider="true">
+            <InfoCard
+              class="art-info-right"
+              header="主题信息"
+              text="更多"
+              hideDivider="true"
+            >
               <template #content>
                 <div>
                   <ul class="art-info-ul">
-
                     <li>
-                      <el-button type="primary" size="default"
-                      v-hasPer="['bbs:discuss:edit']"
-                        @click="updateHander(route.params.discussId)">编辑</el-button>
-                      <el-button style="margin-left: 1rem" type="danger"
-                      v-hasPer="['bbs:discuss:remove']"
-                        @click="delHander(route.params.discussId)">删除</el-button>
+                      <el-button
+                        type="primary"
+                        size="default"
+                        v-hasPer="['bbs:discuss:edit']"
+                        @click="updateHander(route.params.discussId)"
+                        >编辑</el-button
+                      >
+                      <el-button
+                        style="margin-left: 1rem"
+                        type="danger"
+                        v-hasPer="['bbs:discuss:remove']"
+                        @click="delHander(route.params.discussId)"
+                        >删除</el-button
+                      >
                     </li>
                     <li>分类： <span>主题</span></li>
                     标签：
@@ -95,11 +130,20 @@
             <InfoCard class="art-info-right" header="目录" hideDivider="true">
               <template #content>
                 <div>
-                  <el-empty :image-size="100" style="padding: 20px 0;" v-if="catalogueData.length==0" description="无目录" />
+                  <el-empty
+                    :image-size="100"
+                    style="padding: 20px 0"
+                    v-if="catalogueData.length == 0"
+                    description="无目录"
+                  />
                   <ul v-else class="art-info-ul">
                     <li v-for="(item, i) in catalogueData" :key="i">
-                      <el-button style="width: 100%; justify-content: left" type="primary" text>{{ `${i + 1} ： ${item}`
-                      }}</el-button>
+                      <el-button
+                        style="width: 100%; justify-content: left"
+                        type="primary"
+                        text
+                        >{{ `${i + 1} ： ${item}` }}</el-button
+                      >
                     </li>
                   </ul>
                 </div>
@@ -131,42 +175,44 @@ import AvatarInfo from "@/components/AvatarInfo.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import ArticleContentInfo from "@/components/ArticleContentInfo.vue";
 import CommentInfo from "@/components/CommentInfo.vue";
-import BottomInfo from '@/components/BottomInfo.vue'
+import BottomInfo from "@/components/BottomInfo.vue";
 import TreeArticleInfo from "@/components/TreeArticleInfo.vue";
 import { useRoute, useRouter } from "vue-router";
-import AgreeInfo from '@/components/AgreeInfo.vue'
+import AgreeInfo from "@/components/AgreeInfo.vue";
 import { get as discussGet, del as discussDel } from "@/apis/discussApi.js";
-import { all as articleall, del as articleDel, get as articleGet } from "@/apis/articleApi.js";
+import {
+  all as articleall,
+  del as articleDel,
+  get as articleGet,
+} from "@/apis/articleApi.js";
 //数据定义
 const route = useRoute();
 const router = useRouter();
 const spacer = h(ElDivider, { direction: "vertical" });
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 
-
 //子文章数据
 const articleData = ref([]);
 //主题内容
 const discuss = ref({});
 //封面url
-const getUrl= (str)=>{
-return `${import.meta.env.VITE_APP_BASEAPI}/file/${str}`
-}
+const getUrl = (str) => {
+  return `${import.meta.env.VITE_APP_BASEAPI}/file/${str}`;
+};
 
 //当前默认选择的子文章
-const currentNodeKey=route.params.articleId;
+const currentNodeKey = route.params.articleId;
 //目录数据
 const catalogueData = ref([]);
 
 //子文章初始化
 const loadArticleData = async () => {
-  const response= await articleall(route.params.discussId)
+  const response = await articleall(route.params.discussId);
   articleData.value = response.data;
-}
+};
 
 //主题初始化
 const loadDiscuss = async (isRewrite) => {
-
   if (isRewrite) {
     //跳转路由
     router.push(`/article/${route.params.discussId}`);
@@ -183,16 +229,15 @@ const ContentHander = () => {
   //加载目录
   var reg = /(#{1,6})\s(.*)/g;
 
-  if(discuss.value.content)
-  {
-  var myArray = discuss.value.content.match(reg);
-  if (myArray != null) {
-    catalogueData.value = myArray.map((x) => {
-      return x.replace(/#/g, "").replace(/\s/g, "");
-    });
+  if (discuss.value.content) {
+    var myArray = discuss.value.content.match(reg);
+    if (myArray != null) {
+      catalogueData.value = myArray.map((x) => {
+        return x.replace(/#/g, "").replace(/\s/g, "");
+      });
+    }
   }
-  }
-}
+};
 //添加树型子文章
 const addArticle = (parentArticleId) => {
   //跳转路由
@@ -251,7 +296,7 @@ const addNextArticle = (node, data) => {
     },
   };
   router.push(routerPer);
-}
+};
 
 //跳转更新子菜单
 const updateArticle = (node, data) => {
@@ -263,22 +308,21 @@ const updateArticle = (node, data) => {
       artType: "article",
       discussId: data.discussId,
       parentArticleId: data.parentId,
-      articleId: data.id
+      articleId: data.id,
     },
   };
   router.push(routerPer);
-}
+};
 //单机节点
-const handleNodeClick = async(data) => {
-
+const handleNodeClick = async (data) => {
   //跳转路由
 
   router.push(`/article/${route.params.discussId}/${data.id}`);
 
-  const response=await articleGet(data.id);
+  const response = await articleGet(data.id);
   discuss.value.content = response.data.content;
   ContentHander();
-}
+};
 //删除子文章
 const delArticle = (node, data) => {
   ElMessageBox.confirm(`确定是否删除编号[${data.id}]的子文章吗?`, "警告", {
@@ -286,7 +330,6 @@ const delArticle = (node, data) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(async () => {
-
     await articleDel(data.id);
     await loadArticleData();
 
@@ -295,14 +338,13 @@ const delArticle = (node, data) => {
       message: "删除成功",
     });
   });
-
-}
+};
 onMounted(async () => {
   await loadDiscuss();
   await loadArticleData();
 });
 </script>
-<style scoped >
+<style scoped>
 .comment {
   min-height: 40rem;
 }

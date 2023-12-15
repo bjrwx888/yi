@@ -70,19 +70,22 @@ namespace Yi.Framework.SqlSugarCore
         private void CodeFirst(IServiceProvider service)
         {
 
-                var moduleContainer = service.GetRequiredService<IModuleContainer>();
-                var db = service.GetRequiredService<ISqlSugarDbContext>().SqlSugarClient;
+            var moduleContainer = service.GetRequiredService<IModuleContainer>();
+            var db = service.GetRequiredService<ISqlSugarDbContext>().SqlSugarClient;
 
-                List<Type> types = new List<Type>();
-                foreach (var module in moduleContainer.Modules)
-                {
-                    types.AddRange(module.Assembly.GetTypes().Where(x => x.GetCustomAttribute<SugarTable>() != null).Where(x => x.GetCustomAttribute<SplitTableAttribute>() is null));
-                }
-                if (types.Count > 0)
-                {
-                    db.CodeFirst.InitTables(types.ToArray());
-                }
-        
+            //尝试创建数据库
+            db.DbMaintenance.CreateDatabase();
+
+            List<Type> types = new List<Type>();
+            foreach (var module in moduleContainer.Modules)
+            {
+                types.AddRange(module.Assembly.GetTypes().Where(x => x.GetCustomAttribute<SugarTable>() != null).Where(x => x.GetCustomAttribute<SplitTableAttribute>() is null));
+            }
+            if (types.Count > 0)
+            {
+                db.CodeFirst.InitTables(types.ToArray());
+            }
+
         }
 
         private async Task DataSeedAsync(IServiceProvider service)
