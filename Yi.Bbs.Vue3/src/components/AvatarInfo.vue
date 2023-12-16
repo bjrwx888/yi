@@ -96,7 +96,7 @@ const Init = () => {
     userInfo.nick = userStore.name;
     userInfo.role = userStore.role;
     userInfo.id = userStore.id;
-    iconUrl.value = iconUrlHandler(userInfo.icon);
+    iconUrl.value = userInfo.icon;
   }
 };
 </script>
@@ -134,7 +134,8 @@ const Init = () => {
 }
 
 .el-avatar {
-  margin-right: 1.2rem;
+  margin-right: 1rem;
+  --el-avatar-bg-color: none;
 }
 
 .remarks {

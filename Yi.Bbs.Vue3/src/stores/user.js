@@ -1,4 +1,4 @@
-import { login, logout, getInfo, register } from "@/apis/accountApi";
+import { login, logout, register } from "@/apis/accountApi";
 import { getUserDetailInfo } from "@/apis/auth";
 import useAuths from "@/hooks/useAuths";
 import { defineStore } from "pinia";
@@ -105,6 +105,15 @@ const useUserStore = defineStore("user", {
             reject(error);
           });
       });
+    },
+    // 重置用户信息
+    resetInfo() {
+      this.roles = [];
+      this.permissions = [];
+      this.name = "未登录";
+      this.icon = "/src/assets/common/icons/login.svg";
+      this.userName = "";
+      this.id = "";
     },
   },
 });
