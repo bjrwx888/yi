@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 import { ElMessage } from "element-plus";
 import { config } from "@/config/axios/config";
 import { Session } from "@/utils/storage";
@@ -57,11 +58,14 @@ service.interceptors.response.use(
     } else {
       const res = error.response || {};
       const status = Number(res.status) || 200;
-      const message = res.data.error.message;
+      const message = res?.data?.error?.message;
       if (status === 401) {
-        ElMessage({
-          type: "danger",
-          message,
+        ElMessageBox.confirm("该功能需要登陆后享有,是否立即登录?", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning",
+        }).then(() => {
+          router.push("/login");
         });
         return;
       }

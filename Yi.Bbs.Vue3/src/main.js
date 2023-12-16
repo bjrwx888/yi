@@ -5,6 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
+import "element-plus/dist/index.css";
 import "./assets/main.css";
 import "@/assets/styles/index.scss"; // global css
 
