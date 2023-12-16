@@ -1,6 +1,9 @@
-﻿using Volo.Abp.Domain;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.Domain;
 using Volo.Abp.Modularity;
 using Yi.Framework.Mapster;
+using Yi.Framework.Rbac.Domain.Shared.Options;
 
 namespace Yi.Framework.Rbac.Domain.Shared
 {
@@ -9,6 +12,12 @@ namespace Yi.Framework.Rbac.Domain.Shared
         )]
     public class YiFrameworkRbacDomainSharedModule : AbpModule
     {
+        public override void ConfigureServices(ServiceConfigurationContext context)
+        {
+            var configuration = context.Services.GetConfiguration();
+            Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
+            Configure<RbacOptions>(configuration.GetSection(nameof(RbacOptions)));
+        }
     }
 }

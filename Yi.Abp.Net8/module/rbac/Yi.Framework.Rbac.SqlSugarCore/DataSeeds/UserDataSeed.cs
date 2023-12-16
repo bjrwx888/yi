@@ -1,7 +1,9 @@
-﻿using Volo.Abp.Data;
+﻿using Microsoft.Extensions.Options;
+using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Shared.Enums;
+using Yi.Framework.Rbac.Domain.Shared.Options;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
@@ -9,9 +11,11 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
     public class UserDataSeed : IDataSeedContributor, ITransientDependency
     {
         private ISqlSugarRepository<UserEntity> _repository;
-        public UserDataSeed(ISqlSugarRepository<UserEntity> repository)
+        private RbacOptions _options;
+        public UserDataSeed(ISqlSugarRepository<UserEntity> repository, IOptions<RbacOptions> options)
         {
             _repository = repository;
+            _options = options.Value;
         }
         public async Task SeedAsync(DataSeedContext context)
         {
@@ -23,7 +27,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                     Name = "大橙子",
                     UserName = "cc",
                     Nick = "橙子",
-                    Password = "123456",
+                    Password = _options.AdminPassword,
                     Email = "454313500@qq.com",
                     Phone = 13800000000,
                     Sex = SexEnum.Male,
