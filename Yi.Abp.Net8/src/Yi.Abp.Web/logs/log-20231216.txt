@@ -1,0 +1,462 @@
+2023-12-16 11:31:01.817 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-16 11:31:07.431 +08:00 [INF] Loaded ABP modules:
+2023-12-16 11:31:07.432 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-16 11:31:07.432 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-16 11:31:07.432 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-16 11:31:07.432 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-16 11:31:07.432 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-16 11:31:07.432 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-16 11:31:07.432 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-16 11:31:07.432 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-16 11:31:07.432 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-16 11:31:07.432 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-16 11:31:07.432 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-16 11:31:07.432 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-16 11:31:07.432 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-16 11:31:07.432 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-16 11:31:07.432 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-16 11:31:07.432 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-16 11:31:07.432 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-16 11:31:07.432 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-16 11:31:07.432 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-16 11:31:07.432 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-16 11:31:07.432 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-16 11:31:07.432 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-16 11:31:07.432 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-16 11:31:07.432 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-16 11:31:07.432 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-16 11:31:07.432 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-16 11:31:07.432 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-16 11:31:07.432 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-16 11:31:07.432 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-16 11:31:07.432 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-16 11:31:07.432 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-16 11:31:07.433 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-16 11:31:07.433 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-16 11:31:07.433 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-16 11:31:07.433 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-16 11:31:07.433 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-16 11:31:07.433 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-16 11:31:07.433 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-16 11:31:07.433 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-16 11:31:07.433 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-16 11:31:07.433 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-16 11:31:07.433 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-16 11:31:07.433 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-16 11:31:07.433 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-16 11:31:07.433 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-16 11:31:07.433 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-16 11:31:07.433 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-16 11:31:08.441 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dept`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.523 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dictionary`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.537 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.557 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'系统管理' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.557 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-16 11:31:08.571 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Post`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.592 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Role`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.608 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.642 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Banner`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.652 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( `DictType` = N'bbs_type_lable' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.665 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'BBS' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.678 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Config`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:31:08.741 +08:00 [INF] Initialized all ABP modules.
+2023-12-16 11:31:08.952 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-16 11:31:08.953 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-16 11:31:08.953 +08:00 [INF] Hosting environment: Development
+2023-12-16 11:31:08.953 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-16 11:33:38.421 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.ArticleService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:33:38.455 +08:00 [INF] Route matched with {action = "GetDiscussId", controller = "Article", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Article.ArticleGetListOutputDto]] GetDiscussIdAsync(System.Guid) on controller Yi.Framework.Bbs.Application.Services.ArticleService (Yi.Framework.Bbs.Application).
+2023-12-16 11:33:38.559 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Discuss`  WHERE ( `Id` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:33:38.599 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Content`,`Name`,`DiscussId`,`ParentId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Article`  WHERE ( `DiscussId` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:33:38.787 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[Yi.Framework.Bbs.Application.Contracts.Dtos.Article.ArticleGetListOutputDto, Yi.Framework.Bbs.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-16 11:33:38.833 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.ArticleService.GetDiscussIdAsync (Yi.Framework.Bbs.Application) in 374.1177ms
+2023-12-16 11:33:38.834 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.ArticleService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:33:38.858 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-16 11:33:38",
+  "ExecutionDuration": 423,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/article/discuss-id/d35736f8-f282-2964-8625-3a0f7ad2b35b",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.ArticleService",
+      "MethodName": "GetDiscussIdAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\"}",
+      "ExecutionTime": "2023-12-16 11:33:38",
+      "ExecutionDuration": 239,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-16 11:33:52.325 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:33:52.331 +08:00 [INF] Route matched with {action = "GetDiscussId", controller = "Comment", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListOutputDto]] GetDiscussIdAsync(System.Guid, Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.CommentService (Yi.Framework.Bbs.Application).
+2023-12-16 11:33:52.401 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Title`,`Types`,`Introduction`,`AgreeNum`,`SeeNum`,`Cover`,`Content`,`Color`,`IsDeleted`,`IsTop`,`PermissionType`,`PlateId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`PermissionUserIds` FROM `Discuss`   WHERE ( `Id` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-16 11:33:52.436 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Content`,`DiscussId`,`ParentId`,`CreationTime`,`RootId`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Comment`  WHERE ( `DiscussId` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:33:52.482 +08:00 [DBG] Yi-SQL执行:SELECT `Id` AS `Id`,`IsDeleted` AS `IsDeleted`,`Name` AS `Name`,`Age` AS `Age`,`UserName` AS `UserName`,`Password` AS `Password`,`Salt` AS `Salt`,`Icon` AS `Icon`,`Nick` AS `Nick`,`Email` AS `Email`,`Ip` AS `Ip`,`Address` AS `Address`,`Phone` AS `Phone`,`Introduction` AS `Introduction`,`Remark` AS `Remark`,`Sex` AS `Sex`,`DeptId` AS `DeptId`,`CreationTime` AS `CreationTime`,`CreatorId` AS `CreatorId`,`LastModifierId` AS `LastModifierId`,`LastModificationTime` AS `LastModificationTime`,`OrderNum` AS `OrderNum`,`State` AS `State` FROM `User`  WHERE   `Id` = '92e15fd1-452a-415a-3590-3a0f7ac8e8a5'    
+2023-12-16 11:33:52.593 +08:00 [ERR] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "对不起,在处理你的请求期间,产生了一个服务器内部错误!",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-16 11:33:52.594 +08:00 [ERR] The given key 'fe3f76ca-b716-f923-248d-3a0f82c56ea1' was not present in the dictionary.
+System.Collections.Generic.KeyNotFoundException: The given key 'fe3f76ca-b716-f923-248d-3a0f82c56ea1' was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync(Guid discussId, CommentGetListInputVo input) in D:\CSharp\Yi\Yi.Abp.Net8\module\bbs\Yi.Framework.Bbs.Application\Services\CommentService.cs:line 64
+   at lambda_method1260(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-16 11:33:52.617 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-16 11:33:52.625 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application) in 293.0805ms
+2023-12-16 11:33:52.625 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:33:52.638 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-16 11:33:52",
+  "ExecutionDuration": 301,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 500,
+  "Url": "/api/app/comment/discuss-id/d35736f8-f282-2964-8625-3a0f7ad2b35b",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.DiscussService",
+      "MethodName": "VerifyDiscussPermissionAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\"}",
+      "ExecutionTime": "2023-12-16 11:33:52",
+      "ExecutionDuration": 41,
+      "ExtraProperties": {}
+    },
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.CommentService",
+      "MethodName": "GetDiscussIdAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\",\"input\":{\"creationTime\":null,\"content\":null,\"discussId\":null}}",
+      "ExecutionTime": "2023-12-16 11:33:52",
+      "ExecutionDuration": 183,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "System.Collections.Generic.KeyNotFoundException",
+      "Message": "The given key 'fe3f76ca-b716-f923-248d-3a0f82c56ea1' was not present in the dictionary.",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)\r\n   at Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync(Guid discussId, CommentGetListInputVo input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\bbs\\Yi.Framework.Bbs.Application\\Services\\CommentService.cs:line 64\r\n   at lambda_method1260(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146232969,
+      "Source": "System.Private.CoreLib",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-16 11:34:40.993 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:34:40.995 +08:00 [INF] Route matched with {action = "GetDiscussId", controller = "Comment", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListOutputDto]] GetDiscussIdAsync(System.Guid, Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.CommentService (Yi.Framework.Bbs.Application).
+2023-12-16 11:34:40.998 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Title`,`Types`,`Introduction`,`AgreeNum`,`SeeNum`,`Cover`,`Content`,`Color`,`IsDeleted`,`IsTop`,`PermissionType`,`PlateId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`PermissionUserIds` FROM `Discuss`   WHERE ( `Id` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-16 11:34:41.020 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Content`,`DiscussId`,`ParentId`,`CreationTime`,`RootId`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Comment`  WHERE ( `DiscussId` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:34:41.041 +08:00 [DBG] Yi-SQL执行:SELECT `Id` AS `Id`,`IsDeleted` AS `IsDeleted`,`Name` AS `Name`,`Age` AS `Age`,`UserName` AS `UserName`,`Password` AS `Password`,`Salt` AS `Salt`,`Icon` AS `Icon`,`Nick` AS `Nick`,`Email` AS `Email`,`Ip` AS `Ip`,`Address` AS `Address`,`Phone` AS `Phone`,`Introduction` AS `Introduction`,`Remark` AS `Remark`,`Sex` AS `Sex`,`DeptId` AS `DeptId`,`CreationTime` AS `CreationTime`,`CreatorId` AS `CreatorId`,`LastModifierId` AS `LastModifierId`,`LastModificationTime` AS `LastModificationTime`,`OrderNum` AS `OrderNum`,`State` AS `State` FROM `User`  WHERE   `Id` = '92e15fd1-452a-415a-3590-3a0f7ac8e8a5'    
+2023-12-16 11:35:49.325 +08:00 [ERR] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "对不起,在处理你的请求期间,产生了一个服务器内部错误!",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-16 11:35:49.325 +08:00 [ERR] The given key 'fe3f76ca-b716-f923-248d-3a0f82c56ea1' was not present in the dictionary.
+System.Collections.Generic.KeyNotFoundException: The given key 'fe3f76ca-b716-f923-248d-3a0f82c56ea1' was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync(Guid discussId, CommentGetListInputVo input) in D:\CSharp\Yi\Yi.Abp.Net8\module\bbs\Yi.Framework.Bbs.Application\Services\CommentService.cs:line 64
+   at lambda_method1260(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-16 11:35:49.325 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-16 11:35:49.325 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application) in 68330.6466ms
+2023-12-16 11:35:49.326 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:35:49.326 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-16 11:34:40",
+  "ExecutionDuration": 68333,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 500,
+  "Url": "/api/app/comment/discuss-id/d35736f8-f282-2964-8625-3a0f7ad2b35b",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.DiscussService",
+      "MethodName": "VerifyDiscussPermissionAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\"}",
+      "ExecutionTime": "2023-12-16 11:34:40",
+      "ExecutionDuration": 22,
+      "ExtraProperties": {}
+    },
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.CommentService",
+      "MethodName": "GetDiscussIdAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\",\"input\":{\"creationTime\":null,\"content\":null,\"discussId\":null}}",
+      "ExecutionTime": "2023-12-16 11:34:40",
+      "ExecutionDuration": 68327,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "System.Collections.Generic.KeyNotFoundException",
+      "Message": "The given key 'fe3f76ca-b716-f923-248d-3a0f82c56ea1' was not present in the dictionary.",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)\r\n   at Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync(Guid discussId, CommentGetListInputVo input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\bbs\\Yi.Framework.Bbs.Application\\Services\\CommentService.cs:line 64\r\n   at lambda_method1260(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146232969,
+      "Source": "System.Private.CoreLib",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-16 11:36:17.428 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:36:17.429 +08:00 [INF] Route matched with {action = "GetDiscussId", controller = "Comment", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListOutputDto]] GetDiscussIdAsync(System.Guid, Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.CommentService (Yi.Framework.Bbs.Application).
+2023-12-16 11:36:17.431 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Title`,`Types`,`Introduction`,`AgreeNum`,`SeeNum`,`Cover`,`Content`,`Color`,`IsDeleted`,`IsTop`,`PermissionType`,`PlateId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`PermissionUserIds` FROM `Discuss`   WHERE ( `Id` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-16 11:36:17.454 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Content`,`DiscussId`,`ParentId`,`CreationTime`,`RootId`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Comment`  WHERE ( `DiscussId` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:36:17.478 +08:00 [DBG] Yi-SQL执行:SELECT `Id` AS `Id`,`IsDeleted` AS `IsDeleted`,`Name` AS `Name`,`Age` AS `Age`,`UserName` AS `UserName`,`Password` AS `Password`,`Salt` AS `Salt`,`Icon` AS `Icon`,`Nick` AS `Nick`,`Email` AS `Email`,`Ip` AS `Ip`,`Address` AS `Address`,`Phone` AS `Phone`,`Introduction` AS `Introduction`,`Remark` AS `Remark`,`Sex` AS `Sex`,`DeptId` AS `DeptId`,`CreationTime` AS `CreationTime`,`CreatorId` AS `CreatorId`,`LastModifierId` AS `LastModifierId`,`LastModificationTime` AS `LastModificationTime`,`OrderNum` AS `OrderNum`,`State` AS `State` FROM `User`  WHERE   `Id` = '92e15fd1-452a-415a-3590-3a0f7ac8e8a5'    
+2023-12-16 11:39:40.927 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-16 11:39:45.901 +08:00 [INF] Loaded ABP modules:
+2023-12-16 11:39:45.902 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-16 11:39:45.902 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-16 11:39:45.902 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-16 11:39:45.902 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-16 11:39:45.902 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-16 11:39:45.902 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-16 11:39:45.902 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-16 11:39:45.902 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-16 11:39:45.902 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-16 11:39:45.902 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-16 11:39:45.902 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-16 11:39:45.902 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-16 11:39:45.902 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-16 11:39:45.902 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-16 11:39:45.902 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-16 11:39:45.902 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-16 11:39:46.859 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dept`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:46.902 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-16 11:39:46.935 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dictionary`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:46.946 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:46.961 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'系统管理' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:46.978 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Post`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:46.991 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Role`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:47.007 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:47.024 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Banner`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:47.039 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( `DictType` = N'bbs_type_lable' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:47.050 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'BBS' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:47.057 +08:00 [INF] Initialized all ABP modules.
+2023-12-16 11:39:47.066 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Config`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:39:47.198 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-16 11:39:47.198 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-16 11:39:47.198 +08:00 [INF] Hosting environment: Development
+2023-12-16 11:39:47.198 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-16 11:40:09.989 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:40:10.019 +08:00 [INF] Route matched with {action = "GetDiscussId", controller = "Comment", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListOutputDto]] GetDiscussIdAsync(System.Guid, Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.CommentService (Yi.Framework.Bbs.Application).
+2023-12-16 11:40:10.168 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`Title`,`Types`,`Introduction`,`AgreeNum`,`SeeNum`,`Cover`,`Content`,`Color`,`IsDeleted`,`IsTop`,`PermissionType`,`PlateId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`PermissionUserIds` FROM `Discuss`   WHERE ( `Id` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-16 11:40:10.242 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Content`,`DiscussId`,`ParentId`,`CreationTime`,`RootId`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Comment`  WHERE ( `DiscussId` = N'd35736f8-f282-2964-8625-3a0f7ad2b35b' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 11:40:10.299 +08:00 [DBG] Yi-SQL执行:SELECT `Id` AS `Id`,`IsDeleted` AS `IsDeleted`,`Name` AS `Name`,`Age` AS `Age`,`UserName` AS `UserName`,`Password` AS `Password`,`Salt` AS `Salt`,`Icon` AS `Icon`,`Nick` AS `Nick`,`Email` AS `Email`,`Ip` AS `Ip`,`Address` AS `Address`,`Phone` AS `Phone`,`Introduction` AS `Introduction`,`Remark` AS `Remark`,`Sex` AS `Sex`,`DeptId` AS `DeptId`,`CreationTime` AS `CreationTime`,`CreatorId` AS `CreatorId`,`LastModifierId` AS `LastModifierId`,`LastModificationTime` AS `LastModificationTime`,`OrderNum` AS `OrderNum`,`State` AS `State` FROM `User`  WHERE   `Id` = '92e15fd1-452a-415a-3590-3a0f7ac8e8a5'    
+2023-12-16 11:40:15.908 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Bbs.Application.Contracts.Dtos.Comment.CommentGetListOutputDto, Yi.Framework.Bbs.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-16 11:40:15.971 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application) in 5948.3576ms
+2023-12-16 11:40:15.972 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.CommentService.GetDiscussIdAsync (Yi.Framework.Bbs.Application)'
+2023-12-16 11:40:15.993 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-16 11:40:09",
+  "ExecutionDuration": 5992,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/comment/discuss-id/d35736f8-f282-2964-8625-3a0f7ad2b35b",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.DiscussService",
+      "MethodName": "VerifyDiscussPermissionAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\"}",
+      "ExecutionTime": "2023-12-16 11:40:10",
+      "ExecutionDuration": 95,
+      "ExtraProperties": {}
+    },
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.CommentService",
+      "MethodName": "GetDiscussIdAsync",
+      "Parameters": "{\"discussId\":\"d35736f8-f282-2964-8625-3a0f7ad2b35b\",\"input\":{\"creationTime\":null,\"content\":null,\"discussId\":null}}",
+      "ExecutionTime": "2023-12-16 11:40:10",
+      "ExecutionDuration": 5775,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}

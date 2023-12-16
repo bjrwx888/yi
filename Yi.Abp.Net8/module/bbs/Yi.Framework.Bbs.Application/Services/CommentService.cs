@@ -19,7 +19,7 @@ namespace Yi.Framework.Bbs.Application.Services
        ICommentService
     {
         private readonly ISqlSugarRepository<CommentEntity, Guid> _repository;
-        public CommentService(ForumManager forumManager, ISqlSugarRepository<DiscussEntity> discussRepository, IDiscussService discussService, ISqlSugarRepository<CommentEntity,Guid> CommentRepository) :base(CommentRepository)
+        public CommentService(ForumManager forumManager, ISqlSugarRepository<DiscussEntity> discussRepository, IDiscussService discussService, ISqlSugarRepository<CommentEntity, Guid> CommentRepository) : base(CommentRepository)
         {
             _forumManager = forumManager;
             _discussRepository = discussRepository;
@@ -50,7 +50,7 @@ namespace Yi.Framework.Bbs.Application.Services
              .ToListAsync();
 
             //结果初始值，第一层等于全部根节点
-            var outPut = entities.Where(x => x.ParentId ==Guid.Empty).OrderByDescending(x => x.CreationTime).ToList();
+            var outPut = entities.Where(x => x.ParentId == Guid.Empty).OrderByDescending(x => x.CreationTime).ToList();
 
             //将全部数据进行hash
             var dic = entities.ToDictionary(x => x.Id);
@@ -61,8 +61,15 @@ namespace Yi.Framework.Bbs.Application.Services
                 //不是根节点，需要赋值 被评论者用户信息等
                 if (comment.ParentId != Guid.Empty)
                 {
-                    var parentComment = dic[comment.ParentId];
-                    comment.CommentedUser = parentComment.CreateUser;
+                    if (dic.ContainsKey(comment.ParentId))
+                    {
+                        var parentComment = dic[comment.ParentId];
+                        comment.CommentedUser = parentComment.CreateUser;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
 
                 //root或者parent id，根节点都是等于0的
