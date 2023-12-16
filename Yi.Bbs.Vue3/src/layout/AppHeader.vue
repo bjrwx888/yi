@@ -2,7 +2,7 @@
   <div class="header">
     <div class="logo" @click="enterIndex">
       <div class="image">
-        <img class="img-icon" src="@/assets/common/icons/dog.svg" />
+        <img class="img-icon" src="@/assets/common/icons/logo.ico" />
       </div>
       <div class="text">{{ configStore.name }}</div>
     </div>
@@ -139,8 +139,8 @@ const isLogin = getToken("AccessToken") ? true : false;
   display: flex;
   align-items: center;
   .image {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     img {
       width: 100%;
       height: 100%;

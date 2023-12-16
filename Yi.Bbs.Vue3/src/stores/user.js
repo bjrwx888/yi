@@ -111,7 +111,7 @@ const useUserStore = defineStore("user", {
       this.roles = [];
       this.permissions = [];
       this.name = "未登录";
-      this.icon = "/src/assets/common/icons/login.svg";
+      this.icon = "/login.svg";
       this.userName = "";
       this.id = "";
     },
