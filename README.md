@@ -9,6 +9,8 @@
 
 ****
 ### 简介:
+YiFramework是一个基于.Net8+Abp.vNext+SqlSugar的DDD领域驱动设计后端开源框架
+
 谁说Abp复杂？谁说DDD难？`打破常规，化繁为简`，新人入门，项目二开，最佳方式之一
 
 **中文：意框架**（和他的名字一样“简易”，同时接入Java的Ruoyi Vue3.0前端）
@@ -165,8 +167,6 @@ RABC权限管理系统（正在更新）
 ****
 ### 感谢：
 
-**大力支持**： Eleven神、Sqlsugar上海杰哥、Gerry、哲学的老张
-
 [橙子]https://ccnetcore.com
 
 [XWen]https://gitee.com/on-wensil
@@ -174,6 +174,8 @@ RABC权限管理系统（正在更新）
 [朝夕教育]https://www.zhaoxiedu.net
 
 [Sqlsugar老杰哥]https://www.donet5.com/Home/Doc
+
+[车神]微信公众号搜索Dotnet技术进阶
 
 [RuYiAdmin如意老兄]https://gitee.com/pang-mingjun/RuYiAdmin
 

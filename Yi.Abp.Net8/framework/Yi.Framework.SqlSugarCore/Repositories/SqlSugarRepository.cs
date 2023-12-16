@@ -1,8 +1,12 @@
-﻿using System.Linq.Expressions;
+﻿using System.Linq;
+using System.Linq.Expressions;
 using SqlSugar;
+using Volo.Abp;
+using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
+using Yi.Framework.Core.Helper;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.SqlSugarCore.Repositories
@@ -59,12 +63,12 @@ namespace Yi.Framework.SqlSugarCore.Repositories
 
         public async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
         {
-            await DeleteAsync(predicate);
+            await this.DeleteAsync(predicate);
         }
 
         public async Task DeleteDirectAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            await DeleteAsync(predicate);
+            await this.DeleteAsync(predicate);
         }
 
         public IQueryable<TEntity> WithDetails()
@@ -210,27 +214,78 @@ namespace Yi.Framework.SqlSugarCore.Repositories
 
         public async Task<bool> DeleteAsync(TEntity deleteObj)
         {
-            return await (await GetDbSimpleClientAsync()).DeleteAsync(deleteObj);
+            if (deleteObj is ISoftDelete)
+            {
+                ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, deleteObj);
+                return await (await GetDbSimpleClientAsync()).UpdateAsync(deleteObj);
+            }
+            else
+            {
+                return await (await GetDbSimpleClientAsync()).DeleteAsync(deleteObj);
+            }
+
         }
 
         public async Task<bool> DeleteAsync(List<TEntity> deleteObjs)
         {
-            return await (await GetDbSimpleClientAsync()).DeleteAsync(deleteObjs);
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                deleteObjs.ForEach(e => ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, e));
+                return await (await GetDbSimpleClientAsync()).UpdateRangeAsync(deleteObjs);
+            }
+            else
+            {
+                return await (await GetDbSimpleClientAsync()).DeleteAsync(deleteObjs);
+            }
         }
 
         public async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> whereExpression)
         {
-            return await (await GetDbSimpleClientAsync()).DeleteAsync(whereExpression);
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                return await (await GetDbSimpleClientAsync()).AsUpdateable().SetColumns(nameof(ISoftDelete), true).Where(whereExpression).ExecuteCommandAsync() > 0;
+            }
+            else
+            {
+                return await (await GetDbSimpleClientAsync()).DeleteAsync(whereExpression);
+            }
+
         }
 
         public async Task<bool> DeleteByIdAsync(dynamic id)
         {
-            return await (await GetDbSimpleClientAsync()).DeleteByIdAsync(id);
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                var entity = await GetByIdAsync(id);
+                //反射赋值
+                ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, entity);
+                return await UpdateAsync(entity);
+            }
+            else
+            {
+                return await (await GetDbSimpleClientAsync()).DeleteByIdAsync(id);
+            }
         }
 
         public async Task<bool> DeleteByIdsAsync(dynamic[] ids)
         {
-            return await (await GetDbSimpleClientAsync()).DeleteByIdAsync(ids);
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                var simpleClient = (await GetDbSimpleClientAsync());
+                var entities = await simpleClient.AsQueryable().In(ids).ToListAsync();
+                if (entities.Count == 0)
+                {
+                    return false;
+                }
+                //反射赋值
+                entities.ForEach(e => ReflexHelper.SetModelValue(nameof(ISoftDelete.IsDeleted), true, e));
+                return await UpdateRangeAsync(entities);
+            }
+            else
+            {
+                return await (await GetDbSimpleClientAsync()).DeleteByIdAsync(ids);
+            }
+
         }
 
         public async Task<TEntity> GetByIdAsync(dynamic id)
@@ -335,7 +390,7 @@ namespace Yi.Framework.SqlSugarCore.Repositories
         #endregion
     }
 
-    public class SqlSugarRepository<TEntity, TKey> : SqlSugarRepository<TEntity>, ISqlSugarRepository<TEntity,TKey>, IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>, new()
+    public class SqlSugarRepository<TEntity, TKey> : SqlSugarRepository<TEntity>, ISqlSugarRepository<TEntity, TKey>, IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>, new()
     {
         public SqlSugarRepository(ISugarDbContextProvider<ISqlSugarDbContext> sugarDbContextProvider) : base(sugarDbContextProvider)
         {
