@@ -15,9 +15,10 @@ export function add(data) {
   });
 }
 
-export function del(ids) {
+export function del(data) {
   return request({
-    url: `/comment/${ids}`,
+    url: `/comment`,
     method: "delete",
+    data: data,
   });
 }

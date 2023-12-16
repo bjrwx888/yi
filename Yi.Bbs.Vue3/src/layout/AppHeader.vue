@@ -2,7 +2,7 @@
   <div class="header">
     <div class="logo" @click="enterIndex">
       <div class="image">
-        <img class="img-icon" src="@/assets/common/icons/dog.svg" />
+        <img class="img-icon" src="@/assets/common/icons/logo.ico" />
       </div>
       <div class="text">{{ configStore.name }}</div>
     </div>
@@ -51,12 +51,15 @@
       <el-dropdown trigger="click">
         <AvatarInfo :size="30" :isSelf="true" />
         <template #dropdown>
-          <el-dropdown-menu>
+          <el-dropdown-menu v-if="isLogin">
             <el-dropdown-item @click="enterProfile"
               >进入个人中心</el-dropdown-item
             >
             <el-dropdown-item @click="enterProfile">其他</el-dropdown-item>
             <el-dropdown-item @click="logout">登出</el-dropdown-item>
+          </el-dropdown-menu>
+          <el-dropdown-menu v-else="isLogin">
+            <el-dropdown-item @click="toLogin">去登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -69,6 +72,9 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import useUserStore from "@/stores/user.js";
 import useConfigStore from "@/stores/config";
+import useAuths from "@/hooks/useAuths";
+
+const { getToken } = useAuths();
 const configStore = useConfigStore();
 const router = useRouter();
 const userStore = useUserStore();
@@ -99,12 +105,16 @@ const enterIndex = () => {
 const enterProfile = () => {
   router.push("/profile");
 };
-
+const toLogin = () => {
+  router.push("/login");
+};
 const search = () => {
   var routerPer = { path: `/discuss`, query: { q: searchText.value } };
   searchText.value = "";
   router.push(routerPer);
 };
+
+const isLogin = getToken("AccessToken") ? true : false;
 </script>
 
 <style scoped lang="scss">
@@ -129,8 +139,8 @@ const search = () => {
   display: flex;
   align-items: center;
   .image {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     img {
       width: 100%;
       height: 100%;

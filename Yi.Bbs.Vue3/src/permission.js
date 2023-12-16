@@ -42,6 +42,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       next();
+      useUserStore().resetInfo();
       // next(`/login?redirect=${to.path}&unTourist=true`); // 否则全部重定向到登录页
       NProgress.done();
     }
