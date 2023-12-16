@@ -196,7 +196,7 @@ const delComment = async (ids) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(async () => {
-    await del({ id: [ids] });
+    await del(ids);
     await loadComment();
     ElMessage({
       message: "评论已删除!",
