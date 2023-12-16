@@ -460,3 +460,100 @@ System.Collections.Generic.KeyNotFoundException: The given key 'fe3f76ca-b716-f9
   "EntityChanges": [],
   "Comments": []
 }
+2023-12-16 14:11:00.054 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-16 14:11:03.363 +08:00 [INF] Loaded ABP modules:
+2023-12-16 14:11:03.364 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-16 14:11:03.364 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-16 14:11:03.364 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-16 14:11:03.364 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-16 14:11:03.364 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-16 14:11:03.364 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-16 14:11:03.364 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-16 14:11:03.364 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-16 14:11:03.364 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-16 14:11:03.364 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-16 14:11:03.364 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-16 14:11:03.364 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-16 14:11:03.364 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-16 14:11:03.364 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-16 14:11:03.364 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-16 14:11:03.364 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-16 14:11:03.961 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dept`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:03.976 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-16 14:11:04.021 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Dictionary`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.032 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.045 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'系统管理' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.057 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Post`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.063 +08:00 [INF] Initialized all ABP modules.
+2023-12-16 14:11:04.070 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Role`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.085 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.149 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-16 14:11:04.149 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-16 14:11:04.149 +08:00 [INF] Hosting environment: Development
+2023-12-16 14:11:04.149 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-16 14:11:04.150 +08:00 [DBG] Yi-SQL执行:INSERT INTO `User`  (`Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`) VALUES(N'59cf7e31-e3e4-544e-1038-3a0f836cc538',0,N'大橙子',N'20',N'cc',N'ap59IXMTQyKWpKqCF0helEek9-m_p2eoh7VYw-x-A6v0hCni1LB37Qt1u7DNySmkw6xtbQG83WuU9CRmioqxNA',N'x0xoCowlXoD1gYyYL4vYWQ==',NULL,N'橙子',N'454313500@qq.com',NULL,N'深圳',N'13800000000',N'还有谁？',N'描述是什么呢？',N'0',NULL,'2023-12-16 14:11:04.097',NULL,NULL,NULL,N'999',1),  (N'b8c53065-efe3-72f7-84de-3a0f836cc544',0,N'大测试',N'18',N'test',N'8eByegDNP0ARrKLnRRtDL1D7IY3KMCSJ0E2z6tT9Lwzohk2MbZl7b-kocj4WYSGXvrE6v3Wj6dTbyc5rZAzoIw',N'r+RmyQNSFgRvj4oC6cr6TQ==',NULL,N'测试',N'454313500@qq.com',NULL,N'深圳',N'15900000000',N'还有我！',N'我没有描述！',N'1',NULL,'2023-12-16 14:11:04.111',NULL,NULL,NULL,N'1',1),  (N'9e64fc6f-3e2a-4005-18f6-3a0f836cc547',0,N'游客',N'18',N'guest',N'C9k4omWwewejioiEJsiKQdrFebrL6chswiDcE1WCbOf3cYXMtDo1uH4MlVeDOWnNsLEXF0k2dEJcCJ7n4AF7ug',N'e7WxTtTuR2yeKG6/2zgYAw==',NULL,N'测试',N'454313500@qq.com',NULL,N'深圳',N'15900000000',N'临时游客',N'懒得创账号',N'1',NULL,'2023-12-16 14:11:04.111',NULL,NULL,NULL,N'1',1) ;select @@IDENTITY
+
+2023-12-16 14:11:04.164 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Banner`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.175 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `DictionaryType`  WHERE ( `DictType` = N'bbs_type_lable' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.186 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Menu`  WHERE ( `MenuName` = N'BBS' )  AND ( `IsDeleted` = 0 ) 
+2023-12-16 14:11:04.197 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Config`  WHERE ( 1 = 1 )   AND ( `IsDeleted` = 0 ) 
