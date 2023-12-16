@@ -69,14 +69,16 @@
 <script setup>
 import AvatarInfo from "@/components/AvatarInfo.vue";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import useUserStore from "@/stores/user.js";
 import useConfigStore from "@/stores/config";
 import useAuths from "@/hooks/useAuths";
+import { Session } from "@/utils/storage";
 
 const { getToken } = useAuths();
 const configStore = useConfigStore();
 const router = useRouter();
+const route = useRoute();
 const userStore = useUserStore();
 const activeIndex = ref("1");
 const searchText = ref("");
@@ -106,6 +108,7 @@ const enterProfile = () => {
   router.push("/profile");
 };
 const toLogin = () => {
+  Session.set("currentPath", route.path);
   router.push("/login");
 };
 const search = () => {

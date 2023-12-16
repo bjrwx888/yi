@@ -80,8 +80,6 @@ export default function useAuths(opt) {
     Session.clear();
     Local.clear();
     removeToken();
-    window.location.reload();
-    Session.set("vuex", null);
   };
 
   // 用户名密码登录
@@ -116,10 +114,16 @@ export default function useAuths(opt) {
       // 存储用户信息
       await getUserInfo(); // 用户信息
       // 登录成功后 路由跳转
-      router.replace({
-        path: option.loginReUrl ? option.loginReUrl : option.homeUrl,
-        query: option.otherQuery,
-      });
+      // 如果有记录当前跳转页面
+      const currentPath = Session.get("currentPath");
+      if (currentPath) {
+        router.push(currentPath);
+      } else {
+        router.replace({
+          path: option.loginReUrl ? option.loginReUrl : option.homeUrl,
+          query: option.otherQuery,
+        });
+      }
     } catch (error) {
       removeToken();
       return false;

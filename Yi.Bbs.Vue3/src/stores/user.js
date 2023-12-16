@@ -3,7 +3,7 @@ import { getUserDetailInfo } from "@/apis/auth";
 import useAuths from "@/hooks/useAuths";
 import { defineStore } from "pinia";
 
-const { getToken, setToken, removeToken } = useAuths();
+const { getToken, setToken, clearStorage } = useAuths();
 
 const useUserStore = defineStore("user", {
   state: () => ({
@@ -81,7 +81,7 @@ const useUserStore = defineStore("user", {
             this.token = "";
             this.roles = [];
             this.permissions = [];
-            removeToken();
+            clearStorage();
             resolve();
           })
           .catch((error) => {
