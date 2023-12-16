@@ -78,7 +78,7 @@ namespace Yi.Framework.Bbs.Application.Services
             var items = await _forumManager._discussRepository._DbQueryable
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
-                     .Where(x => x.IsTop == input.IsTop)
+                     .WhereIF(input.IsTop==true, x => x.IsTop == input.IsTop)
 
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.New, discuss => discuss.CreationTime, OrderByType.Desc)
