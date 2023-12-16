@@ -1,4 +1,5 @@
-﻿using Volo.Abp;
+﻿using Microsoft.AspNetCore.Authorization;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Uow;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Argee;
@@ -28,6 +29,7 @@ namespace Yi.Framework.Bbs.Application.Services
         /// </summary>
         /// <returns></returns>
         [UnitOfWork]
+        [Authorize]
         public async Task<AgreeDto> PostOperateAsync(Guid discussId)
         {
             var entity = await _repository.GetFirstAsync(x => x.DiscussId == discussId && x.CreatorId == this.CurrentUser.Id);
