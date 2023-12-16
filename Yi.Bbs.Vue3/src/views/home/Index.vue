@@ -140,11 +140,16 @@ onMounted(async () => {
   weekList.value = weekData;
 });
 
+const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 // 访问统计
 const statisOptions = computed(() => {
   return {
     xAxis: {
-      data: weekList.value.map((item) => item.creationTime),
+      data: weekList.value.map((item, index) => {
+        return weekXAxis.filter((v, vIndex) => {
+          return vIndex === index;
+        })[0];
+      }),
     },
     series: {
       data: weekList.value.map((item) => item.number),
