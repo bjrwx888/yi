@@ -98,9 +98,7 @@ namespace Yi.Abp.Web
             });
 
             //jwt鉴权
-            var section = configuration.GetSection(nameof(JwtOptions));
-            Configure<JwtOptions>(section);
-            var jwtOptions = section.Get<JwtOptions>();
+            var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
             context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
