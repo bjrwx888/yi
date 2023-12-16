@@ -62,6 +62,6 @@ const handleScroll = () => {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 99999;
 }
 </style>
