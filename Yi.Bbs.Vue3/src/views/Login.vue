@@ -24,7 +24,7 @@
           </el-form-item>
         </div>
       </el-form>
-      <RouterLink to="/register"> 没有账号？前往注册</RouterLink>
+      <!-- <RouterLink to="/register"> 没有账号？前往注册</RouterLink> -->
       <button class="login-btn" @click="login(loginFormRef)">登 录</button>
       <button class="login-btn" @click="guestlogin">访客</button>
     </div>
