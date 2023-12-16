@@ -70,8 +70,8 @@ const rules = reactive({
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
 });
 const loginForm = reactive({
-  userName: "cc",
-  password: "123456",
+  userName: "",
+  password: "",
   uuid: "",
   code: "",
 });
