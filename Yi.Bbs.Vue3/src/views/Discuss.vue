@@ -177,8 +177,8 @@ watch(
     console.log(val);
     if (val) {
       query.title = val ?? "";
-      loadDiscussList();
     }
+    loadDiscussList();
   },
   { immediate: true }
 );
