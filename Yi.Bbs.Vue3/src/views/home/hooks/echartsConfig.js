@@ -10,7 +10,7 @@ export const statisticsEcharts = {
     trigger: "axis",
   },
   xAxis: {
-    show: false,
+    show: true,
     type: "category",
     data: [],
     axisLine: {
