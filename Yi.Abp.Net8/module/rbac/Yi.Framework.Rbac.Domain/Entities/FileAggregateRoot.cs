@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlSugar;
 using Volo.Abp.Auditing;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 
 namespace Yi.Framework.Rbac.Domain.Entities
 {
+    [SugarTable("File")]
     public class FileAggregateRoot : AggregateRoot<Guid>, IAuditedObject
     {
         public FileAggregateRoot()
@@ -44,5 +46,8 @@ namespace Yi.Framework.Rbac.Domain.Entities
         public Guid? LastModifierId { get; set; }
 
         public DateTime? LastModificationTime { get; set; }
+
+        [SugarColumn(IsIgnore=true)]
+        public override ExtraPropertyDictionary ExtraProperties { get; protected set; }
     }
 }

@@ -57,10 +57,10 @@ namespace Yi.Framework.Rbac.Application.Services
             }
             var path = file.FilePath;
             //如果为缩略图，需要修改路径
-            if (isThumbnail is true)
-            {
-                path = $"wwwroot/{FileTypeEnum.Thumbnail}/{file.Id}{Path.GetExtension(file.FileName)}";
-            }
+            //if (isThumbnail is true)
+            //{
+            //    path = $"wwwroot/{FileTypeEnum.Thumbnail}/{file.Id}{Path.GetExtension(file.FileName)}";
+            //}
             //路径为： 文件路径/文件id+文件扩展名
 
             if (!File.Exists(path))
