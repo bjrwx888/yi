@@ -10,7 +10,7 @@
           <el-input placeholder="搜索当下分类下的标签" />
         </el-form-item>
         <div class="form-right">
-          <el-button>重置</el-button>
+          <el-button @click="handleReset">重置</el-button>
           <el-button
             type="primary"
             @click="
@@ -102,9 +102,10 @@
 <script setup>
 import DisscussCard from "@/components/DisscussCard.vue";
 import { getList, getTopList } from "@/apis/discussApi.js";
-import { onMounted, ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BottomInfo from "@/components/BottomInfo.vue";
+
 //数据定义
 const route = useRoute();
 const router = useRouter();
@@ -127,19 +128,29 @@ const handleClick = async (tab, event) => {
   await loadDiscussList();
 };
 
-onMounted(async () => {
-  if (route.query.q != undefined) {
-    query.title = route.query.q ?? "";
-    router.push("/discuss");
-  }
-  await loadDiscussList();
-});
+// onMounted(async () => {
+//   if (route.query.q != undefined) {
+//     query.title = route.query.q ?? "";
+//     router.push("/discuss");
+//   }
+//   await loadDiscussList();
+// });
+
+// 重置
+const handleReset = () => {
+  query.skipCount = 1;
+  query.maxResultCount = 10;
+  query.title = "";
+  query.plateId = route.params.plateId;
+  query.type = activeName.value;
+  loadDiscussList();
+};
 
 //加载discuss
 const loadDiscussList = async () => {
   const response = await getList(query);
   discussList.value = response.data.items;
-  total.value = Number(response.data.total);
+  total.value = Number(response.data.totalCount);
 
   //全查，无需参数
   const topResponse = await getTopList();
@@ -159,6 +170,18 @@ const enterEditArticle = () => {
   };
   router.push(routerPer);
 };
+
+watch(
+  () => route.query.q,
+  async (val) => {
+    console.log(val);
+    if (val) {
+      query.title = val ?? "";
+      loadDiscussList();
+    }
+  },
+  { immediate: true }
+);
 </script>
 <style scoped>
 .el-pagination {
