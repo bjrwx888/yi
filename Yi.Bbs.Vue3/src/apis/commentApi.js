@@ -15,10 +15,10 @@ export function add(data) {
   });
 }
 
-export function del(code) {
+export function del(id) {
   return request({
     url: `/comment`,
     method: "delete",
-    data: "string" == typeof code ? [code] : code,
+    params: {id:id},
   });
 }
