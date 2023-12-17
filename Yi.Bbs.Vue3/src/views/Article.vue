@@ -10,7 +10,7 @@
                 <el-button
                   style="width: 100%; margin-bottom: 0.8rem"
                   @click="loadDiscuss(true)"
-                  >首页</el-button
+                  >主题封面</el-button
                 >
                 <el-button
                   v-hasPer="['bbs:article:add']"
@@ -51,6 +51,7 @@
       <el-col :span="14">
         <el-row class="left-div">
           <el-col :span="24">
+            <Breadcrumb :breadcrumbsList="breadcrumbsList" class="breadcrumb" />
             <!-- {{ discuss.user }} -->
             <AvatarInfo
               :size="50"
@@ -170,7 +171,7 @@
   </div>
 </template>
 <script setup>
-import { h, ref, onMounted } from "vue";
+import { h, ref, onMounted, watch } from "vue";
 import AvatarInfo from "@/components/AvatarInfo.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import ArticleContentInfo from "@/components/ArticleContentInfo.vue";
@@ -185,6 +186,8 @@ import {
   del as articleDel,
   get as articleGet,
 } from "@/apis/articleApi.js";
+import Breadcrumb from "@/components/Breadcrumb/index.vue";
+
 //数据定义
 const route = useRoute();
 const router = useRouter();
@@ -204,6 +207,11 @@ const getUrl = (str) => {
 const currentNodeKey = route.params.articleId;
 //目录数据
 const catalogueData = ref([]);
+
+// 面包屑导航列表
+const breadcrumbsList = ref([]);
+// 当前文章名称
+const currentArticle = ref("");
 
 //子文章初始化
 const loadArticleData = async () => {
@@ -315,6 +323,7 @@ const updateArticle = (node, data) => {
 };
 //单机节点
 const handleNodeClick = async (data) => {
+  currentArticle.value = data?.name;
   //跳转路由
 
   router.push(`/article/${route.params.discussId}/${data.id}`);
@@ -343,6 +352,35 @@ onMounted(async () => {
   await loadDiscuss();
   await loadArticleData();
 });
+
+const resultRouters = ["index", "discuss", "themeCover"];
+breadcrumbsList.value = route.matched[0].children
+  .filter((item) => resultRouters.includes(item.name))
+  .sort((a, b) => {
+    return resultRouters.indexOf(a.name) - resultRouters.indexOf(b.name);
+  });
+watch(
+  () => currentArticle.value,
+  (val) => {
+    if (val !== "") {
+      breadcrumbsList.value[3] = {
+        name: "article",
+        path: "/article/:discussId",
+        meta: {
+          title: currentArticle.value,
+        },
+      };
+    }
+  }
+);
+watch(
+  () => route.params.articleId,
+  async (val) => {
+    if (val === "") {
+      discuss.value = (await discussGet(route.params.discussId)).data;
+    }
+  }
+);
 </script>
 <style scoped>
 .comment {
@@ -424,5 +462,9 @@ h2 {
 
 .tab-divider {
   margin-bottom: 0.5rem;
+}
+
+.breadcrumb {
+  margin-bottom: 10px;
 }
 </style>

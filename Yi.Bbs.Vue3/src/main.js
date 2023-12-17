@@ -14,15 +14,16 @@ import directive from "./directive"; // directive
 
 import "./permission";
 
-const app = createApp(App);
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component);
-}
-
-const pinia = createPinia();
-pinia.use(piniaPluginPersistedstate);
-
-app.use(pinia);
-directive(app);
-app.use(router);
-app.mount("#app");
+(async () => {
+  const app = createApp(App);
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component);
+  }
+  const pinia = createPinia();
+  pinia.use(piniaPluginPersistedstate);
+  app.use(pinia);
+  directive(app);
+  app.use(router);
+  await router.isReady();
+  app.mount("#app");
+})();

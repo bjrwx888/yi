@@ -42,6 +42,9 @@ const router = createRouter({
           name: "index",
           path: "/index",
           component: () => import("../views/home/Index.vue"),
+          meta: {
+            title: "首页",
+          },
         },
         {
           name: "article",
@@ -52,6 +55,9 @@ const router = createRouter({
           name: "discuss",
           path: "/discuss/:plateId?",
           component: () => import("../views/Discuss.vue"),
+          meta: {
+            title: "板块",
+          },
         },
         {
           //artType：discuss主题、article文章
@@ -64,6 +70,14 @@ const router = createRouter({
           name: "profile",
           path: "/profile",
           component: () => import("../views/profile/Index.vue"),
+        },
+        {
+          name: "themeCover",
+          path: "/article/:discussId",
+          component: () => import("../views/Article.vue"),
+          meta: {
+            title: "主题封面",
+          },
         },
       ],
     },
