@@ -39,6 +39,8 @@ namespace Yi.Framework.Bbs.Domain.Entities
         //是否置顶，默认false
         public bool IsTop { get; set; }
 
+        public int OrderNum { get; set; } = 0;
+
 
         public DiscussPermissionTypeEnum PermissionType { get; set; }
 

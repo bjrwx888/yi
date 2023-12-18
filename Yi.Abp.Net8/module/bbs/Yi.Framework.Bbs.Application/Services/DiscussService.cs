@@ -26,11 +26,13 @@ namespace Yi.Framework.Bbs.Application.Services
     public class DiscussService : YiCrudAppService<DiscussEntity, DiscussGetOutputDto, DiscussGetListOutputDto, Guid, DiscussGetListInputVo, DiscussCreateInputVo, DiscussUpdateInputVo>,
        IDiscussService
     {
-        public DiscussService(ForumManager forumManager, ISqlSugarRepository<PlateEntity> plateEntityRepository, ILocalEventBus localEventBus) : base(forumManager._discussRepository)
+        private ISqlSugarRepository<DiscussTopEntity> _discussTopEntityRepository;
+        public DiscussService(ForumManager forumManager, ISqlSugarRepository<DiscussTopEntity> discussTopEntityRepository, ISqlSugarRepository<PlateEntity> plateEntityRepository, ILocalEventBus localEventBus) : base(forumManager._discussRepository)
         {
             _forumManager = forumManager;
             _plateEntityRepository = plateEntityRepository;
             _localEventBus = localEventBus;
+            _discussTopEntityRepository = discussTopEntityRepository;
         }
         private readonly ILocalEventBus _localEventBus;
         private ForumManager _forumManager { get; set; }
@@ -78,12 +80,17 @@ namespace Yi.Framework.Bbs.Application.Services
             var items = await _forumManager._discussRepository._DbQueryable
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
-                     .WhereIF(input.IsTop==true, x => x.IsTop == input.IsTop)
+
+
+                     .WhereIF(input.IsTop == true, x => x.IsTop == input.IsTop)
 
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
+
+                         .OrderByDescending(x => x.OrderNum)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.New, discuss => discuss.CreationTime, OrderByType.Desc)
                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, discuss => discuss.SeeNum, OrderByType.Desc)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, discuss => discuss.AgreeNum, OrderByType.Desc)
+
                      .Select((discuss, user) => new DiscussGetListOutputDto
                      {
                          Id = discuss.Id,
@@ -100,6 +107,18 @@ namespace Yi.Framework.Bbs.Application.Services
         }
 
         /// <summary>
+        /// 获取首页的置顶主题
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<DiscussGetListOutputDto>> GetListTopAsync()
+        {
+            var entities = await _discussTopEntityRepository._DbQueryable.Includes(x => x.Discuss).OrderByDescending(x => x.OrderNum).ToListAsync();
+
+            var output = await MapToGetListOutputDtosAsync(entities.Select(x => x.Discuss).ToList());
+            return output;
+        }
+
+        /// <summary>
         /// 创建主题
         /// </summary>
         /// <param name="input"></param>
@@ -113,9 +132,6 @@ namespace Yi.Framework.Bbs.Application.Services
             var entity = await _forumManager.CreateDiscussAsync(await MapToEntityAsync(input));
             return await MapToGetOutputDtoAsync(entity);
         }
-
-
-
 
         /// <summary>
         /// 效验主题查询权限

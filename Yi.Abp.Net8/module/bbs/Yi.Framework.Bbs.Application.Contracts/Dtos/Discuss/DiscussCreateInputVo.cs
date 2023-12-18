@@ -24,5 +24,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
         /// 封面
         /// </summary>
         public string? Cover { get; set; }
+
+        public int OrderNum { get; set; } = 0;
     }
 }

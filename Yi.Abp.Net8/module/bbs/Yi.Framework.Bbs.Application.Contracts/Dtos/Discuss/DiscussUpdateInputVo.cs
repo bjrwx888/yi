@@ -20,5 +20,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
         /// ∑‚√Ê
         /// </summary>
         public string? Cover { get; set; }
+
+        public int OrderNum { get; set; }
     }
 }
