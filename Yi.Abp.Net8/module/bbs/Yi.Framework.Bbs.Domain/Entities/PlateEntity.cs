@@ -27,5 +27,7 @@ namespace Yi.Framework.Bbs.Domain.Entities
         public Guid? LastModifierId { get; set; }
 
         public DateTime? LastModificationTime { get; set; }
+
+        public int OrderNum { get; set; }
     }
 }

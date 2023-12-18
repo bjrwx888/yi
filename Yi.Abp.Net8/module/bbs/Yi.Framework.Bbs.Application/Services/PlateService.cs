@@ -29,6 +29,7 @@ namespace Yi.Framework.Bbs.Application.Services
             var entities = await _repository._DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name.Contains(input.Name!))
                 .WhereIF(!string.IsNullOrEmpty(input.Code), x => x.Name.Contains(input.Code!))
                           .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
+                          .OrderByDescending(x=>x.OrderNum)
                           .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
             return new PagedResultDto<PlateGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
         }
