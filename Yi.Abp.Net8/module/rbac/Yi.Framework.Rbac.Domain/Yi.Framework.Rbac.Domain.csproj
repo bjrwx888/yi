@@ -6,6 +6,8 @@
 
     <PackageReference Include="IPTools.China" Version="1.6.0" />
 
+    <PackageReference Include="TencentCloudSDK" Version="3.0.917" />
+
     <PackageReference Include="UAParser" Version="3.1.47" />
 
     <PackageReference Include="Volo.Abp.AspNetCore.SignalR" Version="8.0.0-rc.3" />
