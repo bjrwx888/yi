@@ -211,6 +211,8 @@ function cancel() {
 /** 表单重置 */
 function reset() {
     proxy.resetForm("dataRef");
+    form.value = {
+  };
 }
 /** 搜索按钮操作 */
 function handleQuery() {
@@ -228,6 +230,7 @@ function handleAdd() {
     reset();
     open.value = true;
     title.value = "添加板块";
+    
 }
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
