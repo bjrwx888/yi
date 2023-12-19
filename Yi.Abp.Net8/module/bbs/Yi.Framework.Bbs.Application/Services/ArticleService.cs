@@ -11,6 +11,7 @@ using Yi.Framework.Bbs.Application.Contracts.Dtos.Article;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Plate;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Repositories;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Core.Extensions;
@@ -47,7 +48,7 @@ namespace Yi.Framework.Bbs.Application.Services
             RefAsync<int> total = 0;
 
             var entities = await _articleRepository._DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name.Contains(input.Name!))
-                //.WhereIF(!string.IsNullOrEmpty(input.Code), x => x.Name.Contains(input.Code!))
+                          //.WhereIF(!string.IsNullOrEmpty(input.Code), x => x.Name.Contains(input.Code!))
                           .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
                           .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
             return new PagedResultDto<ArticleGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
@@ -123,7 +124,7 @@ namespace Yi.Framework.Bbs.Application.Services
             //主题的创建者不是当前用户，同时，没有权限或者超级管理
             //false  & true  & false  ,三个条件任意满意一个，即可成功使用||，最后取反，一个都不满足
             //
-            if (userId != CurrentUser.Id && !UserConst.Admin.Equals(this.CurrentUser.UserName) && this.LazyServiceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.GetUserPermissions(TokenTypeConst.Permission).Contains("bbs:discuss:add"))
+            if (userId != CurrentUser.Id && !UserConst.Admin.Equals(this.CurrentUser.UserName) && CurrentUser.GetUserPermissions().Contains("bbs:discuss:add"))
             {
                 throw new UserFriendlyException("无权限在其他用户主题中创建子文章");
             }
