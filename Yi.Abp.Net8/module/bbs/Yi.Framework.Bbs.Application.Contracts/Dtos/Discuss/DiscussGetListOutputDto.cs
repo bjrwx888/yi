@@ -8,6 +8,10 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
     public class DiscussGetListOutputDto : EntityDto<Guid>
     {
         /// <summary>
+        /// 是否禁止评论创建功能
+        /// </summary>
+        public bool IsDisableCreateComment { get; set; }
+        /// <summary>
         /// 是否已点赞，默认未登录不点赞
         /// </summary>
         public bool IsAgree { get; set; } = false;

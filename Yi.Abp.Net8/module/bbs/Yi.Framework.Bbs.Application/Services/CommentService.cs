@@ -102,9 +102,16 @@ namespace Yi.Framework.Bbs.Application.Services
         /// <exception cref="UserFriendlyException"></exception>
         public override async Task<CommentGetOutputDto> CreateAsync(CommentCreateInputVo input)
         {
-            if (!await _discussRepository.IsAnyAsync(x => x.Id == input.DiscussId))
+            var discuess = await _discussRepository.GetFirstAsync(x => x.Id == input.DiscussId);
+            if (discuess is null)
             {
                 throw new UserFriendlyException(DiscussConst.No_Exist);
+            }
+
+            if (discuess.IsDisableCreateComment == true)
+            {
+                throw new UserFriendlyException("该主题已禁止评论功能");
+
             }
             var entity = await _forumManager.CreateCommentAsync(input.DiscussId, input.ParentId, input.RootId, input.Content);
             return await MapToGetOutputDtoAsync(entity);

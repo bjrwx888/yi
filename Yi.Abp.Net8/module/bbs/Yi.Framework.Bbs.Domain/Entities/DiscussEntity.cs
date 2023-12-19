@@ -59,5 +59,10 @@ namespace Yi.Framework.Bbs.Domain.Entities
         /// </summary>
         [SugarColumn(IsJson = true)]//使用json处理
         public List<Guid>? PermissionUserIds { get; set; }
+
+        /// <summary>
+        /// 是否禁止评论创建功能
+        /// </summary>
+        public bool IsDisableCreateComment { get; set; }
     }
 }

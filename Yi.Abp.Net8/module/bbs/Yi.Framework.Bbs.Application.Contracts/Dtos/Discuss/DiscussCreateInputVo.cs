@@ -26,5 +26,10 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
         public string? Cover { get; set; }
 
         public int OrderNum { get; set; } = 0;
+
+        /// <summary>
+        /// 是否禁止评论创建功能
+        /// </summary>
+        public bool IsDisableCreateComment { get; set; }
     }
 }
