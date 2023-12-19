@@ -3,42 +3,120 @@
     <div class="login-box">
       <div class="left"></div>
       <div class="right">
+        <div class="header-box">
+          <div class="text" @click="guestlogin" v-if="isRegister">返回首页</div>
+          <div class="text" @click="handleSignInNow" v-else>
+            已有账号立即登录
+          </div>
+          <el-icon size="15"><DArrowRight /></el-icon>
+        </div>
         <div class="top">
-          <div class="title">{{ configStore.name }}-登录</div>
-          <div class="text">若要继续，请登录</div>
+          <div class="title">意社区登录 | SIGN IN</div>
         </div>
         <div class="center">
           <div class="login-form">
-            <el-form ref="loginFormRef" :model="loginForm" :rules="rules">
-              <div class="username form-item">
-                <el-form-item prop="userName">
-                  <input
-                    type="text"
-                    class="input-item"
-                    v-model="loginForm.userName"
-                    placeholder="请输入用户名"
-                  />
-                </el-form-item>
-              </div>
-              <div class="password form-item">
-                <el-form-item prop="password">
-                  <input
-                    type="password"
-                    class="input-item"
-                    v-model="loginForm.password"
-                    placeholder="请输入密码"
-                  />
-                </el-form-item>
-              </div>
+            <el-form
+              ref="loginFormRef"
+              :model="loginForm"
+              :rules="rules"
+              v-if="isRegister"
+            >
+              <el-form-item label="账号" class="title-item"></el-form-item>
+              <el-form-item prop="userName">
+                <el-input
+                  size="large"
+                  type="text"
+                  v-model="loginForm.userName"
+                  placeholder="请输入用户名"
+                />
+              </el-form-item>
+              <el-form-item label="密码" class="title-item"></el-form-item>
+              <el-form-item prop="password">
+                <el-input
+                  size="large"
+                  type="password"
+                  v-model="loginForm.password"
+                  placeholder="请输入密码"
+                  show-password
+                />
+              </el-form-item>
             </el-form>
-            <div class="link">
+            <el-form
+              ref="registerFormRef"
+              :model="registerForm"
+              :rules="registerRules"
+              v-else
+            >
+              <el-form-item label="账号" class="title-item"></el-form-item>
+              <el-form-item prop="userName">
+                <el-input
+                  size="large"
+                  type="text"
+                  v-model.trim="registerForm.userName"
+                  placeholder="请输入用户名"
+                />
+              </el-form-item>
+              <el-form-item label="手机号" class="title-item"></el-form-item>
+              <div class="flex-between">
+                <el-col :span="18">
+                  <el-form-item prop="phone">
+                    <el-input
+                      size="large"
+                      type="text"
+                      v-model.trim="registerForm.phone"
+                      placeholder="请输入手机号"
+                    />
+                  </el-form-item>
+                </el-col>
+                <el-button type="primary" size="large" @click="captcha">
+                  获取验证码
+                </el-button>
+              </div>
+              <el-form-item label="验证码" class="title-item"></el-form-item>
+              <el-form-item prop="code">
+                <el-input
+                  size="large"
+                  type="text"
+                  v-model.trim="registerForm.code"
+                  placeholder="请输入验证码"
+                />
+              </el-form-item>
+              <el-form-item label="新密码" class="title-item"></el-form-item>
+              <el-form-item prop="password">
+                <el-input
+                  size="large"
+                  type="password"
+                  v-model.trim="registerForm.password"
+                  placeholder="请输入新密码"
+                />
+              </el-form-item>
+              <el-form-item label="确认密码" class="title-item"></el-form-item>
+              <el-form-item>
+                <el-input
+                  size="large"
+                  type="password"
+                  v-model.trim="passwordConfirm"
+                  placeholder="请确认密码"
+                  show-password
+                />
+              </el-form-item>
+            </el-form>
+            <div class="link" v-if="isRegister">
               <div class="text" @click="handleRegister">没有账号？前往注册</div>
-              <div class="text" @click="guestlogin">访客入口</div>
             </div>
-            <div class="login-btn" @click="login(loginFormRef)">登 录</div>
+            <div
+              class="login-btn"
+              @click="login(loginFormRef)"
+              v-if="isRegister"
+            >
+              登 录
+            </div>
+            <div class="login-btn" @click="register(registerFormRef)" v-else>
+              注 册
+            </div>
           </div>
         </div>
-        <div class="bottom">
+        <div class="bottom" v-if="isRegister">
           <div class="title">
             <div>或者</div>
             <div>其他方式登录</div>
@@ -59,16 +137,15 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import useConfigStore from "@/stores/config";
 import useAuths from "@/hooks/useAuths";
+import { getCodePhone } from "@/apis/accountApi";
 
-const { loginFun } = useAuths();
-const configStore = useConfigStore();
+const { loginFun, registerFun } = useAuths();
 const router = useRouter();
 const route = useRoute();
 const loginFormRef = ref();
 const rules = reactive({
-  userName: [{ required: true, message: "请输入账号名", trigger: "blur" }],
+  userName: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
 });
 const loginForm = reactive({
@@ -99,8 +176,66 @@ const login = async (formEl) => {
 };
 
 // 注册逻辑
+const isRegister = ref(true);
+const registerFormRef = ref();
+// 确认密码
+const passwordConfirm = ref("");
+const registerForm = reactive({
+  userName: "",
+  phone: "",
+  password: "",
+  uuid: "",
+  code: "",
+});
+const registerRules = reactive({
+  userName: [{ required: true, message: "请输入账号", trigger: "blur" }],
+  phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
+  code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+  password: [{ required: true, message: "请输入薪密码", trigger: "blur" }],
+});
 const handleRegister = () => {
-  console.log("注册");
+  isRegister.value = !isRegister.value;
+};
+const register = async (formEl) => {
+  if (!formEl) return;
+  await formEl.validate((valid) => {
+    if (valid) {
+      try {
+        if (registerForm.password != passwordConfirm.value) {
+          ElMessage.error("两次密码输入不一致");
+          return;
+        }
+        registerFun(registerForm);
+      } catch (error) {
+        ElMessage({
+          message: error.message,
+          type: "error",
+          duration: 2000,
+        });
+      }
+    }
+  });
+};
+
+//验证码
+const captcha = async () => {
+  if (registerForm.phone !== "") {
+    const response = await getCodePhone(registerForm.phone);
+    ElMessage({
+      message: `已向${registerForm.phone}发送验证码，请注意查收`,
+      type: "success",
+    });
+  } else {
+    ElMessage({
+      message: `清先输入手机号`,
+      type: "warning",
+    });
+  }
+};
+
+// 立即登录
+const handleSignInNow = () => {
+  isRegister.value = !isRegister.value;
 };
 </script>
 <style scoped lang="scss">
@@ -116,23 +251,40 @@ const handleRegister = () => {
     width: 70%;
     height: 80%;
     border-radius: 20px;
-    background-color: #e0edfd;
+    background-color: #fff;
+    box-shadow: 15px 15px 30px -10px rgba(0, 0, 0, 0.2),
+      inset 20px 20px 15px rgba(255, 255, 255, 0.7);
     .left {
       width: 55%;
+      height: 100%;
+      display: flex;
+      background: url("@/assets/login_images/welcome.jpg") no-repeat;
+      background-size: 100% auto;
+      background-position: 50%;
+      border-right: 2px solid #eeefef;
     }
     .right {
       display: flex;
       flex-direction: column;
       width: 45%;
-      padding: 40px 30px 10px 30px;
+      padding: 40px 30px 40px 30px;
       border-radius: 20px;
-      color: #06035a;
+      // color: #06035a;
 
       background-color: #fff;
+      .header-box {
+        cursor: pointer;
+        margin-bottom: 20px;
+        height: 10px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        color: #409eff;
+      }
       .top {
-        flex: 2;
+        height: 40px;
         .title {
-          font-size: 30px;
+          font-size: 25px;
           font-weight: bold;
         }
         .text {
@@ -140,13 +292,13 @@ const handleRegister = () => {
         }
       }
       .center {
-        flex: 4;
+        flex: 1;
         .login-form {
           width: 100%;
           height: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: space-around;
           .input-item {
             width: 100%;
             height: 45px;
@@ -183,12 +335,11 @@ const handleRegister = () => {
         }
       }
       .bottom {
-        margin-top: 20px;
-        flex: 2;
         width: 100%;
+        height: 200px;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         .title {
           > div {
             text-align: center;
@@ -201,8 +352,8 @@ const handleRegister = () => {
           display: flex;
           justify-content: center;
           .icon {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             margin: 0 10px;
             img {
               width: 100%;
@@ -212,6 +363,14 @@ const handleRegister = () => {
         }
       }
     }
+  }
+
+  :deep(.title-item) {
+    margin-bottom: 0;
+  }
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
