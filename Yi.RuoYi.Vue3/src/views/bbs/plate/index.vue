@@ -84,6 +84,7 @@
             prop="introduction"
             :show-overflow-tooltip="true"
           />
+          <el-table-column label="显示顺序" prop="orderNum" />
           <el-table-column
             label="创建时间"
             align="center"
@@ -121,6 +122,9 @@
                 <el-form-item label="板块Logo" prop="logo">
                     <el-input v-model="form.logo" placeholder="请输入板块图片连接" />
                 </el-form-item>
+                <el-form-item label="显示顺序" prop="orderNum">
+          <el-input-number v-model="form.orderNum" controls-position="right" :min="0" />
+        </el-form-item>
                 <!-- <el-form-item label="状态" prop="isDeleted">
               <el-radio-group v-model="form.isDeleted">
                 <el-radio
