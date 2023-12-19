@@ -9,6 +9,7 @@ using Volo.Abp.Users;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
@@ -16,6 +17,7 @@ using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 using Yi.Framework.Rbac.Domain.Entities;
+using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Application.Services
@@ -125,10 +127,24 @@ namespace Yi.Framework.Bbs.Application.Services
         /// <returns></returns>
         public override async Task<DiscussGetOutputDto> CreateAsync(DiscussCreateInputVo input)
         {
-            if (!await _plateEntityRepository.IsAnyAsync(x => x.Id == input.PlateId))
+            var plate = await _plateEntityRepository.FindAsync(x => x.Id == input.PlateId);
+            if (plate is null)
             {
                 throw new UserFriendlyException(PlateConst.No_Exist);
             }
+
+            //如果开启了禁用创建主题
+            if (plate.IsDisableCreateDiscuss == true)
+            {
+
+                if (!CurrentUser.GetPermissions().Contains("") && CurrentUser.UserName != UserConst.Admin)
+                {
+                    throw new UserFriendlyException("该板块已禁止创建主题，请在其他板块中发布");
+                }
+            }
+
+
+
             var entity = await _forumManager.CreateDiscussAsync(await MapToEntityAsync(input));
             return await MapToGetOutputDtoAsync(entity);
         }

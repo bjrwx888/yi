@@ -6,7 +6,7 @@ using Volo.Abp.Auditing;
 namespace Yi.Framework.Bbs.Domain.Entities
 {
     [SugarTable("Plate")]
-    public class PlateEntity : Entity<Guid>, ISoftDelete,IAuditedObject
+    public class PlateEntity : Entity<Guid>, ISoftDelete, IAuditedObject
     {
 
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
@@ -29,5 +29,10 @@ namespace Yi.Framework.Bbs.Domain.Entities
         public DateTime? LastModificationTime { get; set; }
 
         public int OrderNum { get; set; }
+
+        /// <summary>
+        /// 是否禁用创建主题，禁用后，只有管理员或者权限者能够发送
+        /// </summary>
+        public bool IsDisableCreateDiscuss { get; set; }
     }
 }

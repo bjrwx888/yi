@@ -15,7 +15,7 @@ namespace Yi.Framework.Bbs.Domain.Extensions
         /// </summary>
         /// <param name="currentUser"></param>
         /// <returns></returns>
-        public static List<string> GetUserPermissions(this ICurrentUser currentUser)
+        public static List<string> GetPermissions(this ICurrentUser currentUser)
         {
             return currentUser.FindClaims(TokenTypeConst.Permission).Select(x => x.Value).ToList();
 
