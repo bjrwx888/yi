@@ -86,7 +86,7 @@ namespace Yi.Framework.Bbs.Application.Services
 
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
 
-                         .OrderByDescending(x => x.OrderNum)
+                         .OrderByDescending(discuss => discuss.OrderNum)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.New, discuss => discuss.CreationTime, OrderByType.Desc)
                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, discuss => discuss.SeeNum, OrderByType.Desc)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, discuss => discuss.AgreeNum, OrderByType.Desc)

@@ -1,0 +1,581 @@
+2023-12-19 12:24:07.064 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-19 12:24:10.445 +08:00 [INF] Loaded ABP modules:
+2023-12-19 12:24:10.446 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-19 12:24:10.446 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-19 12:24:10.446 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-19 12:24:10.446 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-19 12:24:10.446 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-19 12:24:10.446 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-19 12:24:10.446 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-19 12:24:10.446 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-19 12:24:10.446 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-19 12:24:10.446 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-19 12:24:10.446 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-19 12:24:10.446 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-19 12:24:10.446 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-19 12:24:10.446 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-19 12:24:10.446 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-19 12:24:10.446 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-19 12:24:11.035 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-19 12:24:11.078 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Config' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.117 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Config' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.126 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `Config` COMMENT='配置表';
+2023-12-19 12:24:11.158 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Config' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.347 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-19 12:24:11.406 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dept' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.419 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dept' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.429 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `Dept` COMMENT='部门表';
+2023-12-19 12:24:11.460 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dept' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.626 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-19 12:24:11.658 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dictionary' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.678 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dictionary' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.701 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `Dictionary` COMMENT='';
+2023-12-19 12:24:11.753 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dictionary' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.828 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-19 12:24:11.838 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='DictionaryType' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.850 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='DictionaryType' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.858 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `DictionaryType` COMMENT='';
+2023-12-19 12:24:11.880 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='DictionaryType' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.941 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-19 12:24:11.951 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='File' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.960 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='File' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:11.968 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `File` COMMENT='';
+2023-12-19 12:24:11.989 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='File' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:12.045 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-19 12:24:12.054 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='LoginLog' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:12.062 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='LoginLog' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-19 12:24:12.069 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `LoginLog` COMMENT='';
+2023-12-19 12:25:16.162 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-19 12:25:19.059 +08:00 [INF] Loaded ABP modules:
+2023-12-19 12:25:19.060 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-19 12:25:19.060 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-19 12:25:19.060 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-19 12:25:19.060 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-19 12:25:19.060 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-19 12:25:19.060 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-19 12:25:19.060 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-19 12:25:19.060 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-19 12:25:19.060 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-19 12:25:19.060 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-19 12:25:19.060 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-19 12:25:19.060 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-19 12:25:19.060 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-19 12:25:19.060 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-19 12:25:19.060 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-19 12:25:19.060 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-19 12:25:19.618 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-19 12:25:19.700 +08:00 [INF] Initialized all ABP modules.
+2023-12-19 12:25:19.816 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-19 12:25:19.816 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-19 12:25:19.816 +08:00 [INF] Hosting environment: Development
+2023-12-19 12:25:19.816 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-19 12:26:05.133 +08:00 [INF] Executing endpoint 'Yi.Framework.Bbs.Application.Services.DiscussService.GetListAsync (Yi.Framework.Bbs.Application)'
+2023-12-19 12:26:05.160 +08:00 [INF] Route matched with {action = "GetList", controller = "Discuss", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss.DiscussGetListOutputDto]] GetListAsync(Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss.DiscussGetListInputVo) on controller Yi.Framework.Bbs.Application.Services.DiscussService (Yi.Framework.Bbs.Application).
+2023-12-19 12:26:05.415 +08:00 [ERR] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "对不起,在处理你的请求期间,产生了一个服务器内部错误!",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-19 12:26:05.415 +08:00 [ERR] 中文提示 : 多表查询存在别名不一致,请把OrderBy中的x改成discuss就可以了，特殊需求可以使用.Select((x,y)=>new{ id=x.id,name=y.name}).MergeTable().Orderby(xxx=>xxx.Id)功能将Select中的多表结果集变成单表，这样就可以不限制别名一样
+English Message : Join discuss needs to be the same as OrderBy x
+SqlSugar.SqlSugarException: 中文提示 : 多表查询存在别名不一致,请把OrderBy中的x改成discuss就可以了，特殊需求可以使用.Select((x,y)=>new{ id=x.id,name=y.name}).MergeTable().Orderby(xxx=>xxx.Id)功能将Select中的多表结果集变成单表，这样就可以不限制别名一样
+English Message : Join discuss needs to be the same as OrderBy x
+   at SqlSugar.Check.Exception(Boolean isException, String message, String[] args)
+   at SqlSugar.QueryBuilder.CheckExpression(Expression expression, String methodName)
+   at SqlSugar.QueryableProvider`1._OrderBy(Expression expression, OrderByType type)
+   at SqlSugar.QueryableProvider`2.OrderByDescending(Expression`1 expression)
+   at Yi.Framework.Bbs.Application.Services.DiscussService.GetListAsync(DiscussGetListInputVo input) in D:\CSharp\Yi\Yi.Abp.Net8\module\bbs\Yi.Framework.Bbs.Application\Services\DiscussService.cs:line 80
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.GlobalFeatures.GlobalFeatureInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Validation.ValidationInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Auditing.AuditingInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at lambda_method1167(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-19 12:26:05.431 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-19 12:26:05.490 +08:00 [INF] Executed action Yi.Framework.Bbs.Application.Services.DiscussService.GetListAsync (Yi.Framework.Bbs.Application) in 328.0489ms
+2023-12-19 12:26:05.490 +08:00 [INF] Executed endpoint 'Yi.Framework.Bbs.Application.Services.DiscussService.GetListAsync (Yi.Framework.Bbs.Application)'
+2023-12-19 12:26:05.520 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-19 12:26:05",
+  "ExecutionDuration": 363,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 500,
+  "Url": "/api/app/discuss",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Bbs.Application.Services.DiscussService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"title\":null,\"plateId\":null,\"isTop\":true,\"type\":0,\"sorting\":null,\"skipCount\":1,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-19 12:26:05",
+      "ExecutionDuration": 200,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "InnerException": null,
+      "StackTrace": null,
+      "Source": null,
+      "Sql": null,
+      "Parametres": null,
+      "Message": "中文提示 : 多表查询存在别名不一致,请把OrderBy中的x改成discuss就可以了，特殊需求可以使用.Select((x,y)=>new{ id=x.id,name=y.name}).MergeTable().Orderby(xxx=>xxx.Id)功能将Select中的多表结果集变成单表，这样就可以不限制别名一样\r\nEnglish Message : Join discuss needs to be the same as OrderBy x",
+      "Data": {},
+      "HelpLink": null,
+      "HResult": -2146233088
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
