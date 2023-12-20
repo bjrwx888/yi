@@ -88,8 +88,13 @@
                     />
                   </el-form-item>
                 </el-col>
-                <el-button type="primary" size="large" @click="captcha">
-                  获取验证码
+                <el-button
+                  type="primary"
+                  size="large"
+                  @click="captcha"
+                  :disabled="isDisabledCode"
+                >
+                  {{ codeInfo }}
                 </el-button>
               </div>
               <el-form-item label="验证码" class="title-item"></el-form-item>
@@ -244,13 +249,29 @@ const register = async (formEl) => {
 };
 
 //验证码
+const codeInfo = ref("发送验证码");
+const isDisabledCode = ref(false);
 const captcha = async () => {
   if (registerForm.phone !== "") {
-    const response = await getCodePhone(registerForm.phone);
+    const { data } = await getCodePhone(registerForm.phone);
+    registerForm.uuid = data.uuid;
     ElMessage({
       message: `已向${registerForm.phone}发送验证码，请注意查收`,
       type: "success",
     });
+    isDisabledCode.value = true;
+    let time = 60; //定义剩下的秒数
+    let timer = setInterval(function () {
+      if (time == 0) {
+        //清除定时器和复原按钮
+        clearInterval(timer);
+        codeInfo.value = "发送验证码";
+        time = 60; //这个10是重新开始
+      } else {
+        codeInfo.value = "剩余" + time + "秒";
+        time--;
+      }
+    }, 1000);
   } else {
     ElMessage({
       message: `清先输入手机号`,
