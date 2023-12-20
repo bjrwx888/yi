@@ -2,7 +2,12 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import useUserStore from "@/stores/user";
 import router from "@/router";
 import { Session, Local } from "@/utils/storage";
-import { userLogin, getUserDetailInfo, userLogout } from "@/apis/auth";
+import {
+  userLogin,
+  getUserDetailInfo,
+  userLogout,
+  userRegister,
+} from "@/apis/auth";
 
 const TokenKey = "AccessToken";
 export const AUTH_MENUS = "AUTH_MENUS";
@@ -130,6 +135,19 @@ export default function useAuths(opt) {
     }
   };
 
+  // 注册
+  const registerFun = async (params) => {
+    try {
+      await userRegister(params);
+      ElMessage({
+        message: `恭喜！${params.userName}，注册成功！请登录！`,
+        type: "success",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getToken,
     setToken,
@@ -138,5 +156,6 @@ export default function useAuths(opt) {
     getUserInfo,
     logoutFun,
     clearStorage,
+    registerFun,
   };
 }
