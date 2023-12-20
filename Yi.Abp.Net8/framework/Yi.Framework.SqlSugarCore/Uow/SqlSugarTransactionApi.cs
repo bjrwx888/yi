@@ -20,7 +20,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
         public void Dispose()
         {
-            Console.WriteLine("Dispose");
         }
 
         public async Task RollbackAsync(CancellationToken cancellationToken = default)
