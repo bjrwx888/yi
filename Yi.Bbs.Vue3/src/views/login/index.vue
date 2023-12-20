@@ -42,6 +42,7 @@
               </el-form-item>
             </el-form>
             <el-form
+              class="registerForm"
               ref="registerFormRef"
               :model="registerForm"
               :rules="registerRules"
@@ -332,6 +333,11 @@ const handleSignInNow = () => {
           }
           .visitor {
             margin-top: 10px;
+          }
+          .registerForm {
+            :deep(.el-form-item) {
+              margin-bottom: 1px;
+            }
           }
         }
       }
