@@ -1,0 +1,1423 @@
+2023-12-20 21:26:25.378 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 21:26:29.042 +08:00 [INF] Loaded ABP modules:
+2023-12-20 21:26:29.043 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 21:26:29.043 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 21:26:29.043 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 21:26:29.043 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 21:26:29.043 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 21:26:29.043 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 21:26:29.043 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 21:26:29.043 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 21:26:29.043 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 21:26:29.043 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 21:26:29.043 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 21:26:29.043 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 21:26:29.043 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 21:26:29.043 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 21:26:29.043 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 21:26:29.043 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 21:26:29.597 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-20 21:26:29.637 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Config' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.668 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Config' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.678 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `Config` COMMENT='配置表';
+2023-12-20 21:26:29.703 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Config' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.783 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-20 21:26:29.794 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dept' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.813 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dept' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.835 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `Dept` COMMENT='部门表';
+2023-12-20 21:26:29.858 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dept' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.929 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-20 21:26:29.938 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dictionary' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.949 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dictionary' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:29.963 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `Dictionary` COMMENT='';
+2023-12-20 21:26:29.987 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='Dictionary' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.062 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-20 21:26:30.074 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='DictionaryType' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.086 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='DictionaryType' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.095 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `DictionaryType` COMMENT='';
+2023-12-20 21:26:30.116 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='DictionaryType' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.193 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-20 21:26:30.210 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='File' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.219 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='File' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.229 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `File` COMMENT='';
+2023-12-20 21:26:30.255 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='File' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.333 +08:00 [DBG] Yi-SQL执行:select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables
+                         where  TABLE_SCHEMA=(select database())  AND TABLE_TYPE='BASE TABLE'
+2023-12-20 21:26:30.345 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='LoginLog' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.353 +08:00 [DBG] Yi-SQL执行:SELECT
+                                    0 as TableId,
+                                    TABLE_NAME as TableName, 
+                                    column_name AS DbColumnName,
+                                    CASE WHEN  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1)='' THEN COLUMN_TYPE ELSE  left(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)-1) END   AS DataType,
+                                    CAST(SUBSTRING(COLUMN_TYPE,LOCATE('(',COLUMN_TYPE)+1,LOCATE(')',COLUMN_TYPE)-LOCATE('(',COLUMN_TYPE)-1) AS  decimal(18,0) ) AS Length,
+                                    column_default  AS  `DefaultValue`,
+                                    column_comment  AS  `ColumnDescription`,
+                                    CASE WHEN COLUMN_KEY = 'PRI'
+                                    THEN true ELSE false END AS `IsPrimaryKey`,
+                                    CASE WHEN EXTRA='auto_increment' THEN true ELSE false END as IsIdentity,
+                                    CASE WHEN is_nullable = 'YES'
+                                    THEN true ELSE false END AS `IsNullable`,
+                                    numeric_scale as Scale,
+                                    numeric_scale as DecimalDigits,
+                                    LOCATE(  'unsigned',COLUMN_type   ) >0  as IsUnsigned
+                                    FROM
+                                    Information_schema.columns where TABLE_NAME='LoginLog' and  TABLE_SCHEMA=(select database()) ORDER BY ordinal_position
+2023-12-20 21:26:30.361 +08:00 [DBG] Yi-SQL执行:ALTER TABLE `LoginLog` COMMENT='';
+2023-12-20 21:26:44.377 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 21:26:47.370 +08:00 [INF] Loaded ABP modules:
+2023-12-20 21:26:47.371 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 21:26:47.371 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 21:26:47.371 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 21:26:47.371 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 21:26:47.371 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 21:26:47.371 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 21:26:47.371 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 21:26:47.371 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 21:26:47.371 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 21:26:47.371 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 21:26:47.371 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 21:26:47.371 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 21:26:47.371 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 21:26:47.371 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 21:26:47.371 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 21:26:47.371 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 21:26:47.914 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 21:26:48.003 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 21:26:48.134 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 21:26:48.134 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 21:26:48.134 +08:00 [INF] Hosting environment: Development
+2023-12-20 21:26:48.134 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 21:26:51.816 +08:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2023-12-20 21:26:51.816 +08:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2023-12-20 21:26:51.820 +08:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2023-12-20 21:26:55.962 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:26:55.986 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+ ---> Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(String encodedJson)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken..ctor(String jwtEncodedString)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ReadToken(String token, TokenValidationParameters validationParameters)
+   --- End of inner exception stack trace ---
+2023-12-20 21:26:55.986 +08:00 [INF] Bearer was not authenticated. Failure message: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+2023-12-20 21:26:56.023 +08:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2023-12-20 21:26:56.026 +08:00 [INF] AuthenticationScheme: Bearer was challenged.
+2023-12-20 21:26:56.428 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.GetCaptchaImageAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:26:56.450 +08:00 [INF] Route matched with {action = "GetCaptchaImage", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Account.CaptchaImageDto] GetCaptchaImageAsync() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:26:56.583 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Application.Contracts.Dtos.Account.CaptchaImageDto'.
+2023-12-20 21:26:56.646 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.GetCaptchaImageAsync (Yi.Framework.Rbac.Application) in 192.6159ms
+2023-12-20 21:26:56.646 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.GetCaptchaImageAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:26:56.673 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:26:56",
+  "ExecutionDuration": 224,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/captcha-image",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "GetCaptchaImageAsync",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-20 21:26:56",
+      "ExecutionDuration": 51,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:01.141 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:27:01.141 +08:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+ ---> Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(String encodedJson)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken..ctor(String jwtEncodedString)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ReadToken(String token, TokenValidationParameters validationParameters)
+   --- End of inner exception stack trace ---
+2023-12-20 21:27:01.141 +08:00 [INF] Bearer was not authenticated. Failure message: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+2023-12-20 21:27:01.142 +08:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2023-12-20 21:27:01.142 +08:00 [INF] AuthenticationScheme: Bearer was challenged.
+2023-12-20 21:27:03.474 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:27:03.475 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:03.482 +08:00 [INF] Route matched with {action = "PostLogin", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostLoginAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.LoginInputVo) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:03.831 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`   WHERE (( `UserName` = N'cc' ) AND ( `State` = 1 ))  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-20 21:27:04.037 +08:00 [WRN] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "登录失败！用户名或密码错误！",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 21:27:04.037 +08:00 [WRN] 登录失败！用户名或密码错误！
+Volo.Abp.UserFriendlyException: 登录失败！用户名或密码错误！
+   at Yi.Framework.Rbac.Domain.Managers.AccountManager.LoginValidationAsync(String userName, String password, Action`1 userAction) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Domain\Managers\AccountManager.cs:line 45
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync(LoginInputVo input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 127
+   at lambda_method1282(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 21:27:04.037 +08:00 [WRN] Code:
+2023-12-20 21:27:04.037 +08:00 [WRN] Details:
+2023-12-20 21:27:04.042 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 21:27:04.046 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application) in 563.9379ms
+2023-12-20 21:27:04.047 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:04.051 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:03",
+  "ExecutionDuration": 573,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 403,
+  "Url": "/api/app/account/login",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostLoginAsync",
+      "Parameters": "{\"input\":{\"userName\":\"cc\",\"password\":\"123456\",\"uuid\":\"e2693110-2c01-d677-da5c-3a0f9995431b\",\"code\":\"5rmb\"}}",
+      "ExecutionTime": "2023-12-20 21:27:03",
+      "ExecutionDuration": 491,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "Volo.Abp.UserFriendlyException",
+      "Message": "登录失败！用户名或密码错误！",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Domain.Managers.AccountManager.LoginValidationAsync(String userName, String password, Action`1 userAction) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Domain\\Managers\\AccountManager.cs:line 45\r\n   at Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync(LoginInputVo input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 127\r\n   at lambda_method1282(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146233088,
+      "Source": "Yi.Framework.Rbac.Domain",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:04.058 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.GetCaptchaImageAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:04.058 +08:00 [INF] Route matched with {action = "GetCaptchaImage", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Account.CaptchaImageDto] GetCaptchaImageAsync() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:04.060 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Application.Contracts.Dtos.Account.CaptchaImageDto'.
+2023-12-20 21:27:04.061 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.GetCaptchaImageAsync (Yi.Framework.Rbac.Application) in 2.6962ms
+2023-12-20 21:27:04.061 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.GetCaptchaImageAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:04.061 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:04",
+  "ExecutionDuration": 3,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/captcha-image",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "GetCaptchaImageAsync",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-20 21:27:04",
+      "ExecutionDuration": 2,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:13.483 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:27:13.486 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:13.486 +08:00 [INF] Route matched with {action = "PostLogin", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostLoginAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.LoginInputVo) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:13.538 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`   WHERE (( `UserName` = N'cc' ) AND ( `State` = 1 ))  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-20 21:27:13.571 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'59cf7e31-e3e4-544e-1038-3a0f836cc538'    AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:13.611 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '59cf7e31-e3e4-544e-1038-3a0f836cc538'    
+2023-12-20 21:27:13.633 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-20 21:27:13.816 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-20 21:27:13.817 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application) in 330.8113ms
+2023-12-20 21:27:13.817 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostLoginAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:13.818 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:13",
+  "ExecutionDuration": 332,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/login",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostLoginAsync",
+      "Parameters": "{\"input\":{\"userName\":\"cc\",\"password\":\"cc2016cc\",\"uuid\":\"f8d24fd4-587e-e147-509f-3a0f9995607b\",\"code\":\"zddh\"}}",
+      "ExecutionTime": "2023-12-20 21:27:13",
+      "ExecutionDuration": 322,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:13.827 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:27:13.837 +08:00 [INF] 用户【59cf7e31-e3e4-544e-1038-3a0f836cc538:cc】登入系统
+2023-12-20 21:27:13.854 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:13.854 +08:00 [INF] Executing endpoint '/hub/main/negotiate'
+2023-12-20 21:27:13.856 +08:00 [INF] Route matched with {action = "Get", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto] Get() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:13.860 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'59cf7e31-e3e4-544e-1038-3a0f836cc538'    AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:13.860 +08:00 [INF] Executed endpoint '/hub/main/negotiate'
+2023-12-20 21:27:13.868 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:27:13.869 +08:00 [INF] Executing endpoint '/hub/main'
+2023-12-20 21:27:13.885 +08:00 [DBG] Yi-SQL执行:INSERT INTO `LoginLog`  
+           (`Id`,`CreationTime`,`LoginUser`,`LoginLocation`,`LoginIp`,`Browser`,`Os`,`LogMsg`,`CreatorId`)
+     VALUES
+           (N'd7aa1420-3c64-e3e8-0173-3a0f999586bd','2023-12-20 21:27:13.859',N'cc',N'本地-本机',N'127.0.0.1',N'Other',N'Windows 10',N'cc登录系统',null) ;
+2023-12-20 21:27:14.000 +08:00 [WRN] An exception occurred, but response has already started!
+2023-12-20 21:27:14.003 +08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: This MySqlConnection is already in use. See https://fl.vu/mysql-conn-reuse
+   at MySqlConnector.Core.ServerSession.StartQuerying(ICancellableCommand command) in /_/src/MySqlConnector/Core/ServerSession.cs:line 283
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 51
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 296
+   at MySqlConnector.MySqlTransaction.CommitAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlTransaction.cs:line 36
+   at SqlSugar.AdoProvider.CommitTranAsync()
+   at Yi.Framework.SqlSugarCore.Uow.SqlSugarTransactionApi.CommitAsync(CancellationToken cancellationToken) in D:\CSharp\Yi\Yi.Abp.Net8\framework\Yi.Framework.SqlSugarCore\Uow\SqlSugarTransactionApi.cs:line 18
+   at Volo.Abp.Uow.UnitOfWork.CommitTransactionsAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.CompleteAsync(CancellationToken cancellationToken)
+   at Volo.Abp.AspNetCore.Uow.AbpUnitOfWorkMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-12-20 21:27:14.003 +08:00 [WRN] The response has already started, the error page middleware will not be executed.
+2023-12-20 21:27:14.005 +08:00 [ERR] Connection id "0HN01BT8T36LL", Request id "0HN01BT8T36LL:00000001": An unhandled exception was thrown by the application.
+System.InvalidOperationException: This MySqlConnection is already in use. See https://fl.vu/mysql-conn-reuse
+   at MySqlConnector.Core.ServerSession.StartQuerying(ICancellableCommand command) in /_/src/MySqlConnector/Core/ServerSession.cs:line 283
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 51
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 296
+   at MySqlConnector.MySqlTransaction.CommitAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlTransaction.cs:line 36
+   at SqlSugar.AdoProvider.CommitTranAsync()
+   at Yi.Framework.SqlSugarCore.Uow.SqlSugarTransactionApi.CommitAsync(CancellationToken cancellationToken) in D:\CSharp\Yi\Yi.Abp.Net8\framework\Yi.Framework.SqlSugarCore\Uow\SqlSugarTransactionApi.cs:line 18
+   at Volo.Abp.Uow.UnitOfWork.CommitTransactionsAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.CompleteAsync(CancellationToken cancellationToken)
+   at Volo.Abp.AspNetCore.Uow.AbpUnitOfWorkMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2023-12-20 21:27:14.046 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '59cf7e31-e3e4-544e-1038-3a0f836cc538'    
+2023-12-20 21:27:14.058 +08:00 [INF] 2023/12/20 21:27:14：cc,3CDmj2OHfmmEgPsJvU8xZg连接服务端success，当前已连接1个
+2023-12-20 21:27:14.073 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-20 21:27:14.112 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Domain.Shared.Dtos.UserRoleMenuDto'.
+2023-12-20 21:27:14.120 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application) in 263.1506ms
+2023-12-20 21:27:14.120 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.Get (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:14.120 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:13",
+  "ExecutionDuration": 266,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "Get",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-20 21:27:13",
+      "ExecutionDuration": 254,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:14.128 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.GetVue3Router (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:14.130 +08:00 [INF] Route matched with {action = "GetVue3Router", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Yi.Framework.Rbac.Domain.Shared.Dtos.Vue3RouterDto]] GetVue3Router() on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:14.131 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE `Id` = N'59cf7e31-e3e4-544e-1038-3a0f836cc538'    AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:14.161 +08:00 [DBG] Yi-SQL执行:SELECT `UserId` as aid,`RoleId` as bid FROM `UserRole`  WHERE   `UserId` = '59cf7e31-e3e4-544e-1038-3a0f836cc538'    
+2023-12-20 21:27:14.187 +08:00 [DBG] Yi-SQL执行:SELECT * FROM `Role`  WHERE  ( `IsDeleted` = 0 )   AND   `Id` = null     AND  ( `IsDeleted` = 0 )  
+2023-12-20 21:27:14.213 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`,`MenuName`,`MenuType`,`PermissionCode`,`ParentId`,`MenuIcon`,`Router`,`IsLink`,`IsCache`,`IsShow`,`Remark`,`Component`,`Query` FROM `Menu`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:14.272 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[Yi.Framework.Rbac.Domain.Shared.Dtos.Vue3RouterDto, Yi.Framework.Rbac.Domain.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:14.275 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.GetVue3Router (Yi.Framework.Rbac.Application) in 145.6264ms
+2023-12-20 21:27:14.276 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.GetVue3Router (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:14.276 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:14",
+  "ExecutionDuration": 148,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/Vue3Router",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "GetVue3Router",
+      "Parameters": "{}",
+      "ExecutionTime": "2023-12-20 21:27:14",
+      "ExecutionDuration": 141,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:16.866 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.DictionaryService.GetDicType (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:16.866 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.DictionaryService.GetDicType (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:16.867 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.DeptService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:16.872 +08:00 [INF] Route matched with {action = "GetDicType", controller = "Dictionary", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Dictionary.DictionaryGetListOutputDto]] GetDicType(System.String) on controller Yi.Framework.Rbac.Application.Services.DictionaryService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:16.872 +08:00 [INF] Route matched with {action = "GetDicType", controller = "Dictionary", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Dictionary.DictionaryGetListOutputDto]] GetDicType(System.String) on controller Yi.Framework.Rbac.Application.Services.DictionaryService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:16.874 +08:00 [INF] Route matched with {action = "GetList", controller = "Dept", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Dept.DeptGetListOutputDto]] GetListAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Dept.DeptGetListInputVo) on controller Yi.Framework.Rbac.Application.Services.DeptService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:16.874 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.UserService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:16.879 +08:00 [INF] Route matched with {action = "GetList", controller = "User", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetListOutputDto]] GetListAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetListInputVo) on controller Yi.Framework.Rbac.Application.Services.UserService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:16.891 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`OrderNum`,`State`,`Remark`,`ListClass`,`CssClass`,`DictType`,`DictLabel`,`DictValue`,`IsDefault`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Dictionary`  WHERE (( `DictType` = N'sys_normal_disable' ) AND ( `State` = 1 ))  AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:16.898 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`OrderNum`,`State`,`Remark`,`ListClass`,`CssClass`,`DictType`,`DictLabel`,`DictValue`,`IsDefault`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime` FROM `Dictionary`  WHERE (( `DictType` = N'sys_user_sex' ) AND ( `State` = 1 ))  AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:16.959 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.Dictionary.DictionaryGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:16.963 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.DictionaryService.GetDicType (Yi.Framework.Rbac.Application) in 90.4869ms
+2023-12-20 21:27:16.963 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.DictionaryService.GetDicType (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:16.963 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:16",
+  "ExecutionDuration": 97,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/dictionary/dic-type/sys_normal_disable",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.DictionaryService",
+      "MethodName": "GetDicType",
+      "Parameters": "{\"dicType\":\"sys_normal_disable\"}",
+      "ExecutionTime": "2023-12-20 21:27:16",
+      "ExecutionDuration": 78,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:16.979 +08:00 [DBG] Yi-SQL执行:SELECT Count(*) FROM `Dept`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:16.998 +08:00 [DBG] Yi-SQL执行:SELECT Count(*) FROM  (SELECT * FROM  (SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE ( `State` = 1 )  AND ( `IsDeleted` = 0 ) ) MergeTable ) `user` Left JOIN `Dept` `dept` ON ( `user`.`DeptId` = `dept`.`Id` ) AND ( `dept`.`IsDeleted` = 0 )   WHERE ( `user`.`IsDeleted` = 0 ) 
+2023-12-20 21:27:17.014 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`,`DeptName`,`DeptCode`,`Leader`,`ParentId`,`Remark` FROM `Dept`   WHERE ( `IsDeleted` = 0 )  ORDER BY `OrderNum` ASC LIMIT 0,10
+2023-12-20 21:27:17.023 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.Dictionary.DictionaryGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:17.024 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.DictionaryService.GetDicType (Yi.Framework.Rbac.Application) in 151.6884ms
+2023-12-20 21:27:17.024 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.DictionaryService.GetDicType (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:17.031 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:16",
+  "ExecutionDuration": 157,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/dictionary/dic-type/sys_user_sex",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.DictionaryService",
+      "MethodName": "GetDicType",
+      "Parameters": "{\"dicType\":\"sys_user_sex\"}",
+      "ExecutionTime": "2023-12-20 21:27:16",
+      "ExecutionDuration": 142,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:17.065 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.Dept.DeptGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:17.069 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.DeptService.GetListAsync (Yi.Framework.Rbac.Application) in 195.2854ms
+2023-12-20 21:27:17.069 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.DeptService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:17.069 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:16",
+  "ExecutionDuration": 203,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/dept",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.DeptService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"id\":\"00000000-0000-0000-0000-000000000000\",\"state\":null,\"deptName\":null,\"deptCode\":null,\"leader\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":0,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-20 21:27:16",
+      "ExecutionDuration": 135,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:17.140 +08:00 [DBG] Yi-SQL执行:SELECT `user`.`Id` AS `Id` ,`user`.`Name` AS `Name` ,`user`.`Age` AS `Age` ,`user`.`UserName` AS `UserName` ,`user`.`Icon` AS `Icon` ,`user`.`Nick` AS `Nick` ,`user`.`Email` AS `Email` ,`user`.`Ip` AS `Ip` ,`user`.`Address` AS `Address` ,`user`.`Phone` AS `Phone` ,`user`.`Introduction` AS `Introduction` ,`user`.`Remark` AS `Remark` ,`user`.`Sex` AS `Sex` ,`user`.`DeptId` AS `DeptId` ,`user`.`CreationTime` AS `CreationTime` ,`user`.`CreatorId` AS `CreatorId` ,`user`.`State` AS `State` ,`dept`.`DeptName` AS `DeptName` FROM  (SELECT * FROM  (SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE ( `State` = 1 )  AND ( `IsDeleted` = 0 ) ) MergeTable ) `user` Left JOIN `Dept` `dept` ON ( `user`.`DeptId` = `dept`.`Id` ) AND ( `dept`.`IsDeleted` = 0 )    WHERE ( `user`.`IsDeleted` = 0 )   LIMIT 0,10
+2023-12-20 21:27:17.161 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:17.165 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.UserService.GetListAsync (Yi.Framework.Rbac.Application) in 286.0487ms
+2023-12-20 21:27:17.165 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.UserService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:17.165 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:16",
+  "ExecutionDuration": 291,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/user",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.UserService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"name\":null,\"userName\":null,\"phone\":null,\"state\":true,\"deptId\":null,\"ids\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":1,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-20 21:27:16",
+      "ExecutionDuration": 208,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:18.267 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.RoleService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:18.267 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.PostService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:18.269 +08:00 [INF] Route matched with {action = "GetList", controller = "Post", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Post.PostGetListOutputDto]] GetListAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Post.PostGetListInputVo) on controller Yi.Framework.Rbac.Application.Services.PostService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:18.269 +08:00 [INF] Route matched with {action = "GetList", controller = "Role", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Rbac.Application.Contracts.Dtos.Role.RoleGetListOutputDto]] GetListAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Role.RoleGetListInputVo) on controller Yi.Framework.Rbac.Application.Services.RoleService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:18.284 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Role`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:18.298 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `Post`  WHERE ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:18.312 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`RoleName`,`RoleCode`,`Remark`,`DataScope`,`State` FROM `Role`   WHERE ( `IsDeleted` = 0 )   LIMIT 0,10
+2023-12-20 21:27:18.323 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`,`PostCode`,`PostName`,`Remark` FROM `Post`   WHERE ( `IsDeleted` = 0 )   LIMIT 0,10
+2023-12-20 21:27:18.344 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.Role.RoleGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:18.347 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.RoleService.GetListAsync (Yi.Framework.Rbac.Application) in 77.6908ms
+2023-12-20 21:27:18.347 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.RoleService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:18.348 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:18",
+  "ExecutionDuration": 81,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/role",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.RoleService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"roleName\":null,\"roleCode\":null,\"state\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":0,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-20 21:27:18",
+      "ExecutionDuration": 68,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:18.414 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.Post.PostGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:18.417 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.PostService.GetListAsync (Yi.Framework.Rbac.Application) in 147.3727ms
+2023-12-20 21:27:18.417 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.PostService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:18.417 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:18",
+  "ExecutionDuration": 150,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/post",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.PostService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"state\":null,\"postName\":\"\",\"sorting\":null,\"skipCount\":0,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-20 21:27:18",
+      "ExecutionDuration": 138,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:35.773 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:27:35.774 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.UserService.CreateAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:35.776 +08:00 [INF] Route matched with {action = "Create", controller = "User", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetOutputDto] CreateAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserCreateInputVo) on controller Yi.Framework.Rbac.Application.Services.UserService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:35.865 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE  (N'whj' = `UserName`)   AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:27:35.890 +08:00 [DBG] Yi-SQL执行:INSERT INTO `User`  
+           (`Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`)
+     VALUES
+           (N'32624c77-fd88-8315-8051-3a0f9995dccf',0,null,null,N'whj',N'c4e__OvDxld3iVssfsT7fYhmjmEPD8me2uydtk-KtQ9L_bAgNuxcze02PcPGAS9zq7S6JIRT5BWaLSBdhdXH_Q',N'oduKHa8lM0AziZmwSn28wg==',null,N'whj',null,null,null,null,null,null,0,null,'2023-12-20 21:27:35.884',N'59cf7e31-e3e4-544e-1038-3a0f836cc538',null,null,0,1) ;
+2023-12-20 21:27:35.916 +08:00 [DBG] Yi-SQL执行:DELETE FROM `UserRole` WHERE  (`UserId` IN ('32624c77-fd88-8315-8051-3a0f9995dccf'))  
+2023-12-20 21:27:35.927 +08:00 [DBG] Yi-SQL执行:INSERT INTO `UserRole`  
+           (`Id`,`RoleId`,`UserId`)
+     VALUES
+           (N'426de6df-3691-1f84-5f27-3a0f9995dcf6',N'09030db8-56b1-ceb7-5a14-3a0f7ac8e879',N'32624c77-fd88-8315-8051-3a0f9995dccf') ;
+2023-12-20 21:27:35.948 +08:00 [DBG] Yi-SQL执行:DELETE FROM `UserPost` WHERE  (`UserId` IN ('32624c77-fd88-8315-8051-3a0f9995dccf'))  
+2023-12-20 21:27:35.956 +08:00 [DBG] Yi-SQL执行:INSERT INTO `UserPost`  
+           (`Id`,`UserId`,`PostId`)
+     VALUES
+           (N'7e8e52fb-59c5-53c1-18c6-3a0f9995dd14',N'32624c77-fd88-8315-8051-3a0f9995dccf',N'1e0e4458-90b2-908f-603b-3a0f7ac8e853') ;
+2023-12-20 21:27:35.977 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetOutputDto'.
+2023-12-20 21:27:36.016 +08:00 [DBG] Yi-SQL执行:INSERT INTO `OperationLog`  
+           (`Id`,`Title`,`OperType`,`RequestMethod`,`OperUser`,`OperIp`,`OperLocation`,`Method`,`RequestParam`,`RequestResult`,`CreationTime`,`CreatorId`)
+     VALUES
+           (N'aa6dac4b-8258-0b49-489c-3a0f9995dd4d',N'添加用户',1,N'POST',N'cc',N'127.0.0.1',N'0 内网IP',N'/api/app/user',null,N'{"Name":null,"Age":null,"UserName":"whj","Icon":null,"Nick":"whj","Email":null,"Ip":null,"Address":null,"Phone":null,"Introduction":null,"Remark":null,"Sex":0,"State":true,"CreationTime":"2023-12-20T21:27:35.8844509+08:00","DeptId":null,"Dept":null,"Posts":null,"Roles":null,"Id":"32624c77-fd88-8315-8051-3a0f9995dccf"}','2023-12-20 21:27:36.013',N'59cf7e31-e3e4-544e-1038-3a0f836cc538') ;
+2023-12-20 21:27:36.020 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.UserService.CreateAsync (Yi.Framework.Rbac.Application) in 243.2298ms
+2023-12-20 21:27:36.020 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.UserService.CreateAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:36.020 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:35",
+  "ExecutionDuration": 246,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/user",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.UserService",
+      "MethodName": "CreateAsync",
+      "Parameters": "{\"input\":{\"name\":null,\"age\":null,\"userName\":\"whj\",\"password\":\"123456\",\"icon\":null,\"nick\":\"whj\",\"email\":null,\"address\":null,\"phone\":null,\"introduction\":null,\"remark\":null,\"sex\":0,\"roleIds\":[\"09030db8-56b1-ceb7-5a14-3a0f7ac8e879\"],\"postIds\":[\"1e0e4458-90b2-908f-603b-3a0f7ac8e853\"],\"deptId\":null,\"state\":true}}",
+      "ExecutionTime": "2023-12-20 21:27:35",
+      "ExecutionDuration": 179,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:27:36.023 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.UserService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:36.023 +08:00 [INF] Route matched with {action = "GetList", controller = "User", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Volo.Abp.Application.Dtos.PagedResultDto`1[Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetListOutputDto]] GetListAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetListInputVo) on controller Yi.Framework.Rbac.Application.Services.UserService (Yi.Framework.Rbac.Application).
+2023-12-20 21:27:36.219 +08:00 [WRN] An exception occurred, but response has already started!
+2023-12-20 21:27:36.220 +08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: This MySqlConnection is already in use. See https://fl.vu/mysql-conn-reuse
+   at MySqlConnector.Core.ServerSession.StartQuerying(ICancellableCommand command) in /_/src/MySqlConnector/Core/ServerSession.cs:line 283
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 51
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 296
+   at MySqlConnector.MySqlTransaction.CommitAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlTransaction.cs:line 36
+   at SqlSugar.AdoProvider.CommitTranAsync()
+   at Yi.Framework.SqlSugarCore.Uow.SqlSugarTransactionApi.CommitAsync(CancellationToken cancellationToken) in D:\CSharp\Yi\Yi.Abp.Net8\framework\Yi.Framework.SqlSugarCore\Uow\SqlSugarTransactionApi.cs:line 18
+   at Volo.Abp.Uow.UnitOfWork.CommitTransactionsAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.CompleteAsync(CancellationToken cancellationToken)
+   at Volo.Abp.AspNetCore.Uow.AbpUnitOfWorkMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-12-20 21:27:36.220 +08:00 [WRN] The response has already started, the error page middleware will not be executed.
+2023-12-20 21:27:36.220 +08:00 [ERR] Connection id "0HN01BT8T36M0", Request id "0HN01BT8T36M0:00000001": An unhandled exception was thrown by the application.
+System.InvalidOperationException: This MySqlConnection is already in use. See https://fl.vu/mysql-conn-reuse
+   at MySqlConnector.Core.ServerSession.StartQuerying(ICancellableCommand command) in /_/src/MySqlConnector/Core/ServerSession.cs:line 283
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 51
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 296
+   at MySqlConnector.MySqlTransaction.CommitAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlTransaction.cs:line 36
+   at SqlSugar.AdoProvider.CommitTranAsync()
+   at Yi.Framework.SqlSugarCore.Uow.SqlSugarTransactionApi.CommitAsync(CancellationToken cancellationToken) in D:\CSharp\Yi\Yi.Abp.Net8\framework\Yi.Framework.SqlSugarCore\Uow\SqlSugarTransactionApi.cs:line 18
+   at Volo.Abp.Uow.UnitOfWork.CommitTransactionsAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.CompleteAsync(CancellationToken cancellationToken)
+   at Volo.Abp.AspNetCore.Uow.AbpUnitOfWorkMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2023-12-20 21:27:36.223 +08:00 [DBG] Yi-SQL执行:SELECT Count(*) FROM  (SELECT * FROM  (SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE ( `State` = 1 )  AND ( `IsDeleted` = 0 ) ) MergeTable ) `user` Left JOIN `Dept` `dept` ON ( `user`.`DeptId` = `dept`.`Id` ) AND ( `dept`.`IsDeleted` = 0 )   WHERE ( `user`.`IsDeleted` = 0 ) 
+2023-12-20 21:27:36.239 +08:00 [DBG] Yi-SQL执行:SELECT `user`.`Id` AS `Id` ,`user`.`Name` AS `Name` ,`user`.`Age` AS `Age` ,`user`.`UserName` AS `UserName` ,`user`.`Icon` AS `Icon` ,`user`.`Nick` AS `Nick` ,`user`.`Email` AS `Email` ,`user`.`Ip` AS `Ip` ,`user`.`Address` AS `Address` ,`user`.`Phone` AS `Phone` ,`user`.`Introduction` AS `Introduction` ,`user`.`Remark` AS `Remark` ,`user`.`Sex` AS `Sex` ,`user`.`DeptId` AS `DeptId` ,`user`.`CreationTime` AS `CreationTime` ,`user`.`CreatorId` AS `CreatorId` ,`user`.`State` AS `State` ,`dept`.`DeptName` AS `DeptName` FROM  (SELECT * FROM  (SELECT `Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State` FROM `User`  WHERE ( `State` = 1 )  AND ( `IsDeleted` = 0 ) ) MergeTable ) `user` Left JOIN `Dept` `dept` ON ( `user`.`DeptId` = `dept`.`Id` ) AND ( `dept`.`IsDeleted` = 0 )    WHERE ( `user`.`IsDeleted` = 0 )   LIMIT 0,10
+2023-12-20 21:27:36.265 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Application.Dtos.PagedResultDto`1[[Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetListOutputDto, Yi.Framework.Rbac.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-12-20 21:27:36.265 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.UserService.GetListAsync (Yi.Framework.Rbac.Application) in 241.5682ms
+2023-12-20 21:27:36.265 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.UserService.GetListAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:27:36.265 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:27:36",
+  "ExecutionDuration": 242,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "GET",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/user",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.UserService",
+      "MethodName": "GetListAsync",
+      "Parameters": "{\"input\":{\"name\":null,\"userName\":null,\"phone\":null,\"state\":true,\"deptId\":null,\"ids\":null,\"startTime\":null,\"endTime\":null,\"sorting\":null,\"skipCount\":1,\"maxResultCount\":10}}",
+      "ExecutionTime": "2023-12-20 21:27:36",
+      "ExecutionDuration": 45,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:29:38.713 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 21:29:42.040 +08:00 [INF] Loaded ABP modules:
+2023-12-20 21:29:42.046 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 21:29:42.046 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 21:29:42.046 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 21:29:42.046 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 21:29:42.046 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 21:29:42.046 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 21:29:42.046 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 21:29:42.046 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 21:29:42.046 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 21:29:42.046 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 21:29:42.046 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 21:29:42.046 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 21:29:42.046 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 21:29:42.046 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 21:29:42.046 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 21:29:42.046 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 21:29:42.506 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 21:29:42.592 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 21:29:42.701 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 21:29:42.701 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 21:29:42.701 +08:00 [INF] Hosting environment: Development
+2023-12-20 21:29:42.701 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 21:30:13.258 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:30:13.346 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.UserService.CreateAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:30:13.370 +08:00 [INF] Route matched with {action = "Create", controller = "User", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetOutputDto] CreateAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserCreateInputVo) on controller Yi.Framework.Rbac.Application.Services.UserService (Yi.Framework.Rbac.Application).
+2023-12-20 21:30:32.110 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE  (N'whj' = `UserName`)   AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:30:32.255 +08:00 [DBG] Yi-SQL执行:INSERT INTO `User`  
+           (`Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`)
+     VALUES
+           (N'4aab0630-774e-a78e-b80c-3a0f99988da5',0,null,null,N'whj',N'eGr04vscfaRnRR0O0nT36R5NEHI-vYYKZz_rSNDhx1rDyQ7USMDGdulFFuy3PpoOX7QW39wPGa3VVlt1r8lPxA',N'yM1CjKHgqOBTqk3c7hAUsg==',null,N'whj',null,null,null,null,null,null,0,null,'2023-12-20 21:30:32.223',N'59cf7e31-e3e4-544e-1038-3a0f836cc538',null,null,0,1) ;
+2023-12-20 21:30:32.274 +08:00 [DBG] Yi-SQL执行:DELETE FROM `UserRole` WHERE  (`UserId` IN ('4aab0630-774e-a78e-b80c-3a0f99988da5'))  
+2023-12-20 21:30:32.289 +08:00 [DBG] Yi-SQL执行:INSERT INTO `UserRole`  
+           (`Id`,`RoleId`,`UserId`)
+     VALUES
+           (N'c981cd2f-e023-8c71-b67f-3a0f99988de0',N'09030db8-56b1-ceb7-5a14-3a0f7ac8e879',N'4aab0630-774e-a78e-b80c-3a0f99988da5') ;
+2023-12-20 21:30:32.301 +08:00 [DBG] Yi-SQL执行:DELETE FROM `UserPost` WHERE  (`UserId` IN ('4aab0630-774e-a78e-b80c-3a0f99988da5'))  
+2023-12-20 21:30:32.315 +08:00 [DBG] Yi-SQL执行:INSERT INTO `UserPost`  
+           (`Id`,`UserId`,`PostId`)
+     VALUES
+           (N'580b92d9-6eab-5757-28d6-3a0f99988dfa',N'4aab0630-774e-a78e-b80c-3a0f99988da5',N'1e0e4458-90b2-908f-603b-3a0f7ac8e853') ;
+2023-12-20 21:30:32.357 +08:00 [INF] Executing ObjectResult, writing value of type 'Yi.Framework.Rbac.Application.Contracts.Dtos.User.UserGetOutputDto'.
+2023-12-20 21:30:32.401 +08:00 [DBG] Yi-SQL执行:INSERT INTO `OperationLog`  
+           (`Id`,`Title`,`OperType`,`RequestMethod`,`OperUser`,`OperIp`,`OperLocation`,`Method`,`RequestParam`,`RequestResult`,`CreationTime`,`CreatorId`)
+     VALUES
+           (N'3f480eaf-214e-0452-592e-3a0f99988e4f',N'添加用户',1,N'POST',N'cc',N'127.0.0.1',N'0 内网IP',N'/api/app/user',null,N'{"Name":null,"Age":null,"UserName":"whj","Icon":null,"Nick":"whj","Email":null,"Ip":null,"Address":null,"Phone":null,"Introduction":null,"Remark":null,"Sex":0,"State":true,"CreationTime":"2023-12-20T21:30:32.2238152+08:00","DeptId":null,"Dept":null,"Posts":null,"Roles":null,"Id":"4aab0630-774e-a78e-b80c-3a0f99988da5"}','2023-12-20 21:30:32.400',N'59cf7e31-e3e4-544e-1038-3a0f836cc538') ;
+2023-12-20 21:30:32.406 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.UserService.CreateAsync (Yi.Framework.Rbac.Application) in 19033.5986ms
+2023-12-20 21:30:32.407 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.UserService.CreateAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:30:32.423 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": "59cf7e31-e3e4-544e-1038-3a0f836cc538",
+  "UserName": "cc",
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:30:13",
+  "ExecutionDuration": 19066,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/user",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.UserService",
+      "MethodName": "CreateAsync",
+      "Parameters": "{\"input\":{\"name\":null,\"age\":null,\"userName\":\"whj\",\"password\":\"123456\",\"icon\":null,\"nick\":\"whj\",\"email\":null,\"address\":null,\"phone\":null,\"introduction\":null,\"remark\":null,\"sex\":0,\"roleIds\":[\"09030db8-56b1-ceb7-5a14-3a0f7ac8e879\"],\"postIds\":[\"1e0e4458-90b2-908f-603b-3a0f7ac8e853\"],\"deptId\":null,\"state\":true}}",
+      "ExecutionTime": "2023-12-20 21:30:13",
+      "ExecutionDuration": 18858,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:30:38.000 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:30:41.183 +08:00 [INF] Executing endpoint '/hub/main/negotiate'
+2023-12-20 21:30:41.186 +08:00 [INF] Executed endpoint '/hub/main/negotiate'
+2023-12-20 21:30:41.195 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:30:41.197 +08:00 [INF] Executing endpoint '/hub/main'
+2023-12-20 21:30:41.294 +08:00 [INF] 2023/12/20 21:30:41：cc,oB5HTF_8LSEEgxv-Yig_2Q连接服务端success，当前已连接1个
+2023-12-20 21:31:19.037 +08:00 [INF] Application is shutting down...
+2023-12-20 21:31:27.102 +08:00 [INF] 用户cc离开了，当前已连接0个
+2023-12-20 21:31:27.105 +08:00 [INF] Executed endpoint '/hub/main'

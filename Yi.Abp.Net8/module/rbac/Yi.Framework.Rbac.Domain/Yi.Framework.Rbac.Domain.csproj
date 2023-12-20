@@ -1,8 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\..\common.props" />
 
 
   <ItemGroup>
+
+    <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="2.0.24" />
 
     <PackageReference Include="IPTools.China" Version="1.6.0" />
 
