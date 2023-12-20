@@ -224,9 +224,9 @@ const registerRules = reactive({
   code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
   password: [{ required: true, message: "请输入薪密码", trigger: "blur" }],
 });
-const handleRegister = () => {
-  isRegister.value = !isRegister.value;
-};
+// const handleRegister = () => {
+//   isRegister.value = !isRegister.value;
+// };
 const register = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid) => {
