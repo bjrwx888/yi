@@ -102,14 +102,14 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
 
                 //await Console.Out.WriteLineAsync("开始新的事务");
-                Console.WriteLine(dbContext.SqlSugarClient.ContextID);
+               // Console.WriteLine(dbContext.SqlSugarClient.ContextID);
                 await dbContext.SqlSugarClient.Ado.BeginTranAsync();
                 return dbContext;
             }
             else
             {
                // await Console.Out.WriteLineAsync("继续老的事务");
-                Console.WriteLine(activeTransaction.DbContext.SqlSugarClient);
+               // Console.WriteLine(activeTransaction.DbContext.SqlSugarClient);
                 await activeTransaction.DbContext.SqlSugarClient.Ado.BeginTranAsync();
                 return (TDbContext)activeTransaction.DbContext;
             }

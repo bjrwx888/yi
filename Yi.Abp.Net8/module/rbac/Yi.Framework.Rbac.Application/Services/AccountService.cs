@@ -42,6 +42,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private readonly ICaptcha _captcha;
         private readonly IGuidGenerator _guidGenerator;
         private readonly RbacOptions _rbacOptions;
+        private readonly IAliyunManger _aliyunManger;
         public AccountService(IUserRepository userRepository,
             ICurrentUser currentUser,
             AccountManager accountManager,
@@ -52,7 +53,8 @@ namespace Yi.Framework.Rbac.Application.Services
             IDistributedCache<CaptchaPhoneCacheItem, CaptchaPhoneCacheKey> phoneCache,
             ICaptcha captcha,
             IGuidGenerator guidGenerator,
-            IOptions<RbacOptions> options)
+            IOptions<RbacOptions> options,
+            IAliyunManger aliyunManger)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -65,6 +67,7 @@ namespace Yi.Framework.Rbac.Application.Services
             _captcha = captcha;
             _guidGenerator = guidGenerator;
             _rbacOptions = options.Value;
+            _aliyunManger = aliyunManger;
         }
 
 
@@ -92,20 +95,7 @@ namespace Yi.Framework.Rbac.Application.Services
             }
         }
 
-        /// <summary>
-        /// 效验电话验证码，需要与电话号码绑定
-        /// </summary>
-        private void ValidationPhoneCaptcha(RegisterDto input)
-        {
-            //var value = _memoryCache.Get<string>($"Yi:Phone:{input.Phone}");
-            //if (value is not null && value.Equals($"{input.Code}"))
-            //{
-            //    //成功，需要清空
-            //    _memoryCache.Remove($"Yi:Phone:{input.Phone}");
-            //    return;
-            //}
-            //throw new UserFriendlyException("验证码错误");
-        }
+
 
         /// <summary>
         /// 登录
@@ -228,19 +218,9 @@ namespace Yi.Framework.Rbac.Application.Services
             //生成一个4位数的验证码
             //发送短信，同时生成uuid
             ////key： 电话号码  value:验证码+uuid  
-            //var code = _securityCode.GetRandomEnDigitalText(4);
+            var code = Guid.NewGuid().ToString().Substring(0, 4);
             var uuid = Guid.NewGuid();
-
-            //未开启短信验证，默认8888
-            //if (_smsAliyunManagerOptions.Value.EnableFeature)
-            //{
-            //    await _smsAliyunManager.Send(input.Phone, code);
-            //}
-            //else
-            //{
-            var code = "8888";
-            //}
-            //_memoryCache.Set($"Yi:Phone:{input.Phone}", $"{code}", new TimeSpan(0, 10, 0));
+            await _aliyunManger.SendSmsAsync(input.Phone, code);
 
             await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(input.Phone), new CaptchaPhoneCacheItem(code), new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(10) });
             return new
@@ -248,6 +228,22 @@ namespace Yi.Framework.Rbac.Application.Services
                 Uuid = uuid
             };
         }
+
+        /// <summary>
+        /// 效验电话验证码，需要与电话号码绑定
+        /// </summary>
+        private async Task ValidationPhoneCaptchaAsync(RegisterDto input)
+        {
+            var value = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(input.Phone.ToString()));
+            if (value is not null && value.Equals($"{input.Code}"))
+            {
+                //成功，需要清空
+                await _phoneCache.RemoveAsync(new CaptchaPhoneCacheKey(input.Phone.ToString()));
+                return;
+            }
+            throw new UserFriendlyException("验证码错误");
+        }
+
 
         /// <summary>
         /// 注册，需要验证码通过
@@ -258,6 +254,11 @@ namespace Yi.Framework.Rbac.Application.Services
         [UnitOfWork]
         public async Task<object> PostRegisterAsync(RegisterDto input)
         {
+            if (_rbacOptions.EnableRegister == false)
+            {
+                throw new UserFriendlyException("该系统暂未开放注册功能");
+            }
+
             if (input.UserName == UserConst.Admin)
             {
                 throw new UserFriendlyException("用户名无效注册！");
@@ -272,15 +273,13 @@ namespace Yi.Framework.Rbac.Application.Services
                 throw new UserFriendlyException("密码需大于等于6位！");
             }
             //效验验证码，根据电话号码获取 value，比对验证码已经uuid
-            ValidationPhoneCaptcha(input);
+            await ValidationPhoneCaptchaAsync(input);
 
 
 
             //输入的用户名与电话号码都不能在数据库中存在
             UserEntity user = new();
-            var isExist = await _userRepository.IsAnyAsync(x =>
-                  x.UserName == input.UserName
-               || x.Phone == input.Phone);
+            var isExist = await _userRepository.IsAnyAsync(x =>x.UserName == input.UserName|| x.Phone == input.Phone);
             if (isExist)
             {
                 throw new UserFriendlyException("用户已存在，注册失败");
