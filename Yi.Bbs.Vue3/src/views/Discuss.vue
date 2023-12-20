@@ -20,10 +20,7 @@
             "
             >查询</el-button
           >
-          <el-button
-            @click="enterEditArticle"
-            type="primary"
-            v-hasPer="['bbs:discuss:add']"
+          <el-button @click="enterEditArticle" type="primary"
             >发布主题</el-button
           >
           <el-dropdown>
