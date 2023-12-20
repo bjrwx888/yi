@@ -44,12 +44,10 @@ const useUserStore = defineStore("user", {
             const res = response.data;
 
             const user = res.user;
-            console.log(user, "user");
             const avatar =
               user.icon == "" || user.icon == null
                 ? "/favicon.ico"
                 : import.meta.env.VITE_APP_BASEAPI + "/file/" + user.icon;
-            console.log(avatar, "avatar");
             if (res.roleCodes && res.roleCodes.length > 0) {
               // 验证返回的roles是否是一个非空数组
               this.roles = res.roleCodes;
