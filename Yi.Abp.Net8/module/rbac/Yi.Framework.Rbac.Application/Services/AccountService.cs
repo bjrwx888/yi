@@ -54,7 +54,9 @@ namespace Yi.Framework.Rbac.Application.Services
             ICaptcha captcha,
             IGuidGenerator guidGenerator,
             IOptions<RbacOptions> options,
-            IAliyunManger aliyunManger)
+            IAliyunManger aliyunManger,
+            ISqlSugarRepository<RoleEntity> roleRepository,
+            UserManager userManager)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -68,6 +70,8 @@ namespace Yi.Framework.Rbac.Application.Services
             _guidGenerator = guidGenerator;
             _rbacOptions = options.Value;
             _aliyunManger = aliyunManger;
+            _roleRepository = roleRepository;
+            _userManager = userManager;
         }
 
 
@@ -234,8 +238,8 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         private async Task ValidationPhoneCaptchaAsync(RegisterDto input)
         {
-            var value = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(input.Phone.ToString()));
-            if (value is not null && value.Equals($"{input.Code}"))
+            var item = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(input.Phone.ToString()));
+            if (item is not null && item.Code.Equals($"{input.Code}"))
             {
                 //成功，需要清空
                 await _phoneCache.RemoveAsync(new CaptchaPhoneCacheKey(input.Phone.ToString()));
@@ -289,8 +293,7 @@ namespace Yi.Framework.Rbac.Application.Services
 
             var entity = await _userRepository.InsertReturnEntityAsync(newUser);
             //赋上一个初始角色
-            var roleRepository = _roleRepository;
-            var role = await roleRepository.GetFirstAsync(x => x.RoleCode == UserConst.GuestRoleCode);
+            var role = await _roleRepository.GetFirstAsync(x => x.RoleCode == UserConst.GuestRoleCode);
             if (role is not null)
             {
                 await _userManager.GiveUserSetRoleAsync(new List<Guid> { entity.Id }, new List<Guid> { role.Id });

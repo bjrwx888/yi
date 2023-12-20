@@ -1421,3 +1421,1136 @@ System.InvalidOperationException: This MySqlConnection is already in use. See ht
 2023-12-20 21:31:19.037 +08:00 [INF] Application is shutting down...
 2023-12-20 21:31:27.102 +08:00 [INF] 用户cc离开了，当前已连接0个
 2023-12-20 21:31:27.105 +08:00 [INF] Executed endpoint '/hub/main'
+2023-12-20 21:47:51.321 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 21:47:54.560 +08:00 [INF] Loaded ABP modules:
+2023-12-20 21:47:54.560 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 21:47:54.560 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 21:47:54.560 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 21:47:54.560 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 21:47:54.560 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 21:47:54.561 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 21:47:54.561 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 21:47:54.561 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 21:47:54.561 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 21:47:54.561 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 21:47:54.561 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 21:47:54.561 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 21:47:54.561 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 21:47:54.561 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 21:47:54.561 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 21:47:54.561 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 21:47:54.561 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 21:47:54.561 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 21:47:54.561 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 21:47:54.561 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 21:47:54.561 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 21:47:54.561 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 21:47:54.561 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 21:47:54.561 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 21:47:55.028 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 21:47:55.111 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 21:47:55.209 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 21:47:55.209 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 21:47:55.210 +08:00 [INF] Hosting environment: Development
+2023-12-20 21:47:55.210 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 21:50:28.318 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:50:28.371 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:50:28.397 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:50:28.649 +08:00 [WRN] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "验证码错误",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 21:50:28.650 +08:00 [WRN] 验证码错误
+Volo.Abp.UserFriendlyException: 验证码错误
+   at Yi.Framework.Rbac.Application.Services.AccountService.ValidationPhoneCaptchaAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 244
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 276
+   at lambda_method1168(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 21:50:28.650 +08:00 [WRN] Code:
+2023-12-20 21:50:28.650 +08:00 [WRN] Details:
+2023-12-20 21:50:28.665 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 21:50:28.693 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application) in 293.1237ms
+2023-12-20 21:50:28.693 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:50:28.721 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:50:28",
+  "ExecutionDuration": 330,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 403,
+  "Url": "/api/app/account/register",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostRegisterAsync",
+      "Parameters": "{\"input\":{\"userName\":\"string\",\"password\":\"string\",\"uuid\":\"string\",\"phone\":0,\"code\":\"string\"}}",
+      "ExecutionTime": "2023-12-20 21:50:28",
+      "ExecutionDuration": 110,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "Volo.Abp.UserFriendlyException",
+      "Message": "验证码错误",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Application.Services.AccountService.ValidationPhoneCaptchaAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 244\r\n   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 276\r\n   at lambda_method1168(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146233088,
+      "Source": "Yi.Framework.Rbac.Application",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:50:42.707 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:50:42.708 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 21:50:42.710 +08:00 [INF] Route matched with {action = "PostCaptchaPhone", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostCaptchaPhone(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.PhoneCaptchaImageDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:50:43.037 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (CAST(`Phone` AS CHAR) = N'15949688315' )  AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:52:23.609 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 21:52:26.725 +08:00 [INF] Loaded ABP modules:
+2023-12-20 21:52:26.726 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 21:52:26.726 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 21:52:26.726 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 21:52:26.726 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 21:52:26.726 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 21:52:26.726 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 21:52:26.726 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 21:52:26.726 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 21:52:26.726 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 21:52:26.726 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 21:52:26.726 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 21:52:26.726 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 21:52:26.726 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 21:52:26.726 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 21:52:26.726 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 21:52:26.726 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 21:52:27.185 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 21:52:27.281 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 21:52:27.377 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 21:52:27.377 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 21:52:27.377 +08:00 [INF] Hosting environment: Development
+2023-12-20 21:52:27.377 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 21:55:30.612 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:55:30.660 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 21:55:30.684 +08:00 [INF] Route matched with {action = "PostCaptchaPhone", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostCaptchaPhone(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.PhoneCaptchaImageDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:55:31.185 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (CAST(`Phone` AS CHAR) = N'15949688315' )  AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:55:31.716 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType1`1[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-20 21:55:31.737 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application) in 1050.9868ms
+2023-12-20 21:55:31.738 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 21:55:31.753 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:55:30",
+  "ExecutionDuration": 1083,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/captcha-phone",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostCaptchaPhone",
+      "Parameters": "{\"input\":{\"phone\":\"15949688315\"}}",
+      "ExecutionTime": "2023-12-20 21:55:30",
+      "ExecutionDuration": 899,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:55:44.190 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:55:44.191 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 21:55:44.191 +08:00 [INF] Route matched with {action = "PostCaptchaPhone", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostCaptchaPhone(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.PhoneCaptchaImageDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:55:44.247 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (CAST(`Phone` AS CHAR) = N'15949688315' )  AND ( `IsDeleted` = 0 ) 
+2023-12-20 21:55:44.361 +08:00 [WRN] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "15949688315已发送过验证码，10分钟后可重试",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 21:55:44.362 +08:00 [WRN] 15949688315已发送过验证码，10分钟后可重试
+Volo.Abp.UserFriendlyException: 15949688315已发送过验证码，10分钟后可重试
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone(PhoneCaptchaImageDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 216
+   at lambda_method1168(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 21:55:44.362 +08:00 [WRN] Code:
+2023-12-20 21:55:44.362 +08:00 [WRN] Details:
+2023-12-20 21:55:44.375 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 21:55:44.379 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application) in 186.964ms
+2023-12-20 21:55:44.379 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 21:55:44.384 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:55:44",
+  "ExecutionDuration": 188,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 403,
+  "Url": "/api/app/account/captcha-phone",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostCaptchaPhone",
+      "Parameters": "{\"input\":{\"phone\":\"15949688315\"}}",
+      "ExecutionTime": "2023-12-20 21:55:44",
+      "ExecutionDuration": 157,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "Volo.Abp.UserFriendlyException",
+      "Message": "15949688315已发送过验证码，10分钟后可重试",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone(PhoneCaptchaImageDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 216\r\n   at lambda_method1168(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146233088,
+      "Source": "Yi.Framework.Rbac.Application",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:56:23.408 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:56:23.409 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:56:23.412 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:56:23.498 +08:00 [WRN] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "密码需大于等于6位！",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 21:56:23.498 +08:00 [WRN] 密码需大于等于6位！
+Volo.Abp.UserFriendlyException: 密码需大于等于6位！
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 273
+   at lambda_method1316(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 21:56:23.498 +08:00 [WRN] Code:
+2023-12-20 21:56:23.498 +08:00 [WRN] Details:
+2023-12-20 21:56:23.498 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 21:56:23.498 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application) in 86.4094ms
+2023-12-20 21:56:23.498 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:56:23.499 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:56:23",
+  "ExecutionDuration": 89,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 403,
+  "Url": "/api/app/account/register",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostRegisterAsync",
+      "Parameters": "{\"input\":{\"userName\":\"ppp\",\"password\":\"123\",\"uuid\":\"2e6f40d0-0493-4af0-b5a7-27f4d8f152cd\",\"phone\":15949688315,\"code\":\"bcb2\"}}",
+      "ExecutionTime": "2023-12-20 21:56:23",
+      "ExecutionDuration": 69,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "Volo.Abp.UserFriendlyException",
+      "Message": "密码需大于等于6位！",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 273\r\n   at lambda_method1316(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146233088,
+      "Source": "Yi.Framework.Rbac.Application",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 21:56:30.188 +08:00 [INF] CORS policy execution successful.
+2023-12-20 21:56:30.189 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:56:30.189 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 21:56:30.256 +08:00 [WRN] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "验证码错误",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 21:56:30.256 +08:00 [WRN] 验证码错误
+Volo.Abp.UserFriendlyException: 验证码错误
+   at Yi.Framework.Rbac.Application.Services.AccountService.ValidationPhoneCaptchaAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 244
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 276
+   at lambda_method1316(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 21:56:30.256 +08:00 [WRN] Code:
+2023-12-20 21:56:30.256 +08:00 [WRN] Details:
+2023-12-20 21:56:30.257 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 21:56:30.257 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application) in 67.2441ms
+2023-12-20 21:56:30.257 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 21:56:30.257 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 21:56:30",
+  "ExecutionDuration": 68,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 403,
+  "Url": "/api/app/account/register",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostRegisterAsync",
+      "Parameters": "{\"input\":{\"userName\":\"ppp\",\"password\":\"123456\",\"uuid\":\"2e6f40d0-0493-4af0-b5a7-27f4d8f152cd\",\"phone\":15949688315,\"code\":\"bcb2\"}}",
+      "ExecutionTime": "2023-12-20 21:56:30",
+      "ExecutionDuration": 66,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "Volo.Abp.UserFriendlyException",
+      "Message": "验证码错误",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Application.Services.AccountService.ValidationPhoneCaptchaAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 244\r\n   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 276\r\n   at lambda_method1316(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146233088,
+      "Source": "Yi.Framework.Rbac.Application",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 22:00:21.578 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 22:00:24.735 +08:00 [INF] Loaded ABP modules:
+2023-12-20 22:00:24.736 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 22:00:24.736 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 22:00:24.736 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 22:00:24.736 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 22:00:24.736 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 22:00:24.736 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 22:00:24.736 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 22:00:24.736 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 22:00:24.736 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 22:00:24.736 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 22:00:24.736 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 22:00:24.736 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 22:00:24.736 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 22:00:24.736 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 22:00:24.736 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 22:00:24.736 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 22:00:25.174 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 22:00:25.255 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 22:00:25.346 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 22:00:25.347 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 22:00:25.347 +08:00 [INF] Hosting environment: Development
+2023-12-20 22:00:25.347 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 22:00:51.236 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:00:51.287 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 22:00:51.311 +08:00 [INF] Route matched with {action = "PostCaptchaPhone", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostCaptchaPhone(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.PhoneCaptchaImageDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:00:51.760 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (CAST(`Phone` AS CHAR) = N'15949688315' )  AND ( `IsDeleted` = 0 ) 
+2023-12-20 22:00:52.220 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType1`1[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-20 22:00:52.247 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application) in 933.3708ms
+2023-12-20 22:00:52.247 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 22:00:52.274 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 22:00:51",
+  "ExecutionDuration": 967,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/captcha-phone",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostCaptchaPhone",
+      "Parameters": "{\"input\":{\"phone\":\"15949688315\"}}",
+      "ExecutionTime": "2023-12-20 22:00:51",
+      "ExecutionDuration": 783,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 22:01:39.533 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:01:39.534 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:01:39.537 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:01:44.801 +08:00 [WRN] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "验证码错误",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 22:01:44.801 +08:00 [WRN] 验证码错误
+Volo.Abp.UserFriendlyException: 验证码错误
+   at Yi.Framework.Rbac.Application.Services.AccountService.ValidationPhoneCaptchaAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 244
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\CSharp\Yi\Yi.Abp.Net8\module\rbac\Yi.Framework.Rbac.Application\Services\AccountService.cs:line 276
+   at lambda_method1289(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 22:01:44.801 +08:00 [WRN] Code:
+2023-12-20 22:01:44.801 +08:00 [WRN] Details:
+2023-12-20 22:01:44.813 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 22:01:44.815 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application) in 5278.3768ms
+2023-12-20 22:01:44.815 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:01:44.819 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 22:01:39",
+  "ExecutionDuration": 5281,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 403,
+  "Url": "/api/app/account/register",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostRegisterAsync",
+      "Parameters": "{\"input\":{\"userName\":\"ppp\",\"password\":\"123456\",\"uuid\":\"b4a3babe-6b8c-4c2f-a821-4fd3c5fb8fe6\",\"phone\":5481,\"code\":\"5481\"}}",
+      "ExecutionTime": "2023-12-20 22:01:39",
+      "ExecutionDuration": 5242,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "Volo.Abp.UserFriendlyException",
+      "Message": "验证码错误",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Application.Services.AccountService.ValidationPhoneCaptchaAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 244\r\n   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input) in D:\\CSharp\\Yi\\Yi.Abp.Net8\\module\\rbac\\Yi.Framework.Rbac.Application\\Services\\AccountService.cs:line 276\r\n   at lambda_method1289(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2146233088,
+      "Source": "Yi.Framework.Rbac.Application",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 22:01:53.379 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:01:53.380 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:01:53.380 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:01:59.176 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (( `UserName` = N'ppp' ) OR ( `Phone` = 15949688315 ))  AND ( `IsDeleted` = 0 ) 
+2023-12-20 22:02:05.486 +08:00 [DBG] Yi-SQL执行:INSERT INTO `User`  
+           (`Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`)
+     VALUES
+           (N'd98cbc95-5b62-5488-0ff2-3a0f99b57114',0,null,null,N'ppp',N'g5Z9SzOmkQlxrn0b38EatyK_7x7Ze89e4qiJlbMPxK0T6RF9KJO6EZpSk-RexSDfkglPKyzeM-5PmVJC4-imzw',N'txPnqO40PUHC4u/5i4Fwbw==',null,N'萌新',null,null,null,15949688315,null,null,2,null,'2023-12-20 22:02:04.930',null,null,null,0,1) ;
+2023-12-20 22:03:26.546 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 22:03:29.632 +08:00 [INF] Loaded ABP modules:
+2023-12-20 22:03:29.633 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 22:03:29.633 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 22:03:29.633 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 22:03:29.633 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 22:03:29.633 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 22:03:29.633 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 22:03:29.633 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 22:03:29.633 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 22:03:29.633 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 22:03:29.633 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 22:03:29.633 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 22:03:29.633 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 22:03:29.633 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 22:03:29.633 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 22:03:29.633 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 22:03:29.633 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 22:03:30.143 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 22:03:30.221 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 22:03:30.319 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 22:03:30.319 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 22:03:30.319 +08:00 [INF] Hosting environment: Development
+2023-12-20 22:03:30.319 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 22:03:53.986 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:03:54.037 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 22:03:54.071 +08:00 [INF] Route matched with {action = "PostCaptchaPhone", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostCaptchaPhone(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.PhoneCaptchaImageDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:03:54.593 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (CAST(`Phone` AS CHAR) = N'15949688315' )  AND ( `IsDeleted` = 0 ) 
+2023-12-20 22:03:55.010 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType1`1[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-20 22:03:55.037 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application) in 962.1519ms
+2023-12-20 22:03:55.038 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 22:03:55.055 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 22:03:54",
+  "ExecutionDuration": 1008,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/captcha-phone",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostCaptchaPhone",
+      "Parameters": "{\"input\":{\"phone\":\"15949688315\"}}",
+      "ExecutionTime": "2023-12-20 22:03:54",
+      "ExecutionDuration": 775,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 22:04:28.742 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:04:28.743 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:04:28.746 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:04:31.385 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (( `UserName` = N'ppp' ) OR ( `Phone` = 15949688315 ))  AND ( `IsDeleted` = 0 ) 
+2023-12-20 22:04:31.422 +08:00 [DBG] Yi-SQL执行:INSERT INTO `User`  
+           (`Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`)
+     VALUES
+           (N'1dc23ed5-e493-d67b-fffa-3a0f99b7ab29',0,null,null,N'ppp',N'GjnafcItJqdPuadyqgwWruUy238wRReeUkbhF8Z3ZoSJTcUJParX8tNPJVCtBa2raro_IBhaP7aiUn_dOo29PQ',N'+hXg8aO9OU+ZdHwo14pG/w==',null,N'萌新',null,null,null,15949688315,null,null,2,null,'2023-12-20 22:04:31.394',null,null,null,0,1) ;
+2023-12-20 22:04:31.446 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`RoleName`,`RoleCode`,`Remark`,`DataScope`,`State` FROM `Role`   WHERE ( `RoleCode` = N'guest' )  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-20 22:05:19.550 +08:00 [ERR] ---------- RemoteServiceErrorInfo ----------
+{
+  "code": null,
+  "message": "对不起,在处理你的请求期间,产生了一个服务器内部错误!",
+  "details": null,
+  "data": {},
+  "validationErrors": null
+}
+
+2023-12-20 22:05:19.551 +08:00 [ERR] Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input)
+   at lambda_method1290(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2023-12-20 22:05:19.565 +08:00 [INF] Executing ObjectResult, writing value of type 'Volo.Abp.Http.RemoteServiceErrorResponse'.
+2023-12-20 22:05:19.568 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application) in 50821.7246ms
+2023-12-20 22:05:19.568 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:05:19.570 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 22:04:28",
+  "ExecutionDuration": 50825,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 500,
+  "Url": "/api/app/account/register",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostRegisterAsync",
+      "Parameters": "{\"input\":{\"userName\":\"ppp\",\"password\":\"123456\",\"uuid\":\"c90739ab-b217-453b-b247-432cd4e95bf4\",\"phone\":15949688315,\"code\":\"20a4\"}}",
+      "ExecutionTime": "2023-12-20 22:04:28",
+      "ExecutionDuration": 50774,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [
+    {
+      "ClassName": "System.NullReferenceException",
+      "Message": "Object reference not set to an instance of an object.",
+      "Data": {},
+      "InnerException": null,
+      "HelpURL": null,
+      "StackTraceString": "   at Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync(RegisterDto input)\r\n   at lambda_method1290(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)",
+      "RemoteStackTraceString": null,
+      "RemoteStackIndex": 0,
+      "ExceptionMethod": null,
+      "HResult": -2147467261,
+      "Source": "Yi.Framework.Rbac.Application",
+      "WatsonBuckets": null
+    }
+  ],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 22:05:20.911 +08:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2023-12-20 22:05:29.968 +08:00 [INF] Yi框架-Abp.vNext，启动！
+2023-12-20 22:05:33.155 +08:00 [INF] Loaded ABP modules:
+2023-12-20 22:05:33.156 +08:00 [INF] - Yi.Abp.Web.YiAbpWebModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Yi.Abp.SqlsugarCore.YiAbpSqlSugarCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Yi.Abp.Domain.YiAbpDomainModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Abp.Domain.Shared.YiAbpDomainSharedModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Yi.Framework.Rbac.Domain.Shared.YiFrameworkRbacDomainSharedModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.Domain.AbpDddDomainSharedModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.Localization.AbpLocalizationModule
+2023-12-20 22:05:33.156 +08:00 [INF]                 - Volo.Abp.Settings.AbpSettingsModule
+2023-12-20 22:05:33.156 +08:00 [INF]                   - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]                   - Volo.Abp.Security.AbpSecurityModule
+2023-12-20 22:05:33.156 +08:00 [INF]                   - Volo.Abp.Data.AbpDataModule
+2023-12-20 22:05:33.156 +08:00 [INF]                     - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2023-12-20 22:05:33.156 +08:00 [INF]                       - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]                     - Volo.Abp.Uow.AbpUnitOfWorkModule
+2023-12-20 22:05:33.156 +08:00 [INF]                     - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]                 - Volo.Abp.Threading.AbpThreadingModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Yi.Framework.Mapster.YiFrameworkMapsterModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Yi.Framework.Core.YiFrameworkCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Yi.Framework.Bbs.Domain.Shared.YiFrameworkBbsDomainSharedModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Framework.Rbac.Domain.YiFrameworkRbacDomainModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Volo.Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.Auditing.AbpAuditingModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.Json.AbpJsonModule
+2023-12-20 22:05:33.156 +08:00 [INF]                 - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2023-12-20 22:05:33.156 +08:00 [INF]                   - Volo.Abp.Json.AbpJsonAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]                   - Volo.Abp.Timing.AbpTimingModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.Auditing.AbpAuditingContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.Http.AbpHttpModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.Http.AbpHttpAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.Minify.AbpMinifyModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.Authorization.AbpAuthorizationModule
+2023-12-20 22:05:33.156 +08:00 [INF]               - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.Validation.AbpValidationModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.EventBus.AbpEventBusModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.Guids.AbpGuidsModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.Specifications.AbpSpecificationsModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.Caching.AbpCachingModule
+2023-12-20 22:05:33.156 +08:00 [INF]             - Volo.Abp.Serialization.AbpSerializationModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Framework.Bbs.Domain.YiFrameworkBbsDomainModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Yi.Framework.Rbac.SqlSugarCore.YiFrameworkRbacSqlSugarCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Framework.SqlSugarCore.YiFrameworkSqlSugarCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Yi.Framework.Bbs.SqlSugarCore.YiFrameworkBbsSqlSugarCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Yi.Abp.Application.YiAbpApplicationModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Yi.Abp.Application.Contracts.YiAbpApplicationContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Framework.Rbac.Application.Contracts.YiFrameworkRbacApplicationContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Yi.Framework.Ddd.Application.Contracts.YiFrameworkDddApplicationContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.Application.AbpDddApplicationContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Framework.Bbs.Application.Contracts.YiFrameworkBbsApplicationContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Yi.Framework.Rbac.Application.YiFrameworkRbacApplicationModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Yi.Framework.Ddd.Application.YiFrameworkDddApplicationModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Volo.Abp.Application.AbpDddApplicationModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.Features.AbpFeaturesModule
+2023-12-20 22:05:33.156 +08:00 [INF]           - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Volo.Abp.BackgroundWorkers.Quartz.AbpBackgroundWorkersQuartzModule
+2023-12-20 22:05:33.156 +08:00 [INF]         - Volo.Abp.Quartz.AbpQuartzModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Yi.Framework.Bbs.Application.YiFrameworkBbsApplicationModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2023-12-20 22:05:33.156 +08:00 [INF]       - Volo.Abp.UI.AbpUiModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2023-12-20 22:05:33.156 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Volo.Abp.AspNetCore.Authentication.JwtBearer.AbpAspNetCoreAuthenticationJwtBearerModule
+2023-12-20 22:05:33.156 +08:00 [INF]   - Yi.Framework.AspNetCore.YiFrameworkAspNetCoreModule
+2023-12-20 22:05:33.610 +08:00 [INF] User profile is available. Using 'C:\Users\45431\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-20 22:05:33.694 +08:00 [INF] Initialized all ABP modules.
+2023-12-20 22:05:33.790 +08:00 [INF] Now listening on: http://[::]:19001
+2023-12-20 22:05:33.790 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-20 22:05:33.790 +08:00 [INF] Hosting environment: Development
+2023-12-20 22:05:33.790 +08:00 [INF] Content root path: D:\CSharp\Yi\Yi.Abp.Net8\src\Yi.Abp.Web
+2023-12-20 22:05:56.747 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:05:56.798 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 22:05:56.823 +08:00 [INF] Route matched with {action = "PostCaptchaPhone", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostCaptchaPhone(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.PhoneCaptchaImageDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:05:57.539 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (CAST(`Phone` AS CHAR) = N'15949688315' )  AND ( `IsDeleted` = 0 ) 
+2023-12-20 22:05:58.175 +08:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType1`1[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2023-12-20 22:05:58.196 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application) in 1370.5336ms
+2023-12-20 22:05:58.197 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostCaptchaPhone (Yi.Framework.Rbac.Application)'
+2023-12-20 22:05:58.217 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 22:05:56",
+  "ExecutionDuration": 1407,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/captcha-phone",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostCaptchaPhone",
+      "Parameters": "{\"input\":{\"phone\":\"15949688315\"}}",
+      "ExecutionTime": "2023-12-20 22:05:56",
+      "ExecutionDuration": 1209,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
+2023-12-20 22:06:25.966 +08:00 [INF] CORS policy execution successful.
+2023-12-20 22:06:25.967 +08:00 [INF] Executing endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:06:25.970 +08:00 [INF] Route matched with {action = "PostRegister", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Object] PostRegisterAsync(Yi.Framework.Rbac.Application.Contracts.Dtos.Account.RegisterDto) on controller Yi.Framework.Rbac.Application.Services.AccountService (Yi.Framework.Rbac.Application).
+2023-12-20 22:06:26.164 +08:00 [DBG] Yi-SQL执行:SELECT COUNT(1) FROM `User`  WHERE (( `UserName` = N'pp' ) OR ( `Phone` = 15949688315 ))  AND ( `IsDeleted` = 0 ) 
+2023-12-20 22:06:26.236 +08:00 [DBG] Yi-SQL执行:INSERT INTO `User`  
+           (`Id`,`IsDeleted`,`Name`,`Age`,`UserName`,`Password`,`Salt`,`Icon`,`Nick`,`Email`,`Ip`,`Address`,`Phone`,`Introduction`,`Remark`,`Sex`,`DeptId`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`State`)
+     VALUES
+           (N'09e0f2a9-7d86-ff0a-786a-3a0f99b96ba6',0,null,null,N'pp',N'0ZW3NpYHQloR3JkdZsKKaX5cagqCQZzh_wZS8vxC3wYxwkq5rTVDdHnfER8JNnE65bX6H9wbUNefdKtP9QmtGA',N'vRqUaYSsHkNNOEv/SeVTcg==',null,N'萌新',null,null,null,15949688315,null,null,2,null,'2023-12-20 22:06:26.205',null,null,null,0,1) ;
+2023-12-20 22:06:26.285 +08:00 [DBG] Yi-SQL执行:SELECT `Id`,`IsDeleted`,`CreationTime`,`CreatorId`,`LastModifierId`,`LastModificationTime`,`OrderNum`,`RoleName`,`RoleCode`,`Remark`,`DataScope`,`State` FROM `Role`   WHERE ( `RoleCode` = N'guest' )  AND ( `IsDeleted` = 0 )   LIMIT 0,1
+2023-12-20 22:06:26.353 +08:00 [DBG] Yi-SQL执行:DELETE FROM `UserRole` WHERE  (`UserId` IN ('09e0f2a9-7d86-ff0a-786a-3a0f99b96ba6'))  
+2023-12-20 22:06:26.388 +08:00 [DBG] Yi-SQL执行:INSERT INTO `UserRole`  
+           (`Id`,`RoleId`,`UserId`)
+     VALUES
+           (N'0bb79aed-fc5e-7adf-1baa-3a0f99b96c53',N'aad458e5-112c-4054-5841-3a0f7ac8e879',N'09e0f2a9-7d86-ff0a-786a-3a0f99b96ba6') ;
+2023-12-20 22:06:26.422 +08:00 [INF] Executing ObjectResult, writing value of type 'System.Boolean'.
+2023-12-20 22:06:26.423 +08:00 [INF] Executed action Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application) in 453.4708ms
+2023-12-20 22:06:26.424 +08:00 [INF] Executed endpoint 'Yi.Framework.Rbac.Application.Services.AccountService.PostRegisterAsync (Yi.Framework.Rbac.Application)'
+2023-12-20 22:06:26.424 +08:00 [DBG] Yi-请求追踪:{
+  "ApplicationName": "Yi.Abp.Web",
+  "UserId": null,
+  "UserName": null,
+  "TenantId": null,
+  "TenantName": null,
+  "ImpersonatorUserId": null,
+  "ImpersonatorTenantId": null,
+  "ImpersonatorUserName": null,
+  "ImpersonatorTenantName": null,
+  "ExecutionTime": "2023-12-20 22:06:25",
+  "ExecutionDuration": 457,
+  "ClientId": null,
+  "CorrelationId": null,
+  "ClientIpAddress": "::1",
+  "ClientName": null,
+  "BrowserInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+  "HttpMethod": "POST",
+  "HttpStatusCode": 200,
+  "Url": "/api/app/account/register",
+  "Actions": [
+    {
+      "ServiceName": "Yi.Framework.Rbac.Application.Services.AccountService",
+      "MethodName": "PostRegisterAsync",
+      "Parameters": "{\"input\":{\"userName\":\"pp\",\"password\":\"123456\",\"uuid\":\"c1dc0c43-32a6-4aac-910b-bbdf0eb01eb5\",\"phone\":15949688315,\"code\":\"a7e2\"}}",
+      "ExecutionTime": "2023-12-20 22:06:25",
+      "ExecutionDuration": 438,
+      "ExtraProperties": {}
+    }
+  ],
+  "Exceptions": [],
+  "ExtraProperties": {},
+  "EntityChanges": [],
+  "Comments": []
+}
