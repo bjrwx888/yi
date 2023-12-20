@@ -41,6 +41,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private IDistributedCache<CaptchaPhoneCacheItem, CaptchaPhoneCacheKey> _phoneCache;
         private readonly ICaptcha _captcha;
         private readonly IGuidGenerator _guidGenerator;
+        private readonly RbacOptions _rbacOptions;
         public AccountService(IUserRepository userRepository,
             ICurrentUser currentUser,
             AccountManager accountManager,
@@ -50,7 +51,8 @@ namespace Yi.Framework.Rbac.Application.Services
             IOptions<JwtOptions> jwtOptions,
             IDistributedCache<CaptchaPhoneCacheItem, CaptchaPhoneCacheKey> phoneCache,
             ICaptcha captcha,
-            IGuidGenerator guidGenerator)
+            IGuidGenerator guidGenerator,
+            IOptions<RbacOptions> options)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -62,6 +64,7 @@ namespace Yi.Framework.Rbac.Application.Services
             _phoneCache = phoneCache;
             _captcha = captcha;
             _guidGenerator = guidGenerator;
+            _rbacOptions = options.Value;
         }
 
 
@@ -79,10 +82,13 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         private void ValidationImageCaptcha(LoginInputVo input)
         {
-            //登录不想要验证码 ，可不效验
-            if (!_captcha.Validate(input.Uuid, input.Code))
+            if (_rbacOptions.EnableCaptcha)
             {
-                throw new UserFriendlyException("验证码错误");
+                //登录不想要验证码 ，可不效验
+                if (!_captcha.Validate(input.Uuid, input.Code))
+                {
+                    throw new UserFriendlyException("验证码错误");
+                }
             }
         }
 
@@ -114,7 +120,7 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             //效验验证码
-            //  ValidationImageCaptcha(input);
+            ValidationImageCaptcha(input);
 
             UserEntity user = new();
             //登录成功
@@ -122,6 +128,12 @@ namespace Yi.Framework.Rbac.Application.Services
 
             //获取用户信息
             var userInfo = await _userRepository.GetUserAllInfoAsync(user.Id);
+
+            //判断用户状态
+            if (userInfo.User.State == false)
+            {
+                throw new UserFriendlyException(UserConst.State_Is_State);
+            }
 
             if (userInfo.RoleCodes.Count == 0)
             {
