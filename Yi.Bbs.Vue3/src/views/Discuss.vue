@@ -20,7 +20,10 @@
             "
             >查询</el-button
           >
-          <el-button @click="enterEditArticle" type="primary"
+          <el-button
+            @click="enterEditArticle"
+            type="primary"
+            :class="[!isEditArticle ? 'el-button--disabled' : '']"
             >发布主题</el-button
           >
           <el-dropdown>
@@ -99,9 +102,10 @@
 <script setup>
 import DisscussCard from "@/components/DisscussCard.vue";
 import { getList, getTopList } from "@/apis/discussApi.js";
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BottomInfo from "@/components/BottomInfo.vue";
+import useUserStore from "@/stores/user";
 
 //数据定义
 const route = useRoute();
@@ -155,23 +159,31 @@ const loadDiscussList = async () => {
 };
 
 //进入添加主题页面
+const isEditArticle = computed(
+  () =>
+    useUserStore().hasPermissions &&
+    !(route.params.isPublish === "false" ? false : true)
+);
 const enterEditArticle = () => {
-  //跳转路由
-  var routerPer = {
-    path: "/editArt",
-    query: {
-      operType: "create",
-      artType: "discuss",
-      plateId: route.params.plateId,
-    },
-  };
-  router.push(routerPer);
+  if (isEditArticle.value) {
+    //跳转路由
+    var routerPer = {
+      path: "/editArt",
+      query: {
+        operType: "create",
+        artType: "discuss",
+        plateId: route.params.plateId,
+      },
+    };
+    router.push(routerPer);
+  } else {
+    ElMessage.warning("暂无发布权限!");
+  }
 };
 
 watch(
   () => route.query.q,
   async (val) => {
-    console.log(val);
     if (val) {
       query.title = val ?? "";
     }
@@ -244,5 +256,10 @@ watch(
   .el-divider {
     margin: 0.5rem 0;
   }
+}
+/* 禁用状态下的样式 */
+.el-button.el-button--disabled {
+  opacity: 0.6;
+  pointer-events: auto;
 }
 </style>

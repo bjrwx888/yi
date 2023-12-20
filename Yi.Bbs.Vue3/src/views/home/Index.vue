@@ -19,6 +19,7 @@
               :name="i.name"
               :introduction="i.introduction"
               :id="i.id"
+              :isPublish="i.isDisableCreateDiscuss"
             />
           </el-col>
 

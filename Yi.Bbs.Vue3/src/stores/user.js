@@ -121,5 +121,9 @@ const useUserStore = defineStore("user", {
       this.id = "";
     },
   },
+  persist: {
+    key: "userInfo",
+    storage: window.sessionStorage,
+  },
 });
 export default useUserStore;
