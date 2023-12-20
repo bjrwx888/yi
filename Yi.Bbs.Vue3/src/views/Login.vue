@@ -44,12 +44,6 @@
       </div>
     </div>
   </div>
-  <!-- <h2> 登录-欢迎</h2>
-    <el-input v-model="loginForm.userName" placeholder="用户名" />
-    <el-input v-model="loginForm.password" placeholder="密码" show-password />
-    <el-button class="login-btn" type="primary" @click="login">登录</el-button>
-    <br>
-    <el-button class="login-btn" type="primary" @click="guestlogin">游客临时登录</el-button> -->
 </template>
 <script setup>
 import { ref, reactive } from "vue";

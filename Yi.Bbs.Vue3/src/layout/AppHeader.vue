@@ -123,7 +123,7 @@ const isLogin = getToken("AccessToken") ? true : false;
 <style scoped lang="scss">
 .header {
   padding: 0 100px;
-  width: 1200px;
+  width: 1300px;
   display: flex;
   align-items: center;
   justify-content: space-between;

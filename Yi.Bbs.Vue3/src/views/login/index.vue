@@ -40,6 +40,25 @@
                   show-password
                 />
               </el-form-item>
+              <el-form-item label="验证码" class="title-item"></el-form-item>
+              <div class="flex-between">
+                <el-col :span="18">
+                  <el-form-item prop="phone">
+                    <el-input
+                      size="large"
+                      type="text"
+                      v-model.trim="loginForm.code"
+                      placeholder="请输入验证码"
+                    />
+                  </el-form-item>
+                </el-col>
+                <el-image
+                  @click="handleGetCode"
+                  style="width: 120px; height: 40px; cursor: pointer"
+                  :src="codeImageURL"
+                  :fit="fit"
+                />
+              </div>
             </el-form>
             <el-form
               class="registerForm"
@@ -136,10 +155,11 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import useAuths from "@/hooks/useAuths";
 import { getCodePhone } from "@/apis/accountApi";
+import { getLoginCode } from "@/apis/auth";
 
 const { loginFun, registerFun } = useAuths();
 const router = useRouter();
@@ -174,6 +194,11 @@ const login = async (formEl) => {
       }
     }
   });
+};
+// 获取图片验证码
+const codeImageURL = ref("");
+const handleGetCode = () => {
+  getImageCode();
 };
 
 // 注册逻辑
@@ -238,6 +263,15 @@ const captcha = async () => {
 const handleSignInNow = () => {
   isRegister.value = !isRegister.value;
 };
+
+const getImageCode = async () => {
+  const { data } = await getLoginCode();
+  codeImageURL.value = "data:image/jpg;base64," + data.img;
+  loginForm.uuid = data.uuid;
+};
+onMounted(async () => {
+  await getImageCode();
+});
 </script>
 <style scoped lang="scss">
 .login {
