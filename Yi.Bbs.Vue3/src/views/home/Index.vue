@@ -111,7 +111,7 @@ import VisitsLineChart from "./components/VisitsLineChart.vue";
 import { access } from "@/apis/accessApi.js";
 import { getList } from "@/apis/plateApi.js";
 import { getList as bannerGetList } from "@/apis/bannerApi.js";
-import { getList as discussGetList } from "@/apis/discussApi.js";
+import { getHomeDiscuss } from "@/apis/discussApi.js";
 import { getWeek } from "@/apis/accessApi.js";
 
 var plateList = ref([]);
@@ -132,8 +132,8 @@ onMounted(async () => {
   access();
   const { data: plateData } = await getList();
   plateList.value = plateData.items;
-  const { data: discussData } = await discussGetList(query);
-  discussList.value = discussData.items;
+  const { data: discussData } = await getHomeDiscuss();
+  discussList.value = discussData;
   const { data: bannerData } = await bannerGetList();
   bannerList.value = bannerData.items;
   const { data: weekData } = await getWeek();

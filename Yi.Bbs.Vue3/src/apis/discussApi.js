@@ -46,3 +46,10 @@ export function del(ids) {
     method: "delete",
   });
 }
+
+export function getHomeDiscuss() {
+  return request({
+    url: `/discuss/top`,
+    method: "get",
+  });
+}
