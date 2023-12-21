@@ -6,6 +6,10 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
 {
     public class DiscussGetOutputDto : EntityDto<Guid>
     {
+        /// <summary>
+        /// 是否禁止评论创建功能
+        /// </summary>
+        public bool IsDisableCreateComment { get; set; }
         public string Title { get; set; }
         public string? Types { get; set; }
         public string? Introduction { get; set; }

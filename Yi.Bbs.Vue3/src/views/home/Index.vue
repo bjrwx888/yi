@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 1200px">
+  <div class="home-box">
     <el-row :gutter="20" class="top-div">
       <el-col :span="17">
         <div class="scrollbar">
@@ -19,6 +19,7 @@
               :name="i.name"
               :introduction="i.introduction"
               :id="i.id"
+              :isPublish="i.isDisableCreateDiscuss"
             />
           </el-col>
 
@@ -111,7 +112,7 @@ import VisitsLineChart from "./components/VisitsLineChart.vue";
 import { access } from "@/apis/accessApi.js";
 import { getList } from "@/apis/plateApi.js";
 import { getList as bannerGetList } from "@/apis/bannerApi.js";
-import { getList as discussGetList } from "@/apis/discussApi.js";
+import { getHomeDiscuss } from "@/apis/discussApi.js";
 import { getWeek } from "@/apis/accessApi.js";
 
 var plateList = ref([]);
@@ -132,8 +133,8 @@ onMounted(async () => {
   access();
   const { data: plateData } = await getList();
   plateList.value = plateData.items;
-  const { data: discussData } = await discussGetList(query);
-  discussList.value = discussData.items;
+  const { data: discussData } = await getHomeDiscuss();
+  discussList.value = discussData;
   const { data: bannerData } = await bannerGetList();
   bannerList.value = bannerData.items;
   const { data: weekData } = await getWeek();
@@ -157,48 +158,52 @@ const statisOptions = computed(() => {
   };
 });
 </script>
-<style scoped>
-.introduce {
-  color: rgba(0, 0, 0, 0.45);
-  font-size: small;
-}
-
-.plate {
-  background: transparent !important;
-}
-
-.left-div .el-col {
-  background-color: #ffffff;
-
-  margin-bottom: 1rem;
-}
-
-.right-div .el-col {
-  background-color: #ffffff;
-  margin-bottom: 1rem;
-}
-
-.carousel-font {
-  position: absolute;
-  z-index: 1;
-  top: 10%;
-  left: 10%;
-}
-
-.top-div {
-  padding-top: 0.5rem;
-}
-
-.scrollbar {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-.VisitsLineChart >>> .el-card__body {
-  padding: 0.5rem;
-}
-
-.statisChart {
+<style scoped lang="scss">
+.home-box {
   width: 100%;
-  height: 300px;
+  height: 100%;
+  .introduce {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: small;
+  }
+
+  .plate {
+    background: transparent !important;
+  }
+
+  .left-div .el-col {
+    background-color: #ffffff;
+
+    margin-bottom: 1rem;
+  }
+
+  .right-div .el-col {
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .carousel-font {
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    left: 10%;
+  }
+
+  .top-div {
+    padding-top: 0.5rem;
+  }
+
+  .scrollbar {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .VisitsLineChart >>> .el-card__body {
+    padding: 0.5rem;
+  }
+
+  .statisChart {
+    width: 100%;
+    height: 300px;
+  }
 }
 </style>

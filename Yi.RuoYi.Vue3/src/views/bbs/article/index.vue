@@ -294,12 +294,7 @@ function cancel() {
 }
 /** 表单重置 */
 function reset() {
-  form.value = {
-    id: undefined,
-    title: undefined,
-    isDeleted: false,
-    remark: undefined,
-  };
+  form.value = {};
   proxy.resetForm("dataRef");
 }
 /** 搜索按钮操作 */

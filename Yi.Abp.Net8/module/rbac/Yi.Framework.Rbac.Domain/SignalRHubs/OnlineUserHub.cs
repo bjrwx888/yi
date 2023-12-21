@@ -10,13 +10,13 @@ namespace Yi.Framework.Rbac.Domain.SignalRHubs
 {
     [HubRoute("/hub/main")]
     [Authorize]
-    public class OnlineUserHub  : AbpHub
+    public class OnlineUserHub : AbpHub
     {
         public static readonly List<OnlineUserModel> clientUsers = new();
 
 
         private HttpContext? _httpContext;
-        private ILogger<OnlineUserHub> _logger=> LoggerFactory.CreateLogger<OnlineUserHub>();
+        private ILogger<OnlineUserHub> _logger => LoggerFactory.CreateLogger<OnlineUserHub>();
         public OnlineUserHub(IHttpContextAccessor httpContextAccessor)
         {
             _httpContext = httpContextAccessor?.HttpContext;
@@ -68,10 +68,15 @@ namespace Yi.Framework.Rbac.Domain.SignalRHubs
             //判断用户是否存在，否则添加集合
             if (user != null)
             {
-                clientUsers.Remove(user);
-                Clients.All.SendAsync("onlineNum", clientUsers.Count);
-                //Clients.All.SendAsync(HubsConstant.OnlineUser, clientUsers);
-                _logger.LogInformation($"用户{user?.UserName}离开了，当前已连接{clientUsers.Count}个");
+                var clientUser = clientUsers.FirstOrDefault(x => x.ConnnectionId == user.ConnnectionId);
+                if (clientUser is not null)
+                {
+                    clientUsers.Remove(clientUser);
+                    Clients.All.SendAsync("onlineNum", clientUsers.Count);
+                    //Clients.All.SendAsync(HubsConstant.OnlineUser, clientUsers);
+                    _logger.LogInformation($"用户{user?.UserName}离开了，当前已连接{clientUsers.Count}个");
+                }
+
             }
             return base.OnDisconnectedAsync(exception);
         }

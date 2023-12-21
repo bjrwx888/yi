@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 1200px" class="body-div">
+  <div class="discuss-box">
     <div class="header">
       <el-form :inline="true">
         <el-form-item label="标题：">
@@ -23,8 +23,8 @@
           <el-button
             @click="enterEditArticle"
             type="primary"
-            v-hasPer="['bbs:discuss:add']"
-            >分享</el-button
+            :class="[!isEditArticle ? 'el-button--disabled' : '']"
+            >发布主题</el-button
           >
           <el-dropdown>
             <span class="el-dropdown-link">
@@ -102,9 +102,10 @@
 <script setup>
 import DisscussCard from "@/components/DisscussCard.vue";
 import { getList, getTopList } from "@/apis/discussApi.js";
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BottomInfo from "@/components/BottomInfo.vue";
+import useUserStore from "@/stores/user";
 
 //数据定义
 const route = useRoute();
@@ -158,23 +159,31 @@ const loadDiscussList = async () => {
 };
 
 //进入添加主题页面
+const isEditArticle = computed(
+  () =>
+    useUserStore().hasPermissions &&
+    !(route.params.isPublish === "false" ? false : true)
+);
 const enterEditArticle = () => {
-  //跳转路由
-  var routerPer = {
-    path: "/editArt",
-    query: {
-      operType: "create",
-      artType: "discuss",
-      plateId: route.params.plateId,
-    },
-  };
-  router.push(routerPer);
+  if (isEditArticle.value) {
+    //跳转路由
+    var routerPer = {
+      path: "/editArt",
+      query: {
+        operType: "create",
+        artType: "discuss",
+        plateId: route.params.plateId,
+      },
+    };
+    router.push(routerPer);
+  } else {
+    ElMessage.warning("暂无发布权限!");
+  }
 };
 
 watch(
   () => route.query.q,
   async (val) => {
-    console.log(val);
     if (val) {
       query.title = val ?? "";
     }
@@ -183,65 +192,74 @@ watch(
   { immediate: true }
 );
 </script>
-<style scoped>
-.el-pagination {
-  margin: 2rem 0rem 2rem 0rem;
-  justify-content: right;
-}
-.body-div {
+<style scoped lang="scss">
+.discuss-box {
+  width: 100%;
+  height: 100%;
+  .el-pagination {
+    margin: 2rem 0rem 2rem 0rem;
+    justify-content: right;
+  }
+  /* .body-div {
   min-height: 1000px;
-}
-.el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-.header {
-  background-color: #ffffff;
-  padding: 1rem;
-  margin: 1rem 0rem;
-}
-.collapse-top {
-  padding-left: 2rem;
-}
-.header .el-input {
-}
-.el-tabs {
-  background-color: #ffffff;
-  padding-left: 2rem;
-}
-.el-tabs >>> .el-tabs__header {
-  margin-bottom: 0;
-}
-.div-item {
-  margin-bottom: 1rem;
-}
+} */
+  .el-dropdown-link {
+    cursor: pointer;
+    color: var(--el-color-primary);
+    display: flex;
+    align-items: center;
+  }
+  .header {
+    background-color: #ffffff;
+    padding: 1rem;
+    margin: 1rem 0rem;
+  }
+  .collapse-top {
+    padding-left: 2rem;
+  }
+  .header .el-input {
+  }
+  .el-tabs {
+    background-color: #ffffff;
+    padding-left: 2rem;
+  }
+  .el-tabs >>> .el-tabs__header {
+    margin-bottom: 0;
+  }
+  .div-item {
+    margin-bottom: 1rem;
+  }
 
-.el-form {
-  --el-form-label-font-size: var(--el-font-size-base);
-  display: flex;
-  align-items: center;
-}
-.el-form-item {
-  padding-top: 0.8rem;
-}
-.form-right {
-  align-items: center;
-  display: flex;
-  margin-left: auto;
-}
-.form-right .el-button {
-  margin-right: 0.6rem;
-}
-.header .el-input {
-  width: 20rem;
-}
-.collapse-list >>> .el-collapse-item__header {
-  border-bottom-color: #f0f2f5 !important;
-}
+  .el-form {
+    --el-form-label-font-size: var(--el-font-size-base);
+    display: flex;
+    align-items: center;
+  }
+  .el-form-item {
+    padding-top: 0.8rem;
+  }
+  .form-right {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+  }
+  .form-right .el-button {
+    margin-right: 0.6rem;
+  }
+  .header .el-input {
+    width: 20rem;
+  }
+  .collapse-list >>> .el-collapse-item__header {
+    border-bottom-color: #f0f2f5 !important;
+  }
 
-.el-divider {
-  margin: 0.5rem 0;
+  .el-divider {
+    margin: 0.5rem 0;
+  }
+}
+/* 禁用状态下的样式 */
+.el-button.el-button--disabled {
+  opacity: 0.6;
+  pointer-events: auto;
 }
 </style>

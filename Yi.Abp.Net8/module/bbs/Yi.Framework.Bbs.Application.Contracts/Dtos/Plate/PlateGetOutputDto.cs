@@ -10,5 +10,8 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Plate
         public string Code { get; set; }
 
         public DateTime CreationTime { get; set; }
+
+        public int OrderNum { get; set; }
+        public bool IsDisableCreateDiscuss { get; set; }
     }
 }

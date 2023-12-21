@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 90%; min-width: 1200px">
+  <div class="article-box">
     <!-- <div style="width: 1200px;"> -->
     <el-row :gutter="20" class="top-div">
       <el-col :span="5">
@@ -383,88 +383,92 @@ watch(
 );
 </script>
 <style scoped>
-.comment {
-  min-height: 40rem;
-}
-
-.art-info-left .el-col {
-  margin-bottom: 1rem;
-}
-
-.art-info-ul span {
-  margin-left: 1rem;
-}
-
-.art-info-ul .el-tag {
-  margin-left: 1rem;
-}
-
-.art-info-ul {
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  list-style: none;
-  margin-bottom: 0.5rem;
-}
-
-.art-info-right {
+.article-box {
+  width: 100%;
   height: 100%;
-}
+  .comment {
+    min-height: 40rem;
+  }
 
-.left-div .el-col {
-  background-color: #ffffff;
-  min-height: 12rem;
-  margin-bottom: 1rem;
-}
+  .art-info-left .el-col {
+    margin-bottom: 1rem;
+  }
 
-.right-div .el-col {
-  background-color: #ffffff;
-  min-height: 10rem;
-  margin-bottom: 1rem;
-}
+  .art-info-ul span {
+    margin-left: 1rem;
+  }
 
-.left-top-div .el-col {
-  min-height: 2rem;
-  background-color: #fafafa;
-  margin-bottom: 1rem;
-  margin-left: 10px;
-}
+  .art-info-ul .el-tag {
+    margin-left: 1rem;
+  }
 
-.top-div {
-  padding-top: 1rem;
-}
+  .art-info-ul {
+    padding: 0;
+    margin: 0;
+  }
 
-.left-top-div {
-  font-size: small;
-  text-align: center;
-  line-height: 2rem;
-}
+  li {
+    list-style: none;
+    margin-bottom: 0.5rem;
+  }
 
-h2 {
-  margin-bottom: 0.5em;
-  color: rgba(0, 0, 0, 0.85);
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1.35;
-}
+  .art-info-right {
+    height: 100%;
+  }
 
-.left-div .el-col {
-  padding: 1.4rem 1.4rem 0.5rem 1.4rem;
-}
+  .left-div .el-col {
+    background-color: #ffffff;
+    min-height: 12rem;
+    margin-bottom: 1rem;
+  }
 
-.el-space {
-  display: flex;
-  vertical-align: top;
-  justify-content: space-evenly;
-}
+  .right-div .el-col {
+    background-color: #ffffff;
+    min-height: 10rem;
+    margin-bottom: 1rem;
+  }
 
-.tab-divider {
-  margin-bottom: 0.5rem;
-}
+  .left-top-div .el-col {
+    min-height: 2rem;
+    background-color: #fafafa;
+    margin-bottom: 1rem;
+    margin-left: 10px;
+  }
 
-.breadcrumb {
-  margin-bottom: 10px;
+  .top-div {
+    padding-top: 1rem;
+  }
+
+  .left-top-div {
+    font-size: small;
+    text-align: center;
+    line-height: 2rem;
+  }
+
+  h2 {
+    margin-bottom: 0.5em;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.35;
+  }
+
+  .left-div .el-col {
+    padding: 1.4rem 1.4rem 0.5rem 1.4rem;
+  }
+
+  .el-space {
+    display: flex;
+    vertical-align: top;
+    justify-content: space-evenly;
+  }
+
+  .tab-divider {
+    margin-bottom: 0.5rem;
+  }
+
+  .breadcrumb {
+    margin-bottom: 10px;
+  }
 }
 </style>

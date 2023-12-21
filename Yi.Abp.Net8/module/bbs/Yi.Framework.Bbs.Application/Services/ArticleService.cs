@@ -11,6 +11,7 @@ using Yi.Framework.Bbs.Application.Contracts.Dtos.Article;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Plate;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Repositories;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Core.Extensions;
@@ -47,7 +48,7 @@ namespace Yi.Framework.Bbs.Application.Services
             RefAsync<int> total = 0;
 
             var entities = await _articleRepository._DbQueryable.WhereIF(!string.IsNullOrEmpty(input.Name), x => x.Name.Contains(input.Name!))
-                //.WhereIF(!string.IsNullOrEmpty(input.Code), x => x.Name.Contains(input.Code!))
+                          //.WhereIF(!string.IsNullOrEmpty(input.Code), x => x.Name.Contains(input.Code!))
                           .WhereIF(input.StartTime is not null && input.EndTime is not null, x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
                           .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
             return new PagedResultDto<ArticleGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
@@ -98,34 +99,60 @@ namespace Yi.Framework.Bbs.Application.Services
         /// <exception cref="UserFriendlyException"></exception>
         public async override Task<ArticleGetOutputDto> CreateAsync(ArticleCreateInputVo input)
         {
-            var discuss = await _discussRepository.GetFirstAsync(x => x.Id == input.DiscussId);
-            if (discuss is null)
-            {
-                throw new UserFriendlyException(DiscussConst.No_Exist);
-            }
-            if (input.ParentId != Guid.Empty && !await _articleRepository.IsAnyAsync(x => x.Id == input.ParentId))
-            {
-                throw new UserFriendlyException(ArticleConst.No_Exist);
-            }
-            await VerifyDiscussCreateIdAsync(discuss.CreatorId);
+            await VerifyDiscussCreateIdAsync(input.DiscussId);
             return await base.CreateAsync(input);
+        }
+
+        /// <summary>
+        /// 更新文章
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<ArticleGetOutputDto> UpdateAsync(Guid id, ArticleUpdateInputVo input)
+        {
+            var entity = await _articleRepository.GetByIdAsync(id);
+            await VerifyDiscussCreateIdAsync(entity.DiscussId);
+            return await base.UpdateAsync(id, input);
         }
 
 
         /// <summary>
-        /// 效验创建权限
+        /// 删除文章
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public async Task VerifyDiscussCreateIdAsync(Guid? userId)
+        public override async Task DeleteAsync(Guid id)
         {
+            var entity = await _articleRepository.GetByIdAsync(id);
+            await VerifyDiscussCreateIdAsync(entity.DiscussId);
+            await base.DeleteAsync(id);
+        }
+
+
+
+
+        /// <summary>
+        /// 效验创建权限，userId为主题创建者
+        /// </summary>
+        /// <param name="disucssId"></param>
+        /// <returns></returns>
+        private async Task VerifyDiscussCreateIdAsync(Guid disucssId)
+        {
+            var discuss = await _discussRepository.GetFirstAsync(x => x.Id == disucssId);
+            if (discuss is null)
+            {
+                throw new UserFriendlyException(DiscussConst.No_Exist);
+            }
             //只有文章是特殊的，不能在其他主题下创建
             //主题的创建者不是当前用户，同时，没有权限或者超级管理
             //false  & true  & false  ,三个条件任意满意一个，即可成功使用||，最后取反，一个都不满足
-            //
-            if (userId != CurrentUser.Id && !UserConst.Admin.Equals(this.CurrentUser.UserName) && this.LazyServiceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.GetUserPermissions(TokenTypeConst.Permission).Contains("bbs:discuss:add"))
+
+
+            //一个条件都不满足，即可拦截
+            if (discuss.CreatorId != CurrentUser.Id && !UserConst.Admin.Equals(this.CurrentUser.UserName) && !CurrentUser.GetPermissions().Contains("bbs:discuss:add"))
             {
-                throw new UserFriendlyException("无权限在其他用户主题中创建子文章");
+                throw new UserFriendlyException("权限不足，请联系主题作者或管理员申请开通");
             }
         }
     }

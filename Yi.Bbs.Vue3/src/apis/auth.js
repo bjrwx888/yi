@@ -63,3 +63,13 @@ export function getCodePhone(data) {
     data,
   });
 }
+
+/**
+ *  获取登录验证码
+ */
+export function getLoginCode() {
+  return request({
+    url: `/account/captcha-image`,
+    method: "get",
+  });
+}
