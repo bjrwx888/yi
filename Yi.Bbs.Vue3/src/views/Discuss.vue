@@ -106,6 +106,7 @@ import { ref, reactive, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BottomInfo from "@/components/BottomInfo.vue";
 import useUserStore from "@/stores/user";
+import { getPermission } from "@/utils/auth";
 
 //数据定义
 const route = useRoute();
@@ -159,10 +160,9 @@ const loadDiscussList = async () => {
 };
 
 //进入添加主题页面
+const { isHasPermission } = getPermission("bbs:discuss:add");
 const isEditArticle = computed(
-  () =>
-    useUserStore().hasPermissions &&
-    !(route.params.isPublish === "false" ? false : true)
+  () => isHasPermission && !(route.params.isPublish === "false" ? false : true)
 );
 const enterEditArticle = () => {
   if (isEditArticle.value) {

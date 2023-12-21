@@ -75,7 +75,7 @@ import useConfigStore from "@/stores/config";
 import useAuths from "@/hooks/useAuths";
 import { Session } from "@/utils/storage";
 
-const { getToken } = useAuths();
+const { getToken, clearStorage } = useAuths();
 const configStore = useConfigStore();
 const router = useRouter();
 const route = useRoute();
@@ -108,6 +108,7 @@ const enterProfile = () => {
   router.push("/profile");
 };
 const toLogin = () => {
+  clearStorage();
   Session.set("currentPath", route.path);
   router.push("/login");
 };

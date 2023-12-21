@@ -14,7 +14,6 @@ const useUserStore = defineStore("user", {
     icon: null,
     roles: [],
     permissions: [],
-    hasPermissions: false,
   }),
   getters: {},
   actions: {
@@ -48,17 +47,10 @@ const useUserStore = defineStore("user", {
               user.icon == "" || user.icon == null
                 ? "/favicon.ico"
                 : import.meta.env.VITE_APP_BASEAPI + "/file/" + user.icon;
-            const all_permission = "*:*:*";
             if (res.roleCodes && res.roleCodes.length > 0) {
               // 验证返回的roles是否是一个非空数组
               this.roles = res.roleCodes;
               this.permissions = res.permissionCodes;
-              this.hasPermissions = res.permissionCodes.some((permission) => {
-                return (
-                  all_permission === permission ||
-                  permissionFlag.includes(permission)
-                );
-              });
               // this.roles = ["admin"];
               // this.permissions=["*:*:*"]
             } else {
