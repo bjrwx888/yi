@@ -383,7 +383,8 @@ watch(
 </script>
 <style scoped lang="scss">
 .article-box {
-  width: 100%;
+  position: absolute;
+  width: 1400px;
   height: 100%;
   .comment {
     min-height: 40rem;
