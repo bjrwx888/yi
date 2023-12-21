@@ -267,3 +267,5 @@ dist
 .vscode
 /Yi.Abp.Net8/src/Yi.Abp.Web/appsettings.Development.json
 /Yi.Abp.Net8/src/Yi.Abp.Web/appsettings.Production.json
+Logs
+logs

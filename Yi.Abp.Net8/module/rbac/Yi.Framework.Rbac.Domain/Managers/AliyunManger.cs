@@ -1,6 +1,7 @@
 ﻿using AlibabaCloud.SDK.Dysmsapi20170525;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Volo.Abp;
 using Volo.Abp.Domain.Services;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 
@@ -57,6 +58,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             catch (Exception _error)
             {
                 _logger.LogError(_error, "阿里云短信发送错误:" + _error.Message);
+                throw new UserFriendlyException("阿里云短信发送错误:" + _error.Message);
             }
         }
     }
