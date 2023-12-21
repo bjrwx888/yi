@@ -44,14 +44,8 @@ namespace Yi.Framework.SqlSugarCore
             return Task.CompletedTask;
         }
 
-        public override Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
-        {
-            var service = context.ServiceProvider;
-            return base.OnApplicationInitializationAsync(context);
-        }
 
-
-        public override async void OnPreApplicationInitialization(ApplicationInitializationContext context)
+        public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
         {
             //进行CodeFirst
             var service = context.ServiceProvider;

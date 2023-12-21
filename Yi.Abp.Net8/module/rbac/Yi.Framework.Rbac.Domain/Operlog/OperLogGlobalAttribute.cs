@@ -26,7 +26,9 @@ namespace Yi.Framework.Rbac.Domain.Operlog
             _currentUser = currentUser;
         }
 
-        public override async void OnResultExecuted(ResultExecutedContext context)
+     
+
+        public override  void OnResultExecuted(ResultExecutedContext context)
         {
             //判断标签是在方法上
             if (context.ActionDescriptor is not ControllerActionDescriptor controllerActionDescriptor) return;
@@ -84,7 +86,7 @@ namespace Yi.Framework.Rbac.Domain.Operlog
                 // logEntity.RequestParam = context.HttpContext.GetRequestValue(logEntity.RequestMethod);
             }
 
-            await _repository.InsertAsync(logEntity);
+            // _repository.InsertAsync(logEntity).Wait();
 
 
         }

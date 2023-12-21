@@ -44,9 +44,6 @@ namespace Yi.Framework.AspNetCore.Mvc
 
         protected override void AddAbpServiceSelector(string rootPath, string controllerName, ActionModel action, ConventionalControllerSetting? configuration)
         {
-            if (action.ActionName.ToLower().Contains("vue"))
-            {
-            }
             base.AddAbpServiceSelector(rootPath, controllerName, action, configuration);
         }
 
