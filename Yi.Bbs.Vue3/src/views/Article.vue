@@ -1,6 +1,5 @@
 <template>
   <div class="article-box">
-    <!-- <div style="width: 1200px;"> -->
     <el-row :gutter="20" class="top-div">
       <el-col :span="5">
         <el-row class="art-info-left">
@@ -382,7 +381,7 @@ watch(
   }
 );
 </script>
-<style scoped>
+<style scoped lang="scss">
 .article-box {
   width: 100%;
   height: 100%;

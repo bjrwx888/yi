@@ -15,6 +15,7 @@
   display: flex;
   justify-content: center;
   width: 1300px;
+  max-width: 1400px;
   min-height: 1150px;
 }
 </style>
