@@ -13,7 +13,7 @@ using Yi.Framework.Rbac.Domain.Shared.OperLog;
 
 namespace Yi.Framework.Rbac.Domain.Operlog
 {
-    public class OperLogGlobalAttribute : ActionFilterAttribute,ITransientDependency
+    public class OperLogGlobalAttribute : ActionFilterAttribute, ITransientDependency
     {
         private ILogger<OperLogGlobalAttribute> _logger;
         private IRepository<OperationLogEntity> _repository;
@@ -26,12 +26,13 @@ namespace Yi.Framework.Rbac.Domain.Operlog
             _currentUser = currentUser;
         }
 
-     
-
-        public override  void OnResultExecuted(ResultExecutedContext context)
+        public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
+            var resultContext = await next.Invoke();
+            //执行后
+
             //判断标签是在方法上
-            if (context.ActionDescriptor is not ControllerActionDescriptor controllerActionDescriptor) return;
+            if (resultContext.ActionDescriptor is not ControllerActionDescriptor controllerActionDescriptor) return;
 
             //查找标签，获取标签对象
             OperLogAttribute? operLogAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
@@ -45,7 +46,7 @@ namespace Yi.Framework.Rbac.Domain.Operlog
             ////获取方法名
             //string action = context.RouteData.Values["Action"].ToString();
             //获取Ip
-            string ip = context.HttpContext.GetClientIp();
+            string ip = resultContext.HttpContext.GetClientIp();
 
             //根据ip获取地址
 
@@ -59,22 +60,22 @@ namespace Yi.Framework.Rbac.Domain.Operlog
             //logEntity.OperLocation = location;
             logEntity.OperType = operLogAttribute.OperType;
             logEntity.Title = operLogAttribute.Title;
-            logEntity.RequestMethod = context.HttpContext.Request.Method;
-            logEntity.Method = context.HttpContext.Request.Path.Value;
+            logEntity.RequestMethod = resultContext.HttpContext.Request.Method;
+            logEntity.Method = resultContext.HttpContext.Request.Path.Value;
             logEntity.OperLocation = location;
             logEntity.OperUser = _currentUser.UserName;
             if (operLogAttribute.IsSaveResponseData)
             {
-                if (context.Result is ContentResult result && result.ContentType == "application/json")
+                if (resultContext.Result is ContentResult result && result.ContentType == "application/json")
                 {
                     logEntity.RequestResult = result.Content?.Replace("\r\n", "").Trim();
                 }
-                if (context.Result is JsonResult result2)
+                if (resultContext.Result is JsonResult result2)
                 {
                     logEntity.RequestResult = result2.Value?.ToString();
                 }
 
-                if (context.Result is ObjectResult result3)
+                if (resultContext.Result is ObjectResult result3)
                 {
                     logEntity.RequestResult = JsonHelper.ObjToStr(result3.Value);
                 }
@@ -83,12 +84,14 @@ namespace Yi.Framework.Rbac.Domain.Operlog
 
             if (operLogAttribute.IsSaveRequestData)
             {
-                // logEntity.RequestParam = context.HttpContext.GetRequestValue(logEntity.RequestMethod);
+                //不建议保存，吃性能
+                //logEntity.RequestParam = context.HttpContext.GetRequestValue(logEntity.RequestMethod);
             }
 
-            // _repository.InsertAsync(logEntity).Wait();
+            await _repository.InsertAsync(logEntity);
 
 
         }
+
     }
 }
