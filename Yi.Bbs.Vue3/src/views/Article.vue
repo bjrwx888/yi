@@ -83,7 +83,7 @@
           </el-col>
 
           <el-col :span="24" class="comment">
-            <CommentInfo />
+            <CommentInfo :isComment="isDisabledCreateComment" />
           </el-col>
         </el-row>
         <BottomInfo />
