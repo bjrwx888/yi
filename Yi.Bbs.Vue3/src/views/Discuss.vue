@@ -160,10 +160,11 @@ const loadDiscussList = async () => {
 };
 
 //进入添加主题页面
-const { isHasPermission } = getPermission("bbs:discuss:add");
-const isEditArticle = computed(
-  () => isHasPermission && !(route.params.isPublish === "false" ? false : true)
+const { isHasPermission: isEditArticle } = getPermission(
+  "bbs:discuss:add",
+  route.params.isPublish === "false" ? false : true
 );
+
 const enterEditArticle = () => {
   if (isEditArticle.value) {
     //跳转路由

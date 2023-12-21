@@ -12,7 +12,7 @@
                   >主题封面</el-button
                 >
                 <el-button
-                  v-hasPer="['bbs:article:add']"
+                  v-if="isAddArticle"
                   @click="addArticle('00000000-0000-0000-0000-000000000000')"
                   type="primary"
                   style="width: 100%; margin-bottom: 0.8rem; margin-left: 0"
@@ -105,14 +105,14 @@
                       <el-button
                         type="primary"
                         size="default"
-                        v-hasPer="['bbs:discuss:edit']"
+                        v-if="isEditTheme"
                         @click="updateHander(route.params.discussId)"
                         >编辑</el-button
                       >
                       <el-button
                         style="margin-left: 1rem"
                         type="danger"
-                        v-hasPer="['bbs:discuss:remove']"
+                        v-if="isRemoveTheme"
                         @click="delHander(route.params.discussId)"
                         >删除</el-button
                       >
@@ -170,7 +170,7 @@
   </div>
 </template>
 <script setup>
-import { h, ref, onMounted, watch } from "vue";
+import { h, ref, onMounted, watch, computed } from "vue";
 import AvatarInfo from "@/components/AvatarInfo.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import ArticleContentInfo from "@/components/ArticleContentInfo.vue";
@@ -186,6 +186,7 @@ import {
   get as articleGet,
 } from "@/apis/articleApi.js";
 import Breadcrumb from "@/components/Breadcrumb/index.vue";
+import { getPermission } from "@/utils/auth";
 
 //数据定义
 const route = useRoute();
@@ -219,12 +220,26 @@ const loadArticleData = async () => {
 };
 
 //主题初始化
+const isDisabledCreateComment = ref(false);
+const { isHasPermission: isAddArticle } = getPermission(
+  "bbs:article:add",
+  isDisabledCreateComment.value
+);
+const { isHasPermission: isEditTheme } = getPermission(
+  "bbs:discuss:edit",
+  isDisabledCreateComment.value
+);
+const { isHasPermission: isRemoveTheme } = getPermission(
+  "bbs:discuss:remove",
+  isDisabledCreateComment.value
+);
 const loadDiscuss = async (isRewrite) => {
   if (isRewrite) {
     //跳转路由
     router.push(`/article/${route.params.discussId}`);
   }
   discuss.value = (await discussGet(route.params.discussId)).data;
+  isDisabledCreateComment.value = discuss.value.isDisabledCreateComment;
   if (route.params.articleId != "") {
     const response = await articleGet(route.params.articleId);
     discuss.value.content = response.data.content;
