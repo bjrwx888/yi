@@ -3,7 +3,7 @@
     <div class="avatar-left">
       <el-avatar :size="props.size" :src="iconUrl" />
 
-      <div v-if="props.isSelf">
+      <div v-if="props.isSelf" class="avatar-center">
         <div class="nick">{{ userInfo.nick }}</div>
       </div>
 
@@ -20,15 +20,14 @@
         <el-tag class="ml-2" type="warning">V8</el-tag>
         <el-tag class="ml-2" type="danger">会员</el-tag>
       </div>
+      <el-button
+        v-if="props.showWatching"
+        type="primary"
+        size="small"
+        icon="Plus"
+        >关注</el-button
+      >
     </div>
-
-    <el-button
-      v-if="props.showWatching"
-      type="primary"
-      size="default"
-      icon="Plus"
-      >关注</el-button
-    >
   </div>
 </template>
 <script setup>
@@ -110,6 +109,7 @@ const Init = () => {
 }
 
 .info {
+  flex: 1;
   margin-top: 0.6rem;
   margin-left: 1rem;
 }
@@ -123,16 +123,19 @@ const Init = () => {
 }
 
 .avatar {
+  flex: 1;
   display: flex;
   justify-content: space-between;
 }
 
 .avatar-left {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 }
-
+.avatar-center {
+  flex: 2;
+}
 .el-avatar {
   margin-right: 1rem;
   --el-avatar-bg-color: none;
