@@ -57,7 +57,7 @@ namespace Yi.Framework.Bbs.Application.Services
             var item = await _forumManager._discussRepository._DbQueryable.LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                      .Select((discuss, user) => new DiscussGetOutputDto
                      {
-                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
+                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon ,Id=user.Id}
                      }, true).SingleAsync(discuss => discuss.Id == id);
 
             if (item is not null)
