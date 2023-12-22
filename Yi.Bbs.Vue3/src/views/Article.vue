@@ -12,7 +12,7 @@
                   >主题封面</el-button
                 >
                 <el-button
-                  v-if="isAddArticle"
+                  v-if="isAddArticle && isArticleUser"
                   @click="addArticle('00000000-0000-0000-0000-000000000000')"
                   type="primary"
                   style="width: 100%; margin-bottom: 0.8rem; margin-left: 0"
@@ -105,14 +105,14 @@
                       <el-button
                         type="primary"
                         size="default"
-                        v-if="isEditTheme"
+                        v-if="isEditTheme && isArticleUser"
                         @click="updateHander(route.params.discussId)"
                         >编辑</el-button
                       >
                       <el-button
                         style="margin-left: 1rem"
                         type="danger"
-                        v-if="isRemoveTheme"
+                        v-if="isRemoveTheme && isArticleUser"
                         @click="delHander(route.params.discussId)"
                         >删除</el-button
                       >
@@ -187,6 +187,7 @@ import {
 } from "@/apis/articleApi.js";
 import Breadcrumb from "@/components/Breadcrumb/index.vue";
 import { getPermission } from "@/utils/auth";
+import useUserStore from "@/stores/user.js";
 
 //数据定义
 const route = useRoute();
@@ -221,6 +222,7 @@ const loadArticleData = async () => {
 
 //主题初始化
 const isDisabledCreateComment = ref(false);
+const isArticleUser = ref(false);
 const { isHasPermission: isAddArticle } = getPermission(
   "bbs:article:add",
   isDisabledCreateComment.value
@@ -240,6 +242,7 @@ const loadDiscuss = async (isRewrite) => {
   }
   discuss.value = (await discussGet(route.params.discussId)).data;
   isDisabledCreateComment.value = discuss.value.isDisabledCreateComment;
+  isArticleUser.value = discuss.value?.user?.id === useUserStore().id;
   if (route.params.articleId != "") {
     const response = await articleGet(route.params.articleId);
     discuss.value.content = response.data.content;
@@ -399,7 +402,7 @@ watch(
 <style scoped lang="scss">
 .article-box {
   position: absolute;
-  width: 1500px;
+  width: 1400px;
   height: 100%;
   .comment {
     min-height: 40rem;
