@@ -43,5 +43,7 @@ namespace Yi.Framework.SqlSugarCore
         /// 读写分离
         /// </summary>
         public List<string>? ReadUrl { get; set; }
+
+
     }
 }

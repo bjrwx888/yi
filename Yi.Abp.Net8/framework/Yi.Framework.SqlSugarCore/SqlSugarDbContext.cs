@@ -218,13 +218,13 @@ namespace Yi.Framework.SqlSugarCore
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="pars"></param>
-        protected virtual void OnLogExecuting(string sql , SugarParameter[] pars)
+        protected virtual void OnLogExecuting(string sql, SugarParameter[] pars)
         {
             if (Options.EnabledSqlLog)
             {
-                Logger.CreateLogger<SqlSugarDbContext>().LogDebug("Yi-SQL执行:"+UtilMethods.GetSqlString(DbType.SqlServer, sql, pars));
+                Logger.CreateLogger<SqlSugarDbContext>().LogDebug("Yi-SQL执行:" + UtilMethods.GetSqlString(DbType.SqlServer, sql, pars));
             }
-         
+
         }
 
         /// <summary>
@@ -234,6 +234,45 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="pars"></param>
         protected virtual void OnLogExecuted(string sql, SugarParameter[] pars)
         {
+        }
+
+        public void BackupDataBase()
+        {
+            string directoryName = "database_backup";
+            string fileName = DateTime.Now.ToString($"yyyyMMdd_HHmmss")+ $"_{SqlSugarClient.Ado.Connection.Database}";
+            if (!Directory.Exists(directoryName))
+            {
+                Directory.CreateDirectory(directoryName);
+            }
+            switch (Options.DbType)
+            {
+                case DbType.MySql:
+                    //MySql
+                    SqlSugarClient.DbMaintenance.BackupDataBase(SqlSugarClient.Ado.Connection.Database, $"{Path.Combine(directoryName, fileName) }.sql");//mysql 只支持.net core
+                    break;
+
+
+                case DbType.Sqlite:
+                    //Sqlite
+                    SqlSugarClient.DbMaintenance.BackupDataBase(null, $"{fileName}.db"); //sqlite 只支持.net core
+                    break;
+
+
+                case DbType.SqlServer:
+                    //SqlServer
+                    SqlSugarClient.DbMaintenance.BackupDataBase(SqlSugarClient.Ado.Connection.Database, $"{Path.Combine(directoryName, fileName)}.bak"/*服务器路径*/);//第一个参数库名 
+                    break;
+
+
+                default:
+                    throw new NotImplementedException("其他数据库备份未实现");
+
+            }
+
+
+
+
+
         }
     }
 }

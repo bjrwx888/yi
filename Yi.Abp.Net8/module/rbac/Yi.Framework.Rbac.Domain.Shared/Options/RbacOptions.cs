@@ -22,5 +22,10 @@ namespace Yi.Framework.Rbac.Domain.Shared.Options
         /// 是否开启用户注册功能
         /// </summary>
         public bool EnableRegister { get; set; } = false;
+
+        /// <summary>
+        /// 是否开启数据库备份
+        /// </summary>
+        public bool EnableDataBaseBackup { get; set; } = false;
     }
 }

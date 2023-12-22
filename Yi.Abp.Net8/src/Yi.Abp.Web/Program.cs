@@ -9,7 +9,7 @@ Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics",LogEventLevel.Error)
 .MinimumLevel.Override("Quartz", LogEventLevel.Warning)
 .Enrich.FromLogContext()
-.WriteTo.Async(c => c.File("Logs/log-.txt", rollingInterval: RollingInterval.Day))
+.WriteTo.Async(c => c.File("logs/log-.txt", rollingInterval: RollingInterval.Day))
 .WriteTo.Async(c => c.Console())
 .CreateLogger();
 
