@@ -298,6 +298,8 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 await _userManager.GiveUserSetRoleAsync(new List<Guid> { entity.Id }, new List<Guid> { role.Id });
             }
+
+            await _localEventBus.PublishAsync(new UserCreateEventArgs(entity.Id));
             return true;
         }
 

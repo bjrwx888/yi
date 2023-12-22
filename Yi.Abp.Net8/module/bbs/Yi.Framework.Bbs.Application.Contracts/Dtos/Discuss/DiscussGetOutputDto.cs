@@ -1,4 +1,5 @@
 using Volo.Abp.Application.Dtos;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 
@@ -35,6 +36,6 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
         public DiscussPermissionTypeEnum PermissionType { get; set; }
 
         public List<Guid>? PermissionUserIds { get; set; }
-        public UserGetListOutputDto User { get; set; }
+        public BbsUserGetListOutputDto User { get; set; }
     }
 }

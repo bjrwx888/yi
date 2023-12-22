@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Uow;
 using Volo.Abp.Users;
 using Yi.Framework.Ddd.Application;
@@ -12,6 +13,7 @@ using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Managers;
 using Yi.Framework.Rbac.Domain.Repositories;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
+using Yi.Framework.Rbac.Domain.Shared.Etos;
 using Yi.Framework.Rbac.Domain.Shared.OperLog;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -23,10 +25,10 @@ namespace Yi.Framework.Rbac.Application.Services
     public class UserService : YiCrudAppService<UserEntity, UserGetOutputDto, UserGetListOutputDto, Guid, UserGetListInputVo, UserCreateInputVo, UserUpdateInputVo>
     //IUserService
     {
-        public UserService(ISqlSugarRepository<UserEntity, Guid> repository, UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser, IDeptService deptService) : base(repository)
+        public UserService(ISqlSugarRepository<UserEntity, Guid> repository, UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser, IDeptService deptService, ILocalEventBus localEventBus) : base(repository)
             =>
-            (_userManager, _userRepository, _currentUser, _deptService, _repository) =
-            (userManager, userRepository, currentUser, deptService, repository);
+            (_userManager, _userRepository, _currentUser, _deptService, _repository, _localEventBus) =
+            (userManager, userRepository, currentUser, deptService, repository, localEventBus);
         private UserManager _userManager { get; set; }
         private ISqlSugarRepository<UserEntity, Guid> _repository;
         private IUserRepository _userRepository { get; set; }
@@ -34,6 +36,7 @@ namespace Yi.Framework.Rbac.Application.Services
 
         private ICurrentUser _currentUser { get; set; }
 
+        private ILocalEventBus _localEventBus;
         /// <summary>
         /// 查询用户
         /// </summary>
@@ -102,6 +105,9 @@ namespace Yi.Framework.Rbac.Application.Services
             //uow.Commit();
 
             var result = await MapToGetOutputDtoAsync(returnEntity);
+
+
+            await _localEventBus.PublishAsync(new UserCreateEventArgs(returnEntity.Id));
             return result;
             //}
         }

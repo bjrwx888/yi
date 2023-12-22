@@ -6,6 +6,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Users;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
@@ -55,10 +56,20 @@ namespace Yi.Framework.Bbs.Application.Services
 
             //查询主题发布 浏览主题 事件，浏览数+1
             var item = await _forumManager._discussRepository._DbQueryable.LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
-                     .Select((discuss, user) => new DiscussGetOutputDto
+                .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
+                     .Select((discuss, user, info) => new DiscussGetOutputDto
                      {
-                         User = new UserGetListOutputDto() { UserName = user.UserName, Nick = user.Nick, Icon = user.Icon ,Id=user.Id}
-                     }, true).SingleAsync(discuss => discuss.Id == id);
+                         User = new BbsUserGetListOutputDto()
+                         {
+                             UserName = user.UserName,
+                             Nick = user.Nick,
+                             Icon = user.Icon,
+                             Id = user.Id,
+                             Level = info.Level,
+                             UserLimit = info.UserLimit
+                         }
+                     }, true)
+                     .SingleAsync(discuss => discuss.Id == id);
 
             if (item is not null)
             {
@@ -87,18 +98,26 @@ namespace Yi.Framework.Bbs.Application.Services
                      .WhereIF(input.IsTop == true, x => x.IsTop == input.IsTop)
 
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
+                         .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
 
                          .OrderByDescending(discuss => discuss.OrderNum)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.New, discuss => discuss.CreationTime, OrderByType.Desc)
                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, discuss => discuss.SeeNum, OrderByType.Desc)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, discuss => discuss.AgreeNum, OrderByType.Desc)
 
-                     .Select((discuss, user) => new DiscussGetListOutputDto
+                     .Select((discuss, user,info) => new DiscussGetListOutputDto
                      {
                          Id = discuss.Id,
                          IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
 
-                         User = new UserGetListOutputDto() { Id = user.Id, UserName = user.UserName, Nick = user.Nick, Icon = user.Icon }
+                         User = new BbsUserGetListOutputDto() { 
+                             Id = user.Id, 
+                             UserName = user.UserName, 
+                             Nick = user.Nick, 
+                             Icon = user.Icon,
+                             Level = info.Level,
+                             UserLimit = info.UserLimit
+                         }
 
                      }, true)
                 .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
