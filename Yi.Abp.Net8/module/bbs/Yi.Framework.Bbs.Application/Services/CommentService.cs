@@ -1,7 +1,9 @@
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Comment;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
@@ -19,12 +21,14 @@ namespace Yi.Framework.Bbs.Application.Services
        ICommentService
     {
         private readonly ISqlSugarRepository<CommentEntity, Guid> _repository;
-        public CommentService(ForumManager forumManager, ISqlSugarRepository<DiscussEntity> discussRepository, IDiscussService discussService, ISqlSugarRepository<CommentEntity, Guid> CommentRepository) : base(CommentRepository)
+        private readonly BbsUserManager _bbsUserManager;
+        public CommentService(ForumManager forumManager, ISqlSugarRepository<DiscussEntity> discussRepository, IDiscussService discussService, ISqlSugarRepository<CommentEntity, Guid> CommentRepository, BbsUserManager bbsUserManager) : base(CommentRepository)
         {
             _forumManager = forumManager;
             _discussRepository = discussRepository;
             _discussService = discussService;
             _repository = CommentRepository;
+            _bbsUserManager=bbsUserManager;
         }
 
         private ForumManager _forumManager { get; set; }
@@ -51,12 +55,25 @@ namespace Yi.Framework.Bbs.Application.Services
 
             //结果初始值，第一层等于全部根节点
             var outPut = entities.Where(x => x.ParentId == Guid.Empty).OrderByDescending(x => x.CreationTime).ToList();
+            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
+            List<CommentGetListOutputDto> outoutDto = await MapToGetListOutputDtosAsync(outPut);
 
-            //将全部数据进行hash
-            var dic = entities.ToDictionary(x => x.Id);
+            //同时为所有用户id进行bbs的扩展即可
+            List<Guid> userIds = outoutDto.Select(x => x.CommentedUser.Id).Union(outoutDto.Select(x => x.CreateUser.Id)).ToList();
+            var bbsUserInfoDic=( await _bbsUserManager.GetBbsUserInfoAsync(userIds)).ToDictionary(x=>x.Id);
+
+            foreach (var singleOutput in outoutDto)
+            {
+                singleOutput.CommentedUser = bbsUserInfoDic[singleOutput.CommentedUser.Id].Adapt<BbsUserGetOutputDto>();
+                singleOutput.CreateUser = bbsUserInfoDic[singleOutput.CommentedUser.Id].Adapt<BbsUserGetOutputDto>();
+            }
+            //数据查询完成
 
 
-            foreach (var comment in entities)
+            //开始组装dto的层级关系
+             //将全部数据进行hash
+             var dic = outoutDto.ToDictionary(x => x.Id);
+            foreach (var comment in outoutDto)
             {
                 //不是根节点，需要赋值 被评论者用户信息等
                 if (comment.ParentId != Guid.Empty)
@@ -71,7 +88,6 @@ namespace Yi.Framework.Bbs.Application.Services
                         continue;
                     }
                 }
-
                 //root或者parent id，根节点都是等于0的
                 var id = comment.RootId;
                 if (id != Guid.Empty)
@@ -88,11 +104,9 @@ namespace Yi.Framework.Bbs.Application.Services
 
             });
 
-            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
-            List<CommentGetListOutputDto> items = await MapToGetListOutputDtosAsync(outPut);
-            //最后将用户信息进行补全即可
+       
 
-            return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), items);
+            return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), outoutDto);
         }
 
 
