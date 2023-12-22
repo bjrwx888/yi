@@ -15,14 +15,19 @@
   </div>
 
   <el-divider />
-  <div v-hasPer="['bbs:comment:add']">
+  <div>
     <el-input
+      :disabled="!isAddComment"
       v-model="topContent"
       placeholder="发表一个友善的评论吧~"
       :rows="5"
       type="textarea"
     ></el-input>
-    <el-button @click="addTopComment" type="primary" class="btn-top-comment"
+    <el-button
+      @click="addTopComment"
+      type="primary"
+      class="btn-top-comment"
+      :disabled="!isAddComment"
       >发表评论</el-button
     >
     <el-button class="btn-top-comment">其他</el-button>
@@ -134,10 +139,23 @@
   />
 </template>
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, defineProps } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getListByDiscussId, add, del } from "@/apis/commentApi.js";
 import AvatarInfo from "./AvatarInfo.vue";
+import { getPermission } from "@/utils/auth";
+
+const props = defineProps({
+  isComment: {
+    type: Boolean,
+    default: false,
+  },
+});
+const { isHasPermission: isAddComment } = getPermission(
+  "bbs:comment:add",
+  props.isComment
+);
+
 //数据定义
 const route = useRoute();
 const router = useRouter();
