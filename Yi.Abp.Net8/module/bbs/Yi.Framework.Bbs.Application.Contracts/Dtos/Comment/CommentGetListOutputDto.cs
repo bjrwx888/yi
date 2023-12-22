@@ -1,4 +1,5 @@
 using Volo.Abp.Application.Dtos;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 
 namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
@@ -29,12 +30,12 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
         /// <summary>
         /// 用户,评论人用户信息
         /// </summary>
-        public UserGetOutputDto CreateUser { get; set; }
+        public BbsUserGetOutputDto CreateUser { get; set; }
 
         /// <summary>
         /// 被评论的用户信息
         /// </summary>
-        public UserGetOutputDto CommentedUser { get; set; }
+        public BbsUserGetOutputDto CommentedUser { get; set; }
 
 
         /// <summary>

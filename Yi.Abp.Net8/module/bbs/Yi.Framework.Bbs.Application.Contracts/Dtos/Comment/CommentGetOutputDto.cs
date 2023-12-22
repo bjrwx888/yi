@@ -1,4 +1,5 @@
 using Volo.Abp.Application.Dtos;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 
 namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
@@ -19,7 +20,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
         /// 用户id联表为用户对象
         /// </summary>
 
-        public UserGetOutputDto User { get; set; }
+        public BbsUserGetOutputDto User { get; set; }
         /// <summary>
         /// 根节点的评论id
         /// </summary>

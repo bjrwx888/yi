@@ -90,6 +90,8 @@ namespace Yi.Framework.Bbs.Application.Services
 
             //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
             List<CommentGetListOutputDto> items = await MapToGetListOutputDtosAsync(outPut);
+            //最后将用户信息进行补全即可
+
             return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), items);
         }
 
