@@ -73,35 +73,41 @@ namespace Yi.Framework.Rbac.Domain.Managers
         /// <param name="dto"></param>
         /// <returns></returns>
 
-        public Dictionary<string, object> UserInfoToClaim(UserRoleMenuDto dto)
+        public List<KeyValuePair<string, string>> UserInfoToClaim(UserRoleMenuDto dto)
         {
-            var claims = new Dictionary<string, object>();
-            claims.Add(AbpClaimTypes.UserId, dto.User.Id);
-            claims.Add(AbpClaimTypes.UserName, dto.User.UserName);
+            var claims = new List<KeyValuePair<string, string>>();
+            AddToClaim(claims,AbpClaimTypes.UserId, dto.User.Id.ToString());
+            AddToClaim(claims,AbpClaimTypes.UserName, dto.User.UserName);
             if (dto.User.DeptId is not null)
             {
-                claims.Add(TokenTypeConst.DeptId, dto.User.DeptId);
+                AddToClaim(claims,TokenTypeConst.DeptId, dto.User.DeptId.ToString());
             }
             if (dto.User.Email is not null)
             {
-                claims.Add(AbpClaimTypes.Email, dto.User.Email);
+                AddToClaim(claims,AbpClaimTypes.Email, dto.User.Email);
             }
             if (dto.User.Phone is not null)
             {
-                claims.Add(AbpClaimTypes.PhoneNumber, dto.User.Phone);
+                AddToClaim(claims,AbpClaimTypes.PhoneNumber, dto.User.Phone.ToString());
             }
             if (UserConst.Admin.Equals(dto.User.UserName))
             {
-                claims.Add(TokenTypeConst.Permission, UserConst.AdminPermissionCode);
-                claims.Add(TokenTypeConst.Roles, UserConst.AdminRolesCode);
+                AddToClaim(claims,TokenTypeConst.Permission, UserConst.AdminPermissionCode);
+                AddToClaim(claims,TokenTypeConst.Roles, UserConst.AdminRolesCode);
             }
             else
             {
-                claims.Add(TokenTypeConst.Permission, dto.PermissionCodes.Where(x => !string.IsNullOrEmpty(x)));
-                claims.Add(AbpClaimTypes.Role, dto.RoleCodes.Where(x => !string.IsNullOrEmpty(x)));
+                dto.PermissionCodes?.ForEach(per => AddToClaim(claims, TokenTypeConst.Permission, per));
+                dto.RoleCodes?.ForEach(role => AddToClaim(claims, AbpClaimTypes.Role, role));
             }
 
             return claims;
+        }
+
+
+        private void AddToClaim(List<KeyValuePair<string, string>> claims, string key, string value)
+        {
+            claims.Add(new KeyValuePair<string, string>(key, value));
         }
 
         /// <summary>

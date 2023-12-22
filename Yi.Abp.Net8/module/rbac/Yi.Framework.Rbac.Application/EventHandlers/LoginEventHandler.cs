@@ -19,7 +19,7 @@ namespace Yi.Framework.Rbac.Application.EventHandlers
         private readonly ILogger<LoginEventHandler> _logger;
         private readonly IRepository<LoginLogEntity> _loginLogRepository;
         public LoginEventHandler(ILogger<LoginEventHandler> logger, IRepository<LoginLogEntity> loginLogRepository) { _logger = logger; _loginLogRepository = loginLogRepository; }
-        public Task HandleEventAsync(LoginEventArgs eventData)
+        public async Task HandleEventAsync(LoginEventArgs eventData)
         {
             _logger.LogInformation($"用户【{eventData.UserId}:{eventData.UserName}】登入系统");
             var loginLogEntity = eventData.Adapt<LoginLogEntity>();
@@ -27,8 +27,7 @@ namespace Yi.Framework.Rbac.Application.EventHandlers
             loginLogEntity.LoginUser = eventData.UserName;
             loginLogEntity.CreatorId = eventData.UserId;
             //异步插入
-            _loginLogRepository.InsertAsync(loginLogEntity);
-            return Task.CompletedTask;
+            await _loginLogRepository.InsertAsync(loginLogEntity);
         }
     }
 }

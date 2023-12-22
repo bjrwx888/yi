@@ -151,13 +151,13 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <summary>
         /// 创建令牌
         /// </summary>
-        /// <param name="dic"></param>
+        /// <param name="kvs"></param>
         /// <returns></returns>
-        private string CreateToken(Dictionary<string, object> dic)
+        private string CreateToken(List<KeyValuePair<string, string>> kvs)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecurityKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var claims = dic.Select(x => new Claim(x.Key, x.Value.ToString())).ToList();
+            var claims = kvs.Select(x => new Claim(x.Key, x.Value.ToString())).ToList();
             var token = new JwtSecurityToken(
                issuer: _jwtOptions.Issuer,
                audience: _jwtOptions.Audience,
