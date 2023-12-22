@@ -24,7 +24,7 @@ namespace Yi.Framework.Rbac.Domain.Shared.Consts
         public const string AdminRolesCode = "admin";
         public const string AdminPermissionCode = "*:*:*";
 
-        public const string GuestRoleCode = "guest";
+        public const string DefaultRoleCode = "default";
         public const string CommonRoleName = "common";
     }
 }

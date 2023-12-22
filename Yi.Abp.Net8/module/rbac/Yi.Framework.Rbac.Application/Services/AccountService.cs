@@ -293,7 +293,7 @@ namespace Yi.Framework.Rbac.Application.Services
 
             var entity = await _userRepository.InsertReturnEntityAsync(newUser);
             //赋上一个初始角色
-            var role = await _roleRepository.GetFirstAsync(x => x.RoleCode == UserConst.GuestRoleCode);
+            var role = await _roleRepository.GetFirstAsync(x => x.RoleCode == UserConst.DefaultRoleCode);
             if (role is not null)
             {
                 await _userManager.GiveUserSetRoleAsync(new List<Guid> { entity.Id }, new List<Guid> { role.Id });

@@ -44,7 +44,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
             RoleEntity role3 = new RoleEntity()
             {
 
-                RoleName = "普通用户",
+                RoleName = "普通角色",
                 RoleCode = "common",
                 DataScope = DataScopeEnum.ALL,
                 OrderNum = 1,
@@ -56,8 +56,8 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
             RoleEntity role4 = new RoleEntity()
             {
 
-                RoleName = "游客用户",
-                RoleCode = "guest",
+                RoleName = "默认角色",
+                RoleCode = "default",
                 DataScope = DataScopeEnum.ALL,
                 OrderNum = 1,
                 Remark = "可简单浏览",
