@@ -53,7 +53,7 @@
                   </el-form-item>
                 </el-col>
                 <el-image
-                  @click="handleGetCode"
+                  @click="handleGetCodeImage"
                   style="width: 120px; height: 40px; cursor: pointer"
                   :src="codeImageURL"
                   :fit="fit"
@@ -160,11 +160,11 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import useAuths from "@/hooks/useAuths";
 import { getCodePhone } from "@/apis/accountApi";
-import { getLoginCode } from "@/apis/auth";
+import useUserStore from "@/stores/user";
 
 const { loginFun, registerFun } = useAuths();
 const router = useRouter();
@@ -184,13 +184,16 @@ const guestlogin = async () => {
   const redirect = route.query?.redirect ?? "/index";
   router.push(redirect);
 };
+const codeUUid = computed(() => useUserStore().codeUUid);
 const login = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid) => {
     if (valid) {
       try {
+        loginForm.uuid = codeUUid.value;
         loginFun(loginForm);
       } catch (error) {
+        console.log(error.message, "error.message");
         ElMessage({
           message: error.message,
           type: "error",
@@ -199,11 +202,6 @@ const login = async (formEl) => {
       }
     }
   });
-};
-// 获取图片验证码
-const codeImageURL = ref("");
-const handleGetCode = () => {
-  getImageCode();
 };
 
 // 注册逻辑
@@ -284,14 +282,13 @@ const captcha = async () => {
 const handleSignInNow = () => {
   isRegister.value = !isRegister.value;
 };
-
-const getImageCode = async () => {
-  const { data } = await getLoginCode();
-  codeImageURL.value = "data:image/jpg;base64," + data.img;
-  loginForm.uuid = data.uuid;
+// 获取图片验证码
+const codeImageURL = computed(() => useUserStore().codeImageURL);
+const handleGetCodeImage = () => {
+  useUserStore().updateCodeImage();
 };
 onMounted(async () => {
-  await getImageCode();
+  await useUserStore().updateCodeImage();
 });
 </script>
 <style scoped lang="scss">

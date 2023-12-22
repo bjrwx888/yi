@@ -89,13 +89,20 @@ export default function useAuths(opt) {
 
   // 用户名密码登录
   const loginFun = async (params) => {
-    const res = await userLogin(params);
-    ElMessage({
-      message: `您好${params.userName}，登录成功！`,
-      type: "success",
-    });
-    loginSuccess(res);
-    return res;
+    try {
+      const res = await userLogin(params);
+      ElMessage({
+        message: `您好${params.userName}，登录成功！`,
+        type: "success",
+      });
+      loginSuccess(res);
+      return res;
+    } catch (error) {
+      const { data } = error;
+      if (error.status === 403 && data.error?.message === "验证码错误") {
+        useUserStore().updateCodeImage();
+      }
+    }
   };
 
   // 获取用户基本信息、角色、菜单权限

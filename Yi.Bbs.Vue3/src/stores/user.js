@@ -1,5 +1,5 @@
 import { login, logout, register } from "@/apis/accountApi";
-import { getUserDetailInfo } from "@/apis/auth";
+import { getUserDetailInfo, getLoginCode } from "@/apis/auth";
 import useAuths from "@/hooks/useAuths";
 import { defineStore } from "pinia";
 
@@ -14,6 +14,8 @@ const useUserStore = defineStore("user", {
     icon: null,
     roles: [],
     permissions: [],
+    codeImageURL: "",
+    codeUUid: "",
   }),
   getters: {},
   actions: {
@@ -111,6 +113,11 @@ const useUserStore = defineStore("user", {
       this.icon = "/login.svg";
       this.userName = "";
       this.id = "";
+    },
+    async updateCodeImage() {
+      const { data } = await getLoginCode();
+      this.codeImageURL = "data:image/jpg;base64," + data.img;
+      this.codeUUid = data.uuid;
     },
   },
   persist: {
