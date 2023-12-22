@@ -129,7 +129,7 @@ export default function useAuths(opt) {
       // 如果有记录当前跳转页面
       const currentPath = Session.get("currentPath");
       if (currentPath) {
-        router.push(currentPath);
+        router.replace(currentPath);
       } else {
         router.replace({
           path: option.loginReUrl ? option.loginReUrl : option.homeUrl,

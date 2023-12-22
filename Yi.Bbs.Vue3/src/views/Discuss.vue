@@ -105,9 +105,11 @@ import { getList, getTopList } from "@/apis/discussApi.js";
 import { ref, reactive, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BottomInfo from "@/components/BottomInfo.vue";
-import useUserStore from "@/stores/user";
 import { getPermission } from "@/utils/auth";
+import useAuths from "@/hooks/useAuths";
+import { Session } from "@/utils/storage";
 
+const { getToken, clearStorage } = useAuths();
 //数据定义
 const route = useRoute();
 const router = useRouter();
@@ -166,7 +168,8 @@ const { isHasPermission: isEditArticle } = getPermission(
 );
 
 const enterEditArticle = () => {
-  if (isEditArticle.value) {
+  const hasToken = getToken();
+  if (isEditArticle) {
     //跳转路由
     var routerPer = {
       path: "/editArt",
@@ -177,6 +180,16 @@ const enterEditArticle = () => {
       },
     };
     router.push(routerPer);
+  } else if (!hasToken) {
+    ElMessageBox.confirm("登录后即可发布主题是否登录?", "提示", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning",
+    }).then(() => {
+      clearStorage();
+      Session.set("currentPath", route.path);
+      router.push("/login");
+    });
   } else {
     ElMessage.warning("暂无发布权限!");
   }
