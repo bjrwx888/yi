@@ -26,14 +26,16 @@ namespace Yi.Framework.Bbs.Domain.Managers
         {
             return await _userRepository._DbQueryable.LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id == info.Id)
                      .Select((user, info) => new BbsUserInfoDto { Id = user.Id })
-                     .FirstAsync(x=>x.Id==userId);
+                     .FirstAsync(user => user.Id==userId);
         }
 
         public async Task<List<BbsUserInfoDto>> GetBbsUserInfoAsync(List<Guid> userIds)
         {
-            return await _userRepository._DbQueryable.LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id == info.Id)
+            return await _userRepository._DbQueryable
+                     .Where(user => userIds.Contains(user.Id))
+                .LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id == info.Id)
                      .Select((user, info) => new BbsUserInfoDto { Id = user.Id })
-                     .Where(x=>userIds.Contains(x.Id))
+                
                      .ToListAsync();
         }
     }

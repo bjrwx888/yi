@@ -77,7 +77,7 @@ namespace Yi.Framework.SqlSugarCore
             }
             if (types.Count > 0)
             {
-                db.CodeFirst.InitTables(types.ToArray());
+                db.CopyNew().CodeFirst.InitTables(types.ToArray());
             }
 
         }
