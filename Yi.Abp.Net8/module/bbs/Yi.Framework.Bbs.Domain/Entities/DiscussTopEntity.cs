@@ -22,9 +22,6 @@ namespace Yi.Framework.Bbs.Domain.Entities
 
         public Guid DiscussId { get; set; }
 
-        [Navigate(NavigateType.OneToOne, nameof(DiscussId))]
-        public DiscussEntity Discuss { get; set; } 
-
         public DateTime? LastModificationTime { get; set; }
     }
 }

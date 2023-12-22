@@ -105,15 +105,16 @@ namespace Yi.Framework.Bbs.Application.Services
                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, discuss => discuss.SeeNum, OrderByType.Desc)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.Suggest, discuss => discuss.AgreeNum, OrderByType.Desc)
 
-                     .Select((discuss, user,info) => new DiscussGetListOutputDto
+                     .Select((discuss, user, info) => new DiscussGetListOutputDto
                      {
                          Id = discuss.Id,
                          IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
 
-                         User = new BbsUserGetListOutputDto() { 
-                             Id = user.Id, 
-                             UserName = user.UserName, 
-                             Nick = user.Nick, 
+                         User = new BbsUserGetListOutputDto()
+                         {
+                             Id = user.Id,
+                             UserName = user.UserName,
+                             Nick = user.Nick,
                              Icon = user.Icon,
                              Level = info.Level,
                              UserLimit = info.UserLimit
@@ -133,9 +134,34 @@ namespace Yi.Framework.Bbs.Application.Services
         /// <returns></returns>
         public async Task<List<DiscussGetListOutputDto>> GetListTopAsync()
         {
-            var entities = await _discussTopEntityRepository._DbQueryable.Includes(x => x.Discuss).OrderByDescending(x => x.OrderNum).ToListAsync();
-
-            var output = await MapToGetListOutputDtosAsync(entities.Select(x => x.Discuss).ToList());
+            var output = await _discussTopEntityRepository._DbQueryable.LeftJoin<DiscussEntity>((top, discuss) => top.DiscussId == discuss.Id)
+                .LeftJoin<UserEntity>((top, discuss, user) => discuss.CreatorId == user.Id)
+                .LeftJoin<BbsUserExtraInfoEntity>((top, discuss, user, info) => user.Id == info.UserId)
+                .OrderByDescending(top => top.OrderNum)
+                .Select((top, discuss, user, info) => new DiscussGetListOutputDto
+                {
+                    Id = discuss.Id,
+                    User = new BbsUserGetListOutputDto
+                    {
+                        Id = user.Id,
+                        Name=user.Name,
+                        Sex = user.Sex,
+                        State = user.State,
+                        Address = user.Address,
+                        Age = user.Age,
+                        CreationTime = user.CreationTime,
+ 
+                       Level=info.Level,
+                       Introduction = user.Introduction,
+                       Icon= user.Icon,
+                       Nick= user.Nick,
+                       UserName=user.UserName,
+                       Remark= user.Remark,
+                       UserLimit=info.UserLimit
+                       
+                    }
+                }, true)
+                .ToListAsync();
             return output;
         }
 
