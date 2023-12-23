@@ -13,7 +13,7 @@ export function removeToken() {
   return localStorage.removeItem(TokenKey);
 }
 
-export function getPermission(code, isDisabled) {
+export function getPermission(code, isDisabled = false) {
   const all_permission = "*:*:*";
   const isHasPermission = useUserStore().permissions.some((permission) => {
     if (all_permission === permission) {

@@ -26,6 +26,7 @@
                   @create="addNextArticle"
                   @handleNodeClick="handleNodeClick"
                   :currentNodeKey="currentNodeKey"
+                  :isArticleUser="isArticleUser"
                 />
               </template>
             </InfoCard>
@@ -223,18 +224,9 @@ const loadArticleData = async () => {
 //主题初始化
 const isDisabledCreateComment = ref(false);
 const isArticleUser = ref(false);
-const { isHasPermission: isAddArticle } = getPermission(
-  "bbs:article:add",
-  isDisabledCreateComment.value
-);
-const { isHasPermission: isEditTheme } = getPermission(
-  "bbs:discuss:edit",
-  isDisabledCreateComment.value
-);
-const { isHasPermission: isRemoveTheme } = getPermission(
-  "bbs:discuss:remove",
-  isDisabledCreateComment.value
-);
+const { isHasPermission: isAddArticle } = getPermission("bbs:article:add");
+const { isHasPermission: isEditTheme } = getPermission("bbs:discuss:edit");
+const { isHasPermission: isRemoveTheme } = getPermission("bbs:discuss:remove");
 const loadDiscuss = async (isRewrite) => {
   if (isRewrite) {
     //跳转路由

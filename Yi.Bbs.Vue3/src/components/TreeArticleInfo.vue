@@ -1,42 +1,52 @@
 <template>
-      <el-tree
-                  :data="props.data==''?[]:props.data"
-                  :props="defaultProps"
-                  @node-click="handleNodeClick"
-                  :expand-on-click-node="false"
-                  node-key="id"
-                  :default-expand-all='true'
-                  :highlight-current="true"
-                  :current-node-key="currentNodeKey"
-                >
-
-                <template #default="{ node, data }">
-        <span class="custom-tree-node">
-          <span>{{data.name}}</span>
-          <span>
-            
-            <a style="color: #409EFF; margin-left: 8px" @click="$emit('create',node, data)" v-hasPer="['bbs:article:add']"
-  
-  > + </a>
-            <a style="color: #409EFF; margin-left: 8px" @click="$emit('update',node, data)" v-hasPer="['bbs:article:edit']"
-  
-  > 编辑 </a>
-            <a style="color: #f56c6c; margin-left: 8px" @click="$emit('remove',node, data)" v-hasPer="['bbs:article:remove']"
-  
-            > 删除 </a>
-          </span>
+  <el-tree
+    :data="props.data == '' ? [] : props.data"
+    :props="defaultProps"
+    @node-click="handleNodeClick"
+    :expand-on-click-node="false"
+    node-key="id"
+    :default-expand-all="true"
+    :highlight-current="true"
+    :current-node-key="currentNodeKey"
+  >
+    <template #default="{ node, data }">
+      <span class="custom-tree-node">
+        <span>{{ data.name }}</span>
+        <span>
+          <a
+            style="color: #409eff; margin-left: 8px"
+            @click="$emit('create', node, data)"
+            v-if="isArticleUser && isAddArticle"
+          >
+            +
+          </a>
+          <a
+            style="color: #409eff; margin-left: 8px"
+            @click="$emit('update', node, data)"
+            v-if="isArticleUser && isEditArticle"
+          >
+            编辑
+          </a>
+          <a
+            style="color: #f56c6c; margin-left: 8px"
+            @click="$emit('remove', node, data)"
+            v-if="isArticleUser && isRemoveArticle"
+          >
+            删除
+          </a>
         </span>
-      </template>
-                </el-tree>
+      </span>
+    </template>
+  </el-tree>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
+import { getPermission } from "@/utils/auth";
 
+const props = defineProps(["data", "currentNodeKey", "isArticleUser"]);
+const emits = defineEmits(["handleNodeClick"]);
 
-const props = defineProps(['data',"currentNodeKey"])
-const emits= defineEmits(["handleNodeClick"])
-
-const currentNodeKey=props.currentNodeKey;
+const currentNodeKey = props.currentNodeKey;
 //数据定义
 //子文章数据
 // const articleData =ref([]);
@@ -52,8 +62,12 @@ const defaultProps = {
 // }
 //点击事件
 const handleNodeClick = (data) => {
-  emits('handleNodeClick',data)
+  emits("handleNodeClick", data);
 };
+const { isHasPermission: isAddArticle } = getPermission("bbs:article:add");
+const { isHasPermission: isEditArticle } = getPermission("bbs:article:edit");
+const { isHasPermission: isRemoveArticle } =
+  getPermission("bbs:article:remove");
 </script>
 <style scoped>
 .custom-tree-node {
