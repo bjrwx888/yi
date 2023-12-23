@@ -126,9 +126,9 @@
                 />
               </el-form-item>
             </el-form>
-            <!-- <div class="link" v-if="isRegister">
+            <div class="link" v-if="isRegister">
               <div class="text" @click="handleRegister">没有账号？前往注册</div>
-            </div> -->
+            </div>
             <div
               class="login-btn"
               @click="login(loginFormRef)"
@@ -205,7 +205,7 @@ const login = async (formEl) => {
 };
 
 // 注册逻辑
-const isRegister = ref(true);
+const isRegister = ref(false);
 const registerFormRef = ref();
 // 确认密码
 const passwordConfirm = ref("");
