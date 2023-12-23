@@ -9,7 +9,17 @@
 
       <div v-if="!props.isSelf">
         <div class="nick" :class="{ mt_1: props.time != 'undefined' }">
-          {{ userInfo.nick }}
+          <div class="text">{{ userInfo.nick }}</div>
+          <div class="level">
+            <el-tag round effect="light" type="success">{{
+              userInfo.level
+            }}</el-tag>
+          </div>
+          <div class="status">
+            <el-tag round effect="light" :type="userInfo.userLimit.type">
+              {{ userInfo.userLimit.label }}
+            </el-tag>
+          </div>
         </div>
         <div class="remarks" v-if="props.time">{{ props.time }}</div>
         <div class="remarks">
@@ -48,6 +58,8 @@ const userInfo = reactive({
   nick: "",
   role: [],
   id: "",
+  level: 1,
+  userLimit: 0,
 });
 const iconUrl = ref("/favicon.ico");
 const iconUrlHandler = () => {
@@ -86,6 +98,8 @@ const Init = () => {
     userInfo.nick = props.userInfo.nick;
     userInfo.role = props.userInfo.role;
     userInfo.id = props.userInfo.id;
+    userInfo.level = "等级" + props.userInfo.level;
+    userInfo.userLimit = getStatusInfo(1);
     iconUrl.value = iconUrlHandler(userInfo.icon);
   }
 
@@ -98,6 +112,28 @@ const Init = () => {
     iconUrl.value = userInfo.icon;
   }
 };
+
+const statusTypeList = [
+  {
+    label: "正常",
+    value: 0,
+    type: "success",
+  },
+  {
+    label: "危险",
+    value: 1,
+    type: "warning",
+  },
+  {
+    label: "已禁止",
+    value: 2,
+    type: "danger",
+  },
+];
+
+const getStatusInfo = (type) => {
+  return statusTypeList.filter((item) => item.value === type)[0];
+};
 </script>
 <style scoped>
 .mt_1 {
@@ -105,7 +141,13 @@ const Init = () => {
 }
 
 .nick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-weight: bold;
+  > div {
+    margin-right: 10px;
+  }
 }
 
 .info {
