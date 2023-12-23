@@ -49,7 +49,7 @@ const props = defineProps(["name", "introduction", "id", "isPublish"]);
   position: relative;
   .recommend:before {
     cursor: pointer;
-    content: "作者";
+    content: "官方";
     position: absolute;
     top: -8px;
     right: -26px;
@@ -62,7 +62,7 @@ const props = defineProps(["name", "introduction", "id", "isPublish"]);
   }
   .recommend:hover::after {
     width: 100px;
-    content: "作者专属板块不得随意发布主题"; /* 鼠标悬浮时显示的文字 */
+    content: "官方专属板块不得随意发布主题"; /* 鼠标悬浮时显示的文字 */
     position: absolute;
     top: 30px; /* 距离盒子顶部的距离 */
     left: 70%; /* 盒子中央位置 */
