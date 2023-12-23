@@ -11,11 +11,11 @@
         <div class="nick" :class="{ mt_1: props.time != 'undefined' }">
           <div class="text">{{ userInfo.nick }}</div>
           <div class="level">
-            <el-tag round effect="light" type="success">{{
+            <el-tag round effect="light" type="success" v-if="userInfo.level">{{
               userInfo.level
             }}</el-tag>
           </div>
-          <div class="status">
+          <div class="status" v-if="userInfo.userLimit">
             <el-tag round effect="light" :type="userInfo.userLimit.type">
               {{ userInfo.userLimit.label }}
             </el-tag>
@@ -58,8 +58,8 @@ const userInfo = reactive({
   nick: "",
   role: [],
   id: "",
-  level: 1,
-  userLimit: 0,
+  level: "",
+  userLimit: "",
 });
 const iconUrl = ref("/favicon.ico");
 const iconUrlHandler = () => {
@@ -99,7 +99,7 @@ const Init = () => {
     userInfo.role = props.userInfo.role;
     userInfo.id = props.userInfo.id;
     userInfo.level = "等级" + props.userInfo.level;
-    userInfo.userLimit = getStatusInfo(1);
+    userInfo.userLimit = getStatusInfo(props.userInfo.userLimit);
     iconUrl.value = iconUrlHandler(userInfo.icon);
   }
 
