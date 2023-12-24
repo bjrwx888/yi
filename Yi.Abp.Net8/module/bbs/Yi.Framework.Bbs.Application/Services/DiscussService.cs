@@ -60,6 +60,8 @@ namespace Yi.Framework.Bbs.Application.Services
                 .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
                      .Select((discuss, user, info) => new DiscussGetOutputDto
                      {
+                         Id=discuss.Id,
+                         IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
                          User = new BbsUserGetListOutputDto()
                          {
                              UserName = user.UserName,

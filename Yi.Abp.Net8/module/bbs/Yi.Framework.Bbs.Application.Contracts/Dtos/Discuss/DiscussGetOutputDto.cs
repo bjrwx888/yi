@@ -34,7 +34,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
         public string? PrivateCode { get; set; }
         public DateTime CreationTime { get; set; }
         public DiscussPermissionTypeEnum PermissionType { get; set; }
-
+        public bool IsAgree { get; set; } = false;
         public List<Guid>? PermissionUserIds { get; set; }
         public BbsUserGetListOutputDto User { get; set; }
     }

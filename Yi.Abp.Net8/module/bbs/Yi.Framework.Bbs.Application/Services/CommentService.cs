@@ -63,13 +63,17 @@ namespace Yi.Framework.Bbs.Application.Services
             List<CommentGetListOutputDto> outoutDto = await MapToGetListOutputDtosAsync(outPut);
 
             //同时为所有用户id进行bbs的扩展即可
-            List<Guid> userIds = outoutDto.Select(x => x.CommentedUser.Id).Union(outoutDto.Select(x => x.CreateUser.Id)).ToList();
+            List<Guid> userIds = outoutDto.Where(x => x.CommentedUser is not null).Select(x => x.CommentedUser.Id).Union(outoutDto.Select(x => x.CreateUser.Id)).ToList();
             var bbsUserInfoDic = (await _bbsUserManager.GetBbsUserInfoAsync(userIds)).ToDictionary(x => x.Id);
 
             foreach (var singleOutput in outoutDto)
             {
-                singleOutput.CommentedUser = bbsUserInfoDic[singleOutput.CommentedUser.Id].Adapt<BbsUserGetOutputDto>();
-                singleOutput.CreateUser = bbsUserInfoDic[singleOutput.CommentedUser.Id].Adapt<BbsUserGetOutputDto>();
+                if (singleOutput.CommentedUser is not null)
+                {
+                    singleOutput.CommentedUser = bbsUserInfoDic[singleOutput.CommentedUser.Id].Adapt<BbsUserGetOutputDto>();
+                }
+           
+                singleOutput.CreateUser = bbsUserInfoDic[singleOutput.CreateUser.Id].Adapt<BbsUserGetOutputDto>();
             }
             //数据查询完成
 
