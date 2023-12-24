@@ -75,7 +75,7 @@
               </el-form-item>
               <el-form-item label="手机号" class="title-item"></el-form-item>
               <div class="flex-between">
-                <el-col :span="18">
+                <div class="item">
                   <el-form-item prop="phone">
                     <el-input
                       type="text"
@@ -83,7 +83,7 @@
                       placeholder="请输入手机号"
                     />
                   </el-form-item>
-                </el-col>
+                </div>
                 <el-button
                   type="primary"
                   @click="captcha"
@@ -394,6 +394,7 @@ const handleContact = () => {
             align-items: center;
             .text {
               cursor: pointer;
+              color: #2282fe;
             }
           }
           .visitor {
@@ -460,6 +461,38 @@ const handleContact = () => {
   .flex-between {
     display: flex;
     justify-content: space-between;
+    .item {
+      flex: 1;
+    }
+  }
+}
+/*手机端CSS*/
+@media (max-width: 768px) {
+  .login {
+    background: url("@/assets/login_images/phone_login_bg.jpg") no-repeat;
+    &-box {
+      .left {
+        display: none;
+      }
+      .right {
+        flex: 1;
+        .top {
+          .title {
+            font-size: 20px;
+          }
+          .text {
+            margin-top: 10px;
+          }
+        }
+      }
+      .flex-between {
+        display: flex;
+        justify-content: space-between;
+        .item {
+          flex: 1;
+        }
+      }
+    }
   }
 }
 </style>
