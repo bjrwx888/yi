@@ -25,7 +25,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
         public async Task<BbsUserInfoDto?> GetBbsUserInfoAsync(Guid userId)
         {
             return await _userRepository._DbQueryable.LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id == info.Id)
-                     .Select((user, info) => new BbsUserInfoDto { Id = user.Id })
+                     .Select((user, info) => new BbsUserInfoDto { Id = user.Id }, true)
                      .FirstAsync(user => user.Id==userId);
         }
 
@@ -34,7 +34,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             return await _userRepository._DbQueryable
                      .Where(user => userIds.Contains(user.Id))
                 .LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id == info.Id)
-                     .Select((user, info) => new BbsUserInfoDto { Id = user.Id })
+                     .Select((user, info) => new BbsUserInfoDto { Id = user.Id },true)
                 
                      .ToListAsync();
         }
