@@ -50,7 +50,7 @@ const handleScroll = () => {
     width: 100%;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
-    height: 50px;
+    height: 60px;
     display: flex;
     justify-content: center;
   }
