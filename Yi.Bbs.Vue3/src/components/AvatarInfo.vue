@@ -77,9 +77,7 @@ const iconUrlHandler = (icon) => {
 };
 
 watch(userStore, (n) => {
-  if (props.userInfo == undefined) {
-    userInfo.nick = n.name;
-  }
+  Init();
 });
 
 watch(
