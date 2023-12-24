@@ -27,26 +27,42 @@
 
 <script setup>
 import { updateUserProfile } from "@/apis/userApi";
-import useUserStore from "@/stores/user"
+import useUserStore from "@/stores/user";
 import { ref } from "vue";
-const userStore = useUserStore();
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const props = defineProps({
   user: {
-    type: Object
-  }
+    type: Object,
+  },
 });
 
 const userRef = ref(null);
 
 const rules = ref({
   nick: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-  email: [{ required: true, message: "邮箱地址不能为空", trigger: "blur" }, { type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
-  phone: [{ required: true, message: "手机号码不能为空", trigger: "blur" }, { pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }],
+  email: [
+    { required: true, message: "邮箱地址不能为空", trigger: "blur" },
+    {
+      type: "email",
+      message: "请输入正确的邮箱地址",
+      trigger: ["blur", "change"],
+    },
+  ],
+  phone: [
+    { required: true, message: "手机号码不能为空", trigger: "blur" },
+    {
+      pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+      message: "请输入正确的手机号码",
+      trigger: "blur",
+    },
+  ],
 });
 
 /** 提交按钮 */
 function submit() {
-  userRef.value.validate(async valid => {
+  userRef.value.validate(async (valid) => {
     if (valid) {
       const response = await updateUserProfile(props.user);
       if (response.status == 200) {
@@ -54,13 +70,14 @@ function submit() {
           type: "success",
           message: "用户信息修改成功",
         });
-
+        // 更新用户信息
+        await useUserStore().getInfo(); // 用户信息
       }
     }
-    });
-};
+  });
+}
 /** 关闭按钮 */
 function close() {
-  // proxy.$tab.closePage();
-};
+  router.push("/index");
+}
 </script>
