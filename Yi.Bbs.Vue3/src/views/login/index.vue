@@ -121,9 +121,9 @@
                 />
               </el-form-item>
             </el-form>
-            <!-- <div class="link" v-if="isRegister">
+            <div class="link" v-if="isRegister">
               <div class="text" @click="handleRegister">没有账号？前往注册</div>
-            </div> -->
+            </div>
             <div
               class="login-btn"
               @click="login(loginFormRef)"
