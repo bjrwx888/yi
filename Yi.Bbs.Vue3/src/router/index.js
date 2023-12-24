@@ -80,6 +80,14 @@ const router = createRouter({
             title: "主题封面",
           },
         },
+        {
+          name: "contact",
+          path: "/contact",
+          component: () => import("../views/contact/index.vue"),
+          meta: {
+            title: "联系我们",
+          },
+        },
       ],
     },
     { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },

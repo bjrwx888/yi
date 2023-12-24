@@ -154,7 +154,7 @@
     </div>
     <div class="login-footer">
       <div class="info">站长：{{ configStore.author }}</div>
-      <div class="info btn">联系我们</div>
+      <div class="info btn" @click="handleContact">联系我们</div>
       <div class="info btn">关于本站</div>
       <div class="info btn">建议反馈</div>
     </div>
@@ -300,6 +300,11 @@ const handleGetCodeImage = () => {
 onMounted(async () => {
   await useUserStore().updateCodeImage();
 });
+
+// 联系我们跳转对应页面
+const handleContact = () => {
+  router.push("/contact");
+};
 </script>
 <style scoped lang="scss">
 .login {

@@ -8,7 +8,7 @@
       >
         <AppHeader />
       </el-header>
-      <el-main>
+      <el-main class="common-main">
         <AppBody />
       </el-main>
     </el-container>
@@ -42,11 +42,20 @@ const handleScroll = () => {
 
 <style scoped lang="scss">
 .common {
-  &-header {
-    background-color: #fff;
+  &-layout {
     width: 100%;
+    height: 100%;
+  }
+  &-header {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+    height: 50px;
     display: flex;
     justify-content: center;
+  }
+  &-main {
+    height: calc(100% - 50px);
   }
 }
 
