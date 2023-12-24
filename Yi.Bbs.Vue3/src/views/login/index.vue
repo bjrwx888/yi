@@ -11,7 +11,8 @@
           <el-icon size="15"><DArrowRight /></el-icon>
         </div>
         <div class="top">
-          <div class="title">意社区登录 | SIGN IN</div>
+          <div class="title" v-if="isRegister">意社区登录 | SIGN IN</div>
+          <div class="title" v-else>意社区注册 | REGISTER</div>
         </div>
         <div class="center">
           <div class="login-form">
@@ -21,7 +22,7 @@
               :rules="rules"
               v-if="isRegister"
             >
-              <el-form-item label="账号" class="title-item"></el-form-item>
+              <el-form-item label="用户名" class="title-item"></el-form-item>
               <el-form-item prop="userName">
                 <el-input
                   size="large"
@@ -67,10 +68,9 @@
               :rules="registerRules"
               v-else
             >
-              <el-form-item label="账号" class="title-item"></el-form-item>
+              <el-form-item label="用户名" class="title-item"></el-form-item>
               <el-form-item prop="userName">
                 <el-input
-                  size="large"
                   type="text"
                   v-model.trim="registerForm.userName"
                   placeholder="请输入用户名"
@@ -81,7 +81,6 @@
                 <el-col :span="18">
                   <el-form-item prop="phone">
                     <el-input
-                      size="large"
                       type="text"
                       v-model.trim="registerForm.phone"
                       placeholder="请输入手机号"
@@ -90,7 +89,6 @@
                 </el-col>
                 <el-button
                   type="primary"
-                  size="large"
                   @click="captcha"
                   :disabled="isDisabledCode"
                 >
@@ -100,7 +98,6 @@
               <el-form-item label="验证码" class="title-item"></el-form-item>
               <el-form-item prop="code">
                 <el-input
-                  size="large"
                   type="text"
                   v-model.trim="registerForm.code"
                   placeholder="请输入验证码"
@@ -109,7 +106,6 @@
               <el-form-item label="新密码" class="title-item"></el-form-item>
               <el-form-item prop="password">
                 <el-input
-                  size="large"
                   type="password"
                   v-model.trim="registerForm.password"
                   placeholder="请输入新密码"
@@ -118,7 +114,6 @@
               <el-form-item label="确认密码" class="title-item"></el-form-item>
               <el-form-item>
                 <el-input
-                  size="large"
                   type="password"
                   v-model.trim="passwordConfirm"
                   placeholder="请确认密码"
@@ -126,9 +121,9 @@
                 />
               </el-form-item>
             </el-form>
-            <!-- <div class="link" v-if="isRegister">
+            <div class="link" v-if="isRegister">
               <div class="text" @click="handleRegister">没有账号？前往注册</div>
-            </div> -->
+            </div>
             <div
               class="login-btn"
               @click="login(loginFormRef)"
@@ -217,24 +212,31 @@ const registerForm = reactive({
   code: "",
 });
 const registerRules = reactive({
-  userName: [{ required: true, message: "请输入账号", trigger: "blur" }],
+  userName: [
+    { required: true, message: "请输入用户名", trigger: "blur" },
+    { min: 2, message: "用户名需大于两位", trigger: "blur" },
+  ],
   phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
   code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
-  password: [{ required: true, message: "请输入薪密码", trigger: "blur" }],
+  password: [
+    { required: true, message: "请输入新的密码", trigger: "blur" },
+    { min: 6, message: "密码需大于六位", trigger: "blur" },
+  ],
 });
 const handleRegister = () => {
   isRegister.value = !isRegister.value;
 };
 const register = async (formEl) => {
   if (!formEl) return;
-  await formEl.validate((valid) => {
+  await formEl.validate(async (valid) => {
     if (valid) {
       try {
         if (registerForm.password != passwordConfirm.value) {
           ElMessage.error("两次密码输入不一致");
           return;
         }
-        registerFun(registerForm);
+        await registerFun(registerForm);
+        handleRegister();
       } catch (error) {
         ElMessage({
           message: error.message,
@@ -388,7 +390,7 @@ onMounted(async () => {
           }
           .registerForm {
             :deep(.el-form-item) {
-              margin-bottom: 1px;
+              margin-bottom: 5px;
             }
           }
         }
