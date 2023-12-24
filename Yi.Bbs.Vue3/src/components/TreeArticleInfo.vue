@@ -65,9 +65,8 @@ const handleNodeClick = (data) => {
   emits("handleNodeClick", data);
 };
 const { isHasPermission: isAddArticle } = getPermission("bbs:article:add");
-const { isHasPermission: isEditArticle } = getPermission("bbs:article:edit");
-const { isHasPermission: isRemoveArticle } =
-  getPermission("bbs:article:remove");
+const { isHasPermission: isEditArticle } = getPermission("bbs:article:update");
+const { isHasPermission: isRemoveArticle } = getPermission("bbs:article:del");
 </script>
 <style scoped>
 .custom-tree-node {

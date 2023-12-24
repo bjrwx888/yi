@@ -225,8 +225,8 @@ const loadArticleData = async () => {
 const isDisabledCreateComment = ref(false);
 const isArticleUser = ref(false);
 const { isHasPermission: isAddArticle } = getPermission("bbs:article:add");
-const { isHasPermission: isEditTheme } = getPermission("bbs:discuss:edit");
-const { isHasPermission: isRemoveTheme } = getPermission("bbs:discuss:remove");
+const { isHasPermission: isEditTheme } = getPermission("bbs:discuss:update");
+const { isHasPermission: isRemoveTheme } = getPermission("bbs:discuss:del");
 const loadDiscuss = async (isRewrite) => {
   if (isRewrite) {
     //跳转路由
