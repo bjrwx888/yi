@@ -43,6 +43,8 @@
 <script setup>
 import useUserStore from "@/stores/user";
 import { reactive, watch, onMounted, computed, ref } from "vue";
+import { upload } from "@/apis/fileApi";
+
 //userInfo
 //{icon,name,role,id},根据判断userInfo是否等于未定义，来觉得是当前登录用户信息，还是其他人信息
 const props = defineProps([
@@ -62,15 +64,16 @@ const userInfo = reactive({
   userLimit: "",
 });
 const iconUrl = ref("/favicon.ico");
-const iconUrlHandler = () => {
+const iconUrlHandler = (icon) => {
   if (
     userInfo.icon == null ||
     userInfo.icon == undefined ||
     userInfo.icon == ""
   ) {
     return "/favicon.ico";
+  } else {
+    return import.meta.env.VITE_APP_BASEAPI + "/file/" + icon;
   }
-  return `/favicon.ico`;
 };
 
 watch(userStore, (n) => {
