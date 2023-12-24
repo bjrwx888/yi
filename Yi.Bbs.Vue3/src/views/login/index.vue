@@ -25,7 +25,6 @@
               <el-form-item label="用户名" class="title-item"></el-form-item>
               <el-form-item prop="userName">
                 <el-input
-                  size="large"
                   type="text"
                   v-model="loginForm.userName"
                   placeholder="请输入用户名"
@@ -34,7 +33,6 @@
               <el-form-item label="密码" class="title-item"></el-form-item>
               <el-form-item prop="password">
                 <el-input
-                  size="large"
                   type="password"
                   v-model="loginForm.password"
                   placeholder="请输入密码"
@@ -46,7 +44,6 @@
                 <el-col :span="18">
                   <el-form-item prop="phone">
                     <el-input
-                      size="large"
                       type="text"
                       v-model.trim="loginForm.code"
                       placeholder="请输入验证码"
