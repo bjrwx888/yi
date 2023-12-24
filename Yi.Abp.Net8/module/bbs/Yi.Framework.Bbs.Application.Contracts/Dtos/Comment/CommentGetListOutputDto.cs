@@ -32,6 +32,9 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
         /// </summary>
         public BbsUserGetOutputDto CreateUser { get; set; }
 
+
+        public Guid? CreatorId { get; set; }
+
         /// <summary>
         /// 被评论的用户信息
         /// </summary>

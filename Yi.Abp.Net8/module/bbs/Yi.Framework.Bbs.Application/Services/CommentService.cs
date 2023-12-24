@@ -57,31 +57,37 @@ namespace Yi.Framework.Bbs.Application.Services
               .Includes(x => x.CreateUser)
              .ToListAsync();
 
-            //结果初始值，第一层等于全部根节点
-            var outPut = entities.Where(x => x.ParentId == Guid.Empty).OrderByDescending(x => x.CreationTime).ToList();
-            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
-            List<CommentGetListOutputDto> outoutDto = await MapToGetListOutputDtosAsync(outPut);
+            //该实体需要进行转换
 
             //同时为所有用户id进行bbs的扩展即可
-            List<Guid> userIds = outoutDto.Where(x => x.CommentedUser is not null).Select(x => x.CommentedUser.Id).Union(outoutDto.Select(x => x.CreateUser.Id)).ToList();
+            List<Guid> userIds = entities.Where(x => x.CreatorId != null).Select(x => x.CreatorId ?? Guid.Empty).ToList();
             var bbsUserInfoDic = (await _bbsUserManager.GetBbsUserInfoAsync(userIds)).ToDictionary(x => x.Id);
 
-            foreach (var singleOutput in outoutDto)
-            {
-                if (singleOutput.CommentedUser is not null)
-                {
-                    singleOutput.CommentedUser = bbsUserInfoDic[singleOutput.CommentedUser.Id].Adapt<BbsUserGetOutputDto>();
-                }
-           
-                singleOutput.CreateUser = bbsUserInfoDic[singleOutput.CreateUser.Id].Adapt<BbsUserGetOutputDto>();
-            }
-            //数据查询完成
 
+
+
+
+            //------数据查询完成------
+
+
+
+
+
+            //从根目录开始组装
+            //结果初始值，第一层等于全部根节点
+            var allOutPut = entities.OrderByDescending(x => x.CreationTime).ToList();
+
+            //获取全量主题评论， 先获取顶级的，将其他子组合到顶级下，形成一个二维,先转成dto
+            List<CommentGetListOutputDto> allOutoutDto = await MapToGetListOutputDtosAsync(allOutPut);
+
+            //开始映射额外用户信息字段
+            allOutoutDto?.ForEach(x => x.CreateUser = bbsUserInfoDic[x.CreatorId ?? Guid.Empty].Adapt<BbsUserGetOutputDto>());
 
             //开始组装dto的层级关系
             //将全部数据进行hash
-            var dic = outoutDto.ToDictionary(x => x.Id);
-            foreach (var comment in outoutDto)
+            var dic = allOutoutDto.ToDictionary(x => x.Id);
+
+            foreach (var comment in allOutoutDto)
             {
                 //不是根节点，需要赋值 被评论者用户信息等
                 if (comment.ParentId != Guid.Empty)
@@ -106,7 +112,8 @@ namespace Yi.Framework.Bbs.Application.Services
             }
 
             //子类需要排序
-            outPut.ForEach(x =>
+           var rootOutoutDto= allOutoutDto.Where(x => x.ParentId == Guid.Empty).ToList();
+            rootOutoutDto?.ForEach(x =>
             {
                 x.Children = x.Children.OrderByDescending(x => x.CreationTime).ToList();
 
@@ -114,7 +121,7 @@ namespace Yi.Framework.Bbs.Application.Services
 
 
 
-            return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), outoutDto);
+            return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), rootOutoutDto);
         }
 
 
