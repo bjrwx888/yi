@@ -152,6 +152,12 @@
         </div>
       </div>
     </div>
+    <div class="login-footer">
+      <div class="info">站长：{{ configStore.author }}</div>
+      <div class="info btn">联系我们</div>
+      <div class="info btn">关于本站</div>
+      <div class="info btn">建议反馈</div>
+    </div>
   </div>
 </template>
 <script setup>
@@ -160,7 +166,9 @@ import { useRouter, useRoute } from "vue-router";
 import useAuths from "@/hooks/useAuths";
 import { getCodePhone } from "@/apis/accountApi";
 import useUserStore from "@/stores/user";
+import useConfigStore from "@/stores/config";
 
+const configStore = useConfigStore();
 const { loginFun, registerFun } = useAuths();
 const router = useRouter();
 const route = useRoute();
@@ -296,8 +304,9 @@ onMounted(async () => {
 <style scoped lang="scss">
 .login {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   background: url("@/assets/login_images/login_bg.jpg") no-repeat;
@@ -422,6 +431,23 @@ onMounted(async () => {
             }
           }
         }
+      }
+    }
+  }
+  &-footer {
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    color: #eee;
+    font-size: 14px;
+    .info {
+      margin: 0 10px;
+    }
+    .btn {
+      cursor: pointer;
+      &:hover {
+        color: #fff;
       }
     }
   }
