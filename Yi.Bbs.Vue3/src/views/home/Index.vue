@@ -160,7 +160,7 @@ const statisOptions = computed(() => {
 </script>
 <style scoped lang="scss">
 .home-box {
-  width: 100%;
+  width: 1300px;
   height: 100%;
   .introduce {
     color: rgba(0, 0, 0, 0.45);

@@ -11,10 +11,8 @@
   background-color: #f0f2f5;
 }
 .content-main {
-  margin: 0 auto;
   display: flex;
   justify-content: center;
-  width: 1300px;
   min-height: 1150px;
 }
 </style>

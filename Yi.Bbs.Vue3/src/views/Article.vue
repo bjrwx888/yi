@@ -393,7 +393,6 @@ watch(
 </script>
 <style scoped lang="scss">
 .article-box {
-  position: absolute;
   width: 1400px;
   height: 100%;
   .comment {

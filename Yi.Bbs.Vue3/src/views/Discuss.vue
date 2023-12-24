@@ -208,7 +208,7 @@ watch(
 </script>
 <style scoped lang="scss">
 .discuss-box {
-  width: 100%;
+  width: 1300px;
   height: 100%;
   .el-pagination {
     margin: 2rem 0rem 2rem 0rem;
