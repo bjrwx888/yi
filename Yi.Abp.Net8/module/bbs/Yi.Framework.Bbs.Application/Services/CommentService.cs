@@ -1,4 +1,5 @@
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp;
@@ -7,9 +8,12 @@ using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Comment;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Ddd.Application;
+using Yi.Framework.Rbac.Domain.Authorization;
+using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Application.Services
@@ -28,7 +32,7 @@ namespace Yi.Framework.Bbs.Application.Services
             _discussRepository = discussRepository;
             _discussService = discussService;
             _repository = CommentRepository;
-            _bbsUserManager=bbsUserManager;
+            _bbsUserManager = bbsUserManager;
         }
 
         private ForumManager _forumManager { get; set; }
@@ -60,7 +64,7 @@ namespace Yi.Framework.Bbs.Application.Services
 
             //同时为所有用户id进行bbs的扩展即可
             List<Guid> userIds = outoutDto.Select(x => x.CommentedUser.Id).Union(outoutDto.Select(x => x.CreateUser.Id)).ToList();
-            var bbsUserInfoDic=( await _bbsUserManager.GetBbsUserInfoAsync(userIds)).ToDictionary(x=>x.Id);
+            var bbsUserInfoDic = (await _bbsUserManager.GetBbsUserInfoAsync(userIds)).ToDictionary(x => x.Id);
 
             foreach (var singleOutput in outoutDto)
             {
@@ -71,8 +75,8 @@ namespace Yi.Framework.Bbs.Application.Services
 
 
             //开始组装dto的层级关系
-             //将全部数据进行hash
-             var dic = outoutDto.ToDictionary(x => x.Id);
+            //将全部数据进行hash
+            var dic = outoutDto.ToDictionary(x => x.Id);
             foreach (var comment in outoutDto)
             {
                 //不是根节点，需要赋值 被评论者用户信息等
@@ -104,7 +108,7 @@ namespace Yi.Framework.Bbs.Application.Services
 
             });
 
-       
+
 
             return new PagedResultDto<CommentGetListOutputDto>(entities.Count(), outoutDto);
         }
@@ -116,6 +120,8 @@ namespace Yi.Framework.Bbs.Application.Services
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
+        [Permission("bbs:comment:add")]
+        [Authorize]
         public override async Task<CommentGetOutputDto> CreateAsync(CommentCreateInputVo input)
         {
             var discuess = await _discussRepository.GetFirstAsync(x => x.Id == input.DiscussId);
@@ -123,12 +129,14 @@ namespace Yi.Framework.Bbs.Application.Services
             {
                 throw new UserFriendlyException(DiscussConst.No_Exist);
             }
+            //不是超级管理员，且主题开启禁止评论
 
-            if (discuess.IsDisableCreateComment == true)
+            if (discuess.IsDisableCreateComment == true && !CurrentUser.GetPermissions().Contains(UserConst.AdminPermissionCode))
             {
                 throw new UserFriendlyException("该主题已禁止评论功能");
-
             }
+
+
             var entity = await _forumManager.CreateCommentAsync(input.DiscussId, input.ParentId, input.RootId, input.Content);
             return await MapToGetOutputDtoAsync(entity);
         }

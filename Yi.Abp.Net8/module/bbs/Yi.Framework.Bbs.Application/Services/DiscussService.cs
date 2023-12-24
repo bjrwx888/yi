@@ -17,6 +17,7 @@ using Yi.Framework.Bbs.Domain.Shared.Enums;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
+using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
@@ -170,6 +171,8 @@ namespace Yi.Framework.Bbs.Application.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Permission("bbs:discuss:add")]
+        [Authorize]
         public override async Task<DiscussGetOutputDto> CreateAsync(DiscussCreateInputVo input)
         {
             var plate = await _plateEntityRepository.FindAsync(x => x.Id == input.PlateId);
@@ -181,14 +184,12 @@ namespace Yi.Framework.Bbs.Application.Services
             //如果开启了禁用创建主题
             if (plate.IsDisableCreateDiscuss == true)
             {
-
-                if (!CurrentUser.GetPermissions().Contains("") && CurrentUser.UserName != UserConst.Admin)
+                //只有超级管理员权限才能进行发布
+                if (!CurrentUser.GetPermissions().Contains(UserConst.AdminPermissionCode))
                 {
                     throw new UserFriendlyException("该板块已禁止创建主题，请在其他板块中发布");
                 }
             }
-
-
 
             var entity = await _forumManager.CreateDiscussAsync(await MapToEntityAsync(input));
             return await MapToGetOutputDtoAsync(entity);

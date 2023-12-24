@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ using Yi.Framework.Bbs.Domain.Repositories;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Core.Extensions;
 using Yi.Framework.Ddd.Application;
+using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -97,6 +99,8 @@ namespace Yi.Framework.Bbs.Application.Services
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
+        [Permission("bbs:article:add")]
+        [Authorize]
         public async override Task<ArticleGetOutputDto> CreateAsync(ArticleCreateInputVo input)
         {
             await VerifyDiscussCreateIdAsync(input.DiscussId);
@@ -144,13 +148,25 @@ namespace Yi.Framework.Bbs.Application.Services
             {
                 throw new UserFriendlyException(DiscussConst.No_Exist);
             }
-            //只有文章是特殊的，不能在其他主题下创建
-            //主题的创建者不是当前用户，同时，没有权限或者超级管理
-            //false  & true  & false  ,三个条件任意满意一个，即可成功使用||，最后取反，一个都不满足
 
+            //这块有点绕，这个版本的写法比较清晰
+            bool result = false;
 
-            //一个条件都不满足，即可拦截
-            if (discuss.CreatorId != CurrentUser.Id && !UserConst.Admin.Equals(this.CurrentUser.UserName) && !CurrentUser.GetPermissions().Contains("bbs:discuss:add"))
+            if (this.CurrentUser.GetPermissions().Contains(UserConst.AdminPermissionCode))
+            {
+                //如果是超管,直接跳过
+                result = true;
+            }
+            else
+            {
+                //如果不是超管,必须满足作者是自己，同时还有发布的权限
+                if (discuss.CreatorId == CurrentUser.Id)
+                {
+                    result = true;
+                }
+            }
+
+            if (!result)
             {
                 throw new UserFriendlyException("权限不足，请联系主题作者或管理员申请开通");
             }
