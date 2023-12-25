@@ -40,8 +40,6 @@ const props = defineProps({
   },
 });
 
-console.log(props.friendData, "friendData");
-
 const statusTypeList = [
   {
     label: "正常",

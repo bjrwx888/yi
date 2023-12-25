@@ -97,6 +97,18 @@
               </template>
             </InfoCard>
           </el-col>
+          <el-col :span="24">
+            <InfoCard
+              :items="themeList"
+              header="推荐主题"
+              text="更多"
+              height="400"
+            >
+              <template #item="temp">
+                <ThemeData :themeData="temp" />
+              </template>
+            </InfoCard>
+          </el-col>
 
           <el-col :span="24" style="background: transparent">
             <BottomInfo />
@@ -121,9 +133,14 @@ import { getList } from "@/apis/plateApi.js";
 import { getList as bannerGetList } from "@/apis/bannerApi.js";
 import { getHomeDiscuss } from "@/apis/discussApi.js";
 import { getWeek } from "@/apis/accessApi.js";
-import { getRecommendedFriend, getRankingPoints } from "@/apis/analyseApi.js";
+import {
+  getRecommendedTopic,
+  getRecommendedFriend,
+  getRankingPoints,
+} from "@/apis/analyseApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
+import ThemeData from "./components/RecommendTheme/index.vue";
 
 const plateList = ref([]);
 const discussList = ref([]);
@@ -131,6 +148,7 @@ const bannerList = ref([]);
 const weekList = ref([]);
 const pointList = ref([]);
 const friendList = ref([]);
+const themeList = ref([]);
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -155,6 +173,8 @@ onMounted(async () => {
   pointList.value = pointData;
   const { data: friendData } = await getRecommendedFriend();
   friendList.value = friendData;
+  const { data: themeData } = await getRecommendedTopic();
+  themeList.value = themeData;
 });
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
