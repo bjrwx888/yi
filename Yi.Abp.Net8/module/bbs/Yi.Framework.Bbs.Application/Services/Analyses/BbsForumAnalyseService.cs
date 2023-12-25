@@ -33,7 +33,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                          .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
 
-                            .OrderBy(x => SqlFunc.GetRandom())
+                            .OrderBy(discuss => SqlFunc.GetRandom())
                            .Select((discuss, user, info) => new DiscussGetListOutputDto
                            {
                                Id = discuss.Id,
