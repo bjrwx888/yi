@@ -1,17 +1,24 @@
 <template>
-  <div class="point-box">
+  <div class="friend-box">
     <div class="left">
       <div class="icon"><img :src="userImageSrc" alt="" /></div>
     </div>
     <div class="center">
       <div class="top">
+        <div class="name">
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            :content="friendData.userName"
+            placement="top"
+          >
+            {{ friendData.userName }}
+          </el-tooltip>
+        </div>
         <el-tag effect="light" :type="userLimit.type">
           {{ userLimit.label }}
         </el-tag>
-        <el-tag effect="light" type="success">{{ pointsData.level }}</el-tag>
-      </div>
-      <div class="bottom">
-        {{ pointsData.userName }}
+        <el-tag effect="light" type="success">{{ friendData.level }}</el-tag>
       </div>
     </div>
     <div class="right">
@@ -23,15 +30,17 @@
   </div>
 </template>
 
-<script setup name="PointsRanking">
+<script setup name="RecommendFriend">
 import { defineProps, computed } from "vue";
 
 const props = defineProps({
-  pointsData: {
+  friendData: {
     type: Array,
     default: () => [],
   },
 });
+
+console.log(props.friendData, "friendData");
 
 const statusTypeList = [
   {
@@ -55,10 +64,10 @@ const getStatusInfo = (type) => {
   return statusTypeList.filter((item) => item.value === type)[0];
 };
 
-const userLimit = computed(() => getStatusInfo(props.pointsData.userLimit));
+const userLimit = computed(() => getStatusInfo(props.friendData.userLimit));
 const userImageSrc = computed(() => {
-  if (props.pointsData.icon) {
-    return import.meta.env.VITE_APP_BASEAPI + "/file/" + props.pointsData.icon;
+  if (props.friendData.icon) {
+    return import.meta.env.VITE_APP_BASEAPI + "/file/" + props.friendData.icon;
   } else {
     return "favicon.ico";
   }
@@ -66,7 +75,7 @@ const userImageSrc = computed(() => {
 </script>
 
 <style lang="scss">
-.point-box {
+.friend-box {
   width: 100%;
   height: 50px;
   display: flex;
@@ -90,17 +99,20 @@ const userImageSrc = computed(() => {
     justify-content: space-between;
     padding: 0 10px;
     .top {
-      > .el-tag {
-        margin-right: 10px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .name {
+        width: 50px;
+        color: #252933;
+        margin-left: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-    }
-    .bottom {
-      width: 200px;
-      color: #252933;
-      margin-left: 5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      > .el-tag {
+        margin: 0 10px;
+      }
     }
   }
   .right {
