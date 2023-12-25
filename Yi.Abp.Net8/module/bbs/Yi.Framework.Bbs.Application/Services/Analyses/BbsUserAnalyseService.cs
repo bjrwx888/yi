@@ -22,7 +22,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         }
 
         /// <summary>
-        /// 推荐好友，随机返回好友列表
+        /// 推荐主题，随机返回主题列表
         /// </summary>
         /// <returns></returns>
         [HttpGet("analyse/bbs-discuss/random")]
