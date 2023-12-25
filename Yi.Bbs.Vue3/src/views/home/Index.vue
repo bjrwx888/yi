@@ -73,11 +73,12 @@
           </el-col>
 
           <el-col :span="24">
-            <InfoCard :items="items" header="本月排行" text="更多">
+            <InfoCard :items="pointList" header="本月排行" text="更多">
               <template #item="temp">
-                <AvatarInfo>
+                <!-- <AvatarInfo>
                   <template #bottom> 本月积分：290 </template>
-                </AvatarInfo>
+                </AvatarInfo> -->
+                <PointsRanking :pointsData="temp" />
               </template>
             </InfoCard>
           </el-col>
@@ -107,18 +108,20 @@ import PlateCard from "@/components/PlateCard.vue";
 import ScrollbarInfo from "@/components/ScrollbarInfo.vue";
 import AvatarInfo from "@/components/AvatarInfo.vue";
 import BottomInfo from "@/components/BottomInfo.vue";
-import VisitsLineChart from "./components/VisitsLineChart.vue";
-
+import VisitsLineChart from "./components/VisitsLineChart/index.vue";
 import { access } from "@/apis/accessApi.js";
 import { getList } from "@/apis/plateApi.js";
 import { getList as bannerGetList } from "@/apis/bannerApi.js";
 import { getHomeDiscuss } from "@/apis/discussApi.js";
 import { getWeek } from "@/apis/accessApi.js";
+import { getRecommendedFriend, getRankingPoints } from "@/apis/analyseApi.js";
+import PointsRanking from "./components/PointsRanking/index.vue";
 
-var plateList = ref([]);
-var discussList = ref([]);
-var bannerList = ref([]);
+const plateList = ref([]);
+const discussList = ref([]);
+const bannerList = ref([]);
 const weekList = ref([]);
+const pointList = ref([]);
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -139,6 +142,8 @@ onMounted(async () => {
   bannerList.value = bannerData.items;
   const { data: weekData } = await getWeek();
   weekList.value = weekData;
+  const { data: pointData } = await getRankingPoints();
+  pointList.value = pointData;
 });
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
