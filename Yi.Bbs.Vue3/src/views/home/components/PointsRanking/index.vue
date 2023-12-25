@@ -11,7 +11,16 @@
         <el-tag effect="light" type="success">{{ pointsData.level }}</el-tag>
       </div>
       <div class="bottom">
-        {{ pointsData.userName }}
+        <div class="name">
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            :content="pointsData.userName"
+            placement="top"
+          >
+            {{ pointsData.userName }}
+          </el-tooltip>
+        </div>
       </div>
     </div>
     <div class="right">
@@ -95,12 +104,16 @@ const userImageSrc = computed(() => {
       }
     }
     .bottom {
-      width: 200px;
-      color: #252933;
-      margin-left: 5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      width: 180px;
+      .name {
+        cursor: pointer;
+        width: 100%;
+        color: #252933;
+        margin-left: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
   .right {

@@ -73,7 +73,12 @@
           </el-col>
 
           <el-col :span="24">
-            <InfoCard :items="pointList" header="本月排行" text="更多">
+            <InfoCard
+              :items="pointList"
+              header="本月排行"
+              text="更多"
+              height="400"
+            >
               <template #item="temp">
                 <PointsRanking :pointsData="temp" />
               </template>
@@ -81,7 +86,12 @@
           </el-col>
 
           <el-col :span="24">
-            <InfoCard :items="friendList" header="推荐好友" text="更多">
+            <InfoCard
+              :items="friendList"
+              header="推荐好友"
+              text="更多"
+              height="400"
+            >
               <template #item="temp">
                 <RecommendFriend :friendData="temp" />
               </template>

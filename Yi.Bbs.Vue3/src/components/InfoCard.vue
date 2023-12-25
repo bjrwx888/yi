@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
 
-const props = defineProps(["items", "header", "text", "hideDivider"]);
+const props = defineProps(["items", "header", "text", "hideDivider", "height"]);
+const height = ref(props.height + "px");
 </script>
 
 <template>
@@ -14,15 +15,16 @@ const props = defineProps(["items", "header", "text", "hideDivider"]);
     </template>
 
     <slot name="content" />
-
-    <div v-for="(item, i) in props.items">
-      <div class="text item">
-        <slot name="item" v-bind="item" />
+    <el-scrollbar :height="height">
+      <div v-for="(item, i) in props.items">
+        <div class="text item">
+          <slot name="item" v-bind="item" />
+        </div>
+        <el-divider
+          v-if="i != props.items.length - 1 && hideDivider == undefined"
+        />
       </div>
-      <el-divider
-        v-if="i != props.items.length - 1 && hideDivider == undefined"
-      />
-    </div>
+    </el-scrollbar>
   </el-card>
 </template>
 
@@ -47,5 +49,7 @@ const props = defineProps(["items", "header", "text", "hideDivider"]);
 
 .box-card {
   width: 100%;
+  height: v-bind(height);
+  padding-bottom: 10px;
 }
 </style>
