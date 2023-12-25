@@ -5,7 +5,7 @@
 <script setup name="VisitsLineChart">
 import { ref, defineEmits, defineProps, defineExpose } from "vue";
 import useEcharts from "@/hooks/useEcharts";
-import { statisticsEcharts } from "../hooks/echartsConfig";
+import { statisticsEcharts } from "../../hooks/echartsConfig";
 const props = defineProps({
   option: {
     type: Object,

@@ -26,7 +26,7 @@ import { onMounted } from "vue";
 const props = defineProps(["name", "introduction", "id", "isPublish"]);
 </script>
 
-<style>
+<style scoped>
 .remarks {
   font-size: 12px;
   color: #999;
