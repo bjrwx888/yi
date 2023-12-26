@@ -69,10 +69,14 @@
       </el-collapse-item>
     </el-collapse>
     <el-divider v-show="topDiscussList.length > 0" />
-
-    <div class="div-item" v-for="i in discussList">
-      <DisscussCard :discuss="i" />
-    </div>
+    <template v-if="discussList.length > 0">
+      <div class="div-item" v-for="i in discussList">
+        <DisscussCard :discuss="i" />
+      </div>
+    </template>
+    <template v-else>
+      <Skeleton :isBorder="true" />
+    </template>
     <div>
       <el-pagination
         v-model:current-page="query.skipCount"
@@ -108,6 +112,7 @@ import BottomInfo from "@/components/BottomInfo.vue";
 import { getPermission } from "@/utils/auth";
 import useAuths from "@/hooks/useAuths";
 import { Session } from "@/utils/storage";
+import Skeleton from "@/components/Skeleton/index.vue";
 
 const { getToken, clearStorage } = useAuths();
 //数据定义
