@@ -30,9 +30,16 @@
           <template v-else>
             <Skeleton :isBorder="true" />
           </template>
+          <template v-if="allDiscussList.length > 0">
+            <el-col :span="24" v-for="i in allDiscussList">
+              <DisscussCard :discuss="i" />
+            </el-col>
+          </template>
+          <template v-else>
+            <Skeleton :isBorder="true" />
+          </template>
         </el-row>
       </el-col>
-
       <el-col :span="7">
         <el-row class="right-div">
           <el-col :span="24">
@@ -143,7 +150,6 @@ import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
 import ScrollbarInfo from "@/components/ScrollbarInfo.vue";
-import AvatarInfo from "@/components/AvatarInfo.vue";
 import BottomInfo from "@/components/BottomInfo.vue";
 import VisitsLineChart from "./components/VisitsLineChart/index.vue";
 import { access } from "@/apis/accessApi.js";
@@ -156,6 +162,7 @@ import {
   getRecommendedFriend,
   getRankingPoints,
 } from "@/apis/analyseApi.js";
+import { getList as getAllDiscussList } from "@/apis/discussApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
@@ -168,6 +175,7 @@ const weekList = ref([]);
 const pointList = ref([]);
 const friendList = ref([]);
 const themeList = ref([]);
+const allDiscussList = ref([]);
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -194,6 +202,12 @@ onMounted(async () => {
   friendList.value = friendData;
   const { data: themeData } = await getRecommendedTopic();
   themeList.value = themeData;
+  const { data: allDiscussData } = await getAllDiscussList({
+    Type: 0,
+    skipCount: 1,
+    maxResultCount: 5,
+  });
+  allDiscussList.value = allDiscussData.items;
 });
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
