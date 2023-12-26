@@ -153,8 +153,8 @@ namespace Yi.Framework.Bbs.Application.Services
                         Address = user.Address,
                         Age = user.Age,
                         CreationTime = user.CreationTime,
- 
-                       Level=info.Level,
+                        IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
+                        Level =info.Level,
                        Introduction = user.Introduction,
                        Icon= user.Icon,
                        Nick= user.Nick,
