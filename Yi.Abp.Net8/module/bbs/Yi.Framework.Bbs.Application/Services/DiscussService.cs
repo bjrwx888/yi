@@ -144,6 +144,7 @@ namespace Yi.Framework.Bbs.Application.Services
                 .Select((top, discuss, user, info) => new DiscussGetListOutputDto
                 {
                     Id = discuss.Id,
+                    IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
                     User = new BbsUserGetListOutputDto
                     {
                         Id = user.Id,
@@ -153,7 +154,7 @@ namespace Yi.Framework.Bbs.Application.Services
                         Address = user.Address,
                         Age = user.Age,
                         CreationTime = user.CreationTime,
-                        IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
+                   
                         Level =info.Level,
                        Introduction = user.Introduction,
                        Icon= user.Icon,
