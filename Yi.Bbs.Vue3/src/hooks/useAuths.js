@@ -28,7 +28,7 @@ export default function useAuths(opt) {
 
   // 获取token
   const getToken = () => {
-    return Session.get(TokenKey);
+    return Local.get(TokenKey);
   };
 
   // 存储token到cookies
@@ -36,13 +36,13 @@ export default function useAuths(opt) {
     if (token == null) {
       return false;
     }
-    Session.set(TokenKey, token);
+    Local.set(TokenKey, token);
     return true;
   };
 
   // 删除token
   const removeToken = () => {
-    Session.remove(TokenKey);
+    Local.remove(TokenKey);
     return true;
   };
 
