@@ -22,16 +22,14 @@
               :isPublish="i.isDisableCreateDiscuss"
             />
           </el-col>
-
-          <el-col :span="24" v-for="i in discussList">
-            <DisscussCard :discuss="i" />
-          </el-col>
-          <el-col :span="24">
-            <el-empty
-              v-show="discussList.length <= 0"
-              description="推荐位置，空空如也"
-            />
-          </el-col>
+          <template v-if="discussList.length > 0">
+            <el-col :span="24" v-for="i in discussList">
+              <DisscussCard :discuss="i" />
+            </el-col>
+          </template>
+          <template v-else>
+            <Skeleton :isBorder="true" />
+          </template>
         </el-row>
       </el-col>
 
@@ -71,43 +69,63 @@
               </template>
             </InfoCard>
           </el-col>
-
           <el-col :span="24">
-            <InfoCard
-              :items="pointList"
-              header="本月排行"
-              text="更多"
-              height="400"
-            >
-              <template #item="temp">
-                <PointsRanking :pointsData="temp" />
-              </template>
-            </InfoCard>
+            <template v-if="pointList.length > 0">
+              <InfoCard
+                :items="pointList"
+                header="本月排行"
+                text="更多"
+                height="400"
+              >
+                <template #item="temp">
+                  <PointsRanking :pointsData="temp" />
+                </template>
+              </InfoCard>
+            </template>
+            <template v-else>
+              <InfoCard header="本月排行" text="更多">
+                <template #content> <Skeleton /></template>
+              </InfoCard>
+            </template>
           </el-col>
 
           <el-col :span="24">
-            <InfoCard
-              :items="friendList"
-              header="推荐好友"
-              text="更多"
-              height="400"
-            >
-              <template #item="temp">
-                <RecommendFriend :friendData="temp" />
-              </template>
-            </InfoCard>
+            <template v-if="friendList.length > 0">
+              <InfoCard
+                :items="friendList"
+                header="推荐好友"
+                text="更多"
+                height="400"
+              >
+                <template #item="temp">
+                  <RecommendFriend :friendData="temp" />
+                </template>
+              </InfoCard>
+            </template>
+            <template v-else>
+              <InfoCard header="推荐好友" text="更多">
+                <template #content> <Skeleton /></template>
+              </InfoCard>
+            </template>
           </el-col>
           <el-col :span="24">
-            <InfoCard
-              :items="themeList"
-              header="推荐主题"
-              text="更多"
-              height="400"
-            >
-              <template #item="temp">
-                <ThemeData :themeData="temp" />
-              </template>
-            </InfoCard>
+            <template v-if="themeList.length > 0">
+              <InfoCard
+                :items="themeList"
+                header="推荐主题"
+                text="更多"
+                height="400"
+              >
+                <template #item="temp">
+                  <ThemeData :themeData="temp" />
+                </template>
+              </InfoCard>
+            </template>
+            <template v-else>
+              <InfoCard header="推荐主题" text="更多">
+                <template #content> <Skeleton /></template>
+              </InfoCard>
+            </template>
           </el-col>
 
           <el-col :span="24" style="background: transparent">
@@ -141,6 +159,7 @@ import {
 import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
+import Skeleton from "@/components/Skeleton/index.vue";
 
 const plateList = ref([]);
 const discussList = ref([]);
