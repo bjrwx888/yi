@@ -28,6 +28,8 @@ namespace Yi.Framework.Bbs.Domain.Entities
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }
         public bool IsDeleted { get; set; }
+
+        [SugarColumn(Length =500)]
         public string Content { get; set; }
 
         public Guid DiscussId { get; set; }
