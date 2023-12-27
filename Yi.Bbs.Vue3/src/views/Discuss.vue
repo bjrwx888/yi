@@ -69,7 +69,7 @@
       </el-collapse-item>
     </el-collapse>
     <el-divider v-show="topDiscussList.length > 0" />
-    <template v-if="discussList.length > 0">
+    <template v-if="isDiscussFinished">
       <div class="div-item" v-for="i in discussList">
         <DisscussCard :discuss="i" />
       </div>
@@ -121,6 +121,7 @@ const router = useRouter();
 const activeName = ref("new");
 //主题内容
 const discussList = ref([]);
+const isDiscussFinished = ref(false);
 //置顶主题内容
 const topDiscussList = ref([]);
 const total = ref(100);
@@ -158,6 +159,7 @@ const handleReset = () => {
 //加载discuss
 const loadDiscussList = async () => {
   const response = await getList(query);
+  isDiscussFinished.value = response.config.isFinish;
   discussList.value = response.data.items;
   total.value = Number(response.data.totalCount);
 
