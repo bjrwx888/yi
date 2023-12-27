@@ -22,7 +22,7 @@
               :isPublish="i.isDisableCreateDiscuss"
             />
           </el-col>
-          <template v-if="discussList.length > 0">
+          <template v-if="isDiscussFinished">
             <el-col :span="24" v-for="i in discussList">
               <DisscussCard :discuss="i" />
             </el-col>
@@ -30,7 +30,7 @@
           <template v-else>
             <Skeleton :isBorder="true" />
           </template>
-          <template v-if="allDiscussList.length > 0">
+          <template v-if="isAllDiscussFinished">
             <el-col :span="24" v-for="i in allDiscussList">
               <DisscussCard :discuss="i" />
             </el-col>
@@ -77,7 +77,7 @@
             </InfoCard>
           </el-col>
           <el-col :span="24">
-            <template v-if="pointList.length > 0">
+            <template v-if="isPointFinished">
               <InfoCard
                 :items="pointList"
                 header="本月排行"
@@ -97,7 +97,7 @@
           </el-col>
 
           <el-col :span="24">
-            <template v-if="friendList.length > 0">
+            <template v-if="isFriendFinished">
               <InfoCard
                 :items="friendList"
                 header="推荐好友"
@@ -116,7 +116,7 @@
             </template>
           </el-col>
           <el-col :span="24">
-            <template v-if="themeList.length > 0">
+            <template v-if="isThemeFinished">
               <InfoCard
                 :items="themeList"
                 header="推荐主题"
@@ -170,12 +170,17 @@ import Skeleton from "@/components/Skeleton/index.vue";
 
 const plateList = ref([]);
 const discussList = ref([]);
+const isDiscussFinished = ref(false);
 const bannerList = ref([]);
 const weekList = ref([]);
 const pointList = ref([]);
+const isPointFinished = ref(false);
 const friendList = ref([]);
+const isFriendFinished = ref(false);
 const themeList = ref([]);
+const isThemeFinished = ref([]);
 const allDiscussList = ref([]);
+const isAllDiscussFinished = ref(false);
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -190,23 +195,30 @@ onMounted(async () => {
   access();
   const { data: plateData } = await getList();
   plateList.value = plateData.items;
-  const { data: discussData } = await getHomeDiscuss();
+  const { data: discussData, config: discussConfig } = await getHomeDiscuss();
   discussList.value = discussData;
+  isDiscussFinished.value = discussConfig.isFinish;
   const { data: bannerData } = await bannerGetList();
   bannerList.value = bannerData.items;
   const { data: weekData } = await getWeek();
   weekList.value = weekData;
-  const { data: pointData } = await getRankingPoints();
+  const { data: pointData, config: pointConfig } = await getRankingPoints();
   pointList.value = pointData;
-  const { data: friendData } = await getRecommendedFriend();
+  isPointFinished.value = pointConfig.isFinish;
+  const { data: friendData, config: friendConfig } =
+    await getRecommendedFriend();
   friendList.value = friendData;
-  const { data: themeData } = await getRecommendedTopic();
+  isFriendFinished.value = friendConfig.isFinish;
+  const { data: themeData, config: themeConfig } = await getRecommendedTopic();
   themeList.value = themeData;
-  const { data: allDiscussData } = await getAllDiscussList({
-    Type: 0,
-    skipCount: 1,
-    maxResultCount: 5,
-  });
+  isThemeFinished.value = themeConfig.isFinish;
+  const { data: allDiscussData, config: allDiscussConfig } =
+    await getAllDiscussList({
+      Type: 0,
+      skipCount: 1,
+      maxResultCount: 5,
+    });
+  isAllDiscussFinished.value = allDiscussConfig.isFinish;
   allDiscussList.value = allDiscussData.items;
 });
 

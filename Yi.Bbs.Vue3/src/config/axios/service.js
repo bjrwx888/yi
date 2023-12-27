@@ -17,6 +17,7 @@ const service = axios.create({
   timeout: request_timeout, // 请求超时时间
   headers: { "Content-Type": "application/json" },
   hideerror: false, //是否在底层显示错误信息
+  isFinish: false,
 });
 
 // 添加请求拦截器
@@ -41,9 +42,12 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
   (response) => {
+    const { config } = response;
+    config.isFinish = true;
     return Promise.resolve(response);
   },
   (error) => {
+    const { config } = error;
     // 对响应错误做点什么
     if (error.message.indexOf("timeout") != -1) {
       ElMessage({
@@ -86,6 +90,7 @@ service.interceptors.response.use(
         }
       }
     }
+    config.isFinish = true;
     return Promise.reject(error.response);
   }
 );
