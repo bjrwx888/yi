@@ -76,12 +76,13 @@ namespace Yi.Framework.SqlSugarCore
                 {
                     EntityService = (c, p) =>
                     {
-
                         if (new NullabilityInfoContext()
                         .Create(c).WriteState is NullabilityState.Nullable)
                         {
                             p.IsNullable = true;
                         }
+
+                        EntityService(c,p);
                     }
                 }
             },
@@ -234,6 +235,16 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="pars"></param>
         protected virtual void OnLogExecuted(string sql, SugarParameter[] pars)
         {
+        }
+
+        /// <summary>
+        /// 实体配置
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="column"></param>
+        protected virtual void EntityService(PropertyInfo property, EntityColumnInfo column)
+        { 
+        
         }
 
         public void BackupDataBase()
