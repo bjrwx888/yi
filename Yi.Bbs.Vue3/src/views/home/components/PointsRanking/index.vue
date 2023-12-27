@@ -8,7 +8,9 @@
         <el-tag effect="light" :type="userLimit.type">
           {{ userLimit.label }}
         </el-tag>
-        <el-tag effect="light" type="success">{{ pointsData.level }}</el-tag>
+        <el-tag effect="light" type="success"
+          >等级{{ pointsData.level }}</el-tag
+        >
       </div>
       <div class="bottom">
         <div class="name">

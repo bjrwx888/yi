@@ -18,7 +18,9 @@
         <el-tag effect="light" :type="userLimit.type">
           {{ userLimit.label }}
         </el-tag>
-        <el-tag effect="light" type="success">{{ friendData.level }}</el-tag>
+        <el-tag effect="light" type="success"
+          >等级{{ friendData.level }}</el-tag
+        >
       </div>
     </div>
     <div class="right">

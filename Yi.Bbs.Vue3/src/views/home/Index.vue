@@ -22,19 +22,24 @@
               :isPublish="i.isDisableCreateDiscuss"
             />
           </el-col>
-
-          <el-col :span="24" v-for="i in discussList">
-            <DisscussCard :discuss="i" />
-          </el-col>
-          <el-col :span="24">
-            <el-empty
-              v-show="discussList.length <= 0"
-              description="推荐位置，空空如也"
-            />
-          </el-col>
+          <template v-if="discussList.length > 0">
+            <el-col :span="24" v-for="i in discussList">
+              <DisscussCard :discuss="i" />
+            </el-col>
+          </template>
+          <template v-else>
+            <Skeleton :isBorder="true" />
+          </template>
+          <template v-if="allDiscussList.length > 0">
+            <el-col :span="24" v-for="i in allDiscussList">
+              <DisscussCard :discuss="i" />
+            </el-col>
+          </template>
+          <template v-else>
+            <Skeleton :isBorder="true" />
+          </template>
         </el-row>
       </el-col>
-
       <el-col :span="7">
         <el-row class="right-div">
           <el-col :span="24">
@@ -71,43 +76,63 @@
               </template>
             </InfoCard>
           </el-col>
-
           <el-col :span="24">
-            <InfoCard
-              :items="pointList"
-              header="本月排行"
-              text="更多"
-              height="400"
-            >
-              <template #item="temp">
-                <PointsRanking :pointsData="temp" />
-              </template>
-            </InfoCard>
+            <template v-if="pointList.length > 0">
+              <InfoCard
+                :items="pointList"
+                header="本月排行"
+                text="更多"
+                height="400"
+              >
+                <template #item="temp">
+                  <PointsRanking :pointsData="temp" />
+                </template>
+              </InfoCard>
+            </template>
+            <template v-else>
+              <InfoCard header="本月排行" text="更多">
+                <template #content> <Skeleton /></template>
+              </InfoCard>
+            </template>
           </el-col>
 
           <el-col :span="24">
-            <InfoCard
-              :items="friendList"
-              header="推荐好友"
-              text="更多"
-              height="400"
-            >
-              <template #item="temp">
-                <RecommendFriend :friendData="temp" />
-              </template>
-            </InfoCard>
+            <template v-if="friendList.length > 0">
+              <InfoCard
+                :items="friendList"
+                header="推荐好友"
+                text="更多"
+                height="400"
+              >
+                <template #item="temp">
+                  <RecommendFriend :friendData="temp" />
+                </template>
+              </InfoCard>
+            </template>
+            <template v-else>
+              <InfoCard header="推荐好友" text="更多">
+                <template #content> <Skeleton /></template>
+              </InfoCard>
+            </template>
           </el-col>
           <el-col :span="24">
-            <InfoCard
-              :items="themeList"
-              header="推荐主题"
-              text="更多"
-              height="400"
-            >
-              <template #item="temp">
-                <ThemeData :themeData="temp" />
-              </template>
-            </InfoCard>
+            <template v-if="themeList.length > 0">
+              <InfoCard
+                :items="themeList"
+                header="推荐主题"
+                text="更多"
+                height="400"
+              >
+                <template #item="temp">
+                  <ThemeData :themeData="temp" />
+                </template>
+              </InfoCard>
+            </template>
+            <template v-else>
+              <InfoCard header="推荐主题" text="更多">
+                <template #content> <Skeleton /></template>
+              </InfoCard>
+            </template>
           </el-col>
 
           <el-col :span="24" style="background: transparent">
@@ -125,7 +150,6 @@ import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
 import ScrollbarInfo from "@/components/ScrollbarInfo.vue";
-import AvatarInfo from "@/components/AvatarInfo.vue";
 import BottomInfo from "@/components/BottomInfo.vue";
 import VisitsLineChart from "./components/VisitsLineChart/index.vue";
 import { access } from "@/apis/accessApi.js";
@@ -138,9 +162,11 @@ import {
   getRecommendedFriend,
   getRankingPoints,
 } from "@/apis/analyseApi.js";
+import { getList as getAllDiscussList } from "@/apis/discussApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
+import Skeleton from "@/components/Skeleton/index.vue";
 
 const plateList = ref([]);
 const discussList = ref([]);
@@ -149,6 +175,7 @@ const weekList = ref([]);
 const pointList = ref([]);
 const friendList = ref([]);
 const themeList = ref([]);
+const allDiscussList = ref([]);
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -175,6 +202,12 @@ onMounted(async () => {
   friendList.value = friendData;
   const { data: themeData } = await getRecommendedTopic();
   themeList.value = themeData;
+  const { data: allDiscussData } = await getAllDiscussList({
+    Type: 0,
+    skipCount: 1,
+    maxResultCount: 5,
+  });
+  allDiscussList.value = allDiscussData.items;
 });
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
