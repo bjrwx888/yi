@@ -7,11 +7,8 @@
 
 //namespace Volo.Abp.AuditLogging.EntityFrameworkCore;
 
-//public class SqlSugarCoreAuditLogRepository : SqlSugarRepository<AuditLog, Guid>, IAuditLogRepository
+//public class SqlSugarCoreAuditLogRepository : SqlSugarNoConstraintsRepository<AuditLog,Guid>, IAuditLogRepository
 //{
-//    public SqlSugarCoreAuditLogRepository(ISugarDbContextProvider<ISqlSugarDbContext> sugarDbContextProvider) : base(sugarDbContextProvider)
-//    {
-//    }
 
 //    public virtual async Task<List<AuditLog>> GetListAsync(
 //        string sorting = null,
