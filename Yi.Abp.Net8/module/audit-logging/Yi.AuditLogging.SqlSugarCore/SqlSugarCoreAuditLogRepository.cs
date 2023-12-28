@@ -4,6 +4,7 @@ using System.Net;
 using Mapster;
 using SqlSugar;
 using Volo.Abp.Auditing;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Yi.AuditLogging.SqlSugarCore.Entities;

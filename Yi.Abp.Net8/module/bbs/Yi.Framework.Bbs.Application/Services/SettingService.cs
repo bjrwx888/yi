@@ -18,5 +18,13 @@ namespace Yi.Framework.Bbs.Application.Services
         {
             return Task.FromResult("你好世界");
         }
+
+
+        public List<string> GetIcon()
+        {
+
+            return Directory.GetFiles("wwwroot/icon").Select(x => "wwwroot/icon/"+ Path.GetFileName(x)).ToList();
+
+        }
     }
 }

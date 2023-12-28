@@ -21,13 +21,11 @@ namespace Yi.Framework.Rbac.Application.Services
     public class FileService : ApplicationService, IFileService
     {
         private readonly IRepository<FileAggregateRoot> _repository;
-        private readonly HttpContext _httpContext;
         private IGuidGenerator _guidGenerator;
-        public FileService(IRepository<FileAggregateRoot> repository, IHttpContextAccessor httpContextAccessor, IGuidGenerator guidGenerator)
+        public FileService(IRepository<FileAggregateRoot> repository, IGuidGenerator guidGenerator)
         {
             _guidGenerator = guidGenerator;
             _repository = repository;
-            _httpContext = httpContextAccessor.HttpContext;
         }
 
         /// <summary>

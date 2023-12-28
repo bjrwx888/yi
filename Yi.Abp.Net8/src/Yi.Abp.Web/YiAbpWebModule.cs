@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -150,6 +151,11 @@ namespace Yi.Abp.Web
 
             //swagger
             app.UseYiSwagger();
+           
+            //静态资源
+            app.UseStaticFiles("/api/app/wwwroot");
+            app.UseDefaultFiles();
+            app.UseDirectoryBrowser("/api/app/wwwroot");
 
             //工作单元
             app.UseUnitOfWork();
