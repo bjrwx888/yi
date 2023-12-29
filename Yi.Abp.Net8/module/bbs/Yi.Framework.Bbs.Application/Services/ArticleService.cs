@@ -161,11 +161,15 @@ namespace Yi.Framework.Bbs.Application.Services
 
                                 // 将字节转换成字符串
                                 var content = Encoding.UTF8.GetString(bytes);
-                                fileObjs.Add(new FileObject() { FileName=item.FileName,Content=content});
+                                fileObjs.Add(new FileObject() { FileName = item.FileName, Content = content });
                             }
                         }
                     }
                 }
+            }
+            else
+            {
+                throw new UserFriendlyException("未选择文件");
             }
             //使用简单工厂根据传入的类型进行判断
             await _forumManager.PostImportAsync(input.DiscussId, fileObjs, input.ImportType);

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Domain.Services;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Managers.ArticleImport;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 using Yi.Framework.Bbs.Domain.Shared.Model;
 using Yi.Framework.SqlSugarCore.Abstractions;
@@ -16,11 +17,13 @@ namespace Yi.Framework.Bbs.Domain.Managers
         public readonly ISqlSugarRepository<DiscussEntity, Guid> _discussRepository;
         public readonly ISqlSugarRepository<PlateEntity, Guid> _plateEntityRepository;
         public readonly ISqlSugarRepository<CommentEntity, Guid> _commentRepository;
-        public ForumManager(ISqlSugarRepository<DiscussEntity, Guid> discussRepository, ISqlSugarRepository<PlateEntity, Guid> plateEntityRepository, ISqlSugarRepository<CommentEntity, Guid> commentRepository)
+        public readonly ISqlSugarRepository<ArticleEntity, Guid> _articleRepository;
+        public ForumManager(ISqlSugarRepository<DiscussEntity, Guid> discussRepository, ISqlSugarRepository<PlateEntity, Guid> plateEntityRepository, ISqlSugarRepository<CommentEntity, Guid> commentRepository, ISqlSugarRepository<ArticleEntity, Guid> articleRepository)
         {
             _discussRepository = discussRepository;
             _plateEntityRepository = plateEntityRepository;
             _commentRepository = commentRepository;
+            _articleRepository = articleRepository;
         }
 
         //主题是不能直接创建的，需要由领域服务统一创建
@@ -50,6 +53,24 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <returns></returns>
         public async Task PostImportAsync(Guid discussId, List<FileObject> fileObjs, ArticleImportTypeEnum importType)
         {
+            AbstractArticleImport abstractArticleImport = default;
+            switch (importType)
+            {
+                case ArticleImportTypeEnum.Defalut:
+                    abstractArticleImport = new DefaultArticleImport();
+
+                    break;
+                case ArticleImportTypeEnum.VuePress:
+                    abstractArticleImport = new VuePressArticleImport();
+                    break;
+
+                default: abstractArticleImport = new DefaultArticleImport(); break;
+            }
+
+            var articleHandled = abstractArticleImport.Import(discussId, fileObjs);
+
+            await _articleRepository.InsertManyAsync(articleHandled);
+
         }
     }
 }
