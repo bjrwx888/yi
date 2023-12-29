@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,8 +14,10 @@ using Yi.Framework.Bbs.Application.Contracts.Dtos.Plate;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Extensions;
+using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Repositories;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
+using Yi.Framework.Bbs.Domain.Shared.Model;
 using Yi.Framework.Core.Extensions;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Domain.Authorization;
@@ -32,18 +35,20 @@ namespace Yi.Framework.Bbs.Application.Services
     {
         public ArticleService(IArticleRepository articleRepository,
             ISqlSugarRepository<DiscussEntity> discussRepository,
-            IDiscussService discussService) : base(articleRepository)
+            IDiscussService discussService,
+            ForumManager forumManager) : base(articleRepository)
         {
 
             _articleRepository = articleRepository;
             _discussRepository = discussRepository;
             _discussService = discussService;
-
+            _forumManager = forumManager;
 
         }
-        private IArticleRepository _articleRepository { get; set; }
-        private ISqlSugarRepository<DiscussEntity> _discussRepository { get; set; }
-        private IDiscussService _discussService { get; set; }
+        private ForumManager _forumManager;
+        private IArticleRepository _articleRepository;
+        private ISqlSugarRepository<DiscussEntity> _discussRepository;
+        private IDiscussService _discussService;
 
         public override async Task<PagedResultDto<ArticleGetListOutputDto>> GetListAsync(ArticleGetListInputVo input)
         {
@@ -134,6 +139,37 @@ namespace Yi.Framework.Bbs.Application.Services
         }
 
 
+        /// <summary>
+        /// 导入文章
+        /// </summary>
+        /// <returns></returns>
+        public async Task PostImportAsync(ArticleImprotDto input, [FromForm] IFormFileCollection file)
+        {
+            var fileObjs = new List<FileObject>();
+            if (file.Count > 0)
+            {
+                foreach (var item in file)
+                {
+                    if (item.Length > 0)
+                    {
+                        using (var stream = item.OpenReadStream())
+                        {
+                            using (var fileStream = new MemoryStream())
+                            {
+                                await item.CopyToAsync(fileStream);
+                                var bytes = fileStream.ToArray();
+
+                                // 将字节转换成字符串
+                                var content = Encoding.UTF8.GetString(bytes);
+                                fileObjs.Add(new FileObject() { FileName=item.FileName,Content=content});
+                            }
+                        }
+                    }
+                }
+            }
+            //使用简单工厂根据传入的类型进行判断
+            await _forumManager.PostImportAsync(input.DiscussId, fileObjs, input.ImportType);
+        }
 
 
         /// <summary>

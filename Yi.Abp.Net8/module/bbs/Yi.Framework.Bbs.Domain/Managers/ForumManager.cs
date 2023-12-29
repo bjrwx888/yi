@@ -1,5 +1,9 @@
-﻿using Volo.Abp.Domain.Services;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.Domain.Services;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Shared.Enums;
+using Yi.Framework.Bbs.Domain.Shared.Model;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Domain.Managers
@@ -9,7 +13,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
     /// </summary>
     public class ForumManager : DomainService
     {
-        public readonly ISqlSugarRepository<DiscussEntity,Guid> _discussRepository;
+        public readonly ISqlSugarRepository<DiscussEntity, Guid> _discussRepository;
         public readonly ISqlSugarRepository<PlateEntity, Guid> _plateEntityRepository;
         public readonly ISqlSugarRepository<CommentEntity, Guid> _commentRepository;
         public ForumManager(ISqlSugarRepository<DiscussEntity, Guid> discussRepository, ISqlSugarRepository<PlateEntity, Guid> plateEntityRepository, ISqlSugarRepository<CommentEntity, Guid> commentRepository)
@@ -35,6 +39,17 @@ namespace Yi.Framework.Bbs.Domain.Managers
             entity.ParentId = parentId;
             entity.RootId = rootId;
             return await _commentRepository.InsertReturnEntityAsync(entity);
+        }
+
+        /// <summary>
+        /// 导入文章
+        /// </summary>
+        /// <param name="discussId"></param>
+        /// <param name="fileObjs"></param>
+        /// <param name="importType"></param>
+        /// <returns></returns>
+        public async Task PostImportAsync(Guid discussId, List<FileObject> fileObjs, ArticleImportTypeEnum importType)
+        {
         }
     }
 }
