@@ -82,17 +82,17 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
         protected virtual async Task<TDbContext> CreateDbContextAsync(IUnitOfWork unitOfWork)
         {
-            return unitOfWork.Options.IsTransactional
-                ? await CreateDbContextWithTransactionAsync(unitOfWork)
-                : unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
+            return unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
+            //return unitOfWork.Options.IsTransactional
+            //    ? await CreateDbContextWithTransactionAsync(unitOfWork)
+            //    : unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
         }
         protected virtual async Task<TDbContext> CreateDbContextWithTransactionAsync(IUnitOfWork unitOfWork)
         {
-            var transactionApiKey = $"Sqlsugar_Default".ToString();
-
-            var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as SqlSugarDatabaseApi;
-            if (activeTransaction == null)
-            {
+            var transactionApiKey = $"Sqlsugar_Default"+Guid.NewGuid().ToString();
+            var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as SqlSugarTransactionApi;
+            //if (activeTransaction==null|| activeTransaction.Equals(default(SqlSugarTransactionApi)))
+            //{
 
                 var dbContext = unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
                 var transaction = new SqlSugarTransactionApi(
@@ -105,14 +105,15 @@ namespace Yi.Framework.SqlSugarCore.Uow
                // Console.WriteLine(dbContext.SqlSugarClient.ContextID);
                 await dbContext.SqlSugarClient.Ado.BeginTranAsync();
                 return dbContext;
-            }
-            else
-            {
-               // await Console.Out.WriteLineAsync("继续老的事务");
-               // Console.WriteLine(activeTransaction.DbContext.SqlSugarClient);
-                await activeTransaction.DbContext.SqlSugarClient.Ado.BeginTranAsync();
-                return (TDbContext)activeTransaction.DbContext;
-            }
+            //}
+            //else
+            //{
+            //  var db=  activeTransaction.GetDbContext().SqlSugarClient;
+            //   // await Console.Out.WriteLineAsync("继续老的事务");
+            //   // Console.WriteLine(activeTransaction.DbContext.SqlSugarClient);
+            //    await activeTransaction.GetDbContext().SqlSugarClient.Ado.BeginTranAsync();
+            //    return (TDbContext)activeTransaction.GetDbContext();
+            //}
 
 
         }

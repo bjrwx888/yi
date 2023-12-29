@@ -19,7 +19,10 @@ namespace Yi.Framework.Bbs.Application.Services
             return Task.FromResult("你好世界");
         }
 
-
+        /// <summary>
+        /// 获取头像文件
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetIcon()
         {
 

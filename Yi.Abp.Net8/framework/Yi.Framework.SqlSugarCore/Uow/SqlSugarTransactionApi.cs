@@ -10,7 +10,12 @@ namespace Yi.Framework.SqlSugarCore.Uow
         public SqlSugarTransactionApi(ISqlSugarDbContext sqlsugarDbContext)
         {
             _sqlsugarDbContext = sqlsugarDbContext;
+        }
 
+        public ISqlSugarDbContext GetDbContext()
+        { 
+        
+        return _sqlsugarDbContext;
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken = default)

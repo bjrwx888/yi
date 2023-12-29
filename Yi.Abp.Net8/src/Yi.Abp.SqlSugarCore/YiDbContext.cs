@@ -16,6 +16,7 @@ namespace Yi.Abp.SqlSugarCore
             base.CustomDataFilter();
         }
 
+
         protected override void DataExecuted(object oldValue, DataAfterModel entityInfo)
         {
             base.DataExecuted(oldValue, entityInfo);
