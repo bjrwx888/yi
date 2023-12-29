@@ -6,7 +6,7 @@ import { Session } from "@/utils/storage";
 import useAuths from "@/hooks/useAuths";
 
 const { VITE_APP_ENV_NAME } = import.meta.env;
-const { getToken } = useAuths();
+const { getToken, removeToken } = useAuths();
 
 const { base_url, request_timeout, pre_interface } = config;
 export const PATH_URL = base_url[VITE_APP_ENV_NAME];
@@ -69,6 +69,7 @@ service.interceptors.response.use(
           cancelButtonText: "取消",
           type: "warning",
         }).then(() => {
+          removeToken();
           router.push("/login");
         });
         return;
