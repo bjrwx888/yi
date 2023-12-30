@@ -46,8 +46,10 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                     }
 
                 }
-                lines.ToList().RemoveRange(0, num);
-                var result = string.Join(Environment.NewLine, lines);
+                var linesRef = lines.ToList();
+
+                linesRef.RemoveRange(0, startIndex+1);
+                var result = string.Join(Environment.NewLine, linesRef);
                 f.Content = result;
                 return f;
             });

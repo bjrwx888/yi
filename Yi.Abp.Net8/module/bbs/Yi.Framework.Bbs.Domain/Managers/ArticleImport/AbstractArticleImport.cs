@@ -10,12 +10,13 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
 {
     public abstract class AbstractArticleImport
     {
-        public virtual List<ArticleEntity> Import(Guid discussId, List<FileObject> fileObjs)
+        public virtual List<ArticleEntity> Import(Guid discussId,Guid articleParentId, List<FileObject> fileObjs)
         {
             var articles = Convert(fileObjs);
             articles.ForEach(article =>
             {
                 article.DiscussId = discussId;
+                article.ParentId = articleParentId;
             });
             return articles;
         }

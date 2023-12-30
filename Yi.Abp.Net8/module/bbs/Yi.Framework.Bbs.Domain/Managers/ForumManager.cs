@@ -48,10 +48,11 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// 导入文章
         /// </summary>
         /// <param name="discussId"></param>
+        /// <param name="articleParentId"></param>
         /// <param name="fileObjs"></param>
         /// <param name="importType"></param>
         /// <returns></returns>
-        public async Task PostImportAsync(Guid discussId, List<FileObject> fileObjs, ArticleImportTypeEnum importType)
+        public async Task PostImportAsync(Guid discussId,Guid articleParentId, List<FileObject> fileObjs, ArticleImportTypeEnum importType)
         {
             AbstractArticleImport abstractArticleImport = default;
             switch (importType)
@@ -67,9 +68,9 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 default: abstractArticleImport = new DefaultArticleImport(); break;
             }
 
-            var articleHandled = abstractArticleImport.Import(discussId, fileObjs);
+            var articleHandled = abstractArticleImport.Import(discussId, articleParentId, fileObjs);
 
-            await _articleRepository.InsertManyAsync(articleHandled);
+            //await _articleRepository.InsertManyAsync(articleHandled);
 
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
@@ -143,7 +144,7 @@ namespace Yi.Framework.Bbs.Application.Services
         /// 导入文章
         /// </summary>
         /// <returns></returns>
-        public async Task PostImportAsync(ArticleImprotDto input, [FromForm] IFormFileCollection file)
+        public async Task PostImportAsync([FromQuery] ArticleImprotDto input, [FromForm][Required] IFormFileCollection file)
         {
             var fileObjs = new List<FileObject>();
             if (file.Count > 0)
@@ -172,7 +173,7 @@ namespace Yi.Framework.Bbs.Application.Services
                 throw new UserFriendlyException("未选择文件");
             }
             //使用简单工厂根据传入的类型进行判断
-            await _forumManager.PostImportAsync(input.DiscussId, fileObjs, input.ImportType);
+            await _forumManager.PostImportAsync(input.DiscussId, input.ArticleParentId, fileObjs, input.ImportType);
         }
 
 

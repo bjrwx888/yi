@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Yi.Framework.Bbs.Domain.Shared.Enums
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ArticleImportTypeEnum
     {
-        //默认导入方式
+       [Description("默认导入方式")] 
         Defalut,
 
-        //vuePresss方式
+        [Description("vuePresss方式")] 
         VuePress
     }
 }
