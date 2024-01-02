@@ -34,7 +34,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private ISqlSugarRepository<RoleDeptEntity> _roleDeptRepository;
 
         private ISqlSugarRepository<UserRoleEntity> _userRoleRepository;
-        [UnitOfWork]
+
         public async Task UpdateDataScpoceAsync(UpdateDataScpoceInput input)
         {
             //只有自定义的需要特殊处理
@@ -66,7 +66,6 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [UnitOfWork]
         public override async Task<RoleGetOutputDto> CreateAsync(RoleCreateInputVo input)
         {
             RoleGetOutputDto outputDto;
@@ -88,7 +87,6 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [UnitOfWork]
         public override async Task<RoleGetOutputDto> UpdateAsync(Guid id, RoleUpdateInputVo input)
         {
             var dto = new RoleGetOutputDto();

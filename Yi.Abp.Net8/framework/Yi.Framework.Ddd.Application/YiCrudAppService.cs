@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MiniExcelLibs;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Validation;
 
 namespace Yi.Framework.Ddd.Application
 {
@@ -65,6 +59,11 @@ namespace Yi.Framework.Ddd.Application
         {
         }
 
+        /// <summary>
+        /// 多查
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<PagedResultDto<TGetListOutputDto>> GetListAsync(TGetListInput input)
         {
             List<TEntity>? entites = null;
@@ -84,7 +83,7 @@ namespace Yi.Framework.Ddd.Application
         }
 
         /// <summary>
-        /// 偷梁换柱
+        /// 多删
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -93,6 +92,12 @@ namespace Yi.Framework.Ddd.Application
         {
             await Repository.DeleteManyAsync(id);
         }
+
+        /// <summary>
+        /// 偷梁换柱
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [RemoteService(isEnabled: false)]
         public override Task DeleteAsync(TKey id)
         {
@@ -100,8 +105,11 @@ namespace Yi.Framework.Ddd.Application
         }
 
 
-
-
+        /// <summary>
+        /// 导出excel
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public virtual async Task<IActionResult> GetExportExcelAsync(TGetListInput input)
         {
             if (input is IPagedResultRequest paged)
@@ -112,20 +120,28 @@ namespace Yi.Framework.Ddd.Application
 
             var output = await this.GetListAsync(input);
             var dirPath = $"/wwwroot/temp";
-            var filePath = $"{dirPath}/{Guid.NewGuid()}.xlsx";
+
+            var fileName = $"{typeof(TEntity).Name}_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}_{Guid.NewGuid()}";
+            var filePath = $"{dirPath}/{fileName}.xlsx";
             if (!Directory.Exists(dirPath))
             {
                 Directory.CreateDirectory(dirPath);
             }
 
             MiniExcel.SaveAs(filePath, output.Items);
-            return new FileStreamResult(File.OpenRead(filePath), "application/vnd.ms-excel");
+            return new PhysicalFileResult(filePath, "application/vnd.ms-excel");
         }
 
-        public virtual async Task PostImportExcelAsync()
+        /// <summary>
+        /// 导入excle
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public virtual async Task PostImportExcelAsync(List<TCreateInput> input)
         {
-
-
+            var entities = input.Select(x => MapToEntity(x)).ToList();
+            await Repository.DeleteManyAsync(entities.Select(x => x.Id));
+            await Repository.InsertManyAsync(entities);
         }
     }
 }

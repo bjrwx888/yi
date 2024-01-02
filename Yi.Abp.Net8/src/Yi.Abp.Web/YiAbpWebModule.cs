@@ -153,7 +153,10 @@ namespace Yi.Abp.Web
 
             //swagger
             app.UseYiSwagger();
-           
+            
+            //请求处理
+            app.UseYiApiHandlinge();
+
             //静态资源
             app.UseStaticFiles("/api/app/wwwroot");
             app.UseDefaultFiles();

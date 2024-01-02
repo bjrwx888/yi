@@ -3,7 +3,6 @@ using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.EventBus.Local;
-using Volo.Abp.Uow;
 using Volo.Abp.Users;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
@@ -82,7 +81,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [OperLog("添加用户", OperEnum.Insert)]
-        [UnitOfWork]
+        [Permission("system:user:add")]
         public async override Task<UserGetOutputDto> CreateAsync(UserCreateInputVo input)
         {
             if (string.IsNullOrEmpty(input.Password))
@@ -131,7 +130,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [OperLog("更新用户", OperEnum.Update)]
-        [UnitOfWork]
+        [Permission("system:user:update")]
         public async override Task<UserGetOutputDto> UpdateAsync(Guid id, UserUpdateInputVo input)
         {
             if (await _repository.IsAnyAsync(u => input.UserName!.Equals(u.UserName) && !id.Equals(u.Id)))
@@ -180,6 +179,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <returns></returns>
         [Route("user/{id}/{state}")]
         [OperLog("更新用户状态", OperEnum.Update)]
+        [Permission("system:user:update")]
         public async Task<UserGetOutputDto> UpdateStateAsync([FromRoute] Guid id, [FromRoute] bool state)
         {
             var entity = await _repository.GetByIdAsync(id);
@@ -196,6 +196,18 @@ namespace Yi.Framework.Rbac.Application.Services
         public override async Task DeleteAsync(Guid id)
         {
             await base.DeleteAsync(id);
+        }
+
+        [Permission("system:user:export")]
+        public override Task<IActionResult> GetExportExcelAsync(UserGetListInputVo input)
+        {
+            return base.GetExportExcelAsync(input);
+        }
+
+        [Permission("system:user:import")]
+        public override Task PostImportExcelAsync(List<UserCreateInputVo> input)
+        {
+            return base.PostImportExcelAsync(input);
         }
     }
 }
