@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using MiniExcelLibs;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Validation;
 
 namespace Yi.Framework.Ddd.Application
 {
@@ -86,7 +89,7 @@ namespace Yi.Framework.Ddd.Application
         /// <param name="id"></param>
         /// <returns></returns>
         [RemoteService(isEnabled: true)]
-        public async Task DeleteAsync(IEnumerable<TKey> id)
+        public virtual async Task DeleteAsync(IEnumerable<TKey> id)
         {
             await Repository.DeleteManyAsync(id);
         }
@@ -94,6 +97,35 @@ namespace Yi.Framework.Ddd.Application
         public override Task DeleteAsync(TKey id)
         {
             return base.DeleteAsync(id);
+        }
+
+
+
+
+        public virtual async Task<IActionResult> GetExportExcelAsync(TGetListInput input)
+        {
+            if (input is IPagedResultRequest paged)
+            {
+                paged.SkipCount = 0;
+                paged.MaxResultCount = LimitedResultRequestDto.MaxMaxResultCount;
+            }
+
+            var output = await this.GetListAsync(input);
+            var dirPath = $"/wwwroot/temp";
+            var filePath = $"{dirPath}/{Guid.NewGuid()}.xlsx";
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            MiniExcel.SaveAs(filePath, output.Items);
+            return new FileStreamResult(File.OpenRead(filePath), "application/vnd.ms-excel");
+        }
+
+        public virtual async Task PostImportExcelAsync()
+        {
+
+
         }
     }
 }
