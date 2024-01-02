@@ -250,6 +250,7 @@ onMounted(async () => {
 
 .user-info-head:hover:after {
   content: "+";
+  text-align: center;
   position: absolute;
   left: 0;
   right: 0;

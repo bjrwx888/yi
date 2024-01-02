@@ -126,4 +126,9 @@ onMounted(() => {
 .app-container {
   padding: 20px;
 }
+.text-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 </style>
