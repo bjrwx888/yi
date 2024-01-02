@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 
 namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Article
@@ -16,6 +17,8 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Article
         [Required]
         public Guid DiscussId { get; set; }
 
+        public Guid ArticleParentId { get; set; }= Guid.Empty;
+
         public ArticleImportTypeEnum ImportType { get; set; } = ArticleImportTypeEnum.Defalut;
-    }
+}
 }

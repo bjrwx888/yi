@@ -1,9 +1,10 @@
 ﻿using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.Mvc;
@@ -65,6 +66,7 @@ namespace Yi.Abp.Web
             service.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
             Configure<AbpAntiForgeryOptions>(options =>
