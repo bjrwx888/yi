@@ -132,7 +132,6 @@ const handleGitClick = () => {
 
 <style scoped lang="scss">
 .header {
-  padding: 0 100px;
   width: 1300px;
   display: flex;
   align-items: center;
