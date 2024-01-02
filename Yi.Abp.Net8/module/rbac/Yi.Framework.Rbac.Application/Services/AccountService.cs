@@ -248,6 +248,17 @@ namespace Yi.Framework.Rbac.Application.Services
             throw new UserFriendlyException("验证码错误");
         }
 
+        private void ValidateUserName(RegisterDto input)
+        {
+            // 正则表达式，匹配只包含数字和字母的字符串
+            string pattern = @"^[a-zA-Z0-9]+$";
+
+            bool isMatch = Regex.IsMatch(input.UserName, pattern);
+            if (!isMatch)
+            {
+                throw new UserFriendlyException("用户名不能包含除【字母】与【数字】的其他字符");
+            }
+        }
 
         /// <summary>
         /// 注册，需要验证码通过
@@ -276,6 +287,10 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("密码需大于等于6位！");
             }
+
+            //效验用户名
+            ValidateUserName(input);
+
             //效验验证码，根据电话号码获取 value，比对验证码已经uuid
             await ValidationPhoneCaptchaAsync(input);
 
@@ -283,7 +298,7 @@ namespace Yi.Framework.Rbac.Application.Services
 
             //输入的用户名与电话号码都不能在数据库中存在
             UserEntity user = new();
-            var isExist = await _userRepository.IsAnyAsync(x =>x.UserName == input.UserName|| x.Phone == input.Phone);
+            var isExist = await _userRepository.IsAnyAsync(x => x.UserName == input.UserName || x.Phone == input.Phone);
             if (isExist)
             {
                 throw new UserFriendlyException("用户已存在，注册失败");
