@@ -1,6 +1,6 @@
 <template>
   <div class="common-layout">
-    <el-container>
+    <el-container class="common-container">
       <el-header
         class="common-header"
         ref="header"
@@ -43,6 +43,10 @@ const handleScroll = () => {
 <style scoped lang="scss">
 .common {
   &-layout {
+    width: 100%;
+    height: 100%;
+  }
+  &-container {
     width: 100%;
     height: 100%;
   }

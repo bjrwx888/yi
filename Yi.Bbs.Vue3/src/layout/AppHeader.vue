@@ -63,6 +63,11 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
+      <div class="author" @click="handleGitClick">
+        <el-tooltip effect="dark" content="在gitee找到我们" placement="bottom">
+          <img src="@/assets/common/icons/gitee.png" alt="" />
+        </el-tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -119,19 +124,33 @@ const search = () => {
 };
 
 const isLogin = getToken("AccessToken") ? true : false;
+
+const handleGitClick = () => {
+  window.open("https://gitee.com/ccnetcore/Yi");
+};
 </script>
 
 <style scoped lang="scss">
 .header {
-  padding: 0 100px;
   width: 1300px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .user {
   display: flex;
   align-items: center;
+  .author {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
   .el-dropdown-link {
     cursor: pointer;
     display: flex;
