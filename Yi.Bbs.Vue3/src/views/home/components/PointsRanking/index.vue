@@ -47,17 +47,17 @@ const props = defineProps({
 const statusTypeList = [
   {
     label: "正常",
-    value: 0,
+    value: "Normal",
     type: "success",
   },
   {
     label: "危险",
-    value: 1,
+    value: "Dangerous",
     type: "warning",
   },
   {
     label: "已禁止",
-    value: 2,
+    value: "Ban",
     type: "danger",
   },
 ];
