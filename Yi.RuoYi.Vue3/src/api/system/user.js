@@ -1,5 +1,11 @@
-import request from '@/utils/request.js'
+import request,{download} from '@/utils/request.js'
 import { parseStrEmpty } from "@/utils/ruoyi";
+
+// 导出角色
+export function getExportExcel(query) {
+  
+  return download('/user/export-excel',query,'导出数据.xlsx')
+}
 
 // 查询用户列表
 export function listUser(query) {
@@ -141,3 +147,4 @@ export function updateAuthRole(data) {
 //     method: 'get'
 //   })
 // }
+
