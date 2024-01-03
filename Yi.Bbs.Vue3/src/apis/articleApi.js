@@ -38,3 +38,16 @@ export function all(discussId) {
     method: "get",
   });
 }
+
+/**
+ *  导入文章
+ */
+export function importArticle(params, data) {
+  return request({
+    url: `/article/import`,
+    headers: { "Content-Type": "multipart/form-data" },
+    params: params,
+    data,
+    method: "post",
+  });
+}
