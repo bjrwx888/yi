@@ -69,7 +69,7 @@ const userImageSrc = computed(() => {
   if (props.friendData.icon) {
     return import.meta.env.VITE_APP_BASEAPI + "/file/" + props.friendData.icon;
   } else {
-    return "favicon.ico";
+    return "acquiesce.png";
   }
 });
 </script>

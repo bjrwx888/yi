@@ -63,14 +63,14 @@ const userInfo = reactive({
   level: "",
   userLimit: "",
 });
-const iconUrl = ref("/favicon.ico");
+const iconUrl = ref("/acquiesce.png");
 const iconUrlHandler = (icon) => {
   if (
     userInfo.icon == null ||
     userInfo.icon == undefined ||
     userInfo.icon == ""
   ) {
-    return "/favicon.ico";
+    return "/acquiesce.png";
   } else {
     return import.meta.env.VITE_APP_BASEAPI + "/file/" + icon;
   }

@@ -71,7 +71,7 @@ const userImageSrc = computed(() => {
   if (props.pointsData.icon) {
     return import.meta.env.VITE_APP_BASEAPI + "/file/" + props.pointsData.icon;
   } else {
-    return "favicon.ico";
+    return "acquiesce.png";
   }
 });
 </script>
