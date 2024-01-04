@@ -343,9 +343,7 @@ const getFile = async (e) => {
     const routerPer = { path: `/article/${route.query.discussId}` };
     router.push(routerPer);
   } catch (error) {
-    console.log(error, "error");
-    const { data } = error.response.data;
-    ElMessage.error(data.message);
+    ElMessage.error(error.message);
     importLoading.value = false;
   }
 };
