@@ -145,7 +145,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, computed } from "vue";
+import { onMounted, ref, reactive, computed, nextTick, watch } from "vue";
 import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
@@ -167,6 +167,11 @@ import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
 import Skeleton from "@/components/Skeleton/index.vue";
+import useUserStore from "@/stores/user";
+import { storeToRefs } from "pinia";
+import signalR from "@/utils/signalR";
+
+const { token } = storeToRefs(useUserStore());
 
 const plateList = ref([]);
 const discussList = ref([]);
@@ -220,7 +225,21 @@ onMounted(async () => {
     });
   isAllDiscussFinished.value = allDiscussConfig.isFinish;
   allDiscussList.value = allDiscussData.items;
+  // 实时人数
+  await signalR.init(`main`);
+  nextTick(() => {
+    // 初始化主题样式
+    handleThemeStyle(useSettingsStore().theme);
+  });
 });
+
+//这里还需要监视token的变化，重新进行signalr连接
+watch(
+  () => token.value,
+  async (newValue, oldValue) => {
+    await signalR.init(`main`);
+  }
+);
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 // 访问统计
