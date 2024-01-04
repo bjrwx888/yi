@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Rbac.Domain.SignalRHubs.Model
+namespace Yi.Framework.Rbac.Domain.Shared.Model
 {
     public class OnlineUserModel
     {
