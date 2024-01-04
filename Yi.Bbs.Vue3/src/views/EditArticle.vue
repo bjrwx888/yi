@@ -332,6 +332,8 @@ const getFile = async (e) => {
       type: "success",
     });
     importLoading.value = false;
+    const routerPer = { path: `/article/${route.query.discussId}` };
+    router.push(routerPer);
   } catch (error) {
     console.log(error, "error");
     const { data } = error.response.data;
