@@ -140,8 +140,10 @@ namespace Yi.Framework.Ddd.Application
         public virtual async Task PostImportExcelAsync(List<TCreateInput> input)
         {
             var entities = input.Select(x => MapToEntity(x)).ToList();
-            await Repository.DeleteManyAsync(entities.Select(x => x.Id));
-            await Repository.InsertManyAsync(entities);
+            //安全起见，该接口需要自己实现
+            throw new NotImplementedException();
+            //await Repository.DeleteManyAsync(entities.Select(x => x.Id));
+            //await Repository.InsertManyAsync(entities);
         }
     }
 }

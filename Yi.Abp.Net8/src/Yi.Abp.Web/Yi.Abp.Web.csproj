@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\icon\" />
+    <Folder Include="database_backup\" />
   </ItemGroup>
 
 </Project>

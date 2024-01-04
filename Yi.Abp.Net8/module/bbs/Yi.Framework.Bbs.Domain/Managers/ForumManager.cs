@@ -70,7 +70,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
 
             var articleHandled = abstractArticleImport.Import(discussId, articleParentId, fileObjs);
 
-            //await _articleRepository.InsertManyAsync(articleHandled);
+            await _articleRepository.InsertManyAsync(articleHandled);
 
         }
     }

@@ -236,7 +236,7 @@
 
 <script setup name="User">
 import { getToken } from "@/utils/auth";
-import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser } from "@/api/system/user";
+import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser,getExportExcel } from "@/api/system/user";
 import { roleOptionselect } from "@/api/system/role";
 import { postOptionselect } from "@/api/system/post";
 import { listDept } from "@/api/system/dept";
@@ -371,7 +371,7 @@ function handleDelete(row) {
 };
 /** 导出按钮操作 */
 function handleExport() {
-   proxy.download("user/export");
+   getExportExcel(proxy.addDateRange(queryParams.value, dateRange.value));
 };
 /** 用户状态修改  */
 function handleStatusChange(row) {

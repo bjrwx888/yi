@@ -23,7 +23,7 @@ const service = axios.create({
   //处理批零参数
   paramsSerializer:params => {
     // return qs.stringify(params,{indices:false})
-    console.log(params,"params")
+  //  console.log(params,"params")
 //     if(params.id!=undefined)
 //     {
 //       if(Array.isArray(params.id) )
@@ -134,23 +134,18 @@ service.interceptors.response.use(res => {
 )
 
 // 通用下载方法
-export function download(url, params, filename) {
+export function download(url, query, filename) {
   downloadLoadingInstance = ElLoading.service({ text: "正在下载数据，请稍候", background: "rgba(0, 0, 0, 0.7)", })
-  return service.post(url, params, {
-    transformRequest: [(params) => { return tansParams(params) }],
+  return service({
+    url: url,
+    method: 'get',
+    params: query,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     responseType: 'blob'
   }).then(async (data) => {
-    const isLogin = await blobValidate(data);
-    if (isLogin) {
-      const blob = new Blob([data])
+    debugger;
+      const blob = new Blob([data.data])
       saveAs(blob, filename)
-    } else {
-      const resText = await data.text();
-      const rspObj = JSON.parse(resText);
-      const errMsg = errorCode[rspObj.code] || rspObj.message || errorCode['default']
-      ElMessage.error(errMsg);
-    }
     downloadLoadingInstance.close();
   }).catch((r) => {
     console.error(r)

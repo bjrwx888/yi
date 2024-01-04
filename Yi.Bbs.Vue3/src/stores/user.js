@@ -47,7 +47,7 @@ const useUserStore = defineStore("user", {
             const user = res.user;
             const avatar =
               user.icon == "" || user.icon == null
-                ? "/favicon.ico"
+                ? "/acquiesce.png"
                 : import.meta.env.VITE_APP_BASEAPI + "/file/" + user.icon;
             if (res.roleCodes && res.roleCodes.length > 0) {
               // 验证返回的roles是否是一个非空数组
