@@ -320,10 +320,10 @@ const fileRef = ref(null);
 const handleImport = async () => {
   fileRef.value.click();
 };
-const currentType = ref("Defalut");
+const currentType = ref("Default");
 const typeOptions = [
   {
-    value: "Defalut",
+    value: "Default",
     label: "默认",
   },
   {
