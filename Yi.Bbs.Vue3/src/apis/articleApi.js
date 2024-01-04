@@ -28,8 +28,9 @@ export function update(id, data) {
 }
 export function del(ids) {
   return request({
-    url: `/article/${ids}`,
+    url: `/article`,
     method: "delete",
+    params: { id: ids },
   });
 }
 export function all(discussId) {
