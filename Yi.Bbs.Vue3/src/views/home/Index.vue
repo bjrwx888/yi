@@ -56,6 +56,35 @@
               </el-carousel-item>
             </el-carousel>
           </el-col>
+          <div class="analyse">
+            <div class="item">
+              <div class="text">在线人数</div>
+              <div class="content">
+                <div class="name"></div>
+                <div class="content-box top">
+                  <div class="count">{{ userAnalyseInfo.onlineNumber }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="text">注册人数</div>
+              <div class="content">
+                <div class="content-box top">
+                  <div class="count">{{ userAnalyseInfo.registerNumber }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="text">昨日新增</div>
+              <div class="content">
+                <div class="content-box">
+                  <div class="count">
+                    {{ userAnalyseInfo.yesterdayNewUser }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <el-col :span="24">
             <InfoCard header="访问统计" class="VisitsLineChart" text="详情">
@@ -76,6 +105,7 @@
               </template>
             </InfoCard>
           </el-col>
+
           <el-col :span="24">
             <template v-if="isPointFinished">
               <InfoCard
@@ -161,6 +191,7 @@ import {
   getRecommendedTopic,
   getRecommendedFriend,
   getRankingPoints,
+  getUserAnalyse,
 } from "@/apis/analyseApi.js";
 import { getList as getAllDiscussList } from "@/apis/discussApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
@@ -186,6 +217,7 @@ const themeList = ref([]);
 const isThemeFinished = ref([]);
 const allDiscussList = ref([]);
 const isAllDiscussFinished = ref(false);
+const userAnalyseInfo = ref({});
 
 const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
@@ -225,6 +257,8 @@ onMounted(async () => {
     });
   isAllDiscussFinished.value = allDiscussConfig.isFinish;
   allDiscussList.value = allDiscussData.items;
+  const { data: userAnalyseInfoData } = await getUserAnalyse();
+  userAnalyseInfo.value = userAnalyseInfoData;
   // 实时人数
   await signalR.init(`main`);
   nextTick(() => {
@@ -297,6 +331,65 @@ const statisOptions = computed(() => {
     display: block;
     margin-bottom: 0.5rem;
   }
+  .analyse {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    .item {
+      width: 30%;
+      height: 100%;
+      position: relative;
+      background: url("@/assets/box/online_bg.svg") no-repeat;
+      background-color: #fff;
+      background-position: 0 30px;
+      background-size: 150% 100%;
+      border: 1px solid #409eff;
+      border-radius: 5px;
+      color: #409eff;
+      .content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        &-box {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          justify-content: center;
+          margin-bottom: 10px;
+
+          .name {
+            font-size: 14px;
+          }
+          .count {
+            font-size: 20px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .text {
+        width: 60px;
+        position: absolute;
+        padding: 0 5px;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        text-align: center;
+        border: 1px solid #d9ecff;
+        border-radius: 5px;
+        color: #409eff;
+        background-color: #ecf5ff;
+      }
+    }
+  }
+
   .VisitsLineChart >>> .el-card__body {
     padding: 0.5rem;
   }
