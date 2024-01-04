@@ -260,20 +260,19 @@ onMounted(async () => {
   const { data: userAnalyseInfoData } = await getUserAnalyse();
   userAnalyseInfo.value = userAnalyseInfoData;
   // 实时人数
-  await signalR.init(`main`);
-  nextTick(() => {
-    // 初始化主题样式
-    handleThemeStyle(useSettingsStore().theme);
-  });
+  // await signalR.init(`main`);
+  // nextTick(() => {
+  //   // 初始化主题样式
+  //   handleThemeStyle(useSettingsStore().theme);
+  // });
 });
 
 //这里还需要监视token的变化，重新进行signalr连接
-watch(
-  () => token.value,
-  async (newValue, oldValue) => {
-    await signalR.init(`main`);
-  }
-);
+watch();
+// () => token.value,
+// async (newValue, oldValue) => {
+//   await signalR.init(`main`);
+// }
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 // 访问统计
