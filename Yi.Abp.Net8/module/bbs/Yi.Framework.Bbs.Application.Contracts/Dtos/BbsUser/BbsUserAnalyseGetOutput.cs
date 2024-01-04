@@ -18,5 +18,10 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser
         /// 在线人数
         /// </summary>
         public long OnlineNumber { get; set; }
+
+        /// <summary>
+        /// 昨天新增用户
+        /// </summary>
+        public long YesterdayNewUser { get; set; }
     }
 }
