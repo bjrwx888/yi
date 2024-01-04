@@ -327,8 +327,8 @@ const typeOptions = [
     label: "默认",
   },
   {
-    value: "Vuepress",
-    label: "Vuepress",
+    value: "VuePress",
+    label: "VuePress",
   },
 ];
 const getFile = async (e) => {
