@@ -81,7 +81,8 @@
           ></el-form-item
         >
       </el-form>
-      <div class="import-content">
+      <div class="import-content" v-show="radio == 'article'">
+        <div class="text">上传类型：</div>
         <el-select
           v-model="currentType"
           placeholder="请选择"
@@ -100,7 +101,6 @@
           :loading="importLoading"
           @click="handleImport"
           class="import-btn"
-          v-show="radio == 'article'"
           >导入文章</el-button
         >
       </div>
@@ -352,9 +352,14 @@ const getFile = async (e) => {
   margin: 1.5rem;
   padding: 1.5rem;
   .import-content {
+    display: flex;
+    align-items: center;
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
+    .text {
+      margin-right: 10px;
+    }
   }
   .import-btn {
     margin-left: 10px;
