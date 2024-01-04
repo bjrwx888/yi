@@ -107,7 +107,13 @@
     </div>
     <!-- 文件弹框 -->
     <div>
-      <input v-show="false" ref="fileRef" type="file" @change="getFile" />
+      <input
+        v-show="false"
+        ref="fileRef"
+        type="file"
+        multiple
+        @change="getFile"
+      />
     </div>
   </div>
 </template>
@@ -317,15 +323,17 @@ const typeOptions = [
 const getFile = async (e) => {
   importLoading.value = true;
   try {
-    let formDate = new FormData();
-    formDate.append("file", e.target.files[0]);
+    let formData = new FormData();
+    for (let i = 0; i < e.target.files.length; i++) {
+      formData.append("file", e.target.files[i]);
+    }
     await importArticle(
       {
         discussId: route.query.discussId,
         articleParentId: route.query.parentArticleId,
         importType: currentType.value,
       },
-      formDate
+      formData
     );
     ElMessage({
       message: `导入成功！`,
