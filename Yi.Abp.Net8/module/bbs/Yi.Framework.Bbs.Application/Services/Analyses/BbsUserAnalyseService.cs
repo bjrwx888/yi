@@ -18,7 +18,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         public BbsUserAnalyseService(BbsUserManager bbsUserManager, IOnlineService onlineService)
         {
             _bbsUserManager = bbsUserManager;
-            _onlineService= onlineService;
+            _onlineService = onlineService;
         }
 
         /// <summary>
@@ -63,8 +63,17 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
 
             var registerUser = await _bbsUserManager._userRepository._DbQueryable.CountAsync();
 
-            var userOnline =( await _onlineService.GetListAsync(new OnlineUserModel { })).TotalCount;
-            var output = new BbsUserAnalyseGetOutput() { OnlineNumber = userOnline, RegisterNumber = registerUser };
+
+            DateTime now = DateTime.Now;
+            DateTime yesterday = now.AddDays(-1);
+            DateTime startTime = new DateTime(yesterday.Year, yesterday.Month, yesterday.Day, 0, 0, 0);
+            DateTime endTime = startTime.AddHours(24);
+            var yesterdayNewUser = await _bbsUserManager._userRepository._DbQueryable
+                  .Where(x => x.CreationTime >= startTime && x.CreationTime <= endTime).CountAsync();
+
+            var userOnline = (await _onlineService.GetListAsync(new OnlineUserModel { })).TotalCount;
+
+            var output = new BbsUserAnalyseGetOutput() { OnlineNumber = userOnline, RegisterNumber = registerUser, YesterdayNewUser = yesterdayNewUser };
 
             return output;
         }
