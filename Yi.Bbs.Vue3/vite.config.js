@@ -35,6 +35,12 @@ export default defineConfig(({ command, mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api-dev/, ""),
         },
+        [env.VITE_APP_BASE_WS]: {
+          target: env.VITE_APP_BASE_URL_WS,
+          changeOrigin: true,
+          rewrite: (p) => p.replace(/^\/dev-ws/, ""),
+          ws: true,
+        },
       },
     },
     // 增加新的配置
