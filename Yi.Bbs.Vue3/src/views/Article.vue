@@ -247,6 +247,7 @@ const loadDiscuss = async (isRewrite) => {
     discuss.value.content = response.data.content;
   }
   breadcrumbsList.value[1].path = "/discuss/" + discuss.value.plateId;
+  breadcrumbsList.value[1].meta.title = discuss.value.plate.name;
   ContentHander();
 };
 //加载文章及目录
