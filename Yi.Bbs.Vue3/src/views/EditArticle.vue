@@ -10,10 +10,18 @@
       >
         <el-form-item label="类型：">
           <el-radio-group v-model="radio">
-            <el-radio-button label="discuss">主题</el-radio-button>
-            <el-radio-button label="article">文章</el-radio-button>
-            <el-radio-button label="plate">板块</el-radio-button>
-            <el-radio-button label="orther">其他</el-radio-button>
+            <el-radio-button label="discuss" :disabled="artType !== 'discuss'"
+              >主题</el-radio-button
+            >
+            <el-radio-button label="article" :disabled="artType !== 'article'"
+              >文章</el-radio-button
+            >
+            <el-radio-button label="plate" :disabled="artType !== 'plate'"
+              >板块</el-radio-button
+            >
+            <el-radio-button label="orther" :disabled="artType !== 'orther'"
+              >其他</el-radio-button
+            >
           </el-radio-group>
         </el-form-item>
 
@@ -143,6 +151,9 @@ const router = useRouter();
 const perRadio = ref("Public");
 const radio = ref(route.query.artType);
 const codeStyle = "atom-one-dark";
+
+// 用于禁用判断
+const artType = ref(route.query.artType);
 
 //封面完整显示的url
 const fileUploadUrl = `${import.meta.env.VITE_APP_BASEAPI}/file`;
