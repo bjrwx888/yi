@@ -38,7 +38,7 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                  for (int i = 0; i < lines.Length; i++)
                  {
                      //编码问题
-                     if (lines[i] == "---" || lines[i]== "---")
+                     if (lines[i] == "---")
                      {
                          num++;
                          if (num == 2)
@@ -55,6 +55,11 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                  if (startIndex != 0)
                  {
                      linesRef.RemoveRange(0, startIndex + 1);
+                 }
+                 else
+                 {
+                     //去除头部
+                     linesRef.RemoveRange(0,6);
                  }
                  var result = string.Join(Environment.NewLine, linesRef);
                  f.Content = result;
