@@ -65,7 +65,6 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                  f.Content = result;
                  return f;
              });
-
             var output = fileContentHandler.Select(x => new ArticleEntity() { Content = x.Content, Name = x.FileName }).ToList();
 
             return output;
