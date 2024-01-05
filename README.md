@@ -4,9 +4,6 @@
 <h2 align="center">集大成者，终究轮子</h2>
 
 [English](README-en.md) | 简体中文
-
-![sdk](https://img.shields.io/badge/sdk-8.0.0-d.svg)![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)
-
 ****
 ### 简介:
 YiFramework是一个基于.Net8+Abp.vNext+SqlSugar的DDD领域驱动设计后端开源框架
