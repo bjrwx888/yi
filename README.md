@@ -1,4 +1,4 @@
-<h1 align="center"><img align="left" height="150px" src="https://ccnetcore.com/prod-api/wwwroot/logo.png"> Yi框架</h1>
+<h1 align="center"><img align="left" height="150px" src="https://user-images.githubusercontent.com/68722157/138828506-f58b7c57-5e10-4178-8f7d-5d5e12050113.png"> Yi框架</h1>
 <h4 align="center">一套以用户体验出发的.Net8 Web开源框架</h4>
 <h5 align="center">支持Abp.vNext 版本原生版本、Furion版本，前端后台接入Ruoyi Vue3.0</h5>
 <h2 align="center">集大成者，终究轮子</h2>
@@ -59,12 +59,11 @@ Rbac演示地址：https://ccnetcore.com:1000  （用户cc、密码123456）
 
 ****
 ### 详细到爆炸的Yi框架教程导航：
-（既然选择开源，就本该怀揣着最纯粹分享的内心，我们全套打包分享，开源包括且不仅仅是：文档、框架代码、模块代码、运维CICD等，希望能够帮助到您）
 
 1. [框架快速开始教程](https://ccnetcore.com/article/aaa00329-7f35-d3fe-d258-3a0f8380b742)(已完成)
 2. [框架功能模块教程](https://ccnetcore.com/article/8c464ab3-8ba5-2761-a4b0-3a0f83a9f312)(已完成)
 3. [实战演练开发教程](https://ccnetcore.com/article/e89c9593-f337-ada7-d108-3a0f83ae48e6)
-4. [橙子运维CICD教程](https://ccnetcore.com/article/6b80ed42-50cd-db15-c073-3a0fa8f7fd77)(已完成)
+
 
 ****
 ### 它的理念:
