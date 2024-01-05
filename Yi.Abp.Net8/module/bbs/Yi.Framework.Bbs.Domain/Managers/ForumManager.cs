@@ -67,7 +67,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
 
                 default: abstractArticleImport = new DefaultArticleImport(); break;
             }
-
+            abstractArticleImport.SetLogger(LoggerFactory);
             var articleHandled = abstractArticleImport.Import(discussId, articleParentId, fileObjs);
 
             await _articleRepository.InsertManyAsync(articleHandled);
