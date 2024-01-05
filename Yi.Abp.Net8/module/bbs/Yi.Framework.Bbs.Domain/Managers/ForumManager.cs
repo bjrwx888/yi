@@ -57,7 +57,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             AbstractArticleImport abstractArticleImport = default;
             switch (importType)
             {
-                case ArticleImportTypeEnum.Defalut:
+                case ArticleImportTypeEnum.Default:
                     abstractArticleImport = new DefaultArticleImport();
 
                     break;
