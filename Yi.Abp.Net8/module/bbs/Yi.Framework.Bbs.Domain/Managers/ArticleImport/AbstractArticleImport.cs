@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Shared.Model;
 
@@ -10,7 +11,12 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
 {
     public abstract class AbstractArticleImport
     {
-        public virtual List<ArticleEntity> Import(Guid discussId,Guid articleParentId, List<FileObject> fileObjs)
+        public void SetLogger(ILoggerFactory loggerFactory)
+        {
+            LoggerFactory = loggerFactory;
+        }
+        protected ILoggerFactory LoggerFactory { get; set; }
+        public virtual List<ArticleEntity> Import(Guid discussId, Guid articleParentId, List<FileObject> fileObjs)
         {
             var articles = Convert(fileObjs);
             articles.ForEach(article =>
