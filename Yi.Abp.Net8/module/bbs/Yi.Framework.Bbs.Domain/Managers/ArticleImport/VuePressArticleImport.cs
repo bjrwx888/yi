@@ -37,13 +37,13 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                  var startIndex = 0;
                  for (int i = 0; i < lines.Length; i++)
                  {
-                     if (lines[i] == "---")
+                     //编码问题
+                     if (lines[i] == "---" || lines[i]== "---")
                      {
                          num++;
                          if (num == 2)
                          {
                              startIndex = i;
-                             logger.LogError($"startIndex={startIndex}");
                              break;
                          }
 
@@ -52,10 +52,11 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                  }
                  var linesRef = lines.ToList();
 
-                 linesRef.RemoveRange(0, startIndex + 1);
-        
+                 if (startIndex != 0)
+                 {
+                     linesRef.RemoveRange(0, startIndex + 1);
+                 }
                  var result = string.Join(Environment.NewLine, linesRef);
-                 logger.LogError($"新的值:{result}");
                  f.Content = result;
                  return f;
              });
