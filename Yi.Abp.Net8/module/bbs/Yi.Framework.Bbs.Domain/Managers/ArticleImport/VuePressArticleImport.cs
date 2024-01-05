@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +39,6 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                         if (num == 2)
                         {
                             startIndex = i;
-                        Console.WriteLine($"i={i}");
                             break;
                         }
 
@@ -50,8 +49,6 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
 
                 linesRef.RemoveRange(0, startIndex+1);
                 var result = string.Join(Environment.NewLine, linesRef);
-                Console.WriteLine($"处理前内容：{x.Content}");
-                Console.WriteLine($"处理后内容:{result}");
                 f.Content = result;
                 return f;
             });
