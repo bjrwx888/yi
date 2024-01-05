@@ -66,7 +66,7 @@ namespace Yi.Abp.Web
             service.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
             Configure<AbpAntiForgeryOptions>(options =>
@@ -103,33 +103,40 @@ namespace Yi.Abp.Web
             //jwt鉴权
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
             context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    ClockSkew = TimeSpan.Zero,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Audience,
+                    RequireExpirationTime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKey))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
                     {
-                        ClockSkew = TimeSpan.Zero,
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtOptions.Issuer,
-                        ValidAudience = jwtOptions.Audience,
-                        RequireExpirationTime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKey))
-                    };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
+                        var accessToken = context.Request.Query["access_token"];
+                        if (!string.IsNullOrEmpty(accessToken))
                         {
-                            var accessToken = context.Request.Query["access_token"];
-                            if (!string.IsNullOrEmpty(accessToken))
-                            {
-                                context.Token = accessToken;
-                            }
-                            return Task.CompletedTask;
+                            context.Token = accessToken;
                         }
-                    };
-                });
+                        return Task.CompletedTask;
+                    }
+                };
+            })
+            .AddQQ("QQ", options =>
+            {
+                options.ClientId = configuration["qq:client"];
+                options.ClientSecret = configuration["qq:key"];
+                options.CallbackPath = "/qq";
+
+            });
 
             //授权
             context.Services.AddAuthorization();
@@ -153,7 +160,7 @@ namespace Yi.Abp.Web
 
             //swagger
             app.UseYiSwagger();
-            
+
             //请求处理
             app.UseYiApiHandlinge();
 

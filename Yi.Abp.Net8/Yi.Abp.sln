@@ -70,7 +70,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Bbs.SqlSugarCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "audit-logging", "audit-logging", "{73CCF2C4-B9FD-44AB-8D4B-0A421805B094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.AuditLogging.SqlSugarCore", "module\audit-logging\Yi.AuditLogging.SqlSugarCore\Yi.AuditLogging.SqlSugarCore.csproj", "{48806510-8E18-4E1E-9BAF-5B97E88C5FC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.AuditLogging.SqlSugarCore", "module\audit-logging\Yi.AuditLogging.SqlSugarCore\Yi.AuditLogging.SqlSugarCore.csproj", "{48806510-8E18-4E1E-9BAF-5B97E88C5FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
