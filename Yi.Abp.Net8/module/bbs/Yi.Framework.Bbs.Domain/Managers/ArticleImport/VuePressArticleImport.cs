@@ -38,7 +38,6 @@ namespace Yi.Framework.Bbs.Domain.Managers.ArticleImport
                  for (int i = 0; i < lines.Length; i++)
                  {
                      //编码问题
-                     logger.LogError($"输出行:{lines[i]}");
                      if (lines[i] == "---")
                      {
                          num++;
