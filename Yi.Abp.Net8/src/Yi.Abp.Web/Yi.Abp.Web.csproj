@@ -4,7 +4,6 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.QQ" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />

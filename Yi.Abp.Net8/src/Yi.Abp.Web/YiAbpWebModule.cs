@@ -129,13 +129,6 @@ namespace Yi.Abp.Web
                         return Task.CompletedTask;
                     }
                 };
-            })
-            .AddQQ("QQ", options =>
-            {
-                options.ClientId = configuration["qq:client"];
-                options.ClientSecret = configuration["qq:key"];
-                options.CallbackPath = "/qq";
-
             });
 
             //授权
