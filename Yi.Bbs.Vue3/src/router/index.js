@@ -31,6 +31,14 @@ const router = createRouter({
           path: "/register",
           component: () => import("../views/Register.vue"),
         },
+        {
+          name: "qq",
+          path: "/qq",
+          component: () => import("../views/qqAuth/index.vue"),
+          meta: {
+            title: "QQ授权",
+          },
+        },
       ],
     },
     {
