@@ -375,7 +375,6 @@ const statisOptions = computed(() => {
       .text {
         width: 60px;
         position: absolute;
-        padding: 0 5px;
         top: -10px;
         left: 50%;
         transform: translateX(-50%);
