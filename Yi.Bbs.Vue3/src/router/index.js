@@ -63,7 +63,7 @@ const router = createRouter({
         {
           name: "discuss",
           path: "/discuss/:plateId?/:isPublish?",
-          component: () => import("../views/Discuss.vue"),
+          component: () => import("../views/discuss/index.vue"),
           meta: {
             title: "板块",
           },
