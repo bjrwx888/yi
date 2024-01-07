@@ -60,7 +60,8 @@ Rbac演示地址：https://ccnetcore.com:1000  （用户cc、密码123456）
 1. [框架快速开始教程](https://ccnetcore.com/article/aaa00329-7f35-d3fe-d258-3a0f8380b742)(已完成)
 2. [框架功能模块教程](https://ccnetcore.com/article/8c464ab3-8ba5-2761-a4b0-3a0f83a9f312)(已完成)
 3. [实战演练开发教程](https://ccnetcore.com/article/e89c9593-f337-ada7-d108-3a0f83ae48e6)
-
+4. [橙子运维CICD教程](https://ccnetcore.com/article/6b80ed42-50cd-db15-c073-3a0fa8f7fd77)(已完成)
+5. [版本更新日志](https://ccnetcore.com/article/e9e69a38-ce1e-06f5-7944-3a0fdc942ef3)(已完成)
 
 ****
 ###  :tw-1f353:  它的理念:
@@ -159,6 +160,18 @@ js Vue3.2
 - 权限管理
 
  **演示截图：** 
+ <table>
+    <tr>
+        <td><img src="readme/101.png"/></td>
+        <td><img src="readme/102.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/103.png"/></td>
+        <td><img src="readme/104.png"/></td>
+    </tr>
+</table>
+ 
+ 
 <table>
     <tr>
         <td><img src="readme/1.png"/></td>
@@ -185,8 +198,8 @@ js Vue3.2
         <td><img src="readme/10.png"/></td>
     </tr>
     <tr>
-        <td><img src="readme/1696760969217.jpg"/></td>
-        <td><img src="readme/1696761014270.jpg"/></td>
+        <td><img src="readme/11.png"/></td>
+        <td><img src="readme/12.png"/></td>
     </tr>
 </table>
 
