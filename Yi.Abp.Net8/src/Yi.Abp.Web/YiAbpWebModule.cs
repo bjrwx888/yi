@@ -17,6 +17,9 @@ using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
 using Yi.Abp.SqlsugarCore;
 using Yi.Framework.AspNetCore;
+using Yi.Framework.AspNetCore.Authentication.OAuth;
+using Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
+using Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.Bbs.Application;
@@ -28,6 +31,7 @@ namespace Yi.Abp.Web
     [DependsOn(
         typeof(YiAbpSqlSugarCoreModule),
         typeof(YiAbpApplicationModule),
+      
 
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutofacModule),
@@ -35,7 +39,8 @@ namespace Yi.Abp.Web
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpAuditingModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
-        typeof(YiFrameworkAspNetCoreModule)
+        typeof(YiFrameworkAspNetCoreModule),
+        typeof(YiFrameworkAspNetCoreAuthenticationOAuthModule)
 
         )]
     public class YiAbpWebModule : AbpModule
@@ -100,6 +105,7 @@ namespace Yi.Abp.Web
                 });
             });
 
+           
             //jwt鉴权
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
             context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -129,12 +135,21 @@ namespace Yi.Abp.Web
                         return Task.CompletedTask;
                     }
                 };
-            });
+            })
+            .AddQQ(options =>
+            {
+                configuration.GetSection("OAuth:QQ").Bind(options);
+            })
+            .AddGitee(options =>
+            {
+                configuration.GetSection("OAuth:Gitee").Bind(options);
+            });     
 
             //授权
             context.Services.AddAuthorization();
             return Task.CompletedTask;
         }
+
 
         public override Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
         {
