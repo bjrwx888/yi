@@ -48,7 +48,7 @@
         <div class="score">积分：3005</div>
         <div class="status">
           <span>状态：</span>
-          <span> {{ getStatusInfo(userInfo.userLimit.label) }}</span>
+          <span> {{ getStatusInfo(userInfo.userLimit) }}</span>
         </div>
       </div>
       <div class="hobby">
@@ -98,7 +98,7 @@ const statusTypeList = [
   },
 ];
 const getStatusInfo = (type) => {
-  return statusTypeList.filter((item) => item.value === type)[0];
+  return statusTypeList.filter((item) => item.value === type)[0]?.label;
 };
 </script>
 

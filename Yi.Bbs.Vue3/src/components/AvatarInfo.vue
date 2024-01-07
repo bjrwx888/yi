@@ -17,8 +17,12 @@
               >
             </div>
             <div class="status" v-if="userInfo.userLimit">
-              <el-tag round effect="light" :type="userInfo.userLimit.type">
-                {{ userInfo.userLimit.label }}
+              <el-tag
+                round
+                effect="light"
+                :type="getStatusInfo(userInfo.userLimit)?.type"
+              >
+                {{ getStatusInfo(userInfo.userLimit)?.label }}
               </el-tag>
             </div>
           </div>
@@ -107,7 +111,7 @@ const Init = () => {
     userInfo.role = props.userInfo.role;
     userInfo.id = props.userInfo.id;
     userInfo.level = props.userInfo.level;
-    userInfo.userLimit = getStatusInfo(props.userInfo.userLimit);
+    userInfo.userLimit = props.userInfo.userLimit;
     iconUrl.value = iconUrlHandler(userInfo.icon);
   }
 
