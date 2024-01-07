@@ -16,7 +16,7 @@ watch(
   (val) => {
     if (val) {
       message.value = "授权成功";
-      window.close();
+      // window.close();
     }
   },
   { immediate: true }
