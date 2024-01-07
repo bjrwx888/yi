@@ -5,7 +5,7 @@
 
 [English](README-en.md) | 简体中文
 ****
-### 简介:
+###  :tw-1f34e:  简介:
 YiFramework是一个基于.Net8+Abp.vNext+SqlSugar的DDD领域驱动设计后端开源框架
 
 谁说Abp复杂？谁说DDD难？`打破常规，化繁为简`，新人入门，项目二开，最佳方式之一
@@ -35,7 +35,7 @@ Yi框架-一套与SqlSugar一样爽的.Net8开源框架。
 
 ****
 
-### 官网及演示地址：
+###  :tw-1f350:  官网及演示地址：
 
 废话少说直接上地址
 
@@ -48,14 +48,14 @@ App移动端系统：已上线，暂不提供演示地址，可本地部署访�
 Rbac演示地址：https://ccnetcore.com:1000  （用户cc、密码123456）
 
 
-### 支持:
+###  :tw-1f351:  支持:
 
 - [x] 完全支持单体应用架构
 - [x] 完全支持分布式应用架构
 - [x] 完全支持微服务架构
 
 ****
-### 详细到爆炸的Yi框架教程导航：
+###  :tw-1f352:  详细到爆炸的Yi框架教程导航：
 
 1. [框架快速开始教程](https://ccnetcore.com/article/aaa00329-7f35-d3fe-d258-3a0f8380b742)(已完成)
 2. [框架功能模块教程](https://ccnetcore.com/article/8c464ab3-8ba5-2761-a4b0-3a0f83a9f312)(已完成)
@@ -63,7 +63,7 @@ Rbac演示地址：https://ccnetcore.com:1000  （用户cc、密码123456）
 
 
 ****
-### 它的理念:
+###  :tw-1f353:  它的理念:
 谁说Abp复杂？谁说DDD难？打破常规，化繁为简，新人入门，项目二开，最佳方式之一
 
 > 一百个人，就有一百种DDD，Yi框架不一定是极度严格的DDD，而是站在巨人的肩膀上，经过极多项目的提炼，摸索出一种最佳实践
@@ -76,14 +76,14 @@ Rbac演示地址：https://ccnetcore.com:1000  （用户cc、密码123456）
 在真正的使用这，你会明白这一点，极致的简单，也是优雅的一种体现。
 ****
 
-## 特点
+##  :tw-1f354:  特点
 - 面向用户的后端框架，使用简单，适合小型、中型、企业级项目
 - 项目直接内置源码，不打包，非常适合进行二开改造
 - 内置包含大量通用场景模块
 - 优雅支持分布式及微服务架构
 - 等等
 
-## 基础设施简介
+##  :tw-1f340:  基础设施简介
 
 以下全部功能可直接使用：
 
@@ -91,14 +91,14 @@ Rbac演示地址：https://ccnetcore.com:1000  （用户cc、密码123456）
 
 - [SqlSugar官网](https://www.donet5.com/home/doc)
 
-## 内置模块简介
+##  :tw-1f341:  内置模块简介
 - Rbac权限管理系统（已上线）
 - Bbs论坛社区系统（已上线）
 
 > 重复的东西，无需再写一遍，这也是优雅的体现之一
 
 ****
-### 核心技术
+###  :tw-1f31e:  核心技术
 #### 后端
 C# Asp.NetCore 8.0
 - [x] 动态Api：Abp.vNext
@@ -130,9 +130,9 @@ js Vue3.2
 
 
 ****
-### 业务支持模块：  
+###  :tw-1f366:  业务支持模块：  
 
-RABC权限管理系统（正在更新）
+ :tw-1f42f: RABC权限管理系统（持续更新）
 （采用ruoyi前端）
 - 用户管理
 - 角色管理
@@ -149,22 +149,49 @@ RABC权限管理系统（正在更新）
 - 服务监控
 - WebFirst代码生成工具
 
+ :tw-1f431: BBS社区论坛系统（持续更新）
+（采用vue3前端）
+- 文章功能
+- 板块功能
+- 主题功能
+- 个人中心
+- 授权中心
+- 权限管理
+
  **演示截图：** 
-![输入图片说明](readme/1.png)
-![输入图片说明](readme/2.png)
-![输入图片说明](readme/3.png)
-![输入图片说明](readme/4.png)
-![输入图片说明](readme/5.png)
-![输入图片说明](readme/6.png)
-![输入图片说明](readme/7.png)
-![输入图片说明](readme/8.png)
-![输入图片说明](readme/9.png)
-![输入图片说明](readme/10.png)
-![输入图片说明](readme/1696760969217.jpg)
-![输入图片说明](readme/1696761014270.jpg)
+<table>
+    <tr>
+        <td><img src="readme/1.png"/></td>
+        <td><img src="readme/2.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/3.png"/></td>
+        <td><img src="readme/4.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/3.png"/></td>
+        <td><img src="readme/4.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/5.png"/></td>
+        <td><img src="readme/6.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/7.png"/></td>
+        <td><img src="readme/8.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/9.png"/></td>
+        <td><img src="readme/10.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="readme/1696760969217.jpg"/></td>
+        <td><img src="readme/1696761014270.jpg"/></td>
+    </tr>
+</table>
 
 ****
-### 感谢：
+###  :tw-1f44f:  感谢：
 
 [橙子]https://ccnetcore.com
 
@@ -185,7 +212,7 @@ RABC权限管理系统（正在更新）
 [Furion百小僧]https://furion.baiqian.ltd/
 
 ****
-### 联系我们：
+###  :tw-1f438: 联系我们：
 
 作者QQ：`454313500`，2029年之前作者24小时在线，时刻保持活跃更新。
 
@@ -196,7 +223,7 @@ QQ交流群：官方一群（已满）、官方二群（已满）、官方三群
 官方网址留言区：[ccnetcore.com](https://ccnetcore.com) 
 
 ****
-### FQA:
+###  :tw-1f41e: FQA:
 
 前往官网查看留言区
 
