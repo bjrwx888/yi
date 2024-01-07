@@ -59,9 +59,6 @@
     <template v-else>
       <Skeleton :isBorder="true" />
     </template>
-    <div class="div-item" v-for="i in discussList">
-      <DisscussCard :discuss="i" />
-    </div>
     <div>
       <el-pagination
         v-model:current-page="query.skipCount"
