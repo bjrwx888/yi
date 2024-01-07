@@ -3,9 +3,10 @@
 <h5 align="center">支持Abp.vNext 版本原生版本、Furion版本，前端后台接入Ruoyi Vue3.0</h5>
 <h2 align="center">集大成者，终究轮子</h2>
 
-[![star](https://gitee.com/zuohuaijun/Admin.NET/badge/star.svg?theme=dark)](https://gitee.com/zuohuaijun/Admin.NET/stargazers)
-[![fork](https://gitee.com/zuohuaijun/Admin.NET/badge/fork.svg?theme=dark)](https://gitee.com/zuohuaijun/Admin.NET/members)
-[![GitHub license](https://img.shields.io/badge/license-MIT-yellow)](https://gitee.com/zuohuaijun/Admin.NET/blob/next/LICENSE)
+[![star](https://gitee.com/ccnetcore/yi/badge/star.svg?theme=dark)](https://gitee.com/ccnetcore/Yi)
+[![fork](https://gitee.com/ccnetcore/yi/badge/fork.svg?theme=dark)](https://gitee.com/ccnetcore/Yi)
+[![license](https://img.shields.io/badge/license-MIT-yellow)](https://gitee.com/ccnetcore/Yi)
+
 [English](README-en.md) | 简体中文
 ****
 ##  :tw-1f34e:  简介:
