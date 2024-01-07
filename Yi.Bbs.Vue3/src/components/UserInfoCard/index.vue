@@ -9,7 +9,7 @@
     v-if="!props.isSelf"
   >
     <template #reference>
-      <el-avatar :size="props.size" :src="iconUrl" />
+      <el-avatar :size="30" :src="iconUrl" />
     </template>
     <div class="top">
       <div class="left">

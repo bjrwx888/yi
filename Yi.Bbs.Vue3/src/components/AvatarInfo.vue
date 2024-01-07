@@ -155,7 +155,6 @@ const getStatusInfo = (type) => {
 
 .info {
   flex: 1;
-  margin-top: 0.6rem;
   margin-left: 1rem;
 }
 
@@ -171,6 +170,7 @@ const getStatusInfo = (type) => {
   flex: 1;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .avatar-left,
