@@ -1,5 +1,5 @@
 <template>
-  <el-badge :value="props.badge ?? ''" class="box-card">
+  <el-badge class="box-card">
     <el-card shadow="never" :style="{ 'border-color': discuss.color }">
       <el-row>
         <!-- 头部 -->
@@ -69,6 +69,12 @@
         </el-col>
       </el-row>
     </el-card>
+    <div class="pinned" v-if="props.badge">
+      <div class="icon">
+        <el-icon><Upload /></el-icon>
+      </div>
+      <div class="text">{{ props.badge ?? "" }}</div>
+    </div>
   </el-badge>
 </template>
 <script setup>
@@ -170,10 +176,28 @@ onMounted(() => {
 }
 
 .box-card {
+  position: relative;
   width: 100%;
   min-height: 15rem;
   /* right: calc(1px + var(--el-badge-size)/ 2) !important; */
   /* top: 0 !important;  */
+  .pinned {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: rgb(8, 119, 229);
+    background-color: #ecf5ff;
+    font-size: 14px;
+    .icon {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
+    }
+  }
 }
 
 .item-title {
