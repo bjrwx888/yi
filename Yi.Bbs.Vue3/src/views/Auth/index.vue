@@ -5,16 +5,28 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import { authOtherLogin, authOtherBind } from "@/apis/auth.js";
 
 const route = useRoute();
 
 const code = ref(route.query.code);
+const type = ref(route.query.state);
 
 const message = ref("");
 watch(
   () => code.value,
-  (val) => {
+  async (val) => {
     if (val) {
+      // 使用正则表达式提取路由参数
+      const regex = /\/auth\/([\w-]+)[?]?/;
+      const result = regex.exec(route.fullPath);
+      const authParam = result != null ? result[1].toUpperCase() : null;
+      console.log(type.value, "类型");
+      if (type.value === 0) {
+        const res = await authOtherLogin({ code: val }, authParam);
+      } else if (type.value === 1) {
+        const res = await authOtherBind({ code: val }, authParam);
+      }
       message.value = "授权成功";
       // window.close();
     }
