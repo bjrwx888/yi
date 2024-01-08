@@ -198,11 +198,12 @@ import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
 import Skeleton from "@/components/Skeleton/index.vue";
-import useUserStore from "@/stores/user";
 import useSocketStore from "@/stores/socket";
-import { storeToRefs } from "pinia";
+import signalR from "@/utils/signalR";
+import useAuths from "@/hooks/useAuths";
 
-const { token } = storeToRefs(useUserStore());
+const { getToken } = useAuths();
+const token = getToken();
 
 const plateList = ref([]);
 const discussList = ref([]);
@@ -288,6 +289,16 @@ watch(
     onlineNumber.value = val;
   },
   { deep: true }
+);
+
+watch(
+  () => token,
+  async (val) => {
+    if (val) {
+      await signalR.init(`main`);
+    }
+  },
+  { immediate: true }
 );
 </script>
 <style scoped lang="scss">
