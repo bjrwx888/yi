@@ -22,9 +22,9 @@ watch(
       const result = regex.exec(route.fullPath);
       const authParam = result != null ? result[1].toUpperCase() : null;
       console.log(type.value, "类型");
-      if (type.value === 0) {
+      if (type.value === "0") {
         const res = await authOtherLogin({ code: val }, authParam);
-      } else if (type.value === 1) {
+      } else if (type.value === "1") {
         const res = await authOtherBind({ code: val }, authParam);
       }
       message.value = "授权成功";
