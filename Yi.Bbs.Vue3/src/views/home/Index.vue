@@ -201,7 +201,6 @@ import Skeleton from "@/components/Skeleton/index.vue";
 import useUserStore from "@/stores/user";
 import useSocketStore from "@/stores/socket";
 import { storeToRefs } from "pinia";
-import signalR from "@/utils/signalR";
 
 const { token } = storeToRefs(useUserStore());
 
@@ -262,17 +261,7 @@ onMounted(async () => {
   const { data: userAnalyseInfoData } = await getUserAnalyse();
   onlineNumber.value = userAnalyseInfoData.onlineNumber;
   userAnalyseInfo.value = userAnalyseInfoData;
-  // 实时人数
-  await signalR.init(`main`);
 });
-
-//这里还需要监视token的变化，重新进行signalr连接
-watch(
-  () => token.value,
-  async (newValue, oldValue) => {
-    await signalR.init(`main`);
-  }
-);
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 // 访问统计
@@ -297,7 +286,8 @@ watch(
   () => currentOnlineNum.value,
   (val) => {
     onlineNumber.value = val;
-  }
+  },
+  { deep: true }
 );
 </script>
 <style scoped lang="scss">

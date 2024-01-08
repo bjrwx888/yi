@@ -8,6 +8,7 @@ import {
   userLogout,
   userRegister,
 } from "@/apis/auth";
+import signalR from "@/utils/signalR";
 
 const TokenKey = "AccessToken";
 export const AUTH_MENUS = "AUTH_MENUS";
@@ -123,6 +124,8 @@ export default function useAuths(opt) {
 
     setToken(token);
     try {
+      // 登录成功后进行长连接
+      await signalR.init(`main`);
       // 存储用户信息
       await useUserStore().getInfo(); // 用户信息
       // 登录成功后 路由跳转
