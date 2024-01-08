@@ -305,7 +305,7 @@ const handleContact = () => {
 
 const handleQQLogin = () => {
   window.open(
-    "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101951505&redirect_uri=https://ccnetcore.com/qq&state=true&scope=get_user_info",
+    "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=102087446&redirect_uri=https://ccnetcore.com/auth/qq&state=true&scope=get_user_info",
     undefined,
     "width=500,height=500,left=50,top=50"
   );
