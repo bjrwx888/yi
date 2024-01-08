@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { authOtherLogin, authOtherBind } from "@/apis/auth.js";
 
@@ -23,12 +23,14 @@ watch(
       const authParam = result != null ? result[1].toUpperCase() : null;
       if (type.value === 0) {
         const res = await authOtherLogin({ code: val }, authParam);
+        message.value = res;
         console.log(res, "type.value === 0");
       } else if (type.value === 1) {
         const res = await authOtherBind({ code: val }, authParam);
+        message.value = res;
         console.log(res, "type.value === 1");
       }
-      message.value = "授权成功";
+      // message.value = "授权成功";
       // window.close();
     }
   },
