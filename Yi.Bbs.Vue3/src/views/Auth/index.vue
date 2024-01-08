@@ -3,8 +3,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { authOtherLogin, authOtherBind } from "@/apis/auth.js";
 
 const route = useRoute();
 
@@ -13,8 +14,14 @@ const code = ref(route.query.code);
 const message = ref("");
 watch(
   () => code.value,
-  (val) => {
+  async (val) => {
     if (val) {
+      // 使用正则表达式提取路由参数
+      const regex = /\/auth\/([\w-]+)[?]?/;
+      const result = regex.exec(route.fullPath);
+      const authParam = result != null ? result[1].toUpperCase() : null;
+      const res = await authOtherBind({ code: val }, authParam);
+      console.log(res, "res");
       message.value = "授权成功";
       // window.close();
     }
