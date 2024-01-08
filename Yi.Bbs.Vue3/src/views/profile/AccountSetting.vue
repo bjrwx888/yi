@@ -92,7 +92,7 @@ onMounted(async () => {
 
 const handleQQLogin = () => {
   window.open(
-    "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=102087446&redirect_uri=https://ccnetcore.com/auth/qq&state=true&scope=get_user_info",
+    "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=102087446&redirect_uri=https://ccnetcore.com/auth/qq&state=1&scope=get_user_info",
     undefined,
     "width=500,height=500,left=50,top=50"
   );
@@ -100,7 +100,7 @@ const handleQQLogin = () => {
 
 const handleGiteeLogin = () => {
   window.open(
-    "https://gitee.com/oauth/authorize?client_id=949f3519969adc5cfe82c209b71300e8e0868e8536f3d7f59195c8f1e5b72502&redirect_uri=https%3A%2F%2Fccnetcore.com%2Fauth%2Fgitee&response_type=code",
+    "https://gitee.com/oauth/authorize?client_id=949f3519969adc5cfe82c209b71300e8e0868e8536f3d7f59195c8f1e5b72502&redirect_uri=https%3A%2F%2Fccnetcore.com%2Fauth%2Fgitee&state=1&response_type=code",
     undefined,
     "width=500,height=500,left=50,top=50"
   );

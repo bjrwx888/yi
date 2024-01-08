@@ -10,6 +10,7 @@ import { authOtherLogin, authOtherBind } from "@/apis/auth.js";
 const route = useRoute();
 
 const code = ref(route.query.code);
+const type = ref(route.query.state);
 
 const message = ref("");
 watch(
@@ -20,8 +21,13 @@ watch(
       const regex = /\/auth\/([\w-]+)[?]?/;
       const result = regex.exec(route.fullPath);
       const authParam = result != null ? result[1].toUpperCase() : null;
-      const res = await authOtherBind({ code: val }, authParam);
-      console.log(res, "res");
+      if (type.value === 0) {
+        const res = await authOtherLogin({ code: val }, authParam);
+        console.log(res, "type.value === 0");
+      } else if (type.value === 1) {
+        const res = await authOtherBind({ code: val }, authParam);
+        console.log(res, "type.value === 1");
+      }
       message.value = "授权成功";
       // window.close();
     }
