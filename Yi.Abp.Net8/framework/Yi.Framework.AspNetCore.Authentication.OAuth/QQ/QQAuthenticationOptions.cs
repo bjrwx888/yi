@@ -6,7 +6,6 @@
 
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using static Yi.Framework.AspNetCore.Authentication.OAuth.QQ.QQAuthenticationConstants;
 
 namespace Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
@@ -14,7 +13,7 @@ namespace Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 /// <summary>
 /// Defines a set of options used by <see cref="QQAuthenticationHandler"/>.
 /// </summary>
-public class QQAuthenticationOptions : OAuthOptions
+public class QQAuthenticationOptions : AuthenticationOAuthOptions
 {
     public QQAuthenticationOptions()
     {
@@ -47,5 +46,4 @@ public class QQAuthenticationOptions : OAuthOptions
     /// </summary>
     public string UserIdentificationEndpoint { get; set; }
 
-    public string RedirectUri { get; set; }
 }

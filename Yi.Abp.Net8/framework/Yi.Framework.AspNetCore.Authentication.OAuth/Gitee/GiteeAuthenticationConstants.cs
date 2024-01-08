@@ -15,9 +15,5 @@ public static class GiteeAuthenticationConstants
     {
         public const string Url = "urn:gitee:url";
         public const string AvatarUrl = "urn:gitee:avatarUrl";
-
-        public const string OpenId = "urn:openid";
-        public const string AccessToken = "urn:access_token";
-        public const string Name = "urn:name";
     }
 }

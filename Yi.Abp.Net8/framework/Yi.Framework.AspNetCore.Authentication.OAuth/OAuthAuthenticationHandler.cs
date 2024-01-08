@@ -63,7 +63,7 @@ namespace Yi.Framework.AspNetCore.Authentication.OAuth
 
         protected virtual void VerifyErrResponse(string content)
         {
-            return;
+            AuthticationErrCodeModel.VerifyErrResponse(content);
         }
 
         protected abstract Task<List<Claim>> GetAuthTicketAsync(string code);

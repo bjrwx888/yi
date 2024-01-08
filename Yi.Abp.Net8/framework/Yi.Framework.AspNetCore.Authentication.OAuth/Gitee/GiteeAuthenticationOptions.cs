@@ -6,7 +6,6 @@
 
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using static Yi.Framework.AspNetCore.Authentication.OAuth.Gitee.GiteeAuthenticationConstants;
 
 namespace Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
@@ -14,7 +13,7 @@ namespace Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
 /// <summary>
 /// Defines a set of options used by <see cref="GiteeAuthenticationHandler"/>.
 /// </summary>
-public class GiteeAuthenticationOptions : OAuthOptions
+public class GiteeAuthenticationOptions : AuthenticationOAuthOptions
 {
     public GiteeAuthenticationOptions()
     {
@@ -33,7 +32,7 @@ public class GiteeAuthenticationOptions : OAuthOptions
         ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
         ClaimActions.MapJsonKey(ClaimTypes.Name, "login");
         ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
-        ClaimActions.MapJsonKey(Claims.Name, "name");
+        ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
         ClaimActions.MapJsonKey(Claims.Url, "url");
     }
 
@@ -42,6 +41,4 @@ public class GiteeAuthenticationOptions : OAuthOptions
     /// the email addresses associated with the logged in user.
     /// </summary>
     public string UserEmailsEndpoint { get; set; }
-
-    public string RedirectUri { get; set; }
 }

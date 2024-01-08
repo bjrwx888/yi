@@ -14,11 +14,6 @@ namespace Yi.Framework.AspNetCore.Authentication.OAuth.QQ
 
         public override string AuthenticationSchemeNmae => QQAuthenticationDefaults.AuthenticationScheme;
 
-        protected override void VerifyErrResponse(string content)
-        {
-            QQAuthticationErrCodeModel.VerifyErrResponse(content);
-        }
-
         protected override async Task<List<Claim>> GetAuthTicketAsync(string code)
         {
 
@@ -58,9 +53,9 @@ namespace Yi.Framework.AspNetCore.Authentication.OAuth.QQ
                 new Claim(Claims.PictureMediumUrl, userInfoMdoel.figureurl_qq_1),
                 new Claim(Claims.PictureUrl, userInfoMdoel.figureurl),
 
-                new Claim(Claims.OpenId, tokenModel.openid),
-                new Claim(Claims.Name, userInfoMdoel.nickname),
-                new Claim(Claims.AccessToken, tokenModel.access_token),
+                new Claim(AuthenticationConstants.OpenId, tokenModel.openid),
+                new Claim(AuthenticationConstants.Name, userInfoMdoel.nickname),
+                new Claim(AuthenticationConstants.AccessToken, tokenModel.access_token),
                
             };
             return claims;

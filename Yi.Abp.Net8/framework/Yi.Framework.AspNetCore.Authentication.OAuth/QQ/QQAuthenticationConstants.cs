@@ -19,9 +19,5 @@ public static class QQAuthenticationConstants
         public const string PictureMediumUrl = "urn:qq:picture_medium";
         public const string PictureUrl = "urn:qq:picture";
         public const string UnionId = "urn:qq:unionid";
-
-        public const string OpenId = "urn:openid";
-        public const string AccessToken = "urn:access_token";
-        public const string Name = "urn:name";
     }
 }

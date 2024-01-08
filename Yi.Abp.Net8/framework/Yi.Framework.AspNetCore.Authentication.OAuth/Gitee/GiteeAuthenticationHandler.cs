@@ -2,7 +2,6 @@
 using System.Text.Encodings.Web;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 using static Yi.Framework.AspNetCore.Authentication.OAuth.Gitee.GiteeAuthenticationConstants;
 
 namespace Yi.Framework.AspNetCore.Authentication.OAuth.Gitee
@@ -40,16 +39,11 @@ namespace Yi.Framework.AspNetCore.Authentication.OAuth.Gitee
                 new Claim(Claims.AvatarUrl, userInfoMdoel.avatar_url),
                 new Claim(Claims.Url, userInfoMdoel.url),
 
-                new Claim(Claims.OpenId,userInfoMdoel.id.ToString()),
-                new Claim(Claims.Name, userInfoMdoel.name),
-                new Claim(Claims.AccessToken, tokenModel.access_token)
+                new Claim(AuthenticationConstants.OpenId,userInfoMdoel.id.ToString()),
+                new Claim(AuthenticationConstants.Name, userInfoMdoel.name),
+                new Claim(AuthenticationConstants.AccessToken, tokenModel.access_token)
             };
             return claims;
-        }
-
-        protected override void VerifyErrResponse(string content)
-        {
-            GiteeAuthticationErrCodeModel.VerifyErrResponse(content);
         }
     }
 }
