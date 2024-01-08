@@ -17,20 +17,17 @@ watch(
   () => code.value,
   async (val) => {
     if (val) {
+      console.log("val", val);
       // 使用正则表达式提取路由参数
       const regex = /\/auth\/([\w-]+)[?]?/;
       const result = regex.exec(route.fullPath);
       const authParam = result != null ? result[1].toUpperCase() : null;
       if (type.value === 0) {
         const res = await authOtherLogin({ code: val }, authParam);
-        message.value = res;
-        console.log(res, "type.value === 0");
       } else if (type.value === 1) {
         const res = await authOtherBind({ code: val }, authParam);
-        message.value = res;
-        console.log(res, "type.value === 1");
       }
-      // message.value = "授权成功";
+      message.value = "授权成功";
       // window.close();
     }
   },
