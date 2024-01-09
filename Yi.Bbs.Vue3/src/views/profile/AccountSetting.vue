@@ -123,7 +123,7 @@ const handleQQLogin = () => {
 
 const handleGiteeLogin = () => {
   window.open(
-    "/auth/gitee?code=907b2b59088678ad07d21561c175b0226c031370ab0b4ba1ae9928ea40148d83&state=1",
+    "https://gitee.com/oauth/authorize?client_id=949f3519969adc5cfe82c209b71300e8e0868e8536f3d7f59195c8f1e5b72502&redirect_uri=https%3A%2F%2Fccnetcore.com%2Fauth%2Fgitee&response_type=code",
     undefined,
     "width=500,height=500,left=50,top=50",
     "_black"
@@ -143,21 +143,21 @@ window.addEventListener("message", async (e) => {
 <style lang="scss" scoped>
 .account-box {
   .title {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: bold;
   }
   .image-list {
-    margin: 10px;
+    margin: 0.625rem;
     display: flex;
     .item {
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-right: 20px;
+      margin-right: 1.25rem;
       .image {
-        width: 30px;
-        height: 30px;
+        width: 1.875rem;
+        height: 1.875rem;
         img {
           width: 100%;
           height: 100%;
@@ -166,10 +166,10 @@ window.addEventListener("message", async (e) => {
     }
   }
   .table {
-    margin-top: 10px;
+    margin-top: 0.625rem;
     :deep(.yi-table) {
       width: 100%;
-      height: 200px;
+      height: 12.5rem;
     }
   }
 }
