@@ -123,7 +123,7 @@ const handleQQLogin = () => {
 
 const handleGiteeLogin = () => {
   window.open(
-    "https://gitee.com/oauth/authorize?client_id=949f3519969adc5cfe82c209b71300e8e0868e8536f3d7f59195c8f1e5b72502&redirect_uri=https%3A%2F%2Fccnetcore.com%2Fauth%2Fgitee&response_type=code",
+    "https://gitee.com/oauth/authorize?client_id=949f3519969adc5cfe82c209b71300e8e0868e8536f3d7f59195c8f1e5b72502&redirect_uri=https%3A%2F%2Fccnetcore.com%2Fauth%2Fgitee&state=1&response_type=code",
     undefined,
     "width=500,height=500,left=50,top=50",
     "_black"
