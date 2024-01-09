@@ -115,3 +115,16 @@ export function getOtherAuthInfo(params) {
     params: params,
   });
 }
+
+/**
+ * 删除第三方授权
+ * @param {*} ids
+ * @returns
+ */
+export function delOtherAuth(ids) {
+  return request({
+    url: `/auth`,
+    method: "delete",
+    params: { id: ids },
+  });
+}

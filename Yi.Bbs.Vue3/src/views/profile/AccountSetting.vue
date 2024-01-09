@@ -21,14 +21,15 @@
         :table-data="tableData"
         :options="tableOptions"
         :columns="tableColumn"
+        @command="handleAction"
       ></yi-table>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
-import { getOtherAuthInfo } from "@/apis/auth.js";
+import { ref, computed, onMounted } from "vue";
+import { getOtherAuthInfo, delOtherAuth } from "@/apis/auth.js";
 import YiTable from "@/components/yi-table/index.vue";
 import useUserStore from "@/stores/user";
 
@@ -48,26 +49,20 @@ const tableColumn = [
     align: "center",
   },
   {
-    prop: "timeInterval",
+    prop: "authType",
     label: "绑定账号信息",
     minWidth: "110",
     align: "center",
   },
   {
-    prop: "timeInterval",
+    prop: "name",
     label: "详情",
     minWidth: "110",
     align: "center",
   },
   {
-    prop: "timeInterval",
+    prop: "creationTime",
     label: "绑定时间",
-    minWidth: "110",
-    align: "center",
-  },
-  {
-    prop: "timeInterval",
-    label: "状态",
     minWidth: "110",
     align: "center",
   },
@@ -78,17 +73,45 @@ const tableColumn = [
     fixed: "right",
     buttons: [
       {
-        name: "绑定",
-        type: "text",
-        command: "edit",
+        name: "解除绑定",
+        type: "danger",
+        command: "delete",
       },
     ],
   },
 ];
 
-onMounted(async () => {
+const tableData = ref([]);
+const checkList = async () => {
   const { data } = await getOtherAuthInfo({ userId: userInfo.id });
+  tableData.value = data;
+};
+onMounted(() => {
+  checkList();
 });
+
+// 操作事件
+const handleAction = (command, row) => {
+  switch (command) {
+    case "delete":
+      ElMessageBox.confirm(`确定解除${row.authType}的绑定吗?`, "警告", {
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(async () => {
+        await delOtherAuth(row.id);
+        await checkList();
+        ElMessage({
+          message: `已解除${row.authType}绑定!`,
+          type: "success",
+        });
+      });
+
+      break;
+    default:
+      break;
+  }
+};
 
 const handleQQLogin = () => {
   window.open(
