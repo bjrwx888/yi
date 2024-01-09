@@ -131,6 +131,7 @@ const handleGiteeLogin = () => {
 };
 
 window.addEventListener("message", async (e) => {
+  console.log(e, "我是账号设置页");
   const { authData, type } = e.data;
   if (e.data) {
     console.log(authData, type, "2333");

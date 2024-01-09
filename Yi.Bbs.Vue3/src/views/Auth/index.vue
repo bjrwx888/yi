@@ -42,6 +42,7 @@ watch(
         authData: JSON.stringify(authData.value),
         type: scheme.value,
       });
+      console.log(authData.value, "我是打开的窗口页");
       message.value = "授权成功";
     }
   },
