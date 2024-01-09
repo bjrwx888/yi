@@ -32,14 +32,14 @@ watch(
           break;
       }
       if (type.value === "0") {
-        const res = await authOtherLogin({ code: val }, scheme.value);
-        authData.value = res;
+        const { data } = await authOtherLogin({ code: val }, scheme.value);
+        authData.value = data;
       } else if (type.value === "1") {
-        const res = await authOtherBind({ code: val }, scheme.value);
-        authData.value = res;
+        const { data } = await authOtherBind({ code: val }, scheme.value);
+        authData.value = data;
       }
       window.opener.postMessage({
-        authData: authData.value,
+        authData: JSON.stringify(authData.value),
         type: scheme.value,
       });
       message.value = "授权成功";
