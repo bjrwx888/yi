@@ -123,11 +123,21 @@ const handleQQLogin = () => {
 
 const handleGiteeLogin = () => {
   window.open(
-    "https://gitee.com/oauth/authorize?client_id=949f3519969adc5cfe82c209b71300e8e0868e8536f3d7f59195c8f1e5b72502&redirect_uri=https%3A%2F%2Fccnetcore.com%2Fauth%2Fgitee&state=1&response_type=code",
+    "/auth/gitee?code=907b2b59088678ad07d21561c175b0226c031370ab0b4ba1ae9928ea40148d83&state=1",
     undefined,
-    "width=500,height=500,left=50,top=50"
+    "width=500,height=500,left=50,top=50",
+    "_black"
   );
 };
+
+window.addEventListener("message", async (e) => {
+  const { authData, type } = e.data;
+  if (e.data) {
+    console.log(authData, type, "2333");
+    await checkList();
+    window.close();
+  }
+});
 </script>
 
 <style lang="scss" scoped>

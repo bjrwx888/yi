@@ -14,6 +14,7 @@ const type = ref(route.query.state);
 
 const message = ref("");
 const scheme = ref("");
+const authData = ref("");
 watch(
   () => code.value,
   async (val) => {
@@ -32,13 +33,16 @@ watch(
       }
       if (type.value === "0") {
         const res = await authOtherLogin({ code: val }, scheme.value);
-        console.log(res, "登录的");
+        authData.value = res;
       } else if (type.value === "1") {
         const res = await authOtherBind({ code: val }, scheme.value);
-        console.log(res, "绑定的");
+        authData.value = res;
       }
+      window.opener.postMessage({
+        authData: authData.value,
+        type: scheme.value,
+      });
       message.value = "授权成功";
-      // window.close();
     }
   },
   { immediate: true }
