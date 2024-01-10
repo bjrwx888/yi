@@ -31,12 +31,20 @@ watch(
           scheme.value = "QQ";
           break;
       }
-      if (type.value === "0") {
-        const { data } = await authOtherLogin({ code: val }, scheme.value);
-        authData.value = data;
-      } else if (type.value === "1") {
-        const { data } = await authOtherBind({ code: val }, scheme.value);
-        authData.value = data;
+      try {
+        if (type.value === "0") {
+          const { data } = await authOtherLogin({ code: val }, scheme.value);
+          authData.value = data;
+        } else if (type.value === "1") {
+          const { data } = await authOtherBind({ code: val }, scheme.value);
+          authData.value = data;
+        }
+      } catch (error) {
+        if (error.status === 403) {
+          setTimeout(() => {
+            window.close();
+          }, 3000);
+        }
       }
       window.opener.postMessage({
         authData: JSON.stringify(authData.value),

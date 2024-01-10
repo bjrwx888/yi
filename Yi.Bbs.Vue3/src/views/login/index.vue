@@ -318,6 +318,16 @@ const handleGiteeLogin = () => {
     "width=500,height=500,left=50,top=50"
   );
 };
+
+window.addEventListener("message", async (e) => {
+  const { authData, type } = e.data;
+  console.log("我是登录页", authData);
+  console.log("我是登录页", type);
+  if (e.data) {
+    await checkList();
+    window.close();
+  }
+});
 </script>
 <style scoped lang="scss">
 .login {
