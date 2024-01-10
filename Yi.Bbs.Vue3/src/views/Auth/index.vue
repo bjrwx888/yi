@@ -53,6 +53,8 @@ watch(
         authData: JSON.stringify(authData.value),
         type: scheme.value,
       });
+      console.log(authData.value);
+      console.log(JSON.stringify(authData.value), "发送过来的值");
       message.value = "授权成功";
       closeWindow();
     }

@@ -321,6 +321,7 @@ const handleGiteeLogin = () => {
 
 window.addEventListener("message", async (e) => {
   const { authData, type } = e.data;
+  console.log(authData, "传到登录页的值");
   if (authData) {
     await loginSuccess({ data: authData });
     window.close();
