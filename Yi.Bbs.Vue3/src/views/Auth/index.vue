@@ -50,7 +50,7 @@ watch(
         }
       }
       window.opener.postMessage({
-        authData: JSON.stringify(authData.value),
+        authData: authData.value,
         type: scheme.value,
       });
       console.log(authData.value);
