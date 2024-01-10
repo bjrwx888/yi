@@ -15,6 +15,11 @@ const type = ref(route.query.state);
 const message = ref("");
 const scheme = ref("");
 const authData = ref("");
+const closeWindow = () => {
+  setTimeout(() => {
+    window.close();
+  }, 2000);
+};
 watch(
   () => code.value,
   async (val) => {
@@ -41,17 +46,15 @@ watch(
         }
       } catch (error) {
         if (error.status === 403) {
-          setTimeout(() => {
-            window.close();
-          }, 3000);
+          closeWindow();
         }
       }
       window.opener.postMessage({
         authData: JSON.stringify(authData.value),
         type: scheme.value,
       });
-      console.log(authData.value, "我是打开的窗口页");
       message.value = "授权成功";
+      closeWindow();
     }
   },
   { immediate: true }
