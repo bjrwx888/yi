@@ -322,7 +322,7 @@ const handleGiteeLogin = () => {
 window.addEventListener("message", async (e) => {
   const { authData, type } = e.data;
   if (authData) {
-    await loginSuccess({ data: { token: authData } });
+    await loginSuccess({ data: authData });
     window.close();
   }
 });
