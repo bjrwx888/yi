@@ -166,7 +166,7 @@ import useUserStore from "@/stores/user";
 import useConfigStore from "@/stores/config";
 
 const configStore = useConfigStore();
-const { loginFun, registerFun, setToken } = useAuths();
+const { loginFun, registerFun, loginSuccess } = useAuths();
 const router = useRouter();
 const route = useRoute();
 const loginFormRef = ref();
@@ -321,7 +321,7 @@ const handleGiteeLogin = () => {
 
 window.addEventListener("message", async (e) => {
   const { authData, type } = e.data;
-  setToken(authData);
+  await loginSuccess({ token: authData });
   if (e.data) {
     window.close();
   }
