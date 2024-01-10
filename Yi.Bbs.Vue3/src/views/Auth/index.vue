@@ -13,6 +13,8 @@ const code = ref(route.query.code);
 const type = ref(route.query.state);
 
 const message = ref("");
+const scheme = ref("");
+const authData = ref("");
 watch(
   () => code.value,
   async (val) => {
@@ -20,15 +22,28 @@ watch(
       // 使用正则表达式提取路由参数
       const regex = /\/auth\/([\w-]+)[?]?/;
       const result = regex.exec(route.fullPath);
-      const authParam = result != null ? result[1].toUpperCase() : null;
-      console.log(type.value, "类型");
-      if (type.value === "0") {
-        const res = await authOtherLogin({ code: val }, authParam);
-      } else if (type.value === "1") {
-        const res = await authOtherBind({ code: val }, authParam);
+      const authParam = result != null ? result[1] : null;
+      switch (authParam) {
+        case "gitee":
+          scheme.value = "Gitee";
+          break;
+        case "qq":
+          scheme.value = "QQ";
+          break;
       }
+      if (type.value === "0") {
+        const { data } = await authOtherLogin({ code: val }, scheme.value);
+        authData.value = data;
+      } else if (type.value === "1") {
+        const { data } = await authOtherBind({ code: val }, scheme.value);
+        authData.value = data;
+      }
+      window.opener.postMessage({
+        authData: JSON.stringify(authData.value),
+        type: scheme.value,
+      });
+      console.log(authData.value, "我是打开的窗口页");
       message.value = "授权成功";
-      // window.close();
     }
   },
   { immediate: true }

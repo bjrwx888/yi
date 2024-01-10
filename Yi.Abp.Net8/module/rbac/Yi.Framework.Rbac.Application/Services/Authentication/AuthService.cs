@@ -66,7 +66,7 @@ namespace Yi.Framework.Rbac.Application.Services.Authentication
         {
             (var openId, var name) = await GetOpenIdAndNameAsync(scheme);
             var userId = CurrentUser.Id;
-            var authEntityAny = await _repository.AnyAsync(x => x.OpenId == openId && x.AuthType == scheme);
+            var authEntityAny = await _repository.IsAnyAsync(x => x.OpenId == openId && x.AuthType == scheme);
             if (authEntityAny)
             {
                 throw new UserFriendlyException("绑定失败，该第三方账号已被注册");
