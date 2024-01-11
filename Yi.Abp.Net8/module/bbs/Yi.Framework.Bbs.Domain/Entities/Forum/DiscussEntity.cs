@@ -7,6 +7,9 @@ using Yi.Framework.Bbs.Domain.Shared.Enums;
 namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Discuss")]
+    [SugarIndex($"index_{nameof(Title)}", nameof(Title), OrderByType.Asc)]
+    [SugarIndex($"index_{nameof(PlateId)}", nameof(PlateId), OrderByType.Asc)]
+    [SugarIndex($"index_{nameof(CreationTime)}", nameof(CreationTime), OrderByType.Desc)]
     public class DiscussEntity : Entity<Guid>, ISoftDelete, IAuditedObject
     {
         public DiscussEntity()

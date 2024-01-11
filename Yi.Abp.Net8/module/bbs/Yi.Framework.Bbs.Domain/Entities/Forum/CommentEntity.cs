@@ -11,6 +11,8 @@ namespace Yi.Framework.Bbs.Domain.Entities.Forum
     /// 评论表
     /// </summary>
     [SugarTable("Comment")]
+    [SugarIndex($"index_{nameof(DiscussId)}", nameof(DiscussId), OrderByType.Asc)]
+    [SugarIndex($"index_{nameof(ParentId)}", nameof(ParentId), OrderByType.Asc)]
     public class CommentEntity : Entity<Guid>, ISoftDelete, IAuditedObject
     {
         /// <summary>

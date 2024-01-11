@@ -13,6 +13,7 @@ namespace Yi.Framework.Bbs.Domain.Entities
     /// 评论表
     /// </summary>
     [SugarTable("BbsUserExtraInfo")]
+    [SugarIndex($"index_{nameof(UserId)}", nameof(UserId), OrderByType.Asc)]
     public class BbsUserExtraInfoEntity : Entity<Guid>
     {
         public BbsUserExtraInfoEntity() { }

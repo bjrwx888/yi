@@ -5,6 +5,8 @@ using Volo.Abp.Domain.Entities;
 namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Agree")]
+    [SugarIndex($"index_{nameof(CreatorId)}_{nameof(DiscussId)}", nameof(CreatorId), OrderByType.Asc,
+        nameof(DiscussId), OrderByType.Asc)]
     public class AgreeEntity : Entity<Guid>, ICreationAuditedObject
     {
         public AgreeEntity()

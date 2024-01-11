@@ -13,6 +13,8 @@ namespace Yi.Framework.Bbs.Domain.Entities.Integral
     /// 签到表
     /// </summary>
     [SugarTable("SignIn")]
+
+    [SugarIndex($"index_{nameof(CreatorId)}", nameof(CreatorId), OrderByType.Asc)]
     public class SignInEntity : Entity<Guid>, ICreationAuditedObject
     {
 
@@ -26,6 +28,11 @@ namespace Yi.Framework.Bbs.Domain.Entities.Integral
 
         //签到用户
         public Guid? CreatorId { get; set; }
+
+        /// <summary>
+        /// 连续签到次数
+        /// </summary>
+        public int ContinuousNumber { get; set; } = 1;
 
     }
 }

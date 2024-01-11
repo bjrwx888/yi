@@ -6,6 +6,9 @@ using Volo.Abp.Domain.Entities;
 namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Article")]
+    [SugarIndex($"index_{nameof(Name)}", nameof(Name), OrderByType.Asc)]
+    [SugarIndex($"index_{nameof(ParentId)}", nameof(ParentId), OrderByType.Asc)]
+    [SugarIndex($"index_{nameof(DiscussId)}", nameof(DiscussId), OrderByType.Asc)]
     public class ArticleEntity : Entity<Guid>, ISoftDelete, IAuditedObject
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
