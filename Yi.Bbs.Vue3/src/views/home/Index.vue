@@ -85,6 +85,19 @@
               </div>
             </div>
           </div>
+          <!-- 签到 -->
+          <el-col :span="24">
+            <InfoCard header="签到">
+              <template #content>
+                <div class="signIn">
+                  <div class="left">欢迎来到意社区！</div>
+                  <div class="right">
+                    <div class="signIn-btn" @click="handleToSign">去签到</div>
+                  </div>
+                </div>
+              </template>
+            </InfoCard>
+          </el-col>
 
           <el-col :span="24">
             <InfoCard header="访问统计" class="VisitsLineChart" text="详情">
@@ -176,6 +189,7 @@
 
 <script setup>
 import { onMounted, ref, reactive, computed, nextTick, watch } from "vue";
+import { useRouter } from "vue-router";
 import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
@@ -202,6 +216,8 @@ import useSocketStore from "@/stores/socket";
 import signalR from "@/utils/signalR";
 import useAuths from "@/hooks/useAuths";
 
+const router = useRouter();
+
 const { getToken } = useAuths();
 const token = getToken();
 
@@ -221,7 +237,6 @@ const isAllDiscussFinished = ref(false);
 const userAnalyseInfo = ref({});
 const onlineNumber = ref(0);
 
-const items = [{ user: "用户1" }, { user: "用户2" }, { user: "用户3" }];
 //主题查询参数
 const query = reactive({
   skipCount: 1,
@@ -280,6 +295,10 @@ const statisOptions = computed(() => {
     },
   };
 });
+
+const handleToSign = () => {
+  router.push("/sign");
+};
 
 // 推送的实时人数获取
 const currentOnlineNum = computed(() => useSocketStore().getOnlineNum());
@@ -395,6 +414,24 @@ watch(
         color: #409eff;
         background-color: #ecf5ff;
       }
+    }
+  }
+  .signIn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8a919f;
+    &-btn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 74px;
+      height: 36px;
+      border-radius: 4px;
+      border: 1px solid rgba(30, 128, 255, 0.3);
+      background-color: rgba(30, 128, 255, 0.1);
+      color: #1e80ff;
     }
   }
 
