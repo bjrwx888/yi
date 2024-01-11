@@ -2,7 +2,7 @@
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
 
-namespace Yi.Framework.Bbs.Domain.Entities
+namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("MyType")]
     public class MyTypeEntity : Entity<Guid>, ISoftDelete

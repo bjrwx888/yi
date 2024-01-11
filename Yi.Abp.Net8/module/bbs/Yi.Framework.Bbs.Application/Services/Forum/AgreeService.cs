@@ -3,10 +3,10 @@ using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Uow;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Argee;
-using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Bbs.Application.Services
+namespace Yi.Framework.Bbs.Application.Services.Forum
 {
     /// <summary>
     /// 点赞功能
@@ -32,7 +32,7 @@ namespace Yi.Framework.Bbs.Application.Services
         [Authorize]
         public async Task<AgreeDto> PostOperateAsync(Guid discussId)
         {
-            var entity = await _repository.GetFirstAsync(x => x.DiscussId == discussId && x.CreatorId == this.CurrentUser.Id);
+            var entity = await _repository.GetFirstAsync(x => x.DiscussId == discussId && x.CreatorId == CurrentUser.Id);
             //判断是否已经点赞过
             if (entity is null)
             {

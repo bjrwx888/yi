@@ -3,10 +3,10 @@ using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 
-namespace Yi.Framework.Bbs.Domain.Entities
+namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Article")]
-    public class ArticleEntity : Entity<Guid>, ISoftDelete,IAuditedObject
+    public class ArticleEntity : Entity<Guid>, ISoftDelete, IAuditedObject
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }

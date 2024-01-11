@@ -2,7 +2,7 @@
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 
-namespace Yi.Framework.Bbs.Domain.Entities
+namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Agree")]
     public class AgreeEntity : Entity<Guid>, ICreationAuditedObject

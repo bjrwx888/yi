@@ -4,7 +4,7 @@ using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Entities;
 
-namespace Yi.Framework.Bbs.Domain.Entities
+namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
 
     /// <summary>
@@ -29,7 +29,7 @@ namespace Yi.Framework.Bbs.Domain.Entities
         public override Guid Id { get; protected set; }
         public bool IsDeleted { get; set; }
 
-        [SugarColumn(Length =500)]
+        [SugarColumn(Length = 500)]
         public string Content { get; set; }
 
         public Guid DiscussId { get; set; }

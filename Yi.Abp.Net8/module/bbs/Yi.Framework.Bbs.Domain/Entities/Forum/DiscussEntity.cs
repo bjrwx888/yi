@@ -4,7 +4,7 @@ using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 
-namespace Yi.Framework.Bbs.Domain.Entities
+namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Discuss")]
     public class DiscussEntity : Entity<Guid>, ISoftDelete, IAuditedObject

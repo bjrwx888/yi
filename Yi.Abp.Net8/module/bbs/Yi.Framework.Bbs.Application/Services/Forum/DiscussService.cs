@@ -10,6 +10,7 @@ using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
@@ -22,7 +23,7 @@ using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Bbs.Application.Services
+namespace Yi.Framework.Bbs.Application.Services.Forum
 {
     /// <summary>
     /// Discuss应用服务实现,用于参数效验、领域服务业务组合、日志记录、事务处理、账户信息
@@ -58,10 +59,10 @@ namespace Yi.Framework.Bbs.Application.Services
             //查询主题发布 浏览主题 事件，浏览数+1
             var item = await _forumManager._discussRepository._DbQueryable.LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                 .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
-                .LeftJoin<PlateEntity>((discuss, user, info,plate) => plate.Id == discuss.PlateId)
+                .LeftJoin<PlateEntity>((discuss, user, info, plate) => plate.Id == discuss.PlateId)
                      .Select((discuss, user, info, plate) => new DiscussGetOutputDto
                      {
-                         Id=discuss.Id,
+                         Id = discuss.Id,
                          IsAgree = SqlFunc.Subqueryable<AgreeEntity>().WhereIF(CurrentUser.Id != null, x => x.CreatorId == CurrentUser.Id && x.DiscussId == discuss.Id).Any(),
                          User = new BbsUserGetListOutputDto()
                          {
@@ -72,14 +73,14 @@ namespace Yi.Framework.Bbs.Application.Services
                              Level = info.Level,
                              UserLimit = info.UserLimit
                          },
-                         Plate=new Contracts.Dtos.Plate.PlateGetOutputDto()
-                         { 
-                         Name=plate.Name,
-                         Id=plate.Id,
-                         Code=plate.Code,
-                         Introduction=plate.Introduction,
-                         Logo=plate.Logo
-                         
+                         Plate = new Contracts.Dtos.Plate.PlateGetOutputDto()
+                         {
+                             Name = plate.Name,
+                             Id = plate.Id,
+                             Code = plate.Code,
+                             Introduction = plate.Introduction,
+                             Logo = plate.Logo
+
                          }
                      }, true)
                      .SingleAsync(discuss => discuss.Id == id);
@@ -106,7 +107,7 @@ namespace Yi.Framework.Bbs.Application.Services
             var items = await _forumManager._discussRepository._DbQueryable
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
-                     .WhereIF(input.IsTop is not null,x=>x.IsTop==input.IsTop)
+                     .WhereIF(input.IsTop is not null, x => x.IsTop == input.IsTop)
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                          .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
 
@@ -155,21 +156,21 @@ namespace Yi.Framework.Bbs.Application.Services
                     User = new BbsUserGetListOutputDto
                     {
                         Id = user.Id,
-                        Name=user.Name,
+                        Name = user.Name,
                         Sex = user.Sex,
                         State = user.State,
                         Address = user.Address,
                         Age = user.Age,
                         CreationTime = user.CreationTime,
-                   
-                        Level =info.Level,
-                       Introduction = user.Introduction,
-                       Icon= user.Icon,
-                       Nick= user.Nick,
-                       UserName=user.UserName,
-                       Remark= user.Remark,
-                       UserLimit=info.UserLimit
-                       
+
+                        Level = info.Level,
+                        Introduction = user.Introduction,
+                        Icon = user.Icon,
+                        Nick = user.Nick,
+                        UserName = user.UserName,
+                        Remark = user.Remark,
+                        UserLimit = info.UserLimit
+
                     }
                 }, true)
                 .ToListAsync();

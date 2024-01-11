@@ -7,7 +7,7 @@ using Volo.Abp.Application.Dtos;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Comment;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
-using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
@@ -16,7 +16,7 @@ using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Bbs.Application.Services
+namespace Yi.Framework.Bbs.Application.Services.Forum
 {
     /// <summary>
     /// 评论
@@ -112,7 +112,7 @@ namespace Yi.Framework.Bbs.Application.Services
             }
 
             //子类需要排序
-           var rootOutoutDto= allOutoutDto.Where(x => x.ParentId == Guid.Empty).ToList();
+            var rootOutoutDto = allOutoutDto.Where(x => x.ParentId == Guid.Empty).ToList();
             rootOutoutDto?.ForEach(x =>
             {
                 x.Children = x.Children.OrderByDescending(x => x.CreationTime).ToList();

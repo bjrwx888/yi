@@ -2,11 +2,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Data;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.MyType;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
-using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Bbs.Application.Services
+namespace Yi.Framework.Bbs.Application.Services.Forum
 {
     /// <summary>
     /// Label服务实现
@@ -15,9 +15,9 @@ namespace Yi.Framework.Bbs.Application.Services
        IMyTypeService
     {
         private ISqlSugarRepository<MyTypeEntity, Guid> _repository;
-        public MyTypeService(ISqlSugarRepository<MyTypeEntity,Guid> repository, IDataFilter dataFilter):base(repository)
+        public MyTypeService(ISqlSugarRepository<MyTypeEntity, Guid> repository, IDataFilter dataFilter) : base(repository)
         {
-            _repository= repository;
+            _repository = repository;
             _dataFilter = dataFilter;
         }
 
@@ -32,7 +32,7 @@ namespace Yi.Framework.Bbs.Application.Services
         {
             //过滤器需要更换
             //_dataFilter.Enable<MyTypeEntity>(x => x.UserId == CurrentUser.Id);
-     
+
             //_dataFilter.AddFilter<MyTypeEntity>(x => x.UserId == CurrentUser.Id);
             return base.GetListAsync(input);
         }
@@ -45,7 +45,7 @@ namespace Yi.Framework.Bbs.Application.Services
         public override async Task<MyTypeOutputDto> CreateAsync(MyTypeCreateInputVo input)
         {
             var entity = await MapToEntityAsync(input);
-            entity.UserId = CurrentUser.Id??Guid.Empty;
+            entity.UserId = CurrentUser.Id ?? Guid.Empty;
             entity.IsDeleted = false;
             var outputEntity = await _repository.InsertReturnEntityAsync(entity);
             return await MapToGetOutputDtoAsync(outputEntity);

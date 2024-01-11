@@ -3,11 +3,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Banner;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
-using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Bbs.Application.Services
+namespace Yi.Framework.Bbs.Application.Services.Forum
 {
     /// <summary>
     /// Banner服务实现
@@ -18,7 +18,7 @@ namespace Yi.Framework.Bbs.Application.Services
         private ISqlSugarRepository<BannerEntity, Guid> _repository;
         public BannerService(ISqlSugarRepository<BannerEntity, Guid> repository) : base(repository)
         {
-            _repository= repository;
+            _repository = repository;
         }
 
         public override async Task<PagedResultDto<BannerGetListOutputDto>> GetListAsync(BannerGetListInputVo input)

@@ -7,7 +7,7 @@ using SqlSugar;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 
-namespace Yi.Framework.Bbs.Domain.Entities
+namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     /// <summary>
     /// 首页置顶主题
