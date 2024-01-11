@@ -15,6 +15,11 @@ const type = ref(route.query.state);
 const message = ref("");
 const scheme = ref("");
 const authData = ref("");
+const closeWindow = () => {
+  setTimeout(() => {
+    window.close();
+  }, 2000);
+};
 watch(
   () => code.value,
   async (val) => {
@@ -31,19 +36,25 @@ watch(
           scheme.value = "QQ";
           break;
       }
-      if (type.value === "0") {
-        const { data } = await authOtherLogin({ code: val }, scheme.value);
-        authData.value = data;
-      } else if (type.value === "1") {
-        const { data } = await authOtherBind({ code: val }, scheme.value);
-        authData.value = data;
+      try {
+        if (type.value === "0") {
+          const { data } = await authOtherLogin({ code: val }, scheme.value);
+          authData.value = data;
+        } else if (type.value === "1") {
+          const { data } = await authOtherBind({ code: val }, scheme.value);
+          authData.value = data;
+        }
+      } catch (error) {
+        if (error.status === 403) {
+          closeWindow();
+        }
       }
       window.opener.postMessage({
         authData: JSON.stringify(authData.value),
         type: scheme.value,
       });
-      console.log(authData.value, "我是打开的窗口页");
       message.value = "授权成功";
+      closeWindow();
     }
   },
   { immediate: true }

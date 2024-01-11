@@ -166,7 +166,7 @@ import useUserStore from "@/stores/user";
 import useConfigStore from "@/stores/config";
 
 const configStore = useConfigStore();
-const { loginFun, registerFun } = useAuths();
+const { loginFun, registerFun, loginSuccess } = useAuths();
 const router = useRouter();
 const route = useRoute();
 const loginFormRef = ref();
@@ -318,6 +318,15 @@ const handleGiteeLogin = () => {
     "width=500,height=500,left=50,top=50"
   );
 };
+
+window.addEventListener("message", async (e) => {
+  const { authData, type } = e.data;
+  console.log(authData, "传到登录页的值");
+  if (authData) {
+    await loginSuccess({ data: JSON.parse(authData) });
+    window.close();
+  }
+});
 </script>
 <style scoped lang="scss">
 .login {
