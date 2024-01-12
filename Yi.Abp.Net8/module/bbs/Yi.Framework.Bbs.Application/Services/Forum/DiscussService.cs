@@ -71,7 +71,9 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
                              Icon = user.Icon,
                              Id = user.Id,
                              Level = info.Level,
-                             UserLimit = info.UserLimit
+                             UserLimit = info.UserLimit,
+                             Money=info.Money,
+                             Experience=info.Experience
                          },
                          Plate = new Contracts.Dtos.Plate.PlateGetOutputDto()
                          {
@@ -128,7 +130,9 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
                              Nick = user.Nick,
                              Icon = user.Icon,
                              Level = info.Level,
-                             UserLimit = info.UserLimit
+                             UserLimit = info.UserLimit,
+                             Money = info.Money,
+                             Experience = info.Experience
                          }
 
                      }, true)
@@ -169,7 +173,9 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
                         Nick = user.Nick,
                         UserName = user.UserName,
                         Remark = user.Remark,
-                        UserLimit = info.UserLimit
+                        UserLimit = info.UserLimit,
+                        Money = info.Money,
+                        Experience = info.Experience
 
                     }
                 }, true)
