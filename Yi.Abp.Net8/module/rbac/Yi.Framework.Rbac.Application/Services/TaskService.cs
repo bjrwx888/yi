@@ -3,8 +3,10 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Quartz;
 using Quartz.Impl.Matchers;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Timing;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.Task;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Shared.Enums;
@@ -14,8 +16,10 @@ namespace Yi.Framework.Rbac.Application.Services
     public class TaskService : ApplicationService, ITaskService
     {
         private readonly ISchedulerFactory _schedulerFactory;
-        public TaskService(ISchedulerFactory schedulerFactory)
+        private readonly IClock _clock;
+        public TaskService(ISchedulerFactory schedulerFactory, IClock clock)
         {
+            _clock=clock;
             _schedulerFactory = schedulerFactory;
         }
 
@@ -25,8 +29,8 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         /// <param name="jobId"></param>
         /// <returns></returns>
-        [HttpGet("{jobId}")]
-        public async Task<TaskGetOutput> GetByIdAsync([FromRoute] string jobId)
+        [HttpGet("task/{jobId}")]
+        public async Task<TaskGetOutput> GetAsync([FromRoute] string jobId)
         {
             var scheduler = await _schedulerFactory.GetScheduler();
 
@@ -34,6 +38,8 @@ namespace Yi.Framework.Rbac.Application.Services
             var trigger = (await scheduler.GetTriggersOfJob(new JobKey(jobId))).First();
             //状态
             var state = await scheduler.GetTriggerState(trigger.Key);
+
+            
             var output = new TaskGetOutput
             {
                 JobId = jobDetail.Key.Name,
@@ -42,17 +48,21 @@ namespace Yi.Framework.Rbac.Application.Services
                 Properties = Newtonsoft.Json.JsonConvert.SerializeObject(jobDetail.JobDataMap),
                 Concurrent = !jobDetail.ConcurrentExecutionDisallowed,
                 Description = jobDetail.Description,
-                LastRunTime = trigger.GetPreviousFireTimeUtc()?.DateTime,
+                LastRunTime = _clock.Normalize( trigger.GetPreviousFireTimeUtc()?.DateTime??DateTime.MinValue),
+                NextRunTime = _clock.Normalize(trigger.GetNextFireTimeUtc()?.DateTime ?? DateTime.MinValue),
+                AssemblyName = jobDetail.JobType.Assembly.GetName().Name,
+                Status = state.ToString()
             };
 
             if (trigger is ISimpleTrigger simple)
             {
-                output.TriggerArgs = simple.RepeatInterval.TotalMilliseconds.ToString() + "毫秒";
-
+                output.TriggerArgs =Math.Round(simple.RepeatInterval.TotalMinutes,2) .ToString() + "分钟";
+                output.Type = JobTypeEnum.Millisecond;
             }
             else if (trigger is ICronTrigger cron)
             {
                 output.TriggerArgs = cron.CronExpressionString!;
+                output.Type = JobTypeEnum.Cron;
             }
             return output;
         }
@@ -61,8 +71,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// 多查job
         /// </summary>
         /// <returns></returns>
-        [HttpGet("")]
-        public async Task<PagedResultDto<TaskGetListOutput>> GetList([FromQuery] TaskGetListInput input)
+        public async Task<PagedResultDto<TaskGetListOutput>> GetListAsync([FromQuery] TaskGetListInput input)
         {
             var items = new List<TaskGetOutput>();
 
@@ -77,7 +86,7 @@ namespace Yi.Framework.Rbac.Application.Services
                     string jobName = jobKey.Name;
                     string jobGroup = jobKey.Group;
                     var triggers = (await scheduler.GetTriggersOfJob(jobKey)).First();
-                    items.Add(await GetByIdAsync(jobName));
+                    items.Add(await GetAsync(jobName));
                 }
             }
 
@@ -93,7 +102,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task Create(TaskCreateInput input)
+        public async Task CreateAsync(TaskCreateInput input)
         {
             var scheduler = await _schedulerFactory.GetScheduler();
 
@@ -101,7 +110,12 @@ namespace Yi.Framework.Rbac.Application.Services
 
 
             //jobBuilder
-            var jobClassType = Assembly.LoadFrom(input.AssemblyName).GetType(input.JobType);
+            var jobClassType = Assembly.Load(input.AssemblyName).GetTypes().Where(x => x.Name == input.JobType).FirstOrDefault();
+
+            if (jobClassType is null)
+            {
+                throw new UserFriendlyException($"程序集：{input.AssemblyName}，{input.JobType} 不存在");
+            }
 
             var jobBuilder = JobBuilder.Create(jobClassType).WithIdentity(new JobKey(input.JobId, input.GroupName))
                 .WithDescription(input.Description);
@@ -115,8 +129,8 @@ namespace Yi.Framework.Rbac.Application.Services
             switch (input.Type)
             {
                 case JobTypeEnum.Cron:
-                    triggerBuilder = 
-                       TriggerBuilder.Create().StartNow()
+                    triggerBuilder =
+                       TriggerBuilder.Create()
                        .WithCronSchedule(input.Cron);
 
 
@@ -127,7 +141,7 @@ namespace Yi.Framework.Rbac.Application.Services
                     triggerBuilder =
                      TriggerBuilder.Create().StartNow()
                                             .WithSimpleSchedule(x => x
-                                            .WithInterval(TimeSpan.FromMilliseconds(input.Millisecond))
+                                            .WithInterval(TimeSpan.FromMilliseconds(input.Millisecond ?? 10000))
                                             .RepeatForever()
                                             );
                     break;
@@ -140,12 +154,12 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <summary>
         /// 移除job
         /// </summary>
-        /// <param name="jobId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public async Task Remove(string jobId)
-        {
+        public async Task DeleteAsync(IEnumerable<string> id)
+       {
             var scheduler = await _schedulerFactory.GetScheduler();
-            await scheduler.ResumeJob(new JobKey(jobId));
+            await scheduler.DeleteJobs(id.Select(x => new JobKey(x)).ToList());
         }
 
         /// <summary>
@@ -154,7 +168,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="jobId"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task Pause(string jobId)
+        public async Task PauseAsync(string jobId)
         {
             var scheduler = await _schedulerFactory.GetScheduler();
             await scheduler.PauseJob(new JobKey(jobId));
@@ -166,7 +180,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="jobId"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task Start(string jobId)
+        public async Task StartAsync(string jobId)
         {
             var scheduler = await _schedulerFactory.GetScheduler();
             await scheduler.ResumeJob(new JobKey(jobId));
@@ -175,28 +189,30 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <summary>
         /// 更新job
         /// </summary>
-        /// <param name="jobId"></param>
+        /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task Update(string jobId, TaskUpdateInput input)
+        public async Task UpdateAsync(string id, TaskUpdateInput input)
         {
-            await Remove(jobId);
-            await Create(input.Adapt<TaskCreateInput>());
+            await DeleteAsync(new List<string>() { id });
+            await CreateAsync(input.Adapt<TaskCreateInput>());
         }
 
-        [HttpPost]
-        public async Task RunOnce(string jobId)
+        [HttpPost("task/run-once/{id}")]
+        public async Task RunOnceAsync([FromRoute] string id)
         {
             var scheduler = await _schedulerFactory.GetScheduler();
-            var jobDetail = await scheduler.GetJobDetail(new JobKey(jobId));
+            var jobDetail = await scheduler.GetJobDetail(new JobKey(id));
 
+            var jobBuilder = JobBuilder.Create(jobDetail.JobType).WithIdentity(new JobKey(Guid.NewGuid().ToString()));
             //设置启动时执行一次，然后最大只执行一次
             var trigger = TriggerBuilder.Create().WithIdentity(Guid.NewGuid().ToString()).StartNow()
                 .WithSimpleSchedule(x => x
+               .WithIntervalInHours(1)
                 .WithRepeatCount(1))
               .Build();
 
-            await scheduler.ScheduleJob(jobDetail, trigger);
+            await scheduler.ScheduleJob(jobBuilder.Build(), trigger);
         }
     }
 }

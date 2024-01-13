@@ -1,4 +1,6 @@
-﻿namespace Yi.Framework.Rbac.Application.Contracts.Dtos.Task
+﻿using Yi.Framework.Rbac.Domain.Shared.Enums;
+
+namespace Yi.Framework.Rbac.Application.Contracts.Dtos.Task
 {
     public class TaskGetOutput
     {
@@ -68,5 +70,15 @@
         public DateTime? LastRunTime { get; set; }
 
         public long NumberOfRuns { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public string Status { get; set; }
+
+        /// <summary>
+        /// 触发器类型
+        /// </summary>
+        public JobTypeEnum Type { get; set; }
     }
 }
