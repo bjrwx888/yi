@@ -58,11 +58,13 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 output.TriggerArgs =Math.Round(simple.RepeatInterval.TotalMinutes,2) .ToString() + "分钟";
                 output.Type = JobTypeEnum.Millisecond;
+                output.Millisecond = simple.RepeatInterval.TotalMilliseconds;
             }
             else if (trigger is ICronTrigger cron)
             {
                 output.TriggerArgs = cron.CronExpressionString!;
                 output.Type = JobTypeEnum.Cron;
+                output.Cron=cron.CronExpressionString;
             }
             return output;
         }

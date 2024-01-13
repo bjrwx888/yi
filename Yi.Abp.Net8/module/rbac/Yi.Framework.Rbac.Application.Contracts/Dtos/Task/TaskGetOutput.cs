@@ -80,5 +80,8 @@ namespace Yi.Framework.Rbac.Application.Contracts.Dtos.Task
         /// 触发器类型
         /// </summary>
         public JobTypeEnum Type { get; set; }
+
+        public string? Cron { get; set; }
+        public double? Millisecond { get; set; }
     }
 }
