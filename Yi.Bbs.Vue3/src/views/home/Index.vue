@@ -87,10 +87,10 @@
           </div>
           <!-- 签到 -->
           <el-col :span="24">
-            <InfoCard header="签到">
+            <InfoCard header="每日签到">
               <template #content>
                 <div class="signIn">
-                  <div class="left">欢迎来到意社区！</div>
+                  <div class="left">你好，很高兴今天又遇到你！</div>
                   <div class="right">
                     <div class="signIn-btn" @click="handleToSign">去签到</div>
                   </div>
