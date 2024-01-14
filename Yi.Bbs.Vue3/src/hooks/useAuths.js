@@ -8,10 +8,13 @@ import {
   userLogout,
   userRegister,
 } from "@/apis/auth";
+import { ref, watch } from "vue";
+import signalR from "@/utils/signalR";
 
 const TokenKey = "AccessToken";
 export const AUTH_MENUS = "AUTH_MENUS";
 export const AUTH_USER = "AUTH_USER";
+
 
 export default function useAuths(opt) {
   const defaultOpt = {
@@ -26,9 +29,22 @@ export default function useAuths(opt) {
     ...opt,
   };
 
+const tokenValue=ref('');
+
+watch(
+  () => tokenValue.value,
+   (val,oldValue) => {
+      console.log("token发生改变"+val+"------"+oldValue)
+        signalR.init(`main`);
+  },
+  { deep:true }
+);
+
+
   // 获取token
   const getToken = () => {
-    return Local.get(TokenKey);
+   var token= Local.get(TokenKey);
+    return token;
   };
 
   // 存储token到cookies
@@ -37,6 +53,7 @@ export default function useAuths(opt) {
       return false;
     }
     Local.set(TokenKey, token);
+   
     return true;
   };
 
@@ -50,7 +67,7 @@ export default function useAuths(opt) {
   const logoutFun = async () => {
     let flag = true;
     try {
-      await userLogout().then((res) => {
+       await userLogout().then((res) => {
         ElMessage({
           message: "退出成功",
           type: "info",
@@ -75,6 +92,7 @@ export default function useAuths(opt) {
           return false;
         });
     }
+
     if (flag) {
       clearStorage();
     }
@@ -82,9 +100,12 @@ export default function useAuths(opt) {
 
   // 清空本地存储的信息
   const clearStorage = () => {
+    console.log("token发生改变22清除清除")
+    tokenValue.value='';
     Session.clear();
     Local.clear();
     removeToken();
+
   };
 
   // 用户名密码登录
@@ -122,6 +143,7 @@ export default function useAuths(opt) {
     const { token } = res.data;
 
     setToken(token);
+    tokenValue.value=token;
     try {
       // 存储用户信息
       await useUserStore().getInfo(); // 用户信息
@@ -165,5 +187,6 @@ export default function useAuths(opt) {
     clearStorage,
     registerFun,
     loginSuccess,
+    tokenValue
   };
 }
