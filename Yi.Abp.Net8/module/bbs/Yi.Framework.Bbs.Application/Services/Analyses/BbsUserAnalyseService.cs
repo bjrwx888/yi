@@ -30,7 +30,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         public async Task<List<BbsUserGetListOutputDto>> GetRandomUserAsync([FromQuery] PagedResultRequestDto input)
         {
             var randUserIds = await _bbsUserManager._userRepository._DbQueryable
-                .Where(x => x.UserName != UserConst.Admin)
+               //.Where(x => x.UserName != UserConst.Admin)
                 .OrderBy(x => SqlFunc.GetRandom())
                 .Select(x => x.Id).
                 ToPageListAsync(input.SkipCount, input.MaxResultCount);
@@ -46,7 +46,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         public async Task<List<BbsUserGetListOutputDto>> GetIntegralTopUserAsync([FromQuery] PagedResultRequestDto input)
         {
             var randUserIds = await _bbsUserManager._userRepository._DbQueryable
-                .Where(user => user.UserName != UserConst.Admin)
+               // .Where(user => user.UserName != UserConst.Admin)
                 .LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id==info.UserId)
                 .OrderByDescending((user, info)=>info.Money)
                 .Select((user, info) => user.Id).
