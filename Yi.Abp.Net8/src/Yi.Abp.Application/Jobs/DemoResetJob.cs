@@ -29,7 +29,7 @@ namespace Yi.Abp.Application.Jobs
         public override async Task Execute(IJobExecutionContext context)
         {
             //开启演示环境重置功能
-            if (_configuration["EnableDemoReset"] == "true")
+            if (_configuration.GetSection("EnableDemoReset").Get<bool>())
             {
                 //定时任务，非常简单
                 _logger.LogWarning("演示环境正在还原！");
