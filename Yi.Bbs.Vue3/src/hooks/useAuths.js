@@ -8,15 +8,13 @@ import {
   userLogout,
   userRegister,
 } from "@/apis/auth";
-import { ref, watch } from "vue";
-import signalR from "@/utils/signalR";
-
 const TokenKey = "AccessToken";
 export const AUTH_MENUS = "AUTH_MENUS";
 export const AUTH_USER = "AUTH_USER";
 
 
 export default function useAuths(opt) {
+
   const defaultOpt = {
     loginUrl: "/login", // 登录页跳转url 默认: /login
     loginReUrl: "", // 登录页登陆成功后带重定向redirect=的跳转url 默认为空
@@ -28,18 +26,6 @@ export default function useAuths(opt) {
     ...defaultOpt,
     ...opt,
   };
-
-const tokenValue=ref('');
-
-watch(
-  () => tokenValue.value,
-   (val,oldValue) => {
-      console.log("token发生改变"+val+"------"+oldValue)
-        signalR.init(`main`);
-  },
-  { deep:true }
-);
-
 
   // 获取token
   const getToken = () => {
@@ -57,17 +43,12 @@ watch(
     return true;
   };
 
-  // 删除token
-  const removeToken = () => {
-    Local.remove(TokenKey);
-    return true;
-  };
-
   // 退出登录
   const logoutFun = async () => {
     let flag = true;
     try {
        await userLogout().then((res) => {
+        useUserStore().updateToken(null);
         ElMessage({
           message: "退出成功",
           type: "info",
@@ -85,6 +66,7 @@ watch(
         }
       )
         .then(() => {
+          useUserStore().updateToken(null);
           return true;
         })
         .catch(() => {
@@ -100,8 +82,6 @@ watch(
 
   // 清空本地存储的信息
   const clearStorage = () => {
-    console.log("token发生改变22清除清除")
-    tokenValue.value='';
     Session.clear();
     Local.clear();
     removeToken();
@@ -112,6 +92,7 @@ watch(
   const loginFun = async (params) => {
     try {
       const res = await userLogin(params);
+
       ElMessage({
         message: `您好${params.userName}，登录成功！`,
         type: "success",
@@ -138,12 +119,21 @@ watch(
     }
   };
 
+
+  // 删除token
+  const removeToken = () => {
+   // console.log("token发生改变22清除清除")
+    Local.remove(TokenKey);
+    return true;
+  };
+
+
   // 登录成功之后的操作
   const loginSuccess = async (res) => {
     const { token } = res.data;
 
     setToken(token);
-    tokenValue.value=token;
+    useUserStore().updateToken(token);
     try {
       // 存储用户信息
       await useUserStore().getInfo(); // 用户信息
@@ -163,6 +153,9 @@ watch(
       return false;
     }
   };
+
+
+
 
   // 注册
   const registerFun = async (params) => {
@@ -186,7 +179,6 @@ watch(
     logoutFun,
     clearStorage,
     registerFun,
-    loginSuccess,
-    tokenValue
+    loginSuccess
   };
 }
