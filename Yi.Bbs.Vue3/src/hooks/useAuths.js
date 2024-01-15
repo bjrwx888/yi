@@ -2,6 +2,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import useUserStore from "@/stores/user";
 import router from "@/router";
 import { Session, Local } from "@/utils/storage";
+import{computed} from 'vue'
 import {
   userLogin,
   getUserDetailInfo,
@@ -14,6 +15,8 @@ export const AUTH_USER = "AUTH_USER";
 
 
 export default function useAuths(opt) {
+
+
 
   const defaultOpt = {
     loginUrl: "/login", // 登录页跳转url 默认: /login
@@ -32,6 +35,14 @@ export default function useAuths(opt) {
    var token= Local.get(TokenKey);
     return token;
   };
+
+
+const isLogin=computed(()=>{
+
+  var token= Local.get(TokenKey);
+  return token? true : false;
+
+})
 
   // 存储token到cookies
   const setToken = (token) => {
@@ -179,6 +190,7 @@ export default function useAuths(opt) {
     logoutFun,
     clearStorage,
     registerFun,
-    loginSuccess
+    loginSuccess,
+    isLogin
   };
 }

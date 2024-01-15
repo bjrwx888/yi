@@ -6,3 +6,10 @@ export function signIn() {
     method: "post"
   });
 }
+
+export function signInRecord() {
+  return request({
+    url: "/integral/sign-in/record",
+    method: "get"
+  });
+}

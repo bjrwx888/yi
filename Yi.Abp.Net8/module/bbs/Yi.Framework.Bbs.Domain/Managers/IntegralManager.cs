@@ -10,8 +10,8 @@ namespace Yi.Framework.Bbs.Domain.Managers
 {
     public class IntegralManager : DomainService
     {
-        private ISqlSugarRepository<LevelEntity> _levelRepository;
-        private ISqlSugarRepository<SignInEntity> _signInRepository;
+        public ISqlSugarRepository<LevelEntity> _levelRepository;
+        public ISqlSugarRepository<SignInEntity> _signInRepository;
         private readonly ILocalEventBus _localEventBus;
         public IntegralManager(ISqlSugarRepository<LevelEntity> levelRepository, ISqlSugarRepository<SignInEntity> signInRepository, ILocalEventBus localEventBus)
         {
