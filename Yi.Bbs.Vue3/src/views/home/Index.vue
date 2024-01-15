@@ -123,8 +123,8 @@
             <template v-if="isPointFinished">
               <InfoCard
                 :items="pointList"
-                header="本月排行"
-                text="更多"
+                header="财富排行榜"
+                text="关于钱钱"
                 height="400"
               >
                 <template #item="temp">
