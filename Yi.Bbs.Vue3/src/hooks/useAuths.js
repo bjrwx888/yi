@@ -36,13 +36,9 @@ export default function useAuths(opt) {
     return token;
   };
 
-
 const isLogin=computed(()=>{
-
-  var token= Local.get(TokenKey);
-  return token? true : false;
-
-})
+  return getToken()? true : false
+});
 
   // 存储token到cookies
   const setToken = (token) => {
