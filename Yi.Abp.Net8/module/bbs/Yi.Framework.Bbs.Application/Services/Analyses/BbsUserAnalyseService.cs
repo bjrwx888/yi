@@ -52,7 +52,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                 .Select((user, info) => user.Id).
                 ToPageListAsync(input.SkipCount, input.MaxResultCount);
             var output = await _bbsUserManager.GetBbsUserInfoAsync(randUserIds);
-            return output.Adapt<List<BbsUserGetListOutputDto>>();
+            return output.OrderByDescending(x=>x.Money).ToList().Adapt<List<BbsUserGetListOutputDto>>();
         }
 
         /// <summary>
