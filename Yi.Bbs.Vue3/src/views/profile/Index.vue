@@ -1,9 +1,7 @@
 <template>
   <div class="app-container" style="width: 1300px">
-
-    
     <!-- 老版用户信息页面 -->
-    <el-row :gutter="20">
+    <!-- <el-row :gutter="20">
       <el-col :span="6" :xs="24">
         <el-card class="box-card">
           <template v-slot:header>
@@ -64,13 +62,13 @@
           </el-tabs>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
 
     <!-- 新版用户信息页面 -->
-    <!-- <el-row>
+    <el-row>
       <el-col :span="24">
         <div class="div-top">
-          <div class="div-top-1">
+          <div class="div-top-user">
             <div class="user-icon">用户头像</div>
             <div class="user-info">
               <div class="user-nick">
@@ -82,15 +80,30 @@
                 <span>100</span> 总访问 | <span>200</span> 排名 |
                 <span>36</span> 主题 | <span>836</span> 好友
               </div>
+              <div>
+                <p>个人简介：你好</p>
+                <p>个人简介：你好</p>
+                <p>注册时间：2020-12-02</p>
+                <p>个人简介：你好,很好，非常的好</p>
+              </div>
             </div>
           </div>
 
           <div class="user-edit">
             <div class="user-info-bottom">
-              <p>个人简介：你好</p>
-              <p>个人简介：你好</p>
-              <p>注册时间：2020-12-02</p>
-              <p>个人简介：你好,很好，非常的好</p>
+
+                <el-tabs v-model="activeTab" class="user-edit-tab">
+                  <el-tab-pane label="基本资料" name="userinfo">
+                    <userInfo :user="state.user" />
+                  </el-tab-pane>
+                  <el-tab-pane label="修改密码" name="resetPwd">
+                    <resetPwd />
+                  </el-tab-pane>
+                  <el-tab-pane label="第三方快捷登录" name="accountSetting">
+                    <accountSet />
+                  </el-tab-pane>
+                </el-tabs>
+    
             </div>
           </div>
         </div>
@@ -102,9 +115,7 @@
       <el-col :span="19" class="div-bottom-right">
         <div class="div-bottom-right-content">个人主题内容</div>
       </el-col>
-    </el-row> -->
-
-
+    </el-row>
   </div>
 </template>
 
@@ -139,7 +150,7 @@ onMounted(() => {
   getUser();
 });
 </script>
-<style scoped>
+<style scoped  lang="scss">
 .pull-right {
   float: right !important;
 }
@@ -172,77 +183,83 @@ onMounted(() => {
   justify-content: center;
   margin-bottom: 10px;
 }
+
+$topHeight: 550px;
+$userHeight: 150px;
+$remarkHeight: $topHeight - 150;
 .div-top {
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
   background-color: #ffffff;
-  height: 300px;
+  min-height: $topHeight;
   margin-top: 30px;
   font-size: 14px;
   color: #555666;
-}
-.user-icon {
-  flex: 1;
-  background-color: aqua;
-  height: 120px;
-}
-.user-info {
-  flex: 9;
+  &-user {
+    display: flex;
+    width: 100%;
+    height: $userHeight;
+    .user-icon {
+      flex: 1;
+      background-color: aqua;
+      height: $userHeight;
+    }
+    .user-info {
+      flex: 9;
+      background-color: bisque;
+      height: $userHeight;
+      .user-nick {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        &-left {
+          color: #222226;
+          font-size: larger !important;
+          font-weight: 500 !important;
+        }
+      }
 
-  background-color: bisque;
-  height: 120px;
-}
-.user-edit {
-  flex: 1 0 auto;
-}
-.div-top-1 {
-  display: flex;
-  width: 100%;
-  height: 120px;
-}
+      .user-remark span {
+        font-size: larger;
+        font-weight: bold;
+        color: black;
+      }
 
-.user-edit {
-  height: 180px;
-  padding-left: 10%;
-  background-color: burlywood;
-}
+      .user-remark  p {
+      margin-bottom: 15px;
+    }
+    }
+  }
+  .user-edit {
+    height: $remarkHeight;
+    flex: 1 0 auto;
 
-.user-nick {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.user-remark > span {
-  font-size: larger;
-  font-weight: bold;
-  color: black;
-}
+    padding-left: 10%;
+    background-color: burlywood;
 
-.user-info-bottom p {
-  margin-bottom: 15px;
+  }
 }
-.user-nick-left {
-  color: #222226;
-  font-size: larger !important;
-  font-weight: 500 !important;
+.user-edit-tab
+{
+width: 80%;
 }
 
 .div-bottom {
   margin-top: 20px;
-}
-.div-bottom-left {
-  height: 1000px;
-  background-color: cornsilk;
-}
 
-.div-bottom-right {
-  height: 1000px;
-  background-color: #f0f2f5;
-  padding-left: 20px;
-}
-.div-bottom-right-content {
-  height: 100%;
-  width: 100%;
-  background-color: darkorange;
+  &-left {
+    height: 1000px;
+    background-color: cornsilk;
+  }
+  &-right {
+    height: 1000px;
+    background-color: #f0f2f5;
+    padding-left: 20px;
+    &-content {
+      height: 100%;
+      width: 100%;
+      background-color: darkorange;
+    }
+  }
 }
 </style>
