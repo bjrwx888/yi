@@ -120,7 +120,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             if (sigInLast is not null)
             {
                 //签到过，且昨天已签到过，直接使用昨天的连续次数+1
-                if (sigInLast.CreationTime == DateTime.Now.Date.AddDays(-1))
+                if (sigInLast.CreationTime.Day == DateTime.Now.AddDays(-1).Day)
                 {
                     continuousNumber = sigInLast.ContinuousNumber + 1;
                 }
