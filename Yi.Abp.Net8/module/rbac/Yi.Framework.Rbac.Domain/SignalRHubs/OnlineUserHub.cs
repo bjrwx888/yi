@@ -13,7 +13,7 @@ namespace Yi.Framework.Rbac.Domain.SignalRHubs
     public class OnlineUserHub : AbpHub
     {
         public static readonly List<OnlineUserModel> clientUsers = new();
-
+        private readonly static object objLock = new object();
 
         private HttpContext? _httpContext;
         private ILogger<OnlineUserHub> _logger => LoggerFactory.CreateLogger<OnlineUserHub>();
@@ -30,32 +30,39 @@ namespace Yi.Framework.Rbac.Domain.SignalRHubs
         /// <returns></returns>
         public override Task OnConnectedAsync()
         {
-            var name = CurrentUser.UserName;
-            var loginUser = new LoginLogEntity().GetInfoByHttpContext(_httpContext);
-            var user = clientUsers.Any(u => u is not null && u.ConnnectionId == Context.ConnectionId);
-            //判断用户是否存在，否则添加集合
-            if (!user)
+            lock (objLock)
             {
-                OnlineUserModel users = new(Context.ConnectionId)
+
+                var name = CurrentUser.UserName;
+                var loginUser = new LoginLogEntity().GetInfoByHttpContext(_httpContext);
+                var user = clientUsers.Any(u => u is not null && u.ConnnectionId == Context.ConnectionId);
+                //判断用户是否存在，否则添加集合
+                if (!user)
                 {
-                    Browser = loginUser?.Browser,
-                    LoginLocation = loginUser?.LoginLocation,
-                    Ipaddr = loginUser?.LoginIp,
-                    LoginTime = DateTime.Now,
-                    Os = loginUser?.Os,
-                    UserName = name ?? "Null"
-                };
-                clientUsers.Add(users);
-                _logger.LogInformation($"{DateTime.Now}：{name},{Context.ConnectionId}连接服务端success，当前已连接{clientUsers.Count}个");
+                    OnlineUserModel users = new(Context.ConnectionId)
+                    {
+                        Browser = loginUser?.Browser,
+                        LoginLocation = loginUser?.LoginLocation,
+                        Ipaddr = loginUser?.LoginIp,
+                        LoginTime = DateTime.Now,
+                        Os = loginUser?.Os,
+                        UserName = name ?? "Null",
+                        UserId = CurrentUser.Id ?? Guid.Empty
+                    };
 
-                //Clients.All.SendAsync(HubsConstant.MoreNotice, SendNotice());
-                //当有人加入，向全部客户端发送当前总数
-                Clients.All.SendAsync("onlineNum", clientUsers.Count);
+
+                    //先移除之前的用户id，一个用户只能一个
+                    clientUsers.RemoveAll(u => u.UserId == CurrentUser.Id);
+                    clientUsers.Add(users);
+                    _logger.LogInformation($"{DateTime.Now}：{name},{Context.ConnectionId}连接服务端success，当前已连接{clientUsers.Count}个");
+
+                    //当有人加入，向全部客户端发送当前总数
+                    Clients.All.SendAsync("onlineNum", clientUsers.Count);
+                }
             }
-
-            //Clients.All.SendAsync(HubsConstant.OnlineUser, clientUsers);
             return base.OnConnectedAsync();
         }
+
 
         /// <summary>
         /// 断开连接
@@ -64,19 +71,17 @@ namespace Yi.Framework.Rbac.Domain.SignalRHubs
         /// <returns></returns>
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            var user = clientUsers.Where(p => p.ConnnectionId == Context.ConnectionId).FirstOrDefault();
-            //判断用户是否存在，否则添加集合
-            if (user != null)
+            lock (objLock)
             {
-                var clientUser = clientUsers.FirstOrDefault(x => x.ConnnectionId == user.ConnnectionId);
-                if (clientUser is not null)
+                var user = clientUsers.Where(p => p.ConnnectionId == Context.ConnectionId).FirstOrDefault();
+                //判断用户是否存在，否则添加集合
+                if (user != null)
                 {
-                    clientUsers.Remove(clientUser);
+                    clientUsers.RemoveAll(u => u.UserId == CurrentUser.Id || u.ConnnectionId == u.ConnnectionId);
                     Clients.All.SendAsync("onlineNum", clientUsers.Count);
-                    //Clients.All.SendAsync(HubsConstant.OnlineUser, clientUsers);
                     _logger.LogInformation($"用户{user?.UserName}离开了，当前已连接{clientUsers.Count}个");
-                }
 
+                }
             }
             return base.OnDisconnectedAsync(exception);
         }
