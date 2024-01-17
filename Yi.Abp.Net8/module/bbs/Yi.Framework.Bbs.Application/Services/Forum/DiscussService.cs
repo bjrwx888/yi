@@ -110,6 +110,7 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
                  .WhereIF(!string.IsNullOrEmpty(input.Title), x => x.Title.Contains(input.Title))
                      .WhereIF(input.PlateId is not null, x => x.PlateId == input.PlateId)
                      .WhereIF(input.IsTop is not null, x => x.IsTop == input.IsTop)
+                     .WhereIF(input.UserId is not null,x=>x.CreatorId==input.UserId)
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
                          .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
 

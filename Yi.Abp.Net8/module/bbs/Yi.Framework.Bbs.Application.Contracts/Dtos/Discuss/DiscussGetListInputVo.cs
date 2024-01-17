@@ -5,6 +5,8 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Discuss
 {
     public class DiscussGetListInputVo : PagedAndSortedResultRequestDto
     {
+        public Guid? UserId { get; set; }
+
         public string? Title { get; set; }
 
         public Guid? PlateId { get; set; }

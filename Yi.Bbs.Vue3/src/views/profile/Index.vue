@@ -69,22 +69,30 @@
       <el-col :span="24">
         <div class="div-top">
           <div class="div-top-user">
-            <div class="user-icon">用户头像</div>
+            <div class="user-icon text-center">
+
+              <userAvatar :user="state.user" />
+            </div>
             <div class="user-info">
               <div class="user-nick">
-                <div class="user-nick-left">CCNetCore</div>
-                <div class="user-nick-right">其他</div>
+                <div class="user-nick-left">{{ state.user.nick }}</div>
+                <div class="user-nick-right">
+                  
+                  其他
+                </div>
               </div>
 
               <div class="user-remark">
                 <span>100</span> 总访问 | <span>200</span> 排名 |
                 <span>36</span> 主题 | <span>836</span> 好友
+          
               </div>
+              <el-divider />
               <div>
-                <p>个人简介：你好</p>
-                <p>个人简介：你好</p>
-                <p>注册时间：2020-12-02</p>
-                <p>个人简介：你好,很好，非常的好</p>
+                <p>账号：{{ state.user.userName }}</p>
+                <p>手机号码：{{ state.user.phone }}</p>
+                <p>注册时间：{{state.user.creationTime}}</p>
+                <p>个人简介：你好，世界~</p>
               </div>
             </div>
           </div>
@@ -111,9 +119,60 @@
     </el-row>
 
     <el-row class="div-bottom">
-      <el-col :span="5" class="div-bottom-left"> </el-col>
+      <el-col :span="5" class="div-bottom-left">
+        <el-menu
+        default-active="1"
+        class="el-menu-left"
+      >
+      <el-menu-item index="1">
+        <el-icon><ChatLineRound /></el-icon>
+          <span>主题</span>
+        </el-menu-item>
+
+        <el-menu-item index="2">
+          <el-icon><Discount /></el-icon>
+          <span>收藏</span>
+        </el-menu-item>
+
+        <el-menu-item index="3">
+          <el-icon><ChatDotRound /></el-icon>
+          <span>评论</span>
+        </el-menu-item>
+
+        <el-menu-item index="4">
+          <el-icon><View /></el-icon>
+          <span>关注</span>
+        </el-menu-item>
+      </el-menu>
+    
+      </el-col>
       <el-col :span="19" class="div-bottom-right">
-        <div class="div-bottom-right-content">个人主题内容</div>
+        <div  class="div-bottom-right-content">
+          <div v-for="(item,index) in discussList" :key="index">
+            <DisscussCard :discuss="item" />
+          </div>
+
+          <div class="pagination">
+      <el-pagination
+        v-model:current-page="query.skipCount"
+        v-model:page-size="query.maxResultCount"
+        :page-sizes="[10, 20, 30, 50]"
+        :background="true"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="discussTotal"
+        @size-change="
+          async (val) => {
+            await getDiscuss();
+          }
+        "
+        @current-change="
+          async (val) => {
+            await getDiscuss();
+          }
+        "
+      />
+    </div>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -126,6 +185,9 @@ import resetPwd from "./ResetPwd.vue";
 import accountSet from "./AccountSetting.vue";
 import { getUserProfile } from "@/apis/userApi.js";
 import { onMounted, ref, reactive } from "vue";
+import { getList } from "@/apis/discussApi.js";
+import { useRoute } from "vue-router";
+const route = useRoute();
 
 const activeTab = ref("userinfo");
 const state = reactive({
@@ -134,6 +196,14 @@ const state = reactive({
   roles: [],
   roleGroup: {},
   postGroup: {},
+
+});
+const   discussList= ref([]);
+const discussTotal=ref(0);
+const query = reactive({
+  skipCount: 1,
+  maxResultCount: 10,
+  userId:route.params.userId
 });
 
 function getUser() {
@@ -146,8 +216,18 @@ function getUser() {
     state.postGroup = res.postGroup;
   });
 }
+
+const getDiscuss=async ()=>
+{
+ const {data:{items,totalCount}}= await getList(query);
+
+ discussList.value=items;
+ discussTotal.value=totalCount;
+}
+
 onMounted(() => {
   getUser();
+  getDiscuss();
 });
 </script>
 <style scoped  lang="scss">
@@ -184,11 +264,11 @@ onMounted(() => {
   margin-bottom: 10px;
 }
 
-$topHeight: 550px;
-$userHeight: 150px;
-$remarkHeight: $topHeight - 150;
+$topHeight: 620px;
+$userHeight: 220px;
+$remarkHeight: $topHeight - $userHeight;
 .div-top {
-  // padding-bottom: 10px;
+  padding-top: 10px;
   background-color: #ffffff;
   min-height: $topHeight;
   margin-top: 30px;
@@ -200,12 +280,12 @@ $remarkHeight: $topHeight - 150;
     height: $userHeight;
     .user-icon {
       flex: 1;
-      background-color: aqua;
       height: $userHeight;
+      padding: 10px;
     }
     .user-info {
+      padding-left: 10px;
       flex: 9;
-      background-color: bisque;
       height: $userHeight;
       .user-nick {
         display: flex;
@@ -213,9 +293,13 @@ $remarkHeight: $topHeight - 150;
         padding-top: 5px;
         padding-bottom: 5px;
         &-left {
-          color: #222226;
-          font-size: larger !important;
-          font-weight: 500 !important;
+          color:#222226;
+          font-size: 23px;
+          font-weight: 800;
+        }
+        &-right{
+            margin-right: 30px;
+
         }
       }
 
@@ -225,31 +309,43 @@ $remarkHeight: $topHeight - 150;
         color: black;
       }
 
-      .user-remark  p {
-      margin-bottom: 15px;
+      p {
+      margin-bottom: 10px;
     }
     }
   }
   .user-edit {
     height: $remarkHeight;
     flex: 1 0 auto;
-
-    padding-left: 10%;
-    background-color: burlywood;
+    
+    margin-left: 10%;
+    padding-left: 20px;
 
   }
+}
+
+.el-divider--horizontal
+{
+margin-bottom: 10px;
+
 }
 .user-edit-tab
 {
 width: 80%;
 }
-
+.pagination
+{
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
 .div-bottom {
   margin-top: 20px;
 
   &-left {
-    height: 1000px;
-    background-color: cornsilk;
+    padding-top: 30px;
+    height: 280px;
+    background-color: #FFFFFF;
   }
   &-right {
     height: 1000px;
@@ -258,8 +354,17 @@ width: 80%;
     &-content {
       height: 100%;
       width: 100%;
-      background-color: darkorange;
+      background-color: #FFFFFF;
     }
+  }
+  .el-menu
+  {
+    height: 100%;
+  }
+  .el-menu-item
+  {
+    justify-content: center;
+
   }
 }
 </style>
