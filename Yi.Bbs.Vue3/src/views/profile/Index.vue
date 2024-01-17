@@ -71,7 +71,7 @@
           <div class="div-top-user">
             <div class="user-icon text-center">
 
-              <userAvatar :user="state.user" />
+              <userAvatar :user="state.user" :isDisable="!iSCurrentUserLogin"/>
             </div>
             <div class="user-info">
               <div class="user-nick">
@@ -102,12 +102,12 @@
 
                 <el-tabs v-model="activeTab" class="user-edit-tab">
                   <el-tab-pane label="基本资料" name="userinfo">
-                    <userInfo :user="state.user" />
+                    <userInfo :user="state.user" :isDisable="!iSCurrentUserLogin" />
                   </el-tab-pane>
-                  <el-tab-pane label="修改密码" name="resetPwd">
+                  <el-tab-pane v-if="iSCurrentUserLogin" label="修改密码" name="resetPwd">
                     <resetPwd />
                   </el-tab-pane>
-                  <el-tab-pane label="第三方快捷登录" name="accountSetting">
+                  <el-tab-pane v-if="iSCurrentUserLogin" label="第三方快捷登录" name="accountSetting">
                     <accountSet />
                   </el-tab-pane>
                 </el-tabs>
@@ -152,7 +152,10 @@
             <DisscussCard :discuss="item" />
           </div>
 
-          <div class="pagination">
+
+        </div>
+        <el-empty v-if="discussList.length == 0" description="空空如也" />
+        <div v-else class="pagination">
       <el-pagination
         v-model:current-page="query.skipCount"
         v-model:page-size="query.maxResultCount"
@@ -171,7 +174,6 @@
           }
         "
       />
-    </div>
         </div>
       </el-col>
     </el-row>
@@ -183,12 +185,15 @@ import userAvatar from "./UserAvatar.vue";
 import userInfo from "./UserInfo.vue";
 import resetPwd from "./ResetPwd.vue";
 import accountSet from "./AccountSetting.vue";
-import { getUserProfile } from "@/apis/userApi.js";
+import { getBbsUserProfile } from "@/apis/userApi.js";
 import { onMounted, ref, reactive } from "vue";
 import { getList } from "@/apis/discussApi.js";
 import { useRoute } from "vue-router";
+import useAuths from "@/hooks/useAuths";
+const { isLogin } = useAuths();
+import useUserStore from "@/stores/user";
 const route = useRoute();
-
+const userStore=useUserStore();
 const activeTab = ref("userinfo");
 const state = reactive({
   user: {},
@@ -198,22 +203,19 @@ const state = reactive({
   postGroup: {},
 
 });
-const   discussList= ref([]);
+const iSCurrentUserLogin=ref(false);
+const  discussList= ref([]);
 const discussTotal=ref(0);
 const query = reactive({
   skipCount: 1,
   maxResultCount: 10,
-  userId:route.params.userId
+  userName:route.params.userName
 });
 
 function getUser() {
-  getUserProfile().then((response) => {
+  getBbsUserProfile(query.userName).then((response) => {
     const res = response.data;
-    state.user = res.user;
-    state.dept = res.dept;
-    state.roles = res.roles;
-    state.roleGroup = res.roleGroup;
-    state.postGroup = res.postGroup;
+    state.user = res;
   });
 }
 
@@ -226,6 +228,11 @@ const getDiscuss=async ()=>
 }
 
 onMounted(() => {
+  //效验，是否登录用户等于当前的userInfo
+    if(userStore.userName ==query.userName&&isLogin)
+    {
+      iSCurrentUserLogin.value=true;
+    }
   getUser();
   getDiscuss();
 });
@@ -348,11 +355,9 @@ width: 80%;
     background-color: #FFFFFF;
   }
   &-right {
-    height: 1000px;
     background-color: #f0f2f5;
     padding-left: 20px;
     &-content {
-      height: 100%;
       width: 100%;
       background-color: #FFFFFF;
     }

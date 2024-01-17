@@ -31,7 +31,7 @@
       </el-col>
     </el-row>
     <br />
-    <el-row>
+    <el-row v-show="!isDisable">
       <el-col :lg="{ span: 1, offset: 2 }" :md="2">
         <el-upload
           action="#"
@@ -53,7 +53,7 @@
         </el-button>
       </el-col>
     </el-row>
-    <el-row style="margin-top: 10px">
+    <el-row style="margin-top: 10px" v-show="!isDisable">
       <el-col :lg="{ span: 1, offset: 2 }" :md="2">
         <el-button icon="Plus" @click="changeScale(1)"></el-button>
       </el-col>
@@ -108,8 +108,18 @@ import { getIconList } from "@/apis/settingApi";
 import useUserStore from "@/stores/user";
 import axios from "axios";
 
-const userStore = useUserStore();
 
+const props = defineProps({
+  user: {
+    type: Object,
+    default:{icon:"/acquiesce.png"}
+  },
+  isDisable:{
+    type:Boolean,
+    default:true
+  }
+});
+const userStore=useUserStore();
 const cropper = ref(null);
 
 const open = ref(false);
@@ -118,7 +128,7 @@ const title = ref("修改头像");
 
 //图片裁剪数据
 const options = reactive({
-  img: userStore.icon, // 裁剪图片的地址
+  img: props.user.icon, // 裁剪图片的地址
   autoCrop: true, // 是否默认生成截图框
   autoCropWidth: 200, // 默认生成截图框宽度
   autoCropHeight: 200, // 默认生成截图框高度

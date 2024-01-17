@@ -112,8 +112,10 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
                      .WhereIF(input.IsTop is not null, x => x.IsTop == input.IsTop)
                      .WhereIF(input.UserId is not null,x=>x.CreatorId==input.UserId)
                      .LeftJoin<UserEntity>((discuss, user) => discuss.CreatorId == user.Id)
-                         .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
+                     .WhereIF(input.UserName is not null, (discuss, user)=>user.UserName==input.UserName!)
 
+                     .LeftJoin<BbsUserExtraInfoEntity>((discuss, user, info) => user.Id == info.UserId)
+                     
                          .OrderByDescending(discuss => discuss.OrderNum)
                       .OrderByIF(input.Type == QueryDiscussTypeEnum.New, discuss => discuss.CreationTime, OrderByType.Desc)
                      .OrderByIF(input.Type == QueryDiscussTypeEnum.Host, discuss => discuss.SeeNum, OrderByType.Desc)
