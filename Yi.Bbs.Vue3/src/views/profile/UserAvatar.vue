@@ -100,7 +100,7 @@
 
 <script setup>
 import "vue-cropper/dist/index.css";
-import { ref, reactive, onMounted,computed } from "vue";
+import { ref, reactive, onMounted,computed ,watch} from "vue";
 import { VueCropper } from "vue-cropper";
 import { upload } from "@/apis/fileApi";
 import { updateUserIcon } from "@/apis/userApi";
@@ -242,13 +242,20 @@ const confirmImage = async () => {
   selectedImageIndex.value = null;
   isOnlineVisible.value = false;
 };
-onMounted(async () => {
 
-  const userIcon=props.user.icon;
-  options.img=userIcon == "" || userIcon == null
+watch(
+  () => props,
+   (val,oldValue) => {
+    const userIcon=props.user.icon;
+    console.log(userIcon,"userIcon")
+    options.img=userIcon == "" || userIcon == null
                 ? "/acquiesce.png"
                 : import.meta.env.VITE_APP_BASEAPI + "/file/" + userIcon;
-   
+          
+  },
+  {immediate:true,deep:true}
+);
+onMounted(async () => {
   const { data: iconListData } = await getIconList();
   iconList.value = iconListData.map(
     (item) => import.meta.env.VITE_APP_BASEAPI + "/" + item
