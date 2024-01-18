@@ -11,9 +11,9 @@ namespace Acme.BookStore.SqlSugarCore
         {
         }
 
-        protected override void CustomDataFilter()
+        protected override void CustomDataFilter(ISqlSugarClient sqlSugarClient)
         {
-            base.CustomDataFilter();
+            base.CustomDataFilter(sqlSugarClient);
         }
 
 

@@ -8,11 +8,11 @@ using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Comment;
 using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities.Forum;
-using Yi.Framework.Bbs.Domain.Extensions;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Domain.Authorization;
+using Yi.Framework.Rbac.Domain.Extensions;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 

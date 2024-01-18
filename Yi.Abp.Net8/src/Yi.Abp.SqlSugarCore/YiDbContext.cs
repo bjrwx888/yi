@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using SqlSugar;
+﻿using SqlSugar;
 using Volo.Abp.DependencyInjection;
 using Yi.Framework.Rbac.SqlSugarCore;
 
@@ -11,9 +10,9 @@ namespace Yi.Abp.SqlSugarCore
         {
         }
 
-        protected override void CustomDataFilter()
+        protected override void CustomDataFilter(ISqlSugarClient sqlSugarClient)
         {
-            base.CustomDataFilter();
+            base.CustomDataFilter(sqlSugarClient);
         }
 
 

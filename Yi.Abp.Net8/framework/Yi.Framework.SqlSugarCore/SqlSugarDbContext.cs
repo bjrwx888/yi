@@ -113,9 +113,9 @@ namespace Yi.Framework.SqlSugarCore
             {
                 sqlSugarClient.QueryFilter.AddTableFilter<IMultiTenant>(u => u.TenantId == GuidGenerator.Create());
             }
-            CustomDataFilter();
+            CustomDataFilter(sqlSugarClient);
         }
-        protected virtual void CustomDataFilter()
+        protected virtual void CustomDataFilter(ISqlSugarClient sqlSugarClient)
         {
 
         }
