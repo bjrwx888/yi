@@ -30,7 +30,7 @@ namespace Yi.Abp.Test
             this.TestServiceScope = ServiceProvider.CreateScope();
             this.Logger = (ILogger)this.ServiceProvider.GetRequiredService(typeof(ILogger<>).MakeGenericType(this.GetType()));
 
-            //host.InitializeAsync().Wait();
+            host.InitializeAsync().Wait();
         }
 
 
