@@ -75,7 +75,19 @@
             </div>
             <div class="user-info">
               <div class="user-nick">
-                <div class="user-nick-left">{{ state.user.nick }}</div>
+                <div class="user-nick-left">{{ state.user.nick }} 
+                
+                  <el-tag effect="light" type="success"
+          >{{state.user.level }} 等级</el-tag
+        >
+        <el-tag effect="light" type="success">
+          {{ state.user.userLimit }} 限制
+        </el-tag>
+
+        <el-tag effect="light" type="success"
+          >{{state.user.money }} 钱钱</el-tag
+        >
+                </div>
                 <div class="user-nick-right">
                   
                   其他
@@ -303,6 +315,10 @@ $remarkHeight: $topHeight - $userHeight;
           color:#222226;
           font-size: 23px;
           font-weight: 800;
+          .el-tag{
+
+            margin-right: 10px;
+          }
         }
         &-right{
             margin-right: 30px;
