@@ -22,7 +22,6 @@ namespace Yi.Abp.Test
                    service.AddLogging(builder => builder.ClearProviders().AddConsole().AddDebug());
                    /*application= */
                    service.AddApplicationAsync<YiAbpTestModule>().Wait();
-                   this.ConfigureServices(host, service);
                })
                .ConfigureAppConfiguration(this.ConfigureAppConfiguration)
                .Build();
@@ -32,14 +31,6 @@ namespace Yi.Abp.Test
             this.Logger = (ILogger)this.ServiceProvider.GetRequiredService(typeof(ILogger<>).MakeGenericType(this.GetType()));
 
             //host.InitializeAsync().Wait();
-            this.Configure();
-        }
-
-
-
-        protected virtual void ConfigureServices(HostBuilderContext context, IServiceCollection services)
-        {
-            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         protected virtual void ConfigureAppConfiguration(IConfigurationBuilder configurationBuilder)
@@ -47,10 +38,6 @@ namespace Yi.Abp.Test
             configurationBuilder.AddJsonFile("appsettings.json");
             //configurationBuilder.AddJsonFile("appsettings.Development.json");
             
-        }
-
-        protected virtual void Configure()
-        {
         }
     }
 }

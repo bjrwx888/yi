@@ -22,7 +22,6 @@ namespace Yi.Abp.Test
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.GetConfiguration();
         }
     }
 }
