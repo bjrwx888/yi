@@ -3,7 +3,7 @@ using Xunit;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 
-namespace Yi.Abp.Test.Application
+namespace Yi.Abp.Test.Demo
 {
     public class User_Test : YiAbpTestBase
     {

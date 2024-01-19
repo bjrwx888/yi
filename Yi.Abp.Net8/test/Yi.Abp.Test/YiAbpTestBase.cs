@@ -18,6 +18,7 @@ namespace Yi.Abp.Test
                .UseAutofac()
                .ConfigureServices((host, service) =>
                {
+                   ConfigureServices(host, service);
                    service.AddLogging(builder => builder.ClearProviders().AddConsole().AddDebug());
                    /*application= */
                    service.AddApplicationAsync<YiAbpTestModule>().Wait();
@@ -32,6 +33,10 @@ namespace Yi.Abp.Test
             //host.InitializeAsync().Wait();
         }
 
+
+        public virtual void ConfigureServices(HostBuilderContext host, IServiceCollection service)
+        { 
+        }
         protected virtual void ConfigureAppConfiguration(IConfigurationBuilder configurationBuilder)
         {
             configurationBuilder.AddJsonFile("appsettings.json");
