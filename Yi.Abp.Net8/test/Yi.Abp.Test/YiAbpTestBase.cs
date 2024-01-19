@@ -14,7 +14,6 @@ namespace Yi.Abp.Test
         protected IServiceScope TestServiceScope { get; }
         public YiAbpTestBase()
         {
-            IAbpApplicationWithExternalServiceProvider application = null;
             IHost host = Host.CreateDefaultBuilder()
                .UseAutofac()
                .ConfigureServices((host, service) =>
