@@ -88,6 +88,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.BookStore.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.BookStore.SqlSugarCore", "sample\Acme.BookStore.SqlSugarCore\Acme.BookStore.SqlSugarCore.csproj", "{70CCBD89-C0A1-4AC8-9AFA-C86C356DFDD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Abp.Test", "test\Yi.Abp.Test\Yi.Abp.Test.csproj", "{68627BC2-F049-4C69-AD17-81DF9478E8CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -218,6 +220,10 @@ Global
 		{70CCBD89-C0A1-4AC8-9AFA-C86C356DFDD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70CCBD89-C0A1-4AC8-9AFA-C86C356DFDD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70CCBD89-C0A1-4AC8-9AFA-C86C356DFDD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68627BC2-F049-4C69-AD17-81DF9478E8CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68627BC2-F049-4C69-AD17-81DF9478E8CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68627BC2-F049-4C69-AD17-81DF9478E8CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68627BC2-F049-4C69-AD17-81DF9478E8CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -257,6 +263,7 @@ Global
 		{20827DB5-5CDE-491A-82E8-3CAB82618C1E} = {01300F0F-686E-47B3-821D-12424177867B}
 		{320273B6-7AE3-42DA-9675-D9AD4928A289} = {01300F0F-686E-47B3-821D-12424177867B}
 		{70CCBD89-C0A1-4AC8-9AFA-C86C356DFDD7} = {01300F0F-686E-47B3-821D-12424177867B}
+		{68627BC2-F049-4C69-AD17-81DF9478E8CE} = {0D10EEF2-FBAE-4C72-B816-A52823FC299B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23D6FBC9-C970-4641-BC1E-2AEA59F51C18}
