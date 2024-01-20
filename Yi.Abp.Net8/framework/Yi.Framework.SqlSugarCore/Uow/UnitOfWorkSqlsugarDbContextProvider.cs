@@ -54,10 +54,10 @@ namespace Yi.Framework.SqlSugarCore.Uow
             //var sss= unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
             //Console.WriteLine("反户的:"+sss.SqlSugarClient.ContextID);
             //return sss;
-
+            ]
 
             var connectionStringName = "Default";
-            var connectionString = await ResolveConnectionStringAsync(connectionStringName);
+            var connectionString = await ResolveConnectionStringAsync(null);
             // var dbContextKey = $"{this.GetType().FullName}_{connectionString}";
             var dbContextKey = "Default";
             var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
