@@ -22,7 +22,7 @@ namespace Yi.Framework.SqlSugarCore
         /// <summary>
         /// SqlSugar 客户端
         /// </summary>
-        public ISqlSugarClient SqlSugarClient { get; }
+        public ISqlSugarClient SqlSugarClient { get; private set; }
         public ICurrentUser CurrentUser => LazyServiceProvider.GetRequiredService<ICurrentUser>();
 
         private IAbpLazyServiceProvider LazyServiceProvider { get; }
@@ -36,8 +36,13 @@ namespace Yi.Framework.SqlSugarCore
         protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
 
         public IEntityChangeEventHelper EntityChangeEventHelper => LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
-        protected DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
+        public DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
 
+
+        public void SetSqlSugarClient(ISqlSugarClient sqlSugarClient)
+        {
+            SqlSugarClient=sqlSugarClient;
+        }
         public SqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider)
         {
             LazyServiceProvider = lazyServiceProvider;

@@ -2,9 +2,7 @@
 using Volo.Abp;
 using Volo.Abp.Caching;
 using Volo.Abp.Data;
-using Volo.Abp.DependencyInjection;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.ObjectMapping;
 
 namespace Yi.Framework.TenantManagement.Domain
 {
@@ -96,21 +94,23 @@ namespace Yi.Framework.TenantManagement.Domain
         private ConnectionStrings? MaptoString(string tenantConnectionString)
         {
 
-            tenantConnectionString = tenantConnectionString.TrimEnd(';');
-            var strSpiteds = tenantConnectionString.Split(";");
-            if (strSpiteds.Count() == 0)
-            {
-                return null;
+            //tenantConnectionString = tenantConnectionString.TrimEnd(';');
+            //var strSpiteds = tenantConnectionString.Split(";");
+            //if (strSpiteds.Count() == 0)
+            //{
+            //    return null;
 
-            }
+            //}
 
             var connectionStrings = new ConnectionStrings();
-            foreach (string strSpited in strSpiteds)
-            {
-                var key = strSpited.Split('=')[0];
-                var value = strSpited.Split('=')[1];
-                connectionStrings[key] = value;
-            }
+            //foreach (string strSpited in strSpiteds)
+            //{
+            //    var key = strSpited.Split('=')[0];
+            //    var value = strSpited.Split('=')[1];
+            //    connectionStrings[key] = value;
+            //}
+            connectionStrings["test"] = tenantConnectionString;
+
             return connectionStrings;
         }
 

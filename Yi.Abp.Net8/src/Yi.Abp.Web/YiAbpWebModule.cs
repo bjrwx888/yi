@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +13,7 @@ using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
 using Yi.Abp.SqlsugarCore;
@@ -107,6 +107,12 @@ namespace Yi.Abp.Web
                 });
             });
 
+            //配置多租户
+            Configure<AbpTenantResolveOptions>(options =>
+            {
+                //基于cookie jwt不好用，有坑
+                options.TenantResolvers.RemoveAll(x => x.Name == CookieTenantResolveContributor.ContributorName);
+            });
 
             //jwt鉴权
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
