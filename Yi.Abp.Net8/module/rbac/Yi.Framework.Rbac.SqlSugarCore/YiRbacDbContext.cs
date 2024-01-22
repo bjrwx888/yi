@@ -39,7 +39,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore
             var roleInfo = CurrentUser.GetRoleInfo();
 
             //如果无岗位，或者无角色，只能看自己的数据
-            if (CurrentUser.GetDeptId() is null || roleInfo is null)
+            if (/*CurrentUser.GetDeptId() is null ||*/ roleInfo is null)
             {
                 expUser.Or(it => it.Id == CurrentUser.Id);
                 expRole.Or(it => roleInfo.Select(x=>x.Id).Contains(it.Id));
