@@ -8,7 +8,7 @@ namespace Yi.AuditLogging.SqlSugarCore
 {
     [DependsOn(typeof(AbpAuditLoggingDomainModule))]
     [DependsOn(typeof(YiFrameworkSqlSugarCoreModule))]
-    public class YiAuditLoggingSqlSugarCoreModule : AbpModule
+    public class YiFrameworkAuditLoggingSqlSugarCoreModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
