@@ -6,7 +6,7 @@ using Volo.Abp.AspNetCore.SignalR;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Shared.Model;
 
-namespace Yi.Framework.Rbac.Domain.SignalRHubs
+namespace Yi.Framework.Rbac.Application.SignalRHubs
 {
     [HubRoute("/hub/main")]
     [Authorize]
