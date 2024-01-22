@@ -30,7 +30,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         [HttpGet("analyse/bbs-user/random")]
         public async Task<List<BbsUserGetListOutputDto>> GetRandomUserAsync([FromQuery] PagedResultRequestDto input)
         {
-           // using (DataFilter.DisablePermissionHandler())
+            using (DataFilter.DisablePermissionHandler())
             {
                 var randUserIds = await _bbsUserManager._userRepository._DbQueryable
                 //.Where(x => x.UserName != UserConst.Admin)
@@ -39,7 +39,10 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                 ToPageListAsync(input.SkipCount, input.MaxResultCount);
                 var output = await _bbsUserManager.GetBbsUserInfoAsync(randUserIds);
                 return output.Adapt<List<BbsUserGetListOutputDto>>();
+
+                //这里关闭了数据权限，所有用户都能查询的到
             }
+            //这里有数据权限，会根据用户角色进行过滤
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         [HttpGet("analyse/bbs-user/integral-top")]
         public async Task<List<BbsUserGetListOutputDto>> GetIntegralTopUserAsync([FromQuery] PagedResultRequestDto input)
         {
-           // using (DataFilter.DisablePermissionHandler())
+            using (DataFilter.DisablePermissionHandler())
             {
                 var randUserIds = await _bbsUserManager._userRepository._DbQueryable
                 // .Where(user => user.UserName != UserConst.Admin)
@@ -69,8 +72,9 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         [HttpGet("analyse/bbs-user")]
         public async Task<BbsUserAnalyseGetOutput> GetUserAnalyseAsync()
         {
-           // using (DataFilter.DisablePermissionHandler())
+            using (DataFilter.DisablePermissionHandler())
             {
+               var sss= DataFilter.IsEnabled<IDataPermission>();
                 var registerUser = await _bbsUserManager._userRepository._DbQueryable.CountAsync();
 
 
