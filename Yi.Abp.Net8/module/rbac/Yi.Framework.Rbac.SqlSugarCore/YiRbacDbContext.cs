@@ -1,5 +1,6 @@
 ﻿using SqlSugar;
 using Volo.Abp.DependencyInjection;
+using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Extensions;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
@@ -16,8 +17,11 @@ namespace Yi.Framework.Rbac.SqlSugarCore
 
         protected override void CustomDataFilter(ISqlSugarClient sqlSugarClient)
         {
-
-            DataPermissionFilter(sqlSugarClient);
+            if (DataFilter.IsEnabled<IDataPermission>())
+            {
+                DataPermissionFilter(sqlSugarClient);
+            }
+   
 
             base.CustomDataFilter(sqlSugarClient);
         }
@@ -42,7 +46,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore
             if (/*CurrentUser.GetDeptId() is null ||*/ roleInfo is null)
             {
                 expUser.Or(it => it.Id == CurrentUser.Id);
-                expRole.Or(it => roleInfo.Select(x=>x.Id).Contains(it.Id));
+                expRole.Or(it => roleInfo.Select(x => x.Id).Contains(it.Id));
             }
             else
             {
@@ -68,7 +72,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore
                         //SQl  OR {}.dept_id IN ( SELECT dept_id FROM sys_dept WHERE dept_id = {} or find_in_set( {} , ancestors ) )
                         var allChildDepts = sqlSugarClient.Queryable<DeptEntity>().ToChildList(it => it.ParentId, CurrentUser.GetDeptId());
 
-                        expUser.Or(it => allChildDepts.Select(f => f.Id).ToList().Contains(it.DeptId??Guid.Empty));
+                        expUser.Or(it => allChildDepts.Select(f => f.Id).ToList().Contains(it.DeptId ?? Guid.Empty));
                     }
                     else if (DataScopeEnum.USER.Equals(dataScope))//仅本人数据
                     {
@@ -84,31 +88,6 @@ namespace Yi.Framework.Rbac.SqlSugarCore
 
             sqlSugarClient.QueryFilter.AddTableFilter(expUser.ToExpression());
             sqlSugarClient.QueryFilter.AddTableFilter(expRole.ToExpression());
-        }
-
-        protected override void DataExecuted(object oldValue, DataAfterModel entityInfo)
-        {
-            base.DataExecuted(oldValue, entityInfo);
-        }
-
-        protected override void DataExecuting(object oldValue, DataFilterModel entityInfo)
-        {
-            base.DataExecuting(oldValue, entityInfo);
-        }
-
-        protected override void OnLogExecuting(string sql, SugarParameter[] pars)
-        {
-            base.OnLogExecuting(sql, pars);
-        }
-
-        protected override void OnLogExecuted(string sql, SugarParameter[] pars)
-        {
-            base.OnLogExecuted(sql, pars);
-        }
-
-        protected override void OnSqlSugarClientConfig(ISqlSugarClient sqlSugarClient)
-        {
-            base.OnSqlSugarClientConfig(sqlSugarClient);
         }
     }
 }

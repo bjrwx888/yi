@@ -18,6 +18,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
 {
     public class UnitOfWorkSqlsugarDbContextProvider<TDbContext> : ISugarDbContextProvider<TDbContext> where TDbContext : ISqlSugarDbContext
     {
+        private readonly ISqlSugarDbConnectionCreator _dbConnectionCreator;
         private readonly string MasterTenantDbDefaultName = DbConnOptions.MasterTenantDbDefaultName;
         public ILogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>> Logger { get; set; }
 
@@ -30,7 +31,8 @@ namespace Yi.Framework.SqlSugarCore.Uow
             IUnitOfWorkManager unitOfWorkManager,
             IConnectionStringResolver connectionStringResolver,
             ICancellationTokenProvider cancellationTokenProvider,
-            ICurrentTenant currentTenant
+            ICurrentTenant currentTenant,
+            ISqlSugarDbConnectionCreator dbConnectionCreator
         )
         {
             UnitOfWorkManager = unitOfWorkManager;
@@ -38,6 +40,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
             CancellationTokenProvider = cancellationTokenProvider;
             CurrentTenant = currentTenant;
             Logger = NullLogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>>.Instance;
+            _dbConnectionCreator = dbConnectionCreator;
         }
 
         public virtual async Task<TDbContext> GetDbContextAsync()
@@ -72,7 +75,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
         protected virtual async Task<TDbContext> CreateDbContextAsync(IUnitOfWork unitOfWork, string connectionStringName, string connectionString)
         {
-            
+
             var dbContext = await CreateDbContextAsync(unitOfWork);
 
             //没有检测到使用多租户功能，默认使用默认库即可
@@ -98,25 +101,36 @@ namespace Yi.Framework.SqlSugarCore.Uow
             {
                 //直接切换
                 configId = MasterTenantDbDefaultName;
-                var conStrOrNull= dbOption.GetDefaultMasterSaasMultiTenancy();
-                Volo.Abp.Check.NotNull(conStrOrNull,"租户主库未找到");
+                var conStrOrNull = dbOption.GetDefaultMasterSaasMultiTenancy();
+                Volo.Abp.Check.NotNull(conStrOrNull, "租户主库未找到");
                 connectionString = conStrOrNull.Url;
             }
 
             //租户Db的动态切换
             //二级缓存
+            var changed = false;
             if (!db.IsAnyConnection(configId))
             {
-                //添加一个db到当前上下文 (Add部分不线上下文不会共享)
-                db.AddConnection(new ConnectionConfig()
+                var config = _dbConnectionCreator.Build(options =>
                 {
-                    DbType = dbOption.DbType!.Value,
-                    ConfigId = configId,//设置库的唯一标识
-                    IsAutoCloseConnection = true,
-                    ConnectionString = connectionString
+                    options.DbType = dbOption.DbType!.Value;
+                    options.ConfigId = configId;//设置库的唯一标识
+                    options.IsAutoCloseConnection = true;
+                    options.ConnectionString = connectionString;
                 });
+                //添加一个db到当前上下文 (Add部分不线上下文不会共享)
+                db.AddConnection(config);
+                changed = true;
             }
             var currentDb = db.GetConnection(configId) as ISqlSugarClient;
+
+            //设置Aop
+            if (changed)
+            {
+                _dbConnectionCreator.SetDbAop(currentDb);
+            }
+
+
             dbContext.SetSqlSugarClient(currentDb);
             return dbContext;
         }

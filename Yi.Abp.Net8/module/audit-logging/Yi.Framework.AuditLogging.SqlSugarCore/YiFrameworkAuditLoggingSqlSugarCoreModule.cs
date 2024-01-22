@@ -13,7 +13,7 @@ namespace Yi.AuditLogging.SqlSugarCore
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.Replace(new ServiceDescriptor(typeof(IAuditLogRepository), typeof(SqlSugarCoreAuditLogRepository), lifetime: ServiceLifetime.Transient));
-            context.Services.AddYiDbContext<YiAuditLoggingDbContext>();
+            context.Services.TryAddYiDbContext<YiAuditLoggingDbContext>();
        
         }
     }
