@@ -16,6 +16,21 @@ public class SqlSugarCoreAuditLogRepository : SqlSugarRepository<AuditLogAggrega
     public SqlSugarCoreAuditLogRepository(ISugarDbContextProvider<ISqlSugarDbContext> sugarDbContextProvider) : base(sugarDbContextProvider)
     {
     }
+
+    /// <summary>
+    /// 重写插入，支持导航属性
+    /// </summary>
+    /// <param name="insertObj"></param>
+    /// <returns></returns>
+    public override async Task<bool> InsertAsync(AuditLogAggregateRoot insertObj)
+    {
+
+        return await _Db.InsertNav<AuditLogAggregateRoot>(insertObj)
+                 .Include(z1 => z1.Actions)
+                 //.Include(z1 => z1.EntityChanges).ThenInclude(z2 => z2.PropertyChanges)
+                 .ExecuteCommandAsync();
+    }
+
     public virtual async Task<List<AuditLogAggregateRoot>> GetListAsync(
         string sorting = null,
         int maxResultCount = 50,
@@ -138,11 +153,11 @@ public class SqlSugarCoreAuditLogRepository : SqlSugarRepository<AuditLogAggrega
         var result = await _DbQueryable
             .Where(a => a.ExecutionTime < endDate.AddDays(1) && a.ExecutionTime > startDate)
             .OrderBy(t => t.ExecutionTime)
-            .GroupBy(t => new { t.ExecutionTime.Date })
+            .GroupBy(t => new { t.ExecutionTime.Value.Date })
             .Select(g => new { Day = SqlFunc.AggregateMin(g.ExecutionTime), avgExecutionTime = SqlFunc.AggregateAvg(g.ExecutionDuration) })
             .ToListAsync();
 
-        return result.ToDictionary(element => element.Day.ClearTime(), element => (double)element.avgExecutionTime);
+        return result.ToDictionary(element => element.Day.Value.ClearTime(), element => (double)element.avgExecutionTime);
     }
 
 
