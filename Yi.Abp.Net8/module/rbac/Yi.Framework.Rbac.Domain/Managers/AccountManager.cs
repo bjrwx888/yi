@@ -103,7 +103,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
                issuer: _jwtOptions.Issuer,
                audience: _jwtOptions.Audience,
                claims: claims,
-               expires: DateTime.Now.AddSeconds(_jwtOptions.ExpiresMinuteTime),
+               expires: DateTime.Now.AddMinutes(_jwtOptions.ExpiresMinuteTime),
                notBefore: DateTime.Now,
                signingCredentials: creds);
             string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
