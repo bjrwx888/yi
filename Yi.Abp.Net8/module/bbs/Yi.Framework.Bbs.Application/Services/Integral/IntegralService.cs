@@ -9,6 +9,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Users;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Integral;
 using Yi.Framework.Bbs.Domain.Managers;
+using Yi.Framework.Rbac.Domain.Authorization;
 
 namespace Yi.Framework.Bbs.Application.Services.Integral
 {
@@ -42,33 +43,34 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
         [HttpGet("integral/sign-in/record")]
         public async Task<SignInDto> GetSignInRecordAsync()
         {
-            var output = new SignInDto();
-            DateTime lastMonth = DateTime.Now.AddMonths(-1);
-            DateTime lastDayOfMonth = new DateTime(lastMonth.Year, lastMonth.Month, 1).AddMonths(1).AddDays(-1);
-            DateTime startOfLastDay = new DateTime(lastDayOfMonth.Year, lastDayOfMonth.Month, lastDayOfMonth.Day, 0, 0, 0);
+                var output = new SignInDto();
+                DateTime lastMonth = DateTime.Now.AddMonths(-1);
+                DateTime lastDayOfMonth = new DateTime(lastMonth.Year, lastMonth.Month, 1).AddMonths(1).AddDays(-1);
+                DateTime startOfLastDay = new DateTime(lastDayOfMonth.Year, lastDayOfMonth.Month, lastDayOfMonth.Day, 0, 0, 0);
 
-            //获取当前用户本月的数据+上个月最后一天的数据
-            var entities = await _integralManager._signInRepository.GetListAsync(x => x.CreatorId == CurrentUser.Id
-            && x.CreationTime >= startOfLastDay);
+                //获取当前用户本月的数据+上个月最后一天的数据
+                var entities = await _integralManager._signInRepository.GetListAsync(x => x.CreatorId == CurrentUser.Id
+                && x.CreationTime >= startOfLastDay);
 
-            if (entities is null)
-            {
-                //返回默认值
+                if (entities.Count() == 0)
+                {
+                    //返回默认值
+                    return output;
+                }
+                //拿到最末尾的数据
+                var lastEntity = entities.OrderBy(x => x.CreationTime).LastOrDefault();
+
+                //判断当前时间和最后时间是否为连续的
+                if (lastEntity.CreationTime.Day >= DateTime.Now.AddDays(-1).Day)
+                {
+
+                    output.CurrentContinuousNumber = lastEntity.ContinuousNumber;
+                }
+
+                //去除上个月查询的数据
+                output.SignInItem = entities.Where(x => x.CreationTime.Month == DateTime.Now.Month).Select(x => new SignInItemDto { Id = x.Id, CreationTime = x.CreationTime }).OrderBy(x => x.CreationTime).ToList();
                 return output;
-            }
-            //拿到最末尾的数据
-            var lastEntity = entities.OrderBy(x => x.CreationTime).LastOrDefault();
-
-            //判断当前时间和最后时间是否为连续的
-            if (lastEntity.CreationTime.Day >= DateTime.Now.AddDays(-1).Day)
-            {
-
-                output.CurrentContinuousNumber = lastEntity.ContinuousNumber;
-            }
-
-            //去除上个月查询的数据
-            output.SignInItem = entities.Where(x=>x.CreationTime.Month==DateTime.Now.Month) .Select(x => new SignInItemDto { Id = x.Id, CreationTime = x.CreationTime }).OrderBy(x=>x.CreationTime).ToList();
-            return output;
+  
 
         }
     }

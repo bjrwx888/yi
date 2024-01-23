@@ -3,14 +3,11 @@ using System.Security.Claims;
 using System.Text;
 using Mapster;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using TencentCloud.Tdmq.V20200217.Models;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Security.Claims;
@@ -38,11 +35,13 @@ namespace Yi.Framework.Rbac.Domain.Managers
         private IHttpContextAccessor _httpContextAccessor;
         private UserManager _userManager;
         private ISqlSugarRepository<RoleEntity> _roleRepository;
+        private RefreshJwtOptions _refreshJwtOptions;
         public AccountManager(IUserRepository repository
             , IHttpContextAccessor httpContextAccessor
             , IOptions<JwtOptions> jwtOptions
             , ILocalEventBus localEventBus
             , UserManager userManager
+            ,IOptions<RefreshJwtOptions> refreshJwtOptions
             , ISqlSugarRepository<RoleEntity> roleRepository)
         {
             _repository = repository;
@@ -51,6 +50,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             _localEventBus = localEventBus;
             _userManager = userManager;
             _roleRepository = roleRepository;
+            _refreshJwtOptions= refreshJwtOptions.Value;
         }
 
         /// <summary>
@@ -86,6 +86,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             //将用户信息添加到缓存中，需要考虑的是更改了用户、角色、菜单等整个体系都需要将缓存进行刷新，看具体业务进行选择
 
             var accessToken = CreateToken(this.UserInfoToClaim(userInfo));
+
             return accessToken;
         }
 
@@ -111,7 +112,23 @@ namespace Yi.Framework.Rbac.Domain.Managers
             return returnToken;
         }
 
+        private string CreateRefreshToken()
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_refreshJwtOptions.SecurityKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var claims =new List<Claim> { new Claim("Refresh", "true") } ;
+            var token = new JwtSecurityToken(
+               issuer: _refreshJwtOptions.Issuer,
+               audience: _refreshJwtOptions.Audience,
+               claims: claims,
+               expires: DateTime.Now.AddMinutes(_refreshJwtOptions.ExpiresMinuteTime),
+               notBefore: DateTime.Now,
+               signingCredentials: creds);
+            string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
 
+            return returnToken;
+
+        }
         /// <summary>
         /// 登录效验
         /// </summary>

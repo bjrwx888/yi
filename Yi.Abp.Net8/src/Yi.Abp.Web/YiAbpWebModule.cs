@@ -118,19 +118,17 @@ namespace Yi.Abp.Web
 
             //jwt鉴权
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
+            var refreshJwtOptions = configuration.GetSection(nameof(RefreshJwtOptions)).Get<RefreshJwtOptions>();
+
             context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ClockSkew = TimeSpan.Zero,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtOptions.Issuer,
                     ValidAudience = jwtOptions.Audience,
-                    RequireExpirationTime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKey))
                 };
                 options.Events = new JwtBearerEvents
@@ -145,6 +143,17 @@ namespace Yi.Abp.Web
                         return Task.CompletedTask;
                     }
                 };
+            })
+            .AddJwtBearer("Refresh", options => {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ClockSkew = TimeSpan.Zero,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = refreshJwtOptions.Issuer,
+                    ValidAudience = refreshJwtOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(refreshJwtOptions.SecurityKey))
+                };
+
             })
             .AddQQ(options =>
             {

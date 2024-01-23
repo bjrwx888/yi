@@ -12,6 +12,11 @@ namespace Yi.Framework.Rbac.Domain.Shared.Options
 
         public string Audience { get; set; }
 
+
+        public string RefreshIssuer { get; set; }
+
+        public string RefreshAudience { get; set; }
+
         public string SecurityKey { get; set; }
 
         public long ExpiresMinuteTime { get; set; }
