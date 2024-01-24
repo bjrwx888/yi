@@ -25,6 +25,7 @@ using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Rbac.Application;
+using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 
@@ -145,7 +146,8 @@ namespace Yi.Abp.Web
                     }
                 };
             })
-            .AddJwtBearer(TokenTypeConst.Refresh, options => {
+            .AddJwtBearer(TokenTypeConst.Refresh, options =>
+            {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ClockSkew = TimeSpan.Zero,
@@ -158,11 +160,18 @@ namespace Yi.Abp.Web
                 {
                     OnMessageReceived = context =>
                     {
-                        var accessToken = context.Request.Query["refresh_token"];
-                        if (!string.IsNullOrEmpty(accessToken))
+                        var refresh_token = context.Request.Headers["refresh_token"];
+                        if (!string.IsNullOrEmpty(refresh_token))
                         {
-                            context.Token = accessToken;
+                            context.Token = refresh_token;
+                            return Task.CompletedTask;
                         }
+                        var refreshToken = context.Request.Query["refresh_token"];
+                        if (!string.IsNullOrEmpty(refreshToken))
+                        {
+                            context.Token = refreshToken;
+                        }
+
                         return Task.CompletedTask;
                     }
                 };
@@ -194,6 +203,9 @@ namespace Yi.Abp.Web
 
             //跨域
             app.UseCors(DefaultCorsPolicyName);
+
+            //无感token，先刷新再鉴权
+            app.UseRefreshToken();
 
             //鉴权
             app.UseAuthentication();
