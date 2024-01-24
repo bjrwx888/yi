@@ -25,6 +25,7 @@ using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Rbac.Application;
+using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 
 namespace Yi.Abp.Web
@@ -144,7 +145,7 @@ namespace Yi.Abp.Web
                     }
                 };
             })
-            .AddJwtBearer("Refresh", options => {
+            .AddJwtBearer(TokenTypeConst.Refresh, options => {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ClockSkew = TimeSpan.Zero,
@@ -152,6 +153,18 @@ namespace Yi.Abp.Web
                     ValidIssuer = refreshJwtOptions.Issuer,
                     ValidAudience = refreshJwtOptions.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(refreshJwtOptions.SecurityKey))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["refresh_token"];
+                        if (!string.IsNullOrEmpty(accessToken))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
 
             })

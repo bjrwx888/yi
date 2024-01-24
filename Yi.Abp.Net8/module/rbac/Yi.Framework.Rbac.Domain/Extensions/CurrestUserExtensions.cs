@@ -35,5 +35,11 @@ namespace Yi.Framework.Rbac.Domain.Extensions
             return roleOrNull is null ? null : JsonConvert.DeserializeObject<List<RoleTokenInfoModel>>(roleOrNull);
             
         }
+
+        public static bool IsRefreshToken(this ICurrentUser currentUser)
+        {
+            var refreshOrNull = currentUser.FindClaims(TokenTypeConst.Refresh).Select(x => x.Value).FirstOrDefault();
+            return refreshOrNull is null ? false : bool.Parse(refreshOrNull);
+        }
     }
 }

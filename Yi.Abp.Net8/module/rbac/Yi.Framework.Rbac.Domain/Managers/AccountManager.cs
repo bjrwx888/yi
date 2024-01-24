@@ -41,7 +41,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             , IOptions<JwtOptions> jwtOptions
             , ILocalEventBus localEventBus
             , UserManager userManager
-            ,IOptions<RefreshJwtOptions> refreshJwtOptions
+            , IOptions<RefreshJwtOptions> refreshJwtOptions
             , ISqlSugarRepository<RoleEntity> roleRepository)
         {
             _repository = repository;
@@ -50,7 +50,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             _localEventBus = localEventBus;
             _userManager = userManager;
             _roleRepository = roleRepository;
-            _refreshJwtOptions= refreshJwtOptions.Value;
+            _refreshJwtOptions = refreshJwtOptions.Value;
         }
 
         /// <summary>
@@ -112,11 +112,15 @@ namespace Yi.Framework.Rbac.Domain.Managers
             return returnToken;
         }
 
-        private string CreateRefreshToken()
+        public string CreateRefreshToken(Guid userId)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_refreshJwtOptions.SecurityKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var claims =new List<Claim> { new Claim("Refresh", "true") } ;
+            //添加用户id，及刷新token的标识
+            var claims = new List<Claim> {
+                new Claim(AbpClaimTypes.UserId,userId.ToString()),
+                new Claim(TokenTypeConst.Refresh, "true")
+            };
             var token = new JwtSecurityToken(
                issuer: _refreshJwtOptions.Issuer,
                audience: _refreshJwtOptions.Audience,
