@@ -16,7 +16,8 @@ namespace Yi.Abp.Application.Services
     public class TestService : ApplicationService
     {
         /// <summary>
-        /// 属性注入，不推荐，坑太多，容易把自己玩死，简单的东西可以用一用
+        /// 属性注入
+        /// 不推荐，坑太多，容易把自己玩死，简单的东西可以用一用
         /// </summary>
         public ISqlSugarRepository<BannerEntity> sqlSugarRepository { get; set; }
 
@@ -45,11 +46,12 @@ namespace Yi.Abp.Application.Services
         }
 
         /// <summary>
-        /// 工作单元魔改
+        /// 工作单元
         /// </summary>
         /// <returns></returns>
         public async Task GetUowAsync()
         {
+            //魔改
             // 用户体验优先，万金油模式，支持高并发。支持单、多线程并发安全，支持多线程工作单元，支持多线程无工作单元，支持。。。
             // 自动在各个情况处理db客户端最优解之一
             int i = 10;

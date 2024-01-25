@@ -44,19 +44,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
         public virtual async Task<TDbContext> GetDbContextAsync()
         {
 
-            var unitOfWork = UnitOfWorkManager.Current;
-            if (unitOfWork == null || unitOfWork.Options.IsTransactional == false)
-            {
-                if (ContextInstance.Current is null)
-                {
-                    ContextInstance.Current = (TDbContext)ServiceProvider.GetRequiredService<ISqlSugarDbContext>();
-                }
-                //提高体验，取消工作单元强制性
-                //throw new AbpException("A DbContext can only be created inside a unit of work!");
-                //如果不启用工作单元，创建一个新的db，不开启事务即可
-                return (TDbContext)ContextInstance.Current;
-            }
-
             var connectionStringName = ConnectionStrings.DefaultConnectionStringName;
 
             //获取当前连接字符串，未多租户时，默认为空
@@ -64,25 +51,42 @@ namespace Yi.Framework.SqlSugarCore.Uow
             var dbContextKey = $"{this.GetType().FullName}_{connectionString}";
 
 
+            var unitOfWork = UnitOfWorkManager.Current;
+            if (unitOfWork == null || unitOfWork.Options.IsTransactional == false)
+            {
+                if (ContextInstance.Current is null)
+                {
+                    ContextInstance.Current = (TDbContext)ServiceProvider.GetRequiredService<ISqlSugarDbContext>();
+                }
+                var dbContext = (TDbContext)ContextInstance.Current;
+                var output = DatabaseChange(dbContext, connectionStringName, connectionString);
+                //提高体验，取消工作单元强制性
+                //throw new AbpException("A DbContext can only be created inside a unit of work!");
+                //如果不启用工作单元，创建一个新的db，不开启事务即可
+                return output;
+            }
+
+
+
 
             //lock (_databaseApiLock)
             //{
-                //尝试当前工作单元获取db
-                var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
+            //尝试当前工作单元获取db
+            var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
 
-                //当前没有db创建一个新的db
-                if (databaseApi == null)
-                {
-                    //db根据连接字符串来创建
-                    databaseApi = new SqlSugarDatabaseApi(
-                        CreateDbContextAsync(unitOfWork, connectionStringName, connectionString).Result
-                    );
+            //当前没有db创建一个新的db
+            if (databaseApi == null)
+            {
+                //db根据连接字符串来创建
+                databaseApi = new SqlSugarDatabaseApi(
+                    CreateDbContextAsync(unitOfWork, connectionStringName, connectionString).Result
+                );
 
-                    //创建的db加入到当前工作单元中
-                    unitOfWork.AddDatabaseApi(dbContextKey, databaseApi);
+                //创建的db加入到当前工作单元中
+                unitOfWork.AddDatabaseApi(dbContextKey, databaseApi);
 
-                }
-                return (TDbContext)((SqlSugarDatabaseApi)databaseApi).DbContext;
+            }
+            return (TDbContext)((SqlSugarDatabaseApi)databaseApi).DbContext;
             //}
 
         }
@@ -97,13 +101,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
             {
                 var dbContext = await CreateDbContextAsync(unitOfWork);
 
-                //没有检测到使用多租户功能，默认使用默认库即可
-                if (string.IsNullOrWhiteSpace(connectionString))
-                {
-                    connectionString = dbContext.Options.Url;
-                    connectionStringName = DbConnOptions.TenantDbDefaultName;
-                }
-
                 //获取到DB之后，对多租户多库进行处理
                 var changedDbContext = DatabaseChange(dbContext, connectionStringName, connectionString);
                 return changedDbContext;
@@ -112,6 +109,13 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
         protected virtual TDbContext DatabaseChange(TDbContext dbContext, string configId, string connectionString)
         {
+            //没有检测到使用多租户功能，默认使用默认库即可
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = dbContext.Options.Url;
+                configId = DbConnOptions.TenantDbDefaultName;
+            }
+
             var dbOption = dbContext.Options;
             var db = dbContext.SqlSugarClient.AsTenant();
             //主库的Db切换，当操作的是租户表的时候
