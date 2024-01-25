@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SqlSugar;
@@ -17,7 +18,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
         public ILogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>> Logger { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
 
-        private static AsyncLocalDbContextAccessor ContextInstance  => AsyncLocalDbContextAccessor.Instance;
+        private static AsyncLocalDbContextAccessor ContextInstance => AsyncLocalDbContextAccessor.Instance;
         protected readonly IUnitOfWorkManager UnitOfWorkManager;
         protected readonly IConnectionStringResolver ConnectionStringResolver;
         protected readonly ICancellationTokenProvider CancellationTokenProvider;
@@ -39,12 +40,12 @@ namespace Yi.Framework.SqlSugarCore.Uow
             _dbConnectionCreator = dbConnectionCreator;
         }
 
-        private static object _databaseApiLock = new object();
+        //private static object _databaseApiLock = new object();
         public virtual async Task<TDbContext> GetDbContextAsync()
         {
 
             var unitOfWork = UnitOfWorkManager.Current;
-            if (unitOfWork == null|| unitOfWork.Options.IsTransactional==false)
+            if (unitOfWork == null || unitOfWork.Options.IsTransactional == false)
             {
                 if (ContextInstance.Current is null)
                 {
@@ -56,7 +57,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
                 return (TDbContext)ContextInstance.Current;
             }
 
-
             var connectionStringName = ConnectionStrings.DefaultConnectionStringName;
 
             //获取当前连接字符串，未多租户时，默认为空
@@ -64,8 +64,9 @@ namespace Yi.Framework.SqlSugarCore.Uow
             var dbContextKey = $"{this.GetType().FullName}_{connectionString}";
 
 
-            lock (_databaseApiLock)
-            {
+
+            //lock (_databaseApiLock)
+            //{
                 //尝试当前工作单元获取db
                 var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
 
@@ -81,9 +82,9 @@ namespace Yi.Framework.SqlSugarCore.Uow
                     unitOfWork.AddDatabaseApi(dbContextKey, databaseApi);
 
                 }
-
                 return (TDbContext)((SqlSugarDatabaseApi)databaseApi).DbContext;
-            }
+            //}
+
         }
 
 
