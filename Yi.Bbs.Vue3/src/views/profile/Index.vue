@@ -80,9 +80,7 @@
                   <el-tag effect="light" type="success"
           >{{state.user.level }} 等级</el-tag
         >
-        <el-tag effect="light" type="success">
-          {{ state.user.userLimit }} 限制
-        </el-tag>
+        <UserLimitTag :userLimit="state.user.userLimit"/>
 
         <el-tag effect="light" type="success"
           >{{state.user.money }} 钱钱</el-tag
@@ -204,6 +202,7 @@ import { useRoute } from "vue-router";
 import useAuths from "@/hooks/useAuths";
 const { isLogin } = useAuths();
 import useUserStore from "@/stores/user";
+import UserLimitTag from "@/components/UserLimitTag.vue";
 const route = useRoute();
 const userStore=useUserStore();
 const activeTab = ref("userinfo");

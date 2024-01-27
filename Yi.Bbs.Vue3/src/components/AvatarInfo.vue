@@ -17,13 +17,9 @@
               >
             </div>
             <div class="status" v-if="userInfo.userLimit">
-              <el-tag
-                round
-                effect="light"
-                :type="getStatusInfo(userInfo.userLimit)?.type"
-              >
-                {{ getStatusInfo(userInfo.userLimit)?.label }}
-              </el-tag>
+
+<UserLimitTag :userLimit="userInfo.userLimit"/>
+              
             </div>
           </div>
           <div class="remarks" v-if="props.time">{{ props.time }}</div>
@@ -52,6 +48,8 @@ import { reactive, watch, onMounted, computed, ref } from "vue";
 import { upload } from "@/apis/fileApi";
 import useAuths from "@/hooks/useAuths";
 import UserInfoCard from "./UserInfoCard/index.vue";
+import UserLimitTag from "./UserLimitTag.vue";
+
 
 const { getToken } = useAuths();
 const isHasToken = getToken();
@@ -128,27 +126,8 @@ const Init = () => {
   }
 };
 
-const statusTypeList = [
-  {
-    label: "正常",
-    value: "Normal",
-    type: "success",
-  },
-  {
-    label: "危险",
-    value: "Dangerous",
-    type: "warning",
-  },
-  {
-    label: "已禁止",
-    value: "Ban",
-    type: "danger",
-  },
-];
 
-const getStatusInfo = (type) => {
-  return statusTypeList.filter((item) => item.value === type)[0];
-};
+
 </script>
 
 <style lang="scss" scoped>
