@@ -31,7 +31,10 @@ namespace Yi.Framework.Bbs.Domain.Managers
                          Level=info.Level,
                          UserLimit=info.UserLimit,
                          Money = info.Money,
-                         Experience = info.Experience
+                         Experience = info.Experience,
+                         AgreeNumber=info.AgreeNumber,
+                         CommentNumber=info.CommentNumber,
+                         DiscussNumber=info.DiscussNumber
                      }, true)
                      .FirstAsync(user => user.Id==userId);
         }
@@ -43,7 +46,10 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 .LeftJoin<BbsUserExtraInfoEntity>((user, info) => user.Id == info.UserId)
                      .Select((user, info) => new BbsUserInfoDto { Id = user.Id , Icon = user.Icon , Level = info.Level, UserLimit = info.UserLimit,
                          Money = info.Money,
-                         Experience = info.Experience
+                         Experience = info.Experience,
+                         AgreeNumber = info.AgreeNumber,
+                         CommentNumber = info.CommentNumber,
+                         DiscussNumber = info.DiscussNumber
                      },true)
                 
                      .ToListAsync();
@@ -89,6 +95,19 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// 经验
         /// </summary>
         public long Experience { get; set; }
+
+        public int DiscussNumber { get; set; }
+
+        /// <summary>
+        /// 发表主题数
+        /// </summary>
+        public int CommentNumber { get; set; }
+
+
+        /// <summary>
+        /// 被点赞数
+        /// </summary>
+        public int AgreeNumber { get; set; }
 
     }
 }

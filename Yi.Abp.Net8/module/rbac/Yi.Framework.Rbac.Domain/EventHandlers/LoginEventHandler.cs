@@ -11,7 +11,7 @@ using Volo.Abp.EventBus;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Shared.Etos;
 
-namespace Yi.Framework.Rbac.Application.EventHandlers
+namespace Yi.Framework.Rbac.Domain.EventHandlers
 {
     public class LoginEventHandler : ILocalEventHandler<LoginEventArgs>,
           ITransientDependency

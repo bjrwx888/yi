@@ -9,7 +9,7 @@ using Volo.Abp.EventBus;
 using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
 
-namespace Yi.Framework.Bbs.Application.EventHandlers
+namespace Yi.Framework.Bbs.Domain.EventHandlers
 {
     public class SeeDiscussEventHandler : ILocalEventHandler<SeeDiscussEventArgs>, ITransientDependency
     {

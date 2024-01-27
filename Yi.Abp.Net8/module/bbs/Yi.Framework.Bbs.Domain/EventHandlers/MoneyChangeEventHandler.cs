@@ -4,7 +4,7 @@ using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Bbs.Application.EventHandlers
+namespace Yi.Framework.Bbs.Domain.EventHandlers
 {
     public class MoneyChangeEventHandler : ILocalEventHandler<MoneyChangeEventArgs>, ITransientDependency
     {

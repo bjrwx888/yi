@@ -160,7 +160,19 @@ namespace Yi.Framework.SqlSugarCore
                 case DataFilterType.UpdateByObject:
                     if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
                     {
-                        EntityChangeEventHelper.PublishEntityUpdatedEvent(entityInfo.EntityValue);
+                        //软删除，发布的是删除事件
+                        if (entityInfo.EntityValue is ISoftDelete softDelete)
+                        {
+                            if (softDelete.IsDeleted == true)
+                            {
+                                EntityChangeEventHelper.PublishEntityDeletedEvent(entityInfo.EntityValue);
+                            }
+                        }
+                        else
+                        {
+                            EntityChangeEventHelper.PublishEntityUpdatedEvent(entityInfo.EntityValue);
+                        }
+
                     }
                     break;
                 case DataFilterType.DeleteByObject:
