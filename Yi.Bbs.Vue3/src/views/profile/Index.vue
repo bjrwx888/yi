@@ -93,8 +93,7 @@
               </div>
 
               <div class="user-remark">
-                <span>100</span> 总访问 | <span>200</span> 排名 |
-                <span>36</span> 主题 | <span>836</span> 好友
+                <span>{{ state.user.agreeNumber }}</span> 点赞 | <span>{{ state.user.discussNumber }}</span> 主题 | <span>{{ state.user.commentNumber }}</span> 评论
           
               </div>
               <el-divider />
