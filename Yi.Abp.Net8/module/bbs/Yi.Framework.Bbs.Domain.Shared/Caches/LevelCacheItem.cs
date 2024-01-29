@@ -1,26 +1,14 @@
-﻿using SqlSugar;
-using Volo.Abp.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Yi.Framework.Bbs.Domain.Entities.Integral
+namespace Yi.Framework.Bbs.Domain.Shared.Caches
 {
-    /// <summary>
-    /// 等级表
-    /// </summary>
-    [SugarTable("Level")]
-    public class LevelEntity : Entity<Guid>
+    public class LevelCacheItem
     {
-        public LevelEntity() { }
-
-        public LevelEntity(int currentLevel, string name, decimal minExperience)
-        {
-            this.CurrentLevel = currentLevel;
-            this.Name = name;
-            this.MinExperience = minExperience;
-        }
-
-        [SugarColumn(IsPrimaryKey = true)]
-        public override Guid Id { get; protected set; }
-
+        public  Guid Id { get; set; }
 
         /// <summary>
         /// 当前等级
@@ -46,7 +34,5 @@ namespace Yi.Framework.Bbs.Domain.Entities.Integral
         /// 等候logo
         /// </summary>
         public string? Logo { get; set; }
-
     }
-
 }

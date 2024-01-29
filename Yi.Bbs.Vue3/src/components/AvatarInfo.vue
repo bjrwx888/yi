@@ -13,7 +13,7 @@
             <div class="text">{{ userInfo.nick }}</div>
             <div class="level">
               <el-tag round effect="light" type="success" v-if="userInfo.level"
-                >等级{{ userInfo.level }}</el-tag
+                >{{ userInfo.level }}-{{userInfo.levelName}} 等级</el-tag
               >
             </div>
             <div class="status" v-if="userInfo.userLimit">
@@ -113,6 +113,7 @@ const Init = () => {
     userInfo.level = props.userInfo.level;
     userInfo.userLimit = props.userInfo.userLimit;
     userInfo.userName= props.userInfo.userName;
+    userInfo.levelName= props.userInfo.levelName;
     iconUrl.value = iconUrlHandler(userInfo.icon);
   }
 

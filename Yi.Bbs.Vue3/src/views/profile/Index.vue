@@ -78,7 +78,7 @@
                 <div class="user-nick-left">{{ state.user.nick }} 
                 
                   <el-tag effect="light" type="success"
-          >{{state.user.level }} 等级</el-tag
+          >{{state.user.level }}-{{state.user.levelName}} 等级</el-tag
         >
         <UserLimitTag :userLimit="state.user.userLimit"/>
 

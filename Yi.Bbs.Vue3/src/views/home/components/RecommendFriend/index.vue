@@ -20,7 +20,7 @@
 
 
         <el-tag effect="light" type="success"
-          >等级{{ friendData.level }}</el-tag
+          >{{ friendData.level }}-{{friendData.levelName}} 等级</el-tag
         >
 
         <UserLimitTag :userLimit="friendData.userLimit" />

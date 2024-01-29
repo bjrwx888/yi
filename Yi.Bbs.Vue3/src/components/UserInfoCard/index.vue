@@ -22,7 +22,7 @@
           <div class="name">{{ userInfo.nick }}</div>
           <div class="level">
             <el-tag effect="light" type="success" v-if="userInfo.level"
-              >等级{{ userInfo.level }}</el-tag
+              >{{ userInfo.level }}-{{ userInfo.levelName }} 等级</el-tag
             >
           </div>
         </div>
