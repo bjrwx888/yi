@@ -113,6 +113,15 @@ const router = createRouter({
             title: "每日签到",
           },
         },
+
+        {
+          name: "level",
+          path: "level",
+          component: () => import("../views/level/Index.vue"),
+          meta: {
+            title: "等级",
+          },
+        },
       ],
     },
     { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
