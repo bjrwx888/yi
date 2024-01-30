@@ -157,7 +157,7 @@
       </el-col>
       <el-col :span="19" class="div-bottom-right">
         <div  class="div-bottom-right-content">
-          <div v-for="(item,index) in discussList" :key="index">
+          <div v-for="item in discussList" :key="item.id">
             <DisscussCard :discuss="item" />
           </div>
 
