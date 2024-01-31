@@ -104,7 +104,7 @@ namespace Yi.Framework.SqlSugarCore
                     }
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
                     {
-                        if (CurrentUser != null)
+                        if (CurrentUser.Id != null)
                         {
                             entityInfo.SetValue(CurrentUser.Id);
                         }
@@ -130,7 +130,7 @@ namespace Yi.Framework.SqlSugarCore
                     }
                     if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
                     {
-                        if (CurrentUser != null)
+                        if (CurrentUser.Id != null)
                         {
                             entityInfo.SetValue(CurrentUser.Id);
                         }

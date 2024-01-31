@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Bbs.Domain.Shared.Consts
 {
-    public class LevelConst
+    public class MoneyConst
     {
-        public const string LevelCacheKey=nameof(LevelCacheKey);
-
-        public const string Level_Low_Zero = "经验提升等级低于或等于0";
+        public const string Money_Low_Zero = "钱钱不足";
     }
 }
