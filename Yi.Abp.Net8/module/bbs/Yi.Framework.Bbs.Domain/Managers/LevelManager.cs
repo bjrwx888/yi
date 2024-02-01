@@ -36,11 +36,11 @@ namespace Yi.Framework.Bbs.Domain.Managers
             var currentNewExperience = userInfo.Experience + moneyNumber * 1;
 
             //修改钱钱，如果钱钱不足，直接会丢出去
-            await _localEventBus.PublishAsync(new MoneyChangeEventArgs { UserId = userId, Number = moneyNumber });
+            await _localEventBus.PublishAsync(new MoneyChangeEventArgs { UserId = userId, Number = -moneyNumber },false);
 
             //更改最终的经验再变化等级
-            var levelList = _levelCacheItem.OrderBy(x => x.CurrentLevel).ToList();
-            var currentNewLevel = 0;
+            var levelList = _levelCacheItem.OrderByDescending(x => x.CurrentLevel).ToList();
+            var currentNewLevel = 1;
             foreach (var level in levelList)
             {
                 if (currentNewExperience >= level.MinExperience)
@@ -49,9 +49,11 @@ namespace Yi.Framework.Bbs.Domain.Managers
                     break;
                 }
             }
-            userInfo.Level = currentNewLevel;
-            userInfo.Experience = currentNewExperience;
-            await _bbsUserManager._bbsUserInfoRepository.UpdateAsync(userInfo.Adapt<BbsUserExtraInfoEntity>());
+
+            var exUserInfo = await _bbsUserManager._bbsUserInfoRepository.GetAsync(x => x.UserId == userInfo.Id);
+            exUserInfo.Level = currentNewLevel;
+            exUserInfo.Experience = currentNewExperience;
+            await _bbsUserManager._bbsUserInfoRepository.UpdateAsync(exUserInfo);
 
         }
     }

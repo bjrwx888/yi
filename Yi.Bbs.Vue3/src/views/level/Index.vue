@@ -1,24 +1,25 @@
 <template>
     <div class="container">
         <div class="top">
-        <h4>当前等级: 1-小白</h4>
-        <h4>当前钱钱: 100</h4>
+
+        <h4>当前等级: {{userInfo.level}}-{{ userInfo.levelName }}</h4>
+        <h4>当前钱钱: {{userInfo.money}}</h4>
         <div class="title">
             <div class="left">当前等级经验:</div>
             <div class="right"> 
-                <el-progress  :percentage="50" :stroke-width="15" striped  striped-flow />
-                <div>1623/2000</div>
+                <el-progress  :percentage="(userInfo.experience/nextExperience).toFixed(2)*100" :stroke-width="15" striped  striped-flow />
+                <div>{{userInfo.experience}}/{{ nextExperience }}</div>
             </div>
         </div>
       
         </div>
 
         <div class="bottom">
-            <el-input-number v-model="num" :min="1" :max="10000" />
+            <el-input-number v-model="moneyNum" :min="1" :max="10000" />
             
-            <el-button type="primary">升级</el-button>
+            <el-button @click="onUpgradeClick" type="primary">升级</el-button>
 
-            <span>所需钱钱：50</span>
+            <span>所需钱钱：{{ moneyNum }}</span>
         </div>
 
 
@@ -34,23 +35,47 @@
     
 </template>
 <script  setup>
-import {getList} from '@/apis/levelApi.js'
-import { ref,onMounted, reactive } from 'vue'
+import {getList,upgrade} from '@/apis/levelApi.js'
+import {getBbsUserProfile} from '@/apis/userApi.js'
+import { ref,onMounted, reactive,computed  } from 'vue'
+import  useAuths  from '@/hooks/useAuths.js';
+const { isLogin,currentUserInfo } = useAuths();
+const userInfo=ref({});
 
 const levelData =ref([]);
-const num=ref(1);
+const moneyNum=ref(1);
 
 const query=reactive({
     skipCount:0,
     maxResultCount:20
 })
+
+const nextExperience=computed(()=>{
+   return levelData.value?.filter(x=>x.currentLevel==userInfo.value.level+1)[0]?.minExperience
+})
+
+const onUpgradeClick=async ()=>{
+    await upgrade(moneyNum.value);
+    await loadLevelData();
+    await loadUserInfoData();
+}
+
 onMounted(async () => {
    await loadLevelData();
+await loadUserInfoData();
 })
 
 const loadLevelData=  async () => {
+    moneyNum.value=1;
    const {data:{items}} = await getList(query);
     levelData.value = items;
+}
+const loadUserInfoData=async()=>{
+    if(isLogin)
+   {
+        const {data}= await getBbsUserProfile(currentUserInfo.value.id);
+        userInfo.value=data;
+   }
 }
 </script>
 <style lang="scss" scoped >

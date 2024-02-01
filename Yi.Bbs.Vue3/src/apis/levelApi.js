@@ -7,3 +7,10 @@ export function getList(data) {
     params: data,
   });
 }
+export function upgrade(experience) {
+  return request({
+    url: `/level/upgrade?experience=${experience}`,
+    method: "put"
+  });
+}
+
