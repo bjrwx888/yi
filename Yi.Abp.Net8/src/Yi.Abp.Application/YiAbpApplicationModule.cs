@@ -4,6 +4,7 @@ using Yi.Abp.Domain;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application;
+using Yi.Framework.TenantManagement.Application;
 
 namespace Yi.Abp.Application
 {
@@ -14,6 +15,8 @@ namespace Yi.Abp.Application
 
         typeof(YiFrameworkRbacApplicationModule),
          typeof(YiFrameworkBbsApplicationModule),
+        typeof(YiFrameworkTenantManagementApplicationModule),
+
 
         typeof(YiFrameworkDddApplicationModule)
         )]
