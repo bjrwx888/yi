@@ -571,6 +571,83 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
             };
             entities.Add(guide);
 
+            //租户管理
+            MenuEntity tenant = new MenuEntity(_guidGenerator.Create())
+            {
+                MenuName = "租户管理",
+                PermissionCode = "system:tenant:list",
+                MenuType = MenuTypeEnum.Menu,
+                Router = "tenant",
+                IsShow = true,
+                IsLink = false,
+                IsCache = true,
+                Component = "system/tenant/index",
+                MenuIcon = "list",
+                OrderNum = 101,
+                ParentId = system.Id,
+                IsDeleted = false
+            };
+            entities.Add(tenant);
+
+            MenuEntity tenantQuery = new MenuEntity(_guidGenerator.Create())
+            {
+
+                MenuName = "租户查询",
+                PermissionCode = "system:tenant:query",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = tenant.Id,
+                IsDeleted = false
+            };
+            entities.Add(tenantQuery);
+
+            MenuEntity tenantAdd = new MenuEntity(_guidGenerator.Create())
+            {
+
+                MenuName = "租户新增",
+                PermissionCode = "system:tenant:add",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = tenant.Id,
+                IsDeleted = false
+            };
+            entities.Add(tenantAdd);
+
+            MenuEntity tenantEdit = new MenuEntity(_guidGenerator.Create())
+            {
+
+                MenuName = "租户修改",
+                PermissionCode = "system:tenant:edit",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = tenant.Id,
+                IsDeleted = false
+            };
+            entities.Add(tenantEdit);
+
+            MenuEntity tenantRemove = new MenuEntity(_guidGenerator.Create())
+            {
+
+                MenuName = "租户删除",
+                PermissionCode = "system:tenant:remove",
+                MenuType = MenuTypeEnum.Component,
+                OrderNum = 100,
+                ParentId = tenant.Id,
+                IsDeleted = false
+            };
+            entities.Add(tenantRemove);
+
+
+
+
+
+
+
+
+
+
+
+
             //用户管理
             MenuEntity user = new MenuEntity(_guidGenerator.Create())
             {
