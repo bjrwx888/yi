@@ -66,11 +66,20 @@ namespace Yi.Framework.SqlSugarCore.Abstractions
         public static string MasterTenantDbDefaultName = "Master";
         public static string TenantDbDefaultName = "Default";
 
+        /// <summary>
+        /// 获取默认数据库
+        /// </summary>
+        /// <returns></returns>
         public SaasMultiTenancyOptions GetDefaultSaasMultiTenancy()
         {
             return new SaasMultiTenancyOptions { Name = TenantDbDefaultName, Url = Url };
         }
-        public SaasMultiTenancyOptions? GetDefaultMasterSaasMultiTenancy()
+
+        /// <summary>
+        /// 获取主数据库
+        /// </summary>
+        /// <returns></returns>
+        public SaasMultiTenancyOptions? GetMasterSaasMultiTenancy()
         {
             if (EnabledSaasMultiTenancy == false)
             {

@@ -110,17 +110,18 @@ namespace Yi.Framework.TenantManagement.Application
         [HttpPut("tenant/init/{id}")]
         public async Task InitAsync([FromRoute]Guid id)
         {
-            using (CurrentTenant.Change(id))
+            using (CurrentTenant.Change(id,"test"))
             {
-                CodeFirst(await _repository.GetDbContextAsync());
+               await CodeFirst(this.LazyServiceProvider);
                 await _dataSeeder.SeedAsync(id);
             }
+
         }
 
-        private void CodeFirst(ISqlSugarClient db)
+        private async Task CodeFirst(IServiceProvider service)
         {
-
-            var moduleContainer = ServiceProvider.GetRequiredService<IModuleContainer>();
+            var moduleContainer = service.GetRequiredService<IModuleContainer>();
+            var db = await _repository.GetDbContextAsync();
 
             //尝试创建数据库
             db.DbMaintenance.CreateDatabase();
@@ -131,12 +132,11 @@ namespace Yi.Framework.TenantManagement.Application
                 types.AddRange(module.Assembly.GetTypes()
                     .Where(x => x.GetCustomAttribute<IgnoreCodeFirstAttribute>() == null)
                     .Where(x => x.GetCustomAttribute<SugarTable>() != null)
-                    .Where(x=>x.GetCustomAttribute<MasterTenantAttribute>()==null)
                     .Where(x => x.GetCustomAttribute<SplitTableAttribute>() is null));
             }
             if (types.Count > 0)
             {
-                db.CodeFirst.InitTables(types.ToArray());
+                db.CopyNew().CodeFirst.InitTables(types.ToArray());
             }
 
         }

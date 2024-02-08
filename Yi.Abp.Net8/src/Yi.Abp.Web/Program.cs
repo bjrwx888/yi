@@ -1,5 +1,8 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Serilog;
 using Serilog.Events;
+using Volo.Abp.Data;
+using Volo.Abp.MultiTenancy;
 using Yi.Abp.Web;
 
 //创建日志,可使用{SourceContext}记录
@@ -23,6 +26,7 @@ try
     builder.Host.UseAutofac();
     builder.Host.UseSerilog();
     await builder.Services.AddApplicationAsync<YiAbpWebModule>();
+    builder.Services.Replace(new ServiceDescriptor(typeof(IConnectionStringResolver), typeof(MultiTenantConnectionStringResolver2),ServiceLifetime.Transient));
     var app = builder.Build();
     await app.InitializeApplicationAsync();
     await app.RunAsync();

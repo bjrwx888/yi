@@ -24,7 +24,7 @@ namespace Yi.Framework.SqlSugarCore
         /// </summary>
         public ISqlSugarClient SqlSugarClient { get; private set; }
         public ICurrentUser CurrentUser => LazyServiceProvider.GetRequiredService<ICurrentUser>();
-
+        private readonly string MasterTenantDbDefaultName = DbConnOptions.MasterTenantDbDefaultName;
         private IAbpLazyServiceProvider LazyServiceProvider { get; }
 
         private IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetRequiredService<IGuidGenerator>();
@@ -37,7 +37,7 @@ namespace Yi.Framework.SqlSugarCore
 
         public IEntityChangeEventHelper EntityChangeEventHelper => LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
         public DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
-
+        private ISqlSugarDbConnectionCreator _dbConnectionCreator;
 
         public void SetSqlSugarClient(ISqlSugarClient sqlSugarClient)
         {
@@ -47,15 +47,76 @@ namespace Yi.Framework.SqlSugarCore
         {
             LazyServiceProvider = lazyServiceProvider;
             var connectionCreator = LazyServiceProvider.LazyGetRequiredService<ISqlSugarDbConnectionCreator>();
+            _dbConnectionCreator = connectionCreator;
             connectionCreator.OnSqlSugarClientConfig = OnSqlSugarClientConfig;
             connectionCreator.EntityService = EntityService;
             connectionCreator.DataExecuting = DataExecuting;
             connectionCreator.DataExecuted = DataExecuted;
             connectionCreator.OnLogExecuting = OnLogExecuting;
             connectionCreator.OnLogExecuted = OnLogExecuted;
-            SqlSugarClient = new SqlSugarClient(connectionCreator.Build());
-            connectionCreator.SetDbAop(SqlSugarClient);
+            SqlSugarClient  = new SqlSugarClient(connectionCreator.Build());
+            var connectionStringResolver = LazyServiceProvider.LazyGetRequiredService<IConnectionStringResolver>();
+            var connectionStr = connectionStringResolver.ResolveAsync().Result;
+            var changedDb = DatabaseChange(this, connectionStr);
+            SqlSugarClient = changedDb.SqlSugarClient;
         }
+
+        /// <summary>
+        /// db切换多库支持
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
+        protected virtual SqlSugarDbContext DatabaseChange(SqlSugarDbContext dbContext, string connectionString)
+        {
+            string configId = string.Empty;
+            //没有检测到使用多租户功能，默认使用默认库即可
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = dbContext.Options.Url;
+                configId = CurrentTenant.Name;
+            }
+
+            var dbOption = dbContext.Options;
+            var db = dbContext.SqlSugarClient.AsTenant();
+
+            //主库的Db切换，当操作的是租户表的时候
+            if (CurrentTenant.Name == MasterTenantDbDefaultName)
+            {
+                //直接切换
+                configId = MasterTenantDbDefaultName;
+                var conStrOrNull = dbOption.GetMasterSaasMultiTenancy();
+                Volo.Abp.Check.NotNull(conStrOrNull, "租户主库未找到");
+                connectionString = conStrOrNull.Url;
+            }
+
+            //租户Db的动态切换
+            //二级缓存
+            var changed = false;
+            if (!db.IsAnyConnection(configId))
+            {
+                var config = _dbConnectionCreator.Build(options =>
+                {
+                    options.DbType = dbOption.DbType!.Value;
+                    options.ConfigId = configId;//设置库的唯一标识
+                    options.IsAutoCloseConnection = true;
+                    options.ConnectionString = connectionString;
+                });
+                //添加一个db到当前上下文 (Add部分不线上下文不会共享)
+                db.AddConnection(config);
+                changed = true;
+            }
+            var currentDb = db.GetConnection(configId) as ISqlSugarClient;
+            //设置Aop
+            if (changed)
+            {
+                _dbConnectionCreator.SetDbAop(currentDb);
+            }
+            dbContext.SetSqlSugarClient(currentDb);
+
+            return dbContext;
+        }
+
 
         /// <summary>
         /// 上下文对象扩展
