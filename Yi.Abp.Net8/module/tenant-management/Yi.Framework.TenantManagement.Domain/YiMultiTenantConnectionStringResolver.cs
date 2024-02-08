@@ -9,12 +9,12 @@ using Volo.Abp.DependencyInjection;
 namespace Volo.Abp.MultiTenancy;
 
 [Dependency(ReplaceServices = true)]
-public class MultiTenantConnectionStringResolver2 : DefaultConnectionStringResolver
+public class YiMultiTenantConnectionStringResolver : DefaultConnectionStringResolver
 {
     private readonly ICurrentTenant _currentTenant;
     private readonly IServiceProvider _serviceProvider;
 
-    public MultiTenantConnectionStringResolver2(
+    public YiMultiTenantConnectionStringResolver(
         IOptionsMonitor<AbpDbConnectionOptions> options,
         ICurrentTenant currentTenant,
         IServiceProvider serviceProvider)

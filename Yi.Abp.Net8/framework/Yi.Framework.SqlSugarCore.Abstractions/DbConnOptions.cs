@@ -63,8 +63,8 @@ namespace Yi.Framework.SqlSugarCore.Abstractions
         /// </summary>
         public List<SaasMultiTenancyOptions>? SaasMultiTenancy { get; set; }
 
-        public static string MasterTenantDbDefaultName = "Master";
-        public static string TenantDbDefaultName = "Default";
+        public static string MasterTenantName = "Master";
+        public static string DefaultTenantName = "Default";
 
         /// <summary>
         /// 获取默认数据库
@@ -72,7 +72,7 @@ namespace Yi.Framework.SqlSugarCore.Abstractions
         /// <returns></returns>
         public SaasMultiTenancyOptions GetDefaultSaasMultiTenancy()
         {
-            return new SaasMultiTenancyOptions { Name = TenantDbDefaultName, Url = Url };
+            return new SaasMultiTenancyOptions { Name = DefaultTenantName, Url = Url };
         }
 
         /// <summary>
@@ -88,13 +88,13 @@ namespace Yi.Framework.SqlSugarCore.Abstractions
             if (string.IsNullOrEmpty(MasterSaasMultiTenancyUrl))
             {
 
-                return new SaasMultiTenancyOptions { Name = MasterTenantDbDefaultName, Url = Url };
+                return new SaasMultiTenancyOptions { Name = MasterTenantName, Url = Url };
             }
             else
             {
                 return new SaasMultiTenancyOptions()
                 {
-                    Name = MasterTenantDbDefaultName,
+                    Name = MasterTenantName,
                     Url = MasterSaasMultiTenancyUrl
                 };
             }

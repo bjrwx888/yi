@@ -110,7 +110,7 @@ namespace Yi.Framework.TenantManagement.Application
         [HttpPut("tenant/init/{id}")]
         public async Task InitAsync([FromRoute]Guid id)
         {
-            using (CurrentTenant.Change(id,"test"))
+            using (CurrentTenant.Change(id))
             {
                await CodeFirst(this.LazyServiceProvider);
                 await _dataSeeder.SeedAsync(id);
