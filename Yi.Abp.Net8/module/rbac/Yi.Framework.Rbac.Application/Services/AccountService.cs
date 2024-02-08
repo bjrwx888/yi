@@ -104,6 +104,7 @@ namespace Yi.Framework.Rbac.Application.Services
             return new { Token = accessToken, RefreshToken = refreshToken };
         }
 
+
         /// <summary>
         /// 刷新token
         /// </summary>

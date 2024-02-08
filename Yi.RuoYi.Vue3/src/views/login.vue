@@ -40,6 +40,25 @@
           <img :src="codeUrl" @click="getCode" class="login-code-img"/>
         </div>
       </el-form-item>
+      <el-form-item>
+        <span>当前租户：</span>
+        <el-select
+    v-model="tenantSelectedId"
+    class="m-2"
+    placeholder="租户选择"
+    style="width: 80%"
+  >
+    <el-option
+      v-for="item in tenantList"
+      :key="item.id"
+      :label="item.name"
+      :value="item.id"
+    />
+  </el-select>
+
+
+        </el-form-item>
+
       <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button
@@ -69,11 +88,14 @@ import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/jsencrypt";
 import useUserStore from '@/store/modules/user'
+import {SelectData as getTenantList} from '@/api/system/tenant'
+import { ref } from "vue";
 
 const userStore = useUserStore()
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 
+const tenantSelectedId=ref('defalut');
 const loginForm = ref({
   username: "",
   password: "",
@@ -95,6 +117,9 @@ const captchaEnabled = ref(true);
 // 注册开关
 const register = ref(false);
 const redirect = ref(undefined);
+const tenantList=ref([]);
+
+
 
 function handleLogin() {
   proxy.$refs.loginRef.validate(valid => {
@@ -148,8 +173,14 @@ function getCookie() {
   };
 }
 
+async function getTenant()
+{
+  const {data} =await getTenantList();
+  tenantList.value= [{name:"defalut"}, ...data];
+}
 getCode();
 getCookie();
+getTenant();
 </script>
 
 <style lang='scss' scoped>

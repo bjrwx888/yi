@@ -10,6 +10,13 @@ export function listData(query) {
     params: query
   })
 }
+export function SelectData() {
+  return request({
+    url: '/tenant/select',
+    method: 'get'
+  })
+}
+
 
 // id查询
 export function getData(id) {

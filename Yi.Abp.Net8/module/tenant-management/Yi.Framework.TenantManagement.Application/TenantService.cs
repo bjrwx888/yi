@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Data;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Modularity;
-using Volo.Abp.Uow;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.SqlSugarCore.Abstractions;
 using Yi.Framework.TenantManagement.Application.Contracts;
@@ -59,6 +51,17 @@ namespace Yi.Framework.TenantManagement.Application
                           .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
             return new PagedResultDto<TenantGetListOutputDto>(total, await MapToGetListOutputDtosAsync(entities));
         }
+
+        /// <summary>
+        /// 租户选项
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<TenantSelectOutputDto>> GetSelectAsync()
+        {
+            var entites = await _repository._DbQueryable.ToListAsync();
+            return entites.Select(x => new TenantSelectOutputDto { Id = x.Id, Name = x.Name }).ToList();
+        }
+
 
         /// <summary>
         /// 创建租户
@@ -108,11 +111,11 @@ namespace Yi.Framework.TenantManagement.Application
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("tenant/init/{id}")]
-        public async Task InitAsync([FromRoute]Guid id)
+        public async Task InitAsync([FromRoute] Guid id)
         {
             using (CurrentTenant.Change(id))
             {
-               await CodeFirst(this.LazyServiceProvider);
+                await CodeFirst(this.LazyServiceProvider);
                 await _dataSeeder.SeedAsync(id);
             }
 

@@ -11,6 +11,7 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Security.Claims;
+using Volo.Abp.Users;
 using Yi.Framework.Core.Helper;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Repositories;
@@ -32,6 +33,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
         private readonly IUserRepository _repository;
         private readonly ILocalEventBus _localEventBus;
         private readonly JwtOptions _jwtOptions;
+        private readonly RbacOptions _options;
         private IHttpContextAccessor _httpContextAccessor;
         private UserManager _userManager;
         private ISqlSugarRepository<RoleEntity> _roleRepository;
@@ -42,7 +44,8 @@ namespace Yi.Framework.Rbac.Domain.Managers
             , ILocalEventBus localEventBus
             , UserManager userManager
             , IOptions<RefreshJwtOptions> refreshJwtOptions
-            , ISqlSugarRepository<RoleEntity> roleRepository)
+            , ISqlSugarRepository<RoleEntity> roleRepository
+            , IOptions<RbacOptions> options)
         {
             _repository = repository;
             _httpContextAccessor = httpContextAccessor;
@@ -51,6 +54,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             _userManager = userManager;
             _roleRepository = roleRepository;
             _refreshJwtOptions = refreshJwtOptions.Value;
+            _options = options.Value;
         }
 
         /// <summary>
@@ -215,7 +219,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
                 dto.PermissionCodes?.ForEach(per => AddToClaim(claims, TokenTypeConst.Permission, per));
                 dto.RoleCodes?.ForEach(role => AddToClaim(claims, AbpClaimTypes.Role, role));
             }
-
+          
             return claims;
         }
 
