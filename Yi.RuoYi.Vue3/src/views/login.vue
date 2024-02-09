@@ -43,7 +43,7 @@
       <el-form-item>
         <span>当前租户：</span>
         <el-select
-    v-model="tenantSelectedId"
+    v-model="tenantSelected"
     class="m-2"
     placeholder="租户选择"
     style="width: 80%"
@@ -52,7 +52,7 @@
       v-for="item in tenantList"
       :key="item.id"
       :label="item.name"
-      :value="item.id"
+      :value="item.name"
     />
   </el-select>
 
@@ -95,13 +95,13 @@ const userStore = useUserStore()
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 
-const tenantSelectedId=ref('defalut');
+const tenantSelected=ref('defalut');
 const loginForm = ref({
   username: "",
   password: "",
   rememberMe: false,
   code: "",
-  uuid: ""
+  uuid: "",
 });
 
 const loginRules = {
@@ -137,7 +137,10 @@ function handleLogin() {
         Cookies.remove("rememberMe");
       }
       // 调用action的登录方法
-      userStore.login(loginForm.value).then(() => {
+      const currentTenantId=tenantList.value.filter(x=>x.name==tenantSelected.value)[0]?.id??null;
+
+      console.log(currentTenantId,'currentTenantId')
+      userStore.login(loginForm.value,currentTenantId).then(() => {
         router.push({ path: redirect.value || "/" });
       }).catch(() => {
         loading.value = false;
