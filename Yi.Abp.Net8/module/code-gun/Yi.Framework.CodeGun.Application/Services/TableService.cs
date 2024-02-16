@@ -1,4 +1,5 @@
-﻿using Volo.Abp.Domain.Repositories;
+﻿using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Repositories;
 using Yi.Framework.CodeGun.Application.Contracts.Dtos.Table;
 using Yi.Framework.CodeGun.Application.Contracts.IServices;
 using Yi.Framework.CodeGun.Domain.Entities;
@@ -10,6 +11,11 @@ namespace Yi.Framework.CodeGun.Application.Services
     {
         public TableService(IRepository<TableAggregateRoot, Guid> repository) : base(repository)
         {
+        }
+
+        public override Task<PagedResultDto<TableDto>> GetListAsync(TableGetListInput input)
+        {
+            return base.GetListAsync(input);
         }
     }
 }

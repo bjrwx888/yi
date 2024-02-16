@@ -61,7 +61,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['webfirst:table:add']"
+          v-hasPermi="['codeGun:table:add']"
           >新增</el-button
         >
       </el-col>
@@ -72,7 +72,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['webfirst:table:edit']"
+          v-hasPermi="['codeGun:table:edit']"
           >修改</el-button
         >
       </el-col>
@@ -83,7 +83,7 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['webfirst:table:remove']"
+          v-hasPermi="['codeGun:table:remove']"
           >删除</el-button
         >
       </el-col>
@@ -93,7 +93,7 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['webfirst:table:export']"
+          v-hasPermi="['codeGun:table:export']"
           >导出</el-button
         >
       </el-col>
@@ -104,7 +104,7 @@
           plain
           icon="Switch"
           @click="handleExport"
-          v-hasPermi="['webfirst:table:export']"
+          v-hasPermi="['codeGun:table:export']"
           >同步数据库WebToDb</el-button
         >
       </el-col> -->
@@ -115,7 +115,7 @@
           icon="Switch"
           @click="handleWebToCode"
           :disabled="ids.length==0"
-          v-hasPermi="['webfirst:table:export']"
+          v-hasPermi="['codeGun:table:export']"
           >代码生成WebToCode</el-button
         >
       </el-col>
@@ -126,7 +126,7 @@
           plain
           icon="Switch"
           @click="handleCodeToWeb"
-          v-hasPermi="['webfirst:table:export']"
+          v-hasPermi="['codeGun:table:export']"
           >实体同步CodeToWeb</el-button
         >
       </el-col>
@@ -242,8 +242,8 @@ import {
   delData,
   addData,
   updateData,
-} from "@/api/webfirst/tableApi";
-import { codeToWeb,webToCode } from "@/api/webfirst/webfirstApi";
+} from "@/api/code/tableApi";
+import { codeToWeb,webToCode } from "@/api/code/codeGunApi";
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
 

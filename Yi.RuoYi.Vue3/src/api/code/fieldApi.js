@@ -50,5 +50,6 @@ export function delData(ids) {
   return request({
     url: `/field/${ids}`,
     method: 'delete',
+    params:{id:ids}
   })
 }

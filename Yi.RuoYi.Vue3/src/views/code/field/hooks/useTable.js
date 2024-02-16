@@ -1,4 +1,4 @@
-import {listData} from "@/api/webfirst/tableApi.js"
+import {listData} from "@/api/code/tableApi.js"
 
 const useTable=()=>{
     const dataList=ref([]);

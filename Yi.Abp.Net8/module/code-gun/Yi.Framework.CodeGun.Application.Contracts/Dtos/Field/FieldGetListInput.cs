@@ -9,6 +9,6 @@ namespace Yi.Framework.CodeGun.Application.Contracts.Dtos.Field
         /// </summary>
         public string? Name { get; set; }
 
-        public long? TableId { get; set; }
+        public Guid? TableId { get; set; }
     }
 }

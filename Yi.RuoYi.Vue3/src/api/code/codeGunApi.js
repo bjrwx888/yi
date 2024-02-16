@@ -2,14 +2,14 @@ import request from '@/utils/request'
 // code to web
 export function codeToWeb() {
   return request({
-    url: 'web-first/code-build-web',
+    url: 'code-gun/code-build-web',
     method: 'post'
   })
 }
 // code to web
 export function webToCode(ids) {
   return request({
-    url: 'web-first/web-build-code',
+    url: 'code-gun/web-build-code',
     method: 'post',
     data:ids
   })
@@ -18,7 +18,7 @@ export function webToCode(ids) {
 // open zhe path
 export function openPath(path) {
   return request({
-    url: `web-first/dir/${encodeURIComponent(path)}`,
+    url: `code-gun/dir/${encodeURIComponent(path)}`,
     method: 'post'
   })
 }

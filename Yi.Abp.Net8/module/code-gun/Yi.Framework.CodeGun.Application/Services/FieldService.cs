@@ -45,7 +45,7 @@ namespace Yi.Framework.CodeGun.Application.Services
         /// 获取类型枚举
         /// </summary>
         /// <returns></returns>
-        [Route("type")]
+        [Route("field/type")]
         public object GetFieldTypeEnum()
         {
             return typeof(FieldTypeEnum).GetFields(BindingFlags.Static | BindingFlags.Public).Select(x => new { lable = x.Name, value = (int)Enum.Parse(typeof(FieldTypeEnum), x.Name) }).ToList();

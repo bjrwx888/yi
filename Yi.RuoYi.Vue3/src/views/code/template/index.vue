@@ -46,7 +46,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['webfirst:template:add']"
+          v-hasPermi="['codeGun:template:add']"
           >新增</el-button
         >
       </el-col>
@@ -57,7 +57,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['webfirst:template:edit']"
+          v-hasPermi="['codeGun:template:edit']"
           >修改</el-button
         >
       </el-col>
@@ -68,7 +68,7 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['webfirst:template:remove']"
+          v-hasPermi="['codeGun:template:remove']"
           >删除</el-button
         >
       </el-col>
@@ -78,7 +78,7 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['webfirst:template:export']"
+          v-hasPermi="['codeGun:template:export']"
           >导出</el-button
         >
       </el-col>
@@ -145,14 +145,14 @@
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['webfirst:template:edit']"
+            v-hasPermi="['codeGun:template:edit']"
             >修改</el-button
           >
           <el-button
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['webfirst:template:remove']"
+            v-hasPermi="['codeGun:template:remove']"
             >删除</el-button
           >
         </template>
@@ -231,8 +231,8 @@ import {
   delData,
   addData,
   updateData,
-} from "@/api/webfirst/templateApi";
-import {openPath} from "@/api/webfirst/webfirstApi";
+} from "@/api/code/templateApi";
+import {openPath} from "@/api/code/codeGunApi";
 import { ref } from "@vue/reactivity";
 import ReplaceText from './components/ReplaceText'
 import TempalteTip from './components/TempalteTip.vue'

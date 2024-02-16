@@ -224,7 +224,7 @@ import {
   updateData,
   delData,
   getType
-} from "@/api/webfirst/fieldApi";
+} from "@/api/code/fieldApi";
 import { computed, onMounted, defineProps, ref } from "vue";
 
 const { proxy } = getCurrentInstance();
@@ -267,7 +267,8 @@ const data = reactive({
 const { queryParams, form, rules } = toRefs(data);
 
 const getFieldTypeEnum=(field)=>{
-   return fieldList.value.filter(x=>x.value==field)[0].lable;
+  return field;
+  // return fieldList.value.filter(x=>x.value==field)[0]?.lable??'未知';
 }
 
 watch(

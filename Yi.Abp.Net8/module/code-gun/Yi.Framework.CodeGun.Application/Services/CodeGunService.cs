@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Uow;
 using Yi.Framework.CodeGun.Application.Contracts.IServices;
@@ -79,7 +80,8 @@ namespace Yi.Framework.CodeGun.Application.Services
         /// 打开目录
         /// </summary>
         /// <returns></returns>
-        public async Task PostDir(string path)
+        [HttpPost("code-gun/dir/{**path}")]
+        public async Task PostDir([FromRoute]string path)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
