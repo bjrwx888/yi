@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		common.props = common.props
 		end.sh = end.sh
 		start.sh = start.sh
+		usings.props = usings.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SqlSugarCore.Abstractions", "framework\Yi.Framework.SqlSugarCore.Abstractions\Yi.Framework.SqlSugarCore.Abstractions.csproj", "{FD6D6860-3753-4747-8A26-977E4A3001F9}"
@@ -103,6 +104,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.TenantManagement.Application", "module\tenant-management\Yi.Framework.TenantManagement.Application\Yi.Framework.TenantManagement.Application.csproj", "{17816837-E53B-486B-B796-53C601FE6CD9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.TenantManagement.Application.Contracts", "module\tenant-management\Yi.Framework.TenantManagement.Application.Contracts\Yi.Framework.TenantManagement.Application.Contracts.csproj", "{FA735055-CBDD-4EFD-B84B-85810DA1425E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code-gun", "code-gun", "{4FFE7212-21F2-476D-B628-3C65E6C5075E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Application", "module\code-gun\Yi.Framework.CodeGun.Application\Yi.Framework.CodeGun.Application.csproj", "{97EC40D7-DBFA-467A-98CB-221AF27B14F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Application.Contracts", "module\code-gun\Yi.Framework.CodeGun.Application.Contracts\Yi.Framework.CodeGun.Application.Contracts.csproj", "{882BC563-2F75-4B95-AC96-F4BF23F5E69D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Domain", "module\code-gun\Yi.Framework.CodeGun.Domain\Yi.Framework.CodeGun.Domain.csproj", "{85CB8517-2B80-42D8-B954-081079AC9BA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Domain.Shared", "module\code-gun\Yi.Framework.CodeGun.Domain.Shared\Yi.Framework.CodeGun.Domain.Shared.csproj", "{EEFF0F05-2709-4151-A8CE-667935CEAE0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -262,6 +273,22 @@ Global
 		{FA735055-CBDD-4EFD-B84B-85810DA1425E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA735055-CBDD-4EFD-B84B-85810DA1425E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA735055-CBDD-4EFD-B84B-85810DA1425E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97EC40D7-DBFA-467A-98CB-221AF27B14F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97EC40D7-DBFA-467A-98CB-221AF27B14F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97EC40D7-DBFA-467A-98CB-221AF27B14F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97EC40D7-DBFA-467A-98CB-221AF27B14F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{882BC563-2F75-4B95-AC96-F4BF23F5E69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882BC563-2F75-4B95-AC96-F4BF23F5E69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882BC563-2F75-4B95-AC96-F4BF23F5E69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882BC563-2F75-4B95-AC96-F4BF23F5E69D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85CB8517-2B80-42D8-B954-081079AC9BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85CB8517-2B80-42D8-B954-081079AC9BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85CB8517-2B80-42D8-B954-081079AC9BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85CB8517-2B80-42D8-B954-081079AC9BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEFF0F05-2709-4151-A8CE-667935CEAE0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEFF0F05-2709-4151-A8CE-667935CEAE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEFF0F05-2709-4151-A8CE-667935CEAE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFF0F05-2709-4151-A8CE-667935CEAE0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -309,6 +336,11 @@ Global
 		{9C8C3C53-3DCE-4516-867E-228858E61B26} = {73CCF2C4-B9FD-44AB-8D4B-0A421805B094}
 		{17816837-E53B-486B-B796-53C601FE6CD9} = {499A8C71-7892-42D0-A77E-48756E1EFF16}
 		{FA735055-CBDD-4EFD-B84B-85810DA1425E} = {499A8C71-7892-42D0-A77E-48756E1EFF16}
+		{4FFE7212-21F2-476D-B628-3C65E6C5075E} = {2317227D-7796-4E7B-BEDB-7CD1CAE7B853}
+		{97EC40D7-DBFA-467A-98CB-221AF27B14F2} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
+		{882BC563-2F75-4B95-AC96-F4BF23F5E69D} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
+		{85CB8517-2B80-42D8-B954-081079AC9BA0} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
+		{EEFF0F05-2709-4151-A8CE-667935CEAE0B} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23D6FBC9-C970-4641-BC1E-2AEA59F51C18}
