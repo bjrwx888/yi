@@ -6,7 +6,7 @@
 该文件为通用Crud模板文件，按照规范只需要 替换以下变量即可，
 租户 ： 实体中文名称
 system:tenant ：crud权限编码
-system/tenant : api文件路径,例如：codeGun/tableApi
+system/tenant : api文件路径,例如：codeGen/tableApi
     </div> -->
         <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="100px">
             <el-form-item label="租户名称" prop="name">

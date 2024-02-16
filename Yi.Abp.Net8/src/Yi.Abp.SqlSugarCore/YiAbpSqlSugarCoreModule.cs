@@ -2,7 +2,7 @@
 using Volo.Abp.Modularity;
 using Yi.Abp.Domain;
 using Yi.Abp.SqlSugarCore;
-using Yi.AuditLogging.SqlSugarCore;
+using Yi.Framework.AuditLogging.SqlSugarCore;
 using Yi.Framework.Bbs.SqlSugarCore;
 using Yi.Framework.Mapster;
 using Yi.Framework.Rbac.SqlSugarCore;

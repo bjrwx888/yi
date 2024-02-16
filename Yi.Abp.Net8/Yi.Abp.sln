@@ -105,15 +105,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.TenantManageme
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.TenantManagement.Application.Contracts", "module\tenant-management\Yi.Framework.TenantManagement.Application.Contracts\Yi.Framework.TenantManagement.Application.Contracts.csproj", "{FA735055-CBDD-4EFD-B84B-85810DA1425E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code-gun", "code-gun", "{4FFE7212-21F2-476D-B628-3C65E6C5075E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code-gen", "code-gen", "{4FFE7212-21F2-476D-B628-3C65E6C5075E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Application", "module\code-gun\Yi.Framework.CodeGun.Application\Yi.Framework.CodeGun.Application.csproj", "{97EC40D7-DBFA-467A-98CB-221AF27B14F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.Application", "module\code-gen\Yi.Framework.Codegen.Application\Yi.Framework.CodeGen.Application.csproj", "{97EC40D7-DBFA-467A-98CB-221AF27B14F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Application.Contracts", "module\code-gun\Yi.Framework.CodeGun.Application.Contracts\Yi.Framework.CodeGun.Application.Contracts.csproj", "{882BC563-2F75-4B95-AC96-F4BF23F5E69D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.Application.Contracts", "module\code-gen\Yi.Framework.Codegen.Application.Contracts\Yi.Framework.CodeGen.Application.Contracts.csproj", "{882BC563-2F75-4B95-AC96-F4BF23F5E69D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Domain", "module\code-gun\Yi.Framework.CodeGun.Domain\Yi.Framework.CodeGun.Domain.csproj", "{85CB8517-2B80-42D8-B954-081079AC9BA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.Domain", "module\code-gen\Yi.Framework.Codegen.Domain\Yi.Framework.CodeGen.Domain.csproj", "{85CB8517-2B80-42D8-B954-081079AC9BA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGun.Domain.Shared", "module\code-gun\Yi.Framework.CodeGun.Domain.Shared\Yi.Framework.CodeGun.Domain.Shared.csproj", "{EEFF0F05-2709-4151-A8CE-667935CEAE0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.Domain.Shared", "module\code-gen\Yi.Framework.Codegen.Domain.Shared\Yi.Framework.CodeGen.Domain.Shared.csproj", "{EEFF0F05-2709-4151-A8CE-667935CEAE0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

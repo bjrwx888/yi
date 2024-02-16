@@ -46,7 +46,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['codeGun:template:add']"
+          v-hasPermi="['codeGen:template:add']"
           >新增</el-button
         >
       </el-col>
@@ -57,7 +57,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['codeGun:template:edit']"
+          v-hasPermi="['codeGen:template:edit']"
           >修改</el-button
         >
       </el-col>
@@ -68,7 +68,7 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['codeGun:template:remove']"
+          v-hasPermi="['codeGen:template:remove']"
           >删除</el-button
         >
       </el-col>
@@ -78,7 +78,7 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['codeGun:template:export']"
+          v-hasPermi="['codeGen:template:export']"
           >导出</el-button
         >
       </el-col>
@@ -145,14 +145,14 @@
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['codeGun:template:edit']"
+            v-hasPermi="['codeGen:template:edit']"
             >修改</el-button
           >
           <el-button
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['codeGun:template:remove']"
+            v-hasPermi="['codeGen:template:remove']"
             >删除</el-button
           >
         </template>
@@ -232,7 +232,7 @@ import {
   addData,
   updateData,
 } from "@/api/code/templateApi";
-import {openPath} from "@/api/code/codeGunApi";
+import {openPath} from "@/api/code/codeGenApi";
 import { ref } from "@vue/reactivity";
 import ReplaceText from './components/ReplaceText'
 import TempalteTip from './components/TempalteTip.vue'

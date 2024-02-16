@@ -5,8 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.MultiTenancy;
 
-namespace Volo.Abp.MultiTenancy;
+namespace Yi.Framework.TenantManagement.Domain;
 
 [Dependency(ReplaceServices = true)]
 public class YiMultiTenantConnectionStringResolver : DefaultConnectionStringResolver

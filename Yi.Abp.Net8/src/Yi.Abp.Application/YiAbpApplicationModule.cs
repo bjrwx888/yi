@@ -1,8 +1,7 @@
-﻿using Volo.Abp.Modularity;
-using Yi.Abp.Application.Contracts;
+﻿using Yi.Abp.Application.Contracts;
 using Yi.Abp.Domain;
 using Yi.Framework.Bbs.Application;
-using Yi.Framework.CodeGun.Application;
+using Yi.Framework.CodeGen.Application;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application;
 using Yi.Framework.TenantManagement.Application;
@@ -17,7 +16,7 @@ namespace Yi.Abp.Application
         typeof(YiFrameworkRbacApplicationModule),
          typeof(YiFrameworkBbsApplicationModule),
         typeof(YiFrameworkTenantManagementApplicationModule),
-        typeof(YiFrameworkCodeGunApplicationModule),
+        typeof(YiFrameworkCodeGenApplicationModule),
 
         typeof(YiFrameworkDddApplicationModule)
         )]
