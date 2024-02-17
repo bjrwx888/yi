@@ -242,6 +242,11 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="pars"></param>
         protected virtual void OnLogExecuted(string sql, SugarParameter[] pars)
         {
+            if (Options.EnabledSqlLog)
+            {
+                var sqllog = $"=========Yi-SQL耗时{SqlSugarClient.Ado.SqlExecutionTime.TotalMilliseconds}毫秒=====";
+                Logger.CreateLogger<SqlSugarDbContext>().LogDebug(sqllog.ToString());
+            }
         }
 
         /// <summary>
