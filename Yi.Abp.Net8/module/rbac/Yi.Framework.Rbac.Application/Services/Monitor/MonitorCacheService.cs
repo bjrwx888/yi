@@ -38,7 +38,8 @@ namespace Yi.Framework.Rbac.Application.Services.Monitor
         /// 获取所有key并分组
         /// </summary>
         /// <returns></returns>
-        public  List<MonitorCacheNameGetListOutputDto> GetName()
+        [HttpGet("monitor-cache/name")]
+        public List<MonitorCacheNameGetListOutputDto> GetName()
         {
             VerifyRedisCacheEnable();
             var keys = RedisClient.Keys(CacheKeyPrefix + "*");
@@ -81,20 +82,44 @@ namespace Yi.Framework.Rbac.Application.Services.Monitor
 
         }
 
-        [HttpGet("key/{cacaheName}")]
+        [HttpGet("monitor-cache/key/{cacaheName}")]
         public List<string> GetKey(string cacaheName)
         {
             VerifyRedisCacheEnable();
-            var output = RedisClient.Keys($"{cacaheName}:*").Select(x => x.RemovePreFix(cacaheName+ ":"));
+            var output = RedisClient.Keys($"{cacaheName}:*").Select(x => x.RemovePreFix(cacaheName + ":"));
             return output.ToList();
         }
 
         //全部不为空
-        [HttpGet("value/{cacaheName}/{cacaheKey}")]
+        [HttpGet("monitor-cache/value/{cacaheName}/{cacaheKey}")]
         public MonitorCacheGetListOutputDto GetValue(string cacaheName, string cacaheKey)
         {
             var value = RedisClient.HGet($"{cacaheName}:{cacaheKey}", "data");
             return new MonitorCacheGetListOutputDto() { CacheKey = cacaheKey, CacheName = cacaheName, CacheValue = value };
+        }
+
+
+
+        [HttpDelete("monitor-cache/key/{cacaheName}")]
+        public bool DeleteKey(string cacaheName)
+        {
+            VerifyRedisCacheEnable();
+            RedisClient.Del($"{cacaheName}:*");
+            return true;
+        }
+
+        [HttpDelete("monitor-cache/value/{cacaheName}/{cacaheKey}")]
+        public bool DeleteValue(string cacaheName, string cacaheKey)
+        {
+            RedisClient.Del($"{cacaheName}:{cacaheKey}");
+            return true;
+        }
+
+        [HttpDelete("monitor-cache/clear")]
+        public bool DeleteClear()
+        {
+            RedisClient.FlushDb();
+            return true;
         }
     }
 
