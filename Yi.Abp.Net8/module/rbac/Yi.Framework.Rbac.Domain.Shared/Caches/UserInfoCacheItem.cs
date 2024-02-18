@@ -23,7 +23,7 @@ namespace Yi.Framework.Rbac.Domain.Shared.Caches
 
         public override string ToString()
         {
-            return $"Yi:User:{UserId}";
+            return $"User:{UserId}";
         }
     }
 }

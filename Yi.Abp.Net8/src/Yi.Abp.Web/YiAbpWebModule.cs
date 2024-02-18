@@ -87,6 +87,8 @@ namespace Yi.Abp.Web
            Configure<AbpDistributedCacheOptions>(cacheOptions =>
             {
                 cacheOptions.GlobalCacheEntryOptions.SlidingExpiration =null;
+                //缓存key前缀
+                cacheOptions.KeyPrefix = "Yi:";
             });
 
 
