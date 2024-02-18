@@ -1,4 +1,5 @@
 ﻿using SqlSugar;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 
 namespace Yi.Framework.CodeGen.Domain.Entities
@@ -24,5 +25,8 @@ namespace Yi.Framework.CodeGen.Domain.Entities
         /// </summary>
         [Navigate(NavigateType.OneToMany, nameof(FieldEntity.TableId))]
         public List<FieldEntity> Fields { get; set; }
+
+        [SugarColumn(IsIgnore =true)]
+        public override ExtraPropertyDictionary ExtraProperties { get; protected set; }
     }
 }
