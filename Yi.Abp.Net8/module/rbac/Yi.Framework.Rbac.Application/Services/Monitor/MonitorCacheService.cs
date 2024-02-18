@@ -3,7 +3,7 @@ using Volo.Abp.Application.Services;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.MonitorCache;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 
-namespace Yi.Framework.Rbac.Application.Services
+namespace Yi.Framework.Rbac.Application.Services.Monitor
 {
     public class MonitorCacheService : ApplicationService, IMonitorCacheService
     {

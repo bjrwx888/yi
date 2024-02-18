@@ -7,7 +7,7 @@ using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Application.SignalRHubs;
 using Yi.Framework.Rbac.Domain.Shared.Model;
 
-namespace Yi.Framework.Rbac.Application.Services
+namespace Yi.Framework.Rbac.Application.Services.Monitor
 {
     public class OnlineService : ApplicationService, IOnlineService
     {
@@ -37,7 +37,7 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 dataWhere = dataWhere.Where((u) => u.UserName!.Contains(online.UserName));
             }
-            return Task.FromResult(new PagedResultDto<OnlineUserModel>() { TotalCount = data.Count, Items = dataWhere.ToList() }) ;
+            return Task.FromResult(new PagedResultDto<OnlineUserModel>() { TotalCount = data.Count, Items = dataWhere.ToList() });
         }
 
 

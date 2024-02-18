@@ -11,7 +11,7 @@ using Yi.Framework.Rbac.Application.Contracts.Dtos.Task;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Shared.Enums;
 
-namespace Yi.Framework.Rbac.Application.Services
+namespace Yi.Framework.Rbac.Application.Services.Monitor
 {
     public class TaskService : ApplicationService, ITaskService
     {
@@ -19,7 +19,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private readonly IClock _clock;
         public TaskService(ISchedulerFactory schedulerFactory, IClock clock)
         {
-            _clock=clock;
+            _clock = clock;
             _schedulerFactory = schedulerFactory;
         }
 
@@ -39,7 +39,7 @@ namespace Yi.Framework.Rbac.Application.Services
             //状态
             var state = await scheduler.GetTriggerState(trigger.Key);
 
-            
+
             var output = new TaskGetOutput
             {
                 JobId = jobDetail.Key.Name,
@@ -48,7 +48,7 @@ namespace Yi.Framework.Rbac.Application.Services
                 Properties = Newtonsoft.Json.JsonConvert.SerializeObject(jobDetail.JobDataMap),
                 Concurrent = !jobDetail.ConcurrentExecutionDisallowed,
                 Description = jobDetail.Description,
-                LastRunTime = _clock.Normalize( trigger.GetPreviousFireTimeUtc()?.DateTime??DateTime.MinValue),
+                LastRunTime = _clock.Normalize(trigger.GetPreviousFireTimeUtc()?.DateTime ?? DateTime.MinValue),
                 NextRunTime = _clock.Normalize(trigger.GetNextFireTimeUtc()?.DateTime ?? DateTime.MinValue),
                 AssemblyName = jobDetail.JobType.Assembly.GetName().Name,
                 Status = state.ToString()
@@ -56,7 +56,7 @@ namespace Yi.Framework.Rbac.Application.Services
 
             if (trigger is ISimpleTrigger simple)
             {
-                output.TriggerArgs =Math.Round(simple.RepeatInterval.TotalMinutes,2) .ToString() + "分钟";
+                output.TriggerArgs = Math.Round(simple.RepeatInterval.TotalMinutes, 2).ToString() + "分钟";
                 output.Type = JobTypeEnum.Millisecond;
                 output.Millisecond = simple.RepeatInterval.TotalMilliseconds;
             }
@@ -64,7 +64,7 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 output.TriggerArgs = cron.CronExpressionString!;
                 output.Type = JobTypeEnum.Cron;
-                output.Cron=cron.CronExpressionString;
+                output.Cron = cron.CronExpressionString;
             }
             return output;
         }
@@ -159,7 +159,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task DeleteAsync(IEnumerable<string> id)
-       {
+        {
             var scheduler = await _schedulerFactory.GetScheduler();
             await scheduler.DeleteJobs(id.Select(x => new JobKey(x)).ToList());
         }
