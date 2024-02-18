@@ -175,11 +175,12 @@ namespace Yi.Framework.Rbac.Domain.Managers
             {
                 userAction.Invoke(user);
             }
-            if (user == null)
+            //这里为了兼容解决数据库开启了大小写不敏感问题,还要将用户名进行二次效验
+            if (user != null&&user.UserName==userName)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         /// <summary>
