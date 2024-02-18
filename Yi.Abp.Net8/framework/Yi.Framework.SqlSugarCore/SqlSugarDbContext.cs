@@ -256,7 +256,14 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="column"></param>
         protected virtual void EntityService(PropertyInfo property, EntityColumnInfo column)
         {
-
+            if (property.PropertyType == typeof(ExtraPropertyDictionary))
+            {
+                column.IsIgnore = true;
+            }
+            if (property.Name == nameof(Entity<object>.Id))
+            {
+                column.IsPrimarykey = true;
+            }
         }
 
         public void BackupDataBase()
