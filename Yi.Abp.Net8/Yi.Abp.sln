@@ -115,7 +115,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.Domain.Shared", "module\code-gen\Yi.Framework.Codegen.Domain.Shared\Yi.Framework.CodeGen.Domain.Shared.csproj", "{EEFF0F05-2709-4151-A8CE-667935CEAE0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Caching.FreeRedis", "framework\Yi.Framework.Caching.FreeRedis\Yi.Framework.Caching.FreeRedis.csproj", "{862BB0EF-3D4E-44FF-AB15-0EB74CE553D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Caching.FreeRedis", "framework\Yi.Framework.Caching.FreeRedis\Yi.Framework.Caching.FreeRedis.csproj", "{862BB0EF-3D4E-44FF-AB15-0EB74CE553D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.CodeGen.SqlSugarCore", "module\code-gen\Yi.Framework.CodeGen.SqlSugarCore\Yi.Framework.CodeGen.SqlSugarCore.csproj", "{FB09ACC2-A27D-4D87-8D85-1435FDED4D04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -295,6 +297,10 @@ Global
 		{862BB0EF-3D4E-44FF-AB15-0EB74CE553D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{862BB0EF-3D4E-44FF-AB15-0EB74CE553D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{862BB0EF-3D4E-44FF-AB15-0EB74CE553D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB09ACC2-A27D-4D87-8D85-1435FDED4D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB09ACC2-A27D-4D87-8D85-1435FDED4D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB09ACC2-A27D-4D87-8D85-1435FDED4D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB09ACC2-A27D-4D87-8D85-1435FDED4D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -348,6 +354,7 @@ Global
 		{85CB8517-2B80-42D8-B954-081079AC9BA0} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
 		{EEFF0F05-2709-4151-A8CE-667935CEAE0B} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
 		{862BB0EF-3D4E-44FF-AB15-0EB74CE553D3} = {77B949E9-530E-45A5-9657-20F7D5C6875C}
+		{FB09ACC2-A27D-4D87-8D85-1435FDED4D04} = {4FFE7212-21F2-476D-B628-3C65E6C5075E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23D6FBC9-C970-4641-BC1E-2AEA59F51C18}

@@ -26,6 +26,9 @@ namespace Yi.Framework.CodeGen.Domain.Shared.Enums
 
         [Display(Name = "DateTime", Description = "DateTime")]
         DateTime,
+
+        [Display(Name = "Guid", Description = "Guid")]
+        Guid
     }
 
 }

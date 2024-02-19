@@ -374,7 +374,8 @@ const handleCodeToWeb = async () => {
 /** CodeToWeb */
 const handleWebToCode = async () => {
   const response= await webToCode(ids.value);
-  if(response.statusCode==200)
+  console.log(response,"response");
+  if(response.status==200||response.status==204)
   {
     proxy.$modal.msgSuccess("代码生成成功");
   }
