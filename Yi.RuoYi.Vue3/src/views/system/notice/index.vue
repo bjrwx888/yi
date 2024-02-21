@@ -180,7 +180,7 @@
 </template>
 
 <script setup name="Notice">
-import { listNotice, getNotice, delNotice, addNotice, updateNotice } from "@/api/system/notice";
+import { sendOnlineNotice,sendOfflineNotice,listNotice, getNotice, delNotice, addNotice, updateNotice } from "@/api/system/notice";
 
 const { proxy } = getCurrentInstance();
 const sys_notice_state=[
@@ -307,12 +307,14 @@ function handleDelete(row) {
   }).catch(() => {});
 }
 
-const handleOnlineSend=(id)=>{
-
+const handleOnlineSend=async (id)=>{
+  await sendOnlineNotice(id);
+  proxy.$modal.msgSuccess("在线消息发送成功");
 
 }
-const handleOfflineSend=(id)=>{
-
+const handleOfflineSend=async (id)=>{
+   await sendOfflineNotice(id);
+   proxy.$modal.msgSuccess("离线消息发送成功");
 }
 getList();
 </script>

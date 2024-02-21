@@ -43,3 +43,18 @@ export function delNotice(ids) {
     params:{id:ids}
   })
 }
+
+// 发送在线公告
+export function sendOnlineNotice(id) {
+  return request({
+    url: '/notice/online/'+id,
+    method: 'post',
+  })
+}
+// 发送离线公告
+export function sendOfflineNotice(id) {
+  return request({
+    url: '/notice/offline/'+id,
+    method: 'post',
+  })
+}
