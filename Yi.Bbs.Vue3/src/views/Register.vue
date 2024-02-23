@@ -92,7 +92,7 @@ if(registerForm.password!=passwordConfirm.value)
     });
 
     //成功
-    if (response!=undefined) {
+    if (response.status==204) {
         ElMessage({
             message: `恭喜！${registerForm.userName}，注册成功！请登录！`,
             type: 'success',
