@@ -30,7 +30,7 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
 
         private int GetWheelIndex()
         {
-            int[] probabilities = { 10, 20, 30, 20, 5, 5, 4, 3, 2, 1 };
+            int[] probabilities = { 20, 20, 30, 30, 5, 3, 2, 2, 2, 1 };
 
             int total = 0;
             foreach (var prob in probabilities)
