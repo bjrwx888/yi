@@ -18,7 +18,7 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
         [Authorize]
         public async Task<int> PostWheel()
         {
-            int[] values=new int[10] { 0,10,30,50,80,100,150,200,300,666};
+            int[] values=new int[10] { 0,10,30,50,60,80,90,100,200,666};
             var index = GetWheelIndex();
             var value = values[index]-50;
 
