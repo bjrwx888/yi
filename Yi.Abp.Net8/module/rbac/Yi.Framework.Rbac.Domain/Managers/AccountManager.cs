@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Volo.Abp;
+using Volo.Abp.Caching;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Security.Claims;
-using Volo.Abp.Users;
 using Yi.Framework.Core.Helper;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Repositories;
+using Yi.Framework.Rbac.Domain.Shared.Caches;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.Rbac.Domain.Shared.Dtos;
 using Yi.Framework.Rbac.Domain.Shared.Etos;
@@ -38,6 +38,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
         private UserManager _userManager;
         private ISqlSugarRepository<RoleEntity> _roleRepository;
         private RefreshJwtOptions _refreshJwtOptions;
+
         public AccountManager(IUserRepository repository
             , IHttpContextAccessor httpContextAccessor
             , IOptions<JwtOptions> jwtOptions
@@ -87,9 +88,9 @@ namespace Yi.Framework.Rbac.Domain.Managers
                 loginEto.UserId = userInfo.User.Id;
                 await _localEventBus.PublishAsync(loginEto);
             }
+            var accessToken = CreateToken(this.UserInfoToClaim(userInfo));
             //将用户信息添加到缓存中，需要考虑的是更改了用户、角色、菜单等整个体系都需要将缓存进行刷新，看具体业务进行选择
 
-            var accessToken = CreateToken(this.UserInfoToClaim(userInfo));
 
             return accessToken;
         }
@@ -175,11 +176,12 @@ namespace Yi.Framework.Rbac.Domain.Managers
             {
                 userAction.Invoke(user);
             }
-            if (user == null)
+            //这里为了兼容解决数据库开启了大小写不敏感问题,还要将用户名进行二次效验
+            if (user != null&&user.UserName==userName)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ using Volo.Abp.Application.Services;
 using Yi.Framework.Core.Helper;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 
-namespace Yi.Framework.Rbac.Application.Services
+namespace Yi.Framework.Rbac.Application.Services.Monitor
 {
     public class MonitorServerService : ApplicationService, IMonitorServerService
     {

@@ -7,7 +7,7 @@ using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Operlog;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
-namespace Yi.Framework.Rbac.Application.Services
+namespace Yi.Framework.Rbac.Application.Services.RecordLog
 {
     /// <summary>
     /// OperationLog服务实现
@@ -18,7 +18,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private ISqlSugarRepository<OperationLogEntity, Guid> _repository;
         public OperationLogService(ISqlSugarRepository<OperationLogEntity, Guid> repository) : base(repository)
         {
-            _repository=repository;
+            _repository = repository;
         }
 
         public override async Task<PagedResultDto<OperationLogGetListOutputDto>> GetListAsync(OperationLogGetListInputVo input)

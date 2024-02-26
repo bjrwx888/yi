@@ -7,13 +7,13 @@ using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Application.SignalRHubs;
 using Yi.Framework.Rbac.Domain.Shared.Model;
 
-namespace Yi.Framework.Rbac.Application.Services
+namespace Yi.Framework.Rbac.Application.Services.Monitor
 {
     public class OnlineService : ApplicationService, IOnlineService
     {
         private ILogger<OnlineService> _logger;
-        private IHubContext<OnlineUserHub> _hub;
-        public OnlineService(ILogger<OnlineService> logger, IHubContext<OnlineUserHub> hub)
+        private IHubContext<OnlineHub> _hub;
+        public OnlineService(ILogger<OnlineService> logger, IHubContext<OnlineHub> hub)
         {
             _logger = logger;
             _hub = hub;
@@ -26,7 +26,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <returns></returns>
         public Task<PagedResultDto<OnlineUserModel>> GetListAsync([FromQuery] OnlineUserModel online)
         {
-            var data = OnlineUserHub.clientUsers;
+            var data = OnlineHub.clientUsers;
             IEnumerable<OnlineUserModel> dataWhere = data.AsEnumerable();
 
             if (!string.IsNullOrEmpty(online.Ipaddr))
@@ -37,7 +37,7 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 dataWhere = dataWhere.Where((u) => u.UserName!.Contains(online.UserName));
             }
-            return Task.FromResult(new PagedResultDto<OnlineUserModel>() { TotalCount = data.Count, Items = dataWhere.ToList() }) ;
+            return Task.FromResult(new PagedResultDto<OnlineUserModel>() { TotalCount = data.Count, Items = dataWhere.ToList() });
         }
 
 
@@ -50,7 +50,7 @@ namespace Yi.Framework.Rbac.Application.Services
         [Route("online/{connnectionId}")]
         public async Task<bool> ForceOut(string connnectionId)
         {
-            if (OnlineUserHub.clientUsers.Exists(u => u.ConnnectionId == connnectionId))
+            if (OnlineHub.clientUsers.Exists(u => u.ConnnectionId == connnectionId))
             {
                 //前端接受到这个事件后，触发前端自动退出
                 await _hub.Clients.Client(connnectionId).SendAsync("forceOut", "你已被强制退出！");

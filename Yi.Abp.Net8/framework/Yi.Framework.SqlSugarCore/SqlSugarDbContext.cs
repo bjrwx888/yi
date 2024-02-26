@@ -60,6 +60,7 @@ namespace Yi.Framework.SqlSugarCore
             {
                 options.ConnectionString = currentConnection;
             }));
+            connectionCreator.SetDbAop(SqlSugarClient);
         }
 
         /// <summary>
@@ -242,6 +243,11 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="pars"></param>
         protected virtual void OnLogExecuted(string sql, SugarParameter[] pars)
         {
+            if (Options.EnabledSqlLog)
+            {
+                var sqllog = $"=========Yi-SQL耗时{SqlSugarClient.Ado.SqlExecutionTime.TotalMilliseconds}毫秒=====";
+                Logger.CreateLogger<SqlSugarDbContext>().LogDebug(sqllog.ToString());
+            }
         }
 
         /// <summary>
@@ -251,7 +257,14 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="column"></param>
         protected virtual void EntityService(PropertyInfo property, EntityColumnInfo column)
         {
-
+            if (property.PropertyType == typeof(ExtraPropertyDictionary))
+            {
+                column.IsIgnore = true;
+            }
+            if (property.Name == nameof(Entity<object>.Id))
+            {
+                column.IsPrimarykey = true;
+            }
         }
 
         public void BackupDataBase()
