@@ -32,11 +32,11 @@ const prizes = [
   { fonts: [{ text: '10', top: '10%' }], background: '#b8c5f2' },
   { fonts: [{ text: '30', top: '10%' }], background: '#e9e8fe' },
   { fonts: [{ text: '50', top: '10%' }], background: '#b8c5f2' },
-  { fonts: [{ text: '80', top: '10%' }], background: '#e9e8fe' },
+  { fonts: [{ text: '60', top: '10%' }], background: '#e9e8fe' },
+  { fonts: [{ text: '80', top: '10%' }], background: '#b8c5f2' },
+  { fonts: [{ text: '90', top: '10%' }], background: '#e9e8fe' },
   { fonts: [{ text: '100', top: '10%' }], background: '#b8c5f2' },
-  { fonts: [{ text: '150', top: '10%' }], background: '#e9e8fe' },
-  { fonts: [{ text: '200', top: '10%' }], background: '#b8c5f2' },
-  { fonts: [{ text: '300', top: '10%' }], background: '#e9e8fe' },
+  { fonts: [{ text: '200', top: '10%' }], background: '#e9e8fe' },
   { fonts: [{ text: '666', top: '10%' }], background: '#FAD400' }
 ];
 const buttons = [{
