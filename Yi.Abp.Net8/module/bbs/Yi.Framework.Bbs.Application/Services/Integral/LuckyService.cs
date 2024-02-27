@@ -18,7 +18,7 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
         [Authorize]
         public async Task<int> PostWheel()
         {
-            int[] values=new int[10] { 0,10,30,50,80,100,150,200,300,666};
+            int[] values=new int[10] { 0,10,30,50,60,80,90,100,200,666};
             var index = GetWheelIndex();
             var value = values[index]-50;
 
@@ -30,7 +30,7 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
 
         private int GetWheelIndex()
         {
-            int[] probabilities = { 10, 15, 10, 20, 10, 5, 5, 3, 2, 1 };
+            int[] probabilities = { 30, 40, 30, 20, 5, 3, 2, 2, 2, 1 };
 
             int total = 0;
             foreach (var prob in probabilities)
