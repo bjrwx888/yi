@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
 using Volo.Abp.EventBus.Local;
+using Yi.Framework.Bbs.Application.Contracts.IServices;
+using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
 
 namespace Yi.Framework.Bbs.Application.Services.Integral
@@ -9,7 +11,8 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
     public class LuckyService : ApplicationService
     {
         private ILocalEventBus _localEventBus;
-        public LuckyService(ILocalEventBus localEventBus) { _localEventBus = localEventBus; }
+        private BbsUserManager _bbsUserManager;
+        public LuckyService(ILocalEventBus localEventBus, BbsUserManager bbsUserManager) { _bbsUserManager = bbsUserManager; _localEventBus = localEventBus; }
 
         /// <summary>
         /// 大转盘
@@ -18,9 +21,22 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
         [Authorize]
         public async Task<int> PostWheel()
         {
-            int[] values=new int[10] { 0,10,30,50,60,80,90,100,200,666};
+            var userInfo = await _bbsUserManager.GetBbsUserInfoAsync(CurrentUser.Id.Value);
+            if (userInfo.Money < 50)
+            {
+                throw new UserFriendlyException("钱钱不足！");
+            }
+
+
+            int[] values = new int[10] { 0, 10, 30, 50, 60, 80, 90, 100, 200, 666 };
             var index = GetWheelIndex();
-            var value = values[index]-50;
+            var value = values[index] - 50;
+
+            //不存在负数钱钱
+            if (value < 0)
+            {
+                value = 0;
+            }
 
             //修改钱钱，如果钱钱不足，直接会丢出去,那本次抽奖将无效
             await _localEventBus.PublishAsync(new MoneyChangeEventArgs { UserId = CurrentUser.Id!.Value, Number = value }, false);
