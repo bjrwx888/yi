@@ -20,6 +20,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (useUserStore().roles.length === 0) {
         // 判断当前用户是否已拉取完user_info信息
+        alert("获取用户信息")
         useUserStore()
           .getInfo()
           .then(() => {
