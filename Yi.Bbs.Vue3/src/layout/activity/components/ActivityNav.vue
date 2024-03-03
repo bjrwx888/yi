@@ -22,7 +22,11 @@
             <el-icon><HelpFilled /></el-icon>
           <span>大转盘</span>
         </el-menu-item>
-        <el-menu-item index="5" :route="{path:'/activity/sign'}">
+        <el-menu-item index="5" :route="{path:'/activity/bank'}">
+            <el-icon><Sunrise /></el-icon>
+          <span>银行</span>
+        </el-menu-item>
+        <el-menu-item index="6" :route="{path:'/activity/sign'}">
             <el-icon><Sunrise /></el-icon>
           <span>娱乐城</span>
         </el-menu-item>

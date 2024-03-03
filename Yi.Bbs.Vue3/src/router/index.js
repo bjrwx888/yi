@@ -130,6 +130,14 @@ const router = createRouter({
             title: "大转盘",
           },
         },
+        {
+          name: "bank",
+          path: "bank",
+          component: () => import("../views/bank/Index.vue"),
+          meta: {
+            title: "银行",
+          },
+        },
       ],
     },
     { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
