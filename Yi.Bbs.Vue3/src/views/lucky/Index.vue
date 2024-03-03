@@ -79,8 +79,22 @@ const startCallback = () => {
         // 假设后端返回的中奖索引是0
         // 调用stop停止旋转并传递中奖索引
       }, 3000)
+
+      try
+      {
+        const ddd=(await luckyWheel()).data;
+        console.log(ddd,"dd");
       index= (await luckyWheel()).data;
-      myLucky.value.stop(index)
+      }
+      catch
+      {
+
+      }
+      finally{
+
+        myLucky.value.stop(index)
+      }
+
 
    
     })
