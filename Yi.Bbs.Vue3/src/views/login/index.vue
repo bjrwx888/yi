@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="div-right">
-<p style="text-align: center;"> 300社区钱钱征求图片及背景</p>
+<img class="div-img" src="@/assets/login.png"/>
             </div>
 
            
@@ -61,7 +61,7 @@
   <!-- 注册 -->
         <div class="div-content" v-else>
             <div class="div-right-register">
-
+              <img class="div-img" src="@/assets/login.png"/>
             </div>
             <div class="div-left-register">
                 <div class="left-container">
