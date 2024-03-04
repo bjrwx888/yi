@@ -138,7 +138,6 @@ namespace Yi.Abp.Web
                 //options.TenantResolvers.RemoveAll(x => x.Name == CookieTenantResolveContributor.ContributorName);
             });
 
-
             //速率限制
             //每60秒限制100个请求，滑块添加，分6段
             service.AddRateLimiter(_ =>
