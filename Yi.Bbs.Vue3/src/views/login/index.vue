@@ -44,8 +44,8 @@
                     </div>
 
                     <div class="left-btn">
-                        <button class="btn-login" @click="login(loginFormRef)">登录</button>
-                        <button class="btn-reg" @click="handleRegister">前往注册</button>
+                        <button type="button" class="btn-login" @click="login(loginFormRef)">登录</button>
+                        <button type="button" class="btn-reg" @click="handleRegister">前往注册</button>
                     </div>
                     <div class="bottom-div">
                         <p>其他方式: <span @click="handleQQLogin"><img src="@/assets/login_images/qq-setting.png" alt="QQ" /></span> <span @click="handleGiteeLogin"><img src="@/assets/login_images/gitee-setting.png" alt="Gitee" /></span></p>
@@ -53,22 +53,15 @@
                 </div>
             </div>
             <div class="div-right">
-
+<img class="div-img" src="@/assets/login.png"/>
             </div>
 
-            <div class="div-bottom">
-                <span>备案：赣ICP备20008025号-3</span>
-                <span>站长：橙子</span>
-                <span @click="handleContact">联系我们</span>
-                <span>关于本站</span>
-                <span>建议反馈</span>
-                <span>原创站点</span>
-            </div>
+           
         </div>
   <!-- 注册 -->
         <div class="div-content" v-else>
             <div class="div-right-register">
-
+              <img class="div-img" src="@/assets/login.png"/>
             </div>
             <div class="div-left-register">
                 <div class="left-container">
@@ -92,39 +85,47 @@
                             <el-form-item prop="phone">
                             <div class="phone-code">
                                 <input class="phone-code-input" type="text" v-model.trim="registerForm.phone">
-                                <button class="phone-code-btn" @click="captcha">{{codeInfo}}</button>
+                                <button type="button" class="phone-code-btn" @click="captcha()">{{codeInfo}}</button>
                             </div>
                             </el-form-item>
                         </div>
                         <div class="input">
-                            <p>电话验证码</p>
-                            <el-form-item prop="code">
-                            <input type="text" v-model.trim="registerForm.code">
+                            <p>短信验证码</p>
+                            <el-form-item prop="code" >
+                            <input :disabled="!isDisabledCode" type="text" v-model.trim="registerForm.code">
                             </el-form-item>
                         </div>
                         <div class="input">
                             <p>密码</p>
                             <el-form-item prop="password">
-                            <input type="password" v-model.trim="registerForm.password">
+                            <input :disabled="!isDisabledCode" type="password" v-model.trim="registerForm.password">
                             </el-form-item>
                         </div>
                         <div class="input">
                             <p>确认密码</p>
                             <el-form-item>
-                            <input type="password" v-model.trim="passwordConfirm">
+                            <input :disabled="!isDisabledCode" type="password" v-model.trim="passwordConfirm">
                             </el-form-item>
                         </div>
                  
                     </div>
                     </el-form>
                     <div class="left-btn">
-                        <button class="btn-login" @click="register(registerFormRef)">注册</button>
-                        <button class="btn-reg" @click="handleSignInNow">前往登录</button>
+                        <button type="button" class="btn-login" @click="register(registerFormRef)">注册</button>
+                        <button type="button" class="btn-reg" @click="handleSignInNow">前往登录</button>
                     </div>
                 </div>
             </div>
        
         </div>
+        <div class="div-bottom">
+                <span>备案：赣ICP备20008025号-3</span>
+                <span>站长：橙子</span>
+                <span @click="handleContact">联系我们</span>
+                <span>关于本站</span>
+                <span>建议反馈</span>
+                <span>原创站点</span>
+            </div>
     </div>
 </template>
 <script setup>
@@ -227,6 +228,7 @@ const register = async (formEl) => {
 //验证码
 const codeInfo = ref("发送短信");
 const isDisabledCode = ref(false);
+
 const captcha = async () => {
   if (registerForm.phone !== "") {
     const { data } = await getCodePhone(registerForm.phone);
@@ -250,7 +252,7 @@ const captcha = async () => {
     }, 1000);
   } else {
     ElMessage({
-      message: `清先输入手机号`,
+      message: `请先输入手机号`,
       type: "warning",
     });
   }
