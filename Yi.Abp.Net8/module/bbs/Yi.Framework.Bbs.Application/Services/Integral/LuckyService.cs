@@ -16,6 +16,7 @@ namespace Yi.Framework.Bbs.Application.Services.Integral
 
         /// <summary>
         /// 大转盘
+        /// Todo: 可放入领域层
         /// </summary>
         /// <returns></returns>
         [Authorize]
