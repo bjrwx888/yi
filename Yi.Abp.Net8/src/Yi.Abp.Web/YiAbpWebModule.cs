@@ -59,7 +59,6 @@ namespace Yi.Abp.Web
             var configuration = context.Services.GetConfiguration();
             var host = context.Services.GetHostingEnvironment();
             var service = context.Services;
-
             //请求日志
             Configure<AbpAuditingOptions>(optios =>
             {
@@ -261,8 +260,12 @@ namespace Yi.Abp.Web
             //跨域
             app.UseCors(DefaultCorsPolicyName);
 
-            //速率限制
-            app.UseRateLimiter();
+            if (!env.IsDevelopment())
+            {
+                //速率限制
+                app.UseRateLimiter();
+            }
+
 
             //无感token，先刷新再鉴权
             app.UseRefreshToken();
