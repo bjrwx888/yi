@@ -165,7 +165,7 @@ namespace Yi.Abp.Web
                        (userAgent, _ =>
                            new SlidingWindowRateLimiterOptions
                            {
-                               PermitLimit = 100,
+                               PermitLimit = 1000,
                                Window = TimeSpan.FromSeconds(60),
                                SegmentsPerWindow = 6,
                                QueueProcessingOrder = QueueProcessingOrder.OldestFirst
