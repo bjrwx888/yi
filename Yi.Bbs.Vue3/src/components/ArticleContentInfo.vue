@@ -1,13 +1,18 @@
 <style scoped lang="scss">
-/*::v-dedp .markdown-body pre{
-    padding: 0 !important;
-}*/
-::v-deep  .pre-out
+@import '@/assets/atom-one-dark.css';
+@import '@/assets/github-markdown.css';
+
+::v-deep(.li-list){
+    list-style: inside !important;
+    //list-style: decimal !important;
+    
+}
+::v-deep(.pre-out)
 {
 padding: 0;
 overflow-x: hidden;
 }
-::v-deep .pre {
+::v-deep(.pre) {
     padding: 0;
     margin-bottom: 0;
     overflow-x: hidden;
@@ -53,7 +58,7 @@ overflow-x: hidden;
 
 }
 
-::v-deep .nav-ul {
+::v-deep(.nav-ul) {
     border-right: 1px solid #FFFFFF;
     margin-top: 12px;
     padding-left: 10px;
@@ -77,8 +82,7 @@ import { marked } from 'marked';
 
 import hljs from "highlight.js";
 //可以设置加载样式切换主题
-import '@/assets/atom-one-dark.css'
-import '@/assets/github-markdown.css'
+
 import {nextTick , ref, watch } from 'vue';
 const BREAK_LINE_REGEXP = /\r\n|\r|\n/g;
 
@@ -145,7 +149,6 @@ const navHandler = (code) => {
 const getLinesCount = (text) => {
     return (text.trim().match(BREAK_LINE_REGEXP) || []).length;
 }
-
 watch(props, (n, o) => {
     codeCopyDic=[];
     marked.setOptions({
@@ -168,7 +171,7 @@ watch(props, (n, o) => {
     );
     //需要注意代码块样式
    const soureHtml  = marked(n.code);
-    outputHtml.value= soureHtml.replace(/<pre>/g, '<pre class="pre-out">');
+    outputHtml.value= soureHtml.replace(/<pre>/g, '<pre class="pre-out">').replace(/<li>/g, '<li class="li-list">');
         nextTick(()=>{
             addCopyEvent();
         }) 
