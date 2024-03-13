@@ -16,9 +16,27 @@ namespace Yi.Framework.Bbs.Domain.Entities.Bank
     [SugarTable("BankCard")]
     public class BankCardEntity : Entity<Guid>, IHasCreationTime
     {
+        public BankCardEntity()
+        {
+        }
+
+        public BankCardEntity(Guid userId)
+        {
+            this.UserId = userId;
+        }
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }
         public DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// 上一次存款日期
+        /// </summary>
+        public DateTime? LastDepositTime { get; set; }
+
+        /// <summary>
+        /// 上一次取款日期
+        /// </summary>
+        public DateTime? LastDrawTime { get; set; }
 
         /// <summary>
         /// 用户id
@@ -40,16 +58,44 @@ namespace Yi.Framework.Bbs.Domain.Entities.Bank
         /// <summary>
         /// 满期限时间，可空
         /// </summary>
-        public DateTime? Fullterm { get; set; }
+        public DateTime? FulltermTime { get; set; }
 
 
-        
+
 
         /// <summary>
         /// 银行卡状态
         /// </summary>
         public BankCardStateEnum BankCardState { get; set; } = BankCardStateEnum.Unused;
 
+        public bool IsStorageFull()
+        {
+            if (FulltermTime is null)
+            {
+                return false;
+            }
+            return DateTime.Now >= FulltermTime;
+        }
+        public void SetDrawMoney()
+        {
+            this.BankCardState = BankCardStateEnum.Unused;
 
+            LastDrawTime = DateTime.Now;
+            this.FulltermTime = null;
+            this.StorageMoney = 0;
+        }
+        public void SetStorageMoney(decimal storageMoney)
+        {
+            if (storageMoney > MaxStorageMoney)
+            {
+                throw new UserFriendlyException($"存款数不能大于该卡的上限-【{MaxStorageMoney}】钱钱");
+            }
+
+            StorageMoney = storageMoney;
+
+            LastDepositTime = DateTime.Now;
+            FulltermTime = LastDepositTime + TimeSpan.FromDays(3);
+            this.BankCardState = BankCardStateEnum.Wait;
+        }
     }
 }

@@ -20,8 +20,8 @@ namespace Yi.Framework.Bbs.Domain.Entities.Bank
         public InterestRecordsEntity(decimal inputValue, bool isFluctuate, decimal oldValue = 0)
         {
             //这里写好根据数据的值，以及是否要波动期，进行得出真是利息
-
-
+            //有了老值和新值，我们可以根据这个变化程度去做一个涨幅或跌幅，Todo
+            Value=inputValue;
         }
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }

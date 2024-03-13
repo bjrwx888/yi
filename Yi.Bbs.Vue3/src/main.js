@@ -8,8 +8,7 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import "element-plus/dist/index.css";
 import "./assets/main.css";
 import "@/assets/styles/index.scss"; // global css
-import '@/assets/atom-one-dark.css'
-import '@/assets/github-markdown.css'
+
 
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import directive from "./directive"; // directive
