@@ -92,7 +92,6 @@ const props = defineProps(['code'])
 let codeCopyDic=[];
 const addCopyEvent=()=>{
     const copySpans = document.querySelectorAll('.copy');
-console.log(copySpans,"copySpans");
 // 为每个 copy span 元素添加点击事件
 copySpans.forEach(span => {
     

@@ -1,7 +1,6 @@
 <template>
     <div>
     <div class="rate v-chart"  ref="statis">
-        银行利息利息趋势图
     </div>
    
     

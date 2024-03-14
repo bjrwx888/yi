@@ -10,7 +10,10 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Bank
 {
     public class BankCardDto:EntityDto<Guid>
     {
-
+        /// <summary>
+        /// 满期限时间，可空
+        /// </summary>
+        public DateTime? FulltermTime { get; set; }
         public DateTime? LastDepositTime { get; set; }
         public DateTime CreationTime { get; set; }
 
@@ -31,10 +34,6 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Bank
         public decimal MaxStorageMoney { get; set; }
 
 
-        /// <summary>
-        /// 满期限时间，可空
-        /// </summary>
-        public DateTime? Fullterm { get; set; }
 
         /// <summary>
         /// 银行卡状态

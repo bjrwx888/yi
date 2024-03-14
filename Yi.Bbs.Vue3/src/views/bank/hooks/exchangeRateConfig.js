@@ -1,6 +1,6 @@
 export const exchangeRateConfig ={
   title: {
-    text: '银行利息趋势图'
+    text: '银行利息趋势图-（暂未开放）'
   },
   tooltip: {
     trigger: 'axis'

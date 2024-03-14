@@ -27,7 +27,7 @@
     <el-menu-item index="5" :route="{ path: '/activity/bank' }">
       <el-icon>
         <Money />
-      </el-icon> <span>银行(即将开放)</span>
+      </el-icon> <span>银行</span>
     </el-menu-item>
     <el-menu-item index="6" :route="{ path: '/activity/x' }">
       <el-icon>
@@ -40,10 +40,10 @@
 </template>
 <script setup>
 const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
+  //console.log(key, keyPath)
 }
 const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
+ // console.log(key, keyPath)
 }
 </script>
 <style lang="scss" scoped>

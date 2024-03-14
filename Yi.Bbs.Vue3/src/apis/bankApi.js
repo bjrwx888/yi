@@ -29,13 +29,12 @@ export function applyingBankCard() {
 export function drawMoney(cardId) {
   return request({
     url: `/bank/draw/${cardId}`,
-    method: "put",
-    data: data,
+    method: "put"
   });
 }
 
 // 存款
-export function delUser(cardId,moneyNum) {
+export function depositMoney(cardId,moneyNum) {
   return request({
     url: `/bank/deposit/${cardId}/${moneyNum}`,
     method: "put"
