@@ -43,7 +43,7 @@ namespace Yi.Framework.Bbs.Application.Services.Bank
         [HttpGet("bank")]
         public async Task<List<BankCardDto>> GetBankCardListAsync()
         {
-            var entities = await _repository._DbQueryable.OrderBy(x=>x.CreationTime).ToListAsync(x => x.UserId == CurrentUser.Id);
+            var entities = await _repository._DbQueryable.Where(x => x.UserId == CurrentUser.Id).OrderBy(x=>x.CreationTime).ToListAsync();
             var output = entities.Adapt<List<BankCardDto>>();
             return output;
         }
