@@ -1,30 +1,58 @@
 ﻿using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
 using Yi.Framework.Bbs.Domain.Entities.Bank;
+using Yi.Framework.Bbs.Domain.Managers.BankValue;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
+using Yi.Framework.Rbac.Domain.Shared.Dtos;
 using Yi.Framework.SqlSugarCore.Abstractions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Yi.Framework.Bbs.Domain.Managers
 {
+    /// <summary>
+    /// 银行领域，进阶了哦~
+    /// </summary>
     public class BankManager : DomainService
     {
         private ISqlSugarRepository<BankCardEntity> _repository;
         private ILocalEventBus _localEventBus;
         private ISqlSugarRepository<InterestRecordsEntity> _interestRepository;
-        public BankManager(ISqlSugarRepository<BankCardEntity> repository, ILocalEventBus localEventBus, ISqlSugarRepository<InterestRecordsEntity> interestRepository)
+        private IBankValueProvider _bankValueProvider;
+        public BankManager(ISqlSugarRepository<BankCardEntity> repository, ILocalEventBus localEventBus, ISqlSugarRepository<InterestRecordsEntity> interestRepository, IBankValueProvider bankValueProvider)
         {
             _repository = repository;
             _localEventBus = localEventBus;
             _interestRepository = interestRepository;
+            _bankValueProvider=bankValueProvider;
         }
 
-        public decimal CurrentInterestRate => GetCurrentInterestRate();
-        private decimal GetCurrentInterestRate()
+        /// <summary>
+        /// 获取当前银行汇率
+        /// </summary>
+        public BankInterestRecordDto CurrentRate => GetCurrentInterestRate();
+
+        /// <summary>
+        /// 用于存储当前汇率数据
+        /// </summary>
+        private BankInterestRecordDto? _currentRateStore;
+
+        /// <summary>
+        /// 获取当前的银行汇率，如果为空会从数据库拿最新一条
+        /// </summary>
+        /// <returns></returns>
+        private BankInterestRecordDto GetCurrentInterestRate()
         {
+            var output = new BankInterestRecordDto();
             //先判断时间是否与当前时间差1小时，小于1小时直接返回即可,可以由一个单例类提供
-            GetThirdPartyValue();
-            return 1.30m;
+            if (this._currentRateStore is null || this._currentRateStore.IsExpire())
+            {
+                var currentInterestRecords = CreateInterestRecordsAsync().Result;
+                output.ComparisonValue = currentInterestRecords.ComparisonValue;
+                output.CreationTime = currentInterestRecords.CreationTime;
+                output.Value = currentInterestRecords.Value;
+            }
+            return output;
         }
 
         /// <summary>
@@ -33,27 +61,63 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <returns></returns>
         private decimal GetThirdPartyValue()
         {
-            return 0;
+            return _bankValueProvider.GetValueAsync().Result;
         }
 
         /// <summary>
-        /// 创建一个记录
+        /// 强制创建一个记录，不管时间到没到
         /// </summary>
         /// <returns></returns>
         public async Task<InterestRecordsEntity> CreateInterestRecordsAsync()
         {
             //获取最新的实体
-            var newEntity = await _interestRepository._DbQueryable.OrderByDescending(x => x.CreationTime).FirstAsync();
+            var lastEntity = await _interestRepository._DbQueryable.OrderByDescending(x => x.CreationTime).FirstAsync();
             decimal oldValue = 1.3m;
-            if (newEntity is not null)
+
+            //获取第三方的值
+            var thirdPartyValue = GetThirdPartyValue();
+
+            //获取上一次第三方标准值
+            var lastThirdPartyStandardValue = thirdPartyValue;
+
+
+            //获取实际值的变化率
+            decimal changeRate = 0;
+            //说明不是第一次
+            if (lastEntity is not null)
             {
-                oldValue = newEntity.Value;
+                oldValue = lastEntity.Value;
+                lastThirdPartyStandardValue = lastEntity.ComparisonValue;
+                changeRate = (thirdPartyValue - lastThirdPartyStandardValue) / (thirdPartyValue);
             }
-            var currentValue = GetThirdPartyValue();
-            var entity = new InterestRecordsEntity(currentValue, false, oldValue);
+
+            //判断市场是否波动
+            bool isFluctuate = IsMarketVolatility();
+            //市场波动
+            if (isFluctuate)
+            {
+                changeRate = 2 * changeRate;
+            }
+
+
+            //根据上一次的老值进行变化率比较
+            var currentValue = oldValue * changeRate;
+
+            var entity = new InterestRecordsEntity(lastThirdPartyStandardValue, currentValue);
             var output = await _interestRepository.InsertReturnEntityAsync(entity);
 
             return output;
+        }
+
+        /// <summary>
+        /// 判断是否为波动市场,市场波动，变化率翻倍
+        /// </summary>
+        /// <returns></returns>
+        private static bool IsMarketVolatility()
+        {
+            double probability = 0.1;
+            Random random = new Random();
+            return random.NextDouble() < probability;
         }
 
         /// <summary>
@@ -92,7 +156,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 //判断是否存满时间
                 if (entity.IsStorageFull())
                 {
-                    changeMoney = this.CurrentInterestRate * entity.StorageMoney;
+                    changeMoney = this.CurrentRate.Value * entity.StorageMoney;
                 }
                 else
                 {

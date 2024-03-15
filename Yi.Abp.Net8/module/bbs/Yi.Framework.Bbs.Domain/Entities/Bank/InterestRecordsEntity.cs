@@ -17,15 +17,20 @@ namespace Yi.Framework.Bbs.Domain.Entities.Bank
     {
         public InterestRecordsEntity()
         { }
-        public InterestRecordsEntity(decimal inputValue, bool isFluctuate, decimal oldValue = 0)
+        public InterestRecordsEntity(decimal comparisonValue, decimal inputValue, bool isFluctuate = false)
         {
-            //这里写好根据数据的值，以及是否要波动期，进行得出真是利息
-            //有了老值和新值，我们可以根据这个变化程度去做一个涨幅或跌幅，Todo
-            Value=inputValue;
+            ComparisonValue = comparisonValue;
+            Value = inputValue;
+            IsFluctuate = isFluctuate;
         }
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }
         public DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// 第三方的比较值
+        /// </summary>
+        public decimal ComparisonValue { get; set; }
 
         /// <summary>
         /// 当前汇率值
