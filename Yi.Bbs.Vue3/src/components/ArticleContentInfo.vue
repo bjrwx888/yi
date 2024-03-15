@@ -1,6 +1,4 @@
 <style scoped lang="scss">
-@import '@/assets/atom-one-dark.css';
-@import '@/assets/github-markdown.css';
 
 ::v-deep(.li-list){
     list-style: inside !important;
@@ -79,7 +77,8 @@ overflow-x: hidden;
   
 <script setup>
 import { marked } from 'marked';
-
+import '@/assets/atom-one-dark.css';
+import '@/assets/github-markdown.css';
 import hljs from "highlight.js";
 //可以设置加载样式切换主题
 
