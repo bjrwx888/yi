@@ -1,6 +1,6 @@
 export const exchangeRateConfig ={
   title: {
-    text: '银行利息趋势图-（暂未开放）'
+    text: '银行利息趋势图'
   },
   tooltip: {
     trigger: 'axis'
@@ -26,7 +26,7 @@ export const exchangeRateConfig ={
   yAxis: {
     type: 'value',
     axisLabel: {
-      formatter: '{value} 率'
+      formatter: '{value} %'
     }
   },
   series: [

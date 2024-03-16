@@ -51,6 +51,10 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 output.ComparisonValue = currentInterestRecords.ComparisonValue;
                 output.CreationTime = currentInterestRecords.CreationTime;
                 output.Value = currentInterestRecords.Value;
+
+                _currentRateStore=new BankInterestRecordDto() { ComparisonValue= currentInterestRecords .ComparisonValue,
+                CreationTime=currentInterestRecords.CreationTime,Value=currentInterestRecords.Value};
+
             }
             return output;
         }
@@ -101,7 +105,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
 
 
             //根据上一次的老值进行变化率比较
-            var currentValue = oldValue * changeRate;
+            var currentValue = oldValue + (oldValue* changeRate);
 
             var entity = new InterestRecordsEntity(lastThirdPartyStandardValue, currentValue);
             var output = await _interestRepository.InsertReturnEntityAsync(entity);

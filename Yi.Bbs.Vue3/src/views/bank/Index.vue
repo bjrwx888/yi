@@ -4,7 +4,7 @@
     <div>
       <ExchangeRate :option="statisOptions" />
       <div class="div-show">
-        <p class="p-rate">当前实时利息：<span>130%</span>（可获取投入的百分之130%的本金）</p>
+        <p class="p-rate">当前实时利息：<span>{{currentRate}}%</span>（可获取投入的百分之{{currentRate}}的本金）</p>
         <el-button type="primary" @click="applying()"><el-icon>
             <AddLocation />
           </el-icon>申领银行卡</el-button>
@@ -65,9 +65,11 @@ const refreshData = async () => {
     bankCardList.value = data;
   }
 
-  const { data2: data } = await getInterestList();
-  interestList.value = data;
+  const { data: data2 } = await getInterestList();
+  interestList.value = data2;
 }
+
+
 
 onMounted(async () => {
   await refreshData();
@@ -137,14 +139,26 @@ const sendDeposit = async () => {
         message: '钱钱提款成功',
       })
 }
+
+const getHours=(timeString)=>{
+  const date = new Date(timeString);
+  return date.getHours();
+}
+
+const currentRate=computed(()=>{
+ return (interestList.value.map(x=>x.value).slice(-1)[0])*100
+})
+
+
+
 const statisOptions = computed(() => {
 
   return {
     xAxis: {
-      data: ['1时', '2时', '3时', '4时', '5时', '6时', '7时', '1时', '2时', '3时', '4时', '5时', '6时', '7时', '5时', '6时', '7时', '1时', '2时', '3时', '4时', '5时', '6时', '7时']
+      data:interestList.value.map(x=>getHours(x.creationTime)+"时")
     },
     series: {
-      data: [10, 6, 13, 11, 12, 12, 9, 10, 11, 13, 11, 8, 14, 9, 12, 12, 9, 10, 11, 13, 11, 8, 14, 9]
+      data: interestList.value.map(x=>(x.value*100))
     },
   };
 });

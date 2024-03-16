@@ -13,14 +13,15 @@ namespace Yi.Framework.Bbs.Application.Jobs
             JobDetail = JobBuilder.Create<InterestRecordsJob>().WithIdentity(nameof(InterestRecordsJob)).Build();
 
             //每个小时整点执行一次
-            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob)).WithCronSchedule("0 */1 * * *").Build();
+
+            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob)).WithCronSchedule("* 0 * * * ?").Build();
 
             //测试
-            //            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob))
-            //.WithSimpleSchedule(x => x
-            //    .WithIntervalInSeconds(5)
-            //    .RepeatForever())
-            //.Build();
+//            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob))
+//.WithSimpleSchedule(x => x
+//    .WithIntervalInSeconds(10)
+//    .RepeatForever())
+//.Build();
         }
         public override async Task Execute(IJobExecutionContext context)
         {
