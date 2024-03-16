@@ -14,7 +14,7 @@ namespace Yi.Framework.Bbs.Application.Jobs
 
             //每个小时整点执行一次
 
-            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob)).WithCronSchedule("* 0 * * * ?").Build();
+            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob)).WithCronSchedule("0 0 * * * ?").Build();
 
             //测试
 //            Trigger = TriggerBuilder.Create().WithIdentity(nameof(InterestRecordsJob))
