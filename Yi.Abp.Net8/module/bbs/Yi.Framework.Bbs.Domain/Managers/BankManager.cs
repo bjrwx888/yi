@@ -91,8 +91,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             if (lastEntity is not null)
             {
                 oldValue = lastEntity.Value;
-                lastThirdPartyStandardValue = lastEntity.ComparisonValue;
-                changeRate = (thirdPartyValue - lastThirdPartyStandardValue) / (thirdPartyValue);
+                changeRate = (thirdPartyValue - lastEntity.ComparisonValue) / (thirdPartyValue);
             }
 
             //判断市场是否波动
