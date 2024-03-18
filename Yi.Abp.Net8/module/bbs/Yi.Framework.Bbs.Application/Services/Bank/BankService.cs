@@ -30,8 +30,8 @@ namespace Yi.Framework.Bbs.Application.Services.Bank
         [HttpGet("bank/interest")]
         public async Task<List<InterestRecordsDto>> GetInterestRecordsAsync()
         {
-            var entities = await _interestRepository._DbQueryable.OrderBy(x => x.CreationTime).ToPageListAsync(1, 24);
-            var output = entities.Adapt<List<InterestRecordsDto>>();
+            var entities = await _interestRepository._DbQueryable.OrderByDescending(x => x.CreationTime).ToPageListAsync(1, 24);
+            var output = entities.Adapt<List<InterestRecordsDto>>().OrderBy(x=>x.CreationTime).ToList();
             return output;
         }
 
