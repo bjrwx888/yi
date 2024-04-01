@@ -121,11 +121,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.CodeGen.SqlSug
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{8B27846A-043D-4F2F-8140-5CEC9D1863B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Abp.HttpApi.Client", "client\Yi.Abp.HttpApi.Client\Yi.Abp.HttpApi.Client.csproj", "{6B554DCC-3A81-4624-9141-4E39365ADA35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Abp.HttpApi.Client", "client\Yi.Abp.HttpApi.Client\Yi.Abp.HttpApi.Client.csproj", "{6B554DCC-3A81-4624-9141-4E39365ADA35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Abp.Client.Console", "client\Yi.Abp.Client.Console\Yi.Abp.Client.Console.csproj", "{2D23B44A-DFA3-4C36-8516-4F5AE442403C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Abp.Client.Console", "client\Yi.Abp.Client.Console\Yi.Abp.Client.Console.csproj", "{2D23B44A-DFA3-4C36-8516-4F5AE442403C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Abp.Client.WebApi", "client\Yi.Abp.Client.WebApi\Yi.Abp.Client.WebApi.csproj", "{00E49781-C6A0-491C-86A1-46F685C90915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Abp.Client.WebApi", "client\Yi.Abp.Client.WebApi\Yi.Abp.Client.WebApi.csproj", "{00E49781-C6A0-491C-86A1-46F685C90915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
