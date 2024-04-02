@@ -14,7 +14,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import directive from "./directive"; // directive
 import VueLuckyCanvas from '@lucky-canvas/vue'
 
-import "./permission";
+// import "./permission";
 
 (async () => {
   const app = createApp(App);
