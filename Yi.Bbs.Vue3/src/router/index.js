@@ -143,14 +143,14 @@ const router = createRouter({
     },
 
     {
-      path: "/chat",
-      name: "chat",
+      path: "/hub",
+      name: "hub",
       component: ChatLayout,
-      redirect: "/chat/main",
+      redirect: "/chat",
       children: [
         {
           name: "main",
-          path: "main",
+          path: "/chat",
           component: () => import("../views/chathub/Index.vue"),
           meta: {
             title: "聊天室",
