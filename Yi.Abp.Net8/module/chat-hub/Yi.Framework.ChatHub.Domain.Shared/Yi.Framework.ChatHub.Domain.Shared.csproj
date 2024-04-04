@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\..\common.props" />
+	<ItemGroup>
+	  <Folder Include="Caches\" />
+	  <Folder Include="Consts\" />
+	  <Folder Include="Enums\" />
+	  <Folder Include="Etos\" />
+	  <Folder Include="Model\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)" />
+	</ItemGroup>
+</Project>

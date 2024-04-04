@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\..\common.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.ChatHub.Domain.Shared\Yi.Framework.ChatHub.Domain.Shared.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+
+
+		<PackageReference Include="Volo.Abp.AspNetCore.SignalR" Version="$(AbpVersion)" />
+
+		<PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)" />
+		<PackageReference Include="Volo.Abp.Caching" Version="$(AbpVersion)" />
+
+
+	</ItemGroup>
+
+	<ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="EventHandlers\" />
+    <Folder Include="Managers\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+</Project>
