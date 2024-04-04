@@ -1,6 +1,19 @@
+<script setup>
+import { onMounted, ref,computed } from 'vue';
+import {storeToRefs} from 'pinia'
+import {getList as getChatUserList} from '@/apis/chatUserApi'
+import useChatStore from "@/stores/chat";
+const chatStore=useChatStore();
+const {userList} =storeToRefs(chatStore);
+
+onMounted(async()=>{
+  chatStore.setUserList((await getChatUserList()).data);
+})
+
+</script>
+
 <template>
   <div class="body">
-
     <div class="left">
       <div class="icon">
         <img src="@/assets/chat_images/icon.jpg">
@@ -38,8 +51,8 @@
           <div class="user-div-left">
             <img src="@/assets/chat_images/friendicon.jpg" />
             <div class="user-name-msg">
-              <p class="font-name">橙子</p>
-              <p class="font-msg">现在感觉怎么样</p>
+              <p class="font-name">官方学习交流群</p>
+              <p class="font-msg">冲冲冲</p>
             </div>
           </div>
           <div class=" user-div-right">
@@ -49,17 +62,16 @@
         </div>
 
 
-        <div v-for="i in 100" :key="i" class="user-div">
+        <div v-for="(item,i) in userList" :key="i" class="user-div">
           <div class="user-div-left">
             <img src="@/assets/chat_images/friendicon.jpg" />
             <div class="user-name-msg">
-              <p class="font-name">橙子</p>
+              <p class="font-name">{{item.userName}}</p>
               <p class="font-msg">现在感觉怎么样</p>
             </div>
           </div>
           <div class=" user-div-right">
             10:28
-
           </div>
         </div>
       </div>

@@ -4,6 +4,14 @@
 <RouterView />
     </div>
 </template>
+<script setup>
+import {onMounted} from "vue";
+import chatHub from "@/hubs/chatHub.js";
+onMounted(async () => {
+    chatHub();
+});
+
+</script>
 <style scoped>
 .chat-body
 {
