@@ -5,16 +5,15 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using Volo.Abp.AspNetCore.SignalR;
 using Volo.Abp.Caching;
-using Volo.Abp.DependencyInjection;
-using Yi.Framework.ChatHub.Application.Contracts.Dtos;
 using Yi.Framework.ChatHub.Domain.Shared.Caches;
 using Yi.Framework.ChatHub.Domain.Shared.Consts;
+using Yi.Framework.ChatHub.Domain.Shared.Model;
 
-namespace Yi.Framework.ChatHub.Application.SignalRHubs
+namespace Yi.Framework.ChatHub.Domain.SignalRHubs
 {
     [HubRoute("/hub/chat")]
     [Authorize]
-    public class ChatHub : AbpHub
+    public class ChatCenterHub : AbpHub
     {
         /// <summary>
         /// 使用懒加载防止报错
@@ -24,7 +23,7 @@ namespace Yi.Framework.ChatHub.Application.SignalRHubs
         /// 缓存前缀
         /// </summary>
         private string CacheKeyPrefix => LazyServiceProvider.LazyGetRequiredService<IOptions<AbpDistributedCacheOptions>>().Value.KeyPrefix;
-        public ChatHub()
+        public ChatCenterHub()
         {
         }
 
@@ -48,7 +47,7 @@ namespace Yi.Framework.ChatHub.Application.SignalRHubs
 
             //连接时，还需要去查询用户包含在的群组，将群主全部加入.Todo
             await Groups.AddToGroupAsync(Context.ConnectionId, ChatConst.AllGroupName);
-            await Clients.All.SendAsync("liveUser", item.Adapt<ChatUserGetListOutputDto>());
+            await Clients.All.SendAsync("liveUser", item.Adapt<ChatUserModel>());
 
 
         }

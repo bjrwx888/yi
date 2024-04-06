@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.ChatHub.Application.Contracts.Dtos
+namespace Yi.Framework.ChatHub.Domain.Shared.Model
 {
-    public class ChatUserGetListOutputDto
+    public class ChatUserModel
     {
         /// <summary>
         /// 用户id
@@ -22,5 +22,6 @@ namespace Yi.Framework.ChatHub.Application.Contracts.Dtos
         /// 用户头像
         /// </summary>
         public string UserIcon { get; set; }
+
     }
 }

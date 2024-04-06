@@ -1,25 +1,28 @@
 import { defineStore } from "pinia";
-
 const chatStore = defineStore("chat", {
   state: () => ({
     userList: [],
+    msgList: []
   }),
-//   getters: {
-//     userListData: (state) => state.userList,
-//   },
-  actions: {
-    // 设置在线总数
+    getters: {
+      allMsgContext: (state) => state.msgList.filter(x=>x.messageType=="All"),
+      personalMsgContext: (state) => state.msgList.filter(x=>x.messageType=="Personal"),
+    },
+  actions:
+  {
+    setMsgList(value) {
+      this.msgList = value;
+    },
+    addMsg(msg) {
+      this.msgList.push(msg);
+    },
     setUserList(value) {
       this.userList = value;
     },
-    addUser(user)
-    {
-
+    addUser(user) {
       this.userList.push(user);
     },
-    delUser(userId)
-    {
-
+    delUser(userId) {
       this.userList = this.userList.filter(obj => obj.userId != userId);
     }
   },

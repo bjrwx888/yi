@@ -13,7 +13,7 @@ const receiveMsg = (connection) => {
     });
     //接受其他用户消息
     connection.on("receiveMsg", (type, content) => {
-
+        chatStore.addMsg(content);
     });
     //用户状态-正在输入中，无
     connection.on("userStatus", (type) => {
