@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Yi.Framework.ChatHub.Domain.Shared.Enums;
 
 namespace Yi.Framework.ChatHub.Domain.Shared.Model
 {
@@ -11,12 +12,12 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
     {
         public static MessageContext CreatePersonal(string content, Guid userId,Guid sendUserId)
         {
-            return new MessageContext() { MessageType = MessageType.Personal, Content = content, ReceiveId = userId ,SendUserId= sendUserId };
+            return new MessageContext() { MessageType = MessageTypeEnum.Personal, Content = content, ReceiveId = userId ,SendUserId= sendUserId };
         }
 
         public static MessageContext CreateAll(string content, Guid sendUserId)
         {
-            return new MessageContext() { MessageType = MessageType.All, Content = content, SendUserId = sendUserId };
+            return new MessageContext() { MessageType = MessageTypeEnum.All, Content = content, SendUserId = sendUserId };
         }
 
 
@@ -24,7 +25,7 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
         /// 消息类型
         /// </summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public MessageType MessageType { get; set; }
+        public MessageTypeEnum MessageType { get; set; }
         /// <summary>
         /// 接收者(用户id、群组id)
         /// </summary>
@@ -38,14 +39,8 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
         /// 消息内容
         /// </summary>
         public string Content { get; set; }
-
+        public DateTime CreationTime { get;protected set; }=DateTime.Now;
     }
 
-    public enum MessageType
-    {
 
-        Personal,
-        Group,
-        All
-    }
 }

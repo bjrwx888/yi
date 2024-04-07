@@ -2,6 +2,7 @@
 	<Import Project="..\..\..\common.props" />
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\Yi.Framework.SqlSugarCore.Abstractions\Yi.Framework.SqlSugarCore.Abstractions.csproj" />
     <ProjectReference Include="..\Yi.Framework.ChatHub.Domain.Shared\Yi.Framework.ChatHub.Domain.Shared.csproj" />
   </ItemGroup>
 
@@ -16,7 +17,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="EventHandlers\" />
     <Folder Include="Repositories\" />
   </ItemGroup>

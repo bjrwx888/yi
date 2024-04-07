@@ -20,7 +20,10 @@ const receiveMsg = (connection) => {
 
     });
 };
-export default () => {
+export  function start(){
     signalR.start(`chat`, receiveMsg);
+}
+export function close(){
+    signalR.SR.stop();
 }
 

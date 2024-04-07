@@ -1,11 +1,15 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { storeToRefs } from 'pinia'
+import useAuths from '@/hooks/useAuths.js';
 import { getList as getChatUserList } from '@/apis/chatUserApi'
-import { sendPersonalMessage,sendGroupMessage } from '@/apis/chatMessageApi'
+import { sendPersonalMessage, sendGroupMessage, getAccountList as getChatAccountMessageList } from '@/apis/chatMessageApi'
 import useChatStore from "@/stores/chat";
 import useUserStore from "@/stores/user";
+const { isLogin } = useAuths();
+import { useRouter } from 'vue-router'
 
+const router = useRouter();
 //聊天存储
 const chatStore = useChatStore();
 const { userList } = storeToRefs(chatStore);
@@ -13,7 +17,7 @@ const { userList } = storeToRefs(chatStore);
 //用户信息
 const userStore = useUserStore();
 //发送消息是否为空
-const msgIsNullShow=ref(false)
+const msgIsNullShow = ref(false)
 //当前选择用户
 const currentSelectUser = ref(null);
 //当前输入框的值
@@ -31,23 +35,37 @@ const currentMsgContext = computed(() => {
       //两个条件
       //接收用户者id为对面id（我发给他）
       //或者，发送用户id为对面（他发给我）
-      return (x.receiveId == currentSelectUser.value.userId && x.sendUserId == userStore.id)||
-      (x.sendUserId == currentSelectUser.value.userId && x.receiveId == userStore.id);
+      return (x.receiveId == currentSelectUser.value.userId && x.sendUserId == userStore.id) ||
+        (x.sendUserId == currentSelectUser.value.userId && x.receiveId == userStore.id);
     });
   }
 });
+
 
 //当前聊天框显示的名称
 const currentHeaderName = computed(() => {
   return currentSelectUser.value == null ? "官方学习交流群" : currentSelectUser.value.userName;
 });
 const currentUserItem = computed(() => {
-  return userList.value.filter(x=>x.userId!=useUserStore().id)
+  return userList.value.filter(x => x.userId != useUserStore().id)
 });
 
 
 //初始化
 onMounted(async () => {
+  console.log(isLogin.value, "isLogin");
+  if (!isLogin.value) {
+    ElMessage({
+      message: '该功能，请登录后使用！即将自动跳转',
+      type: 'warning',
+    })
+    setTimeout(function () {
+      onclickClose();
+    }, 3000);
+
+
+  }
+  chatStore.setMsgList((await getChatAccountMessageList()).data);
   chatStore.setUserList((await getChatUserList()).data);
 })
 
@@ -103,16 +121,14 @@ const onclickUserItem = (userInfo, isAllItem) => {
 
 //点击发送按钮
 const onclickSendMsg = () => {
-  console.log(currentInputValue.value ,"currentInputValue.value");
-if(currentInputValue.value=="")
-{
-  msgIsNullShow.value=true;
-  setTimeout(() => {
+  if (currentInputValue.value == "") {
+    msgIsNullShow.value = true;
+    setTimeout(() => {
       // 这里写上你想要3秒后执行的代码
-      msgIsNullShow.value=false;
+      msgIsNullShow.value = false;
     }, 3000);
-  return;
-}
+    return;
+  }
 
   if (selectIsAll()) {
     onclickSendGroupMsg("all", currentInputValue.value);
@@ -132,8 +148,16 @@ const onclickSendPersonalMsg = (receiveId, msg) => {
     content: msg,
     receiveId: receiveId
   });
-  sendPersonalMessage({userId:receiveId,content:msg});
+  sendPersonalMessage({ userId: receiveId, content: msg });
   //调用接口发送消息
+}
+
+const onclickClose = () => {
+  router.push({ path: "/index" })
+    .then(() => {
+      // 重新刷新页面
+      location.reload()
+    })
 }
 
 //点击发送群组消息按钮
@@ -147,17 +171,40 @@ const onclickSendGroupMsg = (groupName, msg) => {
     //   content: msg
     // });
     //调用接口发送消息
-    sendGroupMessage({content:msg});
+    sendGroupMessage({ content: msg });
   }
   else {
     alert("暂未实现");
   }
 }
+
+
+//获取当前最后一条信息
+const getLastMessage = ((receiveId, isAll) => {
+  if (isAll) {
+    return chatStore.allMsgContext[chatStore.allMsgContext.length - 1]?.content;
+  } else {
+    const messageContext = chatStore.personalMsgContext.filter(x => {
+      //两个条件
+      //接收用户者id为对面id（我发给他）
+      //或者，发送用户id为对面（他发给我）
+      return (x.receiveId == receiveId && x.sendUserId == userStore.id) ||
+        (x.sendUserId == receiveId && x.receiveId == userStore.id);
+    });
+    return messageContext[messageContext.length - 1]?.content;
+  }
+
+})
 </script>
 
 <template>
-
+    <div style="position: absolute; top: 0;left: 0;">
+      <p>当前版本：1.0.0</p>
+      <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
+      <p>tip:点击聊天窗口右上角“X”可退出</p>
+    </div>
   <div class="body">
+
     <div class="left">
       <div class="icon">
         <img src="@/assets/chat_images/icon.jpg">
@@ -197,7 +244,7 @@ const onclickSendGroupMsg = (groupName, msg) => {
             <img src="@/assets/chat_images/yilogo.png" />
             <div class="user-name-msg">
               <p class="font-name">官方学习交流群</p>
-              <p class="font-msg">冲冲冲</p>
+              <p class="font-msg">{{ getLastMessage(null, true) }}</p>
             </div>
           </div>
           <div class=" user-div-right">
@@ -213,7 +260,7 @@ const onclickSendGroupMsg = (groupName, msg) => {
             <img src="@/assets/chat_images/friendicon.jpg" />
             <div class="user-name-msg">
               <p class="font-name">{{ item.userName }}</p>
-              <p class="font-msg">现在感觉怎么样</p>
+              <p class="font-msg">{{ getLastMessage(item.userId, false) }}</p>
             </div>
           </div>
           <div class=" user-div-right">
@@ -232,7 +279,7 @@ const onclickSendGroupMsg = (groupName, msg) => {
               <li><img src="@/assets/chat_images/fixed.png" /></li>
               <li><img src="@/assets/chat_images/min.png" /></li>
               <li><img src="@/assets/chat_images/max.png" /></li>
-              <li><img src="@/assets/chat_images/close.png" /></li>
+              <li style="cursor: pointer;" @click="onclickClose"><img src="@/assets/chat_images/close.png" /></li>
             </ul>
           </div>
           <div class="more"><img src="@/assets/chat_images/other2.png" /></div>
@@ -244,6 +291,7 @@ const onclickSendGroupMsg = (groupName, msg) => {
       <div class="content">
         <div v-for="(item, i) in currentMsgContext" :key="i">
           <div class="content-myself content-common" v-if="item.sendUserId == userStore.id">
+            <!-- Todo... 结合用户体系<div>{{item}}</div> -->
             <div class="content-myself-msg content-msg-common ">{{ item.content }}</div>
             <img src="@/assets/chat_images/icon.jpg" />
           </div>
@@ -276,7 +324,8 @@ const onclickSendGroupMsg = (groupName, msg) => {
         <!-- <div class="bottom-input" contenteditable="true"  @input="updateInputValue">
 
         </div> -->
-        <textarea class="bottom-input" v-model="currentInputValue" @input="updateInputValue" @keyup.enter="onclickSendMsg()">
+        <textarea class="bottom-input" v-model="currentInputValue" @input="updateInputValue"
+          @keyup.enter="onclickSendMsg()">
 
 </textarea>
         <div class="bottom-send">
@@ -489,6 +538,7 @@ const onclickSendGroupMsg = (groupName, msg) => {
     /* 只启用垂直方向滚动条 */
     height: 555px;
     padding: 20px 40px;
+
   }
 
   .bottom {
@@ -689,33 +739,35 @@ const onclickSendGroupMsg = (groupName, msg) => {
   border-right: 10px solid #FFFFFF;
 
 }
-.msg-null{
+
+.msg-null {
   width: 140px;
-    height: 41px;
-    background-color: #FFFFFF;
-    position: relative;
-    left: 132px;
-    bottom: 60px;
-    border-radius: 5px;
-    // border: 2px solid #E5E5E5;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    font-size: 14px;
+  height: 41px;
+  background-color: #FFFFFF;
+  position: relative;
+  left: 132px;
+  bottom: 60px;
+  border-radius: 5px;
+  // border: 2px solid #E5E5E5;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 14px;
 }
+
 .msg-null:after {
   /* 箭头靠下边 */
   content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    top: 40px;
-    left: 80px;
-    border-top: 10px solid #FFFFFF;
-    border-bottom: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 40px;
+  left: 80px;
+  border-top: 10px solid #FFFFFF;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
 
 }
 </style>

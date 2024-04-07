@@ -15,4 +15,10 @@ export function sendGroupMessage(data) {
       data
     });
   }
+  export function getAccountList() {
+    return request({
+      url: "/chat-message/account",
+      method: "get"
+    });
+  }
   

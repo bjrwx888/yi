@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\..\common.props" />
 	<ItemGroup>
-	  <Folder Include="Enums\" />
 	  <Folder Include="Etos\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)" />
 
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\bbs\Yi.Framework.Bbs.Domain.Shared\Yi.Framework.Bbs.Domain.Shared.csproj" />
 	</ItemGroup>
 </Project>

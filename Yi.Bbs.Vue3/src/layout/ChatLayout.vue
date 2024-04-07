@@ -5,12 +5,14 @@
     </div>
 </template>
 <script setup>
-import {onMounted} from "vue";
-import chatHub from "@/hubs/chatHub.js";
-onMounted(async () => {
-    chatHub();
+import {onMounted, onUnmounted} from "vue";
+import {start,close} from "@/hubs/chatHub.js";
+onMounted( () => {
+    start();
 });
-
+onUnmounted(()=>{
+    close(); 
+})
 </script>
 <style scoped>
 .chat-body
