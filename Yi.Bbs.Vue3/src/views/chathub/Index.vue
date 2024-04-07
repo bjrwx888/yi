@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia'
 import useAuths from '@/hooks/useAuths.js';
 import { getList as getChatUserList } from '@/apis/chatUserApi'
@@ -49,7 +49,7 @@ const currentHeaderName = computed(() => {
 const currentUserItem = computed(() => {
   return userList.value.filter(x => x.userId != useUserStore().id)
 });
-
+var timer=null;
 
 //初始化
 onMounted(async () => {
@@ -59,7 +59,7 @@ onMounted(async () => {
       message: '该功能，请登录后使用！即将自动跳转',
       type: 'warning',
     })
-    setTimeout(function () {
+    timer= setTimeout(function () {
       onclickClose();
     }, 3000);
 
@@ -68,7 +68,13 @@ onMounted(async () => {
   chatStore.setMsgList((await getChatAccountMessageList()).data);
   chatStore.setUserList((await getChatUserList()).data);
 })
+onUnmounted(()=>{
+  if(timer !=null)
+  {
+    clearInterval(timer)
+  }
 
+})
 /*-----方法-----*/
 //当前选择的是否为全部
 const selectIsAll = () => {
