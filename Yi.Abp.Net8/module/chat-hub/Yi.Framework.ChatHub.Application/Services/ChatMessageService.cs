@@ -13,6 +13,7 @@ using Yi.Framework.ChatHub.Application.Contracts.Dtos;
 using Yi.Framework.ChatHub.Domain.Managers;
 using Yi.Framework.ChatHub.Domain.Shared.Enums;
 using Yi.Framework.ChatHub.Domain.Shared.Model;
+using Yi.Framework.Rbac.Domain.Shared.Etos;
 
 namespace Yi.Framework.ChatHub.Application.Services
 {
@@ -30,8 +31,14 @@ namespace Yi.Framework.ChatHub.Application.Services
         public async Task SendPersonalMessageAsync(PersonalMessageInputDto input)
         {
             var mesageContext = MessageContext.CreatePersonal(input.Content, input.UserId, CurrentUser.Id!.Value);
-            await _userMessageManager.SendMessageAsync(mesageContext);
+            var userRoleMenuQuery = new UserRoleMenuQueryEventArgs(CurrentUser.Id!.Value, input.UserId);
 
+            //调用用户领域事件，获取用户信息，第一个发送者用户信息，第二个为接收者用户信息
+            await _localEventBus.PublishAsync(userRoleMenuQuery);
+            mesageContext.SetUserInfo(userRoleMenuQuery.Result.First(), userRoleMenuQuery.Result.Last());
+
+
+            await _userMessageManager.SendMessageAsync(mesageContext);
             await _userMessageManager.CreateMessageStoreAsync(mesageContext);
         }
 
@@ -47,11 +54,16 @@ namespace Yi.Framework.ChatHub.Application.Services
             //领域调用，群主消息调用bbs领域
 
             //如果钱钱不足，将自动断言
-            await _localEventBus.PublishAsync<MoneyChangeEventArgs>(new MoneyChangeEventArgs { UserId = CurrentUser.Id.Value, Number = -1 });
+            await _localEventBus.PublishAsync<MoneyChangeEventArgs>(new MoneyChangeEventArgs { UserId = CurrentUser.Id.Value, Number = -1 },false);
 
             var mesageContext = MessageContext.CreateAll(input.Content, CurrentUser.Id!.Value);
-            await _userMessageManager.SendMessageAsync(mesageContext);
+            UserRoleMenuQueryEventArgs userRoleMenuQuery = new UserRoleMenuQueryEventArgs(CurrentUser.Id!.Value);
 
+            //调用用户领域事件，获取用户信息，第一个发送者用户信息，第二个为接收者用户信息
+            await _localEventBus.PublishAsync(userRoleMenuQuery, false);
+            mesageContext.SetUserInfo(userRoleMenuQuery.Result.First(),null);
+
+            await _userMessageManager.SendMessageAsync(mesageContext);
             await _userMessageManager.CreateMessageStoreAsync(mesageContext);
         }
 
@@ -64,6 +76,8 @@ namespace Yi.Framework.ChatHub.Application.Services
         [RemoteService(IsEnabled = false)]
         public async Task<List<MessageContext>> GetListAsync(ChatMessageGetListInput input)
         {
+            //需要关联用户信息
+
             var entities = await _userMessageManager._repository._DbQueryable
                  .WhereIF(input.MessageType is not null, x => x.MessageType == input.MessageType)
                  .WhereIF(input.ReceiveId is not null, x => x.ReceiveId == input.ReceiveId)
@@ -83,6 +97,8 @@ namespace Yi.Framework.ChatHub.Application.Services
         [HttpGet("chat-message/account")]
         public async Task<List<MessageContext>> GetAccountMessageListAsync()
         {
+            //需要关联用户信息
+
             //默认显示1个月的个人数据
             var userId = CurrentUser.Id!.Value;
             //3个类型数据
