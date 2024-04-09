@@ -9,8 +9,33 @@ using Yi.Framework.Rbac.Domain.Shared.Dtos;
 
 namespace Yi.Framework.ChatHub.Domain.Shared.Model
 {
+
+    public static class MessageContextExtensions
+    {
+        public static List<Guid> GetUserIds(this List<MessageContext> context)
+        {
+            return context.Where(x => x.ReceiveId is not null).Select(x => x.ReceiveId!.Value).Union(context.Select(x => x.SendUserId)).ToList();
+        }
+        public static List<MessageContext> MapperUserInfo(this List<MessageContext> messageContexts,List<UserRoleMenuDto> userRoleMenuDtos)
+        {
+            var userInfoDic = userRoleMenuDtos.ToDictionary(x => x.User.Id);
+            foreach (var context in messageContexts)
+            {
+                if (context.ReceiveId is not null)
+                {
+                    context.ReceiveInfo = userInfoDic[context.ReceiveId.Value];
+                }
+                context.SendUserInfo = userInfoDic[context.SendUserId];
+            }
+            return messageContexts;
+        }
+    }
     public class MessageContext
     {
+        /// <summary>
+        /// 映射用户信息
+        /// </summary>
+
         public static MessageContext CreatePersonal(string content, Guid userId, Guid sendUserId)
         {
             return new MessageContext() { MessageType = MessageTypeEnum.Personal, Content = content, ReceiveId = userId, SendUserId = sendUserId };

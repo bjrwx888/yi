@@ -21,13 +21,8 @@ namespace Yi.Framework.Rbac.Domain.EventHandlers
         public async Task HandleEventAsync(UserRoleMenuQueryEventArgs eventData)
         {
             //数据库查询方式
-            eventData.Result = new List<UserRoleMenuDto>();
-
-            //缓存查询方式
-            foreach (var userId in eventData.UserIds)
-            {
-                eventData.Result.Add(await _userManager.Get(userId));
-            }
+            var result = await _userManager.GetInfoListAsync(eventData.UserIds);
+            eventData.Result = result;
         }
     }
 }

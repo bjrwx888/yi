@@ -21,7 +21,7 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
         /// <summary>
         /// 用户头像
         /// </summary>
-        public string UserIcon { get; set; }
+        public string? UserIcon { get; set; }
 
     }
 }

@@ -271,7 +271,7 @@ namespace Yi.Framework.Rbac.Application.Services
                 throw new UserFriendlyException("用户未登录");
             }
             //此处优先从缓存中获取
-            var output = await _userManager.Get(userId.Value);
+            var output = await _userManager.GetInfoAsync(userId.Value);
             return output;
         }
 
@@ -290,7 +290,7 @@ namespace Yi.Framework.Rbac.Application.Services
                 throw new AbpAuthorizationException("用户未登录");
 
             }
-            var data = await _userRepository.GetUserAllInfoAsync(userId ?? Guid.Empty);
+            var data = await _userManager.GetInfoAsync(userId!.Value);
             var menus = data.Menus.ToList();
 
             //为超级管理员直接给全部路由

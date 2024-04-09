@@ -54,14 +54,14 @@ namespace Yi.Framework.ChatHub.Application.Services
             //领域调用，群主消息调用bbs领域
 
             //如果钱钱不足，将自动断言
-            await _localEventBus.PublishAsync<MoneyChangeEventArgs>(new MoneyChangeEventArgs { UserId = CurrentUser.Id.Value, Number = -1 },false);
+            await _localEventBus.PublishAsync<MoneyChangeEventArgs>(new MoneyChangeEventArgs { UserId = CurrentUser.Id.Value, Number = -1 }, false);
 
             var mesageContext = MessageContext.CreateAll(input.Content, CurrentUser.Id!.Value);
             UserRoleMenuQueryEventArgs userRoleMenuQuery = new UserRoleMenuQueryEventArgs(CurrentUser.Id!.Value);
 
             //调用用户领域事件，获取用户信息，第一个发送者用户信息，第二个为接收者用户信息
             await _localEventBus.PublishAsync(userRoleMenuQuery, false);
-            mesageContext.SetUserInfo(userRoleMenuQuery.Result.First(),null);
+            mesageContext.SetUserInfo(userRoleMenuQuery.Result.First(), null);
 
             await _userMessageManager.SendMessageAsync(mesageContext);
             await _userMessageManager.CreateMessageStoreAsync(mesageContext);
@@ -110,7 +110,21 @@ namespace Yi.Framework.ChatHub.Application.Services
                  .Where(x => x.CreationTime >= DateTime.Now.AddDays(-30))
                   .OrderBy(x => x.CreationTime)
                  .ToListAsync();
+
+
             var output = entities.Adapt<List<MessageContext>>();
+            var userIds = output.GetUserIds();
+
+            UserRoleMenuQueryEventArgs userRoleMenuQuery = new UserRoleMenuQueryEventArgs(userIds.ToArray());
+
+            //调用用户领域事件，获取用户信息，第一个发送者用户信息，第二个为接收者用户信息
+            await _localEventBus.PublishAsync(userRoleMenuQuery, false);
+
+
+
+            //映射用户信息
+            output.MapperUserInfo(userRoleMenuQuery.Result);
+
             return output;
         }
     }

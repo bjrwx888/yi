@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -9,6 +10,7 @@ using Volo.Abp.Guids;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Repositories;
 using Yi.Framework.Rbac.Domain.Shared.Caches;
+using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.Rbac.Domain.Shared.Dtos;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 using Yi.Framework.SqlSugarCore.Abstractions;
@@ -91,41 +93,107 @@ namespace Yi.Framework.Rbac.Domain.Managers
         /// 查询用户信息，已缓存
         /// </summary>
         /// <returns></returns>
-        public async Task<UserRoleMenuDto> Get(Guid userId)
+        public async Task<UserRoleMenuDto> GetInfoAsync(Guid userId)
         {
-            //if (userId is null)
-            //{
-            //    throw new UserFriendlyException("用户未登录");
-            //}
-            //此处优先从缓存中获取
-            UserRoleMenuDto output = null;
+            var user = await _userRepository.GetUserAllInfoAsync(userId);
+            var output = await GetInfoByCacheAsync(user);
+            return output;
+        }
 
-            var cacheData = await _userCache.GetAsync(new UserInfoCacheKey(userId));
-            if (cacheData is not null)
+        /// <summary>
+        /// 批量查询用户信息
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <returns></returns>
+        public async Task<List<UserRoleMenuDto>> GetInfoListAsync(List<Guid> userIds)
+        {
+            List<UserRoleMenuDto> output = new List<UserRoleMenuDto>();
+            var users = await _userRepository.GetListUserAllInfoAsync(userIds);
+            foreach (var user in users)
             {
-                output = cacheData.Info;
-            }
-            else
-            {
-                var data = await _userRepository.GetUserAllInfoAsync(userId);
-                //系统用户数据被重置，老前端访问重新授权
-                if (data is null)
-                {
-                    throw new AbpAuthorizationException();
-                }
-                data.Menus.Clear();
-
-                output = data;
-
-                var tokenExpiresMinuteTime = LazyServiceProvider.GetRequiredService<IOptions<JwtOptions>>().Value.ExpiresMinuteTime;
-                //将用户信息放入缓存，下次获取直接从缓存中获取即可，过期时间为token过期时间
-                await _userCache.SetAsync(new UserInfoCacheKey(userId), new UserInfoCacheItem(data), new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(tokenExpiresMinuteTime) });
+                output.Add(await GetInfoByCacheAsync(user));
             }
             return output;
         }
 
+        private async Task<UserRoleMenuDto> GetInfoByCacheAsync(UserEntity user)
+        {
+            //此处优先从缓存中获取
+            UserRoleMenuDto output = null;
+            var tokenExpiresMinuteTime = LazyServiceProvider.GetRequiredService<IOptions<JwtOptions>>().Value.ExpiresMinuteTime;
+            var cacheData = await _userCache.GetOrAddAsync(new UserInfoCacheKey(user.Id),
+               async () =>
+               {
+                   var data = EntityMapToDto(user);
+                   //系统用户数据被重置，老前端访问重新授权
+                   if (data is null)
+                   {
+                       throw new AbpAuthorizationException();
+                   }
+                   data.Menus.Clear();
+                   output = data;
+                   return new UserInfoCacheItem(data);
+               },
+             () => new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(tokenExpiresMinuteTime) });
 
+            if (cacheData is not null)
+            {
+                output = cacheData.Info;
+            }
+            return output!;
+        }
 
+        private UserRoleMenuDto EntityMapToDto(UserEntity user)
+        {
+
+            var userRoleMenu = new UserRoleMenuDto();
+            //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
+            //if (user is null)
+            //{
+            //    throw new UserFriendlyException($"数据错误，用户id：{nameof(userId)} 不存在，请重新登录");
+            //}
+            user.Password = string.Empty;
+            user.Salt = string.Empty;
+
+            //超级管理员特殊处理
+            if (UserConst.Admin.Equals(user.UserName))
+            {
+                userRoleMenu.User = user.Adapt<UserDto>();
+                userRoleMenu.RoleCodes.Add(UserConst.AdminRolesCode);
+                userRoleMenu.PermissionCodes.Add(UserConst.AdminPermissionCode);
+                return userRoleMenu;
+            }
+
+            //得到角色集合
+            var roleList = user.Roles;
+
+            //得到菜单集合
+            foreach (var role in roleList)
+            {
+                userRoleMenu.RoleCodes.Add(role.RoleCode);
+
+                if (role.Menus is not null)
+                {
+                    foreach (var menu in role.Menus)
+                    {
+                        if (!string.IsNullOrEmpty(menu.PermissionCode))
+                        {
+                            userRoleMenu.PermissionCodes.Add(menu.PermissionCode);
+                        }
+                        userRoleMenu.Menus.Add(menu.Adapt<MenuDto>());
+                    }
+                }
+
+                //刚好可以去除一下多余的导航属性
+                role.Menus = new List<MenuEntity>();
+                userRoleMenu.Roles.Add(role.Adapt<RoleDto>());
+            }
+
+            user.Roles = new List<RoleEntity>();
+            userRoleMenu.User = user.Adapt<UserDto>();
+            userRoleMenu.Menus = userRoleMenu.Menus.OrderByDescending(x => x.OrderNum).ToHashSet();
+            return userRoleMenu;
+        }
     }
 
 }
