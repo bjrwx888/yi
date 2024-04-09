@@ -8,7 +8,7 @@ import useChatStore from "@/stores/chat";
 import useUserStore from "@/stores/user";
 const { isLogin } = useAuths();
 import { useRouter } from 'vue-router'
-
+import { getUrl } from '@/utils/icon'
 const router = useRouter();
 //聊天存储
 const chatStore = useChatStore();
@@ -49,17 +49,16 @@ const currentHeaderName = computed(() => {
 const currentUserItem = computed(() => {
   return userList.value.filter(x => x.userId != useUserStore().id)
 });
-var timer=null;
+var timer = null;
 
 //初始化
 onMounted(async () => {
-  console.log(isLogin.value, "isLogin");
   if (!isLogin.value) {
     ElMessage({
       message: '该功能，请登录后使用！即将自动跳转',
       type: 'warning',
     })
-    timer= setTimeout(function () {
+    timer = setTimeout(function () {
       onclickClose();
     }, 3000);
 
@@ -68,9 +67,8 @@ onMounted(async () => {
   chatStore.setMsgList((await getChatAccountMessageList()).data);
   chatStore.setUserList((await getChatUserList()).data);
 })
-onUnmounted(()=>{
-  if(timer !=null)
-  {
+onUnmounted(() => {
+  if (timer != null) {
     clearInterval(timer)
   }
 
@@ -204,11 +202,13 @@ const getLastMessage = ((receiveId, isAll) => {
 </script>
 
 <template>
-    <div style="position: absolute; top: 0;left: 0;">
-      <p>当前版本：1.0.0</p>
-      <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
-      <p>tip:点击聊天窗口右上角“X”可退出</p>
-    </div>
+  <div style="position: absolute; top: 0;left: 0;">
+    <p>当前版本：1.1.0</p>
+    <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
+    <p>tip:点击聊天窗口右上角“X”可退出</p>
+    <p>1.0.0：上线框架基础功能</p>
+    <p>1.1.0：结合用户领域信息</p>
+  </div>
   <div class="body">
 
     <div class="left">
@@ -263,7 +263,8 @@ const getLastMessage = ((receiveId, isAll) => {
         <div v-for="(item, i) in currentUserItem" :key="i" @click="onclickUserItem(item, false)" class="user-div"
           :class="{ 'select-user-item': currentSelectUser?.userId == item.userId }">
           <div class="user-div-left">
-            <img src="@/assets/chat_images/friendicon.jpg" />
+
+            <img :src="getUrl(item.userIcon)"  />
             <div class="user-name-msg">
               <p class="font-name">{{ item.userName }}</p>
               <p class="font-msg">{{ getLastMessage(item.userId, false) }}</p>
@@ -297,14 +298,20 @@ const getLastMessage = ((receiveId, isAll) => {
       <div class="content">
         <div v-for="(item, i) in currentMsgContext" :key="i">
           <div class="content-myself content-common" v-if="item.sendUserId == userStore.id">
-            <!-- Todo... 结合用户体系<div>{{item}}</div> -->
             <div class="content-myself-msg content-msg-common ">{{ item.content }}</div>
-            <img src="@/assets/chat_images/icon.jpg" />
+            <img :src="getUrl(item.sendUserInfo?.user.icon)" />
           </div>
 
           <div class="content-others content-common" v-else>
-            <img src="@/assets/chat_images/friendicon.jpg" />
-            <div class="content-others-msg content-msg-common  ">{{ item.content }}</div>
+
+            <img :src="getUrl(item.sendUserInfo?.user.icon)" />
+            <div>
+    
+              <p  v-if="selectIsAll()" class="content-others-username">{{item.sendUserInfo?.user.userName}}</p>
+              <div class="content-others-msg content-msg-common " :class="{'content-others-msg-group':selectIsAll()}">
+                {{ item.content }}
+              </div>
+            </div>
           </div>
 
         </div>
@@ -704,10 +711,21 @@ const getLastMessage = ((receiveId, isAll) => {
 
 .content-others {
   justify-content: flex-start;
-}
 
+}
+.content-others-username{
+    margin-left: 15px;
+    color: #B2B2B2;
+    position: relative;
+    top: -15px;
+  }
+.content-others-msg-group{
+  position: relative;
+    top: -10px;
+}
 .content-others-msg {
   background-color: #FFFFFF;
+  padding: 10px 15px;
 }
 
 .content-others-msg:hover {
