@@ -34,7 +34,7 @@ namespace Yi.Framework.ChatHub.Application.Services
             var userRoleMenuQuery = new UserRoleMenuQueryEventArgs(CurrentUser.Id!.Value, input.UserId);
 
             //调用用户领域事件，获取用户信息，第一个发送者用户信息，第二个为接收者用户信息
-            await _localEventBus.PublishAsync(userRoleMenuQuery);
+            await _localEventBus.PublishAsync(userRoleMenuQuery, false);
             mesageContext.SetUserInfo(userRoleMenuQuery.Result.First(), userRoleMenuQuery.Result.Last());
 
 

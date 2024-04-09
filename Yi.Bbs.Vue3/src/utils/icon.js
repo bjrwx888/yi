@@ -1,6 +1,6 @@
 export const getUrl = (fileId) => {
     if (fileId == null || fileId == undefined) {
-        return "@/assets/chat_images/friendicon.jpg"
+        return "/acquiesce.png"
     }
     else {
         return getEnvUrl(fileId)
