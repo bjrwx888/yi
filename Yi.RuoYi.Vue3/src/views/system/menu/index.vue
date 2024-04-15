@@ -57,7 +57,7 @@
          <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160"></el-table-column>
          <el-table-column prop="menuIcon" label="图标" align="center" width="100">
             <template #default="scope">
-               <svg-icon :icon-class="scope.row.menuIcon" />
+               <svg-icon :icon-class="scope.row.menuIcon+''" />
             </template>
          </el-table-column>
          <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
@@ -137,7 +137,7 @@
                               <template #prefix>
                                  <svg-icon
                                     v-if="form.menuIcon"
-                                    :icon-class="form.menuIcon"
+                                    :icon-class="form.menuIcon+''"
                                     class="el-input__icon"
                                     style="height: 32px;width: 16px;"
                                  />
