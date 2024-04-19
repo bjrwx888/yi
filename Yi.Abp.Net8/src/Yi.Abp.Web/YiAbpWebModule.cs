@@ -78,6 +78,9 @@ namespace Yi.Abp.Web
                 options.ConventionalControllers.Create(typeof(YiFrameworkChatHubApplicationModule).Assembly, options => options.RemoteServiceName = "chat-hub");
                 options.ConventionalControllers.Create(typeof(YiFrameworkTenantManagementApplicationModule).Assembly, options => options.RemoteServiceName = "tenant-management");
                 options.ConventionalControllers.Create(typeof(YiFrameworkCodeGenApplicationModule).Assembly, options => options.RemoteServiceName = "code-gen");
+
+                //统一前缀
+                options.ConventionalControllers.ConventionalControllerSettings.ForEach(x => x.RootPath = "api/app");
             });
 
             //设置api格式
