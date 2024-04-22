@@ -106,13 +106,6 @@ namespace Yi.Framework.Ddd.Application
             return output!;
         }
 
-        public override async Task<TGetOutputDto> CreateAsync(TCreateInput input)
-        {
-            var output = await base.CreateAsync(input);
-            await Cache.RemoveAsync(GetCacheKey(output.Id));
-            return output;
-        }
-
         public override async Task DeleteAsync(IEnumerable<TKey> id)
         {
             await base.DeleteAsync(id);
