@@ -152,7 +152,7 @@ namespace Yi.Framework.Rbac.Application.Services.System
             //更新密码，特殊处理
             if (input.Password is not null)
             {
-                entity.Password = input.Password;
+                entity.EncryPassword.Password = input.Password;
                 entity.BuildPassword();
             }
             await MapToEntityAsync(input, entity);

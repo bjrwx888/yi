@@ -152,8 +152,8 @@ namespace Yi.Framework.Rbac.Domain.Managers
             //{
             //    throw new UserFriendlyException($"数据错误，用户id：{nameof(userId)} 不存在，请重新登录");
             //}
-            user.Password = string.Empty;
-            user.Salt = string.Empty;
+            user.EncryPassword.Password = string.Empty;
+            user.EncryPassword.Salt = string.Empty;
 
             //超级管理员特殊处理
             if (UserConst.Admin.Equals(user.UserName))
