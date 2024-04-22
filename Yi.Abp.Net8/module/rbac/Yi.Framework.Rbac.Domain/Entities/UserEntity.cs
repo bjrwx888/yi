@@ -59,7 +59,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// 加密密码
         /// </summary>
         [SugarColumn(IsOwnsOne = true)]
-        public EncryPasswordValueObject EncryPassword { get; set; }=new EncryPasswordValueObject();
+        public EncryPasswordValueObject EncryPassword { get; set; }
 
         ///// <summary>
         ///// 密码

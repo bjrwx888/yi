@@ -9,6 +9,9 @@ namespace Yi.Framework.Rbac.Domain.Entities.ValueObjects
 {
     public class EncryPasswordValueObject : ValueObject
     {
+        public EncryPasswordValueObject() { }
+        public EncryPasswordValueObject(string password) { this.Password = password; }
+
         /// <summary>
         /// 密码
         /// </summary>
