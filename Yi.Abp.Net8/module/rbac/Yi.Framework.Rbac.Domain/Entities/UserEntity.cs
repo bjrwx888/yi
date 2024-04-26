@@ -59,7 +59,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// 加密密码
         /// </summary>
         [SugarColumn(IsOwnsOne = true)]
-        public EncryPasswordValueObject EncryPassword { get; set; }
+        public EncryPasswordValueObject EncryPassword { get; set; } = new EncryPasswordValueObject();
 
         ///// <summary>
         ///// 密码
@@ -182,7 +182,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
             //如果不传值，那就把自己的password当作传进来的password
             if (password == null)
             {
-                if (EncryPassword.Password == null)
+                if (EncryPassword?.Password == null)
                 {
                     throw new ArgumentNullException(nameof(EncryPassword.Password));
                 }
