@@ -79,6 +79,10 @@ namespace Yi.Framework.Rbac.Domain.Managers
             {
                 throw new UserFriendlyException(UserConst.No_Role);
             }
+            if (userInfo.PermissionCodes.Count() ==0)
+            {
+                throw new UserFriendlyException(UserConst.No_Permission);
+            }
             //这里抛出一个登录的事件
             if (_httpContextAccessor.HttpContext is not null)
             {
