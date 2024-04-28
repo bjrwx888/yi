@@ -29,8 +29,8 @@ namespace Yi.Framework.Rbac.Application.Services.System
     {
         public UserService(ISqlSugarRepository<UserEntity, Guid> repository, UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser, IDeptService deptService, ILocalEventBus localEventBus, IDistributedCache<UserInfoCacheItem, UserInfoCacheKey> userCache) : base(repository)
             =>
-            (_userManager, _userRepository, _currentUser, _deptService, _repository, _localEventBus, _userCache) =
-            (userManager, userRepository, currentUser, deptService, repository, localEventBus, userCache);
+            (_userManager, _userRepository, _currentUser, _deptService, _repository, _localEventBus) =
+            (userManager, userRepository, currentUser, deptService, repository, localEventBus);
         private UserManager _userManager { get; set; }
         private ISqlSugarRepository<UserEntity, Guid> _repository;
         private IUserRepository _userRepository { get; set; }
@@ -186,7 +186,6 @@ namespace Yi.Framework.Rbac.Application.Services.System
 
             await _repository.UpdateAsync(entity);
             var dto = await MapToGetOutputDtoAsync(entity);
-            await _userCache.RefreshAsync(new UserInfoCacheKey(_currentUser.GetId()));
             return dto;
         }
 
@@ -208,7 +207,6 @@ namespace Yi.Framework.Rbac.Application.Services.System
             }
             entity.State = state;
             await _repository.UpdateAsync(entity);
-            await _userCache.RefreshAsync(new UserInfoCacheKey(id));
             return await MapToGetOutputDtoAsync(entity);
         }
         [OperLog("删除用户", OperEnum.Delete)]
@@ -217,7 +215,6 @@ namespace Yi.Framework.Rbac.Application.Services.System
         {
 
             await base.DeleteAsync(id);
-            await _userCache.RefreshAsync(new UserInfoCacheKey(id));
         }
 
         [Permission("system:user:export")]
