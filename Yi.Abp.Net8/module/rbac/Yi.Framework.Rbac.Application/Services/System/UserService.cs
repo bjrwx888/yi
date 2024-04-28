@@ -27,7 +27,6 @@ namespace Yi.Framework.Rbac.Application.Services.System
     public class UserService : YiCrudAppService<UserEntity, UserGetOutputDto, UserGetListOutputDto, Guid, UserGetListInputVo, UserCreateInputVo, UserUpdateInputVo>,IUserService
     //IUserService
     {
-        private IDistributedCache<UserInfoCacheItem, UserInfoCacheKey> _userCache;
         public UserService(ISqlSugarRepository<UserEntity, Guid> repository, UserManager userManager, IUserRepository userRepository, ICurrentUser currentUser, IDeptService deptService, ILocalEventBus localEventBus, IDistributedCache<UserInfoCacheItem, UserInfoCacheKey> userCache) : base(repository)
             =>
             (_userManager, _userRepository, _currentUser, _deptService, _repository, _localEventBus, _userCache) =
@@ -171,9 +170,6 @@ namespace Yi.Framework.Rbac.Application.Services.System
             var res1 = await _repository.UpdateAsync(entity);
             await _userManager.GiveUserSetRoleAsync(new List<Guid> { id }, input.RoleIds);
             await _userManager.GiveUserSetPostAsync(new List<Guid> { id }, input.PostIds);
-
-            await _userCache.RefreshAsync(new UserInfoCacheKey(_currentUser.GetId()));
-     
             return await MapToGetOutputDtoAsync(entity);
         }
 
