@@ -103,14 +103,14 @@ namespace Yi.Framework.Rbac.Domain.Managers
 
             if (userEntity.EncryPassword?.Password.Length < 6)
             {
-                throw new UserFriendlyException("密码需大于等于6位！");
+                throw new UserFriendlyException(UserConst.Create_Passworld_Error);
             }
 
             if (userEntity.Phone is not null)
             {
                 if (await _repository.IsAnyAsync(x => x.Phone == userEntity.Phone))
                 {
-                    throw new UserFriendlyException("用户手机号已重复");
+                    throw new UserFriendlyException(UserConst.Phone_Repeat);
 
                 }
             }
@@ -118,7 +118,7 @@ namespace Yi.Framework.Rbac.Domain.Managers
             var isExist = await _repository.IsAnyAsync(x => x.UserName == userEntity.UserName);
             if (isExist)
             {
-                throw new UserFriendlyException("用户已存在，创建失败");
+                throw new UserFriendlyException(UserConst.User_Exist);
             }
 
             var entity = await _repository.InsertReturnEntityAsync(userEntity);
