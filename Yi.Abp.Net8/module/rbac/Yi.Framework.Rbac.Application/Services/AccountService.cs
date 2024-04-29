@@ -216,9 +216,11 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("该系统暂未开放注册功能");
             }
-            //校验验证码，根据电话号码获取 value，比对验证码已经uuid
-            await ValidationPhoneCaptchaAsync(input);
-
+            if (_rbacOptions.EnableCaptcha)
+            {
+                //校验验证码，根据电话号码获取 value，比对验证码已经uuid
+                await ValidationPhoneCaptchaAsync(input);
+            }
             //注册领域逻辑
             await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone);
         }
@@ -231,7 +233,7 @@ namespace Yi.Framework.Rbac.Application.Services
         [Route("account")]
         [Authorize]
 
-        public async Task<UserRoleMenuDto> Get()
+        public async Task<UserRoleMenuDto> GetAsync()
         {
             //通过鉴权jwt获取到用户的id
             var userId = _currentUser.Id;
