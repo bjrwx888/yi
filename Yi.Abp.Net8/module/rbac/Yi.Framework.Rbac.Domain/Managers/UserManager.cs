@@ -1,11 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using TencentCloud.Ame.V20190916.Models;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Services;
@@ -109,7 +106,16 @@ namespace Yi.Framework.Rbac.Domain.Managers
                 throw new UserFriendlyException("密码需大于等于6位！");
             }
 
-            var isExist = await _repository.IsAnyAsync(x => x.UserName == userEntity.UserName || x.Phone == userEntity.Phone);
+            if (userEntity.Phone is not null)
+            {
+                if (await _repository.IsAnyAsync(x => x.Phone == userEntity.Phone))
+                {
+                    throw new UserFriendlyException("用户手机号已重复");
+
+                }
+            }
+
+            var isExist = await _repository.IsAnyAsync(x => x.UserName == userEntity.UserName);
             if (isExist)
             {
                 throw new UserFriendlyException("用户已存在，创建失败");
