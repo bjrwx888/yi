@@ -528,16 +528,16 @@ function submitForm() {
    proxy.$refs["userRef"].validate(valid => {
       if (valid) {
          if (form.value.id != undefined) {
-            updateUser(form.value.id,form.value).then(response => {
+            updateUser(form.value.id,form.value).then(async response => {
                proxy.$modal.msgSuccess("修改成功");
                open.value = false;
-               getList();
+              await getList();
             });
          } else {
-            addUser(form.value).then(response => {
+            addUser(form.value).then(async response => {
                proxy.$modal.msgSuccess("新增成功");
                open.value = false;
-               getList();
+              await getList();
             });
          }
       }
