@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Yi.Framework.SqlSugarCore.Abstractions
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class MasterTenantAttribute : Attribute
+    public class DefaultTenantTableAttribute : Attribute
     {
     }
 }
