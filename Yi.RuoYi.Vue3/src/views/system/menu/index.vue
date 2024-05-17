@@ -57,7 +57,7 @@
          <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160"></el-table-column>
          <el-table-column prop="menuIcon" label="图标" align="center" width="100">
             <template #default="scope">
-               <svg-icon :icon-class="scope.row.menuIcon" />
+               <svg-icon :icon-class="scope.row.menuIcon+''" />
             </template>
          </el-table-column>
          <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
@@ -77,19 +77,19 @@
          <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button
-                  type="text"
+                  link
                   icon="Edit"
                   @click="handleUpdate(scope.row)"
                   v-hasPermi="['system:menu:edit']"
                >修改</el-button>
                <el-button
-                  type="text"
+                  link
                   icon="Plus"
                   @click="handleAdd(scope.row)"
                   v-hasPermi="['system:menu:add']"
                >新增</el-button>
                <el-button
-                  type="text"
+                  link
                   icon="Delete"
                   @click="handleDelete(scope.row)"
                   v-hasPermi="['system:menu:remove']"
@@ -117,9 +117,9 @@
                <el-col :span="24">
                   <el-form-item label="菜单类型" prop="menuType">
                      <el-radio-group v-model="form.menuType">
-                        <el-radio label="Catalogue">目录</el-radio>
-                        <el-radio label="Menu">菜单</el-radio>
-                        <el-radio label="Component">按钮</el-radio>
+                        <el-radio value="Catalogue">目录</el-radio>
+                        <el-radio value="Menu">菜单</el-radio>
+                        <el-radio value="Component">按钮</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
@@ -137,7 +137,7 @@
                               <template #prefix>
                                  <svg-icon
                                     v-if="form.menuIcon"
-                                    :icon-class="form.menuIcon"
+                                    :icon-class="form.menuIcon+''"
                                     class="el-input__icon"
                                     style="height: 32px;width: 16px;"
                                  />
@@ -169,8 +169,8 @@
                         </span>
                      </template>
                      <el-radio-group v-model="form.isLink">
-                        <el-radio :label=true>是</el-radio>
-                        <el-radio :label=false>否</el-radio>
+                        <el-radio :value=true>是</el-radio>
+                        <el-radio :value=false>否</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
@@ -239,8 +239,8 @@
                         </span>
                      </template>
                      <el-radio-group v-model="form.isCache">
-                        <el-radio :label=true>缓存</el-radio>
-                        <el-radio :label=false>不缓存</el-radio>
+                        <el-radio :value=true>缓存</el-radio>
+                        <el-radio :value=false>不缓存</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
@@ -258,7 +258,7 @@
                         <el-radio
                            v-for="dict in sys_show_hide"
                            :key="dict.value"
-                           :label="JSON.parse(dict.value)"
+                           :value="JSON.parse(dict.value)"
                         >{{ dict.label }}</el-radio>
                      </el-radio-group>
                   </el-form-item>
@@ -274,7 +274,7 @@
                         </span>
                      </template>
                      <el-radio-group v-model="form.state">
-                        <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="JSON.parse(dict.value)">{{dict.label}}</el-radio>
+                        <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :value="JSON.parse(dict.value)">{{dict.label}}</el-radio>
                      </el-radio-group>
                   </el-form-item>
                </el-col>
