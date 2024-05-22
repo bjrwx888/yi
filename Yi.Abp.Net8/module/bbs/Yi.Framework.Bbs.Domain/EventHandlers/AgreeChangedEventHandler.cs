@@ -28,7 +28,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
 
             //给创建者发布数量+1
             await _userRepository._Db.Updateable<BbsUserExtraInfoEntity>()
-                                        .SetColumns(it => it.DiscussNumber == it.DiscussNumber + 1)
+                                        .SetColumns(it => it.AgreeNumber == it.AgreeNumber + 1)
                                         .Where(it => it.UserId == userId)
                                         .ExecuteCommandAsync();
         }
