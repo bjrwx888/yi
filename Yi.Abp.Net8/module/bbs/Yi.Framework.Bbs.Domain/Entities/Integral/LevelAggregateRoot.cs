@@ -7,11 +7,11 @@ namespace Yi.Framework.Bbs.Domain.Entities.Integral
     /// 等级表
     /// </summary>
     [SugarTable("Level")]
-    public class LevelEntity : Entity<Guid>
+    public class LevelAggregateRoot : AggregateRoot<Guid>
     {
-        public LevelEntity() { }
+        public LevelAggregateRoot() { }
 
-        public LevelEntity(int currentLevel, string name, decimal minExperience)
+        public LevelAggregateRoot(int currentLevel, string name, decimal minExperience)
         {
             this.CurrentLevel = currentLevel;
             this.Name = name;

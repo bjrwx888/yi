@@ -23,7 +23,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
         public async Task HandleEventAsync(EntityCreatedEventData<AgreeEntity> eventData)
         {
             var agreeEntity = eventData.Entity;
-            var userId = await _agreeRepository._DbQueryable.LeftJoin<DiscussEntity>((agree, discuss) => agree.DiscussId == discuss.Id)
+            var userId = await _agreeRepository._DbQueryable.LeftJoin<DiscussAggregateRoot>((agree, discuss) => agree.DiscussId == discuss.Id)
                    .Select((agree, discuss) => discuss.CreatorId).FirstAsync();
 
             //给创建者发布数量+1
@@ -50,7 +50,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
         public async Task HandleEventAsync(EntityCreatedEventData<AgreeEntity> eventData)
         {
             var agreeEntity = eventData.Entity;
-            var userId = await _agreeRepository._DbQueryable.LeftJoin<DiscussEntity>((agree, discuss) => agree.DiscussId == discuss.Id)
+            var userId = await _agreeRepository._DbQueryable.LeftJoin<DiscussAggregateRoot>((agree, discuss) => agree.DiscussId == discuss.Id)
                    .Select((agree, discuss) => discuss.CreatorId).FirstAsync();
 
             //给创建者发布数量-1

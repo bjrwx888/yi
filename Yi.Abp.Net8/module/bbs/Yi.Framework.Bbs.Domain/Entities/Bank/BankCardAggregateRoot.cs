@@ -14,13 +14,13 @@ namespace Yi.Framework.Bbs.Domain.Entities.Bank
     /// 银行卡
     /// </summary>
     [SugarTable("BankCard")]
-    public class BankCardEntity : Entity<Guid>, IHasCreationTime
+    public class BankCardAggregateRoot : AggregateRoot<Guid>, IHasCreationTime
     {
-        public BankCardEntity()
+        public BankCardAggregateRoot()
         {
         }
 
-        public BankCardEntity(Guid userId)
+        public BankCardAggregateRoot(Guid userId)
         {
             this.UserId = userId;
         }

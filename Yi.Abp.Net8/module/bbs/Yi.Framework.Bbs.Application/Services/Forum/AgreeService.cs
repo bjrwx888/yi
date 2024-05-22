@@ -13,7 +13,7 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
     /// </summary>
     public class AgreeService : ApplicationService, IApplicationService
     {
-        public AgreeService(ISqlSugarRepository<AgreeEntity> repository, ISqlSugarRepository<DiscussEntity> discssRepository)
+        public AgreeService(ISqlSugarRepository<AgreeEntity> repository, ISqlSugarRepository<DiscussAggregateRoot> discssRepository)
         {
             _repository = repository;
             _discssRepository = discssRepository;
@@ -21,7 +21,7 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
 
         private ISqlSugarRepository<AgreeEntity> _repository { get; set; }
 
-        private ISqlSugarRepository<DiscussEntity> _discssRepository { get; set; }
+        private ISqlSugarRepository<DiscussAggregateRoot> _discssRepository { get; set; }
 
 
         /// <summary>

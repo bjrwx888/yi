@@ -13,12 +13,12 @@ namespace Yi.Framework.Rbac.Domain.Entities
     /// 菜单表
     ///</summary>
     [SugarTable("Menu")]
-    public partial class MenuEntity : Entity<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
+    public partial class MenuAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
     {
-        public MenuEntity() { }
+        public MenuAggregateRoot() { }
 
-        public MenuEntity(Guid id) { Id = id; ParentId = Guid.Empty; }
-        public MenuEntity(Guid id, Guid parentId) { Id = id; ParentId = parentId; }
+        public MenuAggregateRoot(Guid id) { Id = id; ParentId = Guid.Empty; }
+        public MenuAggregateRoot(Guid id, Guid parentId) { Id = id; ParentId = parentId; }
         /// <summary>
         /// 主键
         /// </summary>
@@ -123,7 +123,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
         public string? Query { get; set; }
 
         [SugarColumn(IsIgnore = true)]
-        public List<MenuEntity>? Children { get; set; }
+        public List<MenuAggregateRoot>? Children { get; set; }
 
     }
 
@@ -137,7 +137,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// </summary>
         /// <param name="menus"></param>
         /// <returns></returns>
-        public static List<Vue3RouterDto> Vue3RouterBuild(this List<MenuEntity> menus)
+        public static List<Vue3RouterDto> Vue3RouterBuild(this List<MenuAggregateRoot> menus)
         {
             menus = menus.Where(m => m.MenuType != MenuTypeEnum.Component).ToList();
             List<Vue3RouterDto> routers = new();

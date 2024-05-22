@@ -6,7 +6,7 @@ using Volo.Abp.Auditing;
 namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Plate")]
-    public class PlateEntity : Entity<Guid>, ISoftDelete, IAuditedObject
+    public class PlateAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject
     {
 
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]

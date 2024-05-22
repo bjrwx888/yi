@@ -10,7 +10,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
     /// 配置表
     /// </summary>
     [SugarTable("Config")]
-    public class ConfigEntity : Entity<Guid>, IAuditedObject, IOrderNum, ISoftDelete
+    public class ConfigAggregateRoot : AggregateRoot<Guid>, IAuditedObject, IOrderNum, ISoftDelete
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }

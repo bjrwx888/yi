@@ -13,16 +13,16 @@ namespace Yi.Framework.Bbs.Domain.Entities.Forum
     [SugarTable("Comment")]
     [SugarIndex($"index_{nameof(DiscussId)}", nameof(DiscussId), OrderByType.Asc)]
     [SugarIndex($"index_{nameof(ParentId)}", nameof(ParentId), OrderByType.Asc)]
-    public class CommentEntity : Entity<Guid>, ISoftDelete, IAuditedObject
+    public class CommentAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject
     {
         /// <summary>
         /// 采用二维数组方式，不使用树形方式
         /// </summary>
-        public CommentEntity()
+        public CommentAggregateRoot()
         {
         }
 
-        public CommentEntity(Guid discussId)
+        public CommentAggregateRoot(Guid discussId)
         {
             DiscussId = discussId;
         }
@@ -45,20 +45,20 @@ namespace Yi.Framework.Bbs.Domain.Entities.Forum
         public Guid RootId { get; set; }
 
         [SugarColumn(IsIgnore = true)]
-        public List<CommentEntity> Children { get; set; } = new();
+        public List<CommentAggregateRoot> Children { get; set; } = new();
 
 
         /// <summary>
         /// 用户,评论人用户信息
         /// </summary>
         [Navigate(NavigateType.OneToOne, nameof(CreatorId))]
-        public UserEntity CreateUser { get; set; }
+        public UserAggregateRoot CreateUser { get; set; }
 
         /// <summary>
         /// 被评论的用户信息
         /// </summary>
         [SugarColumn(IsIgnore = true)]
-        public UserEntity CommentedUser { get; set; }
+        public UserAggregateRoot CommentedUser { get; set; }
 
         public Guid? CreatorId { get; set; }
 

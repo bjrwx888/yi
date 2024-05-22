@@ -15,7 +15,7 @@ namespace Yi.Framework.Bbs.Domain.Entities.Integral
     [SugarTable("SignIn")]
 
     [SugarIndex($"index_{nameof(CreatorId)}", nameof(CreatorId), OrderByType.Asc)]
-    public class SignInEntity : Entity<Guid>, ICreationAuditedObject
+    public class SignInAggregateRoot : AggregateRoot<Guid>, ICreationAuditedObject
     {
 
         [SugarColumn(IsPrimaryKey = true)]

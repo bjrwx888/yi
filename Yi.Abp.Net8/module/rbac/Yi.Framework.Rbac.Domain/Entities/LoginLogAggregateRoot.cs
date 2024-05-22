@@ -10,7 +10,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
 {
     [SugarTable("LoginLog")]
     [SugarIndex($"index_{nameof(LoginUser)}", nameof(LoginUser), OrderByType.Asc)]
-    public class LoginLogEntity : Entity<Guid>, ICreationAuditedObject
+    public class LoginLogAggregateRoot : AggregateRoot<Guid>, ICreationAuditedObject
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }
@@ -50,7 +50,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
         public Guid? CreatorId { get; set; }
 
 
-        public LoginLogEntity GetInfoByHttpContext(HttpContext context)
+        public LoginLogAggregateRoot GetInfoByHttpContext(HttpContext context)
         {
             ClientInfo GetClientInfo(HttpContext context)
             {
@@ -78,7 +78,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
                 location = IpTool.Search(ipAddr);
             }
             ClientInfo clientInfo = GetClientInfo(context);
-            LoginLogEntity entity = new()
+            LoginLogAggregateRoot entity = new()
             {
                 Browser = clientInfo.Device.Family,
                 Os = clientInfo.OS.ToString(),

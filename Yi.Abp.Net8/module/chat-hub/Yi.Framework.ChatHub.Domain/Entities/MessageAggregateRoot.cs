@@ -12,11 +12,11 @@ using Yi.Framework.ChatHub.Domain.Shared.Model;
 namespace Yi.Framework.ChatHub.Domain.Entities
 {
     [SugarTable("YiMessage")]
-    [SugarIndex($"index_{nameof(MessageEntity)}", 
+    [SugarIndex($"index_{nameof(MessageAggregateRoot)}", 
         nameof(ReceiveId), OrderByType.Asc, 
         nameof(SendUserId), OrderByType.Asc, 
         nameof(CreationTime), OrderByType.Asc)]
-    public class MessageEntity : Entity<Guid>, IHasCreationTime
+    public class MessageAggregateRoot : AggregateRoot<Guid>, IHasCreationTime
     {
         public static MessageContext CreatePersonal(string content, Guid userId, Guid sendUserId)
         {

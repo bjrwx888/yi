@@ -10,7 +10,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
     /// <summary>
     /// 评论创建的领域事件
     /// </summary>
-    public class CommentCreatedEventHandler : ILocalEventHandler<EntityCreatedEventData<CommentEntity>>,
+    public class CommentCreatedEventHandler : ILocalEventHandler<EntityCreatedEventData<CommentAggregateRoot>>,
           ITransientDependency
     {
         private ISqlSugarRepository<BbsUserExtraInfoEntity> _userRepository;
@@ -18,7 +18,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
         {
             _userRepository = userRepository;
         }
-        public async Task HandleEventAsync(EntityCreatedEventData<CommentEntity> eventData)
+        public async Task HandleEventAsync(EntityCreatedEventData<CommentAggregateRoot> eventData)
         {
             var commentEntity = eventData.Entity;
 

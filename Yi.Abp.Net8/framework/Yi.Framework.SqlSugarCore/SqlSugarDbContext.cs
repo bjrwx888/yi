@@ -259,6 +259,10 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="column"></param>
         protected virtual void EntityService(PropertyInfo property, EntityColumnInfo column)
         {
+            if (property.Name == "ConcurrencyStamp")
+            {
+                column.IsIgnore = true;
+            }
             if (property.PropertyType == typeof(ExtraPropertyDictionary))
             {
                 column.IsIgnore = true;

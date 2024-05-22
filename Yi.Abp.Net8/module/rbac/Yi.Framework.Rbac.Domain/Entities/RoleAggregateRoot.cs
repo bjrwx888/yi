@@ -1,24 +1,17 @@
 ﻿using SqlSugar;
-using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 using Yi.Framework.Core.Data;
+using Yi.Framework.Rbac.Domain.Shared.Enums;
 
 namespace Yi.Framework.Rbac.Domain.Entities
 {
     /// <summary>
-    /// 部门表
-    ///</summary>
-    [SugarTable("Dept")]
-    public class DeptEntity : Entity<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
+    /// 角色表
+    /// </summary>
+    [SugarTable("Role")]
+    public class RoleAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
     {
-        public DeptEntity()
-        {
-        }
-
-        public DeptEntity(Guid Id) { this.Id = Id; ParentId = Guid.Empty; }
-
-        public DeptEntity(Guid Id, Guid parentId) { this.Id = Id; ParentId = parentId; }
         /// <summary>
         /// 主键
         /// </summary>
@@ -55,36 +48,39 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// </summary>
         public int OrderNum { get; set; } = 0;
 
-        /// <summary>
-        /// 状态
-        /// </summary>
-        public bool State { get; set; } = true;
 
         /// <summary>
-        /// 部门名称 
-        ///</summary>
-        public string DeptName { get; set; } = string.Empty;
+        /// 角色名
+        /// </summary>
+        public string RoleName { get; set; } = string.Empty;
+
         /// <summary>
-        /// 部门编码 
+        /// 角色编码 
         ///</summary>
-        [SugarColumn(ColumnName = "DeptCode")]
-        public string DeptCode { get; set; } = string.Empty;
-        /// <summary>
-        /// 负责人 
-        ///</summary>
-        [SugarColumn(ColumnName = "Leader")]
-        public string? Leader { get; set; }
-        /// <summary>
-        /// 父级id 
-        ///</summary>
-        [SugarColumn(ColumnName = "ParentId")]
-        public Guid ParentId { get; set; }
+        [SugarColumn(ColumnName = "RoleCode")]
+        public string RoleCode { get; set; } = string.Empty;
 
         /// <summary>
         /// 描述 
         ///</summary>
         [SugarColumn(ColumnName = "Remark")]
         public string? Remark { get; set; }
+        /// <summary>
+        /// 角色数据范围 
+        ///</summary>
+        [SugarColumn(ColumnName = "DataScope")]
+        public DataScopeEnum DataScope { get; set; } = DataScopeEnum.ALL;
 
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public bool State { get; set; } = true;
+
+
+        [Navigate(typeof(RoleMenuEntity), nameof(RoleMenuEntity.RoleId), nameof(RoleMenuEntity.MenuId))]
+        public List<MenuAggregateRoot>? Menus { get; set; }
+
+        [Navigate(typeof(RoleDeptEntity), nameof(RoleDeptEntity.RoleId), nameof(RoleDeptEntity.DeptId))]
+        public List<DeptAggregateRoot>? Depts { get; set; }
     }
 }

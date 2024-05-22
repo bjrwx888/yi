@@ -12,7 +12,7 @@ using Yi.Framework.Rbac.Domain.Shared.Enums;
 namespace Yi.Framework.Rbac.Domain.Entities
 {
     [SugarTable("Notice")]
-    public class NoticeEntity : Entity<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
+    public class NoticeAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
     {
 
         [SugarColumn(IsPrimaryKey = true)]

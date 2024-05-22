@@ -13,11 +13,11 @@ namespace Yi.Framework.Bbs.Domain.Entities.Bank
     /// 利息记录
     /// </summary>
     [SugarTable("InterestRecords")]
-    public class InterestRecordsEntity : Entity<Guid>, IHasCreationTime
+    public class InterestRecordsAggregateRoot : AggregateRoot<Guid>, IHasCreationTime
     {
-        public InterestRecordsEntity()
+        public InterestRecordsAggregateRoot()
         { }
-        public InterestRecordsEntity(decimal comparisonValue, decimal inputValue, bool isFluctuate = false)
+        public InterestRecordsAggregateRoot(decimal comparisonValue, decimal inputValue, bool isFluctuate = false)
         {
             ComparisonValue = comparisonValue;
             Value = inputValue;

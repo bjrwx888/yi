@@ -4,7 +4,7 @@ using Volo.Abp.Domain.Entities;
 namespace Yi.Framework.CodeGen.Domain.Entities
 {
     [SugarTable("YiTemplate")]
-    public class TemplateEntity : Entity<Guid>
+    public class TemplateAggregateRoot : AggregateRoot<Guid>
     {
 
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]

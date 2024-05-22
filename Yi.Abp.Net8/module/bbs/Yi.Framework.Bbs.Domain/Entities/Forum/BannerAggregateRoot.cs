@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Entities;
 namespace Yi.Framework.Bbs.Domain.Entities.Forum
 {
     [SugarTable("Banner")]
-    public class BannerEntity : Entity<Guid>, ISoftDelete, IAuditedObject
+    public class BannerAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }

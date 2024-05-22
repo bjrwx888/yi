@@ -1,5 +1,4 @@
 ﻿using SqlSugar;
-using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 using Yi.Framework.Core.Data;
@@ -14,13 +13,13 @@ namespace Yi.Framework.Rbac.Domain.Entities
     /// </summary>
     [SugarTable("User")]
     [SugarIndex($"index_{nameof(UserName)}", nameof(UserName), OrderByType.Asc)]
-    public class UserEntity : Entity<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
+    public class UserAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
     {
-        public UserEntity()
+        public UserAggregateRoot()
         {
 
         }
-        public UserEntity(string userName, string password, long phone, string nick = "萌新")
+        public UserAggregateRoot(string userName, string password, long phone, string nick = "萌新")
         {
             UserName = userName;
             EncryPassword.Password = password;
@@ -158,26 +157,26 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// 角色
         /// </summary>
         [Navigate(typeof(UserRoleEntity), nameof(UserRoleEntity.UserId), nameof(UserRoleEntity.RoleId))]
-        public List<RoleEntity> Roles { get; set; }
+        public List<RoleAggregateRoot> Roles { get; set; }
 
         /// <summary>
         /// 岗位
         /// </summary>
 
         [Navigate(typeof(UserPostEntity), nameof(UserPostEntity.UserId), nameof(UserPostEntity.PostId))]
-        public List<PostEntity> Posts { get; set; }
+        public List<PostAggregateRoot> Posts { get; set; }
 
         /// <summary>
         /// 部门
         /// </summary>
 
         [Navigate(NavigateType.OneToOne, nameof(DeptId))]
-        public DeptEntity? Dept { get; set; }
+        public DeptAggregateRoot? Dept { get; set; }
 
         /// <summary>
         /// 构建密码，MD5盐值加密
         /// </summary>
-        public UserEntity BuildPassword(string password = null)
+        public UserAggregateRoot BuildPassword(string password = null)
         {
             //如果不传值，那就把自己的password当作传进来的password
             if (password == null)

@@ -10,12 +10,12 @@ namespace Yi.Framework.Bbs.Domain.Entities.Forum
     [SugarIndex($"index_{nameof(Title)}", nameof(Title), OrderByType.Asc)]
     [SugarIndex($"index_{nameof(PlateId)}", nameof(PlateId), OrderByType.Asc)]
     [SugarIndex($"index_{nameof(CreationTime)}", nameof(CreationTime), OrderByType.Desc)]
-    public class DiscussEntity : Entity<Guid>, ISoftDelete, IAuditedObject
+    public class DiscussAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject
     {
-        public DiscussEntity()
+        public DiscussAggregateRoot()
         {
         }
-        public DiscussEntity(Guid plateId)
+        public DiscussAggregateRoot(Guid plateId)
         {
             PlateId = plateId;
         }
