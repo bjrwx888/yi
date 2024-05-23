@@ -8,6 +8,10 @@ namespace Yi.Framework.Bbs.Domain.Entities
     [SugarTable("BbsNotice")]
     public class BbsNoticeAggregateRoot : AggregateRoot<Guid>, IHasCreationTime
     {
+        public BbsNoticeAggregateRoot()
+        { 
+        
+        }
         public BbsNoticeAggregateRoot(NoticeTypeEnum noticeType, string message, Guid? acceptUserId = null)
         {
             this.NoticeType = noticeType;
@@ -47,7 +51,7 @@ namespace Yi.Framework.Bbs.Domain.Entities
         /// </summary>
         public DateTime? ReadTime { get; private set; }
 
-        public DateTime CreationTime { get; }
+        public DateTime CreationTime { get; set; }
     }
 
 

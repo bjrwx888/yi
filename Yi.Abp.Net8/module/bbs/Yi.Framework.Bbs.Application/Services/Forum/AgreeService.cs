@@ -29,7 +29,6 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
         /// Todo: 可放入领域层
         /// </summary>
         /// <returns></returns>
-        [UnitOfWork]
         [Authorize]
         public async Task<AgreeDto> PostOperateAsync(Guid discussId)
         {
@@ -53,9 +52,8 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
             }
             else
             {
-
                 //点赞过，删除即可,修改总点赞数量
-                await _repository.DeleteByIdAsync(entity.Id);
+                await _repository.DeleteAsync(entity);
                 var discussEntity = await _discssRepository.GetByIdAsync(discussId);
                 if (discussEntity is null)
                 {
