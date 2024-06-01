@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>橙子老哥</Authors>
     <Description>yi-framework框架配套工具</Description>
     <PackageProjectUrl>https://ccnetcore.com</PackageProjectUrl>
@@ -16,6 +16,7 @@
     <ToolCommandName>yi-abp</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\logo.png">
@@ -27,5 +28,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>

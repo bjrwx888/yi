@@ -5,9 +5,17 @@ using Yi.Abp.Tool;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
 
+#if DEBUG
+        //args = ["v"];
+        //args = ["-v"];
+        //args = ["h"];
+        //args = ["-h"];
+        //args = [];
+        //args = ["12312"];
+#endif
         try
         {
             IHost host = Host.CreateDefaultBuilder()
@@ -17,29 +25,15 @@ class Program
                 })
                 .UseAutofac()
                 .Build();
+
+            var commandSelector = host.Services.GetRequiredService<CommandSelector>();
+            await commandSelector.SelectorAsync(args);
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
             Console.WriteLine(ex.StackTrace);
         }
-
-        if (args.Contains("-v"))
-        {
-            var version = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
-            Console.WriteLine($"Yi-ABP CLI {version}");
-        }
-        else
-        {
-            Console.WriteLine("""
-                Usage:
-
-                    yi-abp <command> <target> [options]
-
-                Command List:
-                """);
-        }
-
     }
 
 }
