@@ -9,18 +9,19 @@
     <div class="tab">
       <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false" @select="handleSelect">
         <el-menu-item index="1" @click="enterIndex">主页</el-menu-item>
-        <el-sub-menu index="2">
-          <template #title>学习</template>
-          <el-menu-item index="2-1">前端</el-menu-item>
-          <el-menu-item index="2-2">后端</el-menu-item>
-          <el-menu-item index="2-3">运维</el-menu-item>
-        </el-sub-menu>
+
+        <el-menu-item index="2" @click="enterStart"
+        style="color: red;font-weight: bolder;font-size: large;"
+        
+        >开始</el-menu-item>
+
         <el-sub-menu index="3">
-          <template #title>资源</template>
+          <template #title>学习</template>
           <el-menu-item index="3-1">前端</el-menu-item>
           <el-menu-item index="3-2">后端</el-menu-item>
           <el-menu-item index="3-3">运维</el-menu-item>
         </el-sub-menu>
+
         <el-sub-menu index="4">
           <template #title>问答</template>
           <el-menu-item index="4-1">前端</el-menu-item>
@@ -200,6 +201,10 @@ const hanldeReadClick=async ()=>{
         message: `全部已读`,
         type: "success",
       });
+}
+
+const enterStart=()=>{
+alert("即将发布Yi.Abp.Tool,官方脚手架工具集，敬请期待！")
 }
 
 </script>
