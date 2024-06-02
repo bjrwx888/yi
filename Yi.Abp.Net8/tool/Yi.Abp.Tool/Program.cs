@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Yi.Abp.Tool;
+using Yi.Abp.Tool.Application.Contracts;
 
 class Program
 {
@@ -27,6 +27,7 @@ class Program
                 .UseAutofac()
                 .Build();
 
+         var sss=   host.Services.GetRequiredService<ITemplateGenService>();
             var commandSelector = host.Services.GetRequiredService<CommandSelector>();
             await commandSelector.SelectorAsync(args);
         }

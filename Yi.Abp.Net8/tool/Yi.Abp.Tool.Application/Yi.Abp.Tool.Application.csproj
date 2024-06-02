@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Yi.Abp.Tool.Application.Contracts\Yi.Abp.Tool.Application.Contracts.csproj" />
     <ProjectReference Include="..\Yi.Abp.Tool.Domain\Yi.Abp.Tool.Domain.csproj" />
+	  <ProjectReference Include="..\..\framework\Yi.Framework.Ddd.Application\Yi.Framework.Ddd.Application.csproj" />
   </ItemGroup>
 
 </Project>

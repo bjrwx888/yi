@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.Application.Services;
 using Volo.Abp.DependencyInjection;
 using Yi.Abp.Tool.Application.Contracts;
 using Yi.Abp.Tool.Application.Contracts.Dtos;
@@ -15,7 +16,7 @@ using Yi.Framework.Core.Helper;
 
 namespace Yi.Abp.Tool.Application
 {
-    public class TemplateGenService : IRemoteService, ITemplateGenService, ITransientDependency
+    public class TemplateGenService : ApplicationService,ITemplateGenService
     {
         private readonly TemplateGenManager _templateGenManager;
         public TemplateGenService(TemplateGenManager templateGenManager) { _templateGenManager = templateGenManager; }
