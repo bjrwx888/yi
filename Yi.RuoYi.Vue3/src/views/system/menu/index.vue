@@ -128,12 +128,10 @@
                      <el-popover
                         placement="bottom-start"
                         :width="540"
-                        v-model:visible="showChooseIcon"
                         trigger="click"
-                        @show="showSelectIcon"
                      >
                         <template #reference>
-                           <el-input v-model="form.menuIcon" placeholder="点击选择图标" @click="showSelectIcon" v-click-outside="hideSelectIcon" readonly>
+                           <el-input v-model="form.menuIcon" placeholder="点击选择图标" readonly>
                               <template #prefix>
                                  <svg-icon
                                     v-if="form.menuIcon"
@@ -307,7 +305,6 @@ const title = ref("");
 const menuOptions = ref([]);
 const isExpandAll = ref(false);
 const refreshTable = ref(true);
-const showChooseIcon = ref(false);
 const iconSelectRef = ref(null);
 
 const guidEmpty="00000000-0000-0000-0000-000000000000";
@@ -367,24 +364,12 @@ function reset() {
   };
   proxy.resetForm("menuRef");
 }
-/** 展示下拉图标 */
-function showSelectIcon() {
-  iconSelectRef.value.reset();
-  showChooseIcon.value = true;
-}
+
 /** 选择图标 */
 function selected(name) {
   form.value.menuIcon = name;
-  showChooseIcon.value = false;
 }
-/** 图标外层点击隐藏下拉列表 */
-function hideSelectIcon(event) {
-  var elem = event.relatedTarget || event.srcElement || event.target || event.currentTarget;
-  var className = elem.className;
-  if (className !== "el-input__inner") {
-    showChooseIcon.value = false;
-  }
-}
+
 /** 搜索按钮操作 */
 function handleQuery() {
   getList();
