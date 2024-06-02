@@ -28,8 +28,8 @@ namespace Yi.Abp.Tool.Commands
                 
                     > v: 查看yi-abp工具版本号
                     > help: 查看帮助列表，写下命令` yi-abp help <command> `
-                    > new: 创建模板--（正在更新）
-
+                    > new: 创建模块模板` yi-abp new <name> -t module -csf ` 
+                    > new: 创建项目模板` yi-abp new <name> -csf `
                 """);
             return Task.CompletedTask;
         }

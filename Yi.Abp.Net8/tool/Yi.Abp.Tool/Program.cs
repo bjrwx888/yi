@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Yi.Abp.Tool;
 using Yi.Abp.Tool.Application.Contracts;
@@ -24,6 +25,10 @@ class Program
                 .ConfigureServices(async (host, service) =>
                 {
                     await service.AddApplicationAsync<YiAbpToolModule>();
+                })
+                .ConfigureAppConfiguration(configurationBuilder =>
+                {
+                    configurationBuilder.AddJsonFile("appsettings.json");
                 })
                 .UseAutofac()
                 .Build();

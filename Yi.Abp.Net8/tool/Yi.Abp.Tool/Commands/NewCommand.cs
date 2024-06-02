@@ -31,34 +31,37 @@ namespace Yi.Abp.Tool.Commands
             }
             string name = args[1];
 
+            #region 处理生成类型
+
             options.TryGetValue("t", out var templateType);
             var zipPath = string.Empty;
+            byte[] fileByteArray;
             if (templateType == "module")
             {
                 //代表模块生成
-                var fileByteArray = await _templateGenService.CreateModuleAsync(new TemplateGenCreateInputDto
+                fileByteArray = await _templateGenService.CreateModuleAsync(new TemplateGenCreateInputDto
                 {
                     Name = name,
                 });
-                zipPath = $"{id}.zip";
-                await File.WriteAllBytesAsync(zipPath, fileByteArray);
-
             }
             else
             {
-                //暂未实现
-                throw new NotImplementedException("暂未实现");
                 //代表模块生成
-                var fileResult = await _templateGenService.CreateProjectAsync(new TemplateGenCreateInputDto
+                fileByteArray = await _templateGenService.CreateProjectAsync(new TemplateGenCreateInputDto
                 {
                     Name = name,
                 });
             }
+            zipPath = $"{id}.zip";
+            await File.WriteAllBytesAsync(zipPath, fileByteArray);
 
+            #endregion
+
+            #region 处理解决方案文件夹
             //默认是当前目录
             var unzipDirPath = "./";
             //如果创建解决方案文件夹
-            if (templateType == "module"&&options.TryGetValue("csf", out _))
+            if (options.TryGetValue("csf", out _))
             {
                 var moduleName = name.ToLower().Replace(".", "-");
 
@@ -69,12 +72,13 @@ namespace Yi.Abp.Tool.Commands
                 Directory.CreateDirectory(moduleName);
                 unzipDirPath = moduleName;
             }
+            #endregion
             ZipFile.ExtractToDirectory(zipPath, unzipDirPath);
             //创建压缩包后删除临时目录
             File.Delete(zipPath);
 
 
-            await Console.Out.WriteLineAsync("模块已生成！");
+            await Console.Out.WriteLineAsync("恭喜~模块已生成！");
         }
     }
 }
