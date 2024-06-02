@@ -32,6 +32,11 @@
 
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Yi.Abp.Tool.HttpApi.Client\Yi.Abp.Tool.HttpApi.Client.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
 	  <None Update="readme.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>

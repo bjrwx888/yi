@@ -11,7 +11,7 @@ namespace Yi.Abp.Tool.Commands
     {
         public List<string> CommandStrs => new List<string> { "h", "help", "-h", "-help" };
 
-        public Task InvokerAsync(Dictionary<string, string> options)
+        public Task InvokerAsync(Dictionary<string, string> options, string[] args)
         {
             string? errorMsg = null;
             if (options.TryGetValue("error", out _))

@@ -18,6 +18,6 @@ namespace Yi.Abp.Tool
         /// 执行
         /// </summary>
         /// <returns></returns>
-        public Task InvokerAsync(Dictionary<string,string> options);
+        public Task InvokerAsync(Dictionary<string,string> options, string[] args);
     }
 }

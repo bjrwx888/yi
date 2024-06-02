@@ -15,6 +15,7 @@ class Program
         //args = ["-h"];
         //args = [];
         //args = ["12312"];
+        args = ["new", "Acme.Book","-t", "module", "-csf"];
 #endif
         try
         {
@@ -34,6 +35,7 @@ class Program
             Console.WriteLine(ex.Message);
             Console.WriteLine(ex.StackTrace);
         }
+        Console.ReadKey();
     }
 
 }

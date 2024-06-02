@@ -260,10 +260,6 @@ namespace Yi.Abp.Web
         {
             var service = context.ServiceProvider;
 
-            var sss=service.GetRequiredService<Microsoft.Extensions.Options.IOptions<AbpDbConnectionOptions>>().Value;
-          
-
-
             var env = context.GetEnvironment();
             var app = context.GetApplicationBuilder();
 

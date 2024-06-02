@@ -62,7 +62,7 @@ namespace Yi.Abp.Tool
 
 
             }
-            await commandOrNull.InvokerAsync(options);
+            await commandOrNull.InvokerAsync(options,args);
 
         }
         /// <summary>
