@@ -16,7 +16,7 @@ class Program
         //args = ["-h"];
         //args = [];
         //args = ["12312"];
-        //args = ["new", "Acme.Book","-t", "module", "-csf"];
+        args = ["new", "Acme.Book", "-t", "module", "-csf"];
         //args = ["new", "Acme.Book", "-t", "module"];
 #endif
         try
