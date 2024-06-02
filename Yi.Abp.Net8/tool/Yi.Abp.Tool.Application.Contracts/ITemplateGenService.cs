@@ -6,7 +6,7 @@ namespace Yi.Abp.Tool.Application.Contracts
 {
     public interface ITemplateGenService: IApplicationService
     {
-        Task<IActionResult> CreateModuleAsync(TemplateGenCreateInputDto moduleCreateInputDto);
-        Task<IActionResult> CreateProjectAsync(TemplateGenCreateInputDto moduleCreateInputDto);
+        Task<byte[]> CreateModuleAsync(TemplateGenCreateInputDto moduleCreateInputDto);
+        Task<byte[]> CreateProjectAsync(TemplateGenCreateInputDto moduleCreateInputDto);
     }
 }

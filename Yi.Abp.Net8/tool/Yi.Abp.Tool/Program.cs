@@ -15,7 +15,8 @@ class Program
         //args = ["-h"];
         //args = [];
         //args = ["12312"];
-        args = ["new", "Acme.Book","-t", "module", "-csf"];
+        //args = ["new", "Acme.Book","-t", "module", "-csf"];
+        //args = ["new", "Acme.Book", "-t", "module"];
 #endif
         try
         {
@@ -26,8 +27,6 @@ class Program
                 })
                 .UseAutofac()
                 .Build();
-
-         var sss=   host.Services.GetRequiredService<ITemplateGenService>();
             var commandSelector = host.Services.GetRequiredService<CommandSelector>();
             await commandSelector.SelectorAsync(args);
         }
@@ -36,7 +35,6 @@ class Program
             Console.WriteLine(ex.Message);
             Console.WriteLine(ex.StackTrace);
         }
-        Console.ReadKey();
     }
 
 }

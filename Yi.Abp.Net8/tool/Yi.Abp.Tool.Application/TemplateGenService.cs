@@ -25,7 +25,7 @@ namespace Yi.Abp.Tool.Application
         /// 下载模块文件
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> CreateModuleAsync(TemplateGenCreateInputDto moduleCreateInputDto)
+        public async Task<byte[]> CreateModuleAsync(TemplateGenCreateInputDto moduleCreateInputDto)
         {
             moduleCreateInputDto.SetNameReplace();
 
@@ -33,17 +33,17 @@ namespace Yi.Abp.Tool.Application
             input.SetTemplateFilePath(_templateGenManager._toolOptions.ModuleTemplateFilePath);
             var filePath = await _templateGenManager.CreateTemplateAsync(input);
 
-            //考虑从路径中获取
-            var fileContentType = MimeHelper.GetMimeMapping(Path.GetFileName(filePath));
+            ////考虑从路径中获取
+            //var fileContentType = MimeHelper.GetMimeMapping(Path.GetFileName(filePath));
             //设置附件下载，下载名称
-            return new FileContentResult(await File.ReadAllBytesAsync(filePath), fileContentType);
+            return await File.ReadAllBytesAsync(filePath);
         }
 
         /// <summary>
         /// 下载模块文件
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> CreateProjectAsync(TemplateGenCreateInputDto moduleCreateInputDto)
+        public async Task<byte[]> CreateProjectAsync(TemplateGenCreateInputDto moduleCreateInputDto)
         {
             moduleCreateInputDto.SetNameReplace();
 
@@ -52,9 +52,9 @@ namespace Yi.Abp.Tool.Application
             var filePath = await _templateGenManager.CreateTemplateAsync(input);
 
             //考虑从路径中获取
-            var fileContentType = MimeHelper.GetMimeMapping(Path.GetFileName(filePath));
+           // var fileContentType = MimeHelper.GetMimeMapping(Path.GetFileName(filePath));
             //设置附件下载，下载名称
-            return new FileContentResult(await File.ReadAllBytesAsync(filePath), fileContentType);
+            return await File.ReadAllBytesAsync(filePath);
         }
     }
 }
