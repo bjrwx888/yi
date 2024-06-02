@@ -26,10 +26,10 @@ class Program
                 {
                     await service.AddApplicationAsync<YiAbpToolModule>();
                 })
-                .ConfigureAppConfiguration(configurationBuilder =>
-                {
-                    configurationBuilder.AddJsonFile("appsettings.json");
-                })
+                //.ConfigureAppConfiguration(configurationBuilder =>
+                //{
+                //    configurationBuilder.AddJsonFile("appsettings.json");
+                //})
                 .UseAutofac()
                 .Build();
             var commandSelector = host.Services.GetRequiredService<CommandSelector>();

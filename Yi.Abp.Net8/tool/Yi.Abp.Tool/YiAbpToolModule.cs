@@ -11,11 +11,11 @@ namespace Yi.Abp.Tool
 
         public override void PostConfigureServices(ServiceConfigurationContext context)
         {
-            var configuration = context.Services.GetConfiguration();
+           // var configuration = context.Services.GetConfiguration();
             Configure<AbpRemoteServiceOptions>(options =>
             {
                 options.RemoteServices.Default =
-                    new RemoteServiceConfiguration(configuration["YiAbpToolUrl"]);
+                    new RemoteServiceConfiguration("http://ccnetcore.com:19002");
             });
         }
     }
