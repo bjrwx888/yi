@@ -47,7 +47,6 @@ namespace Yi.Abp.Tool.Commands
             StartCmd(cmdCommands);
 
             await Console.Out.WriteLineAsync("恭喜~模块添加成功！");
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace Yi.Abp.Tool.Commands
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
-                Arguments = $"/c {string.Join("&", cmdCommands)}",
+                Arguments = $"/c chcp 65001&{string.Join("&", cmdCommands)}",
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -98,6 +97,7 @@ namespace Yi.Abp.Tool.Commands
 
             proc.WaitForExit();
         }
+
 
         /// <summary>
         /// 检查路径

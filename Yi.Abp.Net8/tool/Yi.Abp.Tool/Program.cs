@@ -16,7 +16,7 @@ class Program
         //args = ["12312"];
         //args = ["new", "Acme.Book", "-t", "module", "-csf"];
         //args = ["new", "Acme.Book", "-t", "module"];
-        args = ["add","module", "-moduleName", "Acme.Demo", "-modulePath", "module\\acme-demo"];
+        args = ["add-module", "Acme.Demo", "-s", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8", "-modulePath", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\module\\acme-demo"];
 #endif
         try
         {
