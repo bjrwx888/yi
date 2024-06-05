@@ -7,45 +7,46 @@ using System.Threading.Tasks;
 
 namespace Yi.Abp.Tool.Commands
 {
-    public class AddCommand : ICommand
+    public class AddModuleCommand : ICommand
     {
-        public List<string> CommandStrs => new List<string> { "add" };
+        public List<string> CommandStrs => new List<string> { "add-module" };
 
-        public Task InvokerAsync(Dictionary<string, string> options, string[] args)
+        public async Task InvokerAsync(Dictionary<string, string> options, string[] args)
         {
             //只有一个add
             if (args.Length <= 1)
             {
-                throw new UserFriendlyException("命令错误，add命令后必须添加 类型");
+                throw new UserFriendlyException("命令错误，add-module命令后必须添加 模块名");
             }
 
             //需要添加名称
-            var addName = args[1];
+            var moduleName = args[1];
             options.TryGetValue("modulePath", out var modulePath);
-            options.TryGetValue("moduleName", out var moduleName);
 
-
-            //添加的为模块
-            if (addName == "module")
+            if (string.IsNullOrEmpty(modulePath))
             {
-                if (string.IsNullOrEmpty(modulePath) || string.IsNullOrEmpty(moduleName))
-                {
-                    throw new UserFriendlyException("命令错误，添加模块，必须指定模块路径及模块名称");
-                }
-                GetFirstSlnPath();
-                var dotnetSlnCommandPart1 = $@"dotnet sln add {modulePath}\{moduleName}.";
-                var dotnetSlnCommandPart2 = new List<string>() { "Application", "Application.Contracts", "Domain", "Domain.Shared", "SqlSugarCore" };
-                var paths = dotnetSlnCommandPart2.Select(x => $@"{modulePath}\{moduleName}." + x).ToArray();
-                CheckPathExist(paths);
-
-                var cmdCommands = dotnetSlnCommandPart2.Select(x => dotnetSlnCommandPart1 + x).ToArray();
-                StartCmd(cmdCommands);
-
+                throw new UserFriendlyException("命令错误，添加模块，必须指定模块路径");
             }
-            else
+
+            var slnPath = string.Empty;
+            options.TryGetValue("s", out var slnPath1);
+            options.TryGetValue("solution", out var slnPath2);
+            slnPath = string.IsNullOrEmpty(slnPath1) ? slnPath2 : slnPath1;
+            if (string.IsNullOrEmpty(slnPath))
             {
-                throw new UserFriendlyException("命令暂时只支持模块添加，请尝试使用 module");
+                slnPath = "./";
             }
+
+            CheckFirstSlnPath(slnPath);
+            var dotnetSlnCommandPart1 = $"dotnet sln \"{slnPath}\" add \"{modulePath}\\{moduleName}.";
+            var dotnetSlnCommandPart2 = new List<string>() { "Application", "Application.Contracts", "Domain", "Domain.Shared", "SqlSugarCore" };
+            var paths = dotnetSlnCommandPart2.Select(x => $@"{modulePath}\{moduleName}." + x).ToArray();
+            CheckPathExist(paths);
+
+            var cmdCommands = dotnetSlnCommandPart2.Select(x => dotnetSlnCommandPart1 + x+"\"").ToArray();
+            StartCmd(cmdCommands);
+
+            await Console.Out.WriteLineAsync("恭喜~模块添加成功！");
             return Task.CompletedTask;
         }
 
@@ -53,9 +54,9 @@ namespace Yi.Abp.Tool.Commands
         /// 获取一个sln解决方案，多个将报错
         /// </summary>
         /// <returns></returns>
-        private string GetFirstSlnPath()
+        private string CheckFirstSlnPath(string slnPath)
         {
-            string[] slnFiles = Directory.GetFiles("./", "*.sln");
+            string[] slnFiles = Directory.GetFiles(slnPath, "*.sln");
             if (slnFiles.Length > 1)
             {
                 throw new UserFriendlyException("当前目录包含多个sln解决方案，请只保留一个");
