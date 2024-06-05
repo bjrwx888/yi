@@ -1,3 +1,15 @@
+<script setup>
+import { reactive } from "vue";
+import CodeBox from "./components/CodeBox.vue"
+import LableInput from "./components/LableInput.vue"
+const form = reactive({
+    name: "222"
+});
+const text1 = "> dotnet tool install -g Yi.Abp.Tool";
+const text2 = "> yi-abp new Acme.BookStore -t module -csf";
+
+
+</script>
 <template>
     <div class="start-body">
 
@@ -7,11 +19,23 @@
                 <div class="content-body-left">
 
                     <h4>安装 Yi.Abp.Tool</h4>
-                <p>如果之前未安装 Yi.Abp.Tool，请在命令行终端中安装：</p>
-                </div>
-            <div class="content-body-right">
+                    <p>如果之前未安装 Yi.Abp.Tool，请在命令行终端中安装：</p>
 
-            </div>
+                    <CodeBox :text="text1" />
+                    <h4>创建你的解决方案</h4>
+                    <p>在命令行终端运行以下命令：</p>
+                    <CodeBox :text="text2" />
+
+                    <h4>配置</h4>
+                    <p>您可以更改下面的解决方案配置。</p>
+
+                    <h5>为项目命名</h5>
+                    <LableInput v-model="form.name" />
+                    <p>您可以使用不同级别的命名空间；例如，BookStore、Acme.BookStore 或 Acme.Retail.BookStore。</p>
+                </div>
+                <div class="content-body-right">
+
+                </div>
 
 
             </div>
@@ -52,26 +76,38 @@
         border: 0;
         box-shadow: 0 0 1rem rgba(0, 0, 0, .08);
         display: flex;
-        &-left{
-            width: 75%;
+
+        &-left {
+            width: 100%;
         }
-        &-right{
-            width: 25%;
-            background-color: #b84297;
-            height: 1000px;
+
+        &-right {
+            width: 0%;
+            background-color: #409EFF;
         }
-        h4 {
-            font-size: 20px;
-            font-weight: 500;
-            color: #b84297;
-            margin-bottom: .25rem;
-            margin-top: 0;
-        
-        }
+
+
 
         p {
             margin-top: 0;
             margin-bottom: 1rem;
+            font-family: "Poppins";
+            font-size: 14px;
+            font-weight: 300;
+        }
+        h4 {
+            font-size: 20px;
+            font-weight: 500;
+            color: #409EFF;
+            margin-bottom: .25rem;
+            margin-top: 0;
+
+        }
+        h5 {
+            color: #292d33;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin: 5px;
         }
     }
 }
