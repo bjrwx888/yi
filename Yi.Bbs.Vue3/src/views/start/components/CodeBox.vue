@@ -1,5 +1,15 @@
 <script setup>
-const props = defineProps(["text"]);
+const model = defineModel()
+const copyText=async ()=>{
+    var oldText=model.value;
+    var newText=oldText.replace(">", "").trim();
+    await navigator.clipboard.writeText(newText);
+    ElMessage({
+          message: "命令复制成功",
+          type: "success",
+          duration: 2000,
+        });
+}
 </script>
 <template>
     <div class="box">
@@ -11,10 +21,10 @@ const props = defineProps(["text"]);
             <span class="dot"></span>
             </div>
             <div class="header-right">
-<button>复制</button>
+<button @click="copyText">复制</button>
             </div>
         </div>
-        <div class="body"> {{ props.text }}</div>
+        <div class="body"> {{ model }}</div>
     </div>
 </template>
 <style scoped lang="scss">
