@@ -32,7 +32,7 @@ namespace Yi.Abp.Tool.Domain
             HtmlWeb web = new HtmlWeb();
             this.HtmlDoc = web.Load(NugetVersionUrl);
             nugetResult.Versions = GetVersionList();
-            nugetResult.DownloadNumberNumber = GetDownloadNumber();
+            nugetResult.DownloadNumber = GetDownloadNumber();
 
             return nugetResult;
         }
@@ -79,7 +79,7 @@ namespace Yi.Abp.Tool.Domain
 
     public class NugetResult
     {
-        public long DownloadNumberNumber { get; set; }
+        public long DownloadNumber { get; set; }
         public List<string> Versions { get; set; }
     }
 }
