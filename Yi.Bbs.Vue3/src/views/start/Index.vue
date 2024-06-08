@@ -43,7 +43,7 @@ const typeData = [{ name: '模块', key: 'module', value: 'module' },
 { name: '模块', key: 'project', value: 'project' }]
 const addModuleComputed=computed(()=>{
 
-    return `> yi-abp add-module ${form.name.toLowerCase().replace(/\./g, "-")}`;
+    return `> yi-abp add-module ${form.name}`;
 })
 
 const commandComputed=computed(()=>{
