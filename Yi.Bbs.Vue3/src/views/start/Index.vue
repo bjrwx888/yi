@@ -10,13 +10,17 @@ const isFixed = ref(false);
 const form = reactive({
     name: "Acme.BookStore",
     isCsf: true,
-    dbType: 'sqlite'
+    dbType: 'sqlite',
+    type:"module"
 });
 const installText = "> dotnet tool install -g Yi.Abp.Tool";
-const commandTest = "> yi-abp new Acme.BookStore -t module -csf";
-const cloneText = "> git clone https://gitee.com/ccnetcore/Yi ";
+const cloneText = "> yi-abp clone ";
+
 const onDbTypeSelected = (data) => {
     form.dbType = data.value;
+}
+const onProjectSelected=(data)=>{
+
 }
 const dbData = [
     { name: 'Sqlite', key: 'sqlite', value: 'sqlite' },
@@ -29,9 +33,21 @@ const dbData = [
 
 
 const typeData = [{ name: '模块', key: 'module', value: 'module' },
-{ name: '项目', key: 'project', value: 'project' }]
+{ name: '模块', key: 'project', value: 'project' }]
+const addModuleComputed=computed(()=>{
+
+    return `> yi-abp add-module ${form.name.toLowerCase().replace(/\./g, "-")}`;
+})
+
 const commandComputed=computed(()=>{
-return `yi-abp new ${form.name} -t module ${form.isCsf==true?'-csf':''}`
+let dbType=form.dbType;
+if(dbType=="sqlite")
+{
+    dbType=""
+}
+
+
+return `> yi-abp new ${form.name} -t module ${dbType!=''?'-dbms '+form.dbType:''} ${form.isCsf==true?'-csf':''}`
 });
 
 onMounted(() => {
@@ -50,7 +66,6 @@ const scrolling = () => {
     var width = document.getElementById('command').getBoundingClientRect().width;
 
     document.getElementById('command').style.width = width + 'px';
-
     if (scrollTop > commandBoxTop) {
 
         isFixed.value = true;
@@ -79,13 +94,18 @@ onUnmounted(() => {
                     <CodeBox  v-model="installText" />
 
                     <h4>克隆源代码，yi框架非打包，便于大家调试二开</h4>
-                    <p>需安装git，执行命令：</p>
+                    <p>需安装git及Yi.Abp.Tool，执行命令：</p>
                     <CodeBox  v-model="cloneText" />
 
 
                     <h4>创建你的模块</h4>
                     <p>在module文件夹内，命令行终端运行以下命令：</p>
                     <CodeBox id="command" :class="{ command: isFixed }" v-model="commandComputed" />
+
+
+                    <h4>将你创建的模块添加到当前解决方案中</h4>
+                    <p>在module文件夹内，命令行终端运行以下命令：</p>
+                    <CodeBox  v-model="addModuleComputed" />
 
 
                     <h4>配置</h4>
@@ -98,7 +118,7 @@ onUnmounted(() => {
 
 
                     <h5>选择创建类型</h5>
-                    <SlectBox :data="typeData" width="25%" @onSelected="onDbTypeSelected" />
+                    <SlectBox :data="typeData" width="25%" @onSelected="onProjectSelected" />
 
 
                     <h5>选择数据库管理系统</h5>
@@ -122,7 +142,7 @@ onUnmounted(() => {
     position: fixed !important;
     z-index: 99;
     top: 100px;
-    width: 1000px;
+   width: 1000px;
 }
 
 .start-body {
@@ -151,7 +171,7 @@ onUnmounted(() => {
     }
 
     &-body {
-        height: 1200px;
+        height: 1400px;
         padding: 48px;
         background-color: #fff;
         border-radius: 12px;

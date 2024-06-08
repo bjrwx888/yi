@@ -28,6 +28,7 @@ watch(()=>props.isSelect,(n,o)=>{
 }
 
 .box {
+    cursor: pointer;
     color: #292d33;
     background-color: #fafafa;
     padding: 18px !important;

@@ -13,7 +13,7 @@ namespace Yi.Abp.Tool.Commands
 
         public async Task InvokerAsync(Dictionary<string, string> options, string[] args)
         {
-            //只有一个add
+            //只有一个add-module
             if (args.Length <= 1)
             {
                 throw new UserFriendlyException("命令错误，add-module命令后必须添加 模块名");
@@ -23,18 +23,21 @@ namespace Yi.Abp.Tool.Commands
             var moduleName = args[1];
             options.TryGetValue("modulePath", out var modulePath);
 
+            //模块路径默认按小写规则，当前路径
             if (string.IsNullOrEmpty(modulePath))
             {
-                throw new UserFriendlyException("命令错误，添加模块，必须指定模块路径");
+                modulePath = moduleName.ToLower().Replace(".", "-");
             }
 
+
+            //解决方案默认在模块文件夹上一级，也可以通过s进行指定
             var slnPath = string.Empty;
             options.TryGetValue("s", out var slnPath1);
             options.TryGetValue("solution", out var slnPath2);
             slnPath = string.IsNullOrEmpty(slnPath1) ? slnPath2 : slnPath1;
             if (string.IsNullOrEmpty(slnPath))
             {
-                slnPath = "./";
+                slnPath = "../";
             }
 
             CheckFirstSlnPath(slnPath);
