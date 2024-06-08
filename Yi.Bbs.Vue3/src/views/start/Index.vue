@@ -4,6 +4,7 @@ import CodeBox from "./components/CodeBox.vue"
 import LableInput from "./components/LableInput.vue"
 import SlectBox from "./components/SlectBox.vue"
 import LableCheck from "./components/LableCheck.vue"
+import {GetResult} from '@/apis/nugetApi'
 
 
 const isFixed = ref(false);
@@ -15,6 +16,8 @@ const form = reactive({
 });
 const installText = "> dotnet tool install -g Yi.Abp.Tool";
 const cloneText = "> yi-abp clone ";
+
+
 
 const onDbTypeSelected = (data) => {
     form.dbType = data.value;
@@ -50,8 +53,9 @@ if(dbType=="sqlite")
 return `> yi-abp new ${form.name} -t module ${dbType!=''?'-dbms '+form.dbType:''} ${form.isCsf==true?'-csf':''}`
 });
 
-onMounted(() => {
-
+onMounted(async() => {
+    const {data}= await GetResult();
+    console.log(data,"data");
     // 监听页面滚动事件
     window.addEventListener("scroll", scrolling, true);
 
