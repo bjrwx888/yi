@@ -86,7 +86,10 @@ onUnmounted(() => {
     <div class="start-body">
 
         <div class="content">
-            <div class="content-title"><span>开始</span></div>
+            <div class="content-title"><span>开始</span>
+            
+            <div class="version">Yi.Abp.Tool工具集，最新版本号 </div>
+            </div>
             <div class="content-body">
                 <div class="content-body-left">
                     <h4>安装 Yi.Abp.Tool</h4>
@@ -106,7 +109,7 @@ onUnmounted(() => {
                     <h4>将你创建的模块添加到当前解决方案中</h4>
                     <p>在module文件夹内，命令行终端运行以下命令：</p>
                     <CodeBox  v-model="addModuleComputed" />
-
+                    <p>模块创建后，可选择任意host主机进行模块依赖即可</p>
 
                     <h4>配置</h4>
                     <p>您可以更改下面的解决方案配置。</p>
@@ -163,6 +166,13 @@ onUnmounted(() => {
         display: flex;
         align-items: center;
 
+        .version{
+            height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px 10px;
+    color: darkgrey;
+        }
         span {
             color: #292d33;
             font-size: 48px;

@@ -13,7 +13,13 @@ namespace Yi.Abp.Tool.Commands
         public Task InvokerAsync(Dictionary<string, string> options, string[] args)
         {
             List<string> delDirBlacklist = ["obj", "bin"];
-            DeleteObjBinFolders("./", delDirBlacklist);
+            options.TryGetValue("path", out var path);
+
+            if (string.IsNullOrEmpty(path))
+            {
+                path = "./";
+            }
+            DeleteObjBinFolders(path, delDirBlacklist);
             return Task.CompletedTask;
         }
 
@@ -24,7 +30,7 @@ namespace Yi.Abp.Tool.Commands
             {
                 foreach (string subDir in Directory.GetDirectories(directory))
                 {
-                    if (delDirBlacklist.Contains(subDir))
+                    if (delDirBlacklist.Contains(Path.GetFileName( subDir)))
                     {
                         Directory.Delete(subDir, true);
                         Console.WriteLine($"已删除文件夹：{subDir}");

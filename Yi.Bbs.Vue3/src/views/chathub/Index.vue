@@ -203,11 +203,10 @@ const getLastMessage = ((receiveId, isAll) => {
 
 <template>
   <div style="position: absolute; top: 0;left: 0;">
-    <p>当前版本：1.1.0</p>
+    <p>当前版本：1.2.0</p>
     <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
     <p>tip:点击聊天窗口右上角“X”可退出</p>
-    <p>1.0.0：上线框架基础功能</p>
-    <p>1.1.0：结合用户领域信息</p>
+    <p>tip:多人同时在聊天室时，左侧可显示其他成员</p>
   </div>
   <div class="body">
 

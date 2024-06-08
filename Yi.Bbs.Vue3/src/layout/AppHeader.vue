@@ -212,7 +212,7 @@ const hanldeReadClick=async ()=>{
 }
 
 const enterStart=()=>{
-alert("即将发布Yi.Abp.Tool,官方脚手架工具集，敬请期待！")
+  router.push("/start");
 }
 
 </script>
