@@ -30,8 +30,7 @@ namespace Yi.Abp.Tool.Commands
                     > help: 查看帮助列表，写下命令` yi-abp help <command> `
                     > new: 创建模块模板` yi-abp new <name> -t module -csf ` 
                     > new: 创建项目模板` yi-abp new <name> -csf `
-                    > add-module: 将内容添加到当前解决方案` yi-abp add-module <moduleName> -modulePath <path> [-s <slnPath>]   `
-                    - add：例子：yi-abp add-module Acme.Demo -s "D:\code\csharp\source\Yi\Yi.Abp.Net8" -modulePath "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\module\\acme-demo"
+                    > add-module: 将内容添加到当前解决方案` yi-abp add-module <moduleName> [-modulePath <path>] [-s <slnPath>] `
 
                 """);
             return Task.CompletedTask;

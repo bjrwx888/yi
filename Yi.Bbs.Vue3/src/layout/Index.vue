@@ -8,7 +8,7 @@
       >
         <AppHeader />
       </el-header>
-      <el-main class="common-main">
+      <el-main id="main-box" class="common-main">
         <AppBody />
       </el-main>
     </el-container>

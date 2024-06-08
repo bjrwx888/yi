@@ -61,13 +61,21 @@
 
       <div class="notice">
         <el-dropdown trigger="click" :max-height="500">
-          <el-badge :value="noticeStore.noticeForNoReadCount">
+          <el-badge v-if="noticeStore.noticeForNoReadCount>0" :value="noticeStore.noticeForNoReadCount">
             <el-button type="primary">
               <el-icon :size="15">
                 <Bell />
               </el-icon>
             </el-button>
           </el-badge>
+
+         <el-button v-else="noticeStore.noticeForNoReadCount" type="primary">
+              <el-icon :size="15">
+                <Bell />
+              </el-icon>
+            </el-button>
+
+
           <template #dropdown>
             <el-dropdown-menu>
 
