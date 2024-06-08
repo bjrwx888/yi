@@ -17,7 +17,11 @@ const form = reactive({
 const installText = "> dotnet tool install -g Yi.Abp.Tool";
 const cloneText = "> yi-abp clone ";
 
+const nugetData=reactive({
+    versions:"0.0.0",
+    downloadNumber:0
 
+});
 
 const onDbTypeSelected = (data) => {
     form.dbType = data.value;
@@ -55,6 +59,8 @@ return `> yi-abp new ${form.name} -t module ${dbType!=''?'-dbms '+form.dbType:''
 
 onMounted(async() => {
     const {data}= await GetResult();
+    nugetData.downloadNumber=data.downloadNumber;
+    nugetData.versions=data.versions[0];
     console.log(data,"data");
     // 监听页面滚动事件
     window.addEventListener("scroll", scrolling, true);
@@ -92,7 +98,7 @@ onUnmounted(() => {
         <div class="content">
             <div class="content-title"><span>开始</span>
             
-            <div class="version">Yi.Abp.Tool工具集，最新版本号 </div>
+            <div class="version">Yi.Abp.Tool工具集，最新版本号 {{ nugetData.versions }}，当前总下载次数 {{nugetData.downloadNumber}}</div>
             </div>
             <div class="content-body">
                 <div class="content-body-left">
