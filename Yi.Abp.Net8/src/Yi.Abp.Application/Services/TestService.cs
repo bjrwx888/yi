@@ -55,9 +55,10 @@ namespace Yi.Abp.Application.Services
             //魔改
             // 用户体验优先，万金油模式，支持高并发。支持单、多线程并发安全，支持多线程工作单元，支持多线程无工作单元，支持。。。
             // 自动在各个情况处理db客户端最优解之一
-            int i = 10;
+            int i = 3;
             List<Task> tasks = new List<Task>();
-
+            await sqlSugarRepository.GetListAsync();
+            await sqlSugarRepository.GetListAsync();
             while (i > 0)
             {
                 tasks.Add(Task.Run(async () =>
