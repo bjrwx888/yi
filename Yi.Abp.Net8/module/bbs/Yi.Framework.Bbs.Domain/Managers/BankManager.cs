@@ -35,7 +35,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <summary>
         /// 用于存储当前汇率数据
         /// </summary>
-        private BankInterestRecordDto? _currentRateStore;
+        private static BankInterestRecordDto? _currentRateStore;
 
         /// <summary>
         /// 获取当前的银行汇率，如果为空会从数据库拿最新一条
@@ -45,7 +45,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
         {
             var output = new BankInterestRecordDto();
             //先判断时间是否与当前时间差1小时，小于1小时直接返回即可,可以由一个单例类提供
-            if (this._currentRateStore is null || this._currentRateStore.IsExpire())
+            if (_currentRateStore is null || _currentRateStore.IsExpire())
             {
                 var currentInterestRecords = CreateInterestRecordsAsync().Result;
                 output.ComparisonValue = currentInterestRecords.ComparisonValue;

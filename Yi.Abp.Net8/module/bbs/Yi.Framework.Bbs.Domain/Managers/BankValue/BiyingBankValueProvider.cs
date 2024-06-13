@@ -9,6 +9,7 @@ using Volo.Abp.DependencyInjection;
 
 namespace Yi.Framework.Bbs.Domain.Managers.BankValue
 {
+    [Dependency(TryRegister =true)]
     public class BiyingBankValueProvider : IBankValueProvider, ITransientDependency
     {
         //官网地址：www.biyingapi.com
