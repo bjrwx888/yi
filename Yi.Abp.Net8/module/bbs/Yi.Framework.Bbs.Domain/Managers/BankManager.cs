@@ -15,6 +15,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
     /// </summary>
     public class BankManager : DomainService
     {
+        private const decimal DefalutRate = 1.3m;
         private ISqlSugarRepository<BankCardAggregateRoot> _repository;
         private ILocalEventBus _localEventBus;
         private ISqlSugarRepository<InterestRecordsAggregateRoot> _interestRepository;
@@ -24,7 +25,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             _repository = repository;
             _localEventBus = localEventBus;
             _interestRepository = interestRepository;
-            _bankValueProvider=bankValueProvider;
+            _bankValueProvider = bankValueProvider;
         }
 
         /// <summary>
@@ -52,20 +53,15 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 output.CreationTime = currentInterestRecords.CreationTime;
                 output.Value = currentInterestRecords.Value;
 
-                _currentRateStore=new BankInterestRecordDto() { ComparisonValue= currentInterestRecords .ComparisonValue,
-                CreationTime=currentInterestRecords.CreationTime,Value=currentInterestRecords.Value};
+                _currentRateStore = new BankInterestRecordDto()
+                {
+                    ComparisonValue = currentInterestRecords.ComparisonValue,
+                    CreationTime = currentInterestRecords.CreationTime,
+                    Value = currentInterestRecords.Value
+                };
 
             }
             return output;
-        }
-
-        /// <summary>
-        /// 获取第三方的值
-        /// </summary>
-        /// <returns></returns>
-        private decimal GetThirdPartyValue()
-        {
-            return _bankValueProvider.GetValueAsync().Result;
         }
 
         /// <summary>
@@ -76,22 +72,19 @@ namespace Yi.Framework.Bbs.Domain.Managers
         {
             //获取最新的实体
             var lastEntity = await _interestRepository._DbQueryable.OrderByDescending(x => x.CreationTime).FirstAsync();
-            decimal oldValue = 1.3m;
-
-            //获取第三方的值
-            var thirdPartyValue = GetThirdPartyValue();
-
-            //获取上一次第三方标准值
-            var lastThirdPartyStandardValue = thirdPartyValue;
+            decimal oldValue = DefalutRate;
 
 
+
+            var thirdPartyValue = await _bankValueProvider.GetValueAsync();
             //获取实际值的变化率
-            decimal changeRate = 0;
+            decimal changeRate = (thirdPartyValue - _bankValueProvider.StandardValue) / (thirdPartyValue);
+
+
             //说明不是第一次
             if (lastEntity is not null)
             {
                 oldValue = lastEntity.Value;
-                changeRate = (thirdPartyValue - lastEntity.ComparisonValue) / (thirdPartyValue);
             }
 
             //判断市场是否波动
@@ -102,11 +95,10 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 changeRate = 2 * changeRate;
             }
 
-
             //根据上一次的老值进行变化率比较
-            var currentValue = oldValue + (oldValue* changeRate);
+            var currentValue = oldValue + (oldValue * changeRate);
 
-            var entity = new InterestRecordsAggregateRoot(lastThirdPartyStandardValue, currentValue);
+            var entity = new InterestRecordsAggregateRoot(thirdPartyValue, currentValue);
             var output = await _interestRepository.InsertReturnEntityAsync(entity);
 
             return output;
