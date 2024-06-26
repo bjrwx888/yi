@@ -48,7 +48,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             //先判断时间是否与当前时间差1小时，小于1小时直接返回即可,可以由一个单例类提供
             if (_currentRateStore is null || _currentRateStore.IsExpire())
             {
-                var currentInterestRecords = CreateInterestRecordsAsync().Result;
+                var currentInterestRecords = CreateInterestRecordsAsync().GetAwaiter().GetResult();
                 output.ComparisonValue = currentInterestRecords.ComparisonValue;
                 output.CreationTime = currentInterestRecords.CreationTime;
                 output.Value = currentInterestRecords.Value;
