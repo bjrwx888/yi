@@ -31,7 +31,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <summary>
         /// 获取当前银行汇率
         /// </summary>
-        public BankInterestRecordDto CurrentRate => GetCurrentInterestRate();
+        public BankInterestRecordDto CurrentRate => GetCurrentInterestRate().GetAwaiter().GetResult();
 
         /// <summary>
         /// 用于存储当前汇率数据
@@ -42,13 +42,13 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// 获取当前的银行汇率，如果为空会从数据库拿最新一条
         /// </summary>
         /// <returns></returns>
-        private BankInterestRecordDto GetCurrentInterestRate()
+        public async Task<BankInterestRecordDto> GetCurrentInterestRate()
         {
             var output = new BankInterestRecordDto();
             //先判断时间是否与当前时间差1小时，小于1小时直接返回即可,可以由一个单例类提供
             if (_currentRateStore is null || _currentRateStore.IsExpire())
             {
-                var currentInterestRecords = CreateInterestRecordsAsync().GetAwaiter().GetResult();
+                var currentInterestRecords =await CreateInterestRecordsAsync();
                 output.ComparisonValue = currentInterestRecords.ComparisonValue;
                 output.CreationTime = currentInterestRecords.CreationTime;
                 output.Value = currentInterestRecords.Value;
@@ -68,7 +68,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// 强制创建一个记录，不管时间到没到
         /// </summary>
         /// <returns></returns>
-        public async Task<InterestRecordsAggregateRoot> CreateInterestRecordsAsync()
+        private async Task<InterestRecordsAggregateRoot> CreateInterestRecordsAsync()
         {
             //获取最新的实体
             var lastEntity = await _interestRepository._DbQueryable.OrderByDescending(x => x.CreationTime).FirstAsync();
