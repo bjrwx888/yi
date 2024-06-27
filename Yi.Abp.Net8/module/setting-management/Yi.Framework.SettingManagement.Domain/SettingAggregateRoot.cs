@@ -1,10 +1,13 @@
 ﻿using JetBrains.Annotations;
+using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
+using Check = Volo.Abp.Check;
 
 namespace Yi.Framework.SettingManagement.Domain;
 
-public class SettingEntity : Entity<Guid>, IAggregateRoot<Guid>
+[SugarTable("Setting")]
+public class SettingAggregateRoot : Entity<Guid>, IAggregateRoot<Guid>
 {
     [NotNull]
     public virtual string Name { get; protected set; }
@@ -18,12 +21,12 @@ public class SettingEntity : Entity<Guid>, IAggregateRoot<Guid>
     [CanBeNull]
     public virtual string ProviderKey { get; protected set; }
 
-    public SettingEntity()
+    public SettingAggregateRoot()
     {
 
     }
 
-    public SettingEntity(
+    public SettingAggregateRoot(
         Guid id,
         [NotNull] string name,
         [NotNull] string value,

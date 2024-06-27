@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Settings;
 using Volo.Abp.Uow;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Banner;
 using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Extensions;
+using Yi.Framework.SettingManagement.Domain;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Abp.Application.Services
@@ -120,7 +122,7 @@ namespace Yi.Abp.Application.Services
             var dto = entity.Adapt<BannerGetListOutputDto>();
         }
 
-
+        private static int RequestNumber { get; set; } = 0;
         /// <summary>
         /// 速率限制
         /// </summary>
@@ -132,6 +134,27 @@ namespace Yi.Abp.Application.Services
             RequestNumber++;
             return RequestNumber;
         }
-        private static int RequestNumber { get; set; } = 0;
+
+
+        public ISettingProvider _settingProvider { get; set; }
+
+        public ISettingManager _settingManager { get; set; }
+        /// <summary>
+        /// 系统配置模块
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetSettingAsync()
+        {
+            //默认来说，不提供修改操作，配置应该独立
+            var enableOrNull = await _settingProvider.GetOrNullAsync("abp.ddd.enable");
+
+            //如果要进行修改，可使用yi.framework下的ISettingManager
+            await _settingManager.SetAsync("abp.ddd.enable", "false", "系统", "admin");
+
+            var enableOrNull2 = await _settingProvider.GetOrNullAsync("abp.ddd.enable");
+
+            return enableOrNull2 ?? string.Empty;
+        }
+
     }
 }
