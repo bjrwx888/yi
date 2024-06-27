@@ -13,7 +13,7 @@ namespace Yi.Abp.Domain.Shared.Settings
         {
             context.Add(
              new SettingDefinition("DDD","127.0.0.1"),
-             new SettingDefinition("TTT", "127.0.0.1")
+             new SettingDefinition("Test", null)
          );
 
 

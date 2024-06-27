@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using System.Xml.Linq;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Volo.Abp.Application.Services;
@@ -155,7 +156,9 @@ namespace Yi.Abp.Application.Services
             var enableOrNull2 = await _settingManager.GetOrNullGlobalAsync("DDD");
 
             //当然，他的独特地方，是支持来自多个模块，例如配置文件？
-         var result=  await _settingManager.GetOrNullConfigurationAsync("Test");
+            var result = await _settingManager.GetOrNullConfigurationAsync("Test");
+
+
             return result ?? string.Empty;
         }
 
