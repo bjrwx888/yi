@@ -145,15 +145,18 @@ namespace Yi.Abp.Application.Services
         /// <returns></returns>
         public async Task<string> GetSettingAsync()
         {
+            //DDD需要提前定义
             //默认来说，不提供修改操作，配置应该独立
-            var enableOrNull = await _settingProvider.GetOrNullAsync("abp.ddd.enable");
+            var enableOrNull = await _settingProvider.GetOrNullAsync("DDD");
 
             //如果要进行修改，可使用yi.framework下的ISettingManager
-            await _settingManager.SetAsync("abp.ddd.enable", "false", "系统", "admin");
+            await _settingManager.SetGlobalAsync("DDD", "false");
 
-            var enableOrNull2 = await _settingProvider.GetOrNullAsync("abp.ddd.enable");
+            var enableOrNull2 = await _settingManager.GetOrNullGlobalAsync("DDD");
 
-            return enableOrNull2 ?? string.Empty;
+            //当然，他的独特地方，是支持来自多个模块，例如配置文件？
+         var result=  await _settingManager.GetOrNullConfigurationAsync("Test");
+            return result ?? string.Empty;
         }
 
     }
