@@ -54,10 +54,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
             var unitOfWork = UnitOfWorkManager.Current;
             if (unitOfWork == null /*|| unitOfWork.Options.IsTransactional == false*/)
             {
-                //if (ContextInstance.Current is null)
-                //{
-                //    ContextInstance.Current = ;
-                //}
                 var dbContext = (TDbContext)ServiceProvider.GetRequiredService<ISqlSugarDbContext>();
                 //提高体验，取消工作单元强制性
                 //throw new AbpException("A DbContext can only be created inside a unit of work!");
@@ -81,7 +77,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
                     CreateDbContextAsync(unitOfWork, connectionStringName, connectionString).Result
                 );
 
-                await Console.Out.WriteLineAsync(">>>----------------实例化了db"+ ((SqlSugarDatabaseApi)databaseApi).DbContext.SqlSugarClient.ContextID.ToString());
+                //await Console.Out.WriteLineAsync(">>>----------------实例化了db"+ ((SqlSugarDatabaseApi)databaseApi).DbContext.SqlSugarClient.ContextID.ToString());
                 //创建的db加入到当前工作单元中
                 unitOfWork.AddDatabaseApi(dbContextKey, databaseApi);
 
