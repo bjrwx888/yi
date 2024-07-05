@@ -70,22 +70,11 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <returns></returns>
         private async Task<InterestRecordsAggregateRoot> CreateInterestRecordsAsync()
         {
-            //获取最新的实体
-            var lastEntity = await _interestRepository._DbQueryable.OrderByDescending(x => x.CreationTime).FirstAsync();
             decimal oldValue = DefalutRate;
-
-
 
             var thirdPartyValue = await _bankValueProvider.GetValueAsync();
             //获取实际值的变化率
             decimal changeRate = (thirdPartyValue - _bankValueProvider.StandardValue) / (thirdPartyValue);
-
-
-            //说明不是第一次
-            if (lastEntity is not null)
-            {
-                oldValue = lastEntity.Value;
-            }
 
             //判断市场是否波动
             bool isFluctuate = IsMarketVolatility();
@@ -98,7 +87,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             //根据上一次的老值进行变化率比较
             var currentValue = oldValue + (oldValue * changeRate);
 
-            var entity = new InterestRecordsAggregateRoot(thirdPartyValue, currentValue);
+            var entity = new InterestRecordsAggregateRoot(thirdPartyValue, currentValue, isFluctuate);
             var output = await _interestRepository.InsertReturnEntityAsync(entity);
 
             return output;
