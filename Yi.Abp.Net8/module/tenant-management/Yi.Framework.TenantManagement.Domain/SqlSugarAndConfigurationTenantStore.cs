@@ -1,42 +1,64 @@
-﻿using JetBrains.Annotations;
+﻿using System.Xml.Linq;
+using JetBrains.Annotations;
+using Microsoft.Extensions.Options;
 using Volo.Abp;
 using Volo.Abp.Caching;
 using Volo.Abp.Data;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.MultiTenancy.ConfigurationStore;
 
 namespace Yi.Framework.TenantManagement.Domain
 {
-    public class SqlSugarTenantStore : ITenantStore
+    public class SqlSugarAndConfigurationTenantStore : DefaultTenantStore, ITenantStore
     {
         private ISqlSugarTenantRepository TenantRepository { get; }
         protected ICurrentTenant CurrentTenant { get; }
         protected IDistributedCache<TenantCacheItem> Cache { get; }
-        public SqlSugarTenantStore(ISqlSugarTenantRepository repository,
+        public SqlSugarAndConfigurationTenantStore(ISqlSugarTenantRepository repository,
             IDistributedCache<TenantCacheItem> cache,
-        ICurrentTenant currentTenant)
-        { TenantRepository = repository;
-            Cache=cache;
-            CurrentTenant=currentTenant;
+        ICurrentTenant currentTenant,
+        IOptionsMonitor<AbpDefaultTenantStoreOptions> options) : base(options)
+        {
+            TenantRepository = repository;
+            Cache = cache;
+            CurrentTenant = currentTenant;
         }
 
-        public TenantConfiguration? Find(string name)
+        public new TenantConfiguration? Find(string name)
         {
             throw new NotImplementedException("请使用异步方法");
         }
 
-        public TenantConfiguration? Find(Guid id)
+        public new TenantConfiguration? Find(Guid id)
         {
             throw new NotImplementedException("请使用异步方法");
         }
 
-        public async Task<TenantConfiguration?> FindAsync(string name)
+        public new async Task<TenantConfiguration?> FindAsync(string name)
         {
-            return (await GetCacheItemAsync(null, name)).Value;
+            var tenantFromOptions = await base.FindAsync(name);
+            //如果配置文件不存在改租户
+            if (tenantFromOptions is null)
+            {
+                return (await GetCacheItemAsync(null, name)).Value;
+            }
+            else
+            {
+                return tenantFromOptions;
+            }
         }
 
-        public async Task<TenantConfiguration?> FindAsync(Guid id)
+        public new async Task<TenantConfiguration?> FindAsync(Guid id)
         {
-            return (await GetCacheItemAsync(id, null)).Value;
+            var tenantFromOptions = await base.FindAsync(id);
+            if (tenantFromOptions is null)
+            {
+                return (await GetCacheItemAsync(id, null)).Value;
+            }
+            else
+            {
+                return tenantFromOptions;
+            }
         }
 
 

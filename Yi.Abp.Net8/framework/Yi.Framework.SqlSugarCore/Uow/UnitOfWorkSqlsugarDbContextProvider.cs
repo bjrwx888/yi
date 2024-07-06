@@ -14,7 +14,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
     public class UnitOfWorkSqlsugarDbContextProvider<TDbContext> : ISugarDbContextProvider<TDbContext> where TDbContext : ISqlSugarDbContext
     {
         private readonly ISqlSugarDbConnectionCreator _dbConnectionCreator;
-    
+
         public ILogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>> Logger { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
 
@@ -64,8 +64,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
 
 
-            //lock (_databaseApiLock)
-            //{
+
             //尝试当前工作单元获取db
             var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
 
@@ -74,7 +73,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
             {
                 //db根据连接字符串来创建
                 databaseApi = new SqlSugarDatabaseApi(
-                    CreateDbContextAsync(unitOfWork, connectionStringName, connectionString).Result
+                  await CreateDbContextAsync(unitOfWork, connectionStringName, connectionString)
                 );
 
                 //await Console.Out.WriteLineAsync(">>>----------------实例化了db"+ ((SqlSugarDatabaseApi)databaseApi).DbContext.SqlSugarClient.ContextID.ToString());
@@ -83,8 +82,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
             }
             return (TDbContext)((SqlSugarDatabaseApi)databaseApi).DbContext;
-            //}
-
         }
 
 
