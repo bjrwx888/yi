@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
 using System.Security.Policy;
 using System.Text;
@@ -259,7 +260,15 @@ namespace Yi.Framework.SqlSugarCore
                 case DataFilterType.DeleteByObject:
                     if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
                     {
-                        EntityChangeEventHelper.PublishEntityDeletedEvent(entityInfo.EntityValue);
+                        //这里sqlsugar有个特殊，删除会返回批量的结果
+                        if (entityInfo.EntityValue is IEnumerable entityValues)
+                        {
+                            foreach (var entityValue in entityValues)
+                            {
+
+                                EntityChangeEventHelper.PublishEntityDeletedEvent(entityValue);
+                            }
+                        }
                     }
                     break;
             }
