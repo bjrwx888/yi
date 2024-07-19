@@ -41,6 +41,12 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
             return new MessageContext() { MessageType = MessageTypeEnum.Personal, Content = content, ReceiveId = userId, SendUserId = sendUserId };
         }
 
+
+        public static MessageContext CreateAi(string content, Guid receiveId)
+        {
+            return new MessageContext() { MessageType = MessageTypeEnum.Ai, Content = content, ReceiveId = receiveId };
+        }
+
         public static MessageContext CreateAll(string content, Guid sendUserId)
         {
             return new MessageContext() { MessageType = MessageTypeEnum.All, Content = content, SendUserId = sendUserId };

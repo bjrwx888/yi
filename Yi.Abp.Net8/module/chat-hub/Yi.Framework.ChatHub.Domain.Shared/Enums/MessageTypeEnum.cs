@@ -9,7 +9,7 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Enums
     public enum MessageTypeEnum
     {
 
-
+        Ai,
         Personal,
         Group,
         All
