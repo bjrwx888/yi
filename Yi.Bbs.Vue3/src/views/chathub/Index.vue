@@ -39,7 +39,7 @@ const currentMsgContext = computed(() => {
   if (selectIsAll()) {
     return chatStore.allMsgContext;
   }
-  else if (selectIsAi) {
+  else if (selectIsAi()) {
     //如果是ai的值，还行经过markdown处理
   //  console.log(chatStore.aiMsgContext, "chatStore.aiMsgContext");
     // return chatStore.aiMsgContext;
@@ -153,7 +153,8 @@ const currentHeaderName = computed(() => {
     return "Ai-ChatGpt4.0(你的私人ai小助手)"
   }
   else {
-    currentSelectUser.value.userName;
+
+  return  currentSelectUser.value.userName;
   }
 
 });
