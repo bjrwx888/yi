@@ -3,7 +3,7 @@ import { onMounted, ref, computed, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia'
 import useAuths from '@/hooks/useAuths.js';
 import { getList as getChatUserList } from '@/apis/chatUserApi'
-import { sendPersonalMessage, sendGroupMessage, getAccountList as getChatAccountMessageList } from '@/apis/chatMessageApi'
+import { sendPersonalMessage, sendGroupMessage, getAccountList as getChatAccountMessageList, sendAiChat } from '@/apis/chatMessageApi'
 import useChatStore from "@/stores/chat";
 import useUserStore from "@/stores/user";
 const { isLogin } = useAuths();
@@ -19,16 +19,21 @@ const userStore = useUserStore();
 //发送消息是否为空
 const msgIsNullShow = ref(false)
 //当前选择用户
-const currentSelectUser = ref(null);
+const currentSelectUser = ref('all');
 //当前输入框的值
 const currentInputValue = ref("");
 //临时存储的输入框，根据用户id及组name、all组为key，data为value
-const inputListDataStore = ref([{ key: "all", value: "" }]);
+const inputListDataStore = ref([{ key: "all", value: "" }, { key: "ai", value: "" }]);
+//AI聊天临时存储
+const sendAiChatContext = ref([]);
 
 //当前聊天框显示的消息
 const currentMsgContext = computed(() => {
   if (selectIsAll()) {
     return chatStore.allMsgContext;
+  }
+  else if (selectIsAi) {
+    return chatStore.aiMsgContext;
   }
   else {
     return chatStore.personalMsgContext.filter(x => {
@@ -40,11 +45,31 @@ const currentMsgContext = computed(() => {
     });
   }
 });
+const getChatUrl=(url,position)=>
+{
+  if(position=="left" && selectIsAi())
+  {
+  return "/openAi.png"
+  }
 
+  return getUrl(url);
+
+}
 
 //当前聊天框显示的名称
 const currentHeaderName = computed(() => {
-  return currentSelectUser.value == null ? "官方学习交流群" : currentSelectUser.value.userName;
+  if (selectIsAll()) {
+    return "官方学习交流群";
+
+  }
+  else if
+    (selectIsAi()) {
+    return "Ai-ChatGpt(你的私人ai小助手)"
+  }
+  else {
+    currentSelectUser.value.userName;
+  }
+
 });
 const currentUserItem = computed(() => {
   return userList.value.filter(x => x.userId != useUserStore().id)
@@ -76,8 +101,13 @@ onUnmounted(() => {
 /*-----方法-----*/
 //当前选择的是否为全部
 const selectIsAll = () => {
-  return currentSelectUser.value == null;
+  return currentSelectUser.value == 'all';
 };
+//当前选择的是否为Ai
+const selectIsAi = () => {
+  return currentSelectUser.value == 'ai';
+};
+
 
 //输入框的值被更改
 const changeInputValue = (inputValue) => {
@@ -85,7 +115,10 @@ const changeInputValue = (inputValue) => {
   let index = -1;
   let findKey = currentSelectUser.value?.userId
   if (selectIsAll()) {
-    findKey = 'all'
+    findKey = 'all';
+  }
+  else if (selectIsAi()) {
+    findKey = 'ai';
   }
   index = inputListDataStore.value.findIndex(obj => obj.key == findKey);
   inputListDataStore.value[index].value = currentInputValue.value;
@@ -99,7 +132,12 @@ const getCurrentInputValue = () => {
 
   if (selectIsAll()) {
     return inputListDataStore.value.filter(x => x.key == "all")[0].value;
-  } else {
+  }
+  else if (selectIsAi()) {
+    return inputListDataStore.value.filter(x => x.key == "ai")[0].value;
+  }
+
+  else {
     //如果不存在初始存储值
     if (!inputListDataStore.value.some(x => x.key == currentSelectUser.value.userId)) {
       inputListDataStore.value.push({ key: currentSelectUser.value.userId, value: "" });
@@ -110,9 +148,12 @@ const getCurrentInputValue = () => {
 };
 
 //点击用户列表,
-const onclickUserItem = (userInfo, isAllItem) => {
-  if (isAllItem) {
-    currentSelectUser.value = null;
+const onclickUserItem = (userInfo, itemType) => {
+  if (itemType == "all") {
+    currentSelectUser.value = 'all';
+  }
+  else if (itemType == "ai") {
+    currentSelectUser.value = 'ai';
   }
   else {
     currentSelectUser.value = userInfo;
@@ -136,6 +177,17 @@ const onclickSendMsg = () => {
 
   if (selectIsAll()) {
     onclickSendGroupMsg("all", currentInputValue.value);
+  }
+  else if (selectIsAi()) {
+    //ai消息需要将上下文存储
+    sendAiChatContext.value.push({ answererType: 'User', message: currentInputValue.value, number: sendAiChatContext.value.length })
+   
+    //离线前端存储
+    chatStore.addMsg({messageType:"Ai",content:currentInputValue.value,sendUserId:userStore.id,sendUserInfo:{user:{icon:userStore.icon}}})
+    //发送ai消息
+    sendAiChat(sendAiChatContext.value);
+
+    
   }
   else {
     onclickSendPersonalMsg(currentSelectUser.value.userId, currentInputValue.value);
@@ -184,10 +236,15 @@ const onclickSendGroupMsg = (groupName, msg) => {
 
 
 //获取当前最后一条信息
-const getLastMessage = ((receiveId, isAll) => {
-  if (isAll) {
-    return chatStore.allMsgContext[chatStore.allMsgContext.length - 1]?.content;
-  } else {
+const getLastMessage = ((receiveId, itemType) => {
+  if (itemType == "all") {
+    return chatStore.allMsgContext[chatStore.allMsgContext.length - 1]?.content.substring(0, 15);
+  }
+  else if (itemType == "ai") {
+    return chatStore.aiMsgContext[chatStore.aiMsgContext.length - 1]?.content.substring(0, 15);
+  }
+
+  else {
     const messageContext = chatStore.personalMsgContext.filter(x => {
       //两个条件
       //接收用户者id为对面id（我发给他）
@@ -195,7 +252,7 @@ const getLastMessage = ((receiveId, isAll) => {
       return (x.receiveId == receiveId && x.sendUserId == userStore.id) ||
         (x.sendUserId == receiveId && x.receiveId == userStore.id);
     });
-    return messageContext[messageContext.length - 1]?.content;
+    return messageContext[messageContext.length - 1]?.content.substring(0, 15);
   }
 
 })
@@ -203,16 +260,17 @@ const getLastMessage = ((receiveId, isAll) => {
 
 <template>
   <div style="position: absolute; top: 0;left: 0;">
-    <p>当前版本：1.2.0</p>
+    <p>当前版本：1.3.0</p>
     <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
     <p>tip:点击聊天窗口右上角“X”可退出</p>
     <p>tip:多人同时在聊天室时，左侧可显示其他成员</p>
+    <p>tip:即将接入OpenAi ChatGpt Ai聊天</p>
   </div>
   <div class="body">
-
     <div class="left">
       <div class="icon">
-        <img src="@/assets/chat_images/icon.jpg">
+   
+        <img :src="userStore.icon">
       </div>
       <ul class="top-icon">
         <li><img src="@/assets/chat_images/wechat.png" /></li>
@@ -243,13 +301,28 @@ const getLastMessage = ((receiveId, isAll) => {
         </div>
       </div>
       <div class="user-list">
-        <div class="user-div" @click="onclickUserItem(null, true)"
-          :class="{ 'select-user-item': currentSelectUser == null }">
+        <div class="user-div" @click="onclickUserItem(null, 'all')"
+          :class="{ 'select-user-item': currentSelectUser == 'all' }">
           <div class="user-div-left">
             <img src="@/assets/chat_images/yilogo.png" />
             <div class="user-name-msg">
               <p class="font-name">官方学习交流群</p>
-              <p class="font-msg">{{ getLastMessage(null, true) }}</p>
+              <p class="font-msg">{{ getLastMessage(null, 'all') }}</p>
+            </div>
+          </div>
+          <div class=" user-div-right">
+            10:28
+          </div>
+
+        </div>
+
+        <div class="user-div" @click="onclickUserItem(null, 'ai')"
+          :class="{ 'select-user-item': currentSelectUser == 'ai' }">
+          <div class="user-div-left">
+            <img src="/openAi.png" />
+            <div class="user-name-msg">
+              <p class="font-name">Ai-ChatGpt</p>
+              <p class="font-msg">{{ getLastMessage(null, 'ai') }}</p>
             </div>
           </div>
           <div class=" user-div-right">
@@ -259,14 +332,16 @@ const getLastMessage = ((receiveId, isAll) => {
         </div>
 
 
-        <div v-for="(item, i) in currentUserItem" :key="i" @click="onclickUserItem(item, false)" class="user-div"
+
+
+        <div v-for="(item, i) in currentUserItem" :key="i" @click="onclickUserItem(item, 'user')" class="user-div"
           :class="{ 'select-user-item': currentSelectUser?.userId == item.userId }">
           <div class="user-div-left">
 
-            <img :src="getUrl(item.userIcon)"  />
+            <img :src="getChatUrl(item.userIcon)" />
             <div class="user-name-msg">
               <p class="font-name">{{ item.userName }}</p>
-              <p class="font-msg">{{ getLastMessage(item.userId, false) }}</p>
+              <p class="font-msg">{{ getLastMessage(item.userId, 'user') }}</p>
             </div>
           </div>
           <div class=" user-div-right">
@@ -296,18 +371,23 @@ const getLastMessage = ((receiveId, isAll) => {
       </div>
       <div class="content">
         <div v-for="(item, i) in currentMsgContext" :key="i">
+         
+
+          <!-- 对话框右侧 -->
           <div class="content-myself content-common" v-if="item.sendUserId == userStore.id">
             <div class="content-myself-msg content-msg-common ">{{ item.content }}</div>
-            <img :src="getUrl(item.sendUserInfo?.user.icon)" />
+
+            <img :src="getChatUrl(item.sendUserInfo?.user.icon,'right')" />
           </div>
 
+          <!-- 对话框左侧 -->
           <div class="content-others content-common" v-else>
-
-            <img :src="getUrl(item.sendUserInfo?.user.icon)" />
+            <img :src="getChatUrl(item.sendUserInfo?.user.icon,'left')" />
             <div>
-    
-              <p  v-if="selectIsAll()" class="content-others-username">{{item.sendUserInfo?.user.userName}}</p>
-              <div class="content-others-msg content-msg-common " :class="{'content-others-msg-group':selectIsAll()}">
+
+              <p v-if="selectIsAll()" class="content-others-username">{{ item.sendUserInfo?.user.userName }}</p>
+              <div class="content-others-msg content-msg-common "
+                :class="{ 'content-others-msg-group': selectIsAll() }">
                 {{ item.content }}
               </div>
             </div>
@@ -712,16 +792,19 @@ const getLastMessage = ((receiveId, isAll) => {
   justify-content: flex-start;
 
 }
-.content-others-username{
-    margin-left: 15px;
-    color: #B2B2B2;
-    position: relative;
-    top: -15px;
-  }
-.content-others-msg-group{
+
+.content-others-username {
+  margin-left: 15px;
+  color: #B2B2B2;
   position: relative;
-    top: -10px;
+  top: -15px;
 }
+
+.content-others-msg-group {
+  position: relative;
+  top: -10px;
+}
+
 .content-others-msg {
   background-color: #FFFFFF;
   padding: 10px 15px;

@@ -155,7 +155,7 @@ const fetchNoticeData = async () => {
 
 
 const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath);
+  //console.log(key, keyPath);
 };
 const logout = async () => {
   ElMessageBox.confirm(`确定登出系统吗?`, "警告", {

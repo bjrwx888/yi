@@ -61,7 +61,7 @@ onMounted(async() => {
     const {data}= await GetResult();
     nugetData.downloadNumber=data.downloadNumber;
     nugetData.versions=data.versions[0];
-    console.log(data,"data");
+    //console.log(data,"data");
     // 监听页面滚动事件
     window.addEventListener("scroll", scrolling, true);
 

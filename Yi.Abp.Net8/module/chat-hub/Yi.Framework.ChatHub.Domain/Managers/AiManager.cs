@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using OpenAI;
 using OpenAI.Managers;
@@ -10,11 +6,11 @@ using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Services;
+using Yi.Framework.ChatHub.Domain.Shared.Dtos;
 using Yi.Framework.ChatHub.Domain.Shared.Options;
-
 namespace Yi.Framework.ChatHub.Domain.Managers
 {
-    public class AiManager : DomainService, ISingletonDependency
+    public class AiManager : ISingletonDependency
     {
         public AiManager(IOptions<AiOptions> options)
         {
@@ -26,24 +22,48 @@ namespace Yi.Framework.ChatHub.Domain.Managers
         }
         private OpenAIService OpenAIService { get; }
 
-        public async IAsyncEnumerable<string> ChatAsStreamAsync()
+        public async IAsyncEnumerable<string> ChatAsStreamAsync(List<AiChatContextDto> aiChatContextDtos)
         {
-            var completionResult = OpenAIService.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
-            {
-                Messages = new List<ChatMessage>
-                {
-                    ChatMessage.FromUser("特朗普是谁？"),
-                },
-                Model = Models.Gpt_4,
-            });
+            var temp = "站长正在接入ChatGpt,敬请期待~";
 
-            await foreach (var result in completionResult)
+            for (var i = 0; i < temp.Length; i++)
             {
-                if (result.Successful)
-                {
-                    yield return result.Choices.FirstOrDefault()?.Message.Content??string.Empty;
-                }
+                await Task.Delay(200);
+                yield return temp[i].ToString();
             }
+
+
+
+
+            //if (aiChatContextDtos.Count == 0)
+            //{
+            //    yield return null;
+            //}
+
+            //List<ChatMessage> messages= aiChatContextDtos.Select(x =>
+            //{
+            //    if (x.AnswererType == AnswererTypeEnum.Ai)
+            //    {
+            //        return ChatMessage.FromSystem(x.Message);
+            //    }
+            //    else
+            //    {
+            //        return ChatMessage.FromUser(x.Message);
+            //    }
+            //}).ToList();
+            //var completionResult = OpenAIService.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+            //{
+            //    Messages = messages,
+            //    Model = Models.Gpt_3_5_Turbo
+            //});
+
+            //await foreach (var result in completionResult)
+            //{
+            //    if (result.Successful)
+            //    {
+            //        yield return result.Choices.FirstOrDefault()?.Message.Content ?? string.Empty;
+            //    }
+            //}
 
         }
     }

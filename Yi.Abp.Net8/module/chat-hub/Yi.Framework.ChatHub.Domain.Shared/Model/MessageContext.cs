@@ -16,9 +16,9 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
         {
             return context.Where(x => x.ReceiveId is not null).Select(x => x.ReceiveId!.Value).Union(context.Select(x => x.SendUserId)).ToList();
         }
-        public static List<MessageContext> MapperUserInfo(this List<MessageContext> messageContexts,List<UserRoleMenuDto> userRoleMenuDtos)
+        public static List<MessageContext> MapperUserInfo(this List<MessageContext> messageContexts, List<UserRoleMenuDto> userRoleMenuDtos)
         {
-            var userInfoDic = userRoleMenuDtos.ToDictionary(x => x.User.Id);
+            var userInfoDic = userRoleMenuDtos.Select(x => new UserRoleMenuDto { User = x.User }).ToDictionary(x => x.User.Id);
             foreach (var context in messageContexts)
             {
                 if (context.ReceiveId is not null)
@@ -42,9 +42,9 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
         }
 
 
-        public static MessageContext CreateAi(string content, Guid receiveId)
+        public static MessageContext CreateAi(string? content, Guid receiveId, Guid id )
         {
-            return new MessageContext() { MessageType = MessageTypeEnum.Ai, Content = content, ReceiveId = receiveId };
+            return new MessageContext() { MessageType = MessageTypeEnum.Ai, Content = content??string.Empty, ReceiveId = receiveId, Id = id };
         }
 
         public static MessageContext CreateAll(string content, Guid sendUserId)
@@ -86,6 +86,11 @@ namespace Yi.Framework.ChatHub.Domain.Shared.Model
         /// 消息内容
         /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// 上下文Id，主要用于ai流式传输
+        /// </summary>
+        public Guid Id { get; set; }
         public DateTime CreationTime { get; protected set; } = DateTime.Now;
     }
 
