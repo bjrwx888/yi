@@ -3,7 +3,7 @@
     <el-row :gutter="20" class="top-div">
       <el-col :span="17">
       <div class="chat-hub">  
-        <p @click="onClickToChatHub" >点击前往-最新上线<span>《聊天室》 </span>，现已支持Ai助手，希望能帮助大家</p>
+        <p @click="onClickToChatHub" >点击前往-最新上线<span>《聊天室》 </span>，现已支持<span>Ai助手</span>，希望能帮助大家</p>
         </div>
         <div class="scrollbar">
           <ScrollbarInfo />

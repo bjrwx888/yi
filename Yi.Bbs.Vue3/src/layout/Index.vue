@@ -60,6 +60,7 @@ const handleScroll = () => {
   }
   &-main {
     height: calc(100% - 50px);
+    overflow: visible !important;
   }
 }
 

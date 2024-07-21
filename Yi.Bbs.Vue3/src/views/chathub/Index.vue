@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed, onUnmounted } from 'vue';
+import { nextTick,onMounted, ref, computed, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia'
 import useAuths from '@/hooks/useAuths.js';
 import { getList as getChatUserList } from '@/apis/chatUserApi'
@@ -9,6 +9,13 @@ import useUserStore from "@/stores/user";
 const { isLogin } = useAuths();
 import { useRouter } from 'vue-router'
 import { getUrl } from '@/utils/icon'
+
+//markdown ai显示
+import { marked } from 'marked';
+import '@/assets/atom-one-dark.css';
+import '@/assets/github-markdown.css';
+import hljs from "highlight.js";
+
 const router = useRouter();
 //聊天存储
 const chatStore = useChatStore();
@@ -33,7 +40,16 @@ const currentMsgContext = computed(() => {
     return chatStore.allMsgContext;
   }
   else if (selectIsAi) {
-    return chatStore.aiMsgContext;
+    //如果是ai的值，还行经过markdown处理
+  //  console.log(chatStore.aiMsgContext, "chatStore.aiMsgContext");
+    // return chatStore.aiMsgContext;
+    let tempHtml = [];
+    chatStore.aiMsgContext.forEach(element => {
+      console.log(toMarkDownHtml(element.content), "toMarkDownHtml(element.content)");
+      tempHtml.push({ content: toMarkDownHtml(element.content), messageType: 'Ai', sendUserId: element.sendUserId, sendUserInfo: element.sendUserInfo });
+    });
+
+    return tempHtml;
   }
   else {
     return chatStore.personalMsgContext.filter(x => {
@@ -45,11 +61,82 @@ const currentMsgContext = computed(() => {
     });
   }
 });
-const getChatUrl=(url,position)=>
-{
-  if(position=="left" && selectIsAi())
-  {
-  return "/openAi.png"
+
+//转换markdown
+const toMarkDownHtml = (text) => {
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    highlight: function (code, language) {
+       return codeHandler(code, language);
+      //return hljs.highlightAuto(code).value;
+    },
+    pedantic: false,
+    gfm: true,//允许 Git Hub标准的markdown
+    tables: true,//支持表格
+    breaks: true,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false,
+    smartLists: true,
+  }
+  );
+  //需要注意代码块样式
+  const soureHtml = marked(text);
+  nextTick(()=>{
+            addCopyEvent();
+        }) 
+  return soureHtml;
+}
+
+let codeCopyDic=[];
+//code部分处理、高亮
+const codeHandler = (code, language) => {
+  const codeIndex = parseInt(Date.now() + "") + Math.floor(Math.random() * 10000000);
+  // 格式化第一行是右侧language和 “复制” 按钮；
+  if (code) {
+    const navCode = navHandler(code)
+    try {
+      // 使用 highlight.js 对代码进行高亮显示
+      const preCode = hljs.highlightAuto(code).value;
+      // 将代码包裹在 textarea 中，由于防止textarea渲染出现问题，这里将 "<" 用 "&lt;" 代替，不影响复制功能
+      let html = `<pre  class='hljs pre'><div class="header"><span class="language">${language}</span><span class="copy" id="${codeIndex}">复制代码</span></div><div class="code-con"><div class="nav">${navCode}</div><code class="code">${preCode}</code></div></pre>`;
+      codeCopyDic.push({ id: codeIndex, code: code });
+      // console.log(codeCopyDic.length);
+      return html;
+      //<textarea style="position: absolute;top: -9999px;left: -9999px;z-index: -9999;" id="copy${codeIndex}">${code.replace(/<\/textarea>/g, "&lt;/textarea>")}</textarea>
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+}
+
+//左侧导航栏处理
+const navHandler = (code) => {
+    //获取行数
+    var linesCount = getLinesCount(code);
+
+    var currentLine = 1;
+    var liHtml = ``;
+    while (linesCount + 1 >= currentLine) {
+        liHtml += `<li class="nav-li">${currentLine}</li>`
+        currentLine++
+    }
+
+    let html = `<ul class="nav-ul">${liHtml}</ul>`
+
+
+    return html;
+}
+const BREAK_LINE_REGEXP = /\r\n|\r|\n/g;
+const getLinesCount = (text) => {
+    return (text.trim().match(BREAK_LINE_REGEXP) || []).length;
+}
+
+const getChatUrl = (url, position) => {
+  if (position == "left" && selectIsAi()) {
+    return "/openAi.png"
   }
 
   return getUrl(url);
@@ -97,6 +184,25 @@ onUnmounted(() => {
   }
 
 })
+
+//代码copy事件
+const addCopyEvent=()=>{
+    const copySpans = document.querySelectorAll('.copy');
+// 为每个 copy span 元素添加点击事件
+copySpans.forEach(span => {
+    
+  span.addEventListener('click', async function() {
+   await navigator.clipboard.writeText(codeCopyDic.filter(x=>x.id==span.id)[0].code );
+   ElMessage({
+          message: "代码块复制成功",
+          type: "success",
+          duration: 2000,
+        });
+  });
+});
+}
+
+
 /*-----方法-----*/
 //当前选择的是否为全部
 const selectIsAll = () => {
@@ -180,13 +286,13 @@ const onclickSendMsg = () => {
   else if (selectIsAi()) {
     //ai消息需要将上下文存储
     sendAiChatContext.value.push({ answererType: 'User', message: currentInputValue.value, number: sendAiChatContext.value.length })
-   
+
     //离线前端存储
-    chatStore.addMsg({messageType:"Ai",content:currentInputValue.value,sendUserId:userStore.id,sendUserInfo:{user:{icon:userStore.icon}}})
+    chatStore.addMsg({ messageType: "Ai", content: currentInputValue.value, sendUserId: userStore.id, sendUserInfo: { user: { icon: userStore.icon } } })
     //发送ai消息
     sendAiChat(sendAiChatContext.value);
 
-    
+
   }
   else {
     onclickSendPersonalMsg(currentSelectUser.value.userId, currentInputValue.value);
@@ -233,8 +339,8 @@ const onclickSendGroupMsg = (groupName, msg) => {
   }
 }
 //清除ai对话
-const clearAiMsg=()=>{
-  sendAiChatContext.value=[];
+const clearAiMsg = () => {
+  sendAiChatContext.value = [];
   chatStore.clearAiMsg();
 }
 
@@ -276,7 +382,7 @@ const getLastMessage = ((receiveId, itemType) => {
   <div class="body">
     <div class="left">
       <div class="icon">
-   
+
         <img :src="userStore.icon">
       </div>
       <ul class="top-icon">
@@ -360,8 +466,9 @@ const getLastMessage = ((receiveId, itemType) => {
 
     <div class="right">
       <div class="header">
-        <div class="header-left">{{ currentHeaderName }}  <span v-show="selectIsAi()" @click="clearAiMsg" >点击清空当前对话</span></div>
-      
+        <div class="header-left">{{ currentHeaderName }} <span v-show="selectIsAi()" @click="clearAiMsg">点击清空当前对话</span>
+        </div>
+
         <div class="header-right">
           <div>
             <ul>
@@ -379,24 +486,24 @@ const getLastMessage = ((receiveId, itemType) => {
       </div>
       <div class="content">
         <div v-for="(item, i) in currentMsgContext" :key="i">
-         
+
 
           <!-- 对话框右侧 -->
           <div class="content-myself content-common" v-if="item.sendUserId == userStore.id">
-            <div class="content-myself-msg content-msg-common ">{{ item.content }}</div>
+            <div class="content-myself-msg content-msg-common " v-html="item.content"></div>
 
-            <img :src="getChatUrl(item.sendUserInfo?.user.icon,'right')" />
+            <img :src="getChatUrl(item.sendUserInfo?.user.icon, 'right')" />
           </div>
 
           <!-- 对话框左侧 -->
           <div class="content-others content-common" v-else>
-            <img :src="getChatUrl(item.sendUserInfo?.user.icon,'left')" />
+            <img :src="getChatUrl(item.sendUserInfo?.user.icon, 'left')" />
             <div>
 
               <p v-if="selectIsAll()" class="content-others-username">{{ item.sendUserInfo?.user.userName }}</p>
-              <div class="content-others-msg content-msg-common "
-                :class="{ 'content-others-msg-group': selectIsAll() }">
-                {{ item.content }}
+              <div class="content-others-msg content-msg-common " :class="{ 'content-others-msg-group': selectIsAll() }"
+                v-html="item.content">
+
               </div>
             </div>
           </div>
@@ -765,7 +872,7 @@ const getLastMessage = ((receiveId, itemType) => {
 }
 
 .content-msg-common {
-  display: flex;
+ // display: flex;
   align-content: center;
   flex-wrap: wrap;
   position: relative;
@@ -775,6 +882,7 @@ const getLastMessage = ((receiveId, itemType) => {
   text-align: center;
   font-size: 18px;
   border-radius: 5px;
+  max-width: 600px;
 }
 
 
@@ -884,5 +992,83 @@ const getLastMessage = ((receiveId, itemType) => {
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
 
+}
+
+
+//以下是代码格式处理的样式
+
+::v-deep(.li-list) {
+  list-style: inside !important;
+  //list-style: decimal !important;
+
+}
+
+::v-deep(.pre-out) {
+  padding: 0;
+  //overflow-x: hidden;
+  overflow-x: scroll;
+}
+
+::v-deep(.pre) {
+  max-width: 570px;
+  padding: 0;
+  margin-bottom: 0;
+  //overflow-x: hidden;
+  overflow-x: scroll;
+  .header {
+    background-color: #409eff;
+    color: white;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 5px;
+
+
+    .language {}
+
+    .copy:hover {
+      cursor: pointer;
+    }
+
+    .copy {
+      margin: 0px 10px;
+
+    }
+  }
+
+  .code-con {
+    display: flex;
+
+    .nav {
+      display: block;
+      background-color: #282C34;
+
+    }
+
+    .code {
+      display: block;
+      padding: 10px 10px;
+      font-size: 14px;
+      line-height: 22px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+
+  }
+
+
+}
+
+::v-deep(.nav-ul) {
+  border-right: 1px solid #FFFFFF;
+  margin-top: 12px;
+  padding-left: 10px;
+  padding-right: 2px;
+
+  .nav-li {
+    margin: 1.0px 0;
+    text-align: right;
+    margin-right: 3px;
+  }
 }
 </style>
