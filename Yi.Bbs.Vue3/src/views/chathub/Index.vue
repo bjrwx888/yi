@@ -60,11 +60,10 @@ const getChatUrl=(url,position)=>
 const currentHeaderName = computed(() => {
   if (selectIsAll()) {
     return "官方学习交流群";
-
   }
   else if
     (selectIsAi()) {
-    return "Ai-ChatGpt(你的私人ai小助手)"
+    return "Ai-ChatGpt4.0(你的私人ai小助手)"
   }
   else {
     currentSelectUser.value.userName;
@@ -233,7 +232,11 @@ const onclickSendGroupMsg = (groupName, msg) => {
     alert("暂未实现");
   }
 }
-
+//清除ai对话
+const clearAiMsg=()=>{
+  sendAiChatContext.value=[];
+  chatStore.clearAiMsg();
+}
 
 //获取当前最后一条信息
 const getLastMessage = ((receiveId, itemType) => {
@@ -264,7 +267,11 @@ const getLastMessage = ((receiveId, itemType) => {
     <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
     <p>tip:点击聊天窗口右上角“X”可退出</p>
     <p>tip:多人同时在聊天室时，左侧可显示其他成员</p>
-    <p>tip:即将接入OpenAi ChatGpt Ai聊天</p>
+
+    <p>Ai聊天：当前Ai为 OpenAi ChatGpt4</p>
+    <p>tip:当前Ai为OpenAi ChatGpt4，由于接口收费原因，还请各位手下留情</p>
+    <p>tip:ai对话为持续对话，如果想清空，可以刷新页面</p>
+    <p>tip:ai对话只有本地存储了记录，刷新后将情况</p>
   </div>
   <div class="body">
     <div class="left">
@@ -353,7 +360,8 @@ const getLastMessage = ((receiveId, itemType) => {
 
     <div class="right">
       <div class="header">
-        <div class="header-left">{{ currentHeaderName }}</div>
+        <div class="header-left">{{ currentHeaderName }}  <span v-show="selectIsAi()" @click="clearAiMsg" >点击清空当前对话</span></div>
+      
         <div class="header-right">
           <div>
             <ul>
@@ -808,6 +816,7 @@ const getLastMessage = ((receiveId, itemType) => {
 .content-others-msg {
   background-color: #FFFFFF;
   padding: 10px 15px;
+  text-align: justify;
 }
 
 .content-others-msg:hover {
