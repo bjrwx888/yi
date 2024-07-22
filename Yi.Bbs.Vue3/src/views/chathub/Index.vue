@@ -45,7 +45,7 @@ const currentMsgContext = computed(() => {
     // return chatStore.aiMsgContext;
     let tempHtml = [];
     chatStore.aiMsgContext.forEach(element => {
-      console.log(toMarkDownHtml(element.content), "toMarkDownHtml(element.content)");
+     
       tempHtml.push({ content: toMarkDownHtml(element.content), messageType: 'Ai', sendUserId: element.sendUserId, sendUserInfo: element.sendUserInfo });
     });
 
@@ -93,6 +93,7 @@ let codeCopyDic=[];
 //code部分处理、高亮
 const codeHandler = (code, language) => {
   const codeIndex = parseInt(Date.now() + "") + Math.floor(Math.random() * 10000000);
+  console.log(codeIndex,"codeIndex");
   // 格式化第一行是右侧language和 “复制” 按钮；
   if (code) {
     const navCode = navHandler(code)
@@ -370,15 +371,15 @@ const getLastMessage = ((receiveId, itemType) => {
 
 <template>
   <div style="position: absolute; top: 0;left: 0;">
-    <p>当前版本：1.3.0</p>
+    <p>当前版本：1.4.0</p>
     <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
     <p>tip:点击聊天窗口右上角“X”可退出</p>
     <p>tip:多人同时在聊天室时，左侧可显示其他成员</p>
 
     <p>Ai聊天：当前Ai为 OpenAi ChatGpt4</p>
     <p>tip:当前Ai为OpenAi ChatGpt4，由于接口收费原因，还请各位手下留情</p>
-    <p>tip:ai对话为持续对话，如果想清空，可以刷新页面</p>
-    <p>tip:ai对话只有本地存储了记录，刷新后将情况</p>
+    <p>tip:ai对话为持续对话，已优化输出速度</p>
+    <p>tip:ai对话只有本地存储了记录，可点击清除或刷新</p>
   </div>
   <div class="body">
     <div class="left">
