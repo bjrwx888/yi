@@ -152,7 +152,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 await _repository.UpdateAsync(entity);
 
                 //打钱，该卡状态钱更新，并提款加到用户钱钱里
-                await _localEventBus.PublishAsync(new MoneyChangeEventArgs(entity.UserId, changeMoney));
+                await _localEventBus.PublishAsync(new MoneyChangeEventArgs(entity.UserId, changeMoney),false);
 
 
 
@@ -176,7 +176,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
             entity.SetStorageMoney(moneyNum);
 
             await _repository.UpdateAsync(entity);
-            await _localEventBus.PublishAsync(new MoneyChangeEventArgs(entity.UserId, -moneyNum));
+            await _localEventBus.PublishAsync(new MoneyChangeEventArgs(entity.UserId, -moneyNum), false);
 
         }
 
