@@ -134,10 +134,9 @@ namespace Yi.Framework.TenantManagement.Application
             var moduleContainer = service.GetRequiredService<IModuleContainer>();
 
             //没有数据库，不能创工作单元，创建库，先关闭
-            ISqlSugarClient db = null;
             using (var uow = UnitOfWorkManager.Begin(requiresNew: true, isTransactional: false))
             {
-                db = await _repository.GetDbContextAsync();
+                ISqlSugarClient db = await _repository.GetDbContextAsync();
                 //尝试创建数据库
                 db.DbMaintenance.CreateDatabase();
 

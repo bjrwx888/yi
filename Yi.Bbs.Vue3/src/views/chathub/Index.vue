@@ -16,6 +16,7 @@ import '@/assets/atom-one-dark.css';
 import '@/assets/github-markdown.css';
 import hljs from "highlight.js";
 
+const isShowTipNumber=ref(10);
 const router = useRouter();
 //聊天存储
 const chatStore = useChatStore();
@@ -33,6 +34,18 @@ const currentInputValue = ref("");
 const inputListDataStore = ref([{ key: "all", value: "" }, { key: "ai", value: "" }]);
 //AI聊天临时存储
 const sendAiChatContext = ref([]);
+
+let timerTip=null;
+//倒计时显示tip
+const startCountTip = () => {
+      timerTip = setInterval(() => {
+        if (isShowTipNumber.value > 0) {
+          isShowTipNumber.value--;
+        } else {
+          clearInterval(timerTip); // 倒计时结束
+        }
+      }, 1000);
+    };
 
 //当前聊天框显示的消息
 const currentMsgContext = computed(() => {
@@ -93,7 +106,7 @@ let codeCopyDic=[];
 //code部分处理、高亮
 const codeHandler = (code, language) => {
   const codeIndex = parseInt(Date.now() + "") + Math.floor(Math.random() * 10000000);
-  console.log(codeIndex,"codeIndex");
+  //console.log(codeIndex,"codeIndex");
   // 格式化第一行是右侧language和 “复制” 按钮；
   if (code) {
     const navCode = navHandler(code)
@@ -179,12 +192,16 @@ onMounted(async () => {
   }
   chatStore.setMsgList((await getChatAccountMessageList()).data);
   chatStore.setUserList((await getChatUserList()).data);
+  startCountTip(); 
 })
 onUnmounted(() => {
   if (timer != null) {
     clearInterval(timer)
   }
-
+  if (timerTip != null) {
+    clearInterval(timerTip)
+  }
+  
 })
 
 //代码copy事件
@@ -370,8 +387,9 @@ const getLastMessage = ((receiveId, itemType) => {
 </script>
 
 <template>
-  <div style="position: absolute; top: 0;left: 0;">
-    <p>当前版本：1.4.0</p>
+
+  <div style="position: absolute; top: 0;left: 0;" v-show="isShowTipNumber>0">
+    <p>当前版本：1.5.0</p>
     <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
     <p>tip:点击聊天窗口右上角“X”可退出</p>
     <p>tip:多人同时在聊天室时，左侧可显示其他成员</p>
@@ -380,6 +398,7 @@ const getLastMessage = ((receiveId, itemType) => {
     <p>tip:当前Ai为OpenAi ChatGpt4，由于接口收费原因，还请各位手下留情</p>
     <p>tip:ai对话为持续对话，已优化输出速度</p>
     <p>tip:ai对话只有本地存储了记录，可点击清除或刷新</p>
+    <p>即将自动隐藏tip：{{ isShowTipNumber }}</p>
   </div>
   <div class="body">
     <div class="left">
@@ -885,6 +904,7 @@ const getLastMessage = ((receiveId, itemType) => {
   font-size: 18px;
   border-radius: 5px;
   max-width: 600px;
+  text-align: justify;
 }
 
 
@@ -926,7 +946,7 @@ const getLastMessage = ((receiveId, itemType) => {
 .content-others-msg {
   background-color: #FFFFFF;
   padding: 10px 15px;
-  text-align: justify;
+
 }
 
 .content-others-msg:hover {
