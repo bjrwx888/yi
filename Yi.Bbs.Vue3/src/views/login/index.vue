@@ -119,7 +119,7 @@
        
         </div>
         <div class="div-bottom">
-                <span>备案：<div v-html="configStore.icp"></div></span>
+                <span>备案：<span v-html="configStore.icp"></span></span>
                 <span>站长：{{ configStore.author }}</span>
                 <span @click="handleContact">联系我们</span>
                 <span>关于本站</span>

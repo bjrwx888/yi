@@ -17,7 +17,7 @@
     >
     <p></p>
     <a
-      ><el-icon><Position /></el-icon><div v-html="configStore.icp"></div></a
+      ><el-icon><Position /></el-icon><span v-html="configStore.icp"></span></a
     >
   </div>
 </template>
