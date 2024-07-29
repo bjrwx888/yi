@@ -62,7 +62,7 @@ namespace Yi.Framework.SqlSugarCore
             SqlSugarClient = new SqlSugarClient(connectionCreator.Build(action: options =>
             {
                 options.ConnectionString = currentConnection;
-
+                options.DbType = currentDbType;
             }));
             connectionCreator.SetDbAop(SqlSugarClient);
         }
