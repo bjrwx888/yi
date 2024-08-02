@@ -258,7 +258,11 @@ const total = ref(0);
 const title = ref("");
 const dateRange = ref([]);
 const data = reactive({
-  form: {},
+  form: {
+      name:"",
+      description:"", 
+      fields:[]
+  },
   queryParams: {
     skipCount: 1,
     maxResultCount: 10,
