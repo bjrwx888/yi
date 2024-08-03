@@ -2,7 +2,6 @@
 using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.MultiTenancy;
 using Yi.Framework.Core.Data;
 
 namespace Yi.Framework.Rbac.Domain.Entities
@@ -11,7 +10,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
     /// 配置表
     /// </summary>
     [SugarTable("Config")]
-    public class ConfigAggregateRoot : AggregateRoot<Guid>, IAuditedObject, IOrderNum, ISoftDelete,IMultiTenant
+    public class ConfigAggregateRoot : AggregateRoot<Guid>, IAuditedObject, IOrderNum, ISoftDelete
     {
         [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
         public override Guid Id { get; protected set; }
@@ -55,6 +54,5 @@ namespace Yi.Framework.Rbac.Domain.Entities
         public Guid? LastModifierId { get; set; }
 
         public DateTime? LastModificationTime { get; set; }
-        public Guid? TenantId { get; }
     }
 }
