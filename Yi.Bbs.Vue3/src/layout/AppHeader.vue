@@ -222,7 +222,7 @@ const enterStart=()=>{
 .money {
 
   font-size: small;
-  color: #FED055;
+  color: #ff0000;
   margin: 0 5px;
 
   span {
