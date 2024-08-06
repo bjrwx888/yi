@@ -42,7 +42,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
                .Select((dicuss, user) =>
                new
                {
-                   DiscussId = user.Id,
+                   DiscussUserId = user.Id,
                    DiscussTitle = dicuss.Title,
 
                })
@@ -53,7 +53,10 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
             //截取30个长度
             var content = commentEntity.Content.Length >= 30 ? commentEntity.Content.Substring(0, 30)+"..." : commentEntity.Content;
             //通知主题作者，有人评论
-            await _localEventBus.PublishAsync(new BbsNoticeEventArgs(disucssDto.DiscussId, string.Format(DiscussConst.CommentNotice, disucssDto.DiscussTitle, commentUser.UserName, content)), false);
+            await _localEventBus.PublishAsync(new BbsNoticeEventArgs(disucssDto.DiscussUserId, string.Format(DiscussConst.CommentNotice, disucssDto.DiscussTitle, commentUser.UserName, content,commentEntity.DiscussId)), false);
+            //通知回复者，有人评论
+            await _localEventBus.PublishAsync(new BbsNoticeEventArgs(commentEntity.ParentId, string.Format(DiscussConst.CommentNotice, disucssDto.DiscussTitle, commentUser.UserName, content,commentEntity.DiscussId)), false);
+
         }
     }
 }
