@@ -82,7 +82,7 @@
                 <el-button type="warning" @click="hanldeReadClick">一键已读</el-button>
               </el-dropdown-item>
 
-
+              <el-scrollbar max-height="420px">
               <el-dropdown-item class="notice-item" v-for="(item, index) in noticeList" :key="index">
 
 
@@ -100,7 +100,7 @@
 
 
               </el-dropdown-item>
-
+              </el-scrollbar>
 
 
 
