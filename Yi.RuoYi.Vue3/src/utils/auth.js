@@ -3,24 +3,24 @@ import Cookies from 'js-cookie'
 const TokenKey = 'Admin-Token'
 const TenantIdKey='Tenant-Id'
 export function getToken() {
-  return localStorage.get(TokenKey)
+  return Cookies.get(TokenKey)
 }
 
 export function setToken(token) {
-  return localStorage.set(TokenKey, token)
+  return Cookies.set(TokenKey, token)
 }
 
 export function removeToken() {
-  return localStorage.remove(TokenKey)
+  return Cookies.remove(TokenKey)
 }
 export function getTenantId() {
-  return localStorage.get(TenantIdKey)
+  return Cookies.get(TenantIdKey)
 }
 
 export function setTenantId(tenantId) {
-  return localStorage.set(TenantIdKey, tenantId)
+  return Cookies.set(TenantIdKey, tenantId)
 }
 
 export function removeTenantId() {
-  return localStorage.remove(TenantIdKey)
+  return Cookies.remove(TenantIdKey)
 }
