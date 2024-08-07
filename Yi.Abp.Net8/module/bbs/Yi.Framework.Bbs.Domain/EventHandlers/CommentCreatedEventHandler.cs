@@ -55,7 +55,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
             //通知主题作者，有人评论
             await _localEventBus.PublishAsync(new BbsNoticeEventArgs(disucssDto.DiscussUserId, string.Format(DiscussConst.CommentNotice, disucssDto.DiscussTitle, commentUser.UserName, content,commentEntity.DiscussId)), false);
             //通知回复者，有人评论
-            await _localEventBus.PublishAsync(new BbsNoticeEventArgs(commentEntity.ParentId, string.Format(DiscussConst.CommentNotice, disucssDto.DiscussTitle, commentUser.UserName, content,commentEntity.DiscussId)), false);
+            await _localEventBus.PublishAsync(new BbsNoticeEventArgs(commentEntity.ParentId, string.Format(DiscussConst.CommentNoticeToReply, disucssDto.DiscussTitle, commentUser.UserName, content,commentEntity.DiscussId)), false);
 
         }
     }
