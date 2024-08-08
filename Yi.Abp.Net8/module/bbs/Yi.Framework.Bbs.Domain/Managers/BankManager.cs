@@ -61,6 +61,12 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 };
 
             }
+            else
+            {
+                output = _currentRateStore;
+
+            }
+
             return output;
         }
 

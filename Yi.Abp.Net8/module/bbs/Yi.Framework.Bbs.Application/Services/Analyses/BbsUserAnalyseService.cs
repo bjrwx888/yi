@@ -5,7 +5,9 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Domain.Entities;
+using Yi.Framework.Bbs.Domain.Entities.Integral;
 using Yi.Framework.Bbs.Domain.Managers;
+using Yi.Framework.Bbs.Domain.Shared.Enums;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
@@ -22,6 +24,42 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
             _bbsUserManager = bbsUserManager;
             _onlineService = onlineService;
         }
+
+        /// <summary>
+        /// 财富排行榜
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("analyse/bbs-user/money-top")]
+        public async Task<PagedResultDto<MoneyTopUserDto>> GetMoneyTopAsync([FromQuery] PagedResultRequestDto input)
+        {
+            using (DataFilter.DisablePermissionHandler())
+            {
+                RefAsync<int> total = 0;
+                var output = await _bbsUserManager._userRepository._DbQueryable
+                    .LeftJoin<BbsUserExtraInfoEntity>((u,info)=>u.Id==info.UserId)
+                    .Select((u, info) =>
+                        new MoneyTopUserDto
+                        {
+                            UserName = u.UserName,
+                            Nice = u.Nick,
+                            Money = info.Money,
+                            Icon = u.Icon,
+                            Level = info.Level,
+                            UserLimit = info.UserLimit
+                        }
+                    )
+                    .OrderBy(info=>info.Money)
+                    .ToPageListAsync(input.SkipCount, input.MaxResultCount,total);
+                
+                output.ForEach(x => { x.LevelName = _bbsUserManager._levelCacheDic[x.Level].Name;});
+                return new PagedResultDto<MoneyTopUserDto>
+                {
+                    Items = output,
+                    TotalCount = total
+                };
+            }
+        }
+
 
         /// <summary>
         /// 推荐好友，随机返回好友列表
