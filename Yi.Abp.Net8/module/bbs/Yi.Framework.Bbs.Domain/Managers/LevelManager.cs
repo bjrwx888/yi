@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
@@ -8,6 +9,7 @@ using Yi.Framework.Bbs.Domain.Entities.Integral;
 using Yi.Framework.Bbs.Domain.Shared.Caches;
 using Yi.Framework.Bbs.Domain.Shared.Consts;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
+using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Domain.Managers
 {
@@ -16,9 +18,9 @@ namespace Yi.Framework.Bbs.Domain.Managers
         private ILocalEventBus _localEventBus;
         private IDistributedCache<List<LevelCacheItem>> _levelCache;
         private IRepository<LevelAggregateRoot> _repository;
-        private IRepository<BbsUserExtraInfoEntity> _bbsUserRepository;
+        private ISqlSugarRepository<BbsUserExtraInfoEntity> _bbsUserRepository;
         public LevelManager( ILocalEventBus localEventBus,
-            IDistributedCache<List<LevelCacheItem>> levelCache, IRepository<LevelAggregateRoot> repository, IRepository<BbsUserExtraInfoEntity> bbsUserRepository)
+            IDistributedCache<List<LevelCacheItem>> levelCache, IRepository<LevelAggregateRoot> repository, ISqlSugarRepository<BbsUserExtraInfoEntity> bbsUserRepository)
         {
             _localEventBus = localEventBus;
             _repository = repository;
@@ -33,9 +35,9 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <returns></returns>
         public async Task<Dictionary<int, LevelCacheItem>> GetCacheMapAsync()
         {
-            var items =await _levelCache.GetOrAddAsync(LevelConst.LevelCacheKey, async () =>
+            var items = _levelCache.GetOrAdd(LevelConst.LevelCacheKey,   () =>
             {
-                var cacheItem = (await _repository.GetListAsync())
+                var cacheItem = ( _repository.GetListAsync().Result)
                     .OrderByDescending(x => x.CurrentLevel).ToList()
                     .Adapt<List<LevelCacheItem>>();
                 return cacheItem;
@@ -71,10 +73,13 @@ namespace Yi.Framework.Bbs.Domain.Managers
                     break;
                 }
             }
-
+          
+            //这里注意，只更新等级
             userInfo.Level = currentNewLevel;
             userInfo.Experience = currentNewExperience;
-            await _bbsUserRepository.UpdateAsync(userInfo);
+            await _bbsUserRepository._Db.Updateable(userInfo)
+                .UpdateColumns(it => new { it.Level,it.Experience })
+                .ExecuteCommandAsync();
         }
     }
 }
