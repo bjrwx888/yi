@@ -33,9 +33,9 @@ export function getRecommendedFriend(data) {
  */
 export function getRankingPoints(data) {
   return request({
-    url: "/analyse/bbs-user/integral-top",
+    url: "/analyse/bbs-user/money-top",
     method: "get",
-    data,
+    params: data
   });
 }
 

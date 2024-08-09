@@ -106,6 +106,15 @@ const router = createRouter({
             title: "联系我们",
           },
         },
+
+        {
+          name:"money",
+          path:"/money",
+          component: () => import("../views/money/Index.vue"),
+          meta: {
+            title: "钱钱",
+          },
+        },
       ],
     },
     {

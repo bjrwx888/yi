@@ -81,13 +81,13 @@
               <template #content>
                 <div class="top">你好，很高兴今天又遇到你呀~</div>
                 <el-row class="active">
-             
+
                   <el-col v-for="item in activeList" :span="6" @click="handleToRouter(item.path)">
 
-                    <el-icon color="#70aafb" size="30px" >
+                    <el-icon color="#70aafb" size="30px">
                       <component :is="item.icon"></component>
                     </el-icon>
-                    <span> {{item.name}}</span>
+                    <span> {{ item.name }}</span>
                   </el-col>
                 </el-row>
               </template>
@@ -102,7 +102,18 @@
             </InfoCard>
 
             <el-dialog v-model="accessLogDialogVisible" title="全站历史统计" width="1200px" center>
-              <AccessLogChart :option="accessLogOptins" class="accessLogChart" />
+              <el-tabs v-model="accessLogTab">
+                <el-tab-pane label="访问统计" name="AccessLogChart" style="display: flex;justify-content: center;">
+                  <AccessLogChart :option="accessLogOptins" style="height: 600px;width: 1200px;" />
+                </el-tab-pane>
+                <el-tab-pane label="注册统计" name="RegisterChart" style="display: flex;justify-content: center;">
+                  即将上线，敬请期待
+                </el-tab-pane>
+
+              </el-tabs>
+
+
+
             </el-dialog>
           </el-col>
 
@@ -118,7 +129,7 @@
 
           <el-col :span="24">
             <template v-if="isPointFinished">
-              <InfoCard :items="pointList" header="财富排行榜" text="关于钱钱" height="400">
+              <InfoCard :items="pointList" header="财富排行榜" text="查看我的位置" height="400" @onClickText="onClickMoneyTop">
                 <template #item="temp">
                   <PointsRanking :pointsData="temp" />
                 </template>
@@ -176,8 +187,8 @@
 </template>
 
 <script setup>
-import {onMounted, ref, reactive, computed, nextTick, watch} from "vue";
-import {useRouter} from "vue-router";
+import { onMounted, ref, reactive, computed, nextTick, watch } from "vue";
+import { useRouter } from "vue-router";
 import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
@@ -185,18 +196,18 @@ import ScrollbarInfo from "@/components/ScrollbarInfo.vue";
 import BottomInfo from "@/components/BottomInfo.vue";
 import VisitsLineChart from "./components/VisitsLineChart/index.vue";
 import AccessLogChart from "./components/AccessLogChart/Index.vue"
-import {access, getAccessList} from "@/apis/accessApi.js";
-import {getList} from "@/apis/plateApi.js";
-import {getList as bannerGetList} from "@/apis/bannerApi.js";
-import {getHomeDiscuss} from "@/apis/discussApi.js";
-import {getWeek} from "@/apis/accessApi.js";
+import { access, getAccessList } from "@/apis/accessApi.js";
+import { getList } from "@/apis/plateApi.js";
+import { getList as bannerGetList } from "@/apis/bannerApi.js";
+import { getHomeDiscuss } from "@/apis/discussApi.js";
+import { getWeek } from "@/apis/accessApi.js";
 import {
   getRecommendedTopic,
   getRecommendedFriend,
   getRankingPoints,
   getUserAnalyse,
 } from "@/apis/analyseApi.js";
-import {getList as getAllDiscussList} from "@/apis/discussApi.js";
+import { getList as getAllDiscussList } from "@/apis/discussApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
@@ -223,17 +234,17 @@ const allDiscussList = ref([]);
 const isAllDiscussFinished = ref(false);
 const userAnalyseInfo = ref({});
 const onlineNumber = ref(0);
-
+const accessLogTab = ref()
 const activeList = [
-  {name: "签到", path: "/activity/sign", icon: "Present"},
-  {name: "等级", path: "/activity/level", icon: "Ticket"},
-  {name: "大转盘", path: "/activity/lucky", icon: "Sunny"},
-  {name: "银行", path: "/activity/bank", icon: "Money"},
+  { name: "签到", path: "/activity/sign", icon: "Present" },
+  { name: "等级", path: "/activity/level", icon: "Ticket" },
+  { name: "大转盘", path: "/activity/lucky", icon: "Sunny" },
+  { name: "银行", path: "/activity/bank", icon: "Money" },
 
-  {name: "任务", path: "/activity/sign", icon: "Memo"},
-  {name: "娱乐城", path: "/activity/sign", icon: "Sunrise"},
-  {name: "开始", path: "/start", icon: "Position"},
-  {name: "聊天室", path: "/chat", icon: "ChatRound"},
+  { name: "任务", path: "/activity/sign", icon: "Memo" },
+  { name: "娱乐城", path: "/activity/sign", icon: "Sunrise" },
+  { name: "开始", path: "/start", icon: "Position" },
+  { name: "聊天室", path: "/chat", icon: "ChatRound" },
 ];
 
 //主题查询参数
@@ -246,34 +257,34 @@ const query = reactive({
 //初始化
 onMounted(async () => {
   access();
-  const {data: plateData} = await getList();
+  const { data: plateData } = await getList();
   plateList.value = plateData.items;
-  const {data: discussData, config: discussConfig} = await getHomeDiscuss();
+  const { data: discussData, config: discussConfig } = await getHomeDiscuss();
   discussList.value = discussData;
   isDiscussFinished.value = discussConfig.isFinish;
-  const {data: bannerData} = await bannerGetList();
+  const { data: bannerData } = await bannerGetList();
   bannerList.value = bannerData.items;
-  const {data: weekData} = await getWeek();
+  const { data: weekData } = await getWeek();
   weekList.value = weekData;
-  const {data: pointData, config: pointConfig} = await getRankingPoints();
-  pointList.value = pointData;
+  const { data: pointData, config: pointConfig } = await getRankingPoints();
+  pointList.value = pointData.items;
   isPointFinished.value = pointConfig.isFinish;
-  const {data: friendData, config: friendConfig} =
-      await getRecommendedFriend();
+  const { data: friendData, config: friendConfig } =
+    await getRecommendedFriend();
   friendList.value = friendData;
   isFriendFinished.value = friendConfig.isFinish;
-  const {data: themeData, config: themeConfig} = await getRecommendedTopic();
+  const { data: themeData, config: themeConfig } = await getRecommendedTopic();
   themeList.value = themeData;
   isThemeFinished.value = themeConfig.isFinish;
-  const {data: allDiscussData, config: allDiscussConfig} =
-      await getAllDiscussList({
-        Type: 0,
-        skipCount: 1,
-        maxResultCount: 30,
-      });
+  const { data: allDiscussData, config: allDiscussConfig } =
+    await getAllDiscussList({
+      Type: 0,
+      skipCount: 1,
+      maxResultCount: 30,
+    });
   isAllDiscussFinished.value = allDiscussConfig.isFinish;
   allDiscussList.value = allDiscussData.items;
-  const {data: userAnalyseInfoData} = await getUserAnalyse();
+  const { data: userAnalyseInfoData } = await getUserAnalyse();
   onlineNumber.value = userAnalyseInfoData.onlineNumber;
   userAnalyseInfo.value = userAnalyseInfoData;
 });
@@ -312,6 +323,11 @@ const accessLogOptins = computed(() => {
     ]
   }
 });
+const onClickMoneyTop = () => {
+
+  router.push("/money");
+};
+
 const onClickToChatHub = () => {
   router.push("/chat");
 };
@@ -323,18 +339,31 @@ const handleToRouter = (path) => {
 // 推送的实时人数获取
 const currentOnlineNum = computed(() => useSocketStore().getOnlineNum());
 watch(
-    () => currentOnlineNum.value,
-    (val) => {
-      onlineNumber.value = val;
-    },
-    {deep: true}
+  () => currentOnlineNum.value,
+  (val) => {
+    onlineNumber.value = val;
+  },
+  { deep: true }
 );
+watch(
+  () => accessLogTab.value,
+  async(value) => {
+    switch (value) {
+      case "AccessLogChart":
+      const {data} = await getAccessList();
+      accessAllList.value = data;
 
+      break;
+      case "RegisterChart":
+        break;
+    }
+  }
+
+)
 const onClickAccessLog = async () => {
   accessLogDialogVisible.value = true;
-  const {data} = await getAccessList();
+  accessLogTab.value = "AccessLogChart";
 
-  accessAllList.value = data;
 }
 
 </script>
@@ -439,10 +468,12 @@ const onClickAccessLog = async () => {
       }
     }
   }
-  .top{
-  text-align: center;
+
+  .top {
+    text-align: center;
     margin-bottom: 20px;
-}
+  }
+
   .active {
     display: flex;
     justify-content: space-between;
@@ -454,13 +485,16 @@ const onClickAccessLog = async () => {
       flex-direction: column;
       align-items: center;
       display: flex;
-      cursor: pointer; 
+      cursor: pointer;
       padding: 10px 0px;
     }
+
     .el-col:hover {
-    background-color: #cce1ff; /* 悬浮时背景色变化 */
-    color: #70aafb;           /* 悬浮时文字颜色变化 */
-}
+      background-color: #cce1ff;
+      /* 悬浮时背景色变化 */
+      color: #70aafb;
+      /* 悬浮时文字颜色变化 */
+    }
 
     &-btn {
       cursor: pointer;

@@ -5,9 +5,9 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 public class MoneyTopUserDto
 {
     public string UserName { get; set; }
-    public string? Nice { get; set; }
+    public string? Nick { get; set; }
     public decimal Money { get; set; }
-    public string Order { get; set; }
+    public int Order { get; set; }
     public string? Icon { get; set; }
     public int Level { get; set; }
     /// <summary>
