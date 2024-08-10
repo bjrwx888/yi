@@ -107,7 +107,7 @@
                   <AccessLogChart :option="accessLogOptins" style="height: 600px;width: 1200px;" />
                 </el-tab-pane>
                 <el-tab-pane label="注册统计" name="RegisterChart" style="display: flex;justify-content: center;">
-                  即将上线，敬请期待
+                  <AccessLogChart :option="registerLogOptins" style="height: 600px;width: 1200px;" />
                 </el-tab-pane>
 
               </el-tabs>
@@ -206,6 +206,7 @@ import {
   getRecommendedFriend,
   getRankingPoints,
   getUserAnalyse,
+  getRegisterAnalyse
 } from "@/apis/analyseApi.js";
 import { getList as getAllDiscussList } from "@/apis/discussApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
@@ -218,6 +219,7 @@ const accessLogDialogVisible = ref(false)
 const router = useRouter();
 
 const accessAllList = ref([]);
+const registerAllList = ref([]);
 
 const plateList = ref([]);
 const discussList = ref([]);
@@ -323,6 +325,26 @@ const accessLogOptins = computed(() => {
     ]
   }
 });
+
+//历史注册人员全部访问统计
+const registerLogOptins = computed(() => {
+  return {
+    xAxis: {
+      data: registerAllList.value?.map((item, index) => {
+        return item.time.slice(0, 10);
+
+      })
+    },
+    series: [
+      {
+        data: registerAllList.value?.map((item, index) => {
+          return item.number;
+        })
+      }
+    ]
+  }
+});
+
 const onClickMoneyTop = () => {
 
   router.push("/money");
@@ -347,14 +369,17 @@ watch(
 );
 watch(
   () => accessLogTab.value,
-  async(value) => {
+  async (value) => {
     switch (value) {
       case "AccessLogChart":
-      const {data} = await getAccessList();
-      accessAllList.value = data;
+        const { data } = await getAccessList();
+        accessAllList.value = data;
 
-      break;
+        break;
       case "RegisterChart":
+        const { data: registerUserListData } = await getRegisterAnalyse();
+        registerAllList.value = registerUserListData;
+
         break;
     }
   }

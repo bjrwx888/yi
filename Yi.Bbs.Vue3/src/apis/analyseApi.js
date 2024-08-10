@@ -51,3 +51,17 @@ export function getUserAnalyse(data) {
     data,
   });
 }
+
+
+/**
+ * 获取注册数量用户分析
+ * @param {*} data
+ * @returns
+ */
+export function getRegisterAnalyse(data) {
+  return request({
+    url: "/analyse/bbs-user/register",
+    method: "get",
+    data,
+  });
+}

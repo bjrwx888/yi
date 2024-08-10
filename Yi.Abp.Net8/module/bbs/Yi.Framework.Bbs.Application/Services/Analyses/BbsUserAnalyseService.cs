@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.Analyse;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.BbsUser;
 using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Entities.Integral;
@@ -26,6 +27,59 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
             _onlineService = onlineService;
         }
 
+
+        /// <summary>
+        /// 人数注册统计(近3个月)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("analyse/bbs-user/register")]
+        public async Task<List<RegisterAnalyseDto>> GetRegisterAsync([FromQuery] PagedResultRequestDto input)
+
+        {
+            using (DataFilter.DisablePermissionHandler())
+            {
+                var users = await _bbsUserManager._userRepository._DbQueryable
+                    .Where(u=>u.CreationTime>=DateTime.Now.AddMonths(-3))
+                    .LeftJoin<BbsUserExtraInfoEntity>((u, info) => u.Id == info.UserId)
+                    .Select((u, info) => new BbsUserGetListOutputDto()
+                    {
+                        Id = u.Id,
+                        Icon = u.Icon,
+                        Level = info.Level,
+                        UserLimit = info.UserLimit,
+                        Money = info.Money,
+                        Experience = info.Experience,
+                        CreationTime = u.CreationTime
+                    })
+                
+                    .ToListAsync();
+
+                var minCreateUser = users.MinBy(x => x.CreationTime);
+
+                var userCreateTimeDic = users.OrderBy(x => x.CreationTime)
+                    .GroupBy(x => x.CreationTime.Date)
+                    .ToDictionary(x => x.Key.Date, y => y.Count());
+
+                DateTime startDate = minCreateUser.CreationTime.Date;
+                DateTime endDate = DateTime.Today;
+
+                List<RegisterAnalyseDto> output = new List<RegisterAnalyseDto>();
+
+                // 计算从起始日期到今天的所有天数
+                for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                {
+                    var count = 0;
+                    userCreateTimeDic.TryGetValue(date, out count);
+                    RegisterAnalyseDto dayInfo = new RegisterAnalyseDto(date, count);
+                    output.Add(dayInfo);
+                }
+
+                return output;
+            }
+        }
+
+
         /// <summary>
         /// 财富排行榜
         /// </summary>
@@ -38,7 +92,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                 RefAsync<int> total = 0;
                 var output = await _bbsUserManager._userRepository._DbQueryable
                     .LeftJoin<BbsUserExtraInfoEntity>((u, info) => u.Id == info.UserId)
-                    .OrderByDescending((u,info) => info.Money)
+                    .OrderByDescending((u, info) => info.Money)
                     .Select((u, info) =>
                         new MoneyTopUserDto
                         {
@@ -51,7 +105,6 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                             Order = SqlFunc.RowNumber(u.Id)
                         }
                     )
-                 
                     .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
 
                 output.ForEach(x => { x.LevelName = _bbsUserManager._levelCacheDic[x.Level].Name; });

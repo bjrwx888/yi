@@ -48,12 +48,14 @@ namespace Yi.Framework.Bbs.Application.Services
 
 
         /// <summary>
-        /// 获取全部访问流量
+        /// 获取全部访问流量(3个月)
         /// </summary>
         /// <returns></returns>
         public async Task<List<AccessLogDto>> Get()
         {
-            var entities = await _repository._DbQueryable.OrderBy(x => x.CreationTime).ToListAsync();
+            var entities = await _repository._DbQueryable
+                .Where(x=>x.CreationTime>=DateTime.Now.AddMonths(-3))
+                .OrderBy(x => x.CreationTime).ToListAsync();
             var output = entities.Adapt<List<AccessLogDto>>();
             output?.ForEach(x => x.CreationTime = x.CreationTime.Date);
             return output;
