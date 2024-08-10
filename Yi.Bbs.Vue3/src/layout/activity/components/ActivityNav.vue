@@ -29,7 +29,7 @@
         <CreditCard />
       </el-icon> <span>银行</span>
     </el-menu-item>
-    <el-menu-item index="6" :route="{ path: '/activity/money' }">
+    <el-menu-item index="6" :route="{ path: '/money' }">
       <el-icon>
         <Money />
       </el-icon>

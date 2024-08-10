@@ -244,7 +244,7 @@ const activeList = [
   { name: "银行", path: "/activity/bank", icon: "CreditCard" },
 
   { name: "任务", path: "/activity/sign", icon: "Memo" },
-  { name: "排行榜", path: "/activity/money", icon: "Money" },
+  { name: "排行榜", path: "/money", icon: "Money" },
   { name: "开始", path: "/start", icon: "Position" },
   { name: "聊天室", path: "/chat", icon: "ChatRound" },
 ];
