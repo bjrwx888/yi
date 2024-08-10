@@ -26,14 +26,14 @@
     </el-menu-item>
     <el-menu-item index="5" :route="{ path: '/activity/bank' }">
       <el-icon>
-        <Money />
+        <CreditCard />
       </el-icon> <span>银行</span>
     </el-menu-item>
-    <el-menu-item index="6" :route="{ path: '/activity/x' }">
+    <el-menu-item index="6" :route="{ path: '/activity/money' }">
       <el-icon>
-        <Sunrise />
+        <Money />
       </el-icon>
-      <span>娱乐城(暂未开放)</span>
+      <span>排行榜</span>
     </el-menu-item>
   </el-menu>
 

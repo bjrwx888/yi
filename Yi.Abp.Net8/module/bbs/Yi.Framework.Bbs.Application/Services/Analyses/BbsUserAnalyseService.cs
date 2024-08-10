@@ -34,13 +34,13 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("analyse/bbs-user/register")]
-        public async Task<List<RegisterAnalyseDto>> GetRegisterAsync([FromQuery] PagedResultRequestDto input)
+        public async Task<List<RegisterAnalyseDto>> GetRegisterAsync()
 
         {
             using (DataFilter.DisablePermissionHandler())
             {
                 var users = await _bbsUserManager._userRepository._DbQueryable
-                    .Where(u=>u.CreationTime>=DateTime.Now.AddMonths(-3))
+                    .Where(u => u.CreationTime >= DateTime.Now.AddMonths(-3))
                     .LeftJoin<BbsUserExtraInfoEntity>((u, info) => u.Id == info.UserId)
                     .Select((u, info) => new BbsUserGetListOutputDto()
                     {
@@ -52,7 +52,6 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                         Experience = info.Experience,
                         CreationTime = u.CreationTime
                     })
-                
                     .ToListAsync();
 
                 var minCreateUser = users.MinBy(x => x.CreationTime);
@@ -84,11 +83,15 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
         /// 财富排行榜
         /// </summary>
         /// <returns></returns>
-        [HttpGet("analyse/bbs-user/money-top")]
-        public async Task<PagedResultDto<MoneyTopUserDto>> GetMoneyTopAsync([FromQuery] PagedResultRequestDto input)
+        [HttpGet("analyse/bbs-user/money-top/{userId?}")]
+        public async Task<PagedResultDto<MoneyTopUserDto>> GetMoneyTopAsync([FromQuery] PagedResultRequestDto input,
+            [FromRoute] Guid? userId)
         {
             using (DataFilter.DisablePermissionHandler())
             {
+                var pageIndex = input.SkipCount;
+
+
                 RefAsync<int> total = 0;
                 var output = await _bbsUserManager._userRepository._DbQueryable
                     .LeftJoin<BbsUserExtraInfoEntity>((u, info) => u.Id == info.UserId)
@@ -102,10 +105,10 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                             Icon = u.Icon,
                             Level = info.Level,
                             UserLimit = info.UserLimit,
-                            Order = SqlFunc.RowNumber(u.Id)
+                            Order = SqlFunc.RowNumber(SqlFunc.Desc(info.Money))
                         }
                     )
-                    .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
+                    .ToPageListAsync(pageIndex, input.MaxResultCount, total);
 
                 output.ForEach(x => { x.LevelName = _bbsUserManager._levelCacheDic[x.Level].Name; });
                 return new PagedResultDto<MoneyTopUserDto>

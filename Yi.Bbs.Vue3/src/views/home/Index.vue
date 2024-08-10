@@ -103,10 +103,10 @@
 
             <el-dialog v-model="accessLogDialogVisible" title="全站历史统计" width="1200px" center>
               <el-tabs v-model="accessLogTab">
-                <el-tab-pane label="访问统计" name="AccessLogChart" style="display: flex;justify-content: center;">
+                <el-tab-pane label="访问统计（近3月）" name="AccessLogChart" style="display: flex;justify-content: center;">
                   <AccessLogChart :option="accessLogOptins" style="height: 600px;width: 1200px;" />
                 </el-tab-pane>
-                <el-tab-pane label="注册统计" name="RegisterChart" style="display: flex;justify-content: center;">
+                <el-tab-pane label="注册统计（近3月）" name="RegisterChart" style="display: flex;justify-content: center;">
                   <AccessLogChart :option="registerLogOptins" style="height: 600px;width: 1200px;" />
                 </el-tab-pane>
 
@@ -241,10 +241,10 @@ const activeList = [
   { name: "签到", path: "/activity/sign", icon: "Present" },
   { name: "等级", path: "/activity/level", icon: "Ticket" },
   { name: "大转盘", path: "/activity/lucky", icon: "Sunny" },
-  { name: "银行", path: "/activity/bank", icon: "Money" },
+  { name: "银行", path: "/activity/bank", icon: "CreditCard" },
 
   { name: "任务", path: "/activity/sign", icon: "Memo" },
-  { name: "娱乐城", path: "/activity/sign", icon: "Sunrise" },
+  { name: "排行榜", path: "/activity/money", icon: "Money" },
   { name: "开始", path: "/start", icon: "Position" },
   { name: "聊天室", path: "/chat", icon: "ChatRound" },
 ];
