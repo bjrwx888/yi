@@ -19,8 +19,10 @@ namespace Yi.Framework.Bbs.Domain.Managers
         private IDistributedCache<List<LevelCacheItem>> _levelCache;
         private IRepository<LevelAggregateRoot> _repository;
         private ISqlSugarRepository<BbsUserExtraInfoEntity> _bbsUserRepository;
-        public LevelManager( ILocalEventBus localEventBus,
-            IDistributedCache<List<LevelCacheItem>> levelCache, IRepository<LevelAggregateRoot> repository, ISqlSugarRepository<BbsUserExtraInfoEntity> bbsUserRepository)
+
+        public LevelManager(ILocalEventBus localEventBus,
+            IDistributedCache<List<LevelCacheItem>> levelCache, IRepository<LevelAggregateRoot> repository,
+            ISqlSugarRepository<BbsUserExtraInfoEntity> bbsUserRepository)
         {
             _localEventBus = localEventBus;
             _repository = repository;
@@ -35,16 +37,16 @@ namespace Yi.Framework.Bbs.Domain.Managers
         /// <returns></returns>
         public async Task<Dictionary<int, LevelCacheItem>> GetCacheMapAsync()
         {
-            var items = _levelCache.GetOrAdd(LevelConst.LevelCacheKey,   () =>
+            var items = _levelCache.GetOrAdd(LevelConst.LevelCacheKey, () =>
             {
-                var cacheItem = ( _repository.GetListAsync().Result)
+                var cacheItem = (_repository.GetListAsync().Result)
                     .OrderByDescending(x => x.CurrentLevel).ToList()
                     .Adapt<List<LevelCacheItem>>();
                 return cacheItem;
             });
-            return items.ToDictionary(x=>x.CurrentLevel);
+            return items.ToDictionary(x => x.CurrentLevel);
         }
-        
+
         /// <summary>
         /// 使用钱钱投喂等级
         /// </summary>
@@ -52,7 +54,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
         public async Task ChangeLevelByMoneyAsync(Guid userId, int moneyNumber)
         {
             //通过用户id获取用户信息的经验和等级
-            var userInfo = await _bbsUserRepository.GetAsync(x=>x.UserId==userId);
+            var userInfo = await _bbsUserRepository.GetAsync(x => x.UserId == userId);
 
             //钱钱和经验的比例为1：1
             //根据钱钱修改经验
@@ -63,7 +65,7 @@ namespace Yi.Framework.Bbs.Domain.Managers
                 false);
 
             //更改最终的经验再变化等级
-            var levelList = (await GetCacheMapAsync()).Values;
+            var levelList = (await GetCacheMapAsync()).Values.OrderByDescending(x => x.CurrentLevel);
             var currentNewLevel = 1;
             foreach (var level in levelList)
             {
@@ -73,12 +75,12 @@ namespace Yi.Framework.Bbs.Domain.Managers
                     break;
                 }
             }
-          
+
             //这里注意，只更新等级
             userInfo.Level = currentNewLevel;
             userInfo.Experience = currentNewExperience;
             await _bbsUserRepository._Db.Updateable(userInfo)
-                .UpdateColumns(it => new { it.Level,it.Experience })
+                .UpdateColumns(it => new { it.Level, it.Experience })
                 .ExecuteCommandAsync();
         }
     }
