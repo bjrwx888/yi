@@ -14,11 +14,4 @@ public interface IAssignmentProvider : ITransientDependency
     /// <param name="context"></param>
     /// <returns></returns>
     Task<List<AssignmentDefineAggregateRoot>> GetCanReceiveListAsync(AssignmentContext context);
-
-    /// <summary>
-    /// 校验是否能够被领取，该方法还需工厂进行代理执行一次
-    /// </summary>
-    /// <param name="context"></param>
-    /// <returns></returns>
-    Task VerifyCanAcceptAsync(AssignmentContext context);
 }

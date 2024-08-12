@@ -31,7 +31,11 @@ public class AssignmentDefineAggregateRoot: AggregateRoot<Guid>, IHasCreationTim
     /// </summary>
     public AssignmentTypeEnum AssignmentType{ get; set; }
 
-
+    /// <summary>
+    /// 总共步骤数
+    /// </summary>
+    public int TotalStepNumber { get; set; }
+    
     /// <summary>
     /// 前置任务id
     /// </summary>

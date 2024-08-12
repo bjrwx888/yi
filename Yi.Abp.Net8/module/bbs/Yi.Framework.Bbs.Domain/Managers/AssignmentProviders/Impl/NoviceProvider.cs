@@ -9,11 +9,7 @@ public class NoviceProvider : IAssignmentProvider
 {
     public Task<List<AssignmentDefineAggregateRoot>> GetCanReceiveListAsync(AssignmentContext context)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task VerifyCanAcceptAsync(AssignmentContext context)
-    {
+        //新手任务是要有前置依赖关系的，链表类型依赖
         throw new NotImplementedException();
     }
 }
