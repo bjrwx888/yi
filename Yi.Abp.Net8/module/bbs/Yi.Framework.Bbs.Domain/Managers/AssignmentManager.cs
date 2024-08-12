@@ -16,8 +16,8 @@ namespace Yi.Framework.Bbs.Domain.Managers;
 public class AssignmentManager : DomainService
 {
     private readonly IEnumerable<IAssignmentProvider> _assignmentProviders;
-    private readonly ISqlSugarRepository<AssignmentAggregateRoot> _assignmentRepository;
-    private readonly ISqlSugarRepository<AssignmentDefineAggregateRoot> _assignmentDefineRepository;
+    public readonly ISqlSugarRepository<AssignmentAggregateRoot> _assignmentRepository;
+    public readonly ISqlSugarRepository<AssignmentDefineAggregateRoot> _assignmentDefineRepository;
     private readonly ILocalEventBus _localEventBus;
 
     public AssignmentManager(IEnumerable<IAssignmentProvider> assignmentProviders,
@@ -92,7 +92,7 @@ public class AssignmentManager : DomainService
         }
 
         output.DistinctBy(x => x.Id);
-        throw new NotImplementedException();
+        return output;
     }
 
 
@@ -134,6 +134,5 @@ public class AssignmentManager : DomainService
         {
             await _assignmentRepository._Db.Updateable(needUpdateEntities).ExecuteCommandAsync();
         }
-     
     }
 }

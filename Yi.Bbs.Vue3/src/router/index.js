@@ -156,6 +156,14 @@ const router = createRouter({
             title: "银行",
           },
         },
+        {
+          name: "assignment",
+          path: "assignment",
+          component: () => import("../views/assignment/Index.vue"),
+          meta: {
+            title: "任务",
+          },
+        },
       ],
     },
 
