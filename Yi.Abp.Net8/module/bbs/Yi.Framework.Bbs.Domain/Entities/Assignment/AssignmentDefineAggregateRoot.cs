@@ -32,6 +32,11 @@ public class AssignmentDefineAggregateRoot: AggregateRoot<Guid>, IHasCreationTim
     public AssignmentTypeEnum AssignmentType{ get; set; }
 
     /// <summary>
+    /// 任务需求类型
+    /// </summary>
+    public AssignmentRequirementTypeEnum AssignmentRequirementType{ get; set; }
+    
+    /// <summary>
     /// 总共步骤数
     /// </summary>
     public int TotalStepNumber { get; set; }
@@ -46,6 +51,6 @@ public class AssignmentDefineAggregateRoot: AggregateRoot<Guid>, IHasCreationTim
     /// </summary>
     public decimal RewardsMoneyNumber { get; set; }
 
-    public DateTime CreationTime { get; }
+    public DateTime CreationTime{ get; set; }
     public int OrderNum { get; set; }
 }

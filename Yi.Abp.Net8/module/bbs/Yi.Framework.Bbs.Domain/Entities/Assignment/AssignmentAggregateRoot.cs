@@ -38,7 +38,7 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
     /// <summary>
     /// 任务状态
     /// </summary>
-    public AssignmentStateEnum AssignmentState { get; set; }
+    public AssignmentStateEnum AssignmentState { get; set; } 
 
     /// <summary>
     /// 任务奖励的钱钱数量
@@ -52,9 +52,9 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
     public DateTime? CompleteTime { get; set; }
     
     
-    public DateTime CreationTime { get; }
+    public DateTime CreationTime { get; set; }
     public int OrderNum { get; set; }
-    public DateTime? LastModificationTime { get; }
+    public DateTime? LastModificationTime{ get; set; }
 
 
     public bool IsAllowCompleted()
@@ -71,5 +71,12 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
         }
 
         return true;
+    }
+
+    public void SetComplete()
+    {
+        this.AssignmentState = AssignmentStateEnum.Completed;
+        this.CompleteTime=DateTime.Now;
+        
     }
 }

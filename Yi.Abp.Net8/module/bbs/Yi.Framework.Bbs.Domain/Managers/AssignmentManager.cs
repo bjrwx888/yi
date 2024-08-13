@@ -68,11 +68,18 @@ public class AssignmentManager : DomainService
         var assignment = await _assignmentRepository.GetByIdAsync(asignmentId);
         if (assignment.IsAllowCompleted())
         {
-            //设置已完成，并领取奖励，钱钱
-            assignment.AssignmentState = AssignmentStateEnum.Completed;
             //加钱加钱
             await _localEventBus.PublishAsync(
                 new MoneyChangeEventArgs { UserId = assignment.UserId, Number = assignment.RewardsMoneyNumber }, false);
+            
+            //设置已完成，并领取奖励，钱钱
+            assignment.SetComplete();
+            await _assignmentRepository.UpdateAsync(assignment);
+        }
+        else
+        {
+            //不能领取
+            throw new UserFriendlyException("该任务无法领取奖励，请检查任务详情");
         }
     }
 

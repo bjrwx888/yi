@@ -7,7 +7,7 @@ public class AssignmentGetListInput
     /// <summary>
     /// 任务查询条件
     /// </summary>
-    public AssignmentQueryStateEnum? AssignmentQueryState { get; set; }
+    public AssignmentQueryStateEnum AssignmentQueryState { get; set; } = AssignmentQueryStateEnum.Progress;
 }
 
 public enum AssignmentQueryStateEnum
