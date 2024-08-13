@@ -19,7 +19,12 @@ public class AssignmentDefineGetListOutputDto : EntityDto<Guid>
     /// 任务类型
     /// </summary>
     public AssignmentTypeEnum AssignmentType { get; set; }
-
+    
+    /// <summary>
+    /// 任务需求类型
+    /// </summary>
+    public AssignmentRequirementTypeEnum AssignmentRequirementType{ get; set; }
+    
     /// <summary>
     /// 总共步骤数
     /// </summary>

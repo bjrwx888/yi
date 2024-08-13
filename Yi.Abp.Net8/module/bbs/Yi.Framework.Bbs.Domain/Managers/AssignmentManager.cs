@@ -52,6 +52,7 @@ public class AssignmentManager : DomainService
             entity.CurrentStepNumber = 0;
             entity.TotalStepNumber = assignmentDefine.TotalStepNumber;
             entity.RewardsMoneyNumber = assignmentDefine.RewardsMoneyNumber;
+            entity.AssignmentRequirementType = assignmentDefine.AssignmentRequirementType;
             entity.ExpireTime = assignmentDefine.AssignmentType.GetExpireTime();
             await _assignmentRepository.InsertAsync(entity);
         }
@@ -71,7 +72,7 @@ public class AssignmentManager : DomainService
             //加钱加钱
             await _localEventBus.PublishAsync(
                 new MoneyChangeEventArgs { UserId = assignment.UserId, Number = assignment.RewardsMoneyNumber }, false);
-            
+
             //设置已完成，并领取奖励，钱钱
             assignment.SetComplete();
             await _assignmentRepository.UpdateAsync(assignment);
@@ -79,7 +80,7 @@ public class AssignmentManager : DomainService
         else
         {
             //不能领取
-            throw new UserFriendlyException("该任务无法领取奖励，请检查任务详情");
+            throw new UserFriendlyException("该任务没有满足领取条件，请检查任务详情");
         }
     }
 
@@ -98,7 +99,7 @@ public class AssignmentManager : DomainService
             output.AddRange(await assignmentProvider.GetCanReceiveListAsync(context));
         }
 
-        output.DistinctBy(x => x.Id);
+        output = output.DistinctBy(x => x.Id).OrderBy(x => x.OrderNum).ToList();
         return output;
     }
 

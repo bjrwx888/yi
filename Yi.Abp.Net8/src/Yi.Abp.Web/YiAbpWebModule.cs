@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
+using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
@@ -68,6 +69,12 @@ namespace Yi.Abp.Web
                 optios.AlwaysLogSelectors.Add(x => Task.FromResult(true));
             });
 
+            //配置错误处理显示详情
+            Configure<AbpExceptionHandlingOptions>(options =>
+            {
+                options.SendExceptionsDetailsToClients = true;
+            });
+            
             //动态Api
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {

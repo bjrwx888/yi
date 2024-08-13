@@ -48,7 +48,10 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
     /// 任务过期时间
     /// </summary>
     public DateTime? ExpireTime { get; set; }
-
+    /// <summary>
+    /// 任务需求类型
+    /// </summary>
+    public AssignmentRequirementTypeEnum AssignmentRequirementType{ get; set; }
     public DateTime? CompleteTime { get; set; }
     
     

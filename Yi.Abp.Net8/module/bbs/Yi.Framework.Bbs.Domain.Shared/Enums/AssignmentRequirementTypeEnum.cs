@@ -13,14 +13,16 @@ public enum AssignmentRequirementTypeEnum
     Comment=4,
     
     /// <summary>
-    /// 更新个人中心
-    /// </summary>
-    UpdateProfile=8,
-    
-    
-    /// <summary>
     /// 点赞
     /// </summary>
-    Agree=16
+    Agree=8,
+    
+    /// <summary>
+    /// 更新个人中心
+    /// </summary>
+    UpdateProfile=16
+    
+    
+
     
 }

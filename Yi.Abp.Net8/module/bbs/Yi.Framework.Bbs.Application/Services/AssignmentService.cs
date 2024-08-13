@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Users;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Assignment;
+using Yi.Framework.Bbs.Domain.Entities.Assignment;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 
@@ -27,7 +28,7 @@ public class AssignmentService : ApplicationService
     /// </summary>
     /// <param name="id"></param>
     [HttpPost("assignment/accept/{id}")]
-    public async Task AcceptAsync([FromRoute]Guid id)
+    public async Task AcceptAsync([FromRoute] Guid id)
     {
         await _assignmentManager.AcceptAsync(CurrentUser.GetId(), id);
     }
@@ -37,7 +38,7 @@ public class AssignmentService : ApplicationService
     /// </summary>
     /// <param name="id"></param>
     [HttpPost("assignment/complete/{id}")]
-    public async Task ReceiveRewardsAsync([FromRoute]Guid id)
+    public async Task ReceiveRewardsAsync([FromRoute] Guid id)
     {
         await _assignmentManager.ReceiveRewardsAsync(id);
     }
@@ -58,18 +59,23 @@ public class AssignmentService : ApplicationService
     /// 查询接受的任务
     /// </summary>
     [HttpGet("assignment")]
-    public async Task<List<AssignmentGetListOutputDto>> GetListAsync([FromQuery]AssignmentGetListInput input)
+    public async Task<List<AssignmentGetListOutputDto>> GetListAsync([FromQuery] AssignmentGetListInput input)
     {
-          var entities=  await _assignmentManager._assignmentRepository._DbQueryable
-                .Where(x => x.UserId == CurrentUser.GetId())
-                .WhereIF(input.AssignmentQueryState == AssignmentQueryStateEnum.Progress,
-                    x => x.AssignmentState == AssignmentStateEnum.Progress)
-                .WhereIF(input.AssignmentQueryState == AssignmentQueryStateEnum.End,
-                    x => x.AssignmentState == AssignmentStateEnum.Completed ||
-                         x.AssignmentState == AssignmentStateEnum.Expired)
-                .ToListAsync();
+        var output = await _assignmentManager._assignmentRepository._DbQueryable
+            .Where(x => x.UserId == CurrentUser.GetId())
+            .WhereIF(input.AssignmentQueryState == AssignmentQueryStateEnum.Progress,
+                x => x.AssignmentState == AssignmentStateEnum.Progress)
+            .WhereIF(input.AssignmentQueryState == AssignmentQueryStateEnum.End,
+                x => x.AssignmentState == AssignmentStateEnum.Completed ||
+                     x.AssignmentState == AssignmentStateEnum.Expired)
+            .OrderBy(x=>x.CreationTime)
+            .LeftJoin<AssignmentDefineAggregateRoot>((x, define) => x.AssignmentDefineId==define.Id)
+            .Select((x, define) => new AssignmentGetListOutputDto
+            {
+                Id = x.Id
+            },true)
+            .ToListAsync();
 
-        var output=  entities.Adapt<List<AssignmentGetListOutputDto>>();
         return output;
     }
 }
