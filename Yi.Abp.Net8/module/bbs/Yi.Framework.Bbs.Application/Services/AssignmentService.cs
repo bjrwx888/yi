@@ -64,9 +64,10 @@ public class AssignmentService : ApplicationService
         var output = await _assignmentManager._assignmentRepository._DbQueryable
             .Where(x => x.UserId == CurrentUser.GetId())
             .WhereIF(input.AssignmentQueryState == AssignmentQueryStateEnum.Progress,
-                x => x.AssignmentState == AssignmentStateEnum.Progress)
+                x => x.AssignmentState == AssignmentStateEnum.Progress||
+                     x.AssignmentState == AssignmentStateEnum.Completed)
             .WhereIF(input.AssignmentQueryState == AssignmentQueryStateEnum.End,
-                x => x.AssignmentState == AssignmentStateEnum.Completed ||
+                x => x.AssignmentState == AssignmentStateEnum.End ||
                      x.AssignmentState == AssignmentStateEnum.Expired)
             .OrderBy(x=>x.CreationTime)
             .LeftJoin<AssignmentDefineAggregateRoot>((x, define) => x.AssignmentDefineId==define.Id)

@@ -1,51 +1,105 @@
 ﻿<script setup>
-import {ref} from "vue";
+import {computed, ref, watch} from "vue";
+import { dayjs } from 'element-plus'
+const props = defineProps(['data', 'isDefind'])
+const cardData = ref(props.data);
 
-const props = defineProps(['data'])
-const cardData=ref(props.data);
-
-const emit =defineEmits(['onClick'])
-const  onClick=()=>{
-  emit('onClick',cardData.value)
+const emit = defineEmits(['onClick'])
+const onClick = () => {
+  emit('onClick', cardData.value)
 }
+//监视组件传值变化
+watch(() => props.data, (n, o) => {
+  cardData.value = n;
+})
 
+//任务类型
+const assignmentTypeEnum = {
+  "Daily": "每日任务",
+  "Weekly": "每周任务",
+  "Novice": "新手任务"
+}
+const computedAssignmentState = computed(() => {
+
+  if (props.isDefind) {
+    return btnAssignmentStateEnum["CanReceive"];
+  } else {
+    return btnAssignmentStateEnum[cardData.value.assignmentState];
+  }
+});
+const btnAssignmentStateEnum = {
+  "CanReceive": {name: "接受任务", backgroundColor: "primary",isDisabled:false},
+  "End": {name: "已完成", backgroundColor: "info",isDisabled:true},
+  "Progress": {name: "正在进行", backgroundColor: "Default",isDisabled:true},
+  "Completed": {name: "领取奖励", backgroundColor: "success",isDisabled:false},
+  "Expired": {name: "已过期", backgroundColor: "info",isDisabled:true}
+}
 </script>
 
 <template>
   <div class="card-box">
     <div class="left">
-      <div class="left-type">每日任务</div>
+      <div class="left-type">{{ assignmentTypeEnum[cardData.assignmentType] }}</div>
       <div class="content">
-        <h2>{{cardData.name}}</h2>
-       <h4>{{cardData.remarks}}</h4> 
+        <div class="content-title">
+        <h2>{{ cardData.name }}</h2>
+        <h4>{{ cardData.remarks }}</h4>
+        </div>
+        <div class="progress" v-if="props.isDefind===false">
+        <el-progress
+            :text-inside="true"
+            :stroke-width="20"
+            :percentage=" Math.round((cardData.currentStepNumber/cardData.totalStepNumber)*100)"
+            striped
+            striped-flow
+            status="success"
+        />
+       <span>{{cardData.currentStepNumber}}/{{cardData.totalStepNumber}}</span>
+        </div>
       </div>
+
     </div>
+
+
     <div class="right">
-      <div class="right-btn"> 
-        <h3>过期时间：无限制</h3>
-        <el-button @click="onClick()" type="primary">接受任务</el-button>
+      <div class="right-btn">
+        <h5>过期时间：{{ cardData.expireTime ==null? "无限制": dayjs(cardData.expireTime).format('YYYY年M月D日') }}</h5>
+       <h5>奖励：<span style="color: #FF0000;font-weight: bolder ">{{cardData.rewardsMoneyNumber}}</span> 钱钱</h5>
+        <el-button @click="onClick()" :disabled="computedAssignmentState.isDisabled" :type="computedAssignmentState.backgroundColor">
+          {{ computedAssignmentState.name }}
+        </el-button>
       </div>
-      
+
     </div>
-  
-   
+
+
   </div>
 </template>
 <style scoped lang="scss">
-.el-button{
+.el-progress{
+width: 450px;
+}
+.el-button {
   width: 100px;
   height: 40px;
+  margin-top: 5px;
 }
-h2{
+
+h2 {
   margin: 0 0 10px 0;
 }
-h3{
+
+h4 {
+  margin: 0 0 0 20px;
+  display: flex;
+  align-items: center;
+}
+h5 {
   margin: 0;
 }
-h4{
-  margin: 0;
-}
-.card-box{
+
+
+.card-box {
   padding: 10px;
   border: 2px solid #dcdfe6;
   display: flex;
@@ -54,21 +108,36 @@ h4{
   width: 100%;
   align-content: center;
   flex-wrap: wrap;
-  .right{
+
+  .right {
     display: flex;
     align-content: center;
     flex-wrap: wrap;
-    .right-btn{
+
+    .right-btn {
       text-align: right;
     }
   }
-  .left{
+
+  .left {
     display: flex;
-    .content{
+
+    align-content: center;
+    flex-wrap: wrap;
+    .content {
       margin-left: 30px;
+      .content-title{
+        display: flex;
+      }
+      .progress{
+        display: flex;
+      }
+      span{
+        margin: 0 10px;
+      }
     }
-    .left-type
-    {
+
+    .left-type {
       border: 1px solid #dcdfe6;
       height: 60px;
       width: 100px;

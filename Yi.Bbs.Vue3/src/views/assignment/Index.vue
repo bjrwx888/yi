@@ -2,6 +2,7 @@
 import {getAssignmentList, getCanReceiveAssignment, acceptAssignment, receiveAssignment} from '@/apis/assignmentApi'
 import {onMounted, reactive, ref} from "vue";
 import AssignmentCard from "./components/AssignmentCard.vue"
+
 const canReceiveAssignmentList = ref([]);
 
 const assignmentList = ref([]);
@@ -14,7 +15,6 @@ const currentTableSelect = ref("canAccept");
 
 //切换tab
 const changeClickTable = async (tabName) => {
-  console.log(tabName,"tabName")
   switch (tabName) {
     case "canAccept":
       const {data: canReceiveAssignmentListData} = await getCanReceiveAssignment();
@@ -47,11 +47,20 @@ const refreshData = async () => {
 //接收任务
 const onClickAcceptAssignment = async (item) => {
   await acceptAssignment(item.id);
+  ElMessage({
+    type: 'success',
+    message: '接受任务成功',
+  });
   await refreshData();
 }
 
-const onClickReceiveAssignment = async (id) => {
-  await receiveAssignment(id);
+//领取奖励
+const onClickReceiveAssignment = async (item) => {
+  await receiveAssignment(item.id);
+  ElMessage({
+    type: 'success',
+    message: '任务奖励领取成功',
+  });
   await refreshData();
 }
 
@@ -74,21 +83,32 @@ const changeTab = async (state) => {
       <el-tab-pane label="可接受" name="canAccept"/>
       <el-tab-pane label="已接受" name="progress"/>
       <el-tab-pane label="已结束" name="end"/>
-      
-      <div v-for="item in canReceiveAssignmentList" v-if="currentTableSelect==='canAccept'">
-        <AssignmentCard :data="item" @onClick="onClickAcceptAssignment"/>
-      </div>
 
-      <div v-for="item in assignmentList" v-else>{{ item }}
-        <button type="button" @click="onClickReceiveAssignment(item.id)">领取奖励</button>
+      <div v-if="currentTableSelect==='canAccept'">
+        <div v-for="item in canReceiveAssignmentList" class="assign-box" v-if="canReceiveAssignmentList.length>0">
+          <AssignmentCard :isDefind="true" :data="item" @onClick="onClickAcceptAssignment"/>
+        </div>
+        <el-empty v-else description="暂时没有可领取的任务" />
+
+
+      </div>
+      <div v-else>
+        <div v-for="item in assignmentList" class="assign-box" v-if="assignmentList.length>0">
+          <AssignmentCard :isDefind="false" :data="item" @onClick="onClickReceiveAssignment"/>
+        </div>
+        <el-empty v-else description="暂时没有任务" />
       </div>
     </el-tabs>
   </div>
 </template>
 <style scoped lang="scss">
-.content-body{
-  
-  padding: 30px ;
+.content-body {
+
+  padding: 30px;
+
+  .assign-box {
+    margin-bottom: 10px;
+  }
 }
 
 

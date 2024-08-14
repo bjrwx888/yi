@@ -23,7 +23,10 @@ public class AssignmentGetListOutputDto:EntityDto<Guid>
     /// 总共步骤数
     /// </summary>
     public int TotalStepNumber { get; set; }
-
+    /// <summary>
+    /// 任务类型
+    /// </summary>
+    public AssignmentTypeEnum AssignmentType { get; set; }
     
     /// <summary>
     /// 任务需求类型

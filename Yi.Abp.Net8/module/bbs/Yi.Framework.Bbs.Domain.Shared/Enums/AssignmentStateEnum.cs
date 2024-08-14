@@ -15,5 +15,10 @@ public enum AssignmentStateEnum
     /// <summary>
     /// 已过期
     /// </summary>
-    Expired
+    Expired,
+    
+    /// <summary>
+    /// 已结束
+    /// </summary>
+    End
 }

@@ -68,10 +68,14 @@ public class AssignmentEventHandler : ILocalEventHandler<AssignmentEventArgs>, I
     {
         currentAssignmentList.ForEach(x =>
         {
-            if (x.AssignmentRequirementType == AssignmentRequirementTypeEnum.Agree &&
+            if (x.AssignmentRequirementType == requirementType &&
                 x.CurrentStepNumber < x.TotalStepNumber)
             {
                 x.CurrentStepNumber += 1;
+                if (x.CurrentStepNumber==x.TotalStepNumber)
+                {
+                    x.AssignmentState = AssignmentStateEnum.Completed;
+                }
             }
         });
     }

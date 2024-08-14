@@ -52,7 +52,7 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
     /// 任务需求类型
     /// </summary>
     public AssignmentRequirementTypeEnum AssignmentRequirementType{ get; set; }
-    public DateTime? CompleteTime { get; set; }
+    public DateTime? EndTime { get; set; }
     
     
     public DateTime CreationTime { get; set; }
@@ -62,7 +62,7 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
 
     public bool IsAllowCompleted()
     {
-        return AssignmentState == AssignmentStateEnum.Progress && this.CurrentStepNumber == this.TotalStepNumber;
+        return AssignmentState == AssignmentStateEnum.Completed && this.CurrentStepNumber == this.TotalStepNumber;
     }
 
     public bool TrySetExpire()
@@ -76,10 +76,10 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
         return true;
     }
 
-    public void SetComplete()
+    public void SetEnd()
     {
-        this.AssignmentState = AssignmentStateEnum.Completed;
-        this.CompleteTime=DateTime.Now;
+        this.AssignmentState = AssignmentStateEnum.End;
+        this.EndTime=DateTime.Now;
         
     }
 }

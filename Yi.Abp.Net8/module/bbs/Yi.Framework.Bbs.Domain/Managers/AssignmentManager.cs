@@ -74,7 +74,7 @@ public class AssignmentManager : DomainService
                 new MoneyChangeEventArgs { UserId = assignment.UserId, Number = assignment.RewardsMoneyNumber }, false);
 
             //设置已完成，并领取奖励，钱钱
-            assignment.SetComplete();
+            assignment.SetEnd();
             await _assignmentRepository.UpdateAsync(assignment);
         }
         else
