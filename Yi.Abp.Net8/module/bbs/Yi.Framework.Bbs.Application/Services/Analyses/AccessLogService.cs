@@ -55,9 +55,9 @@ namespace Yi.Framework.Bbs.Application.Services
         /// </summary>
         /// <param name="AccessLogType"></param>
         /// <returns></returns>
-        public async Task<List<AccessLogDto>> GetListAsync([FromQuery] AccessLogTypeEnum AccessLogType)
+        public async Task<List<AccessLogDto>> GetListAsync([FromQuery] AccessLogTypeEnum accessLogType)
         {
-            var entities = await _repository._DbQueryable.Where(x => x.AccessLogType == AccessLogType)
+            var entities = await _repository._DbQueryable.Where(x => x.AccessLogType == accessLogType)
                 .Where(x => x.CreationTime >= DateTime.Now.AddMonths(-3))
                 .OrderBy(x => x.CreationTime).ToListAsync();
             var output = entities.Adapt<List<AccessLogDto>>();
@@ -73,11 +73,11 @@ namespace Yi.Framework.Bbs.Application.Services
         public async Task AccessAsync()
         {
             //可判断http重复，防止同一ip多次访问
-            var last = await _repository._DbQueryable.OrderByDescending(x => x.CreationTime).FirstAsync();
+            var last = await _repository._DbQueryable.Where(x=>x.AccessLogType==AccessLogTypeEnum.HomeClick).OrderByDescending(x => x.CreationTime).FirstAsync();
 
             if (last is null || last.CreationTime.Date != DateTime.Today)
             {
-                await _repository.InsertAsync(new AccessLogAggregateRoot());
+                await _repository.InsertAsync(new AccessLogAggregateRoot(){AccessLogType=AccessLogTypeEnum.HomeClick});
             }
             else
             {
@@ -90,10 +90,10 @@ namespace Yi.Framework.Bbs.Application.Services
         /// 获取当前周首页点击数据
         /// </summary>
         /// <returns></returns>
-        public async Task<AccessLogDto[]> GetWeekAsync()
+        public async Task<AccessLogDto[]> GetWeekAsync([FromQuery] AccessLogTypeEnum accessLogType)
         {
             var lastSeven = await _repository._DbQueryable
-                .Where(x => x.AccessLogType == AccessLogTypeEnum.HomeClick)
+                .Where(x => x.AccessLogType == accessLogType)
                 .OrderByDescending(x => x.CreationTime).ToPageListAsync(1, 7);
 
             return WeekTimeHandler(lastSeven.ToArray());

@@ -288,8 +288,8 @@ namespace Yi.Abp.Web
             //swagger
             app.UseYiSwagger();
 
-            //流量访问统计,不启用
-            //app.UseAccessLog();
+            //流量访问统计,需redis支持，否则不生效
+            app.UseAccessLog();
 
             //请求处理
             app.UseYiApiHandlinge();
