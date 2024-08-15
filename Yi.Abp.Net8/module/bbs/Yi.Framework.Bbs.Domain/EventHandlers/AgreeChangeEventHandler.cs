@@ -39,6 +39,7 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
 
             //查询主题的信息
             var discussAndAgreeDto = await _agreeRepository._DbQueryable
+                .Where(agree=>agree.Id==agreeEntity.Id)
                 .LeftJoin<DiscussAggregateRoot>((agree, discuss) => agree.DiscussId == discuss.Id)
                 .Select((agree, discuss) =>
                     new
