@@ -248,7 +248,7 @@ const activeList = [
   {name: "大转盘", path: "/activity/lucky", icon: "Sunny"},
   {name: "银行", path: "/activity/bank", icon: "CreditCard"},
 
-  {name: "任务", path: "/activity/sign", icon: "Memo"},
+  {name: "任务", path: "/activity/assignment", icon: "Memo"},
   {name: "排行榜", path: "/money", icon: "Money"},
   {name: "开始", path: "/start", icon: "Position"},
   {name: "聊天室", path: "/chat", icon: "ChatRound"},

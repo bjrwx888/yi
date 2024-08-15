@@ -15,9 +15,9 @@ watch(() => props.data, (n, o) => {
 
 //任务类型
 const assignmentTypeEnum = {
-  "Daily": "每日任务",
-  "Weekly": "每周任务",
-  "Novice": "新手任务"
+  "Daily": {name:"每日任务",backgroundColor:"#fff"},
+  "Weekly":{name:"每周任务",backgroundColor:"#fff"} ,
+  "Novice": {name:"新手任务",backgroundColor:"#fff"}
 }
 const computedAssignmentState = computed(() => {
 
@@ -39,7 +39,7 @@ const btnAssignmentStateEnum = {
 <template>
   <div class="card-box">
     <div class="left">
-      <div class="left-type">{{ assignmentTypeEnum[cardData.assignmentType] }}</div>
+      <div class="left-type" :style="{backgroundColor:assignmentTypeEnum[cardData.assignmentType].backgroundColor}">{{ assignmentTypeEnum[cardData.assignmentType].name }}</div>
       <div class="content">
         <div class="content-title">
         <h2>{{ cardData.name }}</h2>
@@ -50,8 +50,7 @@ const btnAssignmentStateEnum = {
             :text-inside="true"
             :stroke-width="20"
             :percentage=" Math.round((cardData.currentStepNumber/cardData.totalStepNumber)*100)"
-            striped
-            striped-flow
+
             status="success"
         />
        <span>{{cardData.currentStepNumber}}/{{cardData.totalStepNumber}}</span>
@@ -63,7 +62,8 @@ const btnAssignmentStateEnum = {
 
     <div class="right">
       <div class="right-btn">
-        <h5>过期时间：{{ cardData.expireTime ==null? "无限制": dayjs(cardData.expireTime).format('YYYY年M月D日') }}</h5>
+       
+        <h5> {{cardData.expireTime ==null?"":"过期时间:"+dayjs(cardData.expireTime).format('YYYY年M月D日')}}</h5>
        <h5>奖励：<span style="color: #FF0000;font-weight: bolder ">{{cardData.rewardsMoneyNumber}}</span> 钱钱</h5>
         <el-button @click="onClick()" :disabled="computedAssignmentState.isDisabled" :type="computedAssignmentState.backgroundColor">
           {{ computedAssignmentState.name }}
