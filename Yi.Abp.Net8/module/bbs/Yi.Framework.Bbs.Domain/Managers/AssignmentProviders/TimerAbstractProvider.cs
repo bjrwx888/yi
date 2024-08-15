@@ -24,10 +24,11 @@ public abstract class TimerProvider : IAssignmentProvider
         //2: 存在已完成，但是完成时间是过期的
         var assignmentFilterIds = context.CurrentUserAssignments
             .Where(x => 
-                        //正在进行的，要去掉
+                        //正在进行的，已经完成，要去掉
                         x.AssignmentState == AssignmentStateEnum.Progress||
-                        //已完成，但是还没过期，要去掉
-                        (x.AssignmentState == AssignmentStateEnum.Completed&&!AssignmentType.IsExpire(x.CompleteTime!.Value)))
+                        x.AssignmentState==AssignmentStateEnum.Completed||
+                        //已结束，但是还没过期，要去掉
+                        (x.AssignmentState == AssignmentStateEnum.End&&!AssignmentType.IsExpire(x.EndTime!.Value)))
             .Select(x => x.AssignmentDefineId)
             .ToList();
 

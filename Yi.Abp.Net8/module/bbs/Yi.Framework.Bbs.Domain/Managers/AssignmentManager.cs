@@ -16,8 +16,8 @@ namespace Yi.Framework.Bbs.Domain.Managers;
 public class AssignmentManager : DomainService
 {
     private readonly IEnumerable<IAssignmentProvider> _assignmentProviders;
-    private readonly ISqlSugarRepository<AssignmentAggregateRoot> _assignmentRepository;
-    private readonly ISqlSugarRepository<AssignmentDefineAggregateRoot> _assignmentDefineRepository;
+    public readonly ISqlSugarRepository<AssignmentAggregateRoot> _assignmentRepository;
+    public readonly ISqlSugarRepository<AssignmentDefineAggregateRoot> _assignmentDefineRepository;
     private readonly ILocalEventBus _localEventBus;
 
     public AssignmentManager(IEnumerable<IAssignmentProvider> assignmentProviders,
@@ -52,6 +52,7 @@ public class AssignmentManager : DomainService
             entity.CurrentStepNumber = 0;
             entity.TotalStepNumber = assignmentDefine.TotalStepNumber;
             entity.RewardsMoneyNumber = assignmentDefine.RewardsMoneyNumber;
+            entity.AssignmentRequirementType = assignmentDefine.AssignmentRequirementType;
             entity.ExpireTime = assignmentDefine.AssignmentType.GetExpireTime();
             await _assignmentRepository.InsertAsync(entity);
         }
@@ -68,11 +69,18 @@ public class AssignmentManager : DomainService
         var assignment = await _assignmentRepository.GetByIdAsync(asignmentId);
         if (assignment.IsAllowCompleted())
         {
-            //设置已完成，并领取奖励，钱钱
-            assignment.AssignmentState = AssignmentStateEnum.Completed;
             //加钱加钱
             await _localEventBus.PublishAsync(
                 new MoneyChangeEventArgs { UserId = assignment.UserId, Number = assignment.RewardsMoneyNumber }, false);
+
+            //设置已完成，并领取奖励，钱钱
+            assignment.SetEnd();
+            await _assignmentRepository.UpdateAsync(assignment);
+        }
+        else
+        {
+            //不能领取
+            throw new UserFriendlyException("该任务没有满足领取条件，请检查任务详情");
         }
     }
 
@@ -91,8 +99,8 @@ public class AssignmentManager : DomainService
             output.AddRange(await assignmentProvider.GetCanReceiveListAsync(context));
         }
 
-        output.DistinctBy(x => x.Id);
-        throw new NotImplementedException();
+        output = output.DistinctBy(x => x.Id).OrderBy(x => x.OrderNum).ToList();
+        return output;
     }
 
 
@@ -134,6 +142,5 @@ public class AssignmentManager : DomainService
         {
             await _assignmentRepository._Db.Updateable(needUpdateEntities).ExecuteCommandAsync();
         }
-     
     }
 }

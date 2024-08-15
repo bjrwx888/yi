@@ -1,24 +1,28 @@
 ﻿namespace Yi.Framework.Bbs.Domain.Shared.Enums;
 
-public enum AssignmentStateEnum
+public enum AssignmentRequirementTypeEnum
 {
     /// <summary>
-    /// 正在进行
+    /// 主题
     /// </summary>
-    Progress,
-
-    /// <summary>
-    /// 已完成
-    /// </summary>
-    Completed,
-
-    /// <summary>
-    /// 已过期
-    /// </summary>
-    Expired,
+    Discuss=2,
     
     /// <summary>
-    /// 已结束
+    /// 评论
     /// </summary>
-    End
+    Comment=4,
+    
+    /// <summary>
+    /// 点赞
+    /// </summary>
+    Agree=8,
+    
+    /// <summary>
+    /// 更新个人中心
+    /// </summary>
+    UpdateProfile=16
+    
+    
+
+    
 }

@@ -16,9 +16,9 @@
       <el-icon>
         <Memo />
       </el-icon>
-      <span>任务列表(暂未开放)</span>
+      <span>任务列表</span>
     </el-menu-item>
-    <el-menu-item index="4" :route="{ path: '/activity/lucky' }">
+    <el-menu-item index="4" :route="{ path: '/activity/assignment' }">
       <el-icon>
         <HelpFilled />
       </el-icon>

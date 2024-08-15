@@ -1,36 +1,25 @@
-﻿using SqlSugar;
-using Volo.Abp.Auditing;
-using Volo.Abp.Domain.Entities;
+﻿using Volo.Abp.Application.Dtos;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
-using Yi.Framework.Core.Data;
 
-namespace Yi.Framework.Bbs.Domain.Entities.Assignment;
+namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Assignment;
 
-/// <summary>
-/// 任务定义表
-/// </summary>
-[SugarTable("AssignmentDefine")]
-
-public class AssignmentDefineAggregateRoot: AggregateRoot<Guid>, IHasCreationTime,IOrderNum
+public class AssignmentDefineGetListOutputDto : EntityDto<Guid>
 {
-    [SugarColumn(ColumnName = "Id", IsPrimaryKey = true)]
-    public override Guid Id { get; protected set; }
-    
     /// <summary>
     /// 任务名称
     /// </summary>
     public string Name { get; set; }
-    
+
     /// <summary>
     /// 备注
     /// </summary>
     public string Remarks { get; set; }
-    
+
     /// <summary>
     /// 任务类型
     /// </summary>
-    public AssignmentTypeEnum AssignmentType{ get; set; }
-
+    public AssignmentTypeEnum AssignmentType { get; set; }
+    
     /// <summary>
     /// 任务需求类型
     /// </summary>
@@ -40,7 +29,7 @@ public class AssignmentDefineAggregateRoot: AggregateRoot<Guid>, IHasCreationTim
     /// 总共步骤数
     /// </summary>
     public int TotalStepNumber { get; set; }
-    
+
     /// <summary>
     /// 前置任务id
     /// </summary>
@@ -51,6 +40,5 @@ public class AssignmentDefineAggregateRoot: AggregateRoot<Guid>, IHasCreationTim
     /// </summary>
     public decimal RewardsMoneyNumber { get; set; }
 
-    public DateTime CreationTime{ get; set; }
     public int OrderNum { get; set; }
 }

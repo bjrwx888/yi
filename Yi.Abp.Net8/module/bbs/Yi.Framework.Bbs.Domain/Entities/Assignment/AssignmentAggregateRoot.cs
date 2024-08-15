@@ -44,32 +44,45 @@ public class AssignmentAggregateRoot : AggregateRoot<Guid>, IHasCreationTime, IO
     /// 任务奖励的钱钱数量
     /// </summary>
     public decimal RewardsMoneyNumber { get; set; }
+
     /// <summary>
     /// 任务过期时间
     /// </summary>
     public DateTime? ExpireTime { get; set; }
 
-    public DateTime? CompleteTime { get; set; }
-    
-    
-    public DateTime CreationTime { get; }
+    /// <summary>
+    /// 任务需求类型
+    /// </summary>
+    public AssignmentRequirementTypeEnum AssignmentRequirementType { get; set; }
+
+    public DateTime? EndTime { get; set; }
+
+
+    public DateTime CreationTime { get; set; }
     public int OrderNum { get; set; }
-    public DateTime? LastModificationTime { get; }
+    public DateTime? LastModificationTime { get; set; }
 
 
     public bool IsAllowCompleted()
     {
-        return AssignmentState == AssignmentStateEnum.Progress && this.CurrentStepNumber == this.TotalStepNumber;
+        return AssignmentState == AssignmentStateEnum.Completed && this.CurrentStepNumber == this.TotalStepNumber;
     }
 
     public bool TrySetExpire()
     {
-        if (ExpireTime<=DateTime.Now)
+        if (ExpireTime <= DateTime.Now)
         {
+            //现在时间已经大于过期时间
             AssignmentState = AssignmentStateEnum.Expired;
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    public void SetEnd()
+    {
+        this.AssignmentState = AssignmentStateEnum.End;
+        this.EndTime = DateTime.Now;
     }
 }

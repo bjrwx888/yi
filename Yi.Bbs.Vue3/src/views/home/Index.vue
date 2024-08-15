@@ -3,10 +3,11 @@
     <el-row :gutter="20" class="top-div">
       <el-col :span="17">
         <div class="chat-hub">
-          <p @click="onClickToChatHub">点击前往-最新上线<span>《聊天室》 </span>，现已支持<span>Ai助手</span>，希望能帮助大家</p>
+          <p @click="onClickToChatHub">点击前往-最新上线<span>《聊天室》 </span>，现已支持<span>Ai助手</span>，希望能帮助大家
+          </p>
         </div>
         <div class="scrollbar">
-          <ScrollbarInfo />
+          <ScrollbarInfo/>
         </div>
 
         <el-row class="left-div">
@@ -14,23 +15,23 @@
       'padding-left': i % 3 == 1 ? 0 : 0.2 + 'rem',
       'padding-right': i % 3 == 0 ? 0 : 0.2 + 'rem',
     }">
-            <PlateCard :name="i.name" :introduction="i.introduction" :id="i.id" :isPublish="i.isDisableCreateDiscuss" />
+            <PlateCard :name="i.name" :introduction="i.introduction" :id="i.id" :isPublish="i.isDisableCreateDiscuss"/>
           </el-col>
           <template v-if="isDiscussFinished">
             <el-col :span="24" v-for="i in discussList" :key="i.id">
-              <DisscussCard :discuss="i" />
+              <DisscussCard :discuss="i"/>
             </el-col>
           </template>
           <template v-else>
-            <Skeleton :isBorder="true" />
+            <Skeleton :isBorder="true"/>
           </template>
           <template v-if="isAllDiscussFinished">
             <el-col :span="24" v-for="i in allDiscussList" :key="i.id">
-              <DisscussCard :discuss="i" />
+              <DisscussCard :discuss="i"/>
             </el-col>
           </template>
           <template v-else>
-            <Skeleton :isBorder="true" />
+            <Skeleton :isBorder="true"/>
           </template>
         </el-row>
       </el-col>
@@ -42,7 +43,7 @@
                 <div class="carousel-font" :style="{ color: item.color }">
                   {{ item.name }}
                 </div>
-                <el-image style="width: 100%; height: 100%" :src="item.logo" fit="cover" />
+                <el-image style="width: 100%; height: 100%" :src="item.logo" fit="cover"/>
               </el-carousel-item>
             </el-carousel>
           </el-col>
@@ -97,21 +98,24 @@
           <el-col :span="24">
             <InfoCard header="访问统计" class="VisitsLineChart" text="全站历史统计" @onClickText="onClickAccessLog">
               <template #content>
-                <VisitsLineChart :option="statisOptions" class="statisChart" />
+                <p class="switch-span" @click="onClickWeekSwitch">切换</p>
+                <VisitsLineChart :option="statisOptions" class="statisChart"/>
+
               </template>
             </InfoCard>
 
             <el-dialog v-model="accessLogDialogVisible" title="全站历史统计" width="1200px" center>
               <el-tabs v-model="accessLogTab">
-                <el-tab-pane label="访问统计（近3月）" name="AccessLogChart" style="display: flex;justify-content: center;">
-                  <AccessLogChart :option="accessLogOptins" style="height: 600px;width: 1200px;" />
+                <el-tab-pane label="访问统计（近3月）" name="AccessLogChart"
+                             style="display: flex;justify-content: center;">
+                  <AccessLogChart :option="accessLogOptins" style="height: 600px;width: 1200px;"/>
                 </el-tab-pane>
-                <el-tab-pane label="注册统计（近3月）" name="RegisterChart" style="display: flex;justify-content: center;">
-                  <AccessLogChart :option="registerLogOptins" style="height: 600px;width: 1200px;" />
+                <el-tab-pane label="注册统计（近3月）" name="RegisterChart"
+                             style="display: flex;justify-content: center;">
+                  <AccessLogChart :option="registerLogOptins" style="height: 600px;width: 1200px;"/>
                 </el-tab-pane>
 
               </el-tabs>
-
 
 
             </el-dialog>
@@ -129,16 +133,17 @@
 
           <el-col :span="24">
             <template v-if="isPointFinished">
-              <InfoCard :items="pointList" header="财富排行榜" text="查看我的位置" height="400" @onClickText="onClickMoneyTop">
+              <InfoCard :items="pointList" header="财富排行榜" text="查看我的位置" height="400"
+                        @onClickText="onClickMoneyTop">
                 <template #item="temp">
-                  <PointsRanking :pointsData="temp" />
+                  <PointsRanking :pointsData="temp"/>
                 </template>
               </InfoCard>
             </template>
             <template v-else>
               <InfoCard header="本月排行" text="更多">
                 <template #content>
-                  <Skeleton />
+                  <Skeleton/>
                 </template>
               </InfoCard>
             </template>
@@ -148,14 +153,14 @@
             <template v-if="isFriendFinished">
               <InfoCard :items="friendList" header="推荐好友" text="更多" height="400">
                 <template #item="temp">
-                  <RecommendFriend :friendData="temp" />
+                  <RecommendFriend :friendData="temp"/>
                 </template>
               </InfoCard>
             </template>
             <template v-else>
               <InfoCard header="推荐好友" text="更多">
                 <template #content>
-                  <Skeleton />
+                  <Skeleton/>
                 </template>
               </InfoCard>
             </template>
@@ -164,21 +169,21 @@
             <template v-if="isThemeFinished">
               <InfoCard :items="themeList" header="推荐主题" text="更多" height="400">
                 <template #item="temp">
-                  <ThemeData :themeData="temp" />
+                  <ThemeData :themeData="temp"/>
                 </template>
               </InfoCard>
             </template>
             <template v-else>
               <InfoCard header="推荐主题" text="更多">
                 <template #content>
-                  <Skeleton />
+                  <Skeleton/>
                 </template>
               </InfoCard>
             </template>
           </el-col>
 
           <el-col :span="24" style="background: transparent">
-            <BottomInfo />
+            <BottomInfo/>
           </el-col>
         </el-row>
       </el-col>
@@ -187,8 +192,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, computed, nextTick, watch } from "vue";
-import { useRouter } from "vue-router";
+import {onMounted, ref, reactive, computed, nextTick, watch} from "vue";
+import {useRouter} from "vue-router";
 import DisscussCard from "@/components/DisscussCard.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import PlateCard from "@/components/PlateCard.vue";
@@ -196,11 +201,11 @@ import ScrollbarInfo from "@/components/ScrollbarInfo.vue";
 import BottomInfo from "@/components/BottomInfo.vue";
 import VisitsLineChart from "./components/VisitsLineChart/index.vue";
 import AccessLogChart from "./components/AccessLogChart/Index.vue"
-import { access, getAccessList } from "@/apis/accessApi.js";
-import { getList } from "@/apis/plateApi.js";
-import { getList as bannerGetList } from "@/apis/bannerApi.js";
-import { getHomeDiscuss } from "@/apis/discussApi.js";
-import { getWeek } from "@/apis/accessApi.js";
+import {access, getAccessList} from "@/apis/accessApi.js";
+import {getList} from "@/apis/plateApi.js";
+import {getList as bannerGetList} from "@/apis/bannerApi.js";
+import {getHomeDiscuss} from "@/apis/discussApi.js";
+import {getWeek} from "@/apis/accessApi.js";
 import {
   getRecommendedTopic,
   getRecommendedFriend,
@@ -208,7 +213,7 @@ import {
   getUserAnalyse,
   getRegisterAnalyse
 } from "@/apis/analyseApi.js";
-import { getList as getAllDiscussList } from "@/apis/discussApi.js";
+import {getList as getAllDiscussList} from "@/apis/discussApi.js";
 import PointsRanking from "./components/PointsRanking/index.vue";
 import RecommendFriend from "./components/RecommendFriend/index.vue";
 import ThemeData from "./components/RecommendTheme/index.vue";
@@ -238,15 +243,15 @@ const userAnalyseInfo = ref({});
 const onlineNumber = ref(0);
 const accessLogTab = ref()
 const activeList = [
-  { name: "签到", path: "/activity/sign", icon: "Present" },
-  { name: "等级", path: "/activity/level", icon: "Ticket" },
-  { name: "大转盘", path: "/activity/lucky", icon: "Sunny" },
-  { name: "银行", path: "/activity/bank", icon: "CreditCard" },
+  {name: "签到", path: "/activity/sign", icon: "Present"},
+  {name: "等级", path: "/activity/level", icon: "Ticket"},
+  {name: "大转盘", path: "/activity/lucky", icon: "Sunny"},
+  {name: "银行", path: "/activity/bank", icon: "CreditCard"},
 
-  { name: "任务", path: "/activity/sign", icon: "Memo" },
-  { name: "排行榜", path: "/money", icon: "Money" },
-  { name: "开始", path: "/start", icon: "Position" },
-  { name: "聊天室", path: "/chat", icon: "ChatRound" },
+  {name: "任务", path: "/activity/assignment", icon: "Memo"},
+  {name: "排行榜", path: "/money", icon: "Money"},
+  {name: "开始", path: "/start", icon: "Position"},
+  {name: "聊天室", path: "/chat", icon: "ChatRound"},
 ];
 
 //主题查询参数
@@ -256,37 +261,38 @@ const query = reactive({
   isTop: true,
 });
 
+const weekQuery = reactive({accessLogType: "Request"});
 //初始化
 onMounted(async () => {
   access();
-  const { data: plateData } = await getList();
+  const {data: plateData} = await getList();
   plateList.value = plateData.items;
-  const { data: discussData, config: discussConfig } = await getHomeDiscuss();
+  const {data: discussData, config: discussConfig} = await getHomeDiscuss();
   discussList.value = discussData;
   isDiscussFinished.value = discussConfig.isFinish;
-  const { data: bannerData } = await bannerGetList();
+  const {data: bannerData} = await bannerGetList();
   bannerList.value = bannerData.items;
-  const { data: weekData } = await getWeek();
+  const {data: weekData} = await getWeek(weekQuery);
   weekList.value = weekData;
-  const { data: pointData, config: pointConfig } = await getRankingPoints();
+  const {data: pointData, config: pointConfig} = await getRankingPoints();
   pointList.value = pointData.items;
   isPointFinished.value = pointConfig.isFinish;
-  const { data: friendData, config: friendConfig } =
-    await getRecommendedFriend();
+  const {data: friendData, config: friendConfig} =
+      await getRecommendedFriend();
   friendList.value = friendData;
   isFriendFinished.value = friendConfig.isFinish;
-  const { data: themeData, config: themeConfig } = await getRecommendedTopic();
+  const {data: themeData, config: themeConfig} = await getRecommendedTopic();
   themeList.value = themeData;
   isThemeFinished.value = themeConfig.isFinish;
-  const { data: allDiscussData, config: allDiscussConfig } =
-    await getAllDiscussList({
-      Type: 0,
-      skipCount: 1,
-      maxResultCount: 30,
-    });
+  const {data: allDiscussData, config: allDiscussConfig} =
+      await getAllDiscussList({
+        Type: 0,
+        skipCount: 1,
+        maxResultCount: 30,
+      });
   isAllDiscussFinished.value = allDiscussConfig.isFinish;
   allDiscussList.value = allDiscussData.items;
-  const { data: userAnalyseInfoData } = await getUserAnalyse();
+  const {data: userAnalyseInfoData} = await getUserAnalyse();
   onlineNumber.value = userAnalyseInfoData.onlineNumber;
   userAnalyseInfo.value = userAnalyseInfoData;
 });
@@ -361,29 +367,28 @@ const handleToRouter = (path) => {
 // 推送的实时人数获取
 const currentOnlineNum = computed(() => useSocketStore().getOnlineNum());
 watch(
-  () => currentOnlineNum.value,
-  (val) => {
-    onlineNumber.value = val;
-  },
-  { deep: true }
+    () => currentOnlineNum.value,
+    (val) => {
+      onlineNumber.value = val;
+    },
+    {deep: true}
 );
 watch(
-  () => accessLogTab.value,
-  async (value) => {
-    switch (value) {
-      case "AccessLogChart":
-        const { data } = await getAccessList();
-        accessAllList.value = data;
+    () => accessLogTab.value,
+    async (value) => {
+      switch (value) {
+        case "AccessLogChart":
+          const {data} = await getAccessList(weekQuery);
+          accessAllList.value = data;
 
-        break;
-      case "RegisterChart":
-        const { data: registerUserListData } = await getRegisterAnalyse();
-        registerAllList.value = registerUserListData;
+          break;
+        case "RegisterChart":
+          const {data: registerUserListData} = await getRegisterAnalyse();
+          registerAllList.value = registerUserListData;
 
-        break;
+          break;
+      }
     }
-  }
-
 )
 const onClickAccessLog = async () => {
   accessLogDialogVisible.value = true;
@@ -391,6 +396,17 @@ const onClickAccessLog = async () => {
 
 }
 
+//切换统计开关
+const onClickWeekSwitch = async () => {
+  if (weekQuery.accessLogType === "HomeClick") {
+    weekQuery.accessLogType= "Request";
+  } else if (weekQuery.accessLogType === "Request") {
+    weekQuery.accessLogType = "HomeClick";
+  }
+
+  const {data: weekData} = await getWeek(weekQuery);
+  weekList.value = weekData;
+}
 </script>
 <style scoped lang="scss">
 .home-box {
@@ -535,10 +551,17 @@ const onClickAccessLog = async () => {
     }
   }
 
-  .VisitsLineChart>>>.el-card__body {
+  .VisitsLineChart > > > .el-card__body {
     padding: 0.5rem;
   }
-
+  
+.VisitsLineChart p{
+  display: flex;
+  justify-content: flex-end;
+  color: #409eff;
+  cursor: pointer;
+  margin-top: 8px;
+}
   .statisChart {
     width: 100%;
     height: 300px;
@@ -549,6 +572,7 @@ const onClickAccessLog = async () => {
     height: 500px;
   }
 }
+
 
 //走马灯，聊天室链接
 .chat-hub {
