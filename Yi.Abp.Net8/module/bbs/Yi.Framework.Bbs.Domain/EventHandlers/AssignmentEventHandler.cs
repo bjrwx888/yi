@@ -46,6 +46,7 @@ public class AssignmentEventHandler : ILocalEventHandler<AssignmentEventArgs>, I
 
                 //更新昵称
                 case AssignmentRequirementTypeEnum.UpdateNick:
+                    SetCurrentStepNumber(AssignmentRequirementTypeEnum.UpdateNick, currentAssignmentList);
                     break;
 
                 //更新头像
