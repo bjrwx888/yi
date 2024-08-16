@@ -4,15 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Guids;
 using Volo.Abp.Uow;
 using Volo.Abp.Users;
+using Yi.Framework.Bbs.Domain.Shared.Enums;
+using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.Account;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Entities;
@@ -26,9 +30,9 @@ using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Rbac.Application.Services
 {
-
     public class AccountService : ApplicationService, IAccountService
     {
+        protected ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
         private IDistributedCache<CaptchaPhoneCacheItem, CaptchaPhoneCacheKey> _phoneCache;
         private readonly ICaptcha _captcha;
         private readonly IGuidGenerator _guidGenerator;
@@ -36,6 +40,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private readonly IAliyunManger _aliyunManger;
         private IDistributedCache<UserInfoCacheItem, UserInfoCacheKey> _userCache;
         private UserManager _userManager;
+
         public AccountService(IUserRepository userRepository,
             ICurrentUser currentUser,
             IAccountManager accountManager,
@@ -66,6 +71,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private ICurrentUser _currentUser;
         private IAccountManager _accountManager;
         private ISqlSugarRepository<MenuAggregateRoot> _menuRepository;
+
         /// <summary>
         /// 校验图片登录验证码,无需和账号绑定
         /// </summary>
@@ -81,7 +87,6 @@ namespace Yi.Framework.Rbac.Application.Services
                 }
             }
         }
-
 
 
         /// <summary>
@@ -130,7 +135,6 @@ namespace Yi.Framework.Rbac.Application.Services
         /// 生成验证码
         /// </summary>
         /// <returns></returns>
-
         [AllowAnonymous]
         public async Task<CaptchaImageDto> GetCaptchaImageAsync()
         {
@@ -150,12 +154,11 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("手机号码格式错误！请检查");
             }
+
             if (await _userRepository.IsAnyAsync(x => x.Phone.ToString() == str_handset))
             {
                 throw new UserFriendlyException("该手机号已被注册！");
-
             }
-
         }
 
 
@@ -174,6 +177,7 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException($"{input.Phone}已发送过验证码，10分钟后可重试");
             }
+
             //生成一个4位数的验证码
             //发送短信，同时生成uuid
             ////key： 电话号码  value:验证码+uuid  
@@ -181,7 +185,8 @@ namespace Yi.Framework.Rbac.Application.Services
             var uuid = Guid.NewGuid();
             await _aliyunManger.SendSmsAsync(input.Phone, code);
 
-            await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(input.Phone), new CaptchaPhoneCacheItem(code), new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(10) });
+            await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(input.Phone), new CaptchaPhoneCacheItem(code),
+                new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(10) });
             return new
             {
                 Uuid = uuid
@@ -200,6 +205,7 @@ namespace Yi.Framework.Rbac.Application.Services
                 await _phoneCache.RemoveAsync(new CaptchaPhoneCacheKey(input.Phone.ToString()));
                 return;
             }
+
             throw new UserFriendlyException("验证码错误");
         }
 
@@ -216,11 +222,13 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("该系统暂未开放注册功能");
             }
+
             if (_rbacOptions.EnableCaptcha)
             {
                 //校验验证码，根据电话号码获取 value，比对验证码已经uuid
                 await ValidationPhoneCaptchaAsync(input);
             }
+
             //注册领域逻辑
             await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone);
         }
@@ -232,7 +240,6 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <returns></returns>
         [Route("account")]
         [Authorize]
-
         public async Task<UserRoleMenuDto> GetAsync()
         {
             //通过鉴权jwt获取到用户的id
@@ -241,6 +248,7 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("用户未登录");
             }
+
             //此处优先从缓存中获取
             var output = await _userManager.GetInfoAsync(userId.Value);
             return output;
@@ -259,8 +267,8 @@ namespace Yi.Framework.Rbac.Application.Services
             if (_currentUser.Id is null)
             {
                 throw new AbpAuthorizationException("用户未登录");
-
             }
+
             var data = await _userManager.GetInfoAsync(userId!.Value);
             var menus = data.Menus.ToList();
 
@@ -269,8 +277,10 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 menus = ObjectMapper.Map<List<MenuAggregateRoot>, List<MenuDto>>(await _menuRepository.GetListAsync());
             }
+
             //将后端菜单转换成前端路由，组件级别需要过滤
-            List<Vue3RouterDto> routers = ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3RouterBuild();
+            List<Vue3RouterDto> routers =
+                ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3RouterBuild();
             return routers;
         }
 
@@ -287,6 +297,7 @@ namespace Yi.Framework.Rbac.Application.Services
                 return false;
                 // throw new UserFriendlyException("用户已退出");
             }
+
             await _userCache.RemoveAsync(new UserInfoCacheKey(userId.Value));
             //Jwt去中心化登出，只需用记录日志即可
             return true;
@@ -303,11 +314,14 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("无效更新！输入的数据，新密码不能与老密码相同");
             }
+
             if (_currentUser.Id is null)
             {
                 throw new UserFriendlyException("用户未登录");
             }
-            await _accountManager.UpdatePasswordAsync(_currentUser.Id ?? Guid.Empty, input.NewPassword, input.OldPassword);
+
+            await _accountManager.UpdatePasswordAsync(_currentUser.Id ?? Guid.Empty, input.NewPassword,
+                input.OldPassword);
             return true;
         }
 
@@ -324,6 +338,7 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("重置密码不能为空！");
             }
+
             await _accountManager.RestPasswordAsync(userId, input.Password);
             return true;
         }
@@ -336,9 +351,17 @@ namespace Yi.Framework.Rbac.Application.Services
         public async Task<bool> UpdateIconAsync(UpdateIconDto input)
         {
             var entity = await _userRepository.GetByIdAsync(_currentUser.Id);
+            if (entity.Icon == input.Icon)
+            {
+                return false;
+            }
+
             entity.Icon = input.Icon;
             await _userRepository.UpdateAsync(entity);
 
+            //发布更新头像任务事件
+            await this.LocalEventBus.PublishAsync(
+                new AssignmentEventArgs(AssignmentRequirementTypeEnum.UpdateIcon, _currentUser.GetId()), false);
             return true;
         }
     }
