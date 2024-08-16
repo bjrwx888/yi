@@ -20,7 +20,7 @@ public class NoviceProvider : IAssignmentProvider
             .ToList();
 
         //根路径
-        var rootAssignmentDefine = assignmentDefines.Where(x => x.PreAssignmentId == null).FirstOrDefault();
+        var rootAssignmentDefine = assignmentDefines.Where(x => x.PreAssignmentId == null).OrderBy(x=>x.OrderNum).FirstOrDefault();
         //代表没有定义新手任务
         if (rootAssignmentDefine is null)
         {
@@ -28,12 +28,14 @@ public class NoviceProvider : IAssignmentProvider
         }
 
         //1：查询该用户有正在进行的新手任务，如果有跳过
-        if (context.CurrentUserAssignments.Any(x => x.AssignmentState == AssignmentStateEnum.Progress))
+        if (context.CurrentUserAssignments
+            .Where(x => x.AssignmentState == AssignmentStateEnum.Progress)
+            .Any(x => assignmentDefines.Select(d => d.Id).Contains(x.AssignmentDefineId)))
         {
             return output;
         }
 
-        //2: 查询该用户是否有完成的新手任务，如果有，则根据链表选择最后的节点
+        //2: 查询该用户是否有完成的新手任务，如果没有，直接返回根节点，如果有，则根据链表选择最后的节点
         var assignmentFilterIds = context.CurrentUserAssignments
             .Where(x =>
                 //已经完成的
@@ -41,6 +43,13 @@ public class NoviceProvider : IAssignmentProvider
             )
             .Select(x => x.AssignmentDefineId)
             .ToList();
+
+        if (assignmentFilterIds.Count == 0)
+        {
+            output.Add(rootAssignmentDefine);
+            return output;
+        }
+
 
         //该用户接受的最后一个新手任务
         var lastAssignment = assignmentDefines.Where(x => assignmentFilterIds.Contains(x.Id))
@@ -50,6 +59,7 @@ public class NoviceProvider : IAssignmentProvider
         if (assignmentDefines.Any(x => x.OrderNum > lastAssignment.OrderNum))
         {
             output.Add(assignmentDefines.FirstOrDefault(x => x.OrderNum == lastAssignment.OrderNum + 1));
+            return output;
         }
 
         return output;

@@ -18,7 +18,7 @@ public enum AssignmentRequirementTypeEnum
     Agree = 8,
 
     /// <summary>
-    /// 更新昵称
+    /// 更新昵称    
     /// </summary>
     UpdateNick = 16,
 
