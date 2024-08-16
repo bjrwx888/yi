@@ -41,7 +41,8 @@ public class NoviceProvider : IAssignmentProvider
             .Where(x => assignmentDefineIds.Contains(x.AssignmentDefineId))
             .Where(x =>
                 //已经完成的
-                x.AssignmentState == AssignmentStateEnum.End
+                x.AssignmentState == AssignmentStateEnum.End||
+                x.AssignmentState==AssignmentStateEnum.Completed
             )
             .Select(x => x.AssignmentDefineId)
             .ToList();
