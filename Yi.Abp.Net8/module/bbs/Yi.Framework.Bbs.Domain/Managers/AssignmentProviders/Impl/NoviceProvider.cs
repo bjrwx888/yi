@@ -18,6 +18,7 @@ public class NoviceProvider : IAssignmentProvider
         //先获取到对应任务定义列表，新手任务
         var assignmentDefines = context.AllAssignmentDefine.Where(x => x.AssignmentType == AssignmentTypeEnum.Novice)
             .ToList();
+        var assignmentDefineIds = assignmentDefines.Select(x => x.Id).ToList();
 
         //根路径
         var rootAssignmentDefine = assignmentDefines.Where(x => x.PreAssignmentId == null).OrderBy(x=>x.OrderNum).FirstOrDefault();
@@ -29,17 +30,18 @@ public class NoviceProvider : IAssignmentProvider
 
         //1：查询该用户有正在进行的新手任务，如果有跳过
         if (context.CurrentUserAssignments
-            .Where(x => x.AssignmentState == AssignmentStateEnum.Progress)
-            .Any(x => assignmentDefines.Select(d => d.Id).Contains(x.AssignmentDefineId)))
+            .Where(x => assignmentDefineIds.Contains(x.AssignmentDefineId))
+            .Any(x => x.AssignmentState == AssignmentStateEnum.Progress))
         {
             return output;
         }
 
         //2: 查询该用户是否有完成的新手任务，如果没有，直接返回根节点，如果有，则根据链表选择最后的节点
         var assignmentFilterIds = context.CurrentUserAssignments
+            .Where(x => assignmentDefineIds.Contains(x.AssignmentDefineId))
             .Where(x =>
                 //已经完成的
-                x.AssignmentState == AssignmentStateEnum.Completed
+                x.AssignmentState == AssignmentStateEnum.End
             )
             .Select(x => x.AssignmentDefineId)
             .ToList();
