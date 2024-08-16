@@ -29,10 +29,18 @@ public static class AssignmentTypeExtension
             case AssignmentTypeEnum.Daily:
                 return DateTime.Now.Date.AddDays(1);
             case AssignmentTypeEnum.Weekly:
-                DateTime today = DateTime.Now; // 获取当前日期和时间
-                int daysUntilNextMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7 + 7;
-                DateTime nextMonday = today.AddDays(daysUntilNextMonday).Date; // 添加天数并将时间设为 0 点
-                return nextMonday;
+                DateTime currentDate = DateTime.Now; // 获取当前日期和时间
+                // 计算今天是周几
+                int daysUntilNextMonday = ((int)DayOfWeek.Monday - (int)currentDate.DayOfWeek + 7) % 7;
+                // 如果今天是周一，则获取下下周一
+                if (daysUntilNextMonday == 0)
+                {
+                    daysUntilNextMonday = 7;
+                }
+                // 计算下个周一的日期
+                DateTime nextMonday = currentDate.AddDays(daysUntilNextMonday);
+                // 返回下个周一的凌晨 0 点时间
+                return nextMonday.Date;
             default:
                 throw new ArgumentOutOfRangeException(nameof(assignmentType), assignmentType, null);
         }
