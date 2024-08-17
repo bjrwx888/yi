@@ -11,6 +11,8 @@ import JsonBig from 'json-bigint'
 import qs from 'qs'
 
 let downloadLoadingInstance;
+let isRefreshing = false;
+let waitRequests = [] // 请求队列
 // 是否显示重新登录
 export let isRelogin = { show: false };
 
@@ -132,7 +134,7 @@ service.interceptors.response.use(res => {
   const errorRes = error.response;
   console.log('isRefreshingbefore',isRefreshing)
 
-  if (errorRes?.status == '401' && !isRefreshRequest(errorRes.config)){ // 如果没有权限且不是刷新token的请求
+  if (errorRes?.status == '401' && !isRefreshRequest(errorRes.config)) { // 如果没有权限且不是刷新token的请求
     console.log('isRefreshing',isRefreshing,new Date())
       if (!isRefreshing) {
           isRefreshing = true
