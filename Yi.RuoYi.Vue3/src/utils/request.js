@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
-import { getToken,getTenantId } from '@/utils/auth'
+import { getToken,setToken,setRefreshToken,getTenantId } from '@/utils/auth'
 import { refreshToken, isRefreshRequest } from './refreshToken.js'
 import errorCode from '@/utils/errorCode'
 import { tansParams, blobValidate } from '@/utils/ruoyi'
