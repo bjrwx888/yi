@@ -1,5 +1,12 @@
 import { http } from "@/utils/http";
 
+export type imageCaptcha = {
+  //uuid
+  uuid: string; // 使用字符串表示 Guid
+  //验证码图片字节数值
+  img: Uint8Array | null;
+};
+
 export type UserResult = {
   success: boolean;
   data: {
@@ -70,7 +77,12 @@ type ResultTable = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/login", { data });
+  return http.request<UserResult>("post", "/account/login", { data });
+};
+
+/** 获取验证码 */
+export const getCodeImg = () => {
+  return http.request<imageCaptcha>("get", "/account/captcha-image");
 };
 
 /** 刷新`token` */

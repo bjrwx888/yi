@@ -322,7 +322,7 @@ const tabsRouter = {
 
 export default defineFakeRoute([
   {
-    url: "/get-async-routes",
+    url: `/dev-api/get-async-routes`,
     method: "get",
     response: () => {
       return {

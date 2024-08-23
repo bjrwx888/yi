@@ -24,6 +24,7 @@ import { ref, toRaw, reactive, watch, computed } from "vue";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { useTranslationLang } from "@/layout/hooks/useTranslationLang";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
+import { getCodeImg } from "@/api/user";
 
 import dayIcon from "@/assets/svg/day.svg?component";
 import darkIcon from "@/assets/svg/dark.svg?component";
@@ -37,6 +38,7 @@ defineOptions({
   name: "Login"
 });
 
+const codeUrl = ref("");
 const imgCode = ref("");
 const loginDay = ref(7);
 const router = useRouter();
@@ -57,10 +59,19 @@ const { title, getDropdownItemStyle, getDropdownItemClass } = useNav();
 const { locale, translationCh, translationEn } = useTranslationLang();
 
 const ruleForm = reactive({
-  username: "admin",
-  password: "admin123",
-  verifyCode: ""
+  username: "cc",
+  password: "123456",
+  verifyCode: "",
+  uuid: ""
 });
+
+//获取验证码
+const getCode = () => {
+  getCodeImg().then(res => {
+    codeUrl.value = "data:image/gif;base64," + res.img;
+    ruleForm.uuid = res.uuid;
+  });
+};
 
 const onLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
@@ -68,7 +79,10 @@ const onLogin = async (formEl: FormInstance | undefined) => {
     if (valid) {
       loading.value = true;
       useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
+        .loginByUsername({
+          username: ruleForm.username,
+          password: ruleForm.password
+        })
         .then(res => {
           if (res.success) {
             // 获取后端路由
@@ -114,6 +128,7 @@ watch(checked, bool => {
 watch(loginDay, value => {
   useUserStoreHook().SET_LOGINDAY(value);
 });
+getCode();
 </script>
 
 <template>
@@ -224,7 +239,12 @@ watch(loginDay, value => {
                   :prefix-icon="useRenderIcon('ri:shield-keyhole-line')"
                 >
                   <template v-slot:append>
-                    <ReImageVerify v-model:code="imgCode" />
+                   11 {{codeUrl}}
+                    <img
+                      :src="codeUrl"
+                      class="login-code-img"
+                      @click="getCode"
+                    />
                   </template>
                 </el-input>
               </el-form-item>
