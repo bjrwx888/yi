@@ -325,16 +325,13 @@ export default defineFakeRoute([
     url: `/dev-api/get-async-routes`,
     method: "get",
     response: () => {
-      return {
-        success: true,
-        data: [
-          systemManagementRouter,
-          systemMonitorRouter,
-          permissionRouter,
-          frameRouter,
-          tabsRouter
-        ]
-      };
+      return [
+        systemManagementRouter,
+        systemMonitorRouter,
+        permissionRouter,
+        frameRouter,
+        tabsRouter
+      ];
     }
   }
 ]);

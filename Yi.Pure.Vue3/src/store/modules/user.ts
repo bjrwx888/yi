@@ -11,6 +11,7 @@ import {
   type UserResult,
   type RefreshTokenResult,
   getLogin,
+  getUserInfo,
   refreshTokenApi
 } from "@/api/user";
 import { useMultiTagsStoreHook } from "./multiTags";
@@ -81,8 +82,23 @@ export const useUserStore = defineStore({
       return new Promise<UserResult>((resolve, reject) => {
         getLogin(data)
           .then(data => {
-            if (data?.success) setToken(data.data);
-            resolve(data);
+            if (data.status == 200) {
+              const storeData: DataInfo<Date> = {
+                expires: undefined,
+                refreshToken: data.data.refreshToken,
+                accessToken: data.data.token
+              };
+              setToken(storeData);
+              getUserInfo().then(resInfo => {
+                storeData.username = resInfo.data.username;
+                storeData.avatar = resInfo.data.avatar;
+                storeData.nickname = resInfo.data.nick;
+                storeData.roles = resInfo.data.roles;
+                storeData.accessToken = resInfo.data.accessToken;
+                setToken(storeData);
+                resolve(resInfo);
+              });
+            }
           })
           .catch(error => {
             reject(error);

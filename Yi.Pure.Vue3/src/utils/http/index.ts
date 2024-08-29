@@ -6,7 +6,6 @@ import Axios, {
 import type {
   PureHttpError,
   RequestMethods,
-  PureHttpResponse,
   PureHttpRequestConfig
 } from "./types.d";
 import { stringify } from "qs";
@@ -120,20 +119,20 @@ class PureHttp {
   private httpInterceptorsResponse(): void {
     const instance = PureHttp.axiosInstance;
     instance.interceptors.response.use(
-      (response: PureHttpResponse) => {
+      (response: any) => {
         const $config = response.config;
         // 关闭进度条动画
         NProgress.done();
         // 优先判断post/get等方法是否传入回调，否则执行初始化设置等回调
         if (typeof $config.beforeResponseCallback === "function") {
           $config.beforeResponseCallback(response);
-          return response.data;
+          return response;
         }
         if (PureHttp.initConfig.beforeResponseCallback) {
           PureHttp.initConfig.beforeResponseCallback(response);
-          return response.data;
+          return response;
         }
-        return response.data;
+        return response;
       },
       (error: PureHttpError) => {
         const $error = error;

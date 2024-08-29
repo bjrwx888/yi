@@ -68,8 +68,8 @@ const ruleForm = reactive({
 //获取验证码
 const getCode = () => {
   getCodeImg().then(res => {
-    codeUrl.value = "data:image/gif;base64," + res.img;
-    ruleForm.uuid = res.uuid;
+    codeUrl.value = "data:image/gif;base64," + res.data.img;
+    ruleForm.uuid = res.data.uuid;
   });
 };
 
@@ -81,10 +81,12 @@ const onLogin = async (formEl: FormInstance | undefined) => {
       useUserStoreHook()
         .loginByUsername({
           username: ruleForm.username,
-          password: ruleForm.password
+          password: ruleForm.password,
+          uuid: ruleForm.uuid,
+          code: ruleForm.verifyCode
         })
         .then(res => {
-          if (res.success) {
+          if (res.status == 200) {
             // 获取后端路由
             return initRouter().then(() => {
               disabled.value = true;
@@ -239,10 +241,10 @@ getCode();
                   :prefix-icon="useRenderIcon('ri:shield-keyhole-line')"
                 >
                   <template v-slot:append>
-                   11 {{codeUrl}}
                     <img
                       :src="codeUrl"
                       class="login-code-img"
+                      alt=""
                       @click="getCode"
                     />
                   </template>

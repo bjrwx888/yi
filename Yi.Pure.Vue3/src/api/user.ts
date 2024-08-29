@@ -1,21 +1,32 @@
 import { http } from "@/utils/http";
 
 export type imageCaptcha = {
-  //uuid
-  uuid: string; // 使用字符串表示 Guid
-  //验证码图片字节数值
-  img: Uint8Array | null;
+  status: number;
+  data: {
+    //uuid
+    uuid: string; // 使用字符串表示 Guid
+    //验证码图片字节数值
+    img: Uint8Array | null;
+  };
+};
+
+export type LoginResult = {
+  status: number;
+  data: {
+    token: string;
+    refreshToken: string;
+  };
 };
 
 export type UserResult = {
-  success: boolean;
+  status: number;
   data: {
     /** 头像 */
     avatar: string;
     /** 用户名 */
     username: string;
     /** 昵称 */
-    nickname: string;
+    nick: string;
     /** 当前登录用户的角色 */
     roles: Array<string>;
     /** 按钮级别权限 */
@@ -77,7 +88,11 @@ type ResultTable = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/account/login", { data });
+  return http.request<LoginResult>("post", "/account/login", { data });
+};
+
+export const getUserInfo = () => {
+  return http.request<UserResult>("get", "/account");
 };
 
 /** 获取验证码 */
