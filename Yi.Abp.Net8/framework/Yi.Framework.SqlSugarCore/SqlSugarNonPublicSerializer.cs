@@ -28,32 +28,28 @@ public class NonPublicPropertiesResolver : DefaultContractResolver
 
 public class SqlSugarNonPublicSerializer : ISerializeService
 {
+    /// <summary>
+    /// 默认的序列化服务
+    /// </summary>
+    private readonly ISerializeService _serializeService = DefaultServices.Serialize;
+
     public string SerializeObject(object value)
     {
-        if (value != null && value.GetType().FullName.StartsWith("System.Text.Json.")) 
-        {
-            // 动态创建一个 JsonSerializer 实例
-            Type serializerType = value.GetType().Assembly.GetType("System.Text.Json.JsonSerializer");
-
-            var methods =  serializerType
-                .GetMyMethod("Serialize", 2);
-
-            // 调用 SerializeObject 方法序列化对象
-            string json = (string)methods.MakeGenericMethod(value.GetType())
-                .Invoke(null, new object[] { value,null });
-            return json;
-        }
-        return JsonConvert.SerializeObject(value);
+        //保留原有实现
+        return  _serializeService.SerializeObject(value);
     }
 
     public string SugarSerializeObject(object value)
-    {
-        return JsonConvert.SerializeObject(value, new JsonSerializerSettings()
-        {
-            ContractResolver = new MyContractResolver()
-        });
+    { //保留原有实现
+        return  _serializeService.SugarSerializeObject(value);
     }
- 
+    
+    /// <summary>
+    /// 重写对象反序列化支持NoPublic访问器
+    /// </summary>
+    /// <param name="value"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public T DeserializeObject<T>(string value)
     {
         if (typeof(T).FullName.StartsWith("System.Text.Json."))
@@ -73,7 +69,7 @@ public class SqlSugarNonPublicSerializer : ISerializeService
         var jSetting = new JsonSerializerSettings 
         {
             NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver =new NonPublicPropertiesResolver() //提换默认解析器
+            ContractResolver =new NonPublicPropertiesResolver() //替换默认解析器使能支持protect
         };
         return JsonConvert.DeserializeObject<T>(value, jSetting);
     }
