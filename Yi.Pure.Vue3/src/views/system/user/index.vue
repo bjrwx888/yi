@@ -68,9 +68,9 @@ const {
         :model="form"
         class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px] overflow-auto"
       >
-        <el-form-item label="用户名称：" prop="username">
+        <el-form-item label="用户名称：" prop="userName">
           <el-input
-            v-model="form.username"
+            v-model="form.userName"
             placeholder="请输入用户名称"
             clearable
             class="!w-[180px]"
@@ -84,15 +84,15 @@ const {
             class="!w-[180px]"
           />
         </el-form-item>
-        <el-form-item label="状态：" prop="status">
+        <el-form-item label="状态：" prop="state">
           <el-select
-            v-model="form.status"
+            v-model="form.state"
             placeholder="请选择"
             clearable
             class="!w-[180px]"
           >
-            <el-option label="已开启" value="1" />
-            <el-option label="已关闭" value="0" />
+            <el-option label="已开启" :value="true" />
+            <el-option label="已关闭" :value="false" />
           </el-select>
         </el-form-item>
         <el-form-item>

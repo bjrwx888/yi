@@ -84,7 +84,7 @@ export function setToken(data: DataInfo<Date>) {
       permissions
     });
   }
-
+  console.log(data,"storeData");
   if (data.username && data.roles) {
     const { username, roles } = data;
     setUserKey({

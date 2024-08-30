@@ -1,27 +1,23 @@
 import { http } from "@/utils/http";
 
 type Result = {
-  success: boolean;
+  status: number;
   data?: Array<any>;
 };
 
 type ResultTable = {
-  success: boolean;
+  status: number;
   data?: {
     /** 列表数据 */
-    list: Array<any>;
+    items: Array<any>;
     /** 总条目数 */
-    total?: number;
-    /** 每页显示条目个数 */
-    pageSize?: number;
-    /** 当前页数 */
-    currentPage?: number;
+    totalCount?: number;
   };
 };
 
 /** 获取系统管理-用户管理列表 */
 export const getUserList = (data?: object) => {
-  return http.request<ResultTable>("post", "/user", { data });
+  return http.request<ResultTable>("get", "/user", { data });
 };
 
 /** 系统管理-用户管理-获取所有角色列表 */
@@ -46,7 +42,7 @@ export const getMenuList = (data?: object) => {
 
 /** 获取系统管理-部门管理列表 */
 export const getDeptList = (data?: object) => {
-  return http.request<Result>("post", "/dept", { data });
+  return http.request<ResultTable>("get", "/dept", { data });
 };
 
 /** 获取系统监控-在线用户列表 */

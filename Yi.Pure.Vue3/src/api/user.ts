@@ -21,14 +21,17 @@ export type LoginResult = {
 export type UserResult = {
   status: number;
   data: {
-    /** 头像 */
-    avatar: string;
-    /** 用户名 */
-    username: string;
-    /** 昵称 */
-    nick: string;
+    user: {
+      /** 头像 */
+      icon: string;
+      /** 用户名 */
+      userName: string;
+      /** 昵称 */
+      nick: string;
+    };
+
     /** 当前登录用户的角色 */
-    roles: Array<string>;
+    roleCodes: Array<string>;
     /** 按钮级别权限 */
     permissions: Array<string>;
     /** `token` */

@@ -45,9 +45,9 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   const form = reactive({
     // 左侧部门树的id
     deptId: "",
-    username: "",
+    userName: "",
     phone: "",
-    status: ""
+    state: true
   });
   const formRef = ref();
   const ruleFormRef = ref();
@@ -77,7 +77,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     {
       label: "用户编号",
       prop: "id",
-      width: 90
+      width: 200
     },
     {
       label: "用户头像",
@@ -95,12 +95,12 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     },
     {
       label: "用户名称",
-      prop: "username",
+      prop: "userName",
       minWidth: 130
     },
     {
       label: "用户昵称",
-      prop: "nickname",
+      prop: "nick",
       minWidth: 130
     },
     {
@@ -119,7 +119,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     },
     {
       label: "部门",
-      prop: "dept.name",
+      prop: "deptName",
       minWidth: 90
     },
     {
@@ -130,15 +130,15 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     },
     {
       label: "状态",
-      prop: "status",
+      prop: "state",
       minWidth: 90,
       cellRenderer: scope => (
         <el-switch
           size={scope.props.size === "small" ? "small" : "default"}
           loading={switchLoadMap.value[scope.index]?.loading}
-          v-model={scope.row.status}
-          active-value={1}
-          inactive-value={0}
+          v-model={scope.row.state}
+          active-value={true}
+          inactive-value={false}
           active-text="已启用"
           inactive-text="已停用"
           inline-prompt
@@ -273,10 +273,10 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   async function onSearch() {
     loading.value = true;
     const { data } = await getUserList(toRaw(form));
-    dataList.value = data.list;
-    pagination.total = data.total;
-    pagination.pageSize = data.pageSize;
-    pagination.currentPage = data.currentPage;
+    dataList.value = data.items;
+    pagination.total = data.totalCount;
+    // pagination.pageSize = data.pageSize;
+    // pagination.currentPage = data.currentPage;
 
     setTimeout(() => {
       loading.value = false;
@@ -316,13 +316,13 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
           title,
           higherDeptOptions: formatHigherDeptOptions(higherDeptOptions.value),
           parentId: row?.dept.id ?? 0,
-          nickname: row?.nickname ?? "",
-          username: row?.username ?? "",
+          nickname: row?.nick ?? "",
+          username: row?.userName ?? "",
           password: row?.password ?? "",
           phone: row?.phone ?? "",
           email: row?.email ?? "",
           sex: row?.sex ?? "",
-          status: row?.status ?? 1,
+          status: row?.state ?? false,
           remark: row?.remark ?? ""
         }
       },
@@ -336,7 +336,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了用户名称为${curData.username}的这条数据`, {
+          message(`您${title}了用户名称为${curData.userName}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -498,8 +498,8 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
 
     // 归属部门
     const { data } = await getDeptList();
-    higherDeptOptions.value = handleTree(data);
-    treeData.value = handleTree(data);
+    higherDeptOptions.value = handleTree(data.items);
+    treeData.value = handleTree(data.items);
     treeLoading.value = false;
 
     // 角色列表

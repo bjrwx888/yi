@@ -90,11 +90,10 @@ export const useUserStore = defineStore({
               };
               setToken(storeData);
               getUserInfo().then(resInfo => {
-                storeData.username = resInfo.data.username;
-                storeData.avatar = resInfo.data.avatar;
-                storeData.nickname = resInfo.data.nick;
-                storeData.roles = resInfo.data.roles;
-                storeData.accessToken = resInfo.data.accessToken;
+                storeData.username = resInfo.data.user.userName;
+                storeData.avatar = resInfo.data.user.icon;
+                storeData.nickname = resInfo.data.user.nick;
+                storeData.roles = resInfo.data.roleCodes;
                 setToken(storeData);
                 resolve(resInfo);
               });

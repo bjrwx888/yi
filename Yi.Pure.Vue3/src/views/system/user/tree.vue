@@ -31,7 +31,7 @@ const highlightMap = ref({});
 const { proxy } = getCurrentInstance();
 const defaultProps = {
   children: "children",
-  label: "name"
+  label: "deptName"
 };
 const buttonClass = computed(() => {
   return [

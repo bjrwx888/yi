@@ -10,13 +10,13 @@ const props = withDefaults(defineProps<FormProps>(), {
     title: "新增",
     higherDeptOptions: [],
     parentId: 0,
-    nickname: "",
-    username: "",
+    nick: "",
+    userName: "",
     password: "",
     phone: "",
     email: "",
     sex: "",
-    status: 1,
+    state: 1,
     remark: ""
   })
 });
@@ -51,18 +51,18 @@ defineExpose({ getRef });
   >
     <el-row :gutter="30">
       <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="用户昵称" prop="nickname">
+        <el-form-item label="用户昵称" prop="nick">
           <el-input
-            v-model="newFormInline.nickname"
+            v-model="newFormInline.nick"
             clearable
             placeholder="请输入用户昵称"
           />
         </el-form-item>
       </re-col>
       <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="用户名称" prop="username">
+        <el-form-item label="用户名称" prop="userName">
           <el-input
-            v-model="newFormInline.username"
+            v-model="newFormInline.userName"
             clearable
             placeholder="请输入用户名称"
           />
@@ -151,10 +151,10 @@ defineExpose({ getRef });
       >
         <el-form-item label="用户状态">
           <el-switch
-            v-model="newFormInline.status"
+            v-model="newFormInline.state"
             inline-prompt
-            :active-value="1"
-            :inactive-value="0"
+            :active-value="true"
+            :inactive-value="false"
             active-text="启用"
             inactive-text="停用"
             :style="switchStyle"
