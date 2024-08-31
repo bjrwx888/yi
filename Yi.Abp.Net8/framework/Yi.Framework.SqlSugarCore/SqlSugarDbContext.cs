@@ -40,6 +40,9 @@ namespace Yi.Framework.SqlSugarCore
         public IEntityChangeEventHelper EntityChangeEventHelper => LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
         public DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
         public AbpDbConnectionOptions ConnectionOptions => LazyServiceProvider.LazyGetRequiredService<IOptions<AbpDbConnectionOptions>>().Value;
+       
+        public ISerializeService SerializeService=> LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
+
         private ISqlSugarDbConnectionCreator _dbConnectionCreator;
 
         public void SetSqlSugarClient(ISqlSugarClient sqlSugarClient)
@@ -63,6 +66,8 @@ namespace Yi.Framework.SqlSugarCore
                 options.DbType = GetCurrentDbType();
             }));
             connectionCreator.SetDbAop(SqlSugarClient);
+            //替换默认序列化器
+            SqlSugarClient.CurrentConnectionConfig.ConfigureExternalServices.SerializeService = SerializeService;
         }
 
         /// <summary>
