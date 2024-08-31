@@ -33,21 +33,27 @@ public class AssignmentEventHandler : ILocalEventHandler<AssignmentEventArgs>, I
                 case AssignmentRequirementTypeEnum.Discuss:
                     SetCurrentStepNumber(AssignmentRequirementTypeEnum.Discuss, currentAssignmentList);
                     break;
-                
+
                 //发表评论
                 case AssignmentRequirementTypeEnum.Comment:
                     SetCurrentStepNumber(AssignmentRequirementTypeEnum.Comment, currentAssignmentList);
                     break;
-                
+
                 //点赞
                 case AssignmentRequirementTypeEnum.Agree:
                     SetCurrentStepNumber(AssignmentRequirementTypeEnum.Agree, currentAssignmentList);
                     break;
-                
-                //更新个人信息
-                case AssignmentRequirementTypeEnum.UpdateProfile:
-                    //这里还需判断是否更新了
+
+                //更新昵称
+                case AssignmentRequirementTypeEnum.UpdateNick:
+                    SetCurrentStepNumber(AssignmentRequirementTypeEnum.UpdateNick, currentAssignmentList);
                     break;
+
+                //更新头像
+                case AssignmentRequirementTypeEnum.UpdateIcon:
+                    SetCurrentStepNumber(AssignmentRequirementTypeEnum.UpdateIcon, currentAssignmentList);
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -72,7 +78,7 @@ public class AssignmentEventHandler : ILocalEventHandler<AssignmentEventArgs>, I
                 x.CurrentStepNumber < x.TotalStepNumber)
             {
                 x.CurrentStepNumber += 1;
-                if (x.CurrentStepNumber==x.TotalStepNumber)
+                if (x.CurrentStepNumber == x.TotalStepNumber)
                 {
                     x.AssignmentState = AssignmentStateEnum.Completed;
                 }

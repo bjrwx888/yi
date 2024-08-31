@@ -5,24 +5,25 @@ public enum AssignmentRequirementTypeEnum
     /// <summary>
     /// 主题
     /// </summary>
-    Discuss=2,
-    
+    Discuss = 2,
+
     /// <summary>
     /// 评论
     /// </summary>
-    Comment=4,
-    
+    Comment = 4,
+
     /// <summary>
     /// 点赞
     /// </summary>
-    Agree=8,
-    
-    /// <summary>
-    /// 更新个人中心
-    /// </summary>
-    UpdateProfile=16
-    
-    
+    Agree = 8,
 
-    
+    /// <summary>
+    /// 更新昵称    
+    /// </summary>
+    UpdateNick = 16,
+
+    /// <summary>
+    /// 更新头像
+    /// </summary>
+    UpdateIcon = 32,
 }

@@ -12,13 +12,13 @@
       </el-icon>
       <span>等级</span>
     </el-menu-item>
-    <el-menu-item index="3" :route="{ path: '/activity/x' }">
+    <el-menu-item index="3" :route="{ path: '/activity/assignment' }">
       <el-icon>
         <Memo />
       </el-icon>
       <span>任务列表</span>
     </el-menu-item>
-    <el-menu-item index="4" :route="{ path: '/activity/assignment' }">
+    <el-menu-item index="4" :route="{ path: '/activity/lucky' }">
       <el-icon>
         <HelpFilled />
       </el-icon>
