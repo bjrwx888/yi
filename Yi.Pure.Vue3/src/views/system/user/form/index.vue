@@ -9,15 +9,17 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     title: "新增",
     higherDeptOptions: [],
-    parentId: 0,
+    deptId: "",
     nick: "",
     userName: "",
     password: "",
     phone: "",
     email: "",
     sex: "",
-    state: 1,
-    remark: ""
+    state: true,
+    remark: "",
+    roleIds: [],
+    roleOptions: []
   })
 });
 
@@ -123,7 +125,7 @@ defineExpose({ getRef });
       <re-col :value="12" :xs="24" :sm="24">
         <el-form-item label="归属部门">
           <el-cascader
-            v-model="newFormInline.parentId"
+            v-model="newFormInline.deptId"
             class="w-full"
             :options="newFormInline.higherDeptOptions"
             :props="{
@@ -161,7 +163,26 @@ defineExpose({ getRef });
           />
         </el-form-item>
       </re-col>
-
+      <re-col>
+        <el-form-item label="角色列表" prop="ids">
+          <el-select
+            v-model="newFormInline.roleIds"
+            placeholder="请选择"
+            class="w-full"
+            clearable
+            multiple
+          >
+            <el-option
+              v-for="(item, index) in newFormInline.roleOptions"
+              :key="index"
+              :value="item.id"
+              :label="item.roleName"
+            >
+              {{ item.roleName }}
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </re-col>
       <re-col>
         <el-form-item label="备注">
           <el-input

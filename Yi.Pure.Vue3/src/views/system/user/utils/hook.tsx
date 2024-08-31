@@ -1,6 +1,5 @@
 import "./reset.css";
 import dayjs from "dayjs";
-import roleForm from "../form/role.vue";
 import editForm from "../form/index.vue";
 import { zxcvbn } from "@zxcvbn-ts/core";
 import { handleTree } from "@/utils/tree";
@@ -10,7 +9,7 @@ import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import type { PaginationProps } from "@pureadmin/table";
 import ReCropperPreview from "@/components/ReCropperPreview";
-import type { FormItemProps, RoleFormItemProps } from "../utils/types";
+import type { FormItemProps } from "../utils/types";
 import {
   getKeyList,
   isAllEmpty,
@@ -18,10 +17,15 @@ import {
   deviceDetection
 } from "@pureadmin/utils";
 import {
-  getRoleIds,
   getDeptList,
   getUserList,
-  getAllRoleList
+  getUser,
+  getRoleOption,
+  addUser,
+  delUser,
+  resetUserPwd,
+  changeUserStatus,
+  updateUser
 } from "@/api/system";
 import {
   ElForm,
@@ -96,7 +100,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       width: 90
     },
     {
-      label: "用户名称",
+      label: "用户账号",
       prop: "userName",
       minWidth: 130
     },
@@ -128,7 +132,8 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       label: "手机号码",
       prop: "phone",
       minWidth: 90,
-      formatter: ({ phone }) => hideTextAtIndex(phone, { start: 3, end: 6 })
+      formatter: ({ phone }) =>
+        phone == null ? "-" : hideTextAtIndex(phone, { start: 3, end: 6 })
     },
     {
       label: "状态",
@@ -174,7 +179,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   });
   // 重置的新密码
   const pwdForm = reactive({
-    newPwd: ""
+    password: ""
   });
   const pwdProgress = [
     { color: "#e74242", text: "非常弱" },
@@ -190,7 +195,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   function onChange({ row, index }) {
     ElMessageBox.confirm(
       `确认要<strong>${
-        row.status === 0 ? "停用" : "启用"
+        row.state === 0 ? "停用" : "启用"
       }</strong><strong style='color:var(--el-color-primary)'>${
         row.userName
       }</strong>用户吗?`,
@@ -203,7 +208,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
         draggable: true
       }
     )
-      .then(() => {
+      .then(async () => {
         switchLoadMap.value[index] = Object.assign(
           {},
           switchLoadMap.value[index],
@@ -211,21 +216,22 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
             loading: true
           }
         );
-        setTimeout(() => {
-          switchLoadMap.value[index] = Object.assign(
-            {},
-            switchLoadMap.value[index],
-            {
-              loading: false
-            }
-          );
-          message("已成功修改用户状态", {
-            type: "success"
-          });
-        }, 300);
+
+        await changeUserStatus(row.id, row.state);
+
+        switchLoadMap.value[index] = Object.assign(
+          {},
+          switchLoadMap.value[index],
+          {
+            loading: false
+          }
+        );
+        message("已成功修改用户状态", {
+          type: "success"
+        });
       })
       .catch(() => {
-        row.status === 0 ? (row.status = 1) : (row.status = 0);
+        row.state === 0 ? (row.state = 1) : (row.state = 0);
       });
   }
 
@@ -233,7 +239,8 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     console.log(row);
   }
 
-  function handleDelete(row) {
+  async function handleDelete(row) {
+    await delUser([row.id]);
     message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
     onSearch();
   }
@@ -263,11 +270,13 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   }
 
   /** 批量删除 */
-  function onbatchDel() {
+  async function onbatchDel() {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
+    const delIds = getKeyList(curSelected, "id");
+    await delUser(delIds);
     // 接下来根据实际业务，通过选中行的某项数据，比如下面的id，调用接口进行批量删除
-    message(`已删除用户编号为 ${getKeyList(curSelected, "id")} 的数据`, {
+    message(`已删除用户编号为 ${delIds} 的数据`, {
       type: "success"
     });
     tableRef.value.getTableRef().clearSelection();
@@ -305,29 +314,36 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     if (!treeList || !treeList.length) return;
     const newTreeList = [];
     for (let i = 0; i < treeList.length; i++) {
-      treeList[i].disabled = treeList[i].status === 0 ? true : false;
+      treeList[i].disabled = treeList[i].state === 0 ? true : false;
       formatHigherDeptOptions(treeList[i].children);
       newTreeList.push(treeList[i]);
     }
     return newTreeList;
   }
-
-  function openDialog(title = "新增", row?: FormItemProps) {
+  async function openDialog(title = "新增", row?: FormItemProps) {
+    let data: any = null;
+    //打开弹窗之前，如果是修改，还需进行查询详情
+    if (title == "修改") {
+      const response = await getUser(row?.id);
+      data = response.data;
+    }
     addDialog({
       title: `${title}用户`,
       props: {
         formInline: {
           title,
           higherDeptOptions: formatHigherDeptOptions(higherDeptOptions.value),
-          parentId: row?.deptId ?? 0,
-          nick: row?.nick ?? "",
-          userName: row?.userName ?? "",
-          password: row?.password ?? "",
-          phone: row?.phone ?? "",
-          email: row?.email ?? "",
-          sex: row?.sex ?? "",
-          state: row?.state ?? false,
-          remark: row?.remark ?? ""
+          deptId: data?.deptId ?? 0,
+          nick: data?.nick ?? "",
+          userName: data?.userName ?? "",
+          password: data?.password ?? "",
+          phone: data?.phone ?? "",
+          email: data?.email ?? "",
+          sex: data?.sex ?? "",
+          state: data?.state ?? true,
+          remark: data?.remark ?? "",
+          roleIds: data?.roles?.map(r => r.id),
+          roleOptions: roleOptions.value
         }
       },
       width: "46%",
@@ -339,6 +355,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
+
         function chores() {
           message(`您${title}了用户名称为${curData.userName}的这条数据`, {
             type: "success"
@@ -346,15 +363,17 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        FormRef.validate(valid => {
+
+        FormRef.validate(async valid => {
           if (valid) {
-            console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              await addUser(curData);
               chores();
             } else {
               // 实际开发先调用修改接口，再进行下面操作
+              await updateUser(row?.id, curData);
               chores();
             }
           }
@@ -364,6 +383,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   }
 
   const cropRef = ref();
+
   /** 上传头像 */
   function handleUpload(row) {
     addDialog({
@@ -389,14 +409,14 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
 
   watch(
     pwdForm,
-    ({ newPwd }) =>
-      (curScore.value = isAllEmpty(newPwd) ? -1 : zxcvbn(newPwd).score)
+    ({ password }) =>
+      (curScore.value = isAllEmpty(password) ? -1 : zxcvbn(password).score)
   );
 
   /** 重置密码 */
   function handleReset(row) {
     addDialog({
-      title: `重置 ${row.username} 用户的密码`,
+      title: `重置 ${row.userName} 用户的密码`,
       width: "30%",
       draggable: true,
       closeOnClickModal: false,
@@ -405,7 +425,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
         <>
           <ElForm ref={ruleFormRef} model={pwdForm}>
             <ElFormItem
-              prop="newPwd"
+              prop="password"
               rules={[
                 {
                   required: true,
@@ -418,7 +438,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
                 clearable
                 show-password
                 type="password"
-                v-model={pwdForm.newPwd}
+                v-model={pwdForm.password}
                 placeholder="请输入新密码"
               />
             </ElFormItem>
@@ -449,49 +469,20 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
           </div>
         </>
       ),
-      closeCallBack: () => (pwdForm.newPwd = ""),
+      closeCallBack: () => (pwdForm.password = ""),
       beforeSure: done => {
-        ruleFormRef.value.validate(valid => {
+        ruleFormRef.value.validate(async valid => {
           if (valid) {
+            await resetUserPwd(row.id, pwdForm.password);
             // 表单规则校验通过
             message(`已成功重置 ${row.username} 用户的密码`, {
               type: "success"
             });
-            console.log(pwdForm.newPwd);
             // 根据实际业务使用pwdForm.newPwd和row里的某些字段去调用重置用户密码接口即可
             done(); // 关闭弹框
             onSearch(); // 刷新表格数据
           }
         });
-      }
-    });
-  }
-
-  /** 分配角色 */
-  async function handleRole(row) {
-    // 选中的角色列表
-    const ids = (await getRoleIds({ userId: row.id })).data ?? [];
-    addDialog({
-      title: `分配 ${row.username} 用户的角色`,
-      props: {
-        formInline: {
-          username: row?.username ?? "",
-          nickname: row?.nickname ?? "",
-          roleOptions: roleOptions.value ?? [],
-          ids
-        }
-      },
-      width: "400px",
-      draggable: true,
-      fullscreen: deviceDetection(),
-      fullscreenIcon: true,
-      closeOnClickModal: false,
-      contentRenderer: () => h(roleForm),
-      beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as RoleFormItemProps;
-        console.log("curIds", curData.ids);
-        // 根据实际业务使用curData.ids和row里的某些字段去调用修改角色接口即可
-        done(); // 关闭弹框
       }
     });
   }
@@ -507,7 +498,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     treeLoading.value = false;
 
     // 角色列表
-    roleOptions.value = (await getAllRoleList()).data;
+    roleOptions.value = (await getRoleOption()).data.items;
   });
 
   return {
@@ -530,7 +521,6 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     handleDelete,
     handleUpload,
     handleReset,
-    handleRole,
     handleSizeChange,
     onSelectionCancel,
     handleCurrentChange,
