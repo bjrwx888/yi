@@ -243,7 +243,7 @@ namespace Yi.Framework.SqlSugarCore.Repositories
         {
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {
-                return await (await GetDbSimpleClientAsync()).AsUpdateable().SetColumns(nameof(ISoftDelete), true).Where(whereExpression).ExecuteCommandAsync() > 0;
+                return await (await GetDbSimpleClientAsync()).AsUpdateable().SetColumns(nameof(ISoftDelete.IsDeleted), true).Where(whereExpression).ExecuteCommandAsync() > 0;
             }
             else
             {
