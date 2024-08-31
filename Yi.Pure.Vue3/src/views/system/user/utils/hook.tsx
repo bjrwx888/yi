@@ -47,7 +47,9 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     deptId: "",
     userName: "",
     phone: "",
-    state: true
+    state: true,
+    skipCount: 1,
+    maxResultCount: 10
   });
   const formRef = ref();
   const ruleFormRef = ref();
@@ -150,9 +152,9 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     {
       label: "创建时间",
       minWidth: 90,
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      prop: "creationTime",
+      formatter: ({ creationTime }) =>
+        dayjs(creationTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "操作",
@@ -190,7 +192,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       `确认要<strong>${
         row.status === 0 ? "停用" : "启用"
       }</strong><strong style='color:var(--el-color-primary)'>${
-        row.username
+        row.userName
       }</strong>用户吗?`,
       "系统提示",
       {
@@ -237,11 +239,13 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   }
 
   function handleSizeChange(val: number) {
-    console.log(`${val} items per page`);
+    form.maxResultCount = val;
+    onSearch();
   }
 
   function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+    form.skipCount = val;
+    onSearch();
   }
 
   /** 当CheckBox选择项发生变化时会触发该事件 */
@@ -315,14 +319,14 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
         formInline: {
           title,
           higherDeptOptions: formatHigherDeptOptions(higherDeptOptions.value),
-          parentId: row?.dept.id ?? 0,
-          nickname: row?.nick ?? "",
-          username: row?.userName ?? "",
+          parentId: row?.deptId ?? 0,
+          nick: row?.nick ?? "",
+          userName: row?.userName ?? "",
           password: row?.password ?? "",
           phone: row?.phone ?? "",
           email: row?.email ?? "",
           sex: row?.sex ?? "",
-          status: row?.state ?? false,
+          state: row?.state ?? false,
           remark: row?.remark ?? ""
         }
       },

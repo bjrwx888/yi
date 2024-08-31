@@ -128,7 +128,7 @@ defineExpose({ getRef });
             :options="newFormInline.higherDeptOptions"
             :props="{
               value: 'id',
-              label: 'name',
+              label: 'deptName',
               emitPath: false,
               checkStrictly: true
             }"
@@ -137,7 +137,7 @@ defineExpose({ getRef });
             placeholder="请选择归属部门"
           >
             <template #default="{ node, data }">
-              <span>{{ data.name }}</span>
+              <span>{{ data.deptName }}</span>
               <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
             </template>
           </el-cascader>
