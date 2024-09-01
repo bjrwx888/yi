@@ -17,16 +17,16 @@ import {
   deviceDetection
 } from "@pureadmin/utils";
 import {
-  getDeptList,
-  getUserList,
   getUser,
-  getRoleOption,
   addUser,
   delUser,
   resetUserPwd,
   changeUserStatus,
-  updateUser
-} from "@/api/system";
+  updateUser,
+  getUserList
+} from "@/api/system/user";
+import { getRoleOption } from "@/api/system/role";
+import { getDeptList } from "@/api/system/dept";
 import {
   ElForm,
   ElInput,
@@ -116,10 +116,10 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       cellRenderer: ({ row, props }) => (
         <el-tag
           size={props.size}
-          type={row.sex === 1 ? "danger" : null}
+          type={row.sex === "Woman" ? "danger" : null}
           effect="plain"
         >
-          {row.sex === 1 ? "女" : "男"}
+          {row.sex === "Woman" ? "女" : "男"}
         </el-tag>
       )
     },
