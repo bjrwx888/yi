@@ -12,8 +12,8 @@ export const getListMenu = query => {
 };
 
 /** 查询菜单详细 */
-export const getMenu = menuId => {
-  return http.request<Result>("get", `/menu/${menuId}`, {});
+export const getMenu = id => {
+  return http.request<Result>("get", `/menu/${id}`, {});
 };
 
 /** 新增菜单 */

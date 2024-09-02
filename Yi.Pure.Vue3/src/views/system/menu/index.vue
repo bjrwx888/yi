@@ -39,7 +39,7 @@ const {
     >
       <el-form-item label="菜单名称：" prop="title">
         <el-input
-          v-model="form.title"
+          v-model="form.menuName"
           placeholder="请输入菜单名称"
           clearable
           class="!w-[180px]"

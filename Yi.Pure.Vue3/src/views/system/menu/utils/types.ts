@@ -3,24 +3,24 @@ interface FormItemProps {
   menuType: number;
   higherMenuOptions: Record<string, unknown>[];
   parentId: number;
-  title: string;
+  menuName: string;
   name: string;
-  path: string;
+  router: string;
   component: string;
-  rank: number;
+  orderNum: number;
   redirect: string;
   icon: string;
   extraIcon: string;
   enterTransition: string;
   leaveTransition: string;
   activePath: string;
-  auths: string;
+  permissionCode: string;
   frameSrc: string;
   frameLoading: boolean;
   keepAlive: boolean;
   hiddenTag: boolean;
   fixedTag: boolean;
-  showLink: boolean;
+  isShow: boolean;
   showParent: boolean;
 }
 interface FormProps {

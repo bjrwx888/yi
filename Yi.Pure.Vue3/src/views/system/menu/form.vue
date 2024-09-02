@@ -22,24 +22,24 @@ const props = withDefaults(defineProps<FormProps>(), {
     menuType: 0,
     higherMenuOptions: [],
     parentId: 0,
-    title: "",
+    menuName: "",
     name: "",
-    path: "",
+    router: "",
     component: "",
-    rank: 99,
+    orderNum: 99,
     redirect: "",
     icon: "",
     extraIcon: "",
     enterTransition: "",
     leaveTransition: "",
     activePath: "",
-    auths: "",
+    permissionCode: "",
     frameSrc: "",
     frameLoading: true,
     keepAlive: false,
     hiddenTag: false,
     fixedTag: false,
-    showLink: true,
+    isShow: true,
     showParent: false
   })
 });
@@ -88,7 +88,7 @@ defineExpose({ getRef });
             placeholder="请选择上级菜单"
           >
             <template #default="{ node, data }">
-              <span>{{ transformI18n(data.title) }}</span>
+              <span>{{ transformI18n(data.menuName) }}</span>
               <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
             </template>
           </el-cascader>
@@ -98,7 +98,7 @@ defineExpose({ getRef });
       <re-col :value="12" :xs="24" :sm="24">
         <el-form-item label="菜单名称" prop="title">
           <el-input
-            v-model="newFormInline.title"
+            v-model="newFormInline.menuName"
             clearable
             placeholder="请输入菜单名称"
           />
@@ -115,9 +115,9 @@ defineExpose({ getRef });
       </re-col>
 
       <re-col v-if="newFormInline.menuType !== 3" :value="12" :xs="24" :sm="24">
-        <el-form-item label="路由路径" prop="path">
+        <el-form-item label="路由路径" prop="router">
           <el-input
-            v-model="newFormInline.path"
+            v-model="newFormInline.router"
             clearable
             placeholder="请输入路由路径"
           />
@@ -222,9 +222,9 @@ defineExpose({ getRef });
       </re-col>
       <re-col v-if="newFormInline.menuType === 3" :value="12" :xs="24" :sm="24">
         <!-- 按钮级别权限设置 -->
-        <el-form-item label="权限标识" prop="auths">
+        <el-form-item label="权限标识" prop="orderNum">
           <el-input
-            v-model="newFormInline.auths"
+            v-model="newFormInline.orderNum"
             clearable
             placeholder="请输入权限标识"
           />
@@ -268,11 +268,11 @@ defineExpose({ getRef });
       >
         <el-form-item label="菜单">
           <Segmented
-            :modelValue="newFormInline.showLink ? 0 : 1"
+            :modelValue="newFormInline.isShow ? false : true"
             :options="showLinkOptions"
             @change="
               ({ option: { value } }) => {
-                newFormInline.showLink = value;
+                newFormInline.isShow = value;
               }
             "
           />

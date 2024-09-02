@@ -1,7 +1,7 @@
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getMenuList } from "@/api/system";
+import { getListMenu } from "@/api/system/menu";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
@@ -11,7 +11,7 @@ import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
 
 export function useMenu() {
   const form = reactive({
-    title: ""
+    menuName: ""
   });
 
   const formRef = ref();
@@ -34,7 +34,7 @@ export function useMenu() {
   const columns: TableColumnList = [
     {
       label: "菜单名称",
-      prop: "title",
+      prop: "menuName",
       align: "left",
       cellRenderer: ({ row }) => (
         <>
@@ -43,7 +43,7 @@ export function useMenu() {
               style: { paddingTop: "1px" }
             })}
           </span>
-          <span>{transformI18n(row.title)}</span>
+          <span>{transformI18n(row.menuName)}</span>
         </>
       )
     },
@@ -63,7 +63,7 @@ export function useMenu() {
     },
     {
       label: "路由路径",
-      prop: "path"
+      prop: "router"
     },
     {
       label: "组件路径",
@@ -73,17 +73,17 @@ export function useMenu() {
     },
     {
       label: "权限标识",
-      prop: "auths"
+      prop: "permissionCode"
     },
     {
       label: "排序",
-      prop: "rank",
+      prop: "orderNum",
       width: 100
     },
     {
-      label: "隐藏",
-      prop: "showLink",
-      formatter: ({ showLink }) => (showLink ? "否" : "是"),
+      label: "显示",
+      prop: "isShow",
+      formatter: ({ isShow }) => (isShow ? "否" : "是"),
       width: 100
     },
     {
@@ -106,18 +106,16 @@ export function useMenu() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getMenuList(); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
+    const data = (await getListMenu(form)).data.items; // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
     let newData = data;
-    if (!isAllEmpty(form.title)) {
+    if (!isAllEmpty(form.menuName)) {
       // 前端搜索菜单名称
       newData = newData.filter(item =>
-        transformI18n(item.title).includes(form.title)
+        transformI18n(item.title).includes(form.menuName)
       );
     }
     dataList.value = handleTree(newData); // 处理成树结构
-    setTimeout(() => {
-      loading.value = false;
-    }, 500);
+    loading.value = false;
   }
 
   function formatHigherMenuOptions(treeList) {
@@ -139,24 +137,24 @@ export function useMenu() {
           menuType: row?.menuType ?? 0,
           higherMenuOptions: formatHigherMenuOptions(cloneDeep(dataList.value)),
           parentId: row?.parentId ?? 0,
-          title: row?.title ?? "",
+          title: row?.menuName ?? "",
           name: row?.name ?? "",
-          path: row?.path ?? "",
+          router: row?.router ?? "",
           component: row?.component ?? "",
-          rank: row?.rank ?? 99,
+          orderNum: row?.orderNum ?? 99,
           redirect: row?.redirect ?? "",
           icon: row?.icon ?? "",
           extraIcon: row?.extraIcon ?? "",
           enterTransition: row?.enterTransition ?? "",
           leaveTransition: row?.leaveTransition ?? "",
           activePath: row?.activePath ?? "",
-          auths: row?.auths ?? "",
+          permissionCode: row?.permissionCode ?? "",
           frameSrc: row?.frameSrc ?? "",
           frameLoading: row?.frameLoading ?? true,
           keepAlive: row?.keepAlive ?? false,
           hiddenTag: row?.hiddenTag ?? false,
           fixedTag: row?.fixedTag ?? false,
-          showLink: row?.showLink ?? true,
+          showLink: row?.isShow ?? true,
           showParent: row?.showParent ?? false
         }
       },
@@ -171,7 +169,7 @@ export function useMenu() {
         const curData = options.props.formInline as FormItemProps;
         function chores() {
           message(
-            `您${title}了菜单名称为${transformI18n(curData.title)}的这条数据`,
+            `您${title}了菜单名称为${transformI18n(curData.menuName)}的这条数据`,
             {
               type: "success"
             }
