@@ -372,6 +372,12 @@ namespace Yi.Framework.SqlSugarCore.Repositories
 
         public virtual async Task<bool> UpdateAsync(TEntity updateObj)
         {
+            if (typeof(TEntity).IsAssignableTo<IHasConcurrencyStamp>())//带版本号乐观锁更新
+            {
+                int num =  await (await GetDbSimpleClientAsync())
+                    .Context.Updateable(updateObj).ExecuteCommandWithOptLockAsync();
+                return num>0;
+            }
             return await (await GetDbSimpleClientAsync()).UpdateAsync(updateObj);
         }
 
