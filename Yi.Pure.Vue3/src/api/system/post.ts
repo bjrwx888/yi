@@ -1,8 +1,8 @@
-﻿import { http } from "@/utils/http";
+import { http } from "@/utils/http";
 import type { Result, ResultPage } from "@/api/result";
 
-/** 获取系统管理-部门管理列表 */
-export const getDeptList = (data?: object) => {
+/** 查询岗位列表 */
+export const getList = (data?: object) => {
   return http.request<ResultPage>("get", "/dept", { data });
 };
 
@@ -24,4 +24,9 @@ export const updateDept = (id, data) => {
 /** 删除部门 */
 export const delDept = id => {
   return http.request<Result>("delete", `/dept`, { params: { id } });
+};
+
+/** 获取部门选择框列表 */
+export const getPostOptionSelect = () => {
+  return http.request<Result>("get", `/post`, {});
 };
