@@ -243,7 +243,10 @@ getCode();
                   <template v-slot:append>
                     <img
                       :src="codeUrl"
-                      class="login-code-img"
+                      width="120"
+                      height="40"
+                      style="width: 120px; height: 40px"
+                      class="cursor-pointer"
                       alt=""
                       @click="getCode"
                     />

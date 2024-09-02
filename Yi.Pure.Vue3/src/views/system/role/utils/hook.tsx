@@ -21,7 +21,16 @@ import {
 } from "@/api/system/role";
 import { getMenuOption } from "@/api/system/menu";
 
-import {type Ref, reactive, ref, onMounted, h, toRaw, watch, nextTick} from "vue";
+import {
+  type Ref,
+  reactive,
+  ref,
+  onMounted,
+  h,
+  toRaw,
+  watch,
+  nextTick
+} from "vue";
 
 export function useRole(treeRef: Ref) {
   const form = reactive({
@@ -44,7 +53,6 @@ export function useRole(treeRef: Ref) {
   const isExpandAll = ref(false);
   const isSelectAll = ref(false);
   const { switchStyle } = usePublicHooks();
-  let currentRoleData: any = {};
   const treeProps = {
     value: "id",
     label: "menuName",
@@ -246,7 +254,6 @@ export function useRole(treeRef: Ref) {
       nextTick(async () => {
         treeRef.value.setCheckedKeys(curRow.value.menuIds);
       });
-
     } else {
       curRow.value = null;
       isShow.value = false;

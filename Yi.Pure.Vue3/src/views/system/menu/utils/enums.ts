@@ -2,23 +2,42 @@ import type { OptionsType } from "@/components/ReSegmented";
 
 const menuTypeOptions: Array<OptionsType> = [
   {
-    label: "菜单",
-    value: 0
+    label: "目录",
+    value: "Catalogue"
   },
   {
-    label: "iframe",
-    value: 1
+    label: "菜单",
+    value: "Menu"
+  },
+  {
+    label: "组件",
+    value: "Component"
+  }
+];
+const stateOptions: Array<OptionsType> = [
+  {
+    label: "启用",
+    tip: "启用菜单",
+    value: true
+  },
+  {
+    label: "禁用",
+    tip: "禁用菜单",
+    value: false
+  }
+];
+const isLinkOptions: Array<OptionsType> = [
+  {
+    label: "非外链",
+    tip: "使用本地路由",
+    value: false
   },
   {
     label: "外链",
-    value: 2
-  },
-  {
-    label: "按钮",
-    value: 3
+    tip: "链接到其他地址",
+    value: true
   }
 ];
-
 const showLinkOptions: Array<OptionsType> = [
   {
     label: "显示",
@@ -104,5 +123,7 @@ export {
   keepAliveOptions,
   hiddenTagOptions,
   showParentOptions,
-  frameLoadingOptions
+  frameLoadingOptions,
+  isLinkOptions,
+  stateOptions
 };

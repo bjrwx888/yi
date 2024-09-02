@@ -7,22 +7,22 @@ export const getList = (data?: object) => {
 };
 
 /** 查询部门详细 */
-export const getDept = id => {
+export const getPost = id => {
   return http.request<Result>("get", `/dept/${id}`, {});
 };
 
 /** 新增部门 */
-export const addDept = data => {
+export const addPost = data => {
   return http.request<Result>("post", `/dept`, { data });
 };
 
 /** 修改部门 */
-export const updateDept = (id, data) => {
+export const updatePost = (id, data) => {
   return http.request<Result>("put", `/dept/${id}`, { data });
 };
 
 /** 删除部门 */
-export const delDept = id => {
+export const delPost = id => {
   return http.request<Result>("delete", `/dept`, { params: { id } });
 };
 

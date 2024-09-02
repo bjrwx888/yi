@@ -1,13 +1,14 @@
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getListMenu } from "@/api/system/menu";
+import { addMenu, delMenu, getListMenu, updateMenu } from "@/api/system/menu";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
 import type { FormItemProps } from "../utils/types";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
+import { menuTypeOptions } from "@/views/system/menu/utils/enums";
 
 export function useMenu() {
   const form = reactive({
@@ -18,16 +19,14 @@ export function useMenu() {
   const dataList = ref([]);
   const loading = ref(true);
 
-  const getMenuType = (type, text = false) => {
+  const getMenuType = (type: string, text = false) => {
     switch (type) {
-      case 0:
-        return text ? "菜单" : "primary";
-      case 1:
-        return text ? "iframe" : "warning";
-      case 2:
-        return text ? "外链" : "danger";
-      case 3:
-        return text ? "按钮" : "info";
+      case "Catalogue":
+        return text ? "目录" : "primary";
+      case "Menu":
+        return text ? "菜单" : "warning";
+      case "Component":
+        return text ? "组件" : "info";
     }
   };
 
@@ -129,33 +128,33 @@ export function useMenu() {
     return newTreeList;
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  async function openDialog(title = "新增", row?: FormItemProps) {
+    // let data: any = null;
+    // if (title == "修改") {
+    //   data = await getMenu(row.id);
+    // }
     addDialog({
       title: `${title}菜单`,
       props: {
         formInline: {
-          menuType: row?.menuType ?? 0,
+          menuName: row?.menuName ?? "",
+          menuType:
+            row?.menuType == undefined
+              ? 0
+              : menuTypeOptions.findIndex(
+                  option => option.value === row?.menuType
+                ),
           higherMenuOptions: formatHigherMenuOptions(cloneDeep(dataList.value)),
+          id: row?.id ?? "00000000-0000-0000-0000-000000000000",
           parentId: row?.parentId ?? 0,
-          title: row?.menuName ?? "",
-          name: row?.name ?? "",
           router: row?.router ?? "",
           component: row?.component ?? "",
-          orderNum: row?.orderNum ?? 99,
-          redirect: row?.redirect ?? "",
+          orderNum: row?.orderNum ?? 0,
           icon: row?.icon ?? "",
-          extraIcon: row?.extraIcon ?? "",
-          enterTransition: row?.enterTransition ?? "",
-          leaveTransition: row?.leaveTransition ?? "",
-          activePath: row?.activePath ?? "",
           permissionCode: row?.permissionCode ?? "",
-          frameSrc: row?.frameSrc ?? "",
-          frameLoading: row?.frameLoading ?? true,
-          keepAlive: row?.keepAlive ?? false,
-          hiddenTag: row?.hiddenTag ?? false,
-          fixedTag: row?.fixedTag ?? false,
           showLink: row?.isShow ?? true,
-          showParent: row?.showParent ?? false
+          isLink: row?.isLink ?? false,
+          state: row?.state ?? true
         }
       },
       width: "45%",
@@ -177,15 +176,16 @@ export function useMenu() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        FormRef.validate(valid => {
+        FormRef.validate(async valid => {
           if (valid) {
-            console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              await addMenu(curData);
               chores();
             } else {
               // 实际开发先调用修改接口，再进行下面操作
+              await updateMenu(row.id, curData);
               chores();
             }
           }
@@ -194,8 +194,9 @@ export function useMenu() {
     });
   }
 
-  function handleDelete(row) {
-    message(`您删除了菜单名称为${transformI18n(row.title)}的这条数据`, {
+  async function handleDelete(row) {
+    await delMenu([row.id]);
+    message(`您删除了菜单名称为${transformI18n(row.menuName)}的这条数据`, {
       type: "success"
     });
     onSearch();
