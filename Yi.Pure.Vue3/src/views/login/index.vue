@@ -245,7 +245,7 @@ getCode();
                       :src="codeUrl"
                       width="120"
                       height="40"
-                      style="width: 120px; height: 40px"
+                      style="width: 120px; height: 40px;max-width: none; "
                       class="cursor-pointer"
                       alt=""
                       @click="getCode"

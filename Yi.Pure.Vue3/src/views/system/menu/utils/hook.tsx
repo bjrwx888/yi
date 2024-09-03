@@ -145,7 +145,7 @@ export function useMenu() {
                   option => option.value === row?.menuType
                 ),
           higherMenuOptions: formatHigherMenuOptions(cloneDeep(dataList.value)),
-          id: row?.id ?? "00000000-0000-0000-0000-000000000000",
+          id: row?.id ?? "",
           parentId: row?.parentId ?? 0,
           router: row?.router ?? "",
           component: row?.component ?? "",
