@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 namespace Yi.Framework.SqlSugarCore.Abstractions
 {
 
-    public interface ISqlSugarRepository<TEntity>:IRepository<TEntity> where TEntity : class, IEntity,new ()
+    public interface ISqlSugarRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
     {
         ISqlSugarClient _Db { get; }
         ISugarQueryable<TEntity> _DbQueryable { get; }
@@ -70,19 +70,19 @@ namespace Yi.Framework.SqlSugarCore.Abstractions
 
         #region 删除
         //删除
-        Task<bool> DeleteAsync(TEntity deleteObj);
-        Task<bool> DeleteAsync(List<TEntity> deleteObjs);
-        Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> whereExpression);
-        Task<bool> DeleteByIdAsync(dynamic id);
-        Task<bool> DeleteByIdsAsync(dynamic[] ids);
+        Task<bool> DeleteAsync(TEntity deleteObj, bool logicDelete = true);
+        Task<bool> DeleteAsync(List<TEntity> deleteObjs, bool logicDelete = true);
+        Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> whereExpression, bool logicDelete = true);
+        Task<bool> DeleteByIdAsync(dynamic id, bool logicDelete = true);
+        Task<bool> DeleteByIdsAsync(dynamic[] ids, bool logicDelete = true);
         #endregion
 
     }
 
 
-    public interface ISqlSugarRepository<TEntity, TKey> : ISqlSugarRepository<TEntity>,IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>, new()
-    { 
-    
-    
+    public interface ISqlSugarRepository<TEntity, TKey> : ISqlSugarRepository<TEntity>, IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>, new()
+    {
+
+
     }
 }
