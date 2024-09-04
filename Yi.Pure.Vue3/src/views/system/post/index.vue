@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRole } from "./utils/hook";
+import { usePost } from "./utils/hook";
 import { ref, computed, nextTick, onMounted } from "vue";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -21,7 +21,7 @@ import Close from "@iconify-icons/ep/close";
 import Check from "@iconify-icons/ep/check";
 
 defineOptions({
-  name: "SystemRole"
+  name: "SystemPost"
 });
 
 const iconClass = computed(() => {
@@ -40,8 +40,6 @@ const iconClass = computed(() => {
     "dark:hover:text-[#ffffffd9]"
   ];
 });
-
-const treeRef = ref();
 const formRef = ref();
 const tableRef = ref();
 const contentRef = ref();
@@ -62,7 +60,6 @@ const {
   isExpandAll,
   isSelectAll,
   treeSearchValue,
-  // buttonClass,
   onSearch,
   resetForm,
   openDialog,
@@ -72,11 +69,10 @@ const {
   filterMethod,
   transformI18n,
   onQueryChanged,
-  // handleDatabase,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
-} = useRole(treeRef);
+} = usePost();
 
 onMounted(() => {
   useResizeObserver(contentRef, async () => {
@@ -98,18 +94,18 @@ onMounted(() => {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px] overflow-auto"
     >
-      <el-form-item label="角色名称：" prop="roleName">
+      <el-form-item label="岗位名称：" prop="postName">
         <el-input
-          v-model="form.roleName"
-          placeholder="请输入角色名称"
+          v-model="form.postName"
+          placeholder="请输入岗位名称"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="角色标识：" prop="roleCode">
+      <el-form-item label="岗位标识：" prop="postCode">
         <el-input
-          v-model="form.roleCode"
-          placeholder="请输入角色标识"
+          v-model="form.postCode"
+          placeholder="请输入岗位标识"
           clearable
           class="!w-[180px]"
         />
@@ -147,7 +143,7 @@ onMounted(() => {
       <PureTableBar
         :class="[isShow && !deviceDetection() ? '!w-[60vw]' : 'w-full']"
         style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
-        title="角色管理"
+        title="岗位管理"
         :columns="columns"
         @refresh="onSearch"
       >
@@ -157,7 +153,7 @@ onMounted(() => {
             :icon="useRenderIcon(AddFill)"
             @click="openDialog()"
           >
-            新增角色
+            新增岗位
           </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">
@@ -194,7 +190,7 @@ onMounted(() => {
                 修改
               </el-button>
               <el-popconfirm
-                :title="`是否确认删除角色名称为${row.roleName}的这条数据`"
+                :title="`是否确认删除岗位名称为${row.postName}的这条数据`"
                 @confirm="handleDelete(row)"
               >
                 <template #reference>
@@ -209,53 +205,6 @@ onMounted(() => {
                   </el-button>
                 </template>
               </el-popconfirm>
-              <el-button
-                class="reset-margin"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(Menu)"
-                @click="handleMenu(row)"
-              >
-                权限
-              </el-button>
-              <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
             </template>
           </pure-table>
         </template>

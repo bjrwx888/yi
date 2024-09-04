@@ -7,7 +7,7 @@ export const getRoleOption = () => {
 };
 
 /** 查询角色列表 */
-export const listRole = query => {
+export const getRoleList = query => {
   return http.request<ResultPage>("get", `/role`, { params: query });
 };
 
@@ -26,7 +26,7 @@ export const updateRole = (roleId, data) => {
   return http.request<Result>("put", `/role/${roleId}`, { data });
 };
 
-/** 修改角色 */
+/** 修改角色状态 */
 export const changeRoleStatus = (roleId, state) => {
   return http.request<Result>("put", `/role/${roleId}/${state}`, {});
 };

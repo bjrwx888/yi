@@ -1,25 +1,21 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
-import { handleTree } from "@/utils/tree";
-import { message } from "@/utils/message";
-import { ElMessageBox } from "element-plus";
-import { usePublicHooks } from "../../hooks";
-import { transformI18n } from "@/plugins/i18n";
-import { addDialog } from "@/components/ReDialog";
-import type { FormItemProps } from "../utils/types";
-import type { PaginationProps } from "@pureadmin/table";
-import { getKeyList, deviceDetection } from "@pureadmin/utils";
+import {message} from "@/utils/message";
+import {ElMessageBox} from "element-plus";
+import {usePublicHooks} from "../../hooks";
+import {transformI18n} from "@/plugins/i18n";
+import {addDialog} from "@/components/ReDialog";
+import type {FormItemProps} from "../utils/types";
+import type {PaginationProps} from "@pureadmin/table";
+import {getKeyList, deviceDetection} from "@pureadmin/utils";
 import {
-  getRoleList,
-  getRole,
-  addRole,
-  updateRole,
-  changeRoleStatus,
-  delRole,
-  getRoleMenuSelect,
-  updataDataScope
-} from "@/api/system/role";
-import { getMenuOption } from "@/api/system/menu";
+  getPostList,
+  addPost,
+  updatePost,
+  delPost,
+  getPost,
+  updatePostStatus
+} from "@/api/system/post"
 
 import {
   type Ref,
@@ -32,10 +28,10 @@ import {
   nextTick
 } from "vue";
 
-export function useRole(treeRef: Ref) {
+export function usePost(treeRef: Ref) {
   const form = reactive({
-    roleName: "",
-    roleCode: "",
+    postName: "",
+    postCode: "",
     state: true,
     skipCount: 1,
     maxResultCount: 10
@@ -52,12 +48,7 @@ export function useRole(treeRef: Ref) {
   const switchLoadMap = ref({});
   const isExpandAll = ref(false);
   const isSelectAll = ref(false);
-  const { switchStyle } = usePublicHooks();
-  const treeProps = {
-    value: "id",
-    label: "menuName",
-    children: "children"
-  };
+  const {switchStyle} = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -66,16 +57,16 @@ export function useRole(treeRef: Ref) {
   });
   const columns: TableColumnList = [
     {
-      label: "角色编号",
+      label: "岗位编号",
       prop: "id"
     },
     {
-      label: "角色名称",
-      prop: "roleName"
+      label: "岗位名称",
+      prop: "postName"
     },
     {
-      label: "角色标识",
-      prop: "roleCode"
+      label: "岗位标识",
+      prop: "postCode"
     },
     {
       label: "状态",
@@ -95,6 +86,7 @@ export function useRole(treeRef: Ref) {
       ),
       minWidth: 90
     },
+    {label:"排序",prop:"orderNum"},
     {
       label: "备注",
       prop: "remark",
@@ -104,7 +96,7 @@ export function useRole(treeRef: Ref) {
       label: "创建时间",
       prop: "creationTime",
       minWidth: 160,
-      formatter: ({ creationTime }) =>
+      formatter: ({creationTime}) =>
         dayjs(creationTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
@@ -115,7 +107,7 @@ export function useRole(treeRef: Ref) {
     }
   ];
 
-  async function onChange({ row, index }) {
+  async function onChange({row, index}) {
     ElMessageBox.confirm(
       `确认要<strong>${
         row.state === false ? "停用" : "启用"
@@ -140,7 +132,7 @@ export function useRole(treeRef: Ref) {
           }
         );
 
-        await changeRoleStatus(row.id, row.state);
+        await updatePostStatus(row.id, row.state);
 
         switchLoadMap.value[index] = Object.assign(
           {},
@@ -159,8 +151,8 @@ export function useRole(treeRef: Ref) {
   }
 
   async function handleDelete(row) {
-    await delRole([row.id]);
-    message(`您删除了角色名称为${row.roleName}的这条数据`, { type: "success" });
+    await delPost([row.id]);
+    message(`您删除了角色名称为${row.roleName}的这条数据`, {type: "success"});
     onSearch();
   }
 
@@ -180,11 +172,12 @@ export function useRole(treeRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
+    const {data} = await getPostList(toRaw(form));
     dataList.value = data.items;
     pagination.total = data.totalCount;
     loading.value = false;
   }
+
   const resetForm = formEl => {
     if (!formEl) return;
     formEl.resetFields();
@@ -194,20 +187,16 @@ export function useRole(treeRef: Ref) {
   async function openDialog(title = "新增", row?: FormItemProps) {
     let data: any = null;
     if (title == "修改") {
-      const response = await getRole(row?.id);
-      data = response.data;
+      data = (await getPost(row?.id)).data;
     }
     addDialog({
-      title: `${title}角色`,
+      title: `${title}岗位`,
       props: {
         formInline: {
-          roleName: row?.roleName ?? "",
-          roleCode: row?.roleCode ?? "",
+          postName: row?.postName ?? "",
+          postCode: row?.postCode ?? "",
           remark: row?.remark ?? "",
-          deptIds: data?.deptIds ?? [],
-          menuIds: data?.menuIds ?? [],
           orderNum: data?.orderNum ?? 0,
-          dataScope: data?.dataScope ?? "ALL"
         }
       },
       width: "40%",
@@ -215,27 +204,29 @@ export function useRole(treeRef: Ref) {
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef }),
-      beforeSure: (done, { options }) => {
+      contentRenderer: () => h(editForm, {ref: formRef}),
+      beforeSure: (done, {options}) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
+
         function chores() {
-          message(`您${title}了角色名称为${curData.roleName}的这条数据`, {
+          message(`您${title}了岗位名称为${curData.postName}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
+
         FormRef.validate(async valid => {
           if (valid) {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              await addRole(curData);
+              await addPost(curData);
               chores();
             } else {
               // 实际开发先调用修改接口，再进行下面操作
-              await updateRole(row?.id, curData);
+              await updatePost(row?.id, curData);
               chores();
             }
           }
@@ -244,48 +235,20 @@ export function useRole(treeRef: Ref) {
     });
   }
 
-  /** 菜单权限 */
-  async function handleMenu(row?: any) {
-    const { id } = row;
-    if (id) {
-      curRow.value = (await getRole(id)).data;
-      curRow.value.menuIds = (await getRoleMenuSelect(id)).data.map(m => m.id);
-      isShow.value = true;
-      nextTick(async () => {
-        treeRef.value.setCheckedKeys(curRow.value.menuIds);
-      });
-    } else {
-      curRow.value = null;
-      isShow.value = false;
-    }
-  }
-
   /** 高亮当前权限选中行 */
-  function rowStyle({ row: { id } }) {
+  function rowStyle({row: {id}}) {
     return {
       cursor: "pointer",
       background: id === curRow.value?.id ? "var(--el-fill-color-light)" : ""
     };
   }
 
-  /** 菜单权限-保存 */
-  async function handleSave() {
-    const { id, roleName } = curRow.value;
-    curRow.value.menuIds = treeRef.value.getCheckedKeys();
-    // 根据用户 id 调用实际项目中菜单权限修改接口
-    await updateRole(id, curRow.value);
-
-    message(`角色名称为${roleName}的菜单权限修改成功`, {
-      type: "success"
-    });
-  }
-
   /** 数据权限 可自行开发 */
-  // function handleDatabase() {}
+    // function handleDatabase() {}
 
   const onQueryChanged = (query: string) => {
-    treeRef.value!.filter(query);
-  };
+      treeRef.value!.filter(query);
+    };
 
   const filterMethod = (query: string, node) => {
     return transformI18n(node.title)!.includes(query);
@@ -293,9 +256,6 @@ export function useRole(treeRef: Ref) {
 
   onMounted(async () => {
     onSearch();
-    const data = (await getMenuOption()).data.items;
-    treeIds.value = getKeyList(data, "id");
-    treeData.value = handleTree(data);
   });
 
   watch(isExpandAll, val => {
@@ -319,7 +279,6 @@ export function useRole(treeRef: Ref) {
     rowStyle,
     dataList,
     treeData,
-    treeProps,
     isLinkage,
     pagination,
     isExpandAll,
@@ -328,13 +287,10 @@ export function useRole(treeRef: Ref) {
     onSearch,
     resetForm,
     openDialog,
-    handleMenu,
-    handleSave,
     handleDelete,
     filterMethod,
     transformI18n,
     onQueryChanged,
-    // handleDatabase,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

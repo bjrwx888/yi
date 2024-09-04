@@ -51,6 +51,15 @@ const systemManagementRouter = {
         title: "menus.pureDept",
         //roles: ["admin"]
       }
+    },
+    {
+      path: "/system/post/index",
+      name: "SystemPost",
+      meta: {
+        icon: "ant-design:deployment-unit-outlined",
+        title: "menus.purePost",
+        //roles: ["admin"]
+      }
     }
   ]
 };
@@ -328,7 +337,7 @@ export default defineFakeRoute([
       return [
         systemManagementRouter,
         systemMonitorRouter,
-        permissionRouter,
+        //permissionRouter,
         // frameRouter,
         // tabsRouter
       ];

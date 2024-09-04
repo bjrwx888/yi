@@ -1,7 +1,7 @@
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { addMenu, delMenu, getListMenu, updateMenu } from "@/api/system/menu";
+import {addMenu, delMenu, getListMenu, getMenu, updateMenu} from "@/api/system/menu";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
@@ -129,32 +129,32 @@ export function useMenu() {
   }
 
   async function openDialog(title = "新增", row?: FormItemProps) {
-    // let data: any = null;
-    // if (title == "修改") {
-    //   data = await getMenu(row.id);
-    // }
+    let data: any = null;
+    if (title == "修改") {
+      data = await getMenu(row.id);
+    }
     addDialog({
       title: `${title}菜单`,
       props: {
         formInline: {
           menuName: row?.menuName ?? "",
           menuType:
-            row?.menuType == undefined
+            data?.menuType == undefined
               ? 0
               : menuTypeOptions.findIndex(
                   option => option.value === row?.menuType
                 ),
           higherMenuOptions: formatHigherMenuOptions(cloneDeep(dataList.value)),
-          id: row?.id ?? "",
-          parentId: row?.parentId ?? 0,
-          router: row?.router ?? "",
-          component: row?.component ?? "",
-          orderNum: row?.orderNum ?? 0,
-          icon: row?.icon ?? "",
-          permissionCode: row?.permissionCode ?? "",
-          showLink: row?.isShow ?? true,
-          isLink: row?.isLink ?? false,
-          state: row?.state ?? true
+          id: data?.id ?? "",
+          parentId: data?.parentId ?? 0,
+          router: data?.router ?? "",
+          component: data?.component ?? "",
+          orderNum: data?.orderNum ?? 0,
+          icon: data?.icon ?? "",
+          permissionCode: data?.permissionCode ?? "",
+          showLink: data?.isShow ?? true,
+          isLink: data?.isLink ?? false,
+          state: data?.state ?? true
         }
       },
       width: "45%",
