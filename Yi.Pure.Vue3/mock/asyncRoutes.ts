@@ -101,17 +101,17 @@ const systemMonitorRouter = {
         title: "menus.pureOperationLog",
         //roles: ["admin"]
       }
-    },
-    {
-      path: "/monitor/system-logs",
-      component: "monitor/logs/system/index",
-      name: "SystemLog",
-      meta: {
-        icon: "ri:file-search-line",
-        title: "menus.pureSystemLog",
-        //roles: ["admin"]
-      }
     }
+    // {
+    //   path: "/monitor/system-logs",
+    //   component: "monitor/logs/system/index",
+    //   name: "SystemLog",
+    //   meta: {
+    //     icon: "ri:file-search-line",
+    //     title: "menus.pureSystemLog",
+    //     //roles: ["admin"]
+    //   }
+    // }
   ]
 };
 

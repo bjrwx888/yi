@@ -3,10 +3,13 @@ import { message } from "@/utils/message";
 import { getOnlineLogsList } from "@/api/system";
 import { reactive, ref, onMounted, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
+import {forceLogout, getOnlineList} from "@/api/monitor/online";
 
 export function useRole() {
   const form = reactive({
-    username: ""
+    userName: "",
+    skipCount: 1,
+    maxResultCount: 10
   });
   const dataList = ref([]);
   const loading = ref(true);
@@ -19,27 +22,27 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "序号",
-      prop: "id",
-      minWidth: 60
+      prop: "connnectionId",
+      minWidth: 200
     },
     {
       label: "用户名",
-      prop: "username",
+      prop: "userName",
       minWidth: 100
     },
     {
       label: "登录 IP",
-      prop: "ip",
+      prop: "ipaddr",
       minWidth: 140
     },
     {
       label: "登录地点",
-      prop: "address",
+      prop: "loginLocation",
       minWidth: 140
     },
     {
       label: "操作系统",
-      prop: "system",
+      prop: "os",
       minWidth: 100
     },
     {
@@ -49,10 +52,10 @@ export function useRole() {
     },
     {
       label: "登录时间",
-      prop: "loginTime",
+      prop: "creationTime",
       minWidth: 180,
-      formatter: ({ loginTime }) =>
-        dayjs(loginTime).format("YYYY-MM-DD HH:mm:ss")
+      formatter: ({ creationTime }) =>
+        dayjs(creationTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "操作",
@@ -62,33 +65,32 @@ export function useRole() {
   ];
 
   function handleSizeChange(val: number) {
-    console.log(`${val} items per page`);
+    form.maxResultCount = val;
+    onSearch();
   }
 
   function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+    form.skipCount = val;
+    onSearch();
   }
 
+  /** 当CheckBox选择项发生变化时会触发该事件 */
   function handleSelectionChange(val) {
-    console.log("handleSelectionChange", val);
+    console.log(val);
   }
 
-  function handleOffline(row) {
-    message(`${row.username}已被强制下线`, { type: "success" });
+  async function handleOffline(row) {
+    await forceLogout(row.connnectionId);
+    message(`${row.userName}已被强制下线`, { type: "success" });
     onSearch();
   }
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getOnlineLogsList(toRaw(form));
-    dataList.value = data.list;
-    pagination.total = data.total;
-    pagination.pageSize = data.pageSize;
-    pagination.currentPage = data.currentPage;
-
-    setTimeout(() => {
-      loading.value = false;
-    }, 500);
+    const { data } = await getOnlineList(toRaw(form));
+    dataList.value = data.items;
+    pagination.total = data.totalCount;
+    loading.value = false;
   }
 
   const resetForm = formEl => {
