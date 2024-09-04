@@ -18,6 +18,7 @@ namespace Yi.Framework.Ddd.Application.Contracts
         /// 排序列名，字段名对应前端
         /// </summary>
         public string? OrderByColumn { get; set; }
+
         /// <summary>
         /// 是否顺序，字段名对应前端
         /// </summary>
@@ -27,7 +28,9 @@ namespace Yi.Framework.Ddd.Application.Contracts
         /// 是否顺序
         /// </summary>
         public bool CanAsc => IsAsc?.ToLower() == "ascending" ? true : false;
+
         private string _sorting;
+
         //排序引用
         public new string? Sorting
         {
@@ -45,3 +48,4 @@ namespace Yi.Framework.Ddd.Application.Contracts
             set => _sorting = value;
         }
     }
+}
