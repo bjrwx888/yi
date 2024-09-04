@@ -320,9 +320,11 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="column"></param>
         protected virtual void EntityService(PropertyInfo property, EntityColumnInfo column)
         {
-            if (property.Name == "ConcurrencyStamp")
+            if (property.Name == nameof(IHasConcurrencyStamp.ConcurrencyStamp)) //带版本号并发更新
             {
-                column.IsIgnore = true;
+                // column.IsOnlyIgnoreInsert = true;
+                // column.IsOnlyIgnoreUpdate = true;
+                column.IsEnableUpdateVersionValidation = true;
             }
             if (property.PropertyType == typeof(ExtraPropertyDictionary))
             {

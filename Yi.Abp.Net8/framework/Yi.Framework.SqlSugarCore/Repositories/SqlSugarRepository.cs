@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using Microsoft.Extensions.Logging;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Auditing;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
@@ -372,6 +375,20 @@ namespace Yi.Framework.SqlSugarCore.Repositories
 
         public virtual async Task<bool> UpdateAsync(TEntity updateObj)
         {
+            if (typeof(TEntity).IsAssignableTo<IHasConcurrencyStamp>())//带版本号乐观锁更新
+            {
+                try
+                {
+                    int num =  await (await GetDbSimpleClientAsync())
+                        .Context.Updateable(updateObj).ExecuteCommandWithOptLockAsync(true);
+                    return num>0;
+                }
+                catch (VersionExceptions ex)
+                {
+ 
+                    throw new AbpDbConcurrencyException($"{ex.Message}[更新失败：ConcurrencyStamp不是最新版本],entityInfo：{updateObj}", ex);
+                }
+            }
             return await (await GetDbSimpleClientAsync()).UpdateAsync(updateObj);
         }
 
