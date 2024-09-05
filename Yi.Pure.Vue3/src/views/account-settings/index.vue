@@ -30,8 +30,8 @@ onBeforeMount(() => {
 
 const userInfo = ref({
   avatar: "",
-  username: "",
-  nickname: ""
+  userName: "",
+  nick: ""
 });
 const panes = [
   {

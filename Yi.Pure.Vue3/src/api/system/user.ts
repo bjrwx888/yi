@@ -1,5 +1,5 @@
 ﻿import { http } from "@/utils/http";
-import type { Result, ResultList, ResultPage } from "@/api/result";
+import type { Result, ResultPage } from "@/api/result";
 
 /** 获取系统管理-用户管理列表 */
 export const getUserList = (data?: object) => {
@@ -38,4 +38,28 @@ export const updateUser = (id: string, data: any) => {
 /** 新增用户 */
 export const addUser = (data: any) => {
   return http.request<Result>("post", `/user`, { data });
+};
+
+/** 查询用户个人信息 */
+export const getUserProfile = () => {
+  return http.request<Result>("get", `/account`, {});
+};
+
+/** 修改用户个人信息 */
+export const updateUserProfile = data => {
+  return http.request<Result>("put", `/user/profile`, { data });
+};
+
+/** 只修改用户头像 */
+export const updateUserIcon = data => {
+  return http.request<Result>("put", `/account/icon`, { data: { icon: data } });
+};
+
+/** 用户密码重置 */
+export const updateUserPwd = (oldPassword, newPassword) => {
+  const data = {
+    oldPassword,
+    newPassword
+  };
+  return http.request<Result>("put", `/account/password`, { data });
 };
