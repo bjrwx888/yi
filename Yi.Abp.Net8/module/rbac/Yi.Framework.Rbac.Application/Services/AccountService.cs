@@ -1,6 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Lazy.Captcha.Core;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,7 @@ using Yi.Framework.Rbac.Domain.Repositories;
 using Yi.Framework.Rbac.Domain.Shared.Caches;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.Rbac.Domain.Shared.Dtos;
+using Yi.Framework.Rbac.Domain.Shared.Etos;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -40,7 +43,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private readonly IAliyunManger _aliyunManger;
         private IDistributedCache<UserInfoCacheItem, UserInfoCacheKey> _userCache;
         private UserManager _userManager;
-
+        private IHttpContextAccessor _httpContextAccessor;
         public AccountService(IUserRepository userRepository,
             ICurrentUser currentUser,
             IAccountManager accountManager,
@@ -51,7 +54,7 @@ namespace Yi.Framework.Rbac.Application.Services
             IGuidGenerator guidGenerator,
             IOptions<RbacOptions> options,
             IAliyunManger aliyunManger,
-            UserManager userManager)
+            UserManager userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -64,6 +67,7 @@ namespace Yi.Framework.Rbac.Application.Services
             _aliyunManger = aliyunManger;
             _userCache = userCache;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -109,10 +113,21 @@ namespace Yi.Framework.Rbac.Application.Services
             //校验
             await _accountManager.LoginValidationAsync(input.UserName, input.Password, x => user = x);
 
+            var userInfo = new UserRoleMenuDto();
             //获取token
-            var accessToken = await _accountManager.GetTokenByUserIdAsync(user.Id);
+            var accessToken = await _accountManager.GetTokenByUserIdAsync(user.Id, (info) => userInfo = info);
             var refreshToken = _accountManager.CreateRefreshToken(user.Id);
 
+            //这里抛出一个登录的事件,也可以在全部流程走完，在应用层组装
+            if (_httpContextAccessor.HttpContext is not null)
+            {
+                var loginEntity = new LoginLogAggregateRoot().GetInfoByHttpContext(_httpContextAccessor.HttpContext);
+                var loginEto = loginEntity.Adapt<LoginEventArgs>();
+                loginEto.UserName = userInfo.User.UserName;
+                loginEto.UserId = userInfo.User.Id;
+                await LocalEventBus.PublishAsync(loginEto);
+            }
+            
             return new { Token = accessToken, RefreshToken = refreshToken };
         }
 

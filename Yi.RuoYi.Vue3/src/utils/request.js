@@ -25,21 +25,7 @@ const service = axios.create({
   timeout: 10000,
   //处理批零参数
   paramsSerializer:params => {
-    // return qs.stringify(params,{indices:false})
-  //  console.log(params,"params")
-//     if(params.id!=undefined)
-//     {
-//       if(Array.isArray(params.id) )
-//       {
-//         return "id="+params.id.join("&id=")
-//       }
-//       else
-//       {
-//         return "id="+params.id;
-//       }
-    
-//     }
-// return request.param(params);
+
 return qs.stringify(params, {arrayFormat: 'repeat'});
   },
 
