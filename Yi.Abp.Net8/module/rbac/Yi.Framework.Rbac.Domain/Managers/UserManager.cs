@@ -162,14 +162,23 @@ namespace Yi.Framework.Rbac.Domain.Managers
         }
 
         /// <summary>
-        /// 查询用户信息，已缓存
+        /// 查询用户信息，取消缓存
         /// </summary>
         /// <returns></returns>
         public async Task<UserRoleMenuDto> GetInfoAsync(Guid userId)
         {
-
-            var output = await GetInfoByCacheAsync(userId);
-            return output;
+            var user = await _userRepository.GetUserAllInfoAsync(userId);
+            var data = EntityMapToDto(user);
+            //系统用户数据被重置，老前端访问重新授权
+            if (data is null)
+            {
+                throw new AbpAuthorizationException();
+            }
+            //data.Menus.Clear();
+            // output = data;
+            return data;
+            // var output = await GetInfoByCacheAsync(userId);
+            // return output;
         }
         private async Task<UserRoleMenuDto> GetInfoByCacheAsync(Guid userId)
         {

@@ -66,7 +66,7 @@ export function useRole(tableRef: Ref) {
       label: "登录状态",
       prop: "state",
       minWidth: 100,
-      cellRenderer: ({ row, props }) => (
+      cellRenderer: ({ props }) => (
         <el-tag size={props.size} style={tagStyle.value(1)}>
           {1 === 1 ? "成功" : "失败"}
         </el-tag>

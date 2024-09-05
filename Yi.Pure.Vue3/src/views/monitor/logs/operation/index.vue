@@ -18,7 +18,6 @@ const tableRef = ref();
 
 const {
   form,
-  timeQuery,
   loading,
   columns,
   dataList,

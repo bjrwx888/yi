@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { getMineLogs } from "@/api/user";
+// import { getMineLogs } from "@/api/user";
 import { reactive, ref, onMounted } from "vue";
 import { deviceDetection } from "@pureadmin/utils";
 import type { PaginationProps } from "@pureadmin/table";
@@ -55,11 +55,11 @@ const columns: TableColumnList = [
 
 async function onSearch() {
   loading.value = true;
-  const { data } = await getMineLogs();
-  dataList.value = data.list;
-  pagination.total = data.total;
-  pagination.pageSize = data.pageSize;
-  pagination.currentPage = data.currentPage;
+  // const { data } = await getMineLogs();
+  // dataList.value = data.list;
+  // pagination.total = data.total;
+  // pagination.pageSize = data.pageSize;
+  // pagination.currentPage = data.currentPage;
 
   setTimeout(() => {
     loading.value = false;

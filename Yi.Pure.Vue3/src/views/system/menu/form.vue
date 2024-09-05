@@ -59,7 +59,6 @@ defineExpose({ getRef });
           <Segmented
             v-model="newFormInline.menuType"
             :options="menuTypeOptions"
-            @change="changeSegmented"
           />
         </el-form-item>
       </re-col>

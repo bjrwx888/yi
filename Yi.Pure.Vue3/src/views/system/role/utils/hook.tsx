@@ -16,8 +16,7 @@ import {
   updateRole,
   changeRoleStatus,
   delRole,
-  getRoleMenuSelect,
-  updataDataScope
+  getRoleMenuSelect
 } from "@/api/system/role";
 import { getMenuOption } from "@/api/system/menu";
 

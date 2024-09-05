@@ -73,7 +73,7 @@ export function useRole(tableRef: Ref) {
       label: "操作状态",
       prop: "status",
       minWidth: 100,
-      cellRenderer: ({ row, props }) => (
+      cellRenderer: ({ props }) => (
         <el-tag size={props.size} style={tagStyle.value(1)}>
           {1 === 1 ? "成功" : "失败"}
         </el-tag>
@@ -81,10 +81,10 @@ export function useRole(tableRef: Ref) {
     },
     {
       label: "操作时间",
-      prop: "operatingTime",
+      prop: "creationTime",
       minWidth: 180,
-      formatter: ({ operatingTime }) =>
-        dayjs(operatingTime).format("YYYY-MM-DD HH:mm:ss")
+      formatter: ({ creationTime }) =>
+        dayjs(creationTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "操作",

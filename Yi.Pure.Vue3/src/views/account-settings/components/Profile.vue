@@ -2,11 +2,19 @@
 import { reactive, ref } from "vue";
 import { formUpload } from "@/api/mock";
 import { message } from "@/utils/message";
-import { type UserInfo, getMine } from "@/api/user";
 import type { FormInstance, FormRules } from "element-plus";
 import ReCropperPreview from "@/components/ReCropperPreview";
 import { createFormData, deviceDetection } from "@pureadmin/utils";
 import uploadLine from "@iconify-icons/ri/upload-line";
+import { useUserStoreHook } from "@/store/modules/user";
+import {
+  getUserProfile,
+  updateUserIcon,
+  updateUserProfile
+} from "@/api/system/user";
+import userAvatar from "@/assets/user.jpg";
+import { getFileUrl } from "@/utils/file";
+import { uploadFile } from "@/api/file";
 
 defineOptions({
   name: "Profile"
@@ -20,15 +28,16 @@ const isShow = ref(false);
 const userInfoFormRef = ref<FormInstance>();
 
 const userInfos = reactive({
-  avatar: "",
-  nickname: "",
+  icon: "",
+  nick: "",
   email: "",
   phone: "",
-  description: ""
+  introduction: ""
 });
 
-const rules = reactive<FormRules<UserInfo>>({
-  nickname: [{ required: true, message: "昵称必填", trigger: "blur" }]
+const rules = reactive<FormRules>({
+  userName: [{ required: true, message: "用户名必填", trigger: "blur" }],
+  nick: [{ required: true, message: "昵称必填", trigger: "blur" }]
 });
 
 function queryEmail(queryString, callback) {
@@ -70,11 +79,13 @@ const onCropper = ({ blob }) => (cropperBlob.value = blob);
 
 const handleSubmitImage = () => {
   const formData = createFormData({
-    files: new File([cropperBlob.value], "avatar")
+    files: new File([cropperBlob.value], "file")
   });
-  formUpload(formData)
-    .then(({ success, data }) => {
-      if (success) {
+  uploadFile(formData)
+    .then(async ({ status, data }) => {
+      if (status == 200) {
+        await updateUserIcon(data[0].id);
+        useUserStoreHook().SET_AVATAR(data[0].id);
         message("更新头像成功", { type: "success" });
         handleClose();
       } else {
@@ -88,18 +99,17 @@ const handleSubmitImage = () => {
 
 // 更新信息
 const onSubmit = async (formEl: FormInstance) => {
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      console.log(userInfos);
+      await updateUserProfile(userInfos);
       message("更新信息成功", { type: "success" });
     } else {
       console.log("error submit!", fields);
     }
   });
 };
-
-getMine().then(res => {
-  Object.assign(userInfos, res.data);
+getUserProfile().then(res => {
+  Object.assign(userInfos, res.data.user);
 });
 </script>
 
@@ -118,7 +128,7 @@ getMine().then(res => {
       :model="userInfos"
     >
       <el-form-item label="头像">
-        <el-avatar :size="80" :src="userInfos.avatar" />
+        <el-avatar :size="80" :src="getFileUrl(userInfos.icon, userAvatar)" />
         <el-upload
           ref="uploadRef"
           accept="image/*"
@@ -135,7 +145,7 @@ getMine().then(res => {
         </el-upload>
       </el-form-item>
       <el-form-item label="昵称" prop="nickname">
-        <el-input v-model="userInfos.nickname" placeholder="请输入昵称" />
+        <el-input v-model="userInfos.nick" placeholder="请输入昵称" />
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-autocomplete
@@ -156,7 +166,7 @@ getMine().then(res => {
       </el-form-item>
       <el-form-item label="简介">
         <el-input
-          v-model="userInfos.description"
+          v-model="userInfos.introduction"
           placeholder="请输入简介"
           type="textarea"
           :autosize="{ minRows: 6, maxRows: 8 }"

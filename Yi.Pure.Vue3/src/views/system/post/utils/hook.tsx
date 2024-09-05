@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
-import {message} from "@/utils/message";
-import {ElMessageBox} from "element-plus";
-import {usePublicHooks} from "../../hooks";
-import {transformI18n} from "@/plugins/i18n";
-import {addDialog} from "@/components/ReDialog";
-import type {FormItemProps} from "../utils/types";
-import type {PaginationProps} from "@pureadmin/table";
-import {getKeyList, deviceDetection} from "@pureadmin/utils";
+import { message } from "@/utils/message";
+import { ElMessageBox } from "element-plus";
+import { usePublicHooks } from "../../hooks";
+import { transformI18n } from "@/plugins/i18n";
+import { addDialog } from "@/components/ReDialog";
+import type { FormItemProps } from "../utils/types";
+import type { PaginationProps } from "@pureadmin/table";
+import { deviceDetection } from "@pureadmin/utils";
 import {
   getPostList,
   addPost,
@@ -15,20 +15,11 @@ import {
   delPost,
   getPost,
   updatePostStatus
-} from "@/api/system/post"
+} from "@/api/system/post";
 
-import {
-  type Ref,
-  reactive,
-  ref,
-  onMounted,
-  h,
-  toRaw,
-  watch,
-  nextTick
-} from "vue";
+import { reactive, ref, onMounted, h, toRaw } from "vue";
 
-export function usePost(treeRef: Ref) {
+export function usePost() {
   const form = reactive({
     postName: "",
     postCode: "",
@@ -39,7 +30,6 @@ export function usePost(treeRef: Ref) {
   const curRow = ref();
   const formRef = ref();
   const dataList = ref([]);
-  const treeIds = ref([]);
   const treeData = ref([]);
   const isShow = ref(false);
   const loading = ref(true);
@@ -48,7 +38,7 @@ export function usePost(treeRef: Ref) {
   const switchLoadMap = ref({});
   const isExpandAll = ref(false);
   const isSelectAll = ref(false);
-  const {switchStyle} = usePublicHooks();
+  const { switchStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -86,7 +76,7 @@ export function usePost(treeRef: Ref) {
       ),
       minWidth: 90
     },
-    {label:"排序",prop:"orderNum"},
+    { label: "排序", prop: "orderNum" },
     {
       label: "备注",
       prop: "remark",
@@ -96,7 +86,7 @@ export function usePost(treeRef: Ref) {
       label: "创建时间",
       prop: "creationTime",
       minWidth: 160,
-      formatter: ({creationTime}) =>
+      formatter: ({ creationTime }) =>
         dayjs(creationTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
@@ -107,7 +97,7 @@ export function usePost(treeRef: Ref) {
     }
   ];
 
-  async function onChange({row, index}) {
+  async function onChange({ row, index }) {
     ElMessageBox.confirm(
       `确认要<strong>${
         row.state === false ? "停用" : "启用"
@@ -152,7 +142,7 @@ export function usePost(treeRef: Ref) {
 
   async function handleDelete(row) {
     await delPost([row.id]);
-    message(`您删除了角色名称为${row.roleName}的这条数据`, {type: "success"});
+    message(`您删除了角色名称为${row.roleName}的这条数据`, { type: "success" });
     onSearch();
   }
 
@@ -172,7 +162,7 @@ export function usePost(treeRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const {data} = await getPostList(toRaw(form));
+    const { data } = await getPostList(toRaw(form));
     dataList.value = data.items;
     pagination.total = data.totalCount;
     loading.value = false;
@@ -196,7 +186,7 @@ export function usePost(treeRef: Ref) {
           postName: row?.postName ?? "",
           postCode: row?.postCode ?? "",
           remark: row?.remark ?? "",
-          orderNum: data?.orderNum ?? 0,
+          orderNum: data?.orderNum ?? 0
         }
       },
       width: "40%",
@@ -204,8 +194,8 @@ export function usePost(treeRef: Ref) {
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, {ref: formRef}),
-      beforeSure: (done, {options}) => {
+      contentRenderer: () => h(editForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
 
@@ -236,7 +226,7 @@ export function usePost(treeRef: Ref) {
   }
 
   /** 高亮当前权限选中行 */
-  function rowStyle({row: {id}}) {
+  function rowStyle({ row: { id } }) {
     return {
       cursor: "pointer",
       background: id === curRow.value?.id ? "var(--el-fill-color-light)" : ""
@@ -244,11 +234,7 @@ export function usePost(treeRef: Ref) {
   }
 
   /** 数据权限 可自行开发 */
-    // function handleDatabase() {}
-
-  const onQueryChanged = (query: string) => {
-      treeRef.value!.filter(query);
-    };
+  // function handleDatabase() {}
 
   const filterMethod = (query: string, node) => {
     return transformI18n(node.title)!.includes(query);
@@ -256,18 +242,6 @@ export function usePost(treeRef: Ref) {
 
   onMounted(async () => {
     onSearch();
-  });
-
-  watch(isExpandAll, val => {
-    val
-      ? treeRef.value.setExpandedKeys(treeIds.value)
-      : treeRef.value.setExpandedKeys([]);
-  });
-
-  watch(isSelectAll, val => {
-    val
-      ? treeRef.value.setCheckedKeys(treeIds.value)
-      : treeRef.value.setCheckedKeys([]);
   });
 
   return {
@@ -290,7 +264,6 @@ export function usePost(treeRef: Ref) {
     handleDelete,
     filterMethod,
     transformI18n,
-    onQueryChanged,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

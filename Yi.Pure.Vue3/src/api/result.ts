@@ -17,3 +17,10 @@ export type ResultPage = {
     totalCount?: number;
   };
 };
+
+export type ResultFile = {
+  status: number;
+  data?: Array<{
+    id: string;
+  }>;
+};

@@ -1,16 +1,16 @@
 import "./reset.css";
 import dayjs from "dayjs";
 import editForm from "../form/index.vue";
-import {zxcvbn} from "@zxcvbn-ts/core";
-import {handleTree} from "@/utils/tree";
-import {message} from "@/utils/message";
+import { zxcvbn } from "@zxcvbn-ts/core";
+import { handleTree } from "@/utils/tree";
+import { message } from "@/utils/message";
 import userAvatar from "@/assets/user.jpg";
-import {getFileUrl} from "@/utils/file"
-import {usePublicHooks} from "../../hooks";
-import {addDialog} from "@/components/ReDialog";
-import type {PaginationProps} from "@pureadmin/table";
+import { getFileUrl } from "@/utils/file";
+import { usePublicHooks } from "../../hooks";
+import { addDialog } from "@/components/ReDialog";
+import type { PaginationProps } from "@pureadmin/table";
 import ReCropperPreview from "@/components/ReCropperPreview";
-import type {FormItemProps} from "../utils/types";
+import type { FormItemProps } from "../utils/types";
 import {
   getKeyList,
   isAllEmpty,
@@ -26,8 +26,8 @@ import {
   updateUser,
   getUserList
 } from "@/api/system/user";
-import {getRoleOption} from "@/api/system/role";
-import {getDeptList} from "@/api/system/dept";
+import { getRoleOption } from "@/api/system/role";
+import { getDeptList } from "@/api/system/dept";
 import {
   ElForm,
   ElInput,
@@ -63,7 +63,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
   // 上传头像信息
   const avatarInfo = ref();
   const switchLoadMap = ref({});
-  const {switchStyle} = usePublicHooks();
+  const { switchStyle } = usePublicHooks();
   const higherDeptOptions = ref();
   const treeData = ref([]);
   const treeLoading = ref(true);
@@ -89,12 +89,12 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     {
       label: "用户头像",
       prop: "avatar",
-      cellRenderer: ({row}) => (
+      cellRenderer: ({ row }) => (
         <el-image
           fit="cover"
           preview-teleported={true}
           src={getFileUrl(row.avatar, userAvatar)}
-          preview-src-list={Array.of(getFileUrl(row.avatar , userAvatar))}
+          preview-src-list={Array.of(getFileUrl(row.avatar, userAvatar))}
           class="w-[24px] h-[24px] rounded-full align-middle"
         />
       ),
@@ -114,7 +114,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       label: "性别",
       prop: "sex",
       minWidth: 90,
-      cellRenderer: ({row, props}) => (
+      cellRenderer: ({ row, props }) => (
         <el-tag
           size={props.size}
           type={row.sex === "Woman" ? "danger" : null}
@@ -133,8 +133,8 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       label: "手机号码",
       prop: "phone",
       minWidth: 90,
-      formatter: ({phone}) =>
-        phone == null ? "-" : hideTextAtIndex(phone, {start: 3, end: 6})
+      formatter: ({ phone }) =>
+        phone == null ? "-" : hideTextAtIndex(phone, { start: 3, end: 6 })
     },
     {
       label: "状态",
@@ -159,7 +159,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       label: "创建时间",
       minWidth: 90,
       prop: "creationTime",
-      formatter: ({creationTime}) =>
+      formatter: ({ creationTime }) =>
         dayjs(creationTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
@@ -183,17 +183,17 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     password: ""
   });
   const pwdProgress = [
-    {color: "#e74242", text: "非常弱"},
-    {color: "#EFBD47", text: "弱"},
-    {color: "#ffa500", text: "一般"},
-    {color: "#1bbf1b", text: "强"},
-    {color: "#008000", text: "非常强"}
+    { color: "#e74242", text: "非常弱" },
+    { color: "#EFBD47", text: "弱" },
+    { color: "#ffa500", text: "一般" },
+    { color: "#1bbf1b", text: "强" },
+    { color: "#008000", text: "非常强" }
   ];
   // 当前密码强度（0-4）
   const curScore = ref();
   const roleOptions = ref([]);
 
-  function onChange({row, index}) {
+  function onChange({ row, index }) {
     ElMessageBox.confirm(
       `确认要<strong>${
         row.state === 0 ? "停用" : "启用"
@@ -242,7 +242,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
 
   async function handleDelete(row) {
     await delUser([row.id]);
-    message(`您删除了用户编号为${row.id}的这条数据`, {type: "success"});
+    message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
     onSearch();
   }
 
@@ -286,7 +286,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const {data} = await getUserList(toRaw(form));
+    const { data } = await getUserList(toRaw(form));
     dataList.value = data.items;
     pagination.total = data.totalCount;
     // pagination.pageSize = data.pageSize;
@@ -305,7 +305,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     onSearch();
   };
 
-  function onTreeSelect({id, selected}) {
+  function onTreeSelect({ id, selected }) {
     form.deptId = selected ? id : "";
     onSearch();
   }
@@ -353,8 +353,8 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, {ref: formRef}),
-      beforeSure: (done, {options}) => {
+      contentRenderer: () => h(editForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
 
@@ -411,7 +411,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
 
   watch(
     pwdForm,
-    ({password}) =>
+    ({ password }) =>
       (curScore.value = isAllEmpty(password) ? -1 : zxcvbn(password).score)
   );
 
@@ -446,10 +446,10 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
             </ElFormItem>
           </ElForm>
           <div class="mt-4 flex">
-            {pwdProgress.map(({color, text}, idx) => (
+            {pwdProgress.map(({ color, text }, idx) => (
               <div
                 class="w-[19vw]"
-                style={{marginLeft: idx !== 0 ? "4px" : 0}}
+                style={{ marginLeft: idx !== 0 ? "4px" : 0 }}
               >
                 <ElProgress
                   striped
@@ -462,7 +462,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
                 />
                 <p
                   class="text-center"
-                  style={{color: curScore.value === idx ? color : ""}}
+                  style={{ color: curScore.value === idx ? color : "" }}
                 >
                   {text}
                 </p>
@@ -494,7 +494,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     onSearch();
 
     // 归属部门
-    const {data} = await getDeptList();
+    const { data } = await getDeptList();
     higherDeptOptions.value = handleTree(data.items);
     treeData.value = handleTree(data.items);
     treeLoading.value = false;

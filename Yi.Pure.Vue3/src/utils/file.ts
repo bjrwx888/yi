@@ -1,4 +1,4 @@
-import {isAllEmpty} from "@pureadmin/utils";
+import { isAllEmpty } from "@pureadmin/utils";
 
 export function getFileUrl(fileId: string, tryPath: string): string {
   if (isAllEmpty(fileId)) {

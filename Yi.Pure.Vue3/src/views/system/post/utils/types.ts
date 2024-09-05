@@ -9,7 +9,6 @@ interface FormItemProps {
   /** 备注 */
   remark: string;
   orderNum: number;
-
 }
 interface FormProps {
   formInline: FormItemProps;

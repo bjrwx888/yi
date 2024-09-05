@@ -28,7 +28,7 @@ export const updatePostStatus = (id, state) => {
 
 /** 删除岗位 */
 export const delPost = ids => {
-  return http.request<Result>("delete", `/post`, { params: { id:ids } });
+  return http.request<Result>("delete", `/post`, { params: { id: ids } });
 };
 
 /** 获取岗位选择框列表 */

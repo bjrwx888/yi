@@ -42,7 +42,7 @@ export const addUser = (data: any) => {
 
 /** 查询用户个人信息 */
 export const getUserProfile = () => {
-  return http.request<Result>("get", `/account`, {});
+  return http.request<UserInfoResult>("get", `/account`, {});
 };
 
 /** 修改用户个人信息 */
@@ -62,4 +62,30 @@ export const updateUserPwd = (oldPassword, newPassword) => {
     newPassword
   };
   return http.request<Result>("put", `/account/password`, { data });
+};
+
+export type UserInfoResult = {
+  status: number;
+  data: UserInfo;
+};
+
+export type UserInfo = {
+  user: {
+    /** 头像 */
+    icon: string;
+    /** 用户名 */
+    userName: string;
+    /** 昵称 */
+    nick: string;
+    /** 邮箱 */
+    email: string;
+    /** 联系电话 */
+    phone: string;
+    /** 简介 */
+    introduction: string;
+  };
+  /** 当前登录用户的角色 */
+  roleCodes: Array<string>;
+  /** 按钮级别权限 */
+  permissions: Array<string>;
 };

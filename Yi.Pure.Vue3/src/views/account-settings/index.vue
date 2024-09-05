@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getMine } from "@/api/user";
 import { useRouter } from "vue-router";
 import { ref, onBeforeMount } from "vue";
 import { ReText } from "@/components/ReText";
@@ -11,11 +10,14 @@ import AccountManagement from "./components/AccountManagement.vue";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
 import LaySidebarTopCollapse from "@/layout/components/lay-sidebar/components/SidebarTopCollapse.vue";
 
+import userAvatar from "@/assets/user.jpg";
+import { getFileUrl } from "@/utils/file";
 import leftLine from "@iconify-icons/ri/arrow-left-s-line";
 import ProfileIcon from "@iconify-icons/ri/user-3-line";
 import PreferencesIcon from "@iconify-icons/ri/settings-3-line";
 import SecurityLogIcon from "@iconify-icons/ri/window-line";
 import AccountManagementIcon from "@iconify-icons/ri/profile-line";
+import { getUserProfile } from "@/api/system/user";
 
 defineOptions({
   name: "AccountSettings"
@@ -29,7 +31,7 @@ onBeforeMount(() => {
 });
 
 const userInfo = ref({
-  avatar: "",
+  icon: "",
   userName: "",
   nick: ""
 });
@@ -40,12 +42,12 @@ const panes = [
     icon: ProfileIcon,
     component: Profile
   },
-  {
-    key: "preferences",
-    label: "偏好设置",
-    icon: PreferencesIcon,
-    component: Preferences
-  },
+  // {
+  //   key: "preferences",
+  //   label: "偏好设置",
+  //   icon: PreferencesIcon,
+  //   component: Preferences
+  // },
   {
     key: "securityLog",
     label: "安全日志",
@@ -61,8 +63,8 @@ const panes = [
 ];
 const witchPane = ref("profile");
 
-getMine().then(res => {
-  userInfo.value = res.data;
+getUserProfile().then(res => {
+  userInfo.value = res.data.user;
 });
 </script>
 
@@ -84,13 +86,13 @@ getMine().then(res => {
           </div>
         </el-menu-item>
         <div class="flex items-center ml-8 mt-4 mb-4">
-          <el-avatar :size="48" :src="userInfo.avatar" />
+          <el-avatar :size="48" :src="getFileUrl(userInfo.icon, userAvatar)" />
           <div class="ml-4 flex flex-col max-w-[130px]">
             <ReText class="font-bold !self-baseline">
-              {{ userInfo.nickname }}
+              {{ userInfo.nick }}
             </ReText>
             <ReText class="!self-baseline" type="info">
-              {{ userInfo.username }}
+              {{ userInfo.nick }}
             </ReText>
           </div>
         </div>
