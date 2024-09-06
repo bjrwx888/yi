@@ -15,10 +15,22 @@ namespace Yi.Framework.Rbac.Domain.Entities
     [SugarTable("Menu")]
     public partial class MenuAggregateRoot : AggregateRoot<Guid>, ISoftDelete, IAuditedObject, IOrderNum, IState
     {
-        public MenuAggregateRoot() { }
+        public MenuAggregateRoot()
+        {
+        }
 
-        public MenuAggregateRoot(Guid id) { Id = id; ParentId = Guid.Empty; }
-        public MenuAggregateRoot(Guid id, Guid parentId) { Id = id; ParentId = parentId; }
+        public MenuAggregateRoot(Guid id)
+        {
+            Id = id;
+            ParentId = Guid.Empty;
+        }
+
+        public MenuAggregateRoot(Guid id, Guid parentId)
+        {
+            Id = id;
+            ParentId = parentId;
+        }
+
         /// <summary>
         /// 主键
         /// </summary>
@@ -64,16 +76,19 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// 菜单名
         /// </summary>
         public string MenuName { get; set; } = string.Empty;
+
         /// <summary>
         ///  
         ///</summary>
         [SugarColumn(ColumnName = "MenuType")]
         public MenuTypeEnum MenuType { get; set; } = MenuTypeEnum.Menu;
+
         /// <summary>
         ///  
         ///</summary>
         [SugarColumn(ColumnName = "PermissionCode")]
         public string? PermissionCode { get; set; }
+
         /// <summary>
         ///  
         ///</summary>
@@ -85,21 +100,25 @@ namespace Yi.Framework.Rbac.Domain.Entities
         ///</summary>
         [SugarColumn(ColumnName = "MenuIcon")]
         public string? MenuIcon { get; set; }
+
         /// <summary>
         /// 菜单组件路由 
         ///</summary>
         [SugarColumn(ColumnName = "Router")]
         public string? Router { get; set; }
+
         /// <summary>
         /// 是否为外部链接 
         ///</summary>
         [SugarColumn(ColumnName = "IsLink")]
         public bool IsLink { get; set; }
+
         /// <summary>
         /// 是否缓存 
         ///</summary>
         [SugarColumn(ColumnName = "IsCache")]
         public bool IsCache { get; set; }
+
         /// <summary>
         /// 是否显示 
         ///</summary>
@@ -111,20 +130,20 @@ namespace Yi.Framework.Rbac.Domain.Entities
         ///</summary>
         [SugarColumn(ColumnName = "Remark")]
         public string? Remark { get; set; }
+
         /// <summary>
         /// 组件路径 
         ///</summary>
         [SugarColumn(ColumnName = "Component")]
         public string? Component { get; set; }
+
         /// <summary>
         /// 路由参数 
         ///</summary>
         [SugarColumn(ColumnName = "Query")]
         public string? Query { get; set; }
 
-        [SugarColumn(IsIgnore = true)]
-        public List<MenuAggregateRoot>? Children { get; set; }
-
+        [SugarColumn(IsIgnore = true)] public List<MenuAggregateRoot>? Children { get; set; }
     }
 
     /// <summary>
@@ -143,7 +162,6 @@ namespace Yi.Framework.Rbac.Domain.Entities
             List<Vue3RouterDto> routers = new();
             foreach (var m in menus)
             {
-
                 var r = new Vue3RouterDto();
                 r.OrderNum = m.OrderNum;
                 var routerName = m.Router?.Split("/").LastOrDefault();
@@ -171,6 +189,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
                         r.Component = "ParentView";
                     }
                 }
+
                 if (m.MenuType == MenuTypeEnum.Menu)
                 {
                     r.Redirect = "noRedirect";
@@ -178,6 +197,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
                     r.Component = m.Component!;
                     r.AlwaysShow = false;
                 }
+
                 r.Meta = new Meta
                 {
                     Title = m.MenuName!,
@@ -192,8 +212,20 @@ namespace Yi.Framework.Rbac.Domain.Entities
 
                 routers.Add(r);
             }
-            return TreeHelper.SetTree(routers);
 
+            return TreeHelper.SetTree(routers);
+        }
+
+        
+        /// <summary>
+        /// 构建vue3  pure路由
+        /// </summary>
+        /// <param name="menus"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static List<Vue3PureRouterDto> Vue3PureRouterBuild(this List<MenuAggregateRoot> menus)
+        {
+            throw new NotImplementedException();
         }
     }
 }
