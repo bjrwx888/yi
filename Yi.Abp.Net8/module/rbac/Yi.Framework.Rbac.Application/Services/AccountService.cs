@@ -275,11 +275,12 @@ namespace Yi.Framework.Rbac.Application.Services
         
         /// <summary>
         /// 获取当前登录用户的前端路由
+        /// 支持ruoyi/pure
         /// </summary>
         /// <returns></returns>
         [Authorize]
-        [Route("account/Vue3Router")]
-        public async Task<List<Vue3RouterDto>> GetVue3Router()
+        [Route("account/Vue3Router/{routerType?}")]
+        public async Task<object> GetVue3Router([FromRoute]string? routerType)
         {
             var userId = _currentUser.Id;
             if (_currentUser.Id is null)
@@ -296,10 +297,20 @@ namespace Yi.Framework.Rbac.Application.Services
                 menus = ObjectMapper.Map<List<MenuAggregateRoot>, List<MenuDto>>(await _menuRepository.GetListAsync());
             }
 
-            //将后端菜单转换成前端路由，组件级别需要过滤
-            List<Vue3RouterDto> routers =
-                ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3RouterBuild();
-            return routers;
+            object output = null;
+            if (routerType is null ||routerType=="ruoyi")
+            {
+                //将后端菜单转换成前端路由，组件级别需要过滤
+                output =
+                    ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3RuoYiRouterBuild();
+            }
+            else if (routerType =="pure")
+            {
+                //将后端菜单转换成前端路由，组件级别需要过滤
+                output =
+                    ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3PureRouterBuild();
+            }
+            return output;
         }
 
         /// <summary>
