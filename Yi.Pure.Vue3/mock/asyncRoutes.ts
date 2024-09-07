@@ -40,7 +40,7 @@ const testRouter = [
           frameLoading: null,
           keepAlive: null,
           showLink: true
-        },
+        }
       },
       {
         path: "/monitor/operation-logs",
@@ -50,7 +50,7 @@ const testRouter = [
           title: "操作日志",
           component: "monitor/logs/operation/index",
           showLink: true
-        },
+        }
       },
       {
         id: "580a7b97-15ab-6d43-d011-3a14dab3cadc",

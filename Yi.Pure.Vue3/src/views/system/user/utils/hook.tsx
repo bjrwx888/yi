@@ -84,7 +84,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
     {
       label: "用户编号",
       prop: "id",
-      width: 200
+      width: 300
     },
     {
       label: "用户头像",

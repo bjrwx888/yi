@@ -28,7 +28,7 @@ const modulesRoutes = import.meta.glob("/src/views/**/*.{vue,tsx}");
 
 // 动态路由
 // getAsyncRoutes
-import { getRoutes,getAsyncRoutes } from "@/api/routes";
+import { getRoutes } from "@/api/routes";
 
 function handRank(routeInfo: any) {
   const { name, path, parentId, meta } = routeInfo;

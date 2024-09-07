@@ -66,7 +66,9 @@ export function useRole(treeRef: Ref) {
   const columns: TableColumnList = [
     {
       label: "角色编号",
-      prop: "id"
+      prop: "id",
+      width: "300",
+      fixed: true
     },
     {
       label: "角色名称",
