@@ -1,6 +1,6 @@
 <h1 align="center"><img align="left" height="150px" src="https://ccnetcore.com/prod-api/wwwroot/logo.png"> Yi框架</h1>
 <h4 align="center">一套以用户体验出发的.Net8 Web开源框架</h4>
-<h5 align="center">支持Abp.vNext 版本原生版本、Furion版本，前端后台接入Ruoyi/Pure Vue3.0</h5>
+<h5 align="center">支持Abp.vNext 版本原生版本、Furion版本，前端接入Ruoyi/Pure Vue</h5>
 <h2 align="center">集大成者，终究轮子</h2>
 
 [![star](https://gitee.com/ccnetcore/yi/badge/star.svg?theme=dark)](https://gitee.com/ccnetcore/Yi)
