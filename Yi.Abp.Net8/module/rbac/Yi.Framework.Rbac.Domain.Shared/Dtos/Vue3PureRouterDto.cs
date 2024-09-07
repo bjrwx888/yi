@@ -2,10 +2,13 @@
 
 public class Vue3PureRouterDto
 {
+    public Guid Id { get; set; }
+    public Guid ParentId { get; set; }
     public string Path { get; set; }
     public string Name { get; set; }
     public MetaPureRouterDto Meta { get; set; } = new MetaPureRouterDto();
-
+    
+    public string? component { get; set; }
     public List<Vue3PureRouterDto>? Children { get; set; }
 }
 
@@ -13,11 +16,6 @@ public class MetaPureRouterDto
 {
     public string Icon { get; set; }
     public string Title { get; set; }
-
-    /// <summary>
-    /// 排序
-    /// </summary>
-    public string Rank { get; set; }
 
     public List<string>? Roles { get; set; }
 

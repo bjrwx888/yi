@@ -13,7 +13,7 @@ import {
   getLogin,
   getUserInfo,
   refreshTokenApi
-} from "@/api/user";
+} from "@/api/account";
 import { useMultiTagsStoreHook } from "./multiTags";
 import { type DataInfo, setToken, removeToken, userKey } from "@/utils/auth";
 

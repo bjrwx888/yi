@@ -48,7 +48,8 @@ export function usePost() {
   const columns: TableColumnList = [
     {
       label: "岗位编号",
-      prop: "id"
+      prop: "id",
+      width: 300
     },
     {
       label: "岗位名称",

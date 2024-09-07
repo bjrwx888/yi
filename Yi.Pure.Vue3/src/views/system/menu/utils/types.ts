@@ -8,11 +8,13 @@ interface FormItemProps {
   router: string;
   component: string;
   orderNum: number;
-  icon: string;
+  menuIcon: string;
   permissionCode: string;
   isShow: boolean;
   isLink: boolean;
   state: boolean;
+  routerName: string;
+  menuSource: string;
 }
 interface FormProps {
   formInline: FormItemProps;

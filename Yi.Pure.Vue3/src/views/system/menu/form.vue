@@ -28,11 +28,13 @@ const props = withDefaults(defineProps<FormProps>(), {
     router: "",
     component: "",
     orderNum: 0,
-    icon: "",
+    menuIcon: "",
     permissionCode: "",
     isShow: true,
     isLink: false,
-    state: true
+    state: true,
+    routerName: "",
+    menuSource: "Pure"
   })
 });
 
@@ -93,7 +95,7 @@ defineExpose({ getRef });
         :sm="24"
       >
         <el-form-item label="菜单图标">
-          <IconSelect v-model="newFormInline.icon" class="w-full" />
+          <IconSelect v-model="newFormInline.menuIcon" class="w-full" />
         </el-form-item>
       </re-col>
       <re-col :value="12" :xs="24" :sm="24">

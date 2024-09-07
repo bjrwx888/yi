@@ -42,12 +42,12 @@ const dataList = ref([
   {
     title: "响应体",
     name: "requestResult",
-    data: (props.data[0] as any).requestResult
+    data: (props.data[0] as any)?.requestResult
   },
   {
     title: "请求体",
     name: "requestParam",
-    data: (props.data[0] as any).requestParam
+    data: (props.data[0] as any)?.requestParam
   }
 ]);
 </script>

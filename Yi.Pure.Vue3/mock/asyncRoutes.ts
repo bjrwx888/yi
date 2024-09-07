@@ -7,6 +7,72 @@ import { system, monitor } from "@/router/enums";
  * admin：管理员角色
  * common：普通角色
  */
+const testRouter = [
+  {
+    id: "906c8094-21a1-1042-f151-3a14dab3cadb",
+    parentId: "00000000-0000-0000-0000-000000000000",
+    path: "/monitor",
+    name: null,
+    meta: {
+      icon: "menus.pureSysMonitor",
+      title: "系统监控",
+      component: null,
+      roles: null,
+      auths: [null],
+      frameSrc: null,
+      frameLoading: null,
+      keepAlive: null,
+      showLink: true
+    },
+    children: [
+      {
+        id: "c765691a-32e4-4e88-6e8a-3a14dab3cadb",
+        parentId: "906c8094-21a1-1042-f151-3a14dab3cadb",
+        path: "/monitor/online-user",
+        name: "OnlineUser",
+        meta: {
+          icon: "ri:user-voice-line",
+          title: "在线用户",
+          component: null,
+          roles: null,
+          auths: ["monitor:online:list"],
+          frameSrc: null,
+          frameLoading: null,
+          keepAlive: null,
+          showLink: true
+        }
+      },
+      {
+        path: "/monitor/operation-logs",
+        name: "OperationLog",
+        meta: {
+          icon: "ri:history-fill",
+          title: "操作日志",
+          component: "monitor/logs/operation/index",
+          showLink: true
+        }
+      },
+      {
+        id: "580a7b97-15ab-6d43-d011-3a14dab3cadc",
+        parentId: "906c8094-21a1-1042-f151-3a14dab3cadb",
+        path: "/monitor/login-logs",
+        name: "LoginLog",
+        meta: {
+          icon: "ri:window-line",
+          title: "登录日志",
+          component: "monitor/logs/login/index",
+          roles: null,
+          auths: ["monitor:logininfor:list"],
+          frameSrc: null,
+          frameLoading: null,
+          keepAlive: null,
+          showLink: true
+        },
+        children: null
+      }
+    ]
+  }
+];
 
 const systemManagementRouter = {
   path: "/system",
@@ -334,6 +400,7 @@ export default defineFakeRoute([
     url: `/dev-api/get-async-routes`,
     method: "get",
     response: () => {
+      return testRouter;
       return [
         systemManagementRouter,
         systemMonitorRouter

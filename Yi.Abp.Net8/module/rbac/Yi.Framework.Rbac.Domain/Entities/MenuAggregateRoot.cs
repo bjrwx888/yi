@@ -1,4 +1,6 @@
-﻿using SqlSugar;
+﻿using System.Web;
+using NUglify.Helpers;
+using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
@@ -75,7 +77,12 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// <summary>
         /// 菜单名
         /// </summary>
-        public string MenuName { get; set; } = string.Empty;
+        public string MenuName { get; set; } 
+
+        /// <summary>
+        /// 路由名称
+        /// </summary>
+        public string? RouterName { get; set; }
 
         /// <summary>
         ///  
@@ -138,6 +145,11 @@ namespace Yi.Framework.Rbac.Domain.Entities
         public string? Component { get; set; }
 
         /// <summary>
+        /// 菜单来源
+        /// </summary>
+        public MenuSourceEnum MenuSource { get; set; } = MenuSourceEnum.Ruoyi;
+
+        /// <summary>
         /// 路由参数 
         ///</summary>
         [SugarColumn(ColumnName = "Query")]
@@ -156,9 +168,13 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// </summary>
         /// <param name="menus"></param>
         /// <returns></returns>
-        public static List<Vue3RouterDto> Vue3RouterBuild(this List<MenuAggregateRoot> menus)
+        public static List<Vue3RouterDto> Vue3RuoYiRouterBuild(this List<MenuAggregateRoot> menus)
         {
-            menus = menus.Where(m => m.MenuType != MenuTypeEnum.Component).ToList();
+            menus = menus
+                .Where(m => m.State == true)
+                .Where(m => m.MenuType != MenuTypeEnum.Component)
+                .Where(m => m.MenuSource == MenuSourceEnum.Ruoyi)
+                .ToList();
             List<Vue3RouterDto> routers = new();
             foreach (var m in menus)
             {
@@ -216,16 +232,58 @@ namespace Yi.Framework.Rbac.Domain.Entities
             return TreeHelper.SetTree(routers);
         }
 
-        
+
         /// <summary>
         /// 构建vue3  pure路由
         /// </summary>
         /// <param name="menus"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public static List<Vue3PureRouterDto> Vue3PureRouterBuild(this List<MenuAggregateRoot> menus)
         {
-            throw new NotImplementedException();
+            //pure的菜单为树形
+            var allRouters = menus
+                .Where(m => m.State == true)
+                .Where(m => m.MenuType != MenuTypeEnum.Component)
+                .Where(m => m.MenuSource == MenuSourceEnum.Pure)
+                .Select(m => new Vue3PureRouterDto
+                {
+                    Path =m.Router.StartsWith("/")?m.Router:"/"+m.Router,
+                    Name =m.IsLink==true?"Link": m.RouterName,
+                    component = m.Component,
+                    Meta = new MetaPureRouterDto()
+                    {
+                        showLink = m.IsShow,
+                        FrameSrc = m.IsLink == true ? m.Router : null,
+                        Auths = new List<string>() { m.PermissionCode },
+                        Icon = m.MenuIcon,
+                        Title = m.MenuName,
+                        
+                    },
+                    Children =null,
+                    Id = m.Id,
+                    ParentId = m.ParentId
+                })
+                .ToList();
+
+            
+            var routerDic = allRouters.GroupBy(x => x.ParentId).ToDictionary(x => x.Key,y=>y.ToList());
+            //根路由
+            if (!routerDic.TryGetValue(Guid.Empty, out var rootRouters))
+            {
+                return new List<Vue3PureRouterDto>();
+            }
+            Stack<Vue3PureRouterDto> stack = new Stack<Vue3PureRouterDto>(rootRouters);
+            while (stack.Count > 0)
+            {
+                var currentRouter = stack.Pop();
+                if (routerDic.TryGetValue(currentRouter.Id, out var items))
+                {
+                    currentRouter.Children = items;
+                    items?.ForEach(x => stack.Push(x));
+                }
+            }
+
+            return rootRouters;
         }
     }
 }

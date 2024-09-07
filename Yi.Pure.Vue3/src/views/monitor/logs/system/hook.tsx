@@ -1,11 +1,8 @@
 import dayjs from "dayjs";
-import Detail from "../detail.vue";
 import { message } from "@/utils/message";
-import { addDialog } from "@/components/ReDialog";
 import type { PaginationProps } from "@pureadmin/table";
-import { type Ref, reactive, ref, onMounted, toRaw } from "vue";
+import { type Ref, reactive, ref, onMounted } from "vue";
 import { getKeyList, useCopyToClipboard } from "@pureadmin/utils";
-import { getSystemLogsList, getSystemLogsDetail } from "@/api/system";
 import Info from "@iconify-icons/ri/question-line";
 
 export function useRole(tableRef: Ref) {
@@ -189,28 +186,29 @@ export function useRole(tableRef: Ref) {
   }
 
   function onDetail(row) {
-    getSystemLogsDetail({ id: row.id }).then(res => {
-      addDialog({
-        title: "系统日志详情",
-        fullscreen: true,
-        hideFooter: true,
-        contentRenderer: () => Detail,
-        props: {
-          data: [res]
-        }
-      });
-    });
+    console.log(row);
+    // getSystemLogsDetail({ id: row.id }).then(res => {
+    //   addDialog({
+    //     title: "系统日志详情",
+    //     fullscreen: true,
+    //     hideFooter: true,
+    //     contentRenderer: () => Detail,
+    //     props: {
+    //       data: [res]
+    //     }
+    //   });
+    // });
   }
 
   async function onSearch() {
-    loading.value = true;
-    const { data } = await getSystemLogsList(toRaw(form));
-    dataList.value = data.items;
-    pagination.total = data.totalCount;
-
-    setTimeout(() => {
-      loading.value = false;
-    }, 500);
+    // loading.value = true;
+    // const { data } = await getSystemLogsList(toRaw(form));
+    // dataList.value = data.items;
+    // pagination.total = data.totalCount;
+    //
+    // setTimeout(() => {
+    //   loading.value = false;
+    // }, 500);
   }
 
   const resetForm = formEl => {

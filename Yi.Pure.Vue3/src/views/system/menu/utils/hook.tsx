@@ -18,7 +18,8 @@ import { menuTypeOptions } from "@/views/system/menu/utils/enums";
 
 export function useMenu() {
   const form = reactive({
-    menuName: ""
+    menuName: "",
+    menuSource: "Pure"
   });
 
   const formRef = ref();
@@ -44,7 +45,7 @@ export function useMenu() {
       cellRenderer: ({ row }) => (
         <>
           <span class="inline-block mr-1">
-            {h(useRenderIcon(row.icon), {
+            {h(useRenderIcon(row.menuIcon), {
               style: { paddingTop: "1px" }
             })}
           </span>
@@ -137,7 +138,7 @@ export function useMenu() {
   async function openDialog(title = "新增", row?: FormItemProps) {
     let data: any = null;
     if (title == "修改") {
-      data = await getMenu(row.id);
+      data = (await getMenu(row.id)).data;
     }
     addDialog({
       title: `${title}菜单`,
@@ -156,11 +157,13 @@ export function useMenu() {
           router: data?.router ?? "",
           component: data?.component ?? "",
           orderNum: data?.orderNum ?? 0,
-          icon: data?.icon ?? "",
+          menuIcon: data?.menuIcon ?? "",
           permissionCode: data?.permissionCode ?? "",
           showLink: data?.isShow ?? true,
           isLink: data?.isLink ?? false,
-          state: data?.state ?? true
+          state: data?.state ?? true,
+          routerName: data?.routerName ?? "",
+          menuSource: data?.menuSource ?? "Pure"
         }
       },
       width: "45%",
