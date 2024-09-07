@@ -564,7 +564,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
 
                 MenuName = "Yi框架",
                 MenuType = MenuTypeEnum.Catalogue,
-                Router = "https://gitee.com/ccnetcore/yi",
+                Router = "https://ccnetcore.com",
                 IsShow = true,
                 IsLink = true,
                 MenuIcon = "guide",

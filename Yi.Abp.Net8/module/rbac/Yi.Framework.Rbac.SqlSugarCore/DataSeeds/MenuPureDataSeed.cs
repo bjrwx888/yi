@@ -44,7 +44,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 MenuName = "系统监控",
                 MenuType = MenuTypeEnum.Catalogue,
                 Router = "/monitor",
-                MenuIcon = "menus.pureSysMonitor",
+                MenuIcon = "ep:monitor",
                 OrderNum = 99,
             };
             entities.Add(monitoring);
@@ -68,13 +68,13 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
             //Yi框架
             MenuAggregateRoot guide = new MenuAggregateRoot(_guidGenerator.Create())
             {
-
                 MenuName = "Yi框架",
                 MenuType = MenuTypeEnum.Catalogue,
-                Router = "https://gitee.com/ccnetcore/yi",
+                Router = "https://ccnetcore.com",
                 IsLink = true,
-                MenuIcon = "guide",
+                MenuIcon = "ri:at-line",
                 OrderNum = 90,
+                Component = null
             };
             entities.Add(guide);
             

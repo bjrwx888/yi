@@ -231,10 +231,11 @@ namespace Yi.Framework.Rbac.Domain.Managers
 
             var userRoleMenu = new UserRoleMenuDto();
             //首先获取到该用户全部信息，导航到角色、菜单，(菜单需要去重,完全交给Set来处理即可)
-            //if (user is null)
-            //{
-            //    throw new UserFriendlyException($"数据错误，用户id：{nameof(userId)} 不存在，请重新登录");
-            //}
+            if (user is null)
+            {
+                //为了解决token前端缓存，后端数据库重新dbseed
+                throw new UserFriendlyException($"数据错误，查询用户不存在，请重新登录");
+            }
             user.EncryPassword.Password = string.Empty;
             user.EncryPassword.Salt = string.Empty;
 

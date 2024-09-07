@@ -1,4 +1,5 @@
-﻿using NUglify.Helpers;
+﻿using System.Web;
+using NUglify.Helpers;
 using SqlSugar;
 using Volo.Abp;
 using Volo.Abp.Auditing;
@@ -246,8 +247,8 @@ namespace Yi.Framework.Rbac.Domain.Entities
                 .Where(m => m.MenuSource == MenuSourceEnum.Pure)
                 .Select(m => new Vue3PureRouterDto
                 {
-                    Path = m.Router.StartsWith("/")?m.Router:"/"+m.Router,
-                    Name = m.RouterName,
+                    Path =m.Router.StartsWith("/")?m.Router:"/"+m.Router,
+                    Name =m.IsLink==true?"Link": m.RouterName,
                     component = m.Component,
                     Meta = new MetaPureRouterDto()
                     {
