@@ -4,7 +4,7 @@ set SERVER_USER=root
 set SERVER_IP=ccnetcore.com
 set FILE_PATH=publish_ruoyi_02.zip
 set REMOTE_PATH=/home/yi/build/publish_ruoyi_02.zip
-set REMOTE_COMMAND="cd /home/yi/ruoyi&&pwd&&unzip -o /home/yi/build/publish_ruoyi_02.zip  -d ./"
+set REMOTE_COMMAND="cd /home/yi/demo-rbac&&pwd&&unzip -o /home/yi/build/publish_ruoyi_02.zip  -d ./"
 set sevenzip_Path="D:\Program Files\7-Zip\7z.exe"
 
 echo start
