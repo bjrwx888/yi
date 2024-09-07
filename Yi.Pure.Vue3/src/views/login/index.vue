@@ -58,8 +58,8 @@ const { title, getDropdownItemStyle, getDropdownItemClass } = useNav();
 const { locale, translationCh, translationEn } = useTranslationLang();
 
 const ruleForm = reactive({
-  username: "cc",
-  password: "123456",
+  username: "",
+  password: "",
   verifyCode: "",
   uuid: ""
 });
@@ -100,7 +100,7 @@ const onLogin = async (formEl: FormInstance | undefined) => {
             message(t("login.pureLoginFail"), { type: "error" });
           }
         })
-        .catch(err => {
+        .catch(() => {
           getCode();
         })
         .finally(() => (loading.value = false));
@@ -137,7 +137,7 @@ getCode();
 
 <template>
   <div class="select-none">
-    <img :src="bg" class="wave" />
+    <img :src="bg" class="wave" alt="" />
     <div class="flex-c absolute right-5 top-3">
       <!-- 主题 -->
       <el-switch
