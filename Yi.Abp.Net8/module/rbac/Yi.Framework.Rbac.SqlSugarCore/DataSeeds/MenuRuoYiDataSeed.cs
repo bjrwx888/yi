@@ -7,11 +7,11 @@ using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
 {
-    public class MenuDataSeed : IDataSeedContributor, ITransientDependency
+    public class MenuRuoYiDataSeed : IDataSeedContributor, ITransientDependency
     {
         private ISqlSugarRepository<MenuAggregateRoot> _repository;
         private IGuidGenerator _guidGenerator;
-        public MenuDataSeed(ISqlSugarRepository<MenuAggregateRoot> repository, IGuidGenerator guidGenerator)
+        public MenuRuoYiDataSeed(ISqlSugarRepository<MenuAggregateRoot> repository, IGuidGenerator guidGenerator)
         {
             _repository = repository;
             _guidGenerator = guidGenerator;
@@ -19,7 +19,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
 
         public async Task SeedAsync(DataSeedContext context)
         {
-            if (!await _repository.IsAnyAsync(x => x.MenuName == "系统管理"))
+            if (!await _repository.IsAnyAsync(x => x.MenuName == "系统管理"&&x.MenuSource==MenuSourceEnum.Ruoyi))
             {
                 await _repository.InsertManyAsync(GetSeedData());
             }
@@ -54,7 +54,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 IsLink = false,
                 MenuIcon = "build",
                 OrderNum = 91,
-                IsDeleted = false
+                IsDeleted = false,
             };
             entities.Add(code);
 
@@ -229,332 +229,332 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
             entities.Add(swagger);
 
 
-            //ERP
-            MenuAggregateRoot erp = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-                MenuName = "ERP(待更新)",
-                MenuType = MenuTypeEnum.Catalogue,
-                Router = "/erp",
-                IsShow = true,
-                IsLink = false,
-                MenuIcon = "international",
-                OrderNum = 96,
-                IsDeleted = false
-            };
-            entities.Add(erp);
-
-
-
-            //供应商定义
-            MenuAggregateRoot supplier = new MenuAggregateRoot(_guidGenerator.Create(), erp.Id)
-            {
-                MenuName = "供应商定义",
-                PermissionCode = "erp:supplier:list",
-                MenuType = MenuTypeEnum.Menu,
-                Router = "supplier",
-                IsShow = true,
-                IsLink = false,
-                IsCache = true,
-                Component = "erp/supplier/index",
-                MenuIcon = "education",
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(supplier);
-
-            MenuAggregateRoot supplierQuery = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
-            {
-                MenuName = "供应商查询",
-                PermissionCode = "erp:supplier:query",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(supplierQuery);
-
-            MenuAggregateRoot supplierAdd = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
-            {
-                MenuName = "供应商新增",
-                PermissionCode = "erp:supplier:add",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-
-                IsDeleted = false
-            };
-            entities.Add(supplierAdd);
-
-            MenuAggregateRoot supplierEdit = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
-            {
-                MenuName = "供应商修改",
-                PermissionCode = "erp:supplier:edit",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(supplierEdit);
-
-            MenuAggregateRoot supplierRemove = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
-            {
-                MenuName = "供应商删除",
-                PermissionCode = "erp:supplier:remove",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(supplierRemove);
-
-
-            //仓库定义
-            MenuAggregateRoot warehouse = new MenuAggregateRoot(_guidGenerator.Create(), erp.Id)
-            {
-                MenuName = "仓库定义",
-                PermissionCode = "erp:warehouse:list",
-                MenuType = MenuTypeEnum.Menu,
-                Router = "warehouse",
-                IsShow = true,
-                IsLink = false,
-                IsCache = true,
-                Component = "erp/warehouse/index",
-                MenuIcon = "education",
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(warehouse);
-
-            MenuAggregateRoot warehouseQuery = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
-            {
-                MenuName = "仓库查询",
-                PermissionCode = "erp:warehouse:query",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = warehouse.Id,
-                IsDeleted = false
-            };
-            entities.Add(warehouseQuery);
-
-            MenuAggregateRoot warehouseAdd = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
-            {
-                MenuName = "仓库新增",
-                PermissionCode = "erp:warehouse:add",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(warehouseAdd);
-
-            MenuAggregateRoot warehouseEdit = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
-            {
-                MenuName = "仓库修改",
-                PermissionCode = "erp:warehouse:edit",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(warehouseEdit);
-
-            MenuAggregateRoot warehouseRemove = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
-            {
-                MenuName = "仓库删除",
-                PermissionCode = "erp:warehouse:remove",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(warehouseRemove);
-
-
-            //单位定义
-            MenuAggregateRoot unit = new MenuAggregateRoot(_guidGenerator.Create(), erp.Id)
-            {
-                MenuName = "单位定义",
-                PermissionCode = "erp:unit:list",
-                MenuType = MenuTypeEnum.Menu,
-                Router = "unit",
-                IsShow = true,
-                IsLink = false,
-                IsCache = true,
-                Component = "erp/unit/index",
-                MenuIcon = "education",
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(unit);
-
-            MenuAggregateRoot unitQuery = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
-            {
-                MenuName = "单位查询",
-                PermissionCode = "erp:unit:query",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(unitQuery);
-
-            MenuAggregateRoot unitAdd = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
-            {
-                MenuName = "单位新增",
-                PermissionCode = "erp:unit:add",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(unitAdd);
-
-            MenuAggregateRoot unitEdit = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
-            {
-                MenuName = "单位修改",
-                PermissionCode = "erp:unit:edit",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(unitEdit);
-
-            MenuAggregateRoot unitRemove = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
-            {
-                MenuName = "单位删除",
-                PermissionCode = "erp:unit:remove",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                IsDeleted = false
-            };
-            entities.Add(unitRemove);
-
-
-            //物料定义
-            MenuAggregateRoot material = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "物料定义",
-                PermissionCode = "erp:material:list",
-                MenuType = MenuTypeEnum.Menu,
-                Router = "material",
-                IsShow = true,
-                IsLink = false,
-                IsCache = true,
-                Component = "erp/material/index",
-                MenuIcon = "education",
-                OrderNum = 100,
-                ParentId = erp.Id,
-                IsDeleted = false
-            };
-            entities.Add(material);
-
-            MenuAggregateRoot materialQuery = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "物料查询",
-                PermissionCode = "erp:material:query",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = material.Id,
-                IsDeleted = false
-            };
-            entities.Add(materialQuery);
-
-            MenuAggregateRoot materialAdd = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "物料新增",
-                PermissionCode = "erp:material:add",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = material.Id,
-                IsDeleted = false
-            };
-            entities.Add(materialAdd);
-
-            MenuAggregateRoot materialEdit = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "物料修改",
-                PermissionCode = "erp:material:edit",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = material.Id,
-                IsDeleted = false
-            };
-            entities.Add(materialEdit);
-
-            MenuAggregateRoot materialRemove = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "物料删除",
-                PermissionCode = "erp:material:remove",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = material.Id,
-                IsDeleted = false
-            };
-            entities.Add(materialRemove);
-
-
-            //采购订单
-            MenuAggregateRoot purchase = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "采购订单",
-                PermissionCode = "erp:purchase:list",
-                MenuType = MenuTypeEnum.Menu,
-                Router = "purchase",
-                IsShow = true,
-                IsLink = false,
-                IsCache = true,
-                Component = "erp/purchase/index",
-                MenuIcon = "education",
-                OrderNum = 100,
-                ParentId = erp.Id,
-                IsDeleted = false
-            };
-            entities.Add(purchase);
-
-            MenuAggregateRoot purchaseQuery = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "采购订单查询",
-                PermissionCode = "erp:purchase:query",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = purchase.Id,
-                IsDeleted = false
-            };
-            entities.Add(purchaseQuery);
-
-            MenuAggregateRoot purchaseAdd = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "采购订单新增",
-                PermissionCode = "erp:purchase:add",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = purchase.Id,
-                IsDeleted = false
-            };
-            entities.Add(purchaseAdd);
-
-            MenuAggregateRoot purchaseEdit = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "采购订单修改",
-                PermissionCode = "erp:purchase:edit",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = purchase.Id,
-                IsDeleted = false
-            };
-            entities.Add(purchaseEdit);
-
-            MenuAggregateRoot purchaseRemove = new MenuAggregateRoot(_guidGenerator.Create())
-            {
-
-                MenuName = "采购订单删除",
-                PermissionCode = "erp:purchase:remove",
-                MenuType = MenuTypeEnum.Component,
-                OrderNum = 100,
-                ParentId = purchase.Id,
-                IsDeleted = false
-            };
-            entities.Add(purchaseRemove);
+            // //ERP
+            // MenuAggregateRoot erp = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //     MenuName = "ERP(待更新)",
+            //     MenuType = MenuTypeEnum.Catalogue,
+            //     Router = "/erp",
+            //     IsShow = true,
+            //     IsLink = false,
+            //     MenuIcon = "international",
+            //     OrderNum = 96,
+            //     IsDeleted = false
+            // };
+            // entities.Add(erp);
+            //
+            //
+            //
+            // //供应商定义
+            // MenuAggregateRoot supplier = new MenuAggregateRoot(_guidGenerator.Create(), erp.Id)
+            // {
+            //     MenuName = "供应商定义",
+            //     PermissionCode = "erp:supplier:list",
+            //     MenuType = MenuTypeEnum.Menu,
+            //     Router = "supplier",
+            //     IsShow = true,
+            //     IsLink = false,
+            //     IsCache = true,
+            //     Component = "erp/supplier/index",
+            //     MenuIcon = "education",
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(supplier);
+            //
+            // MenuAggregateRoot supplierQuery = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
+            // {
+            //     MenuName = "供应商查询",
+            //     PermissionCode = "erp:supplier:query",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(supplierQuery);
+            //
+            // MenuAggregateRoot supplierAdd = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
+            // {
+            //     MenuName = "供应商新增",
+            //     PermissionCode = "erp:supplier:add",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //
+            //     IsDeleted = false
+            // };
+            // entities.Add(supplierAdd);
+            //
+            // MenuAggregateRoot supplierEdit = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
+            // {
+            //     MenuName = "供应商修改",
+            //     PermissionCode = "erp:supplier:edit",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(supplierEdit);
+            //
+            // MenuAggregateRoot supplierRemove = new MenuAggregateRoot(_guidGenerator.Create(), supplier.Id)
+            // {
+            //     MenuName = "供应商删除",
+            //     PermissionCode = "erp:supplier:remove",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(supplierRemove);
+            //
+            //
+            // //仓库定义
+            // MenuAggregateRoot warehouse = new MenuAggregateRoot(_guidGenerator.Create(), erp.Id)
+            // {
+            //     MenuName = "仓库定义",
+            //     PermissionCode = "erp:warehouse:list",
+            //     MenuType = MenuTypeEnum.Menu,
+            //     Router = "warehouse",
+            //     IsShow = true,
+            //     IsLink = false,
+            //     IsCache = true,
+            //     Component = "erp/warehouse/index",
+            //     MenuIcon = "education",
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(warehouse);
+            //
+            // MenuAggregateRoot warehouseQuery = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
+            // {
+            //     MenuName = "仓库查询",
+            //     PermissionCode = "erp:warehouse:query",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = warehouse.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(warehouseQuery);
+            //
+            // MenuAggregateRoot warehouseAdd = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
+            // {
+            //     MenuName = "仓库新增",
+            //     PermissionCode = "erp:warehouse:add",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(warehouseAdd);
+            //
+            // MenuAggregateRoot warehouseEdit = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
+            // {
+            //     MenuName = "仓库修改",
+            //     PermissionCode = "erp:warehouse:edit",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(warehouseEdit);
+            //
+            // MenuAggregateRoot warehouseRemove = new MenuAggregateRoot(_guidGenerator.Create(), warehouse.Id)
+            // {
+            //     MenuName = "仓库删除",
+            //     PermissionCode = "erp:warehouse:remove",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(warehouseRemove);
+            //
+            //
+            // //单位定义
+            // MenuAggregateRoot unit = new MenuAggregateRoot(_guidGenerator.Create(), erp.Id)
+            // {
+            //     MenuName = "单位定义",
+            //     PermissionCode = "erp:unit:list",
+            //     MenuType = MenuTypeEnum.Menu,
+            //     Router = "unit",
+            //     IsShow = true,
+            //     IsLink = false,
+            //     IsCache = true,
+            //     Component = "erp/unit/index",
+            //     MenuIcon = "education",
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(unit);
+            //
+            // MenuAggregateRoot unitQuery = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
+            // {
+            //     MenuName = "单位查询",
+            //     PermissionCode = "erp:unit:query",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(unitQuery);
+            //
+            // MenuAggregateRoot unitAdd = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
+            // {
+            //     MenuName = "单位新增",
+            //     PermissionCode = "erp:unit:add",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(unitAdd);
+            //
+            // MenuAggregateRoot unitEdit = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
+            // {
+            //     MenuName = "单位修改",
+            //     PermissionCode = "erp:unit:edit",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(unitEdit);
+            //
+            // MenuAggregateRoot unitRemove = new MenuAggregateRoot(_guidGenerator.Create(), unit.Id)
+            // {
+            //     MenuName = "单位删除",
+            //     PermissionCode = "erp:unit:remove",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     IsDeleted = false
+            // };
+            // entities.Add(unitRemove);
+            //
+            //
+            // //物料定义
+            // MenuAggregateRoot material = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "物料定义",
+            //     PermissionCode = "erp:material:list",
+            //     MenuType = MenuTypeEnum.Menu,
+            //     Router = "material",
+            //     IsShow = true,
+            //     IsLink = false,
+            //     IsCache = true,
+            //     Component = "erp/material/index",
+            //     MenuIcon = "education",
+            //     OrderNum = 100,
+            //     ParentId = erp.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(material);
+            //
+            // MenuAggregateRoot materialQuery = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "物料查询",
+            //     PermissionCode = "erp:material:query",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = material.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(materialQuery);
+            //
+            // MenuAggregateRoot materialAdd = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "物料新增",
+            //     PermissionCode = "erp:material:add",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = material.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(materialAdd);
+            //
+            // MenuAggregateRoot materialEdit = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "物料修改",
+            //     PermissionCode = "erp:material:edit",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = material.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(materialEdit);
+            //
+            // MenuAggregateRoot materialRemove = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "物料删除",
+            //     PermissionCode = "erp:material:remove",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = material.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(materialRemove);
+            //
+            //
+            // //采购订单
+            // MenuAggregateRoot purchase = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "采购订单",
+            //     PermissionCode = "erp:purchase:list",
+            //     MenuType = MenuTypeEnum.Menu,
+            //     Router = "purchase",
+            //     IsShow = true,
+            //     IsLink = false,
+            //     IsCache = true,
+            //     Component = "erp/purchase/index",
+            //     MenuIcon = "education",
+            //     OrderNum = 100,
+            //     ParentId = erp.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(purchase);
+            //
+            // MenuAggregateRoot purchaseQuery = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "采购订单查询",
+            //     PermissionCode = "erp:purchase:query",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = purchase.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(purchaseQuery);
+            //
+            // MenuAggregateRoot purchaseAdd = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "采购订单新增",
+            //     PermissionCode = "erp:purchase:add",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = purchase.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(purchaseAdd);
+            //
+            // MenuAggregateRoot purchaseEdit = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "采购订单修改",
+            //     PermissionCode = "erp:purchase:edit",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = purchase.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(purchaseEdit);
+            //
+            // MenuAggregateRoot purchaseRemove = new MenuAggregateRoot(_guidGenerator.Create())
+            // {
+            //
+            //     MenuName = "采购订单删除",
+            //     PermissionCode = "erp:purchase:remove",
+            //     MenuType = MenuTypeEnum.Component,
+            //     OrderNum = 100,
+            //     ParentId = purchase.Id,
+            //     IsDeleted = false
+            // };
+            // entities.Add(purchaseRemove);
 
 
 
@@ -564,7 +564,7 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
 
                 MenuName = "Yi框架",
                 MenuType = MenuTypeEnum.Catalogue,
-                Router = "https://gitee.com/ccnetcore/yi",
+                Router = "https://ccnetcore.com",
                 IsShow = true,
                 IsLink = true,
                 MenuIcon = "guide",
@@ -1317,6 +1317,8 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
             {
                 m.IsDeleted = false;
                 m.State = true;
+                m.MenuSource = MenuSourceEnum.Ruoyi;
+                m.IsShow = true;
             });
 
             var p = entities.GroupBy(x => x.Id);

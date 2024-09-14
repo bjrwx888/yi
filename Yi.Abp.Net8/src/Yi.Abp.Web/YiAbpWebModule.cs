@@ -3,6 +3,8 @@ using System.Text;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -11,6 +13,7 @@ using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
+using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
@@ -25,6 +28,7 @@ using Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
 using Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
+using Yi.Framework.AspNetCore.UnifyResult;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Bbs.Application.Extensions;
 using Yi.Framework.ChatHub.Application;
@@ -68,6 +72,10 @@ namespace Yi.Abp.Web
                 //审计日志过滤器
                 optios.AlwaysLogSelectors.Add(x => Task.FromResult(true));
             });
+
+            //采用furion格式的规范化api，默认不开启，使用abp优雅的方式
+            //你没看错。。。
+            //service.AddFurionUnifyResultApi();
 
             //配置错误处理显示详情
             Configure<AbpExceptionHandlingOptions>(options => { options.SendExceptionsDetailsToClients = true; });
@@ -302,6 +310,8 @@ namespace Yi.Abp.Web
             app.UseDefaultFiles();
             app.UseDirectoryBrowser("/api/app/wwwroot");
 
+
+            // app.Properties.Add("_AbpExceptionHandlingMiddleware_Added",false);
             //工作单元
             app.UseUnitOfWork();
 

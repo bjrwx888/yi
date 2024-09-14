@@ -1,6 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Lazy.Captcha.Core;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,7 @@ using Yi.Framework.Rbac.Domain.Repositories;
 using Yi.Framework.Rbac.Domain.Shared.Caches;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
 using Yi.Framework.Rbac.Domain.Shared.Dtos;
+using Yi.Framework.Rbac.Domain.Shared.Etos;
 using Yi.Framework.Rbac.Domain.Shared.Options;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -40,7 +43,7 @@ namespace Yi.Framework.Rbac.Application.Services
         private readonly IAliyunManger _aliyunManger;
         private IDistributedCache<UserInfoCacheItem, UserInfoCacheKey> _userCache;
         private UserManager _userManager;
-
+        private IHttpContextAccessor _httpContextAccessor;
         public AccountService(IUserRepository userRepository,
             ICurrentUser currentUser,
             IAccountManager accountManager,
@@ -51,7 +54,7 @@ namespace Yi.Framework.Rbac.Application.Services
             IGuidGenerator guidGenerator,
             IOptions<RbacOptions> options,
             IAliyunManger aliyunManger,
-            UserManager userManager)
+            UserManager userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -64,6 +67,7 @@ namespace Yi.Framework.Rbac.Application.Services
             _aliyunManger = aliyunManger;
             _userCache = userCache;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -109,10 +113,21 @@ namespace Yi.Framework.Rbac.Application.Services
             //校验
             await _accountManager.LoginValidationAsync(input.UserName, input.Password, x => user = x);
 
+            var userInfo = new UserRoleMenuDto();
             //获取token
-            var accessToken = await _accountManager.GetTokenByUserIdAsync(user.Id);
+            var accessToken = await _accountManager.GetTokenByUserIdAsync(user.Id, (info) => userInfo = info);
             var refreshToken = _accountManager.CreateRefreshToken(user.Id);
 
+            //这里抛出一个登录的事件,也可以在全部流程走完，在应用层组装
+            if (_httpContextAccessor.HttpContext is not null)
+            {
+                var loginEntity = new LoginLogAggregateRoot().GetInfoByHttpContext(_httpContextAccessor.HttpContext);
+                var loginEto = loginEntity.Adapt<LoginEventArgs>();
+                loginEto.UserName = userInfo.User.UserName;
+                loginEto.UserId = userInfo.User.Id;
+                await LocalEventBus.PublishAsync(loginEto);
+            }
+            
             return new { Token = accessToken, RefreshToken = refreshToken };
         }
 
@@ -255,13 +270,17 @@ namespace Yi.Framework.Rbac.Application.Services
         }
 
 
+        
+        
+        
         /// <summary>
         /// 获取当前登录用户的前端路由
+        /// 支持ruoyi/pure
         /// </summary>
         /// <returns></returns>
         [Authorize]
-        [Route("account/Vue3Router")]
-        public async Task<List<Vue3RouterDto>> GetVue3Router()
+        [Route("account/Vue3Router/{routerType?}")]
+        public async Task<object> GetVue3Router([FromRoute]string? routerType)
         {
             var userId = _currentUser.Id;
             if (_currentUser.Id is null)
@@ -278,10 +297,20 @@ namespace Yi.Framework.Rbac.Application.Services
                 menus = ObjectMapper.Map<List<MenuAggregateRoot>, List<MenuDto>>(await _menuRepository.GetListAsync());
             }
 
-            //将后端菜单转换成前端路由，组件级别需要过滤
-            List<Vue3RouterDto> routers =
-                ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3RouterBuild();
-            return routers;
+            object output = null;
+            if (routerType is null ||routerType=="ruoyi")
+            {
+                //将后端菜单转换成前端路由，组件级别需要过滤
+                output =
+                    ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3RuoYiRouterBuild();
+            }
+            else if (routerType =="pure")
+            {
+                //将后端菜单转换成前端路由，组件级别需要过滤
+                output =
+                    ObjectMapper.Map<List<MenuDto>, List<MenuAggregateRoot>>(menus).Vue3PureRouterBuild();
+            }
+            return output;
         }
 
         /// <summary>
