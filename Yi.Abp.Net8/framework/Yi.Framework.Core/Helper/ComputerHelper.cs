@@ -377,20 +377,25 @@ namespace Yi.Framework.Core.Helper
         /// <returns></returns>
         public MemoryMetrics GetUnixMetrics()
         {
-            string output = ShellHelper.Bash("free -m | awk '{print $2,$3,$4,$5,$6}'");
+            string output = ShellHelper.Bash(@"
+# 从 /proc/meminfo 文件中提取总内存
+ total_mem=$(cat /proc/meminfo | grep -i ""MemTotal"" | awk '{print $2}')
+ # 从 /proc/meminfo 文件中提取剩余内存
+free_mem=$(cat /proc/meminfo | grep -i ""MemFree"" | awk '{print $2}')
+# 显示提取的信息
+echo $total_mem $used_mem $free_mem
+ ");
             var metrics = new MemoryMetrics();
-            var lines = output.Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
-
-            if (lines.Length <= 0) return metrics;
-
-            if (lines != null && lines.Length > 0)
+ 
+            if (!string.IsNullOrWhiteSpace(output))
             {
-                var memory = lines[1].Split(' ', (char)StringSplitOptions.RemoveEmptyEntries);
-                if (memory.Length >= 3)
+                var memory = output.Split(' ', (char)StringSplitOptions.RemoveEmptyEntries);
+                if (memory.Length >= 2)
                 {
-                    metrics.Total = double.Parse(memory[0]);
-                    metrics.Used = double.Parse(memory[1]);
-                    metrics.Free = double.Parse(memory[2]);//m
+                    metrics.Total =  Math.Round(double.Parse(memory[0]) / 1024, 0);
+               
+                    metrics.Free = Math.Round(double.Parse(memory[1])/ 1024, 0);//m
+                    metrics.Used =   metrics.Total   - metrics.Free;
                 }
             }
             return metrics;
