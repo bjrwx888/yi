@@ -9,6 +9,7 @@ import { getFileUrl } from "@/utils/file";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import type { PaginationProps } from "@pureadmin/table";
+import { createFormData } from "@pureadmin/utils";
 import ReCropperPreview from "@/components/ReCropperPreview";
 import type { FormItemProps } from "../utils/types";
 import {
@@ -24,7 +25,8 @@ import {
   resetUserPwd,
   changeUserStatus,
   updateUser,
-  getUserList
+  getUserList,
+  updateUserIcon
 } from "@/api/system/user";
 import { getRoleOption } from "@/api/system/role";
 import { getDeptList } from "@/api/system/dept";
@@ -45,6 +47,7 @@ import {
   reactive,
   onMounted
 } from "vue";
+import { uploadFile } from "@/api/file";
 
 export function useUser(tableRef: Ref, treeRef: Ref) {
   const form = reactive({
@@ -93,7 +96,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
         <el-image
           fit="cover"
           preview-teleported={true}
-          src={getFileUrl(row.avatar, userAvatar)}
+          src={getFileUrl(row.icon, userAvatar)}
           preview-src-list={Array.of(getFileUrl(row.avatar, userAvatar))}
           class="w-[24px] h-[24px] rounded-full align-middle"
         />
@@ -399,11 +402,27 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
           imgSrc: getFileUrl(row.avatar, userAvatar),
           onCropper: info => (avatarInfo.value = info)
         }),
-      beforeSure: done => {
+      beforeSure: async done => {
         console.log("裁剪后的图片信息：", avatarInfo.value);
         // 根据实际业务使用avatarInfo.value和row里的某些字段去调用上传头像接口即可
-        done(); // 关闭弹框
-        onSearch(); // 刷新表格数据
+        const formData = createFormData({
+          file: avatarInfo.value // file 文件
+        });
+        uploadFile(formData)
+          .then(async response => {
+            let data = {
+              userId: row.id,
+              icon: response.data[0]["id"]
+            };
+            updateUserIcon(data).then(_response2 => {
+              message(`头像更新成功`, { type: "success" });
+              done(); // 关闭弹框
+              onSearch(); // 刷新表格数据
+            });
+          })
+          .catch(error => {
+            message(`头像更新异常 ${error}`, { type: "error" });
+          });
       },
       closeCallBack: () => cropRef.value.hidePopover()
     });

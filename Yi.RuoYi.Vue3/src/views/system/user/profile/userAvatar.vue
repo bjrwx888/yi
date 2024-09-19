@@ -124,13 +124,6 @@ function uploadImg() {
         proxy.$modal.msgSuccess("修改成功");
       visible.value = false;
       })
-
-
-
-
-
-
-
     });
   });
 };
