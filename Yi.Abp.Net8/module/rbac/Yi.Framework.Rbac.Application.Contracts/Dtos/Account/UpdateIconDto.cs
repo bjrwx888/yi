@@ -2,6 +2,7 @@
 {
     public class UpdateIconDto
     {
+        public Guid? UserId { get; set; }
         public string? Icon { get; set; }
     }
 }
