@@ -18,7 +18,7 @@ namespace Yi.Framework.SqlSugarCore.Repositories
     {
         public ISqlSugarClient _Db => GetDbContextAsync().Result;
 
-        public ISugarQueryable<TEntity> _DbQueryable => GetDbContextAsync().Result.Queryable<TEntity>();
+        public ISugarQueryable<TEntity> _DbQueryable => GetDbContextAsync().ConfigureAwait(false).GetAwaiter().GetResult().Queryable<TEntity>();
 
         private ISugarDbContextProvider<ISqlSugarDbContext> _sugarDbContextProvider;
         public IAsyncQueryableExecuter AsyncExecuter { get; }
