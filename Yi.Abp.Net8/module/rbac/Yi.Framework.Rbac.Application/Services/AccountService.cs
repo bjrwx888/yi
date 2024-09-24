@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using Lazy.Captcha.Core;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
@@ -379,16 +379,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <returns></returns>
         public async Task<bool> UpdateIconAsync(UpdateIconDto input)
         {
-            Guid userId;
-
-            if (input.UserId == null)
-            {
-                userId = _currentUser.GetId();
-            }
-            else
-            {
-                userId = input.UserId.Value;
-            }
+            Guid userId=input.UserId == null?_currentUser.GetId():input.UserId.Value;
 
             var entity = await _userRepository.GetByIdAsync(userId);
 
