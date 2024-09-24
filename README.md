@@ -9,7 +9,7 @@
 
 [English](README-en.md) | 简体中文
 ****
-##  :tw-1f34e:  简介:
+##  🍍  简介:
 YiFramework是一个基于.Net8+Abp.vNext+SqlSugar的DDD领域驱动设计后端开源框架
 
 谁说Abp复杂？谁说DDD难？`打破常规，化繁为简`，新人入门，项目二开，最佳方式之一
