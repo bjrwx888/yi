@@ -82,8 +82,7 @@ A user-oriented rapid development backend framework.
 - And more…
 
 ##  🥭  Core Technologies
-#### 后端
-Backend
+#### Backend
 C# Asp.NetCore 8.0
 - [x] Dynamic API: Abp.vNext
 - [x] Authentication and Authorization: Jwt
@@ -98,7 +97,7 @@ C# Asp.NetCore 8.0
 - [x] Distributed Caching: Abp.vNext
 - [x] Event Bus: Abp.vNext
 
-Frontend
+#### Frontend
 js Vue3
 - [x] Asynchronous Requests: axios
 - [x] Charts: echarts
@@ -107,7 +106,7 @@ js Vue3
 - [x] Routing: vue-router
 - [x] Bundling: vite
 
-DevOps
+#### DevOps
 - [x] Deployment: nginx
 - [x] CICD: gitlab+Jenkins
 - [x] Docker: harbor
