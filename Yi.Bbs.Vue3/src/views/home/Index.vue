@@ -261,40 +261,46 @@ const query = reactive({
   isTop: true,
 });
 
-const weekQuery = reactive({accessLogType: "Request"});
+const weekQuery = reactive({accessLogType: "Request"});4
+
+const init=async ()=>{
+  
+  //分阶段优化
+  await Promise.all([
+    (async ()=>{const {data: allDiscussData, config: allDiscussConfig} =
+        await getAllDiscussList({Type: 0, skipCount: 1, maxResultCount: 30,});
+      isAllDiscussFinished.value = allDiscussConfig.isFinish;
+      allDiscussList.value = allDiscussData.items;})(),
+    (async ()=>{const {data: plateData} = await getList();
+      plateList.value = plateData.items;})(),
+    (async ()=>{const {data: discussData, config: discussConfig} = await getHomeDiscuss();
+      discussList.value = discussData;
+      isDiscussFinished.value = discussConfig.isFinish;})(),
+    (async ()=>{const {data: bannerData} = await bannerGetList();
+      bannerList.value = bannerData.items;})(),
+    (async ()=>{const {data: weekData} = await getWeek(weekQuery);
+      weekList.value = weekData;})(),
+    (async ()=>{const {data: pointData, config: pointConfig} = await getRankingPoints();
+      pointList.value = pointData.items;
+      isPointFinished.value = pointConfig.isFinish;})(),
+    (async ()=>{const {data: userAnalyseInfoData} = await getUserAnalyse();
+      onlineNumber.value = userAnalyseInfoData.onlineNumber;
+      userAnalyseInfo.value = userAnalyseInfoData;})(),
+  ]);
+
+
+  //不重要的请求滞后
+ const {data: friendData, config: friendConfig} = await getRecommendedFriend();
+    friendList.value = friendData;
+    isFriendFinished.value = friendConfig.isFinish;
+    const {data: themeData, config: themeConfig} = await getRecommendedTopic();
+        themeList.value = themeData;
+        isThemeFinished.value = themeConfig.isFinish;
+  await access();
+}
 //初始化
 onMounted(async () => {
-  access();
-  const {data: plateData} = await getList();
-  plateList.value = plateData.items;
-  const {data: discussData, config: discussConfig} = await getHomeDiscuss();
-  discussList.value = discussData;
-  isDiscussFinished.value = discussConfig.isFinish;
-  const {data: bannerData} = await bannerGetList();
-  bannerList.value = bannerData.items;
-  const {data: weekData} = await getWeek(weekQuery);
-  weekList.value = weekData;
-  const {data: pointData, config: pointConfig} = await getRankingPoints();
-  pointList.value = pointData.items;
-  isPointFinished.value = pointConfig.isFinish;
-  const {data: friendData, config: friendConfig} =
-      await getRecommendedFriend();
-  friendList.value = friendData;
-  isFriendFinished.value = friendConfig.isFinish;
-  const {data: themeData, config: themeConfig} = await getRecommendedTopic();
-  themeList.value = themeData;
-  isThemeFinished.value = themeConfig.isFinish;
-  const {data: allDiscussData, config: allDiscussConfig} =
-      await getAllDiscussList({
-        Type: 0,
-        skipCount: 1,
-        maxResultCount: 30,
-      });
-  isAllDiscussFinished.value = allDiscussConfig.isFinish;
-  allDiscussList.value = allDiscussData.items;
-  const {data: userAnalyseInfoData} = await getUserAnalyse();
-  onlineNumber.value = userAnalyseInfoData.onlineNumber;
-  userAnalyseInfo.value = userAnalyseInfoData;
+await init();
 });
 
 const weekXAxis = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];

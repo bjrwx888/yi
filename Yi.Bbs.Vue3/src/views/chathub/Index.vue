@@ -298,7 +298,10 @@ const handleKeydownInput=()=>{
 
       // 如果只按下 Enter，则阻止默认的提交行为，比如在表单中
       if (event.key === 'Enter') {
+        // 阻止默认行为
+        event.preventDefault();
         onclickSendMsg();
+        return;
       }
 }
 
@@ -375,6 +378,12 @@ const onclickSendGroupMsg = (groupName, msg) => {
 const clearAiMsg = () => {
   sendAiChatContext.value = [];
   chatStore.clearAiMsg();
+  ElMessage({
+    message: "当前会话清除成功",
+    type: "success",
+    duration: 2000,
+  });
+  
 }
 
 //获取当前最后一条信息
@@ -403,7 +412,7 @@ const getLastMessage = ((receiveId, itemType) => {
 <template>
 
   <div style="position: absolute; top: 0;left: 0;" v-show="isShowTipNumber>0">
-    <p>当前版本：1.5.1</p>
+    <p>当前版本：1.5.2</p>
     <p>tip:官方学习交流群每次发送消息消耗 1 钱钱</p>
     <p>tip:点击聊天窗口右上角“X”可退出</p>
     <p>tip:多人同时在聊天室时，左侧可显示其他成员</p>
@@ -501,7 +510,7 @@ const getLastMessage = ((receiveId, itemType) => {
 
     <div class="right">
       <div class="header">
-        <div class="header-left">{{ currentHeaderName }} <span v-show="selectIsAi()" @click="clearAiMsg">点击清空当前对话</span>
+        <div class="header-left">{{ currentHeaderName }} <span class="clear-msg" v-show="selectIsAi()" @click="clearAiMsg">点击此处清空当前对话</span>
         </div>
 
         <div class="header-right">
@@ -780,13 +789,13 @@ const getLastMessage = ((receiveId, itemType) => {
   .content {
     overflow-y: auto;
     /* 只启用垂直方向滚动条 */
-    height: 555px;
+    height: 535px;
     padding: 20px 40px;
 
   }
 
   .bottom {
-    height: calc(100% - 630px);
+    height: calc(100% - 610px);
     background: #f7f7f7;
     border-top: 1.5px solid #e7e7e7;
     padding: 15px 35px;
@@ -1096,7 +1105,15 @@ const getLastMessage = ((receiveId, itemType) => {
 
 
 }
-
+.clear-msg{
+  font-size: large;
+  margin-left: 10px;
+  cursor: pointer; /* 设置为手型 */
+}
+.clear-msg:hover {
+  color: red;
+  cursor: pointer; /* 设置鼠标悬浮为手型 */
+}
 ::v-deep(.nav-ul) {
   border-right: 1px solid #FFFFFF;
   margin-top: 12px;

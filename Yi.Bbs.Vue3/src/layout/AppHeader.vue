@@ -12,20 +12,21 @@
 
         <el-menu-item index="2" @click="enterStart"
           style="color: red;font-weight: bolder;font-size: large;">开始</el-menu-item>
-
-        <el-sub-menu index="3">
+        <el-menu-item index="3" @click="enterWatermelon"
+                     >大西瓜</el-menu-item>
+        <el-sub-menu index="4">
           <template #title>学习</template>
           <el-menu-item index="3-1">前端</el-menu-item>
           <el-menu-item index="3-2">后端</el-menu-item>
           <el-menu-item index="3-3">运维</el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="4">
-          <template #title>问答</template>
-          <el-menu-item index="4-1">前端</el-menu-item>
-          <el-menu-item index="4-2">后端</el-menu-item>
-          <el-menu-item index="4-3">运维</el-menu-item>
-        </el-sub-menu>
+<!--        <el-sub-menu index="5">-->
+<!--          <template #title>问答</template>-->
+<!--          <el-menu-item index="4-1">前端</el-menu-item>-->
+<!--          <el-menu-item index="4-2">后端</el-menu-item>-->
+<!--          <el-menu-item index="4-3">运维</el-menu-item>-->
+<!--        </el-sub-menu>-->
       </el-menu>
     </div>
     <div class="search-bar">
@@ -222,6 +223,9 @@ const enterStart = () => {
   router.push("/start");
 }
 
+const enterWatermelon=()=>{
+  alert("即将上线，敬请期待~")
+}
 </script>
 
 
