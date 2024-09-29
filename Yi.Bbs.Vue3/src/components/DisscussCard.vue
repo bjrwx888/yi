@@ -73,9 +73,7 @@ const discuss = reactive({
   agreeNum: 0,
   isAgree: false,
   cover: "",
-  isBan: false,
-  isAgree: false,
-  agreeNum: 0,
+  isBan: false
 });
 const router = useRouter();
 const spacer = h(ElDivider, { direction: "vertical" });
