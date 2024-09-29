@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Yi.Framework.Core.Helper
 {
-    public class DateTimeHelper
+    public static class DateTimeHelper
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        public static DateTime GetBeginTime(DateTime? dateTime, int days = 0)
+        public static DateTime GetBeginTime(this DateTime? dateTime, int days = 0)
         {
             if (dateTime == DateTime.MinValue || dateTime == null)
             {
@@ -24,7 +24,7 @@ namespace Yi.Framework.Core.Helper
         /// <summary>
         ///  时间戳转本地时间-时间戳精确到秒
         /// </summary> 
-        public static DateTime ToLocalTimeDateBySeconds(long unix)
+        public static DateTime ToLocalTimeDateBySeconds(this long unix)
         {
             var dto = DateTimeOffset.FromUnixTimeSeconds(unix);
             return dto.ToLocalTime().DateTime;
@@ -33,7 +33,7 @@ namespace Yi.Framework.Core.Helper
         /// <summary>
         ///  时间转时间戳Unix-时间戳精确到秒
         /// </summary> 
-        public static long ToUnixTimestampBySeconds(DateTime dt)
+        public static long ToUnixTimestampBySeconds(this DateTime dt)
         {
             DateTimeOffset dto = new DateTimeOffset(dt);
             return dto.ToUnixTimeSeconds();
@@ -42,7 +42,7 @@ namespace Yi.Framework.Core.Helper
         /// <summary>
         ///  时间戳转本地时间-时间戳精确到毫秒
         /// </summary> 
-        public static DateTime ToLocalTimeDateByMilliseconds(long unix)
+        public static DateTime ToLocalTimeDateByMilliseconds(this long unix)
         {
             var dto = DateTimeOffset.FromUnixTimeMilliseconds(unix);
             return dto.ToLocalTime().DateTime;
@@ -51,7 +51,7 @@ namespace Yi.Framework.Core.Helper
         /// <summary>
         ///  时间转时间戳Unix-时间戳精确到毫秒
         /// </summary> 
-        public static long ToUnixTimestampByMilliseconds(DateTime dt)
+        public static long ToUnixTimestampByMilliseconds(this DateTime dt)
         {
             DateTimeOffset dto = new DateTimeOffset(dt);
             return dto.ToUnixTimeMilliseconds();
@@ -65,7 +65,7 @@ namespace Yi.Framework.Core.Helper
         /// </summary>
         /// <param name="ms"></param>
         /// <returns></returns>
-        public static string FormatTime(long ms)
+        public static string FormatTime(this long ms)
         {
             int ss = 1000;
             int mi = ss * 60;
@@ -95,7 +95,7 @@ namespace Yi.Framework.Core.Helper
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static long GetUnixTimeStamp(DateTime dt)
+        public static long GetUnixTimeStamp(this DateTime dt)
         {
             long unixTime = ((DateTimeOffset)dt).ToUnixTimeMilliseconds();
             return unixTime;
@@ -103,7 +103,7 @@ namespace Yi.Framework.Core.Helper
         #endregion
 
         #region 获取日期天的最小时间
-        public static DateTime GetDayMinDate(DateTime dt)
+        public static DateTime GetDayMinDate(this DateTime dt)
         {
             DateTime min = new DateTime(dt.Year, dt.Month, dt.Day, 0, 0, 0);
             return min;
@@ -111,7 +111,7 @@ namespace Yi.Framework.Core.Helper
         #endregion
 
         #region 获取日期天的最大时间
-        public static DateTime GetDayMaxDate(DateTime dt)
+        public static DateTime GetDayMaxDate(this DateTime dt)
         {
             DateTime max = new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59);
             return max;
@@ -119,7 +119,7 @@ namespace Yi.Framework.Core.Helper
         #endregion
 
         #region 获取日期天的最大时间
-        public static string FormatDateTime(DateTime? dt)
+        public static string FormatDateTime(this DateTime? dt)
         {
             if (dt != null)
             {
