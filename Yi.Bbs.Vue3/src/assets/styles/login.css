@@ -146,13 +146,7 @@ align-items: flex-end;
     height: 40px;
     text-align: center;
 }
-.div-bottom
-{
-  position: absolute;
-  bottom: 30px;
-  color:#CAD2D9;
-  font-size: 12px;
-}
+
 .div-bottom span{
     margin: 0 5px;
     cursor: pointer;

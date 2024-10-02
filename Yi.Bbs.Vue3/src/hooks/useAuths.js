@@ -108,7 +108,7 @@ const currentUserInfo=computed(()=>{
         message: `您好${params.userName}，登录成功！`,
         type: "success",
       });
-      loginSuccess(res);
+     await loginSuccess(res);
       return res;
     } catch (error) {
       const { data } = error;

@@ -1,7 +1,7 @@
 <template>
  <div class="container">
   <!-- 登录 -->
-        <div class="div-content"  v-if="isRegister">
+        <div class="div-content">
             <div class="div-left">
                 <div class="left-container">
                     <p class="title title-1">Hello,<span @click="guestlogin">you can go to homepage >></span></p>
@@ -53,101 +53,18 @@
                 </div>
             </div>
             <div class="div-right">
-<img class="div-img" src="@/assets/login.png"/>
+<img class="div-img" src="@/assets/login.png" alt=""/>
             </div>
-
-           
         </div>
-  <!-- 注册 -->
-        <div class="div-content" v-else>
-            <div class="div-right-register">
-              <img class="div-img" src="@/assets/login.png"/>
-            </div>
-            <div class="div-left-register">
-                <div class="left-container">
-                    <p class="title  register-title">Thank Join to Yi!</p>
-                    <el-form
-                class="registerForm"
-                ref="registerFormRef"
-                :model="registerForm"
-                :rules="registerRules"
-              >
-                    <div class="input-content">
-                      
-                      <div style="display: flex;justify-content: space-between;margin: 0">
-                        <div class="input" style="width: 55%;margin: 0">
-                            <p>*登录账号</p>
-                            <el-form-item prop="userName">
-                            <input type="text"    v-model.trim="registerForm.userName">
-                          </el-form-item>
-                        </div>
 
-                      <div class="input" style="width: 35%;margin: 0">
-                        <p>昵称</p>
-                        <el-form-item prop="userName">
-                          <input type="text"    v-model.trim="registerForm.nick">
-                        </el-form-item>
-                      </div>
-                      </div>
-                      
-                        <div class="input" style="margin-top: 0">
-                            <p>*电话</p>
-                            <el-form-item prop="phone">
-                            <div class="phone-code">
-                                <input class="phone-code-input" type="text" v-model.trim="registerForm.phone">
-                                <button type="button" class="phone-code-btn" @click="captcha()">{{codeInfo}}</button>
-                            </div>
-                            </el-form-item>
-                        </div>
-                        <div class="input">
-                            <p>*短信验证码</p>
-                            <el-form-item prop="code" >
-                            <input :disabled="!isDisabledCode" type="text" v-model.trim="registerForm.code">
-                            </el-form-item>
-                        </div>
-                        <div class="input">
-                            <p>*密码</p>
-                            <el-form-item prop="password">
-                            <input :disabled="!isDisabledCode" type="password" v-model.trim="registerForm.password">
-                            </el-form-item>
-                        </div>
-                        <div class="input">
-                            <p>*确认密码</p>
-                            <el-form-item>
-                            <input :disabled="!isDisabledCode" type="password" v-model.trim="passwordConfirm">
-                            </el-form-item>
-                        </div>
-                 
-                    </div>
-                    </el-form>
-                    <div class="left-btn">
-                        <button type="button" class="btn-login" @click="register(registerFormRef)">注册</button>
-                        <button type="button" class="btn-reg" @click="handleSignInNow">前往登录</button>
-                    </div>
-                </div>
-            </div>
-       
-        </div>
-        <div class="div-bottom">
-                <span>备案：<span v-html="configStore.icp"></span></span>
-                <span>站长：{{ configStore.author }}</span>
-                <span @click="handleContact">联系我们</span>
-                <span>关于本站</span>
-                <span>建议反馈</span>
-                <span>原创站点</span>
-            </div>
     </div>
 </template>
 <script setup>
 import { ref, reactive, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import useAuths from "@/hooks/useAuths";
-import { getCodePhone } from "@/apis/accountApi";
 import useUserStore from "@/stores/user";
-import useConfigStore from "@/stores/config";
-
-const configStore = useConfigStore();
-const { loginFun, registerFun, loginSuccess } = useAuths();
+const { loginFun, loginSuccess } = useAuths();
 const router = useRouter();
 const route = useRoute();
 const loginFormRef = ref();
@@ -161,7 +78,12 @@ const loginForm = reactive({
   uuid: "",
   code: "",
 });
-const guestlogin = async () => {
+//前往注册
+const handleRegister=()=>{
+  router.push("/register");
+}
+//直接进入首页
+const guestlogin = () => {
   const redirect = route.query?.redirect ?? "/index";
   router.push(redirect);
 };
@@ -185,97 +107,6 @@ const login = async (formEl) => {
   });
 };
 
-// 注册逻辑
-const isRegister = ref(true);
-const registerFormRef = ref();
-// 确认密码
-const passwordConfirm = ref("");
-const registerForm = reactive({
-  userName: "",
-  phone: "",
-  password: "",
-  uuid: "",
-  code: "",
-  nick:""
-});
-const registerRules = reactive({
-  nick: [
-    { min: 2, message: "昵称需大于两位", trigger: "blur" },
-  ],
-  userName: [
-    { required: true, message: "请输入用户名", trigger: "blur" },
-    { min: 2, message: "用户名需大于两位", trigger: "blur" },
-  ],
-  phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
-  code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
-  password: [
-    { required: true, message: "请输入新的密码", trigger: "blur" },
-    { min: 6, message: "密码需大于六位", trigger: "blur" },
-  ],
-});
-const handleRegister = () => {
-  isRegister.value = !isRegister.value;
-};
-const register = async (formEl) => {
-  if (!formEl) return;
-  await formEl.validate(async (valid) => {
-
-    if (valid) {
-      try {
-        if (registerForm.password != passwordConfirm.value) {
-          ElMessage.error("两次密码输入不一致");
-          return;
-        }
-        await registerFun(registerForm);
-        handleRegister();
-      } catch (error) {
-        ElMessage({
-          message: error.message,
-          type: "error",
-          duration: 2000,
-        });
-      }
-    }
-  });
-};
-
-//验证码
-const codeInfo = ref("发送短信");
-const isDisabledCode = ref(false);
-
-const captcha = async () => {
-  if (registerForm.phone !== "") {
-    const { data } = await getCodePhone(registerForm.phone);
-    registerForm.uuid = data.uuid;
-    ElMessage({
-      message: `已向${registerForm.phone}发送验证码，请注意查收`,
-      type: "success",
-    });
-    isDisabledCode.value = true;
-    let time = 60; //定义剩下的秒数
-    let timer = setInterval(function () {
-      if (time == 0) {
-        //清除定时器和复原按钮
-        clearInterval(timer);
-        codeInfo.value = "发送验证码";
-        time = 60; //这个10是重新开始
-      } else {
-        codeInfo.value = "剩余" + time + "秒";
-        time--;
-      }
-    }, 1000);
-  } else {
-    ElMessage({
-      message: `请先输入手机号`,
-      type: "warning",
-    });
-  }
-};
-
-// 立即登录
-const handleSignInNow = () => {
-  isRegister.value = !isRegister.value;
-};
 // 获取图片验证码
 const codeImageURL = computed(() => useUserStore().codeImageURL);
 const handleGetCodeImage = () => {
@@ -285,10 +116,6 @@ onMounted(async () => {
   await useUserStore().updateCodeImage();
 });
 
-// 联系我们跳转对应页面
-const handleContact = () => {
-  router.push("/contact");
-};
 
 const handleQQLogin = () => {
   window.open(
