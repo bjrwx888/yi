@@ -3,8 +3,8 @@
     <el-row :gutter="20" class="top-div">
       <el-col :span="17">
         <div class="chat-hub">
-          <p @click="onClickToChatHub">点击前往-最新上线<span>《聊天室》 </span>，现已支持<span>Ai助手</span>，希望能帮助大家
-          </p>
+<!--          <p @click="onClickToChatHub">点击前往-最新上线<span>《聊天室》 </span>，现已支持<span>Ai助手</span>，希望能帮助大家</p>-->
+          <p @click="onClickToWeChat">点击关注-最新上线<span>《意.Net官方微信公众号》 </span>，分享有<span>深度</span>的.Net知识，希望能帮助大家</p>
         </div>
         <div class="scrollbar">
           <ScrollbarInfo/>
@@ -188,6 +188,25 @@
         </el-row>
       </el-col>
     </el-row>
+
+
+    <el-dialog
+        v-model="wechatDialogVisible"
+        title="意社区官方微信公众号"
+        width="800"
+    >
+     <div style="display: flex;justify-content: center;">
+      <img style="width: 585px; height: 186px" src="@/assets/wechat/share.png"  alt=""/>
+     </div>
+
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="wechatDialogVisible = false">
+            已关注
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -402,6 +421,7 @@ const onClickAccessLog = async () => {
 
 }
 
+const wechatDialogVisible=ref(false)
 //切换统计开关
 const onClickWeekSwitch = async () => {
   if (weekQuery.accessLogType === "HomeClick") {
@@ -413,6 +433,11 @@ const onClickWeekSwitch = async () => {
   const {data: weekData} = await getWeek(weekQuery);
   weekList.value = weekData;
 }
+
+//打开微信公众号弹窗
+const onClickToWeChat=()=>{
+  wechatDialogVisible.value=true;
+};
 </script>
 <style scoped lang="scss">
 .home-box {

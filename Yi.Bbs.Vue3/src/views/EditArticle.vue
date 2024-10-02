@@ -62,6 +62,7 @@
         <el-form-item label="封面：" v-if="radio == 'discuss'">
 
           <el-image
+              v-if="dialogImageUrl"
               :src="getUrl"
               style="width: 178px; height: 178px"
               class="avatar"

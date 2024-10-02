@@ -73,15 +73,25 @@
                 :rules="registerRules"
               >
                     <div class="input-content">
-                        <div class="input">
-                            <p>用户名</p>
+                      
+                      <div style="display: flex;justify-content: space-between;margin: 0">
+                        <div class="input" style="width: 55%;margin: 0">
+                            <p>*登录账号</p>
                             <el-form-item prop="userName">
                             <input type="text"    v-model.trim="registerForm.userName">
                           </el-form-item>
                         </div>
 
-                        <div class="input">
-                            <p>电话</p>
+                      <div class="input" style="width: 35%;margin: 0">
+                        <p>昵称</p>
+                        <el-form-item prop="userName">
+                          <input type="text"    v-model.trim="registerForm.nick">
+                        </el-form-item>
+                      </div>
+                      </div>
+                      
+                        <div class="input" style="margin-top: 0">
+                            <p>*电话</p>
                             <el-form-item prop="phone">
                             <div class="phone-code">
                                 <input class="phone-code-input" type="text" v-model.trim="registerForm.phone">
@@ -90,19 +100,19 @@
                             </el-form-item>
                         </div>
                         <div class="input">
-                            <p>短信验证码</p>
+                            <p>*短信验证码</p>
                             <el-form-item prop="code" >
                             <input :disabled="!isDisabledCode" type="text" v-model.trim="registerForm.code">
                             </el-form-item>
                         </div>
                         <div class="input">
-                            <p>密码</p>
+                            <p>*密码</p>
                             <el-form-item prop="password">
                             <input :disabled="!isDisabledCode" type="password" v-model.trim="registerForm.password">
                             </el-form-item>
                         </div>
                         <div class="input">
-                            <p>确认密码</p>
+                            <p>*确认密码</p>
                             <el-form-item>
                             <input :disabled="!isDisabledCode" type="password" v-model.trim="passwordConfirm">
                             </el-form-item>
@@ -186,8 +196,12 @@ const registerForm = reactive({
   password: "",
   uuid: "",
   code: "",
+  nick:""
 });
 const registerRules = reactive({
+  nick: [
+    { min: 2, message: "昵称需大于两位", trigger: "blur" },
+  ],
   userName: [
     { required: true, message: "请输入用户名", trigger: "blur" },
     { min: 2, message: "用户名需大于两位", trigger: "blur" },
@@ -297,7 +311,6 @@ window.addEventListener("message", async (e) => {
   console.log(authData, "传到登录页的值");
   if (authData) {
     await loginSuccess({ data: JSON.parse(authData) });
-    window.close();
   }
 });
 </script>

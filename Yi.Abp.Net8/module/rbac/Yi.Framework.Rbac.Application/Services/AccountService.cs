@@ -245,7 +245,7 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             //注册领域逻辑
-            await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone);
+            await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone,input.Nick);
         }
 
 

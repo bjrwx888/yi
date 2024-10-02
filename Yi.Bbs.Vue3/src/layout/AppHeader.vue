@@ -154,7 +154,12 @@ const noticeForNoReadCount = computed(() => {
 })
 //加载初始化离线消息
 onMounted(async () => {
-  await fetchNoticeData();
+  //登录了才去判断消息通知
+  if (isLogin.value)
+  {
+    await fetchNoticeData();
+  }
+
 })
 const fetchNoticeData = async () => {
   const { data } = await getNoticeList({ maxResultCount: 20 });
