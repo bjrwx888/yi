@@ -103,13 +103,18 @@ height: 25px;
 .left-lable
 {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     font-size: 12px;
 }
 .left-lable label{
     margin-left: 5px;
 }
-
+.right-forgot{
+    cursor: pointer;
+}
+.right-forgot:hover{
+    color: #7f438c;
+}
 .bottom-div
 {
     font-size: 12px;

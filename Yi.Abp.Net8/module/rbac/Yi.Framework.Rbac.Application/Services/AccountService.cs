@@ -184,22 +184,24 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("captcha-phone")]
+        [HttpPost("account/captcha-phone")]
         [AllowAnonymous]
         public async Task<object> PostCaptchaPhoneForRegisterAsync(PhoneCaptchaImageDto input)
         {
             return await PostCaptchaPhoneAsync(ValidationPhoneTypeEnum.Register, input);
         }
+
         /// <summary>
         /// 手机验证码-找回密码
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("captcha-phone/repassword")]
+        [HttpPost("account/captcha-phone/repassword")]
         public async Task<object> PostCaptchaPhoneForRetrievePasswordAsync(PhoneCaptchaImageDto input)
         {
             return await PostCaptchaPhoneAsync(ValidationPhoneTypeEnum.RetrievePassword, input);
         }
+
         /// <summary>
         /// 手机验证码
         /// </summary>
@@ -223,7 +225,7 @@ namespace Yi.Framework.Rbac.Application.Services
             var uuid = Guid.NewGuid();
             await _aliyunManger.SendSmsAsync(input.Phone, code);
 
-            await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(ValidationPhoneTypeEnum.Register, input.Phone),
+            await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(ValidationPhoneTypeEnum.RetrievePassword, input.Phone),
                 new CaptchaPhoneCacheItem(code),
                 new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(10) });
             return new
@@ -255,14 +257,11 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="input"></param>
         [AllowAnonymous]
         [UnitOfWork]
-        public async Task PostRetrievePasswordAsync(RetrievePasswordDto input)
+        public async Task<string> PostRetrievePasswordAsync(RetrievePasswordDto input)
         {
-            if (_rbacOptions.EnableCaptcha)
-            {
-                //校验验证码，根据电话号码获取 value，比对验证码已经uuid
-                await ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.RetrievePassword, input.Phone, input.Code);
-            }
-
+            //校验验证码，根据电话号码获取 value，比对验证码已经uuid
+            await ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.RetrievePassword, input.Phone, input.Code);
+            
             var entity = await _userRepository.GetFirstAsync(x => x.Phone == input.Phone);
             if (entity is null)
             {
@@ -270,6 +269,8 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             await _accountManager.RestPasswordAsync(entity.Id, input.Password);
+            
+            return entity.UserName;
         }
 
 

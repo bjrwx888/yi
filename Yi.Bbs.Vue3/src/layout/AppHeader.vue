@@ -4,7 +4,8 @@
       <div class="image">
         <img class="img-icon" src="@/assets/common/icons/logo.ico" />
       </div>
-      <div class="text">{{ configStore.name }}</div>
+      
+      <div class="text">{{ isIcp===true?"个人成果展示":configStore.name }}</div>
     </div>
     <div class="tab">
       <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false" @select="handleSelect">
@@ -152,6 +153,8 @@ const searchText = ref("");
 const noticeForNoReadCount = computed(() => {
   return noticeList.value.filter(x => x.isRead == false).length;
 })
+
+const isIcp=import.meta.env.VITE_APP_ICP==="true";
 //加载初始化离线消息
 onMounted(async () => {
   //登录了才去判断消息通知

@@ -4,7 +4,26 @@
       <el-col :span="17">
         <div class="chat-hub">
 <!--          <p @click="onClickToChatHub">点击前往-最新上线<span>《聊天室》 </span>，现已支持<span>Ai助手</span>，希望能帮助大家</p>-->
-          <p @click="onClickToWeChat">点击关注-最新上线<span>《意.Net官方微信公众号》 </span>，分享有<span>深度</span>的.Net知识，希望能帮助大家</p>
+         
+         <p v-if="isIcp" 
+            style="font-size: 25px;
+    color: blue;
+    background: red;
+    /* height: 80px; */
+    font-weight: 900;
+    text-align: center;
+margin: 10px auto;">
+           本站点为个人内容分享，全部资料免费开源学习，所有数据为假数据
+           <br/>
+           不涉及企业、团体、论坛和经营销售等内容，只做简单的成果展示
+           <br/>
+           富强、‌民主、文明、‌和谐、‌自由、‌平等
+           <br/>
+           公正、‌法治、‌爱国、‌敬业、‌诚信、友善
+         </p>
+          <p v-else @click="onClickToWeChat">点击关注-最新上线<span>《意.Net官方微信公众号》 </span>，分享有<span>深度</span>的.Net知识，希望能帮助大家</p>
+       
+       
         </div>
         <div class="scrollbar">
           <ScrollbarInfo/>
@@ -272,7 +291,7 @@ const activeList = [
   {name: "开始", path: "/start", icon: "Position"},
   {name: "聊天室", path: "/chat", icon: "ChatRound"},
 ];
-
+const isIcp=import.meta.env.VITE_APP_ICP==="true";
 //主题查询参数
 const query = reactive({
   skipCount: 1,
@@ -622,7 +641,7 @@ const onClickToWeChat=()=>{
   display: flex;
   align-content: center;
   flex-wrap: wrap;
-  height: 30px;
+  min-height: 30px;
 
   p {
     margin: 0 auto;
