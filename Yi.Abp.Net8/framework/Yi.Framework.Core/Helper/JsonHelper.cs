@@ -3,9 +3,9 @@ using Newtonsoft.Json.Converters;
 
 namespace Yi.Framework.Core.Helper
 {
-    public class JsonHelper
+    public static class JsonHelper
     {
-        public static string ObjToStr<T>(T obj, string dateTimeFormat)
+        public static string ObjToStr<T>(this T obj, string dateTimeFormat)
         {
             IsoDateTimeConverter timeConverter = new IsoDateTimeConverter()
             {
@@ -14,12 +14,12 @@ namespace Yi.Framework.Core.Helper
             return JsonConvert.SerializeObject(obj, Formatting.Indented, timeConverter);
         }
 
-        public static string ObjToStr<T>(T obj)
+        public static string ObjToStr<T>(this T obj)
         {
             return JsonConvert.SerializeObject(obj);
         }
 
-        public static T StrToObj<T>(string str)
+        public static T StrToObj<T>(this string str)
         {
             return JsonConvert.DeserializeObject<T>(str)!;
         }
@@ -29,7 +29,7 @@ namespace Yi.Framework.Core.Helper
         /// <typeparam name="T">类</typeparam>
         /// <param name="obj">对象</param>
         /// <returns>字符格式的JSON数据</returns>
-        public static string GetJSON<T>(object obj)
+        public static string GetJSON<T>(this object obj)
         {
             string result = string.Empty;
             try
@@ -54,7 +54,7 @@ namespace Yi.Framework.Core.Helper
         /// <typeparam name="T">类</typeparam>
         /// <param name="vals">列表值</param>
         /// <returns>JSON格式数据</returns>
-        public string JSON<T>(List<T> vals)
+        public static string JSON<T>(this List<T> vals)
         {
             System.Text.StringBuilder st = new System.Text.StringBuilder();
             try
@@ -82,7 +82,7 @@ namespace Yi.Framework.Core.Helper
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonStr"></param>
         /// <returns></returns>
-        public static T ParseFormByJson<T>(string jsonStr)
+        public static T ParseFormByJson<T>(this string jsonStr)
         {
             T obj = Activator.CreateInstance<T>();
             using (MemoryStream ms =
@@ -94,7 +94,7 @@ namespace Yi.Framework.Core.Helper
             }
         }
 
-        public string JSON1<SendData>(List<SendData> vals)
+        public static string JSON1<SendData>(this List<SendData> vals)
         {
             System.Text.StringBuilder st = new System.Text.StringBuilder();
             try
@@ -131,12 +131,12 @@ namespace Yi.Framework.Core.Helper
             }
             return false;
         }
-        public static bool IsJson(string json)
+        public static bool IsJson(this string json)
         {
             int errIndex;
             return IsJson(json, out errIndex);
         }
-        public static bool IsJson(string json, out int errIndex)
+        public static bool IsJson(this string json, out int errIndex)
         {
             errIndex = 0;
             if (IsJsonStart(ref json))
@@ -174,7 +174,7 @@ namespace Yi.Framework.Core.Helper
         /// <summary>
         /// 获取值的长度（当Json值嵌套以"{"或"["开头时）
         /// </summary>
-        private static int GetValueLength(string json, bool breakOnErr, out int errIndex)
+        private static int GetValueLength(this string json, bool breakOnErr, out int errIndex)
         {
             errIndex = 0;
             int len = 0;

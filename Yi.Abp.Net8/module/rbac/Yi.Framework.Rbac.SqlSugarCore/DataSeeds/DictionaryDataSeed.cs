@@ -394,6 +394,48 @@ namespace Yi.Framework.Rbac.SqlSugarCore.DataSeeds
                 ListClass = "danger"
             };
             entities.Add(dictInfo21);
+            
+            DictionaryEntity dictInfo29 = new DictionaryEntity()
+            {
+
+                DictLabel = "目录",
+                DictValue = "Catalogue",
+                DictType = "sys_menu_type",
+                OrderNum = 1,
+                Remark = "菜单目录",
+                IsDeleted = false,
+                State = true,
+                ListClass = "primary"
+            };
+            entities.Add(dictInfo29);
+            
+            DictionaryEntity dictInfo30 = new DictionaryEntity()
+            {
+
+                DictLabel = "菜单",
+                DictValue = "Menu",
+                DictType = "sys_menu_type",
+                OrderNum = 2,
+                Remark = "菜单",
+                IsDeleted = false,
+                State = true,
+                ListClass = "warning"
+            };
+            entities.Add(dictInfo30);
+            
+            DictionaryEntity dictInfo31 = new DictionaryEntity()
+            {
+
+                DictLabel = "组件",
+                DictValue = "Component",
+                DictType = "sys_menu_type",
+                OrderNum = 3,
+                Remark = "组件或按钮",
+                IsDeleted = false,
+                State = true,
+                ListClass = "success"
+            };
+            entities.Add(dictInfo31);
 
             return entities;
         }
