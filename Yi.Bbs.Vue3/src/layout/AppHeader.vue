@@ -30,7 +30,7 @@
 <!--        </el-sub-menu>-->
       </el-menu>
     </div>
-    <div class="search-bar">
+    <div class="search-bar" v-if="!isIcp">
       <el-input style="width: 300px" v-model="searchText" placeholder="全站搜索" clearable prefix-icon="Search">
         <template #append>
           <el-button type="primary" plain @click="search">搜索</el-button>
@@ -41,8 +41,8 @@
 
 
       <div class="money" v-if="isLogin">钱钱：<span>{{ money }}</span></div>
-      <el-dropdown trigger="click">
-        <AvatarInfo :size="30" :isSelf="true" />
+      <el-dropdown v-if="!isIcp" trigger="click">
+        <AvatarInfo  :size="30" :isSelf="true" />
 
         <template #dropdown>
 
@@ -59,7 +59,7 @@
         </template>
       </el-dropdown>
 
-      <div class="notice">
+      <div class="notice" v-if="!isIcp">
         <el-dropdown trigger="click" :max-height="500">
           <el-badge v-if="noticeStore.noticeForNoReadCount > 0" :value="noticeStore.noticeForNoReadCount">
             <el-button type="primary">
@@ -77,7 +77,7 @@
 
 
           <template #dropdown>
-            <el-dropdown-menu>
+            <el-dropdown-menu v-if="!isIcp">
 
               <el-dropdown-item class="notice-oper" style="justify-content: space-between;">
                 <el-button type="primary" @click="fetchNoticeData">刷新</el-button>

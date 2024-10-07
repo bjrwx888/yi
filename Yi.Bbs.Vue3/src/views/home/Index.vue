@@ -30,15 +30,20 @@ margin: 10px auto;">
         </div>
 
         <el-row class="left-div">
+          
+          
           <el-col :span="8" v-for="i in plateList" :key="i.id" class="plate" :style="{
       'padding-left': i % 3 == 1 ? 0 : 0.2 + 'rem',
       'padding-right': i % 3 == 0 ? 0 : 0.2 + 'rem',
     }">
-            <PlateCard :name="i.name" :introduction="i.introduction" :id="i.id" :isPublish="i.isDisableCreateDiscuss"/>
+            <img v-if="isIcp" src="@/assets/login.png" style="height: 80px;width: 100%" alt=""/>
+            <PlateCard v-else :name="i.name" :introduction="i.introduction" :id="i.id" :isPublish="i.isDisableCreateDiscuss"/>
           </el-col>
+          
           <template v-if="isDiscussFinished">
             <el-col :span="24" v-for="i in discussList" :key="i.id">
-              <DisscussCard :discuss="i"/>
+              <img v-if="isIcp" src="@/assets/login.png" style="height: 150px;width: 100%" alt=""/>
+              <DisscussCard v-else :discuss="i"/>
             </el-col>
           </template>
           <template v-else>
@@ -46,7 +51,8 @@ margin: 10px auto;">
           </template>
           <template v-if="isAllDiscussFinished">
             <el-col :span="24" v-for="i in allDiscussList" :key="i.id">
-              <DisscussCard :discuss="i"/>
+              <img v-if="isIcp" src="@/assets/login.png" style="height: 150px;width: 100%" alt=""/>
+              <DisscussCard v-else :discuss="i"/>
             </el-col>
           </template>
           <template v-else>
@@ -96,7 +102,7 @@ margin: 10px auto;">
             </div>
           </div>
           <!-- 签到 -->
-          <el-col :span="24">
+          <el-col v-if="!isIcp" :span="24">
             <InfoCard header="活动">
               <template #content>
                 <div class="top">你好，很高兴今天又遇到你呀~</div>
@@ -150,7 +156,7 @@ margin: 10px auto;">
             </InfoCard>
           </el-col>
 
-          <el-col :span="24">
+          <el-col v-if="!isIcp" :span="24">
             <template v-if="isPointFinished">
               <InfoCard :items="pointList" header="财富排行榜" text="查看我的位置" height="400"
                         @onClickText="onClickMoneyTop">
@@ -168,7 +174,7 @@ margin: 10px auto;">
             </template>
           </el-col>
 
-          <el-col :span="24">
+          <el-col v-if="!isIcp" :span="24">
             <template v-if="isFriendFinished">
               <InfoCard :items="friendList" header="推荐好友" text="更多" height="400">
                 <template #item="temp">
@@ -184,7 +190,7 @@ margin: 10px auto;">
               </InfoCard>
             </template>
           </el-col>
-          <el-col :span="24">
+          <el-col v-if="!isIcp" :span="24">
             <template v-if="isThemeFinished">
               <InfoCard :items="themeList" header="推荐主题" text="更多" height="400">
                 <template #item="temp">
