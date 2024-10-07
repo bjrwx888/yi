@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using Lazy.Captcha.Core;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
@@ -427,7 +427,10 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <returns></returns>
         public async Task<bool> UpdateIconAsync(UpdateIconDto input)
         {
-            var entity = await _userRepository.GetByIdAsync(_currentUser.Id);
+            Guid userId=input.UserId == null?_currentUser.GetId():input.UserId.Value;
+
+            var entity = await _userRepository.GetByIdAsync(userId);
+
             if (entity.Icon == input.Icon)
             {
                 return false;
@@ -438,7 +441,7 @@ namespace Yi.Framework.Rbac.Application.Services
 
             //发布更新头像任务事件
             await this.LocalEventBus.PublishAsync(
-                new AssignmentEventArgs(AssignmentRequirementTypeEnum.UpdateIcon, _currentUser.GetId()), false);
+                new AssignmentEventArgs(AssignmentRequirementTypeEnum.UpdateIcon, userId), false);
             return true;
         }
     }
