@@ -341,7 +341,7 @@ export function useUser(tableRef: Ref, treeRef: Ref) {
           deptId: data?.deptId ?? 0,
           nick: data?.nick ?? "",
           userName: data?.userName ?? "",
-          password: data?.password ?? "",
+          password: data?.password ?? null,
           phone: data?.phone ?? "",
           email: data?.email ?? "",
           sex: data?.sex ?? "",
