@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 
@@ -74,7 +74,8 @@ namespace Yi.Framework.Core.Extensions
                 result = "127.0.0.1";
 
             result = result.Replace("::ffff:", "127.0.0.1");
-
+            //如果有端口号，删除端口号
+            result = Regex.Replace(result, @":\d{1,5}$", "");
             //Ip规则校验
             var regResult = Regex.IsMatch(result, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
 
