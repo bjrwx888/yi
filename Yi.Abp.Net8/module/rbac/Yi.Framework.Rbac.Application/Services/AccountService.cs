@@ -164,15 +164,15 @@ namespace Yi.Framework.Rbac.Application.Services
         /// 验证电话号码
         /// </summary>
         /// <param name="str_handset"></param>
-        private async Task ValidationPhone(string str_handset)
+        private async Task ValidationPhone(string phone)
         {
-            var res = Regex.IsMatch(str_handset, @"^\d{11}$");
+            var res = Regex.IsMatch(phone, @"^\d{11}$");
             if (res == false)
             {
                 throw new UserFriendlyException("手机号码格式错误！请检查");
             }
 
-            if (await _userRepository.IsAnyAsync(x => x.Phone.ToString() == str_handset))
+            if (await _userRepository.IsAnyAsync(x => x.Phone.ToString() == phone))
             {
                 throw new UserFriendlyException("该手机号已被注册！");
             }
@@ -225,7 +225,7 @@ namespace Yi.Framework.Rbac.Application.Services
             var uuid = Guid.NewGuid();
             await _aliyunManger.SendSmsAsync(input.Phone, code);
 
-            await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(ValidationPhoneTypeEnum.RetrievePassword, input.Phone),
+            await _phoneCache.SetAsync(new CaptchaPhoneCacheKey(validationPhoneType, input.Phone),
                 new CaptchaPhoneCacheItem(code),
                 new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(10) });
             return new
