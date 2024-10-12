@@ -1,100 +1,100 @@
 <template>
-  <div class="app-container">
-    <el-row :gutter="20">
-      <!--部门数据-->
-      <el-col :span="4" :xs="24">
-        <div class="head-container">
-          <el-input v-model="deptName" placeholder="请输入部门名称" clearable prefix-icon="Search"
-                    style="margin-bottom: 20px" />
-        </div>
-        <div class="head-container">
-          <el-tree :data="deptOptions" :props="{ label: 'label', children: 'children' }"
-                   :expand-on-click-node="false" :filter-node-method="filterNode" ref="deptTreeRef" highlight-current
-                   default-expand-all @node-click="handleNodeClick" />
-        </div>
-      </el-col>
-      <!--用户数据-->
-      <el-col :span="20" :xs="24">
-        <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-          <el-form-item label="用户名称" prop="userName">
-            <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 240px"
-                      @keyup.enter="handleQuery" />
-          </el-form-item>
-          <el-form-item label="手机号码" prop="phone">
-            <el-input v-model="queryParams.phone" placeholder="请输入手机号码" clearable style="width: 240px"
-                      @keyup.enter="handleQuery" />
-          </el-form-item>
-          <el-form-item label="状态" prop="state">
-            <el-select v-model="queryParams.state" placeholder="用户状态" clearable style="width: 240px">
-              <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label"
-                         :value="JSON.parse( dict.value)" />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="创建时间" style="width: 308px;">
-            <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD" type="daterange" range-separator="-"
-                            start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
-          </el-form-item>
-        </el-form>
+   <div class="app-container">
+      <el-row :gutter="20">
+         <!--部门数据-->
+         <el-col :span="4" :xs="24">
+            <div class="head-container">
+               <el-input v-model="deptName" placeholder="请输入部门名称" clearable prefix-icon="Search"
+                  style="margin-bottom: 20px" />
+            </div>
+            <div class="head-container">
+               <el-tree :data="deptOptions" :props="{ label: 'label', children: 'children' }"
+                  :expand-on-click-node="false" :filter-node-method="filterNode" ref="deptTreeRef" highlight-current
+                  default-expand-all @node-click="handleNodeClick" />
+            </div>
+         </el-col>
+         <!--用户数据-->
+         <el-col :span="20" :xs="24">
+            <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+               <el-form-item label="用户名称" prop="userName">
+                  <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 240px"
+                     @keyup.enter="handleQuery" />
+               </el-form-item>
+               <el-form-item label="手机号码" prop="phone">
+                  <el-input v-model="queryParams.phone" placeholder="请输入手机号码" clearable style="width: 240px"
+                     @keyup.enter="handleQuery" />
+               </el-form-item>
+               <el-form-item label="状态" prop="state">
+                  <el-select v-model="queryParams.state" placeholder="用户状态" clearable style="width: 240px">
+                     <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label"
+                        :value="JSON.parse( dict.value)" />
+                  </el-select>
+               </el-form-item>
+               <el-form-item label="创建时间" style="width: 308px;">
+                  <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD" type="daterange" range-separator="-"
+                     start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+               </el-form-item>
+               <el-form-item>
+                  <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
+                  <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+               </el-form-item>
+            </el-form>
 
-        <el-row :gutter="10" class="mb8">
-          <el-col :span="1.5">
-            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['system:user:add']">新增
-            </el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
-                       v-hasPermi="['system:user:edit']">修改</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
-                       v-hasPermi="['system:user:remove']">删除</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="info" plain icon="Upload" @click="handleImport" v-hasPermi="['system:user:import']">
-              导入</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="warning" plain icon="Download" @click="handleExport"
-                       v-hasPermi="['system:user:export']">导出</el-button>
-          </el-col>
-          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
-        </el-row>
+            <el-row :gutter="10" class="mb8">
+               <el-col :span="1.5">
+                  <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['system:user:add']">新增
+                  </el-button>
+               </el-col>
+               <el-col :span="1.5">
+                  <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
+                     v-hasPermi="['system:user:edit']">修改</el-button>
+               </el-col>
+               <el-col :span="1.5">
+                  <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
+                     v-hasPermi="['system:user:remove']">删除</el-button>
+               </el-col>
+               <el-col :span="1.5">
+                  <el-button type="info" plain icon="Upload" @click="handleImport" v-hasPermi="['system:user:import']">
+                     导入</el-button>
+               </el-col>
+               <el-col :span="1.5">
+                  <el-button type="warning" plain icon="Download" @click="handleExport"
+                     v-hasPermi="['system:user:export']">导出</el-button>
+               </el-col>
+               <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
+            </el-row>
 
-        <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50" align="center" />
-          <el-table-column label="用户编号" align="center" key="id" prop="id" v-if="columns[0].visible" />
-          <el-table-column label="用户账号" align="center" key="userName" prop="userName" v-if="columns[1].visible"
-                           :show-overflow-tooltip="true" />
-          <el-table-column label="用户昵称" align="center" key="nick" prop="nick" v-if="columns[2].visible"
-                           :show-overflow-tooltip="true" />
-          <el-table-column label="性别" align="center" key="sex" prop="sex" v-if="columns[7].visible">
-            <template #default="scope">
-              <dict-tag :options="sys_user_sex" :value="scope.row.sex" />
-            </template>
-          </el-table-column>
-          <el-table-column label="部门" align="center" key="deptName" prop="deptName" v-if="columns[3].visible"
-                           :show-overflow-tooltip="true" />
-          <el-table-column label="手机号码" align="center" key="phone" prop="phone" v-if="columns[4].visible"
-          />
-          <el-table-column label="状态" align="state" key="state" v-if="columns[5].visible">
-            <template #default="scope">
-              <el-switch v-model="scope.row.state" :active-value=true :inactive-value=false
-                         @change="handleStatusChange(scope.row)"></el-switch>
-            </template>
-          </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="creationTime" v-if="columns[6].visible" width="160">
-            <template #default="scope">
-              <span>{{ parseTime(scope.row.creationTime) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
-            <template #default="scope">
-              <el-tooltip content="修改" placement="top" v-if="scope.row.userName != 'cc'">
-                <el-button link icon="Edit" @click="handleUpdate(scope.row)"
+            <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
+               <el-table-column type="selection" width="50" align="center" />
+               <el-table-column label="用户编号" align="center" key="id" prop="id" v-if="columns[0].visible" />
+               <el-table-column label="用户账号" align="center" key="userName" prop="userName" v-if="columns[1].visible"
+                  :show-overflow-tooltip="true" />
+               <el-table-column label="用户昵称" align="center" key="nick" prop="nick" v-if="columns[2].visible"
+                  :show-overflow-tooltip="true" />
+               <el-table-column label="性别" align="center" key="sex" prop="sex" v-if="columns[7].visible">
+                 <template #default="scope">
+                   <dict-tag :options="sys_user_sex" :value="scope.row.sex" />
+                 </template>
+               </el-table-column>
+               <el-table-column label="部门" align="center" key="deptName" prop="deptName" v-if="columns[3].visible"
+                  :show-overflow-tooltip="true" />
+               <el-table-column label="手机号码" align="center" key="phone" prop="phone" v-if="columns[4].visible"
+                />
+               <el-table-column label="状态" align="state" key="state" v-if="columns[5].visible">
+                  <template #default="scope">
+                     <el-switch v-model="scope.row.state" :active-value=true :inactive-value=false
+                        @change="handleStatusChange(scope.row)"></el-switch>
+                  </template>
+               </el-table-column>
+               <el-table-column label="创建时间" align="center" prop="creationTime" v-if="columns[6].visible" width="160">
+                  <template #default="scope">
+                     <span>{{ parseTime(scope.row.creationTime) }}</span>
+                  </template>
+               </el-table-column>
+               <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
+                  <template #default="scope">
+                     <el-tooltip content="修改" placement="top" v-if="scope.row.userName != 'cc'">
+                        <el-button link icon="Edit" @click="handleUpdate(scope.row)"
                            v-hasPermi="['system:user:edit']"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top" v-if="scope.row.userName != 'cc'">
@@ -283,14 +283,14 @@ const upload = reactive({
 });
 // 列显隐信息
 const columns = ref([
-  { key: 0, label: `用户编号`, visible: false },
-  { key: 1, label: `用户名称`, visible: true },
-  { key: 2, label: `用户昵称`, visible: true },
-  { key: 3, label: `部门`, visible: true },
-  { key: 4, label: `手机号码`, visible: true },
-  { key: 5, label: `状态`, visible: true },
-  { key: 6, label: `创建时间`, visible: true },
-  { key: 7, label: `性别`, visible: true }
+   { key: 0, label: `用户编号`, visible: false },
+   { key: 1, label: `用户名称`, visible: true },
+   { key: 2, label: `用户昵称`, visible: true },
+   { key: 3, label: `部门`, visible: true },
+   { key: 4, label: `手机号码`, visible: true },
+   { key: 5, label: `状态`, visible: true },
+   { key: 6, label: `创建时间`, visible: true },
+   { key: 7, label: `性别`, visible: true }
 ]);
 
 const data = reactive({
