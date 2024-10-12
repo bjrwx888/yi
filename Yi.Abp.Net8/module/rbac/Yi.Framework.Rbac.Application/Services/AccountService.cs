@@ -171,11 +171,6 @@ namespace Yi.Framework.Rbac.Application.Services
             {
                 throw new UserFriendlyException("手机号码格式错误！请检查");
             }
-
-            if (await _userRepository.IsAnyAsync(x => x.Phone.ToString() == phone))
-            {
-                throw new UserFriendlyException("该手机号已被注册！");
-            }
         }
 
 
@@ -210,6 +205,13 @@ namespace Yi.Framework.Rbac.Application.Services
             PhoneCaptchaImageDto input)
         {
             await ValidationPhone(input.Phone);
+            
+            //注册的手机号验证，是不能已经注册过的
+            if (validationPhoneType == ValidationPhoneTypeEnum.Register&& await _userRepository.IsAnyAsync(x => x.Phone.ToString() == input.Phone))
+            {
+                throw new UserFriendlyException("该手机号已被注册！");
+            }
+            
             var value = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(validationPhoneType, input.Phone));
 
             //防止暴刷
