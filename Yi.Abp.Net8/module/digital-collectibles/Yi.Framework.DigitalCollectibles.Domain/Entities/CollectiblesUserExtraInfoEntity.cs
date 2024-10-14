@@ -10,5 +10,18 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Entities;
 [SugarTable("DC_CollectiblesUserExtraInfo")]
 public class CollectiblesUserExtraInfoEntity: Entity<Guid>
 {
+    /// <summary>
+    /// 用户id
+    /// </summary>
+    public Guid UserId { get; set; }
+
+    /// <summary>
+    /// 手机号
+    /// </summary>
+    public string Phone{ get; set; }
     
+    /// <summary>
+    /// 微信openid
+    /// </summary>
+    public string WeChatOpenId { get; set; }
 }

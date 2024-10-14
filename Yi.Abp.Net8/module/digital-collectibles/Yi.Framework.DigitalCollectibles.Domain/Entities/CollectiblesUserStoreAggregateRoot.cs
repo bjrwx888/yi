@@ -10,5 +10,13 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Entities;
 [SugarTable("DC_CollectiblesUserStore")]
 public class CollectiblesUserStoreAggregateRoot:FullAuditedAggregateRoot<Guid>
 {
-    
+    /// <summary>
+    /// 用户id
+    /// </summary>
+    public Guid UserId { get; set; }
+
+    /// <summary>
+    /// 藏品id
+    /// </summary>
+    public Guid CollectiblesId { get; set; }
 }

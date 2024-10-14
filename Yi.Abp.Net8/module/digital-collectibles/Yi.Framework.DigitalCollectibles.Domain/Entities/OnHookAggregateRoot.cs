@@ -11,5 +11,28 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Entities;
 [SugarTable("DC_OnHook")]
 public class OnHookAggregateRoot:FullAuditedAggregateRoot<Guid>
 {
+    /// <summary>
+    /// 用户id
+    /// </summary>
+    public Guid UserId { get; set; }
+
+    /// <summary>
+    /// 开始时间
+    /// </summary>
+    public DateTime? StarTime { get; set; }
     
+    /// <summary>
+    /// 结束时间
+    /// </summary>
+    public DateTime? EndTime { get; set; }
+    
+    /// <summary>
+    /// 有效小时数
+    /// </summary>
+    public int EffectiveHours{ get; set; }
+    
+    /// <summary>
+    /// 是否激活
+    /// </summary>
+    public bool IsActive{ get; set; }
 }

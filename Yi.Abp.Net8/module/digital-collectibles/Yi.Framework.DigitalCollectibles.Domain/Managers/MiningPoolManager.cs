@@ -8,5 +8,4 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
 /// </summary>
 public class MiningPoolManager:DomainService
 {
-    
 }
