@@ -157,7 +157,8 @@ namespace Yi.Framework.Rbac.Application.Services
         {
             var uuid = _guidGenerator.Create();
             var captcha = _captcha.Generate(uuid.ToString());
-            return new CaptchaImageDto { Img = captcha.Bytes, Uuid = uuid };
+            var enableCaptcha = _rbacOptions.EnableCaptcha;
+            return new CaptchaImageDto { Img = captcha.Bytes, Uuid = uuid,IsEnableCaptcha= enableCaptcha };
         }
 
         /// <summary>
