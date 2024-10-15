@@ -1,16 +1,13 @@
-using Microsoft.Extensions.DependencyInjection;
-using Volo.Abp.Modularity;
 using Yi.Framework.DigitalCollectibles.Domain;
 using Yi.Framework.Mapster;
+using Yi.Framework.SettingManagement.SqlSugarCore;
 using Yi.Framework.SqlSugarCore;
-using Yi.Framework.SqlSugarCore.Abstractions;
-
 
 namespace Yi.Framework.DigitalCollectibles.SqlsugarCore
 {
     [DependsOn(
         typeof(YiFrameworkDigitalCollectiblesDomainModule),
-        
+        typeof(YiFrameworkSettingManagementSqlSugarCoreModule),
         typeof(YiFrameworkMapsterModule),
         typeof(YiFrameworkSqlSugarCoreModule)
         )]

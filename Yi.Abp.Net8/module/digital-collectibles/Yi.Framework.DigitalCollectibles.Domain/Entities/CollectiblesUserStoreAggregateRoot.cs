@@ -19,4 +19,9 @@ public class CollectiblesUserStoreAggregateRoot:FullAuditedAggregateRoot<Guid>
     /// 藏品id
     /// </summary>
     public Guid CollectiblesId { get; set; }
+
+    /// <summary>
+    /// 用户是否已读
+    /// </summary>
+    public bool IsRead { get; set; }
 }
