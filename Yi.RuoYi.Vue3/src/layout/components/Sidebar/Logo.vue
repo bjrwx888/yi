@@ -45,7 +45,7 @@ const sideTheme = computed(() => settingsStore.sideTheme);
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
+  background: #fff;
   text-align: center;
   overflow: hidden;
 
@@ -54,8 +54,8 @@ const sideTheme = computed(() => settingsStore.sideTheme);
     width: 100%;
 
     & .sidebar-logo {
-      width: 135px;
-      height: 32px;
+      width: 165px;
+      height: 55px;
       vertical-align: middle;
       margin-right: 15px;
     }
