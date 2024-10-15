@@ -62,7 +62,7 @@ namespace Yi.Framework.Rbac.Application.Services.System
         protected override async Task CheckCreateInputDtoAsync(DeptCreateInputVo input)
         {
             var isExist =
-                await _repository.IsAnyAsync(x => x.DeptCode == input.DeptCode);
+                await _repository.IsAnyAsync(x => x.DeptName.Trim() == input.DeptName.Trim());
             if (isExist)
             {
                 throw new UserFriendlyException(DeptConst.Exist);
@@ -72,7 +72,7 @@ namespace Yi.Framework.Rbac.Application.Services.System
         protected override async Task CheckUpdateInputDtoAsync(DeptAggregateRoot entity, DeptUpdateInputVo input)
         {
             var isExist = await _repository._DbQueryable.Where(x => x.Id != entity.Id)
-                .AnyAsync(x => x.DeptCode == input.DeptCode);
+                .AnyAsync(x => x.DeptName.Trim() == input.DeptName.Trim());
             if (isExist)
             {
                 throw new UserFriendlyException(DeptConst.Exist);
