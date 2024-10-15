@@ -29,7 +29,7 @@ public class CollectiblesService : ApplicationService
     /// <param name="input"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    [HttpGet("user")]
+    [HttpGet("collectibles/user")]
     [Authorize]
     public async Task<PagedResultDto<CollectiblesUserGetOutputDto>> GetForAccountUserAsync(
         CollectiblesUserGetInput input)

@@ -44,6 +44,12 @@ public class MiningPoolManager : DomainService
         return await ComputeMiningProbabilityAsync();
     });
 
+    public async Task<MiningPoolContent> GetMiningPoolContentAsync()
+    {
+        var pool = await _cache.GetAsync(CacheConst.MiningPoolContent);
+        return pool;
+    }
+
     /// <summary>
     /// 用户进行一次挖矿
     /// </summary>
@@ -56,7 +62,7 @@ public class MiningPoolManager : DomainService
         //挖到了放到用户仓库即可
 
         //如果概率是挖到了矿，再从矿物中随机选择一个稀有度，再在当前稀有度中的矿物列表，随机选择一个具体的矿物
-        var pool = await _cache.GetAsync(CacheConst.MiningPoolContent);
+        var pool =await GetMiningPoolContentAsync();
         if (pool.TotalNumber == 0)
         {
             result.Result = MiningResultEnum.PoolIsEmpty;
