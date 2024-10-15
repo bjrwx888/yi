@@ -37,7 +37,7 @@ public static class RarityEnumExtensions
         return display.Name!;
     }
     
-    public static decimal[] GetProbabilityValues()
+    public static decimal[] GetProbabilityArray()
     {
         List<decimal> probabilityList = new List<decimal>();
 

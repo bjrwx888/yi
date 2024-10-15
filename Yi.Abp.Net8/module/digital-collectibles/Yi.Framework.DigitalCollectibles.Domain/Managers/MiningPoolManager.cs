@@ -2,9 +2,13 @@
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Settings;
+using Volo.Abp.Threading;
+using Yi.Framework.DigitalCollectibles.Domain.Dtos;
+using Yi.Framework.DigitalCollectibles.Domain.Entities;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
-using Yi.Framework.DigitalCollectibles.Domain.Shared.Dtos;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Enums;
 using Yi.Framework.SettingManagement.Domain;
+using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
 
@@ -14,55 +18,138 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
 /// </summary>
 public class MiningPoolManager : DomainService
 {
-    /// <summary>
-    /// 每次挖矿概率，每天根据特定算法计算
-    /// </summary>
-    private static decimal CurrentMiningProbability { get; set; }
-
+    private readonly ISqlSugarRepository<CollectiblesAggregateRoot> _collectiblesRepository;
+    private readonly ISqlSugarRepository<OnHookAggregateRoot> _onHookRepository;
     private readonly ISettingProvider _settingProvider;
     private readonly IDistributedCache<MiningPoolContent> _cache;
+    private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _userStoreRepository;
 
-    public MiningPoolManager(ISettingProvider settingProvider, IDistributedCache<MiningPoolContent> cache)
+    public MiningPoolManager(ISettingProvider settingProvider, IDistributedCache<MiningPoolContent> cache,
+        ISqlSugarRepository<CollectiblesAggregateRoot> collectiblesRepository,
+        ISqlSugarRepository<OnHookAggregateRoot> onHookRepository,
+        ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> userStoreRepository)
     {
         _settingProvider = settingProvider;
         this._cache = cache;
+        _collectiblesRepository = collectiblesRepository;
+        _onHookRepository = onHookRepository;
+        _userStoreRepository = userStoreRepository;
     }
 
     /// <summary>
-    /// 最后一次计算挖矿概率的时间，如果时间跨了早上10点，重新计算
+    /// 每次挖矿概率，每天根据特定算法计算
     /// </summary>
-    private static DateTime LastComputeMiningProbabilityTime { get; set; }
+    private static decimal CurrentMiningProbability => AsyncHelper.RunSync(async () =>
+    {
+        return await ComputeMiningProbabilityAsync();
+    });
 
     /// <summary>
     /// 用户进行一次挖矿
     /// </summary>
     /// <returns></returns>
-    public Task MiningAsync(Guid userId)
+    public async Task<MiningPoolResult> MiningAsync(Guid userId)
     {
-        //从矿池中开挖
+        var result = new MiningPoolResult();
+        //从矿池中开挖,判断矿池是否还有矿
         //根据挖矿概率，进行挖掘
         //挖到了放到用户仓库即可
 
         //如果概率是挖到了矿，再从矿物中随机选择一个稀有度，再在当前稀有度中的矿物列表，随机选择一个具体的矿物
+        var pool = await _cache.GetAsync(CacheConst.MiningPoolContent);
+        if (pool.TotalNumber == 0)
+        {
+            result.Result = MiningResultEnum.PoolIsEmpty;
+            return result;
+        }
 
-        throw new NotImplementedException();
+        // 生成一个 0 到 1 之间的随机数
+        double randomValue = new Random().NextDouble();
+        //如果随机的概率在当前概率内，成功
+        if (randomValue.To<decimal>() < CurrentMiningProbability)
+        {
+            //成功后在藏品中根据稀有度概率必定获取一个
+            var probabilityArray = RarityEnumExtensions.GetProbabilityArray();
+            var index = GetRandomIndex(probabilityArray);
+            var rarityType = (RarityEnum)Enum.GetValues(typeof(RarityEnum)).GetValue(index);
+            var collectiblesList =
+                await _collectiblesRepository._DbQueryable.Where(x => x.Rarity == rarityType).ToListAsync();
+            int randomIndex = new Random().Next(collectiblesList.Count);
+            var currentCollectibles = collectiblesList[randomIndex];
+            result.Result = MiningResultEnum.Success;
+            result.Collectibles = currentCollectibles;
+
+            //使用结果新增给对应的用户
+            await _userStoreRepository.InsertAsync(new CollectiblesUserStoreAggregateRoot
+            {
+                UserId = userId,
+                CollectiblesId = result.Collectibles.Id,
+                IsRead = false
+            });
+
+
+            return result;
+        }
+
+        result.Result = MiningResultEnum.Empty;
+        return result;
+    }
+
+    /// <summary>
+    /// 挂机挖矿
+    /// </summary>
+    public async Task OnHookMiningAsync()
+    {
+        //获取当前激活的挂机挖矿
+        var currentOnHook = await _onHookRepository._DbQueryable.Where(x => x.IsActive == true)
+            .Where(x => x.EndTime <= DateTime.Now).ToListAsync();
+
+        //根据用户对挂机卡hash关系
+        var userOnHookDic = currentOnHook.GroupBy(x => x.UserId).ToDictionary(x => x.Key, y => y.First());
+        foreach (var onHookItem in userOnHookDic)
+        {
+            await MiningAsync(onHookItem.Value.UserId);
+        }
+    }
+
+    private int GetRandomIndex(decimal[] probabilities)
+    {
+        // 生成0到1之间的随机数
+        Random random = new Random();
+        decimal randomValue = random.NextDouble().To<decimal>();
+
+        decimal cumulativeProbability = 0.0m;
+
+        for (int i = 0; i < probabilities.Length; i++)
+        {
+            cumulativeProbability += probabilities[i];
+
+            // 判断随机数是否小于当前的累积概率
+            if (randomValue < cumulativeProbability)
+            {
+                return i; // 返回中标的索引
+            }
+        }
+
+        //剩余情况都是普通
+        return 0;
     }
 
     /// <summary>
     /// 计算当前挖矿概率
     /// </summary>
     /// <returns></returns>
-    public Task ComputeMiningProbabilityAsync()
+    public static Task<decimal> ComputeMiningProbabilityAsync()
     {
         //当前的挖矿期望：当天的所有藏品能被刚好挖完
-        
+
         //保底概率：最大不能高过一个值，百分之10
         //手动挖矿：1天可挖10次，每次至少间隔6秒
         //自动挖矿：1天可以挖24次  每次间隔60分钟（需要使用自动挖矿卡）
         //可影响因素：剩余手动挖矿次数+剩余自动挖矿次数
-        
-        //所有能够挖掘次数
-        throw new NotImplementedException();
+
+        //简单模式，1/15
+        return Task.FromResult(1m / 15);
     }
 
     /// <summary>
@@ -76,7 +163,7 @@ public class MiningPoolManager : DomainService
 
         DateTime startTime = DateTime.Today.AddHours(10);
         DateTime endTime = startTime.AddDays(1);
-        var probabilityValues = RarityEnumExtensions.GetProbabilityValues();
+        var probabilityValues = RarityEnumExtensions.GetProbabilityArray();
         var result = GenerateDistribution(maximumPoolLimit, probabilityValues);
 
         //根据配置，将不同比例的矿，塞入矿池,

@@ -1,4 +1,4 @@
-﻿namespace Yi.Framework.DigitalCollectibles.Domain.Shared.Dtos;
+﻿namespace Yi.Framework.DigitalCollectibles.Domain.Dtos;
 
 /// <summary>
 /// 矿池内容
@@ -45,6 +45,10 @@ public class MiningPoolContent
    /// 结束时间
    /// </summary>
    public DateTime EndTime{ get; set; }
-   
+
+   /// <summary>
+   /// 总共剩余藏品数量
+   /// </summary>
+   public int TotalNumber => I0_OrdinaryNumber + I1_SeniorNumber + I2_RareNumber + I3_GemNumber + I4_LegendNumber;
 }
 

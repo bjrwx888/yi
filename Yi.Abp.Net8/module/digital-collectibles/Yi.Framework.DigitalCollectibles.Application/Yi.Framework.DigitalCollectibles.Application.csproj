@@ -6,6 +6,7 @@
     <ProjectReference Include="..\..\..\framework\Yi.Framework.Ddd.Application\Yi.Framework.Ddd.Application.csproj" />
  <ProjectReference Include="..\Yi.Framework.DigitalCollectibles.Application.Contracts\Yi.Framework.DigitalCollectibles.Application.Contracts.csproj" />
     <ProjectReference Include="..\Yi.Framework.DigitalCollectibles.Domain\Yi.Framework.DigitalCollectibles.Domain.csproj" />
+      <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="$(AbpVersion)" />
   </ItemGroup>
 
 
