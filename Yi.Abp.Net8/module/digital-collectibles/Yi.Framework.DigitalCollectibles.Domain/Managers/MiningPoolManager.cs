@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using FreeRedis;
+using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Settings;
@@ -21,33 +22,89 @@ public class MiningPoolManager : DomainService
     private readonly ISqlSugarRepository<CollectiblesAggregateRoot> _collectiblesRepository;
     private readonly ISqlSugarRepository<OnHookAggregateRoot> _onHookRepository;
     private readonly ISettingProvider _settingProvider;
-    private readonly IDistributedCache<MiningPoolContent> _cache;
+    private readonly IDistributedCache<MiningPoolContent?> _miningPoolCache;
+    private readonly IDistributedCache<UserMiningLimitCacheDto?> _userMiningLimitCache;
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _userStoreRepository;
+    private IRedisClient RedisClient => LazyServiceProvider.LazyGetRequiredService<IRedisClient>();
 
-    public MiningPoolManager(ISettingProvider settingProvider, IDistributedCache<MiningPoolContent> cache,
+    public MiningPoolManager(ISettingProvider settingProvider, IDistributedCache<MiningPoolContent> miningPoolCache,
         ISqlSugarRepository<CollectiblesAggregateRoot> collectiblesRepository,
         ISqlSugarRepository<OnHookAggregateRoot> onHookRepository,
-        ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> userStoreRepository)
+        ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> userStoreRepository,
+        IDistributedCache<UserMiningLimitCacheDto> userMiningLimitCache)
     {
         _settingProvider = settingProvider;
-        this._cache = cache;
+        this._miningPoolCache = miningPoolCache;
         _collectiblesRepository = collectiblesRepository;
         _onHookRepository = onHookRepository;
         _userStoreRepository = userStoreRepository;
+        _userMiningLimitCache = userMiningLimitCache;
     }
 
     /// <summary>
     /// 每次挖矿概率，每天根据特定算法计算
     /// </summary>
-    private static decimal CurrentMiningProbability => AsyncHelper.RunSync(async () =>
+    private decimal CurrentMiningProbability => AsyncHelper.RunSync(async () =>
     {
         return await ComputeMiningProbabilityAsync();
     });
 
     public async Task<MiningPoolContent> GetMiningPoolContentAsync()
     {
-        var pool = await _cache.GetAsync(CacheConst.MiningPoolContent);
+        var pool = await _miningPoolCache.GetAsync(MiningCacheConst.MiningPoolContent);
         return pool;
+    }
+
+
+    /// <summary>
+    /// 校验挖矿限制
+    /// </summary>
+    /// <param name="userId"></param>
+    private async Task VerifyMiningLimitAsync(Guid userId)
+    {
+        //每天最大次数限制
+        var miningMaxLimit = int.Parse(await _settingProvider.GetOrNullAsync("MiningMaxLimit"));
+        //每次间隔
+        var miningMinIntervalSeconds = int.Parse(await _settingProvider.GetOrNullAsync("MiningMinIntervalSeconds"));
+
+        var currentNumber = 1;
+
+        //根据用户进行上锁
+        if (await RedisClient.SetNxAsync($"UserMiningLimitLock:{userId}", true,
+                TimeSpan.FromSeconds(miningMinIntervalSeconds)))
+        {
+            var userLimit = await _userMiningLimitCache.GetAsync($"{MiningCacheConst.UserMiningLimit}:{userId}");
+
+            if (userLimit is not null)
+            {
+                //符合条件，成功挖矿
+                if (userLimit.Number < miningMaxLimit)
+                {
+                    currentNumber = userLimit.Number + 1;
+                }
+                else
+                {
+                    throw new UserFriendlyException($"失败，你已达当轮矿池最大限制，给其他人留点吧");
+                }
+            }
+
+            //没有缓存过，必定成功，直接走
+            await _userMiningLimitCache.SetAsync($"{MiningCacheConst.UserMiningLimit}:{userId}",
+                new UserMiningLimitCacheDto
+                {
+                    Number = currentNumber,
+                    LastMiningTime = DateTime.Now,
+                },
+                new DistributedCacheEntryOptions()
+                {
+                    //虽然新增的是一天，但是每次刷新是早上10点，矿池刷新时，还需要清除限制
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1)
+                });
+        }
+
+        //已上过锁，并且没有到限制时间，必定失败
+        //不符合条件，直接走
+        throw new UserFriendlyException($"失败，你都挖的冒烟了，请稍后再挖");
     }
 
     /// <summary>
@@ -56,22 +113,19 @@ public class MiningPoolManager : DomainService
     /// <returns></returns>
     public async Task<MiningPoolResult> MiningAsync(Guid userId)
     {
-        
+        //检验限制
+        await VerifyMiningLimitAsync(userId);
+
         var result = new MiningPoolResult();
         //从矿池中开挖,判断矿池是否还有矿
         //根据挖矿概率，进行挖掘
         //挖到了放到用户仓库即可
 
-        var miningMaxLimit = int.Parse(await _settingProvider.GetOrNullAsync("MiningMaxLimit"));
-        var miningMinIntervalSeconds = int.Parse(await _settingProvider.GetOrNullAsync("MiningMinIntervalSeconds"));
-        
-        
         //如果概率是挖到了矿，再从矿物中随机选择一个稀有度，再在当前稀有度中的矿物列表，随机选择一个具体的矿物
-        var pool =await GetMiningPoolContentAsync();
+        var pool = await GetMiningPoolContentAsync();
         if (pool.TotalNumber == 0)
         {
-            result.Result = MiningResultEnum.PoolIsEmpty;
-            return result;
+            throw new UserFriendlyException($"失败，矿池已经被掏空了，请等矿池刷新后再来");
         }
 
         // 生成一个 0 到 1 之间的随机数
@@ -87,7 +141,7 @@ public class MiningPoolManager : DomainService
                 await _collectiblesRepository._DbQueryable.Where(x => x.Rarity == rarityType).ToListAsync();
             int randomIndex = new Random().Next(collectiblesList.Count);
             var currentCollectibles = collectiblesList[randomIndex];
-            result.Result = MiningResultEnum.Success;
+
             result.Collectibles = currentCollectibles;
 
             //使用结果新增给对应的用户
@@ -102,8 +156,7 @@ public class MiningPoolManager : DomainService
             return result;
         }
 
-        result.Result = MiningResultEnum.Empty;
-        return result;
+        throw new UserFriendlyException($"恭喜！空空如也，挖了个寂寞");
     }
 
     /// <summary>
@@ -150,7 +203,7 @@ public class MiningPoolManager : DomainService
     /// 计算当前挖矿概率
     /// </summary>
     /// <returns></returns>
-    public static Task<decimal> ComputeMiningProbabilityAsync()
+    public async Task<decimal> ComputeMiningProbabilityAsync()
     {
         //当前的挖矿期望：当天的所有藏品能被刚好挖完
 
@@ -160,7 +213,8 @@ public class MiningPoolManager : DomainService
         //可影响因素：剩余手动挖矿次数+剩余自动挖矿次数
 
         //简单模式，1/15
-        return Task.FromResult(1m / 15);
+        var miningMaxLimit = decimal.Parse(await _settingProvider.GetOrNullAsync("MiningMinProbability"));
+        return miningMaxLimit;
     }
 
     /// <summary>
@@ -179,7 +233,7 @@ public class MiningPoolManager : DomainService
 
         //根据配置，将不同比例的矿，塞入矿池,
         //矿池，交给redis
-        await _cache.SetAsync(CacheConst.MiningPoolContent, new MiningPoolContent(startTime, endTime)
+        await _miningPoolCache.SetAsync(MiningCacheConst.MiningPoolContent, new MiningPoolContent(startTime, endTime)
         {
             I0_OrdinaryNumber = result[0],
             I1_SeniorNumber = result[1],
@@ -190,6 +244,14 @@ public class MiningPoolManager : DomainService
         {
             AbsoluteExpiration = endTime
         });
+    }
+
+    /// <summary>
+    /// 刷新用户挖矿限制
+    /// </summary>
+    public async Task RefreshMiningUserLimitAsync()
+    {
+        await RedisClient.DelAsync($"{MiningCacheConst.UserMiningLimit}*");
     }
 
     /// <summary>

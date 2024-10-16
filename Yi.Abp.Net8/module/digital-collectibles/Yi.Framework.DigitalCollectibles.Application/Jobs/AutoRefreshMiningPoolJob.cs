@@ -24,6 +24,9 @@ public class AutoRefreshMiningPoolJob : QuartzBackgroundWorkerBase
 
     public override async Task Execute(IJobExecutionContext context)
     {
+        //刷新矿池
         await _miningPoolManager.RefreshMiningPoolAsync();
+        //刷新用户限制
+        await _miningPoolManager.RefreshMiningUserLimitAsync();
     }
 }
