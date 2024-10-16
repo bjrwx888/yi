@@ -16,7 +16,7 @@ namespace Yi.Abp.Domain.Shared.Settings
         {
             context.Add(
                 //每日矿池最大上限
-                new SettingDefinition("MaxPoolLimit", "100"),
+                new SettingDefinition("MaxPoolLimit", "50"),
                 
                 //每日挖矿最大上限
                 new SettingDefinition("MiningMaxLimit", "36"),
