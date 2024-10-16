@@ -16,7 +16,13 @@ namespace Yi.Abp.Domain.Shared.Settings
         {
             context.Add(
                 //每日矿池最大上限
-                new SettingDefinition("MaximumPoolLimit", "100")
+                new SettingDefinition("MaxPoolLimit", "100"),
+                
+                //每日手动挖矿最大上限
+                new SettingDefinition("MiningMaxLimit", "10"),
+                
+                //每次挖矿最小间隔（秒）
+                new SettingDefinition("MiningMinIntervalSeconds", "5")
             );
         }
     }

@@ -56,11 +56,16 @@ public class MiningPoolManager : DomainService
     /// <returns></returns>
     public async Task<MiningPoolResult> MiningAsync(Guid userId)
     {
+        
         var result = new MiningPoolResult();
         //从矿池中开挖,判断矿池是否还有矿
         //根据挖矿概率，进行挖掘
         //挖到了放到用户仓库即可
 
+        var miningMaxLimit = int.Parse(await _settingProvider.GetOrNullAsync("MiningMaxLimit"));
+        var miningMinIntervalSeconds = int.Parse(await _settingProvider.GetOrNullAsync("MiningMinIntervalSeconds"));
+        
+        
         //如果概率是挖到了矿，再从矿物中随机选择一个稀有度，再在当前稀有度中的矿物列表，随机选择一个具体的矿物
         var pool =await GetMiningPoolContentAsync();
         if (pool.TotalNumber == 0)
@@ -77,7 +82,7 @@ public class MiningPoolManager : DomainService
             //成功后在藏品中根据稀有度概率必定获取一个
             var probabilityArray = RarityEnumExtensions.GetProbabilityArray();
             var index = GetRandomIndex(probabilityArray);
-            var rarityType = (RarityEnum)Enum.GetValues(typeof(RarityEnum)).GetValue(index);
+            var rarityType = (RarityEnum)Enum.GetValues(typeof(RarityEnum)).GetValue(index)!;
             var collectiblesList =
                 await _collectiblesRepository._DbQueryable.Where(x => x.Rarity == rarityType).ToListAsync();
             int randomIndex = new Random().Next(collectiblesList.Count);
@@ -165,7 +170,7 @@ public class MiningPoolManager : DomainService
     public async Task RefreshMiningPoolAsync()
     {
         //获取当前最大的限制
-        var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaximumPoolLimit"));
+        var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaxPoolLimit"));
 
         DateTime startTime = DateTime.Today.AddHours(10);
         DateTime endTime = startTime.AddDays(1);
