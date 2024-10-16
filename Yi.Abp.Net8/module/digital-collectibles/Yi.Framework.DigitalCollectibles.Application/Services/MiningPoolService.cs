@@ -8,9 +8,21 @@ using Yi.Framework.DigitalCollectibles.Domain.Managers;
 
 namespace Yi.Framework.DigitalCollectibles.Application.Services;
 
+/// <summary>
+/// 矿池应用服务
+/// </summary>
 public class MiningPoolService : ApplicationService
 {
     private readonly MiningPoolManager _manager;
+
+    /// <summary>
+    /// 内测-白嫖-获取自动挖矿卡
+    /// </summary>
+    [HttpPost("mining-pool/on-hook")]
+    public async Task GetOnHookAsync()
+    {
+        await _manager.GetOnHookAsync(CurrentUser.GetId());
+    }
 
     /// <summary>
     /// 获取矿池状态

@@ -9,8 +9,22 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Entities;
 /// 用于定时任务处理自动挖矿
 /// </summary>
 [SugarTable("DC_OnHook")]
-public class OnHookAggregateRoot:FullAuditedAggregateRoot<Guid>
+public class OnHookAggregateRoot : FullAuditedAggregateRoot<Guid>
 {
+    public OnHookAggregateRoot()
+    {
+    }
+
+    public OnHookAggregateRoot(Guid userId, int effectiveHours)
+    {
+        UserId = userId;
+        EffectiveHours = effectiveHours;
+        StarTime = DateTime.Now;
+        EndTime = DateTime.Now.AddHours(effectiveHours);
+        IsActive = true;
+    }
+
+
     /// <summary>
     /// 用户id
     /// </summary>
@@ -20,19 +34,19 @@ public class OnHookAggregateRoot:FullAuditedAggregateRoot<Guid>
     /// 开始时间
     /// </summary>
     public DateTime? StarTime { get; set; }
-    
+
     /// <summary>
     /// 结束时间
     /// </summary>
     public DateTime? EndTime { get; set; }
-    
+
     /// <summary>
     /// 有效小时数
     /// </summary>
-    public int EffectiveHours{ get; set; }
-    
+    public int EffectiveHours { get; set; }
+
     /// <summary>
     /// 是否激活
     /// </summary>
-    public bool IsActive{ get; set; }
+    public bool IsActive { get; set; }
 }

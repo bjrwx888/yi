@@ -6,7 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
-
+    <ProjectReference Include="..\..\bbs\Yi.Framework.Bbs.Domain.Shared\Yi.Framework.Bbs.Domain.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

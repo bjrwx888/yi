@@ -7,6 +7,7 @@ using Volo.Abp.Application.Services;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Collectibles;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Market;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Application.Services;
@@ -35,12 +36,31 @@ public class CollectiblesService : ApplicationService
         CollectiblesUserGetInput input)
     {
         RefAsync<int> total = 0;
-        var entities = await _collectiblesUserStoreRepository._DbQueryable.WhereIF(
+        var output = await _collectiblesUserStoreRepository._DbQueryable.WhereIF(
                 input.StartTime is not null && input.EndTime is not null,
-                x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
-            .OrderByDescending(x => x.CreationTime)
+                u => u.CreationTime >= input.StartTime && u.CreationTime <= input.EndTime)
+            .LeftJoin<CollectiblesAggregateRoot>((u, c) => u.CollectiblesId == c.Id)
+            .GroupBy((u, c) => u.CollectiblesId)
+            .Select((u, c) =>
+                new CollectiblesUserGetOutputDto
+                {
+                    Id = c.Id,
+                    Collectibles = new CollectiblesDto
+                    {
+                        Id = c.Id,
+                        Code = c.Code,
+                        Name = c.Name,
+                        Describe = c.Describe,
+                        ValueNumber = c.ValueNumber,
+                        Url = c.Url,
+                        Rarity = c.Rarity,
+                        FindTotal = c.FindTotal,
+                        OrderNum = c.OrderNum
+                    },
+                    Number = SqlFunc.AggregateCount(u.CollectiblesId)
+                })
+            .OrderBy(dto => dto.Collectibles.OrderNum)
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
-        var output = entities.Adapt<List<CollectiblesUserGetOutputDto>>();
         return new PagedResultDto<CollectiblesUserGetOutputDto>(total, output);
     }
 }

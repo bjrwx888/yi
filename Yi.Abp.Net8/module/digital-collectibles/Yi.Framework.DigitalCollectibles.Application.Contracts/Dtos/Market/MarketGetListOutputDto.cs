@@ -1,4 +1,5 @@
 ﻿using Volo.Abp.Application.Dtos;
+using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Collectibles;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 
 namespace Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Market;
@@ -6,42 +7,24 @@ namespace Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Market;
 public class MarketGetListOutputDto:EntityDto<Guid>
 {
     /// <summary>
-    /// 藏品编号
+    /// 上架时间
     /// </summary>
-    public string Code { get; set; }
-
+    public DateTime CreationTime{ get; set; }
     /// <summary>
-    /// 藏品名称
+    /// 出售者用户id
     /// </summary>
-    public string Name { get; set; }
-
+    public Guid SellUserId { get; set; }
     /// <summary>
-    /// 藏品描述
+    /// 出售数量
     /// </summary>
-    public string? Describe { get; set; }
-
-    /// <summary>
-    /// 价值数
-    /// </summary>
-    public decimal ValueNumber { get; set; }
-
-    /// <summary>
-    /// 藏品地址
-    /// </summary>
-    public string Url { get; set; }
+    public int SellNumber{ get; set; }
     
     /// <summary>
-    /// 稀有度
+    /// 出售单价
     /// </summary>
-    public RarityEnum Rarity{ get; set; }
-
+    public decimal UnitPrice{ get; set; }
     /// <summary>
-    /// 总共出现次数
+    /// 藏品
     /// </summary>
-    public int FindTotal { get; set; }
-
-    /// <summary>
-    /// 排序
-    /// </summary>
-    public int OrderNum { get; set; }
+    public CollectiblesDto Collectibles{ get; set; }
 }

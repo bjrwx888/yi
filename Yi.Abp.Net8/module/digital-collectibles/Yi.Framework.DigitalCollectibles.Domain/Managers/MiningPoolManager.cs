@@ -55,6 +55,20 @@ public class MiningPoolManager : DomainService
         return pool;
     }
 
+    public async Task GetOnHookAsync(Guid userId)
+    {
+        var onHook = await _onHookRepository._DbQueryable.Where(x => x.UserId == userId)
+            .Where(x => x.IsActive == true)
+            .Where(x => x.EndTime <= DateTime.Now)
+            .FirstAsync();
+
+        if (onHook is not null)
+        {
+            throw new UserFriendlyException($"当前你正在进行自动挂机，结束时间:{onHook.EndTime.Value.ToString("MM月dd日HH分mm秒")})");
+        }
+
+        await _onHookRepository.InsertAsync(new OnHookAggregateRoot(userId, 24));
+    }
 
     /// <summary>
     /// 校验挖矿限制
