@@ -81,7 +81,7 @@ public class AccessLogStoreJob : QuartzBackgroundWorkerBase
             }
 
             //删除前一天的缓存
-            await RedisClient.DelAsync($"{CacheKeyPrefix}:{AccessLogCacheConst.Key}:{DateTime.Now.Date.AddDays(-1)}");
+            await RedisClient.DelAsync($"{CacheKeyPrefix}:{AccessLogCacheConst.Key}:{DateTime.Now.Date.AddDays(-1).ToString("yyyyMMdd")}");
         }
     }
 }
