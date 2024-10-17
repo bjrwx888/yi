@@ -15,6 +15,11 @@ public class MiningPoolService : ApplicationService
 {
     private readonly MiningPoolManager _manager;
 
+    public MiningPoolService(MiningPoolManager manager)
+    {
+        _manager = manager;
+    }
+
     /// <summary>
     /// 内测-白嫖-获取自动挖矿卡
     /// </summary>
@@ -29,10 +34,10 @@ public class MiningPoolService : ApplicationService
     /// </summary>
     /// <returns></returns>
     [HttpGet("mining-pool")]
-    public async Task<MiningPoolGetOutput> GetMiningPoolContentAsync()
+    public async Task<MiningPoolGetOutput?> GetMiningPoolContentAsync()
     {
         var content = await _manager.GetMiningPoolContentAsync();
-        var output = content.Adapt<MiningPoolGetOutput>();
+        var output = content.Adapt<MiningPoolGetOutput?>();
         return output;
     }
 

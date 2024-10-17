@@ -11,8 +11,9 @@ public class AutoRefreshMiningPoolJob : QuartzBackgroundWorkerBase
 {
     private readonly MiningPoolManager _miningPoolManager;
 
-    public AutoRefreshMiningPoolJob()
+    public AutoRefreshMiningPoolJob(MiningPoolManager miningPoolManager)
     {
+        _miningPoolManager = miningPoolManager;
         JobDetail = JobBuilder.Create<AutoRefreshMiningPoolJob>().WithIdentity(nameof(AutoRefreshMiningPoolJob))
             .Build();
 
@@ -20,6 +21,15 @@ public class AutoRefreshMiningPoolJob : QuartzBackgroundWorkerBase
         Trigger = TriggerBuilder.Create().WithIdentity(nameof(AutoRefreshMiningPoolJob))
             .WithCronSchedule("0 0 10 * * ?")
             .Build();
+        
+        
+        // Trigger = TriggerBuilder.Create().WithIdentity(nameof(AutoRefreshMiningPoolJob))
+        //     .WithSimpleSchedule((schedule) =>
+        //     {
+        //         schedule.WithInterval(TimeSpan.FromHours(1));
+        //     })
+        //     .StartNow()
+        //     .Build();
     }
 
     public override async Task Execute(IJobExecutionContext context)

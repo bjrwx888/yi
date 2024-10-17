@@ -49,7 +49,7 @@ public class MiningPoolManager : DomainService
         return await ComputeMiningProbabilityAsync();
     });
 
-    public async Task<MiningPoolContent> GetMiningPoolContentAsync()
+    public async Task<MiningPoolContent?> GetMiningPoolContentAsync()
     {
         var pool = await _miningPoolCache.GetAsync(MiningCacheConst.MiningPoolContent);
         return pool;
