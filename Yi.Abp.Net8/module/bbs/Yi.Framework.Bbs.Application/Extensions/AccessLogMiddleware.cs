@@ -80,7 +80,7 @@ public class AccessLogResetEventHandler : ILocalEventHandler<AccessLogResetArgs>
                 if (incrNumber>0)
                 {
                     await RedisClient.IncrByAsync(
-                        $"{CacheKeyPrefix}:{AccessLogCacheConst.Key}:{DateTime.Now.Date.ToString("yyyyMMdd")}", incrNumber);
+                        $"{CacheKeyPrefix}{AccessLogCacheConst.Key}:{DateTime.Now.Date:yyyyMMdd}", incrNumber);
                 }
              
                 

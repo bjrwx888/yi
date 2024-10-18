@@ -62,7 +62,7 @@ public class AccessLogStoreJob : QuartzBackgroundWorkerBase
         {
             //当天的访问量
             var number =
-                await RedisClient.GetAsync<long>($"{CacheKeyPrefix}:{AccessLogCacheConst.Key}:{DateTime.Now.Date}");
+                await RedisClient.GetAsync<long>($"{CacheKeyPrefix}{AccessLogCacheConst.Key}:{DateTime.Now.Date:yyyyMMdd}");
 
 
             var entity = await _repository._DbQueryable.Where(x => x.AccessLogType == AccessLogTypeEnum.Request)
@@ -81,7 +81,7 @@ public class AccessLogStoreJob : QuartzBackgroundWorkerBase
             }
 
             //删除前一天的缓存
-            await RedisClient.DelAsync($"{CacheKeyPrefix}:{AccessLogCacheConst.Key}:{DateTime.Now.Date.AddDays(-1).ToString("yyyyMMdd")}");
+            await RedisClient.DelAsync($"{CacheKeyPrefix}{AccessLogCacheConst.Key}:{DateTime.Now.Date.AddDays(-1):yyyyMMdd}");
         }
     }
 }
