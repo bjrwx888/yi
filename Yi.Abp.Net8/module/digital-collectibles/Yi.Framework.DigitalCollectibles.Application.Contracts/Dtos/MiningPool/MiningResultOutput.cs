@@ -5,6 +5,5 @@ namespace Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.MiningPool
 
 public class MiningResultOutput
 {
-    
-    public CollectiblesUserGetOutputDto? Collectibles { get; set; }
+    public CollectiblesDto? Collectibles{ get; set; }
 }

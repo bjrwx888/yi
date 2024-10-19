@@ -166,8 +166,7 @@ public class MiningPoolManager : DomainService
                 CollectiblesId = result.Collectibles.Id,
                 IsRead = false
             });
-
-
+            
             return result;
         }
 

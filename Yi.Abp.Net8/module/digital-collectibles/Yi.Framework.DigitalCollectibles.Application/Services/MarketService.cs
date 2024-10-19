@@ -43,6 +43,7 @@ public class MarketService : ApplicationService
                 m => m.CreationTime >= input.StartTime && m.CreationTime <= input.EndTime)
 
             .LeftJoin<CollectiblesAggregateRoot>((m, c) => m.CollectiblesId == c.Id)
+            .OrderByDescending((m, c) => m.CreationTime)
             .Select((m, c) =>
      
                 new MarketGetListOutputDto
@@ -65,7 +66,7 @@ public class MarketService : ApplicationService
                     }
                 }
             )
-            .OrderByDescending(dto => dto.CreationTime)
+
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
         return new PagedResultDto<MarketGetListOutputDto>(total, output);
     }

@@ -40,6 +40,7 @@ public class CollectiblesService : ApplicationService
                 input.StartTime is not null && input.EndTime is not null,
                 u => u.CreationTime >= input.StartTime && u.CreationTime <= input.EndTime)
             .LeftJoin<CollectiblesAggregateRoot>((u, c) => u.CollectiblesId == c.Id)
+            .OrderBy((u,c) => c.OrderNum)
             .GroupBy((u, c) => u.CollectiblesId)
             .Select((u, c) =>
                 new CollectiblesUserGetOutputDto
@@ -59,7 +60,6 @@ public class CollectiblesService : ApplicationService
                     },
                     Number = SqlFunc.AggregateCount(u.CollectiblesId)
                 })
-            .OrderBy(dto => dto.Collectibles.OrderNum)
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
         return new PagedResultDto<CollectiblesUserGetOutputDto>(total, output);
     }

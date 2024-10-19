@@ -212,6 +212,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// 手机验证码
         /// </summary>
         /// <returns></returns>
+        [RemoteService(isEnabled:false)]
         public async Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
             PhoneCaptchaImageDto input)
         {
