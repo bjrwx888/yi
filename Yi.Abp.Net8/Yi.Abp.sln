@@ -182,6 +182,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.DigitalCollect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.DigitalCollectibles.SqlSugarCore", "module\digital-collectibles\Yi.Framework.DigitalCollectibles.SqlSugarCore\Yi.Framework.DigitalCollectibles.SqlSugarCore.csproj", "{4CE6E4AE-0BA4-4984-A4F1-A9A414B1BB8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.WeChat.MiniProgram", "framework\Yi.Framework.WeChat.MiniProgram\Yi.Framework.WeChat.MiniProgram.csproj", "{81CEA2ED-917B-41D8-BE0D-39A785B050C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -460,6 +462,10 @@ Global
 		{4CE6E4AE-0BA4-4984-A4F1-A9A414B1BB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE6E4AE-0BA4-4984-A4F1-A9A414B1BB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE6E4AE-0BA4-4984-A4F1-A9A414B1BB8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81CEA2ED-917B-41D8-BE0D-39A785B050C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81CEA2ED-917B-41D8-BE0D-39A785B050C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81CEA2ED-917B-41D8-BE0D-39A785B050C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81CEA2ED-917B-41D8-BE0D-39A785B050C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -541,6 +547,7 @@ Global
 		{9B5CAE1A-E062-4C9B-8121-E58FBF69309C} = {B8F76A6B-2EEB-4E64-9F26-D84584E16B9C}
 		{FFEC9DA6-1A13-480A-AE9E-2BF8763D3061} = {B8F76A6B-2EEB-4E64-9F26-D84584E16B9C}
 		{4CE6E4AE-0BA4-4984-A4F1-A9A414B1BB8F} = {B8F76A6B-2EEB-4E64-9F26-D84584E16B9C}
+		{81CEA2ED-917B-41D8-BE0D-39A785B050C0} = {77B949E9-530E-45A5-9657-20F7D5C6875C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23D6FBC9-C970-4641-BC1E-2AEA59F51C18}

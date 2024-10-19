@@ -114,6 +114,7 @@ public class MiningPoolManager : DomainService
                     //虽然新增的是一天，但是每次刷新是早上10点，矿池刷新时，还需要清除限制
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1)
                 });
+            return;
         }
 
         //已上过锁，并且没有到限制时间，必定失败
