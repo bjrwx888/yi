@@ -101,7 +101,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public async Task<object> PostLoginAsync(LoginInputVo input)
+        public async Task<LoginOutputDto> PostLoginAsync(LoginInputVo input)
         {
             if (string.IsNullOrEmpty(input.Password) || string.IsNullOrEmpty(input.UserName))
             {
@@ -115,10 +115,21 @@ namespace Yi.Framework.Rbac.Application.Services
             //校验
             await _accountManager.LoginValidationAsync(input.UserName, input.Password, x => user = x);
 
+            return await PostLoginAsync(user.Id);
+        }
+
+
+        /// <summary>
+        /// 提供其他服务使用，根据用户id，直接返回token
+        /// </summary>
+        /// <returns></returns>
+        [RemoteService(isEnabled: false)]
+        public async Task<LoginOutputDto> PostLoginAsync(Guid userId)
+        {
             var userInfo = new UserRoleMenuDto();
             //获取token
-            var accessToken = await _accountManager.GetTokenByUserIdAsync(user.Id, (info) => userInfo = info);
-            var refreshToken = _accountManager.CreateRefreshToken(user.Id);
+            var accessToken = await _accountManager.GetTokenByUserIdAsync(userId, (info) => userInfo = info);
+            var refreshToken = _accountManager.CreateRefreshToken(userId);
 
             //这里抛出一个登录的事件,也可以在全部流程走完，在应用层组装
             if (_httpContextAccessor.HttpContext is not null)
@@ -130,9 +141,8 @@ namespace Yi.Framework.Rbac.Application.Services
                 await LocalEventBus.PublishAsync(loginEto);
             }
 
-            return new { Token = accessToken, RefreshToken = refreshToken };
+            return new LoginOutputDto { Token = accessToken, RefreshToken = refreshToken };
         }
-
 
         /// <summary>
         /// 刷新token
@@ -158,7 +168,7 @@ namespace Yi.Framework.Rbac.Application.Services
             var uuid = _guidGenerator.Create();
             var captcha = _captcha.Generate(uuid.ToString());
             var enableCaptcha = _rbacOptions.EnableCaptcha;
-            return new CaptchaImageDto { Img = captcha.Bytes, Uuid = uuid,IsEnableCaptcha= enableCaptcha };
+            return new CaptchaImageDto { Img = captcha.Bytes, Uuid = uuid, IsEnableCaptcha = enableCaptcha };
         }
 
         /// <summary>
@@ -202,17 +212,19 @@ namespace Yi.Framework.Rbac.Application.Services
         /// 手机验证码
         /// </summary>
         /// <returns></returns>
-        private async Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
+        public async Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
             PhoneCaptchaImageDto input)
         {
             await ValidationPhone(input.Phone);
-            
+
             //注册的手机号验证，是不能已经注册过的
-            if (validationPhoneType == ValidationPhoneTypeEnum.Register&& await _userRepository.IsAnyAsync(x => x.Phone.ToString() == input.Phone))
-            {
-                throw new UserFriendlyException("该手机号已被注册！");
-            }
-            
+            //这里为了统一，绑定流程，不在次校验，而是在注册时校验
+            // if (validationPhoneType == ValidationPhoneTypeEnum.Register &&
+            //     await _userRepository.IsAnyAsync(x => x.Phone.ToString() == input.Phone))
+            // {
+            //     throw new UserFriendlyException("该手机号已被注册！");
+            // }
+
             var value = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(validationPhoneType, input.Phone));
 
             //防止暴刷
@@ -264,7 +276,7 @@ namespace Yi.Framework.Rbac.Application.Services
         {
             //校验验证码，根据电话号码获取 value，比对验证码已经uuid
             await ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.RetrievePassword, input.Phone, input.Code);
-            
+
             var entity = await _userRepository.GetFirstAsync(x => x.Phone == input.Phone);
             if (entity is null)
             {
@@ -272,7 +284,7 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             await _accountManager.RestPasswordAsync(entity.Id, input.Password);
-            
+
             return entity.UserName;
         }
 
@@ -322,6 +334,30 @@ namespace Yi.Framework.Rbac.Application.Services
             return output;
         }
 
+        [RemoteService(isEnabled: false)]
+        public async Task<UserRoleMenuDto?> GetAsync(string? userName, long? phone)
+        {
+            var user = await _userRepository._DbQueryable
+                .WhereIF(userName is not null, x => x.UserName == userName)
+                .WhereIF(phone is not null, x => x.Phone == phone)
+                .Where(x => x.State == true)
+                .FirstAsync();
+
+            //该用户不存在
+            if (user is null)
+            {
+                return null;
+            }
+
+            //注意用户名大小写数据库不敏感问题
+            if (userName is not null && user.UserName.Equals(userName))
+            {
+                throw new UserFriendlyException($"该用户名不存在或已禁用-{userName}");
+            }
+
+            var output = await _userManager.GetInfoAsync(user.Id);
+            return output;
+        }
 
         /// <summary>
         /// 获取当前登录用户的前端路由
@@ -430,7 +466,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <returns></returns>
         public async Task<bool> UpdateIconAsync(UpdateIconDto input)
         {
-            Guid userId=input.UserId == null?_currentUser.GetId():input.UserId.Value;
+            Guid userId = input.UserId == null ? _currentUser.GetId() : input.UserId.Value;
 
             var entity = await _userRepository.GetByIdAsync(userId);
 
