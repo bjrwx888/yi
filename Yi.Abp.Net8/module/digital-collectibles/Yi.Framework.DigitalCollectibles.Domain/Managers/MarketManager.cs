@@ -42,11 +42,11 @@ public class MarketManager : DomainService
             .Where(x => x.CollectiblesId == collectiblesId).ToListAsync();
         if (collectiblesList.Count < number)
         {
-            throw new UserFriendlyException($"您的藏品不足{number}个，上架失败");
+            throw new UserFriendlyException($"您的非上架该藏品不足{number}个，上架失败");
         }
 
         //上架收藏品
-        var shelvedcollectibles = collectiblesList.Take(2);
+        var shelvedcollectibles = collectiblesList.Take(number);
         foreach (var store in shelvedcollectibles)
         {
             store.ShelvedMarket();
@@ -99,7 +99,7 @@ public class MarketManager : DomainService
         var marketTaxRate = decimal.Parse(await _settingProvider.GetOrNullAsync("MarketTaxRate"));
         await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId = userId, Number = number*(1-marketTaxRate) },false);
         
-        //3-出售者删除对应库存，购买者新增对应库存
+        //3-出售者删除对应库存，购买者新增对应库存(只需更改用户者即可)
         var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable.Where(x => x.IsAtMarketing == true)
             .Where(x => x.UserId == marketGoods.SellUserId)
             .Where(x => x.CollectiblesId == marketGoods.CollectiblesId)

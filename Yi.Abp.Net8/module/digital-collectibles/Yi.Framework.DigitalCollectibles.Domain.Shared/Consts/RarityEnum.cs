@@ -9,11 +9,11 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 /// </summary>
 public enum RarityEnum
 {
-    [Display(Name = "普通")][Probability(0.8f)] Ordinary = 0,
-    [Display(Name = "高级")][Probability(0.1f)] Senior = 1,
-    [Display(Name = "稀有")][Probability(0.06f)] Rare = 2,
-    [Display(Name = "珍品")][Probability(0.039f)] Gem = 3,
-    [Display(Name = "传说")][Probability(0.001f)] Legend = 4
+    [Display(Name = "普通")][Probability(0.6f)] Ordinary = 0,
+    [Display(Name = "高级")][Probability(0.25f)] Senior = 1,
+    [Display(Name = "稀有")][Probability(0.1f)] Rare = 2,
+    [Display(Name = "珍品")][Probability(0.04f)] Gem = 3,
+    [Display(Name = "传说")][Probability(0.01f)] Legend = 4
 }
 
 public static class RarityEnumExtensions

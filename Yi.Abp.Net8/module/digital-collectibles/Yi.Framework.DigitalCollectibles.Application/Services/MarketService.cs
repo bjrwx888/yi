@@ -52,6 +52,7 @@ public class MarketService : ApplicationService
                     CreationTime = m.CreationTime,
                     SellUserId = m.SellUserId,
                     SellNumber = m.SellNumber,
+                    UnitPrice=m.UnitPrice,
                     Collectibles = new CollectiblesDto
                     {
                         Id = c.Id,
@@ -75,17 +76,17 @@ public class MarketService : ApplicationService
     /// <summary>
     /// 上架商品
     /// </summary>
-    [HttpPost("shelved")]
+    [HttpPost("market/shelved")]
     [Authorize]
     public async Task ShelvedGoodsAsync(ShelvedGoodsDto input)
     {
-        await _marketManager.ShelvedGoodsAsync(CurrentUser.GetId(), input.CollectiblesId, input.Number, input.Mmoney);
+        await _marketManager.ShelvedGoodsAsync(CurrentUser.GetId(), input.CollectiblesId, input.Number, input.Money);
     }
 
     /// <summary>
     /// 购买商品
     /// </summary>
-    [HttpPut("purchase")]
+    [HttpPut("market/purchase")]
     [Authorize]
     public async Task PurchaseGoodsAsync(PurchaseGoodsDto input)
     {

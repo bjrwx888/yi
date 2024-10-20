@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Users;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Collectibles;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Market;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
@@ -25,6 +26,23 @@ public class CollectiblesService : ApplicationService
     }
 
     /// <summary>
+    /// 获取该用户的信息
+    /// </summary>
+    [HttpGet("collectibles/account")]
+    [Authorize]
+    public async Task<CollectiblesAccountInfoDto> GetAccountInfoAsync()
+    {
+        var userId = CurrentUser.GetId();
+        var totalValue = await _collectiblesUserStoreRepository._DbQueryable.Where(store => store.UserId == userId)
+            .LeftJoin<CollectiblesAggregateRoot>((store, c) => store.CollectiblesId == c.Id)
+            .SumAsync((store, c) => c.ValueNumber);
+        return new CollectiblesAccountInfoDto
+        {
+            TotalValue = totalValue
+        };
+    }
+
+    /// <summary>
     /// 获取当前用户的藏品
     /// </summary>
     /// <param name="input"></param>
@@ -40,7 +58,7 @@ public class CollectiblesService : ApplicationService
                 input.StartTime is not null && input.EndTime is not null,
                 u => u.CreationTime >= input.StartTime && u.CreationTime <= input.EndTime)
             .LeftJoin<CollectiblesAggregateRoot>((u, c) => u.CollectiblesId == c.Id)
-            .OrderBy((u,c) => c.OrderNum)
+            .OrderBy((u, c) => c.OrderNum)
             .GroupBy((u, c) => u.CollectiblesId)
             .Select((u, c) =>
                 new CollectiblesUserGetOutputDto
