@@ -16,16 +16,16 @@ namespace Yi.Abp.Domain.Shared.Settings
         {
             context.Add(
                 //每日矿池最大上限--控制矿池膨胀率
-                new SettingDefinition("MaxPoolLimit", "500"),
+                new SettingDefinition("MaxPoolLimit", "100"),
 
                 //每日挖矿最大上限--控制无限挖矿
-                new SettingDefinition("MiningMaxLimit", "360"),
+                new SettingDefinition("MiningMaxLimit", "36"),
 
                 //每次挖矿最小间隔（秒）--控制暴力挖矿
-                new SettingDefinition("MiningMinIntervalSeconds", "1"),
+                new SettingDefinition("MiningMinIntervalSeconds", "3"),
 
                 //每次挖到矿的概率--控制爆率
-                new SettingDefinition("MiningMinProbability", "0.5"),
+                new SettingDefinition("MiningMinProbability", "0.06"),
 
                 //交易税率--控制频繁交易
                 new SettingDefinition("MarketTaxRate", "0.2")
