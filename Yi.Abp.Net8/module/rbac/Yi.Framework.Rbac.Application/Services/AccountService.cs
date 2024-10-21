@@ -82,12 +82,12 @@ namespace Yi.Framework.Rbac.Application.Services
         /// 校验图片登录验证码,无需和账号绑定
         /// </summary>
         [AllowAnonymous]
-        private void ValidationImageCaptcha(LoginInputVo input)
+        private void ValidationImageCaptcha(string? uuid,string? code )
         {
             if (_rbacOptions.EnableCaptcha)
             {
                 //登录不想要验证码 ，可不校验
-                if (!_captcha.Validate(input.Uuid, input.Code))
+                if (!_captcha.Validate(uuid, code))
                 {
                     throw new UserFriendlyException("验证码错误");
                 }
@@ -109,7 +109,7 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             //校验验证码
-            ValidationImageCaptcha(input);
+            ValidationImageCaptcha(input.Uuid,input.Code);
 
             UserAggregateRoot user = new();
             //校验
@@ -199,12 +199,15 @@ namespace Yi.Framework.Rbac.Application.Services
         }
 
         /// <summary>
-        /// 手机验证码
+        /// 手机验证码-需通过图形验证码
         /// </summary>
         /// <returns></returns>
         private async Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
             PhoneCaptchaImageDto input)
         {
+            //验证uuid 和 验证码
+            ValidationImageCaptcha(input.Uuid,input.Code);
+            
             await ValidationPhone(input.Phone);
             
             //注册的手机号验证，是不能已经注册过的
