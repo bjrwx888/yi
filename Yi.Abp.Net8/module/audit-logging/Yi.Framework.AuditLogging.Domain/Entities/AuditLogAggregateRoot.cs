@@ -109,6 +109,7 @@ namespace Yi.Framework.AuditLogging.Domain.Entities
 
         public virtual string? Url { get; protected set; }
 
+        [SugarColumn(ColumnDataType = StaticConfig.CodeFirst_BigString)]
         public virtual string? Exceptions { get; protected set; }
 
         public virtual string? Comments { get; protected set; }
