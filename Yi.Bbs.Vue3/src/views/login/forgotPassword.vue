@@ -1,15 +1,20 @@
 ﻿<script setup>
 
 // 注册逻辑
-import {reactive, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import {getCodePhoneForRetrievePassword} from "@/apis/accountApi";
 import useAuths from "@/hooks/useAuths";
 import { useRouter} from "vue-router";
 const { retrievePasswordFun } = useAuths();
 const router = useRouter();
+import useUserStore from "@/stores/user";
 const retrievePasswordFormRef = ref();
+//验证码弹窗
+const codeDialogVisible=ref(false);
 
-
+// 获取图片验证码
+const codeImageURL = computed(() => useUserStore().codeImageURL);
+const codeUUid = computed(() => useUserStore().codeUUid);
 // 确认密码
 const passwordConfirm = ref("");
 const registerForm = reactive({
@@ -17,6 +22,11 @@ const registerForm = reactive({
   password: "",
   uuid: "",
   code: ""
+});
+const phoneForm=reactive({
+  code:"",
+  phone:"",
+  uuid:codeUUid
 });
 const registerRules = reactive({
   phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
@@ -56,14 +66,38 @@ const retrievePassword = async (formEl) => {
 const codeInfo = ref("发送短信");
 const isDisabledCode = ref(false);
 
+//点击验证码
+const  handleGetCodeImage=()=>{
+  useUserStore().updateCodeImage();
+}
+
+//点击手机发送短信
+const  clickPhoneCaptcha=()=>{
+  if (registerForm.phone !== "")
+  {
+    handleGetCodeImage();
+    codeDialogVisible.value=true;
+  }
+  else {
+    ElMessage({
+      message: `请先输入手机号`,
+      type: "warning",
+    });
+  }
+}
+
+
 //前往登录
 const  handleSignInNow=()=>{
   router.push("/login");
 }
 const captcha = async () => {
-  if (registerForm.phone !== "") {
-    const { data } = await getCodePhoneForRetrievePassword(registerForm.phone);
+  if (registerForm.phone!==""&&phoneForm.code!=="")
+  {
+    phoneForm.phone=registerForm.phone;
+    const { data } = await getCodePhoneForRetrievePassword(phoneForm);
     registerForm.uuid = data.uuid;
+    codeDialogVisible.value=false;
     ElMessage({
       message: `已向${registerForm.phone}发送验证码，请注意查收`,
       type: "success",
@@ -113,7 +147,7 @@ const captcha = async () => {
                 <el-form-item prop="phone">
                   <div class="phone-code">
                     <input class="phone-code-input" type="text" v-model.trim="registerForm.phone">
-                    <button type="button" class="phone-code-btn" @click="captcha()">{{codeInfo}}</button>
+                    <button type="button" class="phone-code-btn" @click="clickPhoneCaptcha()">{{codeInfo}}</button>
                   </div>
                 </el-form-item>
               </div>
@@ -146,8 +180,41 @@ const captcha = async () => {
       </div>
 
     </div>
+    <el-dialog
+        v-model="codeDialogVisible"
+        title="发送短信"
+        width="500"
+        center
+    >
+      <div class="dialog-body">
+        <img class="code-img" alt="加载中" @click="handleGetCodeImage"  :src="codeImageURL">
+
+        <div class="input">
+          <p>*图片验证码</p>
+          <el-form-item prop="code" >
+            <input type="text" v-model.trim="phoneForm.code">
+          </el-form-item>
+        </div>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <button @click="captcha" style="width:80% " type="button" class="phone-code-btn">确认发送</button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <style src="@/assets/styles/login.css" scoped>
+</style>
+<style scoped>
+.dialog-body
+{
+  display: flex  !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+.code-img{
+  margin: 25px !important;
+}
 </style>

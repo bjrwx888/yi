@@ -33,7 +33,6 @@ using Yi.Framework.Bbs.Application;
 using Yi.Framework.Bbs.Application.Extensions;
 using Yi.Framework.ChatHub.Application;
 using Yi.Framework.CodeGen.Application;
-using Yi.Framework.DigitalCollectibles.Application;
 using Yi.Framework.Rbac.Application;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
@@ -67,10 +66,10 @@ namespace Yi.Abp.Web
             //请求日志
             Configure<AbpAuditingOptions>(optios =>
             {
-                //开启后会有大量的审计日志
+                //默认关闭，开启会有大量的审计日志
                 optios.IsEnabled = true;
                 //审计日志过滤器
-                optios.AlwaysLogSelectors.Add(x => Task.FromResult(true));
+                optios.AlwaysLogSelectors.Add(x => Task.FromResult(!x.Url.StartsWith("/api/app/file/")));
             });
 
             //采用furion格式的规范化api，默认不开启，使用abp优雅的方式
@@ -95,8 +94,7 @@ namespace Yi.Abp.Web
                     options => options.RemoteServiceName = "tenant-management");
                 options.ConventionalControllers.Create(typeof(YiFrameworkCodeGenApplicationModule).Assembly,
                     options => options.RemoteServiceName = "code-gen");
-                options.ConventionalControllers.Create(typeof(YiFrameworkDigitalCollectiblesApplicationModule).Assembly,
-                    options => options.RemoteServiceName = "digital-collectibles");
+
                 //统一前缀
                 options.ConventionalControllers.ConventionalControllerSettings.ForEach(x => x.RootPath = "api/app");
             });
