@@ -33,5 +33,10 @@ namespace Yi.Framework.Rbac.Application.Contracts.IServices
         /// <returns></returns>
         Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
             PhoneCaptchaImageDto input);
+
+        /// <summary>
+        /// 校验图片登录验证码,无需和账号绑定
+        /// </summary>
+        void ValidationImageCaptcha(string? uuid,string? code );
     }
 }

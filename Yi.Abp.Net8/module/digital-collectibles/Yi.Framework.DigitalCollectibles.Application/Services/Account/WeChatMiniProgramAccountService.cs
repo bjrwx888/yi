@@ -65,6 +65,7 @@ public class WeChatMiniProgramAccountService : ApplicationService
     [HttpPost("wechat/mini-program/account/bind")]
     public async Task PostBindAsync(BindInput input)
     {
+        _accountService.ValidationImageCaptcha(input.Uuid,input.Code);
         //校验手机号与验证码
         //根据手机号查询用户信息
         //根据code去获取wxid

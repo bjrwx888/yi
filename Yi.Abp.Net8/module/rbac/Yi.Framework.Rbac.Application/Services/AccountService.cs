@@ -81,8 +81,8 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <summary>
         /// 校验图片登录验证码,无需和账号绑定
         /// </summary>
-        [AllowAnonymous]
-        private void ValidationImageCaptcha(string? uuid,string? code )
+        [RemoteService(isEnabled:false)]
+        public void ValidationImageCaptcha(string? uuid,string? code )
         {
             if (_rbacOptions.EnableCaptcha)
             {
@@ -207,7 +207,19 @@ namespace Yi.Framework.Rbac.Application.Services
         {
             return await PostCaptchaPhoneAsync(ValidationPhoneTypeEnum.RetrievePassword, input);
         }
-
+        
+        /// <summary>
+        /// 手机验证码-绑定
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost("account/captcha-phone/bind")]
+        [AllowAnonymous]
+        public async Task<object> PostCaptchaPhoneForBindAsync(PhoneCaptchaImageDto input)
+        {
+            return await PostCaptchaPhoneAsync(ValidationPhoneTypeEnum.Bind, input);
+        }
+        
         /// <summary>
         /// 手机验证码-需通过图形验证码
         /// </summary>
@@ -220,14 +232,12 @@ namespace Yi.Framework.Rbac.Application.Services
             ValidationImageCaptcha(input.Uuid,input.Code);
             
             await ValidationPhone(input.Phone);
-
-            //注册的手机号验证，是不能已经注册过的
-            //这里为了统一，绑定流程，不在次校验，而是在注册时校验
-            // if (validationPhoneType == ValidationPhoneTypeEnum.Register &&
-            //     await _userRepository.IsAnyAsync(x => x.Phone.ToString() == input.Phone))
-            // {
-            //     throw new UserFriendlyException("该手机号已被注册！");
-            // }
+            
+            if (validationPhoneType == ValidationPhoneTypeEnum.Register &&
+                await _userRepository.IsAnyAsync(x => x.Phone.ToString() == input.Phone))
+            {
+                throw new UserFriendlyException("该手机号已被注册！");
+            }
 
             var value = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(validationPhoneType, input.Phone));
 
