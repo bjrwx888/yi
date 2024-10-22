@@ -152,13 +152,15 @@ namespace Yi.Framework.Rbac.Application.Services.Authentication
         {
             return base.DeleteAsync(id);
         }
-
+        
         [RemoteService(IsEnabled = false)]
         public override async Task<AuthOutputDto> CreateAsync(AuthCreateOrUpdateInputDto input)
         {
             var entity = await MapToEntityAsync(input);
+            //还需要一步，如果当前openid已经存在被人绑定，移除
+            await _repository.DeleteAsync(x => x.AuthType == input.AuthType && x.OpenId == input.OpenId);
             await _repository.InsertAsync(entity);
-            return MapToGetOutputDto(entity);
+            return await MapToGetOutputDtoAsync(entity);
         }
 
         protected override async Task CheckCreateInputDtoAsync(AuthCreateOrUpdateInputDto input)

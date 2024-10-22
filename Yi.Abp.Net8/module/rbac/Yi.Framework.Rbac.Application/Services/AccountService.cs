@@ -225,7 +225,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// </summary>
         /// <returns></returns>
         [RemoteService(isEnabled:false)]
-        public async Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
+        private async Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
             PhoneCaptchaImageDto input)
         {
             //验证uuid 和 验证码
@@ -266,7 +266,7 @@ namespace Yi.Framework.Rbac.Application.Services
         /// <summary>
         /// 校验电话验证码，需要与电话号码绑定
         /// </summary>
-        private async Task ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum validationPhoneType, long phone,
+        public async Task ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum validationPhoneType, long phone,
             string code)
         {
             var item = await _phoneCache.GetAsync(new CaptchaPhoneCacheKey(validationPhoneType, phone.ToString()));
@@ -323,10 +323,26 @@ namespace Yi.Framework.Rbac.Application.Services
                 await ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.Register, input.Phone, input.Code);
             }
 
+            //临时账号
+            if (input.UserName.StartsWith("ls-"))
+            {
+                throw new UserFriendlyException("注册账号不能以ls-字符开头");
+            }
             //注册领域逻辑
             await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone, input.Nick);
         }
 
+        /// <summary>
+        /// 临时注册
+        /// 不需要验证，为了给第三方使用，例如微信小程序，后续可通过绑定操作，进行账号合并
+        /// </summary>
+        /// <param name="input"></param>
+        [RemoteService(isEnabled:false)]
+        public async Task PostTempRegisterAsync(RegisterDto input)
+        {
+            //注册领域逻辑
+            await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone, input.Nick);
+        }
 
         /// <summary>
         /// 查询已登录的账户信息

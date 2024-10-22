@@ -28,15 +28,16 @@ namespace Yi.Framework.Rbac.Application.Contracts.IServices
         Task<UserRoleMenuDto?> GetAsync(string? userName,long? phone);
 
         /// <summary>
-        /// 手机验证码
+        /// 校验电话验证码，需要与电话号码绑定
         /// </summary>
-        /// <returns></returns>
-        Task<object> PostCaptchaPhoneAsync(ValidationPhoneTypeEnum validationPhoneType,
-            PhoneCaptchaImageDto input);
+        Task ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum validationPhoneType, long phone,
+            string code);
 
         /// <summary>
-        /// 校验图片登录验证码,无需和账号绑定
+        /// 临时注册
+        /// 不需要验证，为了给第三方使用，例如微信小程序，后续可通过绑定操作，进行账号合并
         /// </summary>
-        void ValidationImageCaptcha(string? uuid,string? code );
+        /// <param name="input"></param>
+        Task PostTempRegisterAsync(RegisterDto input);
     }
 }

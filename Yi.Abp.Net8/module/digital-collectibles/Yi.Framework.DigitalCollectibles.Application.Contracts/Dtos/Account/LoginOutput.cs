@@ -8,6 +8,4 @@ public class LoginOutput
     /// 后端访问token
     /// </summary>
     public string? Token { get; set; }
-    
-    public LoginResultEnum Result{ get; set; }
 }
