@@ -46,7 +46,7 @@ public class WeChatMiniProgramAccountService : ApplicationService
         var authInfo = await _authService.TryGetByOpenIdAsync(openId, AuthTypeConst.WeChatMiniProgram);
         if (authInfo is null)
         {
-            throw new UserFriendlyException("该小程序没有绑定任何账号", "1000", "Auth未找到对应关系");
+            throw new UserFriendlyException("该小程序没有绑定任何账号", "2000", "Auth未找到对应关系");
         }
 
         //根据用户id获取到用户信息
