@@ -110,7 +110,7 @@ public class WeChatMiniProgramAccountService : ApplicationService
         var userName = GenerateRandomString(6);
         await _accountService.PostTempRegisterAsync(new RegisterDto
         {
-            UserName =$"ls-{userName}",
+            UserName =$"ls_{userName}",
             Password = GenerateRandomString(20),
             Nick = $"临时账号-{userName}"
         });

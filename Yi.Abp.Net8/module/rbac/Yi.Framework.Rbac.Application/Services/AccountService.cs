@@ -324,9 +324,9 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             //临时账号
-            if (input.UserName.StartsWith("ls-"))
+            if (input.UserName.StartsWith("ls_"))
             {
-                throw new UserFriendlyException("注册账号不能以ls-字符开头");
+                throw new UserFriendlyException("注册账号不能以ls_字符开头");
             }
             //注册领域逻辑
             await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone, input.Nick);
