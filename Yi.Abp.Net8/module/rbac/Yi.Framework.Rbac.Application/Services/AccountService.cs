@@ -380,7 +380,7 @@ namespace Yi.Framework.Rbac.Application.Services
             }
 
             //注意用户名大小写数据库不敏感问题
-            if (userName is not null && user.UserName.Equals(userName))
+            if (userName is not null && !user.UserName.Equals(userName))
             {
                 throw new UserFriendlyException($"该用户名不存在或已禁用-{userName}");
             }
