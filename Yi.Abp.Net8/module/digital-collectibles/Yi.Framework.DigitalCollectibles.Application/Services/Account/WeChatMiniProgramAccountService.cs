@@ -114,7 +114,7 @@ public class WeChatMiniProgramAccountService : ApplicationService
             Password = GenerateRandomString(20),
             Nick = $"临时账号-{userName}"
         });
-        var userInfo = await _accountService.GetAsync(userName, null);
+        var userInfo = await _accountService.GetAsync($"ls_{userName}", null);
 
         await PostBindToAuthAsync(userInfo.User.Id, openId, userInfo.User.UserName);
     }
