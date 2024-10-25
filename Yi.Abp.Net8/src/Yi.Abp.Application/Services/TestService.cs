@@ -6,6 +6,8 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Settings;
 using Volo.Abp.Uow;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Banner;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.Comment;
+using Yi.Framework.Bbs.Application.Contracts.IServices;
 using Yi.Framework.Bbs.Domain.Entities.Forum;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Extensions;
@@ -24,6 +26,24 @@ namespace Yi.Abp.Application.Services
         /// 不推荐，坑太多，容易把自己玩死，简单的东西可以用一用
         /// </summary>
         public ISqlSugarRepository<BannerAggregateRoot> sqlSugarRepository { get; set; }
+
+        private ICommentService _commentService;
+        public readonly ISqlSugarRepository<CommentAggregateRoot, Guid> _commentRepository;
+        public TestService(ICommentService commentService, ISqlSugarRepository<CommentAggregateRoot, Guid> commentRepository)
+        {
+            _commentService = commentService;
+            _commentRepository = commentRepository;
+        }
+
+        public async Task<string> GetAbpUnitOfWorkMiddleware()
+        {
+            var entity = new CommentAggregateRoot(Guid.Empty);
+            entity.Content = "测试";
+            entity.ParentId = Guid.Empty;
+            entity.RootId = Guid.Empty;
+            await _commentRepository.InsertAsync(entity);
+            return "yes";
+        }
 
         /// <summary>
         /// 动态Api
