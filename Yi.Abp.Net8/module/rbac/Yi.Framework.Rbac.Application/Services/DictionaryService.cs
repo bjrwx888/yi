@@ -30,10 +30,12 @@ namespace Yi.Framework.Rbac.Application.Services
         public override async Task<PagedResultDto<DictionaryGetListOutputDto>> GetListAsync(DictionaryGetListInputVo input)
         {
             RefAsync<int> total = 0;
-            var entities = await _repository._DbQueryable.WhereIF(input.DictType is not null, x => x.DictType == input.DictType)
-                      .WhereIF(input.DictLabel is not null, x => x.DictLabel!.Contains(input.DictLabel!))
-                      .WhereIF(input.State is not null, x => x.State == input.State)
-                      .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
+            var entities = await _repository._DbQueryable
+                .WhereIF(input.DictType is not null, x => x.DictType == input.DictType)
+                .WhereIF(input.DictLabel is not null, x => x.DictLabel!.Contains(input.DictLabel!))
+                .WhereIF(input.State is not null, x => x.State == input.State)
+                .OrderByDescending(x => x.OrderNum)
+                .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
             return new PagedResultDto<DictionaryGetListOutputDto>
             {
                 TotalCount = total,
