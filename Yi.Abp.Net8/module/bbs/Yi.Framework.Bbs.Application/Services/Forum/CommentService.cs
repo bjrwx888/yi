@@ -132,8 +132,8 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
-        [Permission("bbs:comment:add")]
-        [Authorize]
+        // [Permission("bbs:comment:add")]
+        // [Authorize]
         public override async Task<CommentGetOutputDto> CreateAsync(CommentCreateInputVo input)
         {
             var discuess = await _discussRepository.GetFirstAsync(x => x.Id == input.DiscussId);

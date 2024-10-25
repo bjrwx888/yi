@@ -67,7 +67,7 @@ namespace Yi.Abp.Web
             Configure<AbpAuditingOptions>(optios =>
             {
                 //默认关闭，开启会有大量的审计日志
-                optios.IsEnabled = true;
+                optios.IsEnabled = false;
                 //审计日志过滤器
                 optios.AlwaysLogSelectors.Add(x => Task.FromResult(!x.Url.StartsWith("/api/app/file/")));
             });

@@ -41,7 +41,8 @@ namespace Yi.Framework.Bbs.Domain.Managers
             entity.Content = content;
             entity.ParentId = parentId;
             entity.RootId = rootId;
-            return await _commentRepository.InsertReturnEntityAsync(entity);
+             await _commentRepository.InsertAsync(entity);
+             return entity;
         }
 
         /// <summary>
