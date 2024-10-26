@@ -26,11 +26,11 @@ namespace Yi.Framework.Rbac.Domain
         {
             var service = context.Services;
             var configuration = context.Services.GetConfiguration();
-            service.AddControllers(options =>
-            {
-                options.Filters.Add<PermissionGlobalAttribute>();
-                options.Filters.Add<OperLogGlobalAttribute>();
-            });
+            // service.AddControllers(options =>
+            // {
+            //     options.Filters.Add<PermissionGlobalAttribute>();
+            //     // options.Filters.Add<OperLogGlobalAttribute>();
+            // });
 
             //配置阿里云短信
             Configure<AliyunOptions>(configuration.GetSection(nameof(AliyunOptions)));

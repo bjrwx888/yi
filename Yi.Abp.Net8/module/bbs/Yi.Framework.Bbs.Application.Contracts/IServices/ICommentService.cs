@@ -6,8 +6,7 @@ namespace Yi.Framework.Bbs.Application.Contracts.IServices
     /// <summary>
     /// Comment服务抽象
     /// </summary>
-    public interface ICommentService : IYiCrudAppService<CommentGetOutputDto, CommentGetListOutputDto, Guid, CommentGetListInputVo, CommentCreateInputVo, CommentUpdateInputVo>
-    {
+    public interface ICommentService{
         /// <summary>
         /// 发表评论
         /// </summary>

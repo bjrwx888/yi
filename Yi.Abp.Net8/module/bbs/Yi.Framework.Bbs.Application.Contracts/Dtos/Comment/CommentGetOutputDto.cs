@@ -5,7 +5,7 @@ using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
 {
     /// <summary>
-    /// µ¥·µ»Ø£¬·µ»Øµ¥ÌõÆÀÂÛ¼´¿É
+    /// å•è¿”å›ï¼Œè¿”å›å•æ¡è¯„è®ºå³å¯
     /// </summary>
     public class CommentGetOutputDto : EntityDto<Guid>
     {
@@ -17,17 +17,17 @@ namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Comment
 
 
         /// <summary>
-        /// ÓÃ»§idÁª±íÎªÓÃ»§¶ÔÏó
+        /// ç”¨æˆ·idè”è¡¨ä¸ºç”¨æˆ·å¯¹è±¡
         /// </summary>
 
         public BbsUserGetOutputDto User { get; set; }
         /// <summary>
-        /// ¸ù½ÚµãµÄÆÀÂÛid
+        /// æ ¹èŠ‚ç‚¹çš„è¯„è®ºid
         /// </summary>
         public Guid RootId { get; set; }
 
         /// <summary>
-        /// ±»»Ø¸´µÄCommentId
+        /// è¢«å›å¤çš„CommentId
         /// </summary>
         public Guid ParentId { get; set; }
 

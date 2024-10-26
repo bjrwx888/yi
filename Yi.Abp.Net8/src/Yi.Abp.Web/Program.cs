@@ -48,7 +48,11 @@ try
             return Task.CompletedTask;
         });
         await next();
-        Console.WriteLine("之后-----" + id);
+        if (http.Request.Path.Value.Contains("hello-world"))
+        {
+            Console.WriteLine("之后-----" + id);
+        }
+
     });
     await app.InitializeApplicationAsync();
     await app.RunAsync();
