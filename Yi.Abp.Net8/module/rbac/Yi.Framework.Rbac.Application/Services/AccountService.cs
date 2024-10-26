@@ -317,17 +317,22 @@ namespace Yi.Framework.Rbac.Application.Services
                 throw new UserFriendlyException("该系统暂未开放注册功能");
             }
 
-            if (_rbacOptions.EnableCaptcha)
+            if (input.Phone is null)
             {
-                //校验验证码，根据电话号码获取 value，比对验证码已经uuid
-                await ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.Register, input.Phone, input.Code);
+                throw new UserFriendlyException("手机号不能为空");
             }
-
             //临时账号
             if (input.UserName.StartsWith("ls_"))
             {
                 throw new UserFriendlyException("注册账号不能以ls_字符开头");
             }
+            
+            if (_rbacOptions.EnableCaptcha)
+            {
+                //校验验证码，根据电话号码获取 value，比对验证码已经uuid
+                await ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.Register, input.Phone.Value, input.Code);
+            }
+
             //注册领域逻辑
             await _accountManager.RegisterAsync(input.UserName, input.Password, input.Phone, input.Nick);
         }
