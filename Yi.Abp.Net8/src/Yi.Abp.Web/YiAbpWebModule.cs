@@ -33,6 +33,7 @@ using Yi.Framework.Bbs.Application;
 using Yi.Framework.Bbs.Application.Extensions;
 using Yi.Framework.ChatHub.Application;
 using Yi.Framework.CodeGen.Application;
+using Yi.Framework.Core.Json;
 using Yi.Framework.Rbac.Application;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Shared.Consts;
@@ -99,12 +100,20 @@ namespace Yi.Abp.Web
                 options.ConventionalControllers.ConventionalControllerSettings.ForEach(x => x.RootPath = "api/app");
             });
 
-            //设置api格式
-            service.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                options.SerializerSettings.Converters.Add(new StringEnumConverter());
-            });
+            //【NewtonsoftJson严重问题！！！！！逆天】设置api格式，留给后人铭记
+            // service.AddControllers().AddNewtonsoftJson(options =>
+            // {
+            //     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            //     options.SerializerSettings.Converters.Add(new StringEnumConverter());
+            // });
+
+            //请使用微软的
+            service.AddControllers().AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
+                    options.JsonSerializerOptions.Converters.Add(new EnumStringJsonConverter());
+                }
+            );
 
             //设置缓存不要过期，默认滑动20分钟
             Configure<AbpDistributedCacheOptions>(cacheOptions =>
