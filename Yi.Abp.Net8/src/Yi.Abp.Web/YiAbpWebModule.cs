@@ -1,10 +1,14 @@
 ﻿using System.Globalization;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -18,6 +22,8 @@ using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
+using Volo.Abp.Json;
+using Volo.Abp.Json.SystemTextJson;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
@@ -106,14 +112,14 @@ namespace Yi.Abp.Web
             //     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             //     options.SerializerSettings.Converters.Add(new StringEnumConverter());
             // });
-
-            //请使用微软的
-            service.AddControllers().AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
-                    options.JsonSerializerOptions.Converters.Add(new EnumStringJsonConverter());
-                }
-            );
+            
+            //请使用微软的，注意abp date又包了一层，采用DefaultJsonTypeInfoResolver统一覆盖
+            Configure<JsonOptions>(options =>
+            {
+                options.JsonSerializerOptions.TypeInfoResolver = new DefaultJsonTypeInfoResolver();
+                options.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             //设置缓存不要过期，默认滑动20分钟
             Configure<AbpDistributedCacheOptions>(cacheOptions =>
@@ -277,7 +283,6 @@ namespace Yi.Abp.Web
         public override Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
         {
             var service = context.ServiceProvider;
-
             var env = context.GetEnvironment();
             var app = context.GetApplicationBuilder();
 
