@@ -53,8 +53,11 @@ public class CollectiblesService : ApplicationService
     public async Task<PagedResultDto<CollectiblesUserGetOutputDto>> GetForAccountUserAsync(
         CollectiblesUserGetInput input)
     {
+        var userId = CurrentUser.GetId();
         RefAsync<int> total = 0;
-        var output = await _collectiblesUserStoreRepository._DbQueryable.WhereIF(
+        var output = await _collectiblesUserStoreRepository._DbQueryable
+            .Where(x=>x.UserId==userId)
+            .WhereIF(
                 input.StartTime is not null && input.EndTime is not null,
                 u => u.CreationTime >= input.StartTime && u.CreationTime <= input.EndTime)
             .LeftJoin<CollectiblesAggregateRoot>((u, c) => u.CollectiblesId == c.Id)
