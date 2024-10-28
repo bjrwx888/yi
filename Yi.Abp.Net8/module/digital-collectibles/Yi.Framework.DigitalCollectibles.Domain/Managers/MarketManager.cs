@@ -38,7 +38,9 @@ public class MarketManager : DomainService
     /// <returns></returns>
     public async Task ShelvedGoodsAsync(Guid userId, Guid collectiblesId, int number, decimal money)
     {
-        var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable.Where(x => x.IsAtMarketing == false)
+        var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable
+            .Where(x=>x.UserId==userId)
+            .Where(x => x.IsAtMarketing == false)
             .Where(x => x.CollectiblesId == collectiblesId).ToListAsync();
         if (collectiblesList.Count < number)
         {
