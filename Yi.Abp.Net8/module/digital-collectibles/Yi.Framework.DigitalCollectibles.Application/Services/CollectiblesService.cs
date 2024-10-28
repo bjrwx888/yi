@@ -33,9 +33,40 @@ public class CollectiblesService : ApplicationService
     public async Task<CollectiblesAccountInfoDto> GetAccountInfoAsync()
     {
         var userId = CurrentUser.GetId();
-        var totalValue = await _collectiblesUserStoreRepository._DbQueryable.Where(store => store.UserId == userId)
+        var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable
+            .Where(store => store.UserId == userId)
             .LeftJoin<CollectiblesAggregateRoot>((store, c) => store.CollectiblesId == c.Id)
-            .SumAsync((store, c) => c.ValueNumber);
+            .Select((store, c) =>
+                new
+                {
+                    c.Id,
+                    c.ValueNumber
+                }
+            ).ToListAsync();
+        var groupBy = collectiblesList.GroupBy(x => x.Id);
+        decimal totalValue = 0;
+
+        //首个价值百分之百，后续每个只有百分之40，最大10个
+        foreach (var groupByItem in groupBy)
+        {
+            foreach (var item in groupByItem.Select((value, index) => new { value, index }))
+            {
+                
+                if (item.index == 0)
+                {
+                    totalValue += item.value.ValueNumber;
+                }
+                else if (item.index == 10)
+                {
+                    //到第11个，直接跳出循环
+                    break;
+                }
+                else
+                {
+                    totalValue += item.value.ValueNumber * 0.4m;
+                }
+            }
+        }
         return new CollectiblesAccountInfoDto
         {
             TotalValue = totalValue
@@ -56,7 +87,7 @@ public class CollectiblesService : ApplicationService
         var userId = CurrentUser.GetId();
         RefAsync<int> total = 0;
         var output = await _collectiblesUserStoreRepository._DbQueryable
-            .Where(x=>x.UserId==userId)
+            .Where(x => x.UserId == userId)
             .WhereIF(
                 input.StartTime is not null && input.EndTime is not null,
                 u => u.CreationTime >= input.StartTime && u.CreationTime <= input.EndTime)

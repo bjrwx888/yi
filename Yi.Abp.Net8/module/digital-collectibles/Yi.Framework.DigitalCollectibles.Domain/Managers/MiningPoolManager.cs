@@ -2,12 +2,14 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Services;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Settings;
 using Volo.Abp.Threading;
 using Yi.Framework.DigitalCollectibles.Domain.Dtos;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Enums;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Etos;
 using Yi.Framework.SettingManagement.Domain;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -26,6 +28,7 @@ public class MiningPoolManager : DomainService
     private readonly IDistributedCache<UserMiningLimitCacheDto?> _userMiningLimitCache;
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _userStoreRepository;
     private IRedisClient RedisClient => LazyServiceProvider.LazyGetRequiredService<IRedisClient>();
+    private ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
     public MiningPoolManager(ISettingProvider settingProvider, IDistributedCache<MiningPoolContent> miningPoolCache,
         ISqlSugarRepository<CollectiblesAggregateRoot> collectiblesRepository,
@@ -66,6 +69,7 @@ public class MiningPoolManager : DomainService
                 pool.I4_LegendNumber -= 1;
                 break;
         }
+
         //重新设置
         await SetMiningPoolAsync(pool);
     }
@@ -89,7 +93,7 @@ public class MiningPoolManager : DomainService
     {
         var onHook = await _onHookRepository._DbQueryable.Where(x => x.UserId == userId)
             .Where(x => x.IsActive == true)
-            .Where(x => x.EndTime <= DateTime.Now)
+            .Where(x => x.EndTime > DateTime.Now)
             .FirstAsync();
 
         if (onHook is not null)
@@ -198,51 +202,54 @@ public class MiningPoolManager : DomainService
                     {
                         poolState = false;
                     }
+
                     break;
                 case RarityEnum.Senior:
                     if (pool.I1_SeniorNumber <= 0)
                     {
                         poolState = false;
                     }
+
                     break;
                 case RarityEnum.Rare:
                     if (pool.I2_RareNumber <= 0)
                     {
                         poolState = false;
                     }
+
                     break;
                 case RarityEnum.Gem:
                     if (pool.I3_GemNumber <= 0)
                     {
                         poolState = false;
                     }
+
                     break;
                 case RarityEnum.Legend:
                     if (pool.I4_LegendNumber <= 0)
                     {
                         poolState = false;
                     }
+
                     break;
             }
 
-            if (poolState==false)
+            if (poolState == false)
             {
                 throw new UserFriendlyException($"超级可惜！真的真的只差最后一点就挖到了");
             }
-            
+
 
             int randomIndex = new Random().Next(collectiblesList.Count);
             var currentCollectibles = collectiblesList[randomIndex];
 
             result.Collectibles = currentCollectibles;
 
-            //使用结果新增给对应的用户
-            await _userStoreRepository.InsertAsync(new CollectiblesUserStoreAggregateRoot
+            await LocalEventBus.PublishAsync(new SuccessMiningEto
             {
-                UserId = userId,
-                CollectiblesId = result.Collectibles.Id,
-                IsRead = false
-            });
+                CollectiblesId = currentCollectibles.Id,
+                UserId = userId
+            }, false);
 
             return result;
         }
@@ -316,22 +323,22 @@ public class MiningPoolManager : DomainService
     {
         //获取当前最大的限制
         var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaxPoolLimit"));
-
+        var poolData = (await _settingProvider.GetOrNullAsync("PoolData")).Split(',').Select(x=>int.Parse(x)).ToList();
         DateTime startTime = DateTime.Today.AddHours(10);
         DateTime endTime = startTime.AddDays(1);
-        var probabilityValues = RarityEnumExtensions.GetProbabilityArray();
-        var result = GenerateDistribution(maximumPoolLimit, probabilityValues);
+        // var probabilityValues = RarityEnumExtensions.GetProbabilityArray();
+        // var result = GenerateDistribution(maximumPoolLimit, probabilityValues);
 
         //根据配置，将不同比例的矿，塞入矿池,
         //矿池，交给redis
 
         await SetMiningPoolAsync(new MiningPoolContent(startTime, endTime)
         {
-            I0_OrdinaryNumber = result[0],
-            I1_SeniorNumber = result[1],
-            I2_RareNumber = result[2],
-            I3_GemNumber = result[3],
-            I4_LegendNumber = result[4]
+            I0_OrdinaryNumber = poolData[0],
+            I1_SeniorNumber = poolData[1],
+            I2_RareNumber = poolData[2],
+            I3_GemNumber = poolData[3],
+            I4_LegendNumber = poolData[4]
         });
     }
 
