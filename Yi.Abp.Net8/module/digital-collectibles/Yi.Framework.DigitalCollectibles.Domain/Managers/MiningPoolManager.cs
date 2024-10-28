@@ -42,6 +42,36 @@ public class MiningPoolManager : DomainService
     }
 
     /// <summary>
+    /// 扣减矿池
+    /// </summary>
+    /// <param name="rarity">矿物等级</param>
+    public async Task DeductionPoolAsync(RarityEnum rarity)
+    {
+        var pool = await GetMiningPoolContentAsync();
+        switch (rarity)
+        {
+            case RarityEnum.Ordinary:
+                pool.I0_OrdinaryNumber -= 1;
+                break;
+            case RarityEnum.Senior:
+                pool.I1_SeniorNumber -= 1;
+                break;
+            case RarityEnum.Rare:
+                pool.I2_RareNumber -= 1;
+                break;
+            case RarityEnum.Gem:
+                pool.I3_GemNumber -= 1;
+                break;
+            case RarityEnum.Legend:
+                pool.I4_LegendNumber -= 1;
+                break;
+        }
+        //重新设置
+        await SetMiningPoolAsync(pool);
+    }
+
+
+    /// <summary>
     /// 每次挖矿概率，每天根据特定算法计算
     /// </summary>
     private decimal CurrentMiningProbability => AsyncHelper.RunSync(async () =>
@@ -154,6 +184,53 @@ public class MiningPoolManager : DomainService
             var rarityType = (RarityEnum)Enum.GetValues(typeof(RarityEnum)).GetValue(index)!;
             var collectiblesList =
                 await _collectiblesRepository._DbQueryable.Where(x => x.Rarity == rarityType).ToListAsync();
+            //当前等级的矿物没有设置
+            if (collectiblesList.Count == 0)
+            {
+                throw new UserFriendlyException($"可惜！差一点就挖到了");
+            }
+
+            bool poolState = true;
+            switch (rarityType)
+            {
+                case RarityEnum.Ordinary:
+                    if (pool.I0_OrdinaryNumber <= 0)
+                    {
+                        poolState = false;
+                    }
+                    break;
+                case RarityEnum.Senior:
+                    if (pool.I1_SeniorNumber <= 0)
+                    {
+                        poolState = false;
+                    }
+                    break;
+                case RarityEnum.Rare:
+                    if (pool.I2_RareNumber <= 0)
+                    {
+                        poolState = false;
+                    }
+                    break;
+                case RarityEnum.Gem:
+                    if (pool.I3_GemNumber <= 0)
+                    {
+                        poolState = false;
+                    }
+                    break;
+                case RarityEnum.Legend:
+                    if (pool.I4_LegendNumber <= 0)
+                    {
+                        poolState = false;
+                    }
+                    break;
+            }
+
+            if (poolState==false)
+            {
+                throw new UserFriendlyException($"超级可惜！真的真的只差最后一点就挖到了");
+            }
+            
+
             int randomIndex = new Random().Next(collectiblesList.Count);
             var currentCollectibles = collectiblesList[randomIndex];
 
@@ -166,7 +243,7 @@ public class MiningPoolManager : DomainService
                 CollectiblesId = result.Collectibles.Id,
                 IsRead = false
             });
-            
+
             return result;
         }
 
@@ -247,17 +324,24 @@ public class MiningPoolManager : DomainService
 
         //根据配置，将不同比例的矿，塞入矿池,
         //矿池，交给redis
-        await _miningPoolCache.SetAsync(MiningCacheConst.MiningPoolContent, new MiningPoolContent(startTime, endTime)
+
+        await SetMiningPoolAsync(new MiningPoolContent(startTime, endTime)
         {
             I0_OrdinaryNumber = result[0],
             I1_SeniorNumber = result[1],
             I2_RareNumber = result[2],
             I3_GemNumber = result[3],
             I4_LegendNumber = result[4]
-        }, new DistributedCacheEntryOptions
-        {
-            AbsoluteExpiration = endTime
         });
+    }
+
+    private async Task SetMiningPoolAsync(MiningPoolContent content)
+    {
+        await _miningPoolCache.SetAsync(MiningCacheConst.MiningPoolContent, content
+            , new DistributedCacheEntryOptions
+            {
+                AbsoluteExpiration = content.EndTime
+            });
     }
 
     /// <summary>
