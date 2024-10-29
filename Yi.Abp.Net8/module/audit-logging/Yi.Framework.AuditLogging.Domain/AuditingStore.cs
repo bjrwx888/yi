@@ -16,6 +16,7 @@ public class AuditingStore : IAuditingStore, ITransientDependency
     protected IUnitOfWorkManager UnitOfWorkManager { get; }
     protected AbpAuditingOptions Options { get; }
     protected IAuditLogInfoToAuditLogConverter Converter { get; }
+
     public AuditingStore(
         IAuditLogRepository auditLogRepository,
         IUnitOfWorkManager unitOfWorkManager,
@@ -52,10 +53,10 @@ public class AuditingStore : IAuditingStore, ITransientDependency
     protected virtual async Task SaveLogAsync(AuditLogInfo auditInfo)
     {
         Logger.LogDebug("Yi-请求追踪:" + JsonHelper.ObjToStr(auditInfo, "yyyy-MM-dd HH:mm:ss"));
-        using (var uow = UnitOfWorkManager.Begin(true))
-        {
-            await AuditLogRepository.InsertAsync(await Converter.ConvertAsync(auditInfo));
-            await uow.CompleteAsync();
-        }
+        // using (var uow = UnitOfWorkManager.Begin(true,isTransactional:false))
+        // {
+        await AuditLogRepository.InsertAsync(await Converter.ConvertAsync(auditInfo));
+        // await uow.CompleteAsync();
+        // }
     }
 }
