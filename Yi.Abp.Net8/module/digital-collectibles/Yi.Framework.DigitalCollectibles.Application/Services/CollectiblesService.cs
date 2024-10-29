@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SqlSugar;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -20,9 +21,15 @@ public class CollectiblesService : ApplicationService
 {
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _collectiblesUserStoreRepository;
 
+    
     public CollectiblesService(ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> collectiblesUserStoreRepository)
     {
         _collectiblesUserStoreRepository = collectiblesUserStoreRepository;
+    }
+
+    public bool GetEnable()
+    {
+       return  LazyServiceProvider.LazyGetRequiredService<IConfiguration>().GetValue<bool>("IsEnableCollectibles");
     }
 
     /// <summary>
