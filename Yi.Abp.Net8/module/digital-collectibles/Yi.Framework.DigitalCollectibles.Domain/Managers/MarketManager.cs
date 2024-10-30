@@ -39,6 +39,11 @@ public class MarketManager : DomainService
     /// <returns></returns>
     public async Task ShelvedGoodsAsync(Guid userId, Guid collectiblesId, int number, decimal money)
     {
+        if (number<=0)
+        {
+            throw new UserFriendlyException("上架藏品数量需大于0");
+        }
+        
         var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable
             .Where(x=>x.UserId==userId)
             .Where(x => x.IsAtMarketing == false)
@@ -75,6 +80,10 @@ public class MarketManager : DomainService
     /// <returns></returns>
     public async Task PurchaseGoodsAsync(Guid userId, Guid marketGoodsId, int number)
     {
+        if (number<=0)
+        {
+            throw new UserFriendlyException("交易藏品数量需大于0");
+        }
         //1-市场扣减或者关闭该商品
         //2-出售者新增钱，购买者扣钱
         //3-出售者删除对应库存，购买者新增对应库存
@@ -102,7 +111,8 @@ public class MarketManager : DomainService
         var marketTaxRate = decimal.Parse(await _settingProvider.GetOrNullAsync("MarketTaxRate"));
         //价格*扣减税
         var realTotalPrice = (number*marketGoods.UnitPrice) * (1 - marketTaxRate);
-        await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId = userId, Number = realTotalPrice },false);
+        //出售者实际加钱
+        await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId =  marketGoods.SellUserId, Number = realTotalPrice },false);
         
         //3-出售者删除对应库存，购买者新增对应库存(只需更改用户者即可)
         var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable.Where(x => x.IsAtMarketing == true)

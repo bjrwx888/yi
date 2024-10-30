@@ -8,15 +8,16 @@ using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Collectibles;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Records;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
 using Yi.Framework.DigitalCollectibles.Domain.Entities.Record;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Application.Services.Record;
 
-public class CollectiblesServiceRecordService : ApplicationService
+public class CollectiblesRecordService : ApplicationService
 {
     private readonly ISqlSugarRepository<MiningPoolRecordAggregateRoot> _miningPoolRecordRepository;
     private readonly ISqlSugarRepository<MarketRecordAggregateRoot> _marketRecordRepository;
-    public CollectiblesServiceRecordService(ISqlSugarRepository<MiningPoolRecordAggregateRoot> miningPoolRecordRepository, ISqlSugarRepository<MarketRecordAggregateRoot> marketRecordRepository)
+    public CollectiblesRecordService(ISqlSugarRepository<MiningPoolRecordAggregateRoot> miningPoolRecordRepository, ISqlSugarRepository<MarketRecordAggregateRoot> marketRecordRepository)
     {
         _miningPoolRecordRepository = miningPoolRecordRepository;
         _marketRecordRepository = marketRecordRepository;
@@ -41,11 +42,21 @@ public class CollectiblesServiceRecordService : ApplicationService
                 new MiningPoolRecordDto
                 {
                     Id = x.Id,
-                    Collectibles = new CollectiblesDto()
+                    CreationTime = x.CreationTime,
+                    Collectibles = new CollectiblesDto
                     {
-                        Id = c.Id
+                        Id = c.Id,
+                        Code = c.Code,
+                        Name = c.Name,
+                        Describe = c.Describe,
+                        ValueNumber = c.ValueNumber,
+                        Url = c.Url,
+                        Rarity = c.Rarity,
+                        FindTotal = c.FindTotal,
+                        OrderNum = c.OrderNum
                     }
-                },true
+
+                }
             )
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
 
@@ -64,20 +75,42 @@ public class CollectiblesServiceRecordService : ApplicationService
         var userId = CurrentUser.GetId();
         var output =  await _marketRecordRepository._DbQueryable.WhereIF(input.StartTime is not null && input.EndTime is not null,
                 x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
-            .Where(x => x.SellUserId == userId)
+            
+            //交易：是购买和出售，都需要展示
+            .Where(x => x.SellUserId == userId||x.BuyId ==userId)
             .OrderByDescending(x => x.CreationTime)
             .LeftJoin<CollectiblesAggregateRoot>((x, c) => x.CollectiblesId==c.Id)
             .Select((x, c) =>
                     new MarketRecordDto
                     {
                         Id = x.Id,
+                        CreationTime=x.CreationTime,
+                        SellUserId = x.SellUserId,
+                        SellNumber = x.SellNumber,
+                        RealTotalPrice=x.RealTotalPrice,
+                        BuyId = x.BuyId,
+                        UnitPrice=x.UnitPrice,
                         Collectibles = new CollectiblesDto()
                         {
-                            Id = c.Id
-                        }
-                    },true
+                            Id = c.Id,
+                            Code = c.Code,
+                            Name = c.Name,
+                            Describe = c.Describe,
+                            ValueNumber = c.ValueNumber,
+                            Url = c.Url,
+                            Rarity = c.Rarity,
+                            FindTotal = c.FindTotal,
+                            OrderNum = c.OrderNum
+                        },
+                    }
             )
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
+        
+        foreach (var dto in output)
+        {
+            dto.IsBuyer = dto.BuyId == userId;
+        }
+        
         
         return new PagedResultDto<MarketRecordDto>(total,output);
     }

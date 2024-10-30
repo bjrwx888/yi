@@ -5,6 +5,11 @@ namespace Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Records;
 
 public class MarketRecordDto:EntityDto<Guid>
 {
+    /// <summary>
+    /// 当前这条数据是否为购买者，否则为出售者
+    /// </summary>
+    public bool IsBuyer { get; set; }
+
     public  DateTime CreationTime { get; set; }
     /// <summary>
     /// 出售数量
