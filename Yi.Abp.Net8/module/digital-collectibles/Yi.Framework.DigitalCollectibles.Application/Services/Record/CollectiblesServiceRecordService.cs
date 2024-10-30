@@ -16,9 +16,10 @@ public class CollectiblesServiceRecordService : ApplicationService
 {
     private readonly ISqlSugarRepository<MiningPoolRecordAggregateRoot> _miningPoolRecordRepository;
     private readonly ISqlSugarRepository<MarketRecordAggregateRoot> _marketRecordRepository;
-    public CollectiblesServiceRecordService(ISqlSugarRepository<MiningPoolRecordAggregateRoot> miningPoolRecordRepository)
+    public CollectiblesServiceRecordService(ISqlSugarRepository<MiningPoolRecordAggregateRoot> miningPoolRecordRepository, ISqlSugarRepository<MarketRecordAggregateRoot> marketRecordRepository)
     {
         _miningPoolRecordRepository = miningPoolRecordRepository;
+        _marketRecordRepository = marketRecordRepository;
     }
 
     /// <summary>

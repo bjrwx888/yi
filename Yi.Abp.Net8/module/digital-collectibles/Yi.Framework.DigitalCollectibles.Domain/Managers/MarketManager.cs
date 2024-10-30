@@ -3,6 +3,7 @@ using Volo.Abp.EventBus.Local;
 using Volo.Abp.Settings;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Etos;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
@@ -96,10 +97,12 @@ public class MarketManager : DomainService
         
         //2-出售者新增钱，购买者扣钱
         //发布一个其他领域的事件-购买者扣钱
-        await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId = userId, Number = -number },false);
+        await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId = userId, Number = -(number*marketGoods.UnitPrice) },false);
         //发布一个其他领域的事件-出售者加钱，同时扣税
         var marketTaxRate = decimal.Parse(await _settingProvider.GetOrNullAsync("MarketTaxRate"));
-        await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId = userId, Number = number*(1-marketTaxRate) },false);
+        //价格*扣减税
+        var realTotalPrice = (number*marketGoods.UnitPrice) * (1 - marketTaxRate);
+        await _localEventBus.PublishAsync(new MoneyChangeEventArgs() { UserId = userId, Number = realTotalPrice },false);
         
         //3-出售者删除对应库存，购买者新增对应库存(只需更改用户者即可)
         var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable.Where(x => x.IsAtMarketing == true)
@@ -111,11 +114,22 @@ public class MarketManager : DomainService
             throw new UserFriendlyException($"交易失败，当前出售者库存不足");
         }
 
-        var updateStore = collectiblesList.Take(number);
+        var updateStore = collectiblesList.Take(number).ToList();
         foreach (var userStore in updateStore)
         {
             userStore.PurchaseMarket(userId);
         }
-        await _collectiblesUserStoreRepository.UpdateRangeAsync(updateStore.ToList());
+        await _collectiblesUserStoreRepository.UpdateRangeAsync(updateStore);
+        
+        //发布一个成功交易事件
+        await _localEventBus.PublishAsync(new SuccessMarketEto
+        {
+            SellUserId = marketGoods.SellUserId,
+            BuyId = userId,
+            CollectiblesId = marketGoods.CollectiblesId,
+            SellNumber = marketGoods.SellNumber,
+            UnitPrice = marketGoods.UnitPrice,
+            RealTotalPrice =realTotalPrice
+        },false);
     }
 }

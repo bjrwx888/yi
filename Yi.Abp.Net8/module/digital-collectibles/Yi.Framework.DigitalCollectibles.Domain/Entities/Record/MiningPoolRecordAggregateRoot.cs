@@ -9,6 +9,17 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Entities.Record;
 [SugarTable("DC_MiningPoolRecord")]
 public class MiningPoolRecordAggregateRoot:FullAuditedAggregateRoot<Guid>
 {
+    public MiningPoolRecordAggregateRoot(Guid userId, Guid collectiblesId)
+    {
+        UserId = userId;
+        CollectiblesId = collectiblesId;
+    }
+
+    public MiningPoolRecordAggregateRoot()
+    {
+    }
+
+
     /// <summary>
     /// 用户id
     /// </summary>

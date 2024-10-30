@@ -1,6 +1,7 @@
 ﻿using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
+using Yi.Framework.DigitalCollectibles.Domain.Entities.Record;
 using Yi.Framework.DigitalCollectibles.Domain.Managers;
 
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Etos;
@@ -16,12 +17,14 @@ public class SuccessMiningEventHandler : ILocalEventHandler<SuccessMiningEto>, I
     private MiningPoolManager _miningPoolManager;
     private ISqlSugarRepository<CollectiblesAggregateRoot> _repository;
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _userStoreRepository;
+    private readonly ISqlSugarRepository<MiningPoolRecordAggregateRoot> _miningPoolRecordRepository;
     public SuccessMiningEventHandler(MiningPoolManager miningPoolManager,
-        ISqlSugarRepository<CollectiblesAggregateRoot> repository, ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> userStoreRepository)
+        ISqlSugarRepository<CollectiblesAggregateRoot> repository, ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> userStoreRepository, ISqlSugarRepository<MiningPoolRecordAggregateRoot> miningPoolRecordRepository)
     {
         _miningPoolManager = miningPoolManager;
         _repository = repository;
         _userStoreRepository = userStoreRepository;
+        _miningPoolRecordRepository = miningPoolRecordRepository;
     }
 
     public async Task HandleEventAsync(SuccessMiningEto eventData)
@@ -41,5 +44,8 @@ public class SuccessMiningEventHandler : ILocalEventHandler<SuccessMiningEto>, I
             CollectiblesId = eventData.CollectiblesId,
             IsRead = false
         });
+        
+        //新增一条挖矿记录
+        await _miningPoolRecordRepository.InsertAsync(new MiningPoolRecordAggregateRoot(eventData.UserId,eventData.CollectiblesId));
     }
 }
