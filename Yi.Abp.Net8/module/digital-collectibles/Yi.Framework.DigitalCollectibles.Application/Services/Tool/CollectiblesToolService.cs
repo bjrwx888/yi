@@ -58,7 +58,7 @@ public class CollectiblesToolService : ApplicationService
             }
             
             var fileName = items[0];
-            var code = Path.GetFileName(fileName) ;
+            var code = Path.GetFileNameWithoutExtension(fileName) ;
             var name = items[1];
             var value = decimal.Parse(items[2]);
             var url = $"https://ccnetcore.com/prod-api/wwwroot/dc/data/{fileName}";
