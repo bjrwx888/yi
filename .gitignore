@@ -277,3 +277,5 @@ database_backup
 /Yi.RuoYi.Vue3/pnpm-lock.yaml
 /.gitignore
 /.gitignore
+/Yi.Abp.Net8/src/Yi.Abp.Web/yi-abp-dev.db111
+/.gitignore
