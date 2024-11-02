@@ -108,7 +108,7 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.routerName"
             clearable
-            placeholder="请输入菜单名称"
+            placeholder="请输入路由名称"
             class="w-full"
           />
         </el-form-item>
