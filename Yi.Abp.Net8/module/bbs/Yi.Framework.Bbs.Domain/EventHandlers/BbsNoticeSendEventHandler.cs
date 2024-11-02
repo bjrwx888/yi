@@ -25,14 +25,17 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
         }
         public async Task HandleEventAsync(BbsNoticeEventArgs eventData)
         {
-            //离线存储
-           var entity= await _repository.InsertReturnEntityAsync(new BbsNoticeAggregateRoot(eventData.NoticeType, eventData.Message, eventData.AcceptUserId));
-            switch (eventData.NoticeType)
+          
+
+            //是否需要离线存储
+           bool isStore = true;
+           var now = DateTime.Now;
+           switch (eventData.NoticeType)
             {
                 case Shared.Enums.NoticeTypeEnum.Personal:
                     if (BbsNoticeHub.HubUserModels.TryGetValue(eventData.AcceptUserId.ToString(), out var hubUserModel))
                     {
-                        _hubContext.Clients.Client(hubUserModel.ConnnectionId).SendAsync(NoticeTypeEnum.Personal.ToString(), eventData.Message,entity.CreationTime);
+                        _hubContext.Clients.Client(hubUserModel.ConnnectionId).SendAsync(NoticeTypeEnum.Personal.ToString(), eventData.Message,now);
                     }
                     break;
                 case Shared.Enums.NoticeTypeEnum.Broadcast:
@@ -42,11 +45,18 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
                 case Shared.Enums.NoticeTypeEnum.Money:
                     if (BbsNoticeHub.HubUserModels.TryGetValue(eventData.AcceptUserId.ToString(), out var hubUserModel2))
                     {
-                        _hubContext.Clients.Client(hubUserModel2.ConnnectionId).SendAsync(NoticeTypeEnum.Money.ToString(), eventData.Message,entity.CreationTime);
+                        _hubContext.Clients.Client(hubUserModel2.ConnnectionId).SendAsync(NoticeTypeEnum.Money.ToString(), eventData.Message,now);
                     }
+
+                    isStore = false;
                     break;
                 default:
                     break;
+            }
+
+            if (isStore)
+            {  //离线存储
+                var entity= await _repository.InsertReturnEntityAsync(new BbsNoticeAggregateRoot(eventData.NoticeType, eventData.Message, eventData.AcceptUserId){CreationTime = now});
             }
 
         }
