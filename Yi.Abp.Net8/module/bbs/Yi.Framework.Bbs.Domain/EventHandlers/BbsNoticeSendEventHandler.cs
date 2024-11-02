@@ -38,6 +38,13 @@ namespace Yi.Framework.Bbs.Domain.EventHandlers
                 case Shared.Enums.NoticeTypeEnum.Broadcast:
                     _hubContext.Clients.All.SendAsync(NoticeTypeEnum.Broadcast.ToString(), eventData.Message);
                     break;
+                
+                case Shared.Enums.NoticeTypeEnum.Money:
+                    if (BbsNoticeHub.HubUserModels.TryGetValue(eventData.AcceptUserId.ToString(), out var hubUserModel2))
+                    {
+                        _hubContext.Clients.Client(hubUserModel2.ConnnectionId).SendAsync(NoticeTypeEnum.Personal.ToString(), eventData.Message,entity.CreationTime);
+                    }
+                    break;
                 default:
                     break;
             }
