@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Services;
+using Volo.Abp.EventBus.Local;
+using Volo.Abp.Users;
+using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Account;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Enums;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Etos;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.Account;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Shared.Enums;
@@ -19,13 +24,14 @@ public class WeChatMiniProgramAccountService : ApplicationService
     private readonly IWeChatMiniProgramManager _weChatMiniProgramManager;
     private readonly IAuthService _authService;
     private readonly IAccountService _accountService;
-
+    private readonly ILocalEventBus _localEventBus;
     public WeChatMiniProgramAccountService(IWeChatMiniProgramManager weChatMiniProgramManager, IAuthService authService,
-        IAccountService accountService)
+        IAccountService accountService, ILocalEventBus localEventBus)
     {
         _weChatMiniProgramManager = weChatMiniProgramManager;
         _authService = authService;
         _accountService = accountService;
+        _localEventBus = localEventBus;
     }
 
     /// <summary>
@@ -63,8 +69,11 @@ public class WeChatMiniProgramAccountService : ApplicationService
     /// <param name="input"></param>
     /// <exception cref="UserFriendlyException"></exception>
     [HttpPost("wechat/mini-program/account/bind")]
+    [Authorize]
     public async Task PostBindAsync(BindInput input)
     {
+        var userId = CurrentUser.GetId();
+        
         //验证手机号
         await _accountService.ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.Bind, input.Phone, input.Code);
         //校验手机号与验证码
@@ -80,8 +89,17 @@ public class WeChatMiniProgramAccountService : ApplicationService
         //验证手机号的验证码
         var openId = (await _weChatMiniProgramManager.Code2SessionAsync(new Code2SessionInput(input.JsCode))).openid;
         
-
         await PostBindToAuthAsync(userInfo.User.Id, openId, userInfo.User.UserName);
+        
+        //发送账号绑定的事件，不同领域对账号数据进行迁移
+        //bbs：钱钱 （累加），禁用临时账号（修改）
+        //dc: 价值、积分 （累加）
+       await _localEventBus.PublishAsync(new BindAccountEto
+        {
+            NewUserId = userInfo.User.Id,
+            OldUserId = userId
+        },false);
+
     }
 
     private async Task PostBindToAuthAsync(Guid userId, string openId, string? name = null)

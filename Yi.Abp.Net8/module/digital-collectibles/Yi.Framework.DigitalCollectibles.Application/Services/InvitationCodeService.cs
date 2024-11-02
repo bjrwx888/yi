@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Users;
+using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.InvitationCode;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
+using Yi.Framework.DigitalCollectibles.Domain.Managers;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Application.Services;
@@ -12,11 +14,11 @@ namespace Yi.Framework.DigitalCollectibles.Application.Services;
 /// </summary>
 public class InvitationCodeService : ApplicationService
 {
-    private readonly ISqlSugarRepository<InvitationCodeAggregateRoot> _repository;
+    private readonly InvitationCodeManager _invitationCodeManager;
 
-    public InvitationCodeService(ISqlSugarRepository<InvitationCodeAggregateRoot> repository)
+    public InvitationCodeService(InvitationCodeManager invitationCodeManager)
     {
-        _repository = repository;
+        _invitationCodeManager = invitationCodeManager;
     }
 
     /// <summary>
@@ -24,16 +26,17 @@ public class InvitationCodeService : ApplicationService
     /// </summary>
     /// <returns></returns>
     [Authorize]
-    public async Task<object> GetAsync()
+    public async Task<InvitationCodeGetOutputDto> GetAsync()
     {
         var userId = CurrentUser.GetId();
-        var entity = await _repository.GetFirstAsync(x => x.UserId == userId);
-        if (entity is null)
+        var entity = await _invitationCodeManager.TryGetOrAddAsync(userId);
+        var output = new InvitationCodeGetOutputDto
         {
-            return new { IsInvited=false, PointsNumber=0 };
-        }
-
-        return new { entity.IsInvited, entity.PointsNumber };
+            IsInvited = entity.IsInvited,
+            PointsNumber = entity.PointsNumber,
+            InvitationCode = entity.InvitationCode
+        };
+        return output;
     }
 
     /// <summary>
@@ -42,48 +45,10 @@ public class InvitationCodeService : ApplicationService
     /// <param name="invitedUserId"></param>
     /// <exception cref="UserFriendlyException"></exception>
     [Authorize]
-    public async Task SetAsync([FromQuery] Guid invitedUserId)
+    [HttpPost("invitation-code/{code}")]
+    public async Task SetAsync([FromRoute] string code)
     {
         var userId = CurrentUser.GetId();
-        var entity = await _repository.GetFirstAsync(x => x.UserId == userId);
-        if (entity is null)
-        {
-            await _repository.InsertAsync(new InvitationCodeAggregateRoot
-            {
-                UserId = userId,
-                IsInvited = true,
-                PointsNumber = 0
-            });
-        }
-        else
-        {
-            if (entity.IsInvited)
-            {
-                throw new UserFriendlyException("你已填写过邀请码，无法再次填写");
-            }
-            else
-            {
-                entity.IsInvited = false;
-                await _repository.UpdateAsync(entity);
-            }
-        }
-
-
-        var invitedEntity = await _repository.GetFirstAsync(x => x.UserId == invitedUserId);
-
-        if (entity is null)
-        {
-            await _repository.InsertAsync(new InvitationCodeAggregateRoot
-            {
-                UserId = invitedUserId,
-                IsInvited = false,
-                PointsNumber = 1
-            });
-        }
-        else
-        {
-            invitedEntity.PointsNumber += 1;
-            await _repository.UpdateAsync(invitedEntity);
-        }
+        await _invitationCodeManager.SetAsync(userId, code);
     }
 }
