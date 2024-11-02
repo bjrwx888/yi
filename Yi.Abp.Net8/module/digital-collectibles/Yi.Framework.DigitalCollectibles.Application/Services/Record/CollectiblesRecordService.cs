@@ -36,7 +36,6 @@ public class CollectiblesRecordService : ApplicationService
         var output =  await _miningPoolRecordRepository._DbQueryable.WhereIF(input.StartTime is not null && input.EndTime is not null,
                 x => x.CreationTime >= input.StartTime && x.CreationTime <= input.EndTime)
             .Where(x => x.UserId == userId)
-            .OrderByDescending(x => x.CreationTime)
             .LeftJoin<CollectiblesAggregateRoot>((x, c) => x.CollectiblesId==c.Id)
             .Select((x, c) =>
                 new MiningPoolRecordDto
@@ -58,6 +57,7 @@ public class CollectiblesRecordService : ApplicationService
 
                 }
             )
+            .OrderByDescending(x => x.CreationTime)
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
 
         return new PagedResultDto<MiningPoolRecordDto>(total,output);
@@ -78,7 +78,7 @@ public class CollectiblesRecordService : ApplicationService
             
             //交易：是购买和出售，都需要展示
             .Where(x => x.SellUserId == userId||x.BuyId ==userId)
-            .OrderByDescending(x => x.CreationTime)
+
             .LeftJoin<CollectiblesAggregateRoot>((x, c) => x.CollectiblesId==c.Id)
             .Select((x, c) =>
                     new MarketRecordDto
@@ -104,6 +104,7 @@ public class CollectiblesRecordService : ApplicationService
                         },
                     }
             )
+            .OrderByDescending(x => x.CreationTime)
             .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
         
         foreach (var dto in output)

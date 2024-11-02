@@ -1,5 +1,6 @@
 ﻿using FreeRedis;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
@@ -27,6 +28,7 @@ public class MiningPoolManager : DomainService
     private readonly IDistributedCache<MiningPoolContent?> _miningPoolCache;
     private readonly IDistributedCache<UserMiningLimitCacheDto?> _userMiningLimitCache;
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _userStoreRepository;
+    private readonly ILogger<MiningPoolManager> _logger;
     private IRedisClient RedisClient => LazyServiceProvider.LazyGetRequiredService<IRedisClient>();
     private ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
@@ -34,7 +36,7 @@ public class MiningPoolManager : DomainService
         ISqlSugarRepository<CollectiblesAggregateRoot> collectiblesRepository,
         ISqlSugarRepository<OnHookAggregateRoot> onHookRepository,
         ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> userStoreRepository,
-        IDistributedCache<UserMiningLimitCacheDto> userMiningLimitCache)
+        IDistributedCache<UserMiningLimitCacheDto> userMiningLimitCache, ILogger<MiningPoolManager> logger)
     {
         _settingProvider = settingProvider;
         this._miningPoolCache = miningPoolCache;
@@ -42,6 +44,7 @@ public class MiningPoolManager : DomainService
         _onHookRepository = onHookRepository;
         _userStoreRepository = userStoreRepository;
         _userMiningLimitCache = userMiningLimitCache;
+        _logger = logger;
     }
 
     /// <summary>
@@ -270,7 +273,15 @@ public class MiningPoolManager : DomainService
         var userOnHookDic = currentOnHook.GroupBy(x => x.UserId).ToDictionary(x => x.Key, y => y.First());
         foreach (var onHookItem in userOnHookDic)
         {
-            await MiningAsync(onHookItem.Value.UserId);
+            try
+            {
+                await MiningAsync(onHookItem.Value.UserId);
+            }
+            catch (UserFriendlyException e)
+            {
+                _logger.LogInformation($"自动挖矿-{onHookItem.Value.UserId},{e.Message}");
+            }
+           
         }
     }
 

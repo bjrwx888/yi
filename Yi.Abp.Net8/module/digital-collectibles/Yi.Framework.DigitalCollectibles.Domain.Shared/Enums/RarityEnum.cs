@@ -18,6 +18,23 @@ public enum RarityEnum
 
 public static class RarityEnumExtensions
 {
+    public static string GetRarityName(this RarityEnum enumValue)
+    {
+            // 获取枚举类型
+            Type type = enumValue.GetType();
+        
+            // 获取当前枚举值的 FieldInfo
+            FieldInfo fieldInfo = type.GetField(enumValue.ToString());
+
+            // 获取 Display 特性
+            DisplayAttribute displayAttribute = fieldInfo
+                .GetCustomAttributes(typeof(DisplayAttribute), false)
+                .FirstOrDefault() as DisplayAttribute;
+
+            // 返回名称，如果没有找到，则返回枚举值的名称
+            return displayAttribute?.Name ?? enumValue.ToString();
+    }
+
     private static T GetAttribute<T>(RarityEnum rarity) where T : Attribute
     {
         var fieldInfo = typeof(RarityEnum).GetField(rarity.ToString());

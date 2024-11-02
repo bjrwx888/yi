@@ -27,7 +27,7 @@ public class AccessLogCacheJob : QuartzBackgroundWorkerBase
 
         //每10秒执行一次，将本地缓存转入redis，防止丢数据
         Trigger = TriggerBuilder.Create().WithIdentity(nameof(AccessLogCacheJob))
-            .WithSimpleSchedule((schedule) => { schedule.WithInterval(TimeSpan.FromSeconds(10)).RepeatForever();; })
+            .WithSimpleSchedule((schedule) => { schedule.WithInterval(TimeSpan.FromSeconds(10)).RepeatForever(); })
             .Build();
     }
 
