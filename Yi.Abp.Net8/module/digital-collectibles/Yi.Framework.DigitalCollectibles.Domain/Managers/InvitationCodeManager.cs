@@ -22,6 +22,8 @@ public class InvitationCodeManager : DomainService
     /// </summary>
     public async Task SetAsync(Guid writeUserId, string invitationCode)
     {
+        //统一大写
+        invitationCode=  invitationCode.ToUpper();
         var entityOrNull = await _repository.GetFirstAsync(x => x.InvitationCode == invitationCode);
         if (entityOrNull is null)
         {

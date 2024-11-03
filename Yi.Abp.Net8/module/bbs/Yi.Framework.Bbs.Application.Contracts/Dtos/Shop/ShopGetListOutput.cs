@@ -1,16 +1,8 @@
-﻿using SqlSugar;
-using Volo.Abp.Auditing;
-using Volo.Abp.Domain.Entities;
-using Yi.Framework.Bbs.Domain.Shared.Enums;
-using Yi.Framework.Core.Data;
+﻿using Yi.Framework.Bbs.Domain.Shared.Enums;
 
-namespace Yi.Framework.Bbs.Domain.Entities.Shop;
+namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Shop;
 
-/// <summary>
-/// 商品定义表
-/// </summary>
-[SugarTable("BbsGoods")]
-public class BbsGoodsAggregateRoot: AggregateRoot<Guid>, IHasCreationTime,IOrderNum
+public class ShopGetListOutput
 {
     /// <summary>
     /// 上架时间
@@ -73,4 +65,9 @@ public class BbsGoodsAggregateRoot: AggregateRoot<Guid>, IHasCreationTime,IOrder
     public decimal NeedPoints { get; set; }
 
     public int OrderNum { get; set; }
+    
+    /// <summary>
+    /// 是否已限制
+    /// </summary>
+    public bool IsLimit { get; set; }
 }

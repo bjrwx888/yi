@@ -1,12 +1,82 @@
-﻿using Volo.Abp.Application.Services;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Users;
+using Yi.Framework.Bbs.Application.Contracts.Dtos.Shop;
+using Yi.Framework.Bbs.Domain.Entities.Shop;
+using Yi.Framework.Bbs.Domain.Managers;
+using Yi.Framework.Bbs.Domain.Managers.Shop;
+using Yi.Framework.Bbs.Domain.Shared.Enums;
+using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Application.Services.Shop;
+
 /// <summary>
 /// bbs商城服务
 /// </summary>
 public class BbsShopService : ApplicationService
 {
-    //获取商城列表
-    //购买道具
-    //获取用户的商城信息
+    private readonly ISqlSugarRepository<BbsGoodsAggregateRoot> _repository;
+    private readonly ISqlSugarRepository<BbsGoodsApplyAggregateRoot> _applyRepository;
+    private readonly BbsShopManager _bbsShopManager;
+
+    public BbsShopService(ISqlSugarRepository<BbsGoodsAggregateRoot> repository,
+        ISqlSugarRepository<BbsGoodsApplyAggregateRoot> applyRepository, BbsShopManager bbsShopManager)
+    {
+        _repository = repository;
+        _applyRepository = applyRepository;
+        _bbsShopManager = bbsShopManager;
+    }
+
+    //商城列表
+    [Authorize]
+    public async Task<PagedResultDto<ShopGetListOutput>> GetListAsync(PagedAndSortedResultRequestDto input)
+    {
+        var output = new List<ShopGetListOutput>();
+        var userId = CurrentUser.GetId();
+        RefAsync<int> total = 0;
+        var entities = await _repository._DbQueryable
+            .Where(x => x.EndTime > DateTime.Now)
+            .OrderBy(x => x.OrderNum)
+            .ToPageListAsync(input.SkipCount, input.MaxResultCount, total);
+        var applyEntities = await _applyRepository.GetListAsync(x => x.UserId == userId);
+
+        foreach (var entity in entities)
+        {
+            var dto = entity.Adapt<ShopGetListOutput>();
+            if (entity.GoodsType == GoodsTypeEnum.Apply)
+            {
+                //大于限购数量
+                if (applyEntities.Count(x => x.GoodsId == entity.Id) >= entity.LimitNumber)
+                {
+                    dto.IsLimit = true;
+                }
+            }
+
+            output.Add(dto);
+        }
+
+        return new PagedResultDto<ShopGetListOutput>(total, output);
+    }
+
+    /// <summary>
+    /// 购买商品
+    /// </summary>
+    [Authorize]
+    public async Task PostBuyAsync([FromBody] BuyShopInputDto input)
+    {
+        var userId = CurrentUser.GetId();
+        await _bbsShopManager.BuyAsync(userId, input.GoodsId, input.ContactInformation);
+    }
+
+    /// <summary>
+    /// 获取该用户汇总信息（钱钱、积分、价值）
+    /// </summary>
+    [Authorize]
+    public async Task GetAccountAsync()
+    {
+    }
 }
