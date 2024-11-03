@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Users;
 using Yi.Framework.Bbs.Application.Contracts.Dtos.Shop;
+using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Entities.Shop;
 using Yi.Framework.Bbs.Domain.Managers;
 using Yi.Framework.Bbs.Domain.Managers.Shop;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
+using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Application.Services.Shop;
@@ -22,13 +25,17 @@ public class BbsShopService : ApplicationService
     private readonly ISqlSugarRepository<BbsGoodsAggregateRoot> _repository;
     private readonly ISqlSugarRepository<BbsGoodsApplyAggregateRoot> _applyRepository;
     private readonly BbsShopManager _bbsShopManager;
+    private readonly ISqlSugarRepository<BbsUserExtraInfoEntity> _bbsUserRepository;
+    private ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
     public BbsShopService(ISqlSugarRepository<BbsGoodsAggregateRoot> repository,
-        ISqlSugarRepository<BbsGoodsApplyAggregateRoot> applyRepository, BbsShopManager bbsShopManager)
+        ISqlSugarRepository<BbsGoodsApplyAggregateRoot> applyRepository, BbsShopManager bbsShopManager,
+        ISqlSugarRepository<BbsUserExtraInfoEntity> bbsUserRepository)
     {
         _repository = repository;
         _applyRepository = applyRepository;
         _bbsShopManager = bbsShopManager;
+        _bbsUserRepository = bbsUserRepository;
     }
 
     //商城列表
@@ -76,7 +83,18 @@ public class BbsShopService : ApplicationService
     /// 获取该用户汇总信息（钱钱、积分、价值）
     /// </summary>
     [Authorize]
-    public async Task GetAccountAsync()
+    public async Task<BbsShopAccountDto> GetAccountAsync()
     {
+        var userId = CurrentUser.GetId();
+        var output = new BbsShopAccountDto();
+        var money = await _bbsUserRepository._DbQueryable.Where(x => x.UserId == userId).Select(x => x.Money)
+            .FirstAsync();
+        var eto = new SetAccountInfoEto(userId);
+        await LocalEventBus.PublishAsync(eto, false);
+        //钱钱累加
+        output.Money += eto.Money;
+        output.Points = eto.Points;
+        output.Value = eto.Value;
+        return output;
     }
 }

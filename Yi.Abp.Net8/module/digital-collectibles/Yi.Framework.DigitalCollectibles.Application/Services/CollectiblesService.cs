@@ -9,6 +9,7 @@ using Volo.Abp.Users;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Collectibles;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Market;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
+using Yi.Framework.DigitalCollectibles.Domain.Managers;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -20,16 +21,18 @@ namespace Yi.Framework.DigitalCollectibles.Application.Services;
 public class CollectiblesService : ApplicationService
 {
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _collectiblesUserStoreRepository;
+    private readonly CollectiblesManager _collectiblesManager;
 
-    
-    public CollectiblesService(ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> collectiblesUserStoreRepository)
+    public CollectiblesService(ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> collectiblesUserStoreRepository,
+        CollectiblesManager collectiblesManager)
     {
         _collectiblesUserStoreRepository = collectiblesUserStoreRepository;
+        _collectiblesManager = collectiblesManager;
     }
 
     public bool GetEnable()
     {
-       return  LazyServiceProvider.LazyGetRequiredService<IConfiguration>().GetValue<bool>("IsEnableCollectibles");
+        return LazyServiceProvider.LazyGetRequiredService<IConfiguration>().GetValue<bool>("IsEnableCollectibles");
     }
 
     /// <summary>
@@ -40,43 +43,10 @@ public class CollectiblesService : ApplicationService
     public async Task<CollectiblesAccountInfoDto> GetAccountInfoAsync()
     {
         var userId = CurrentUser.GetId();
-        var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable
-            .Where(store => store.UserId == userId)
-            .LeftJoin<CollectiblesAggregateRoot>((store, c) => store.CollectiblesId == c.Id)
-            .Select((store, c) =>
-                new
-                {
-                    c.Id,
-                    c.ValueNumber
-                }
-            ).ToListAsync();
-        var groupBy = collectiblesList.GroupBy(x => x.Id);
-        decimal totalValue = 0;
-
-        //首个价值百分之百，后续每个只有百分之40，最大10个
-        foreach (var groupByItem in groupBy)
-        {
-            foreach (var item in groupByItem.Select((value, index) => new { value, index }))
-            {
-                
-                if (item.index == 0)
-                {
-                    totalValue += item.value.ValueNumber;
-                }
-                else if (item.index == 10)
-                {
-                    //到第11个，直接跳出循环
-                    break;
-                }
-                else
-                {
-                    totalValue += item.value.ValueNumber * 0.4m;
-                }
-            }
-        }
+        var value = await _collectiblesManager.GetAccountValueAsync(userId);
         return new CollectiblesAccountInfoDto
         {
-            TotalValue = totalValue
+            TotalValue = value
         };
     }
 
