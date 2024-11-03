@@ -92,7 +92,7 @@ public class BbsShopService : ApplicationService
         var eto = new SetAccountInfoEto(userId);
         await LocalEventBus.PublishAsync(eto, false);
         //钱钱累加
-        output.Money += eto.Money;
+        output.Money =money+ eto.Money;
         output.Points = eto.Points;
         output.Value = eto.Value;
         return output;

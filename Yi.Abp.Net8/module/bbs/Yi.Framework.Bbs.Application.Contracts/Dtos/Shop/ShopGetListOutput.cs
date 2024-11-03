@@ -1,8 +1,9 @@
-﻿using Yi.Framework.Bbs.Domain.Shared.Enums;
+﻿using Volo.Abp.Application.Dtos;
+using Yi.Framework.Bbs.Domain.Shared.Enums;
 
 namespace Yi.Framework.Bbs.Application.Contracts.Dtos.Shop;
 
-public class ShopGetListOutput
+public class ShopGetListOutput:EntityDto<Guid>
 {
     /// <summary>
     /// 上架时间
