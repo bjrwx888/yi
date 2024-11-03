@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.CommandLineUtils;
 using Volo.Abp.DependencyInjection;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -17,52 +18,66 @@ namespace Yi.Abp.Tool
         }
         public async Task SelectorAsync(string[] args)
         {
-            //不指定命令，默认给help
-            if (args.Length == 0)
-            {
-               await SelectorDefaultCommandAsync();
-                return;
-            }
-            var commandStr = args[0];
+            var app = new CommandLineApplication();
 
-            var commandOrNull = _commands.Where(x => x.CommandStrs.Select(x => x.ToUpper()).Contains(commandStr.ToUpper())).FirstOrDefault();
-
-            //没有匹配到命令，，默认给help
-            if (commandOrNull == null)
-            {
-                await SelectorDefaultCommandAsync();
-                return;
-            }
-
-            var options = new Dictionary<string, string?>();
-
-            //去除命令，剩下进行参数装载
-            string[] commonArgs = args.Skip(1).ToArray();
-            for (var i = 0; i < commonArgs.Length; i++)
-            {
-                var currentArg = commonArgs[i];
-                //命令参数以-或者--开头
-                if (IsCommandArg(currentArg))
-                {
-                    string? commonValue = null;
-                    //参数值在他的下一位
-                    if (i + 1 < commonArgs.Length)
-                    {
-                        var nextArg = commonArgs[i + 1];
-                        if (!IsCommandArg(nextArg))
-                        {
-                            commonValue = nextArg;
-                        }
-
-                    }
-                    //删除-就是参数名
-                    options.Add(ArgToCommandMap(currentArg), commonValue);
-                }
-
-
-
-            }
-            await commandOrNull.InvokerAsync(options,args);
+            // //1-设置命令
+            // app.Command();
+            // //2-各自命令内，设置选项
+            // app.Options();
+            // //3-执行,暴露方法
+            // app.Execute(args);
+            
+            //
+            // //不指定命令，默认给help
+            // if (args.Length == 0)
+            // {
+            //    await SelectorDefaultCommandAsync();
+            //    return;
+            // }
+            // var app = new CommandLineApplication();
+            //
+            // var commandStr = args[0];
+            //
+            // var commandOrNull = _commands.Where(x => x.CommandStrs.Select(x => x.ToUpper()).Contains(commandStr.ToUpper())).FirstOrDefault();
+            //
+            // //没有匹配到命令，，默认给help
+            // if (commandOrNull == null)
+            // {
+            //     await SelectorDefaultCommandAsync();
+            //     return;
+            // }
+            //
+            // var command = commandOrNull;
+            //
+            // var options = new Dictionary<string, string?>();
+            //
+            // //去除命令，剩下进行参数装载
+            // string[] commonArgs = args.Skip(1).ToArray();
+            // for (var i = 0; i < commonArgs.Length; i++)
+            // {
+            //     var currentArg = commonArgs[i];
+            //     //命令参数以-或者--开头
+            //     if (IsCommandArg(currentArg))
+            //     {
+            //         string? commonValue = null;
+            //         //参数值在他的下一位
+            //         if (i + 1 < commonArgs.Length)
+            //         {
+            //             var nextArg = commonArgs[i + 1];
+            //             if (!IsCommandArg(nextArg))
+            //             {
+            //                 commonValue = nextArg;
+            //             }
+            //
+            //         }
+            //         //删除-就是参数名
+            //         options.Add(ArgToCommandMap(currentArg), commonValue);
+            //     }
+            //
+            //
+            //
+            // }
+            // await command.InvokerAsync(options,args);
 
         }
         /// <summary>
