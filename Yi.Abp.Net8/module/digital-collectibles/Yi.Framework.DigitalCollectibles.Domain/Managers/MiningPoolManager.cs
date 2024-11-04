@@ -1,6 +1,7 @@
 ﻿using FreeRedis;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
@@ -333,7 +334,7 @@ public class MiningPoolManager : DomainService
     public async Task RefreshMiningPoolAsync()
     {
         //获取当前最大的限制
-        var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaxPoolLimit"));
+       // var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaxPoolLimit"));
         var poolData = (await _settingProvider.GetOrNullAsync("PoolData")).Split(',').Select(x=>int.Parse(x)).ToList();
         DateTime startTime = DateTime.Today.AddHours(10);
         DateTime endTime = startTime.AddDays(1);
@@ -363,11 +364,17 @@ public class MiningPoolManager : DomainService
     }
 
     /// <summary>
+    /// 缓存前缀
+    /// </summary>
+    private string CacheKeyPrefix => LazyServiceProvider.LazyGetRequiredService<IOptions<AbpDistributedCacheOptions>>()
+        .Value.KeyPrefix;
+    /// <summary>
     /// 刷新用户挖矿限制
     /// </summary>
     public async Task RefreshMiningUserLimitAsync()
     {
-        await RedisClient.DelAsync($"{MiningCacheConst.UserMiningLimit}*");
+
+        await RedisClient.DelAsync($"{CacheKeyPrefix}{MiningCacheConst.UserMiningLimit}*");
     }
 
     /// <summary>

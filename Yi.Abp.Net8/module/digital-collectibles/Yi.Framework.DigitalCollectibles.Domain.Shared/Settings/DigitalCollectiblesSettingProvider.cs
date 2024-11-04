@@ -15,9 +15,6 @@ namespace Yi.Abp.Domain.Shared.Settings
         public override void Define(ISettingDefinitionContext context)
         {
             context.Add(
-                //每日矿池最大上限--控制矿池膨胀率
-                new SettingDefinition("MaxPoolLimit", "100"),
-
                 //每日挖矿最大上限--控制无限挖矿
                 new SettingDefinition("MiningMaxLimit", "36"),
                 
@@ -31,7 +28,7 @@ namespace Yi.Abp.Domain.Shared.Settings
                 new SettingDefinition("MarketTaxRate", "0.02"),
                 
                 //矿池刷新内容
-                new SettingDefinition("PoolData", "60,24,10,3,1")
+                new SettingDefinition("PoolData", "60,26,10,3,1")
             );
         }
     }
