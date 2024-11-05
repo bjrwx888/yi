@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
@@ -24,7 +25,7 @@ namespace Yi.Abp.Tool
         private void InitCommand()
         {    
             Application.HelpOption("-h|--help");
-            Application.VersionOption("-v|--versions","1.0.0");
+            Application.VersionOption("-v|--versions", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             foreach (var command in _commands)
             {
                 CommandLineApplication childrenCommandLineApplication = new CommandLineApplication(true)

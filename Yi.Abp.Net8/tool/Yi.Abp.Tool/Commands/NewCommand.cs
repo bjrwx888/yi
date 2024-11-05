@@ -79,14 +79,13 @@ namespace Yi.Abp.Tool.Commands
                 {
                     var moduleName = moduleNameArgument.Value.ToLower().Replace(".", "-");
 
-                    unzipDirPath = Path.Combine(path, unzipDirPath);
+                    unzipDirPath = Path.Combine(path, moduleName);
                     if (Directory.Exists(unzipDirPath))
                     {
                         throw new UserFriendlyException($"文件夹[{unzipDirPath}]已存在，请删除后重试");
                     }
 
                     Directory.CreateDirectory(unzipDirPath);
-                    unzipDirPath = moduleName;
                 }
 
                 #endregion
