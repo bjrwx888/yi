@@ -12,7 +12,8 @@ namespace Yi.Abp.Tool
     {
         public string Command { get; }
 
-        Task CommandLineApplicationAsync(CommandLineApplication application);
+        public string? Description { get; }
+        void CommandLineApplication(CommandLineApplication application);
 
     }
 }

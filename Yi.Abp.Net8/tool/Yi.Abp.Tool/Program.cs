@@ -18,7 +18,13 @@ class Program
         //args = ["new", "Acme.Book", "-t", "module"];
         //args = ["add-module", "Acme.Demo", "-s", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8", "-modulePath", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\module\\acme-demo"];
         // args = ["clear", "-path", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\src"];
-        args = ["clear","-i","888"];
+       
+        //帮助
+        args = ["-h"];
+        //版本
+        // args = ["-v"];
+        //清理
+        // args = ["clear"];
 #endif
         try
         {

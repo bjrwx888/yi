@@ -23,22 +23,23 @@ namespace Yi.Abp.Tool
 
         private void InitCommand()
         {    
-            Application.HelpOption("-h");
-            
+            Application.HelpOption("-h|--help");
+            Application.VersionOption("-v|--versions","1.0.0");
             foreach (var command in _commands)
             {
-                Application.Command(command.Command, con => command.CommandLineApplicationAsync(con).Wait());
+                CommandLineApplication childrenCommandLineApplication = new CommandLineApplication(true)
+                {
+                    Name = command.Command,
+                    Parent = Application,
+                    Description =command.Description
+                };
+                Application.Commands.Add(childrenCommandLineApplication);
+                command.CommandLineApplication(childrenCommandLineApplication);
             }
         }
 
         public async Task InvokerAsync(string[] args)
         {
-            //使用哪个命令，根据第一参数来判断，如果都不是，打印help
-            // foreach (var commandLineApplication in Application.Commands)
-            // {
-            //     commandLineApplication.Execute(args);
-            // }
-
             Application.Execute(args);
         }
     }
