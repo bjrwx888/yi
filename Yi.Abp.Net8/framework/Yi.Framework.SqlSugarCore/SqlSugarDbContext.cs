@@ -36,15 +36,18 @@ namespace Yi.Framework.SqlSugarCore
 
         protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
 
-        private IEntityChangeEventHelper EntityChangeEventHelper => LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
+        private IEntityChangeEventHelper EntityChangeEventHelper =>
+            LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
+
         public DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
 
-        private ISerializeService SerializeService=> LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
-        
+        private ISerializeService SerializeService => LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
+
         public void SetSqlSugarClient(ISqlSugarClient sqlSugarClient)
         {
             SqlSugarClient = sqlSugarClient;
         }
+
         public SqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider)
         {
             LazyServiceProvider = lazyServiceProvider;
@@ -73,12 +76,14 @@ namespace Yi.Framework.SqlSugarCore
         protected virtual string GetCurrentConnectionString()
         {
             var connectionStringResolver = LazyServiceProvider.LazyGetRequiredService<IConnectionStringResolver>();
-            var connectionString = connectionStringResolver.ResolveAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var connectionString =
+                connectionStringResolver.ResolveAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
                 Check.NotNull(Options.Url, "dbUrl未配置");
             }
+
             return connectionString!;
         }
 
@@ -92,6 +97,7 @@ namespace Yi.Framework.SqlSugarCore
                     return dbTypeFromTenantName.Value;
                 }
             }
+
             Check.NotNull(Options.DbType, "默认DbType未配置！");
             return Options.DbType!.Value;
         }
@@ -126,7 +132,6 @@ namespace Yi.Framework.SqlSugarCore
         }
 
 
-
         /// <summary>
         /// 上下文对象扩展
         /// </summary>
@@ -138,21 +143,23 @@ namespace Yi.Framework.SqlSugarCore
             {
                 sqlSugarClient.QueryFilter.AddTableFilter<ISoftDelete>(u => u.IsDeleted == false);
             }
+
             if (IsMultiTenantFilterEnabled)
             {
                 //表达式里只能有具体值，不能运算
                 var expressionCurrentTenant = CurrentTenant.Id ?? null;
                 sqlSugarClient.QueryFilter.AddTableFilter<IMultiTenant>(u => u.TenantId == expressionCurrentTenant);
             }
+
             CustomDataFilter(sqlSugarClient);
         }
+
         protected virtual void CustomDataFilter(ISqlSugarClient sqlSugarClient)
         {
-
         }
+
         protected virtual void DataExecuted(object oldValue, DataAfterModel entityInfo)
         {
-
         }
 
         /// <summary>
@@ -174,25 +181,34 @@ namespace Yi.Framework.SqlSugarCore
                             entityInfo.SetValue(DateTime.Now);
                         }
                     }
-                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
+                    else if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
                     {
-                        if (CurrentUser.Id != null)
+                        if (typeof(Guid?) == entityInfo.EntityColumnInfo.PropertyInfo.PropertyType)
                         {
-                            entityInfo.SetValue(CurrentUser.Id);
-                        }
-                    }
-                    break;
-                case DataFilterType.InsertByObject:
-                    if (entityInfo.PropertyName.Equals(nameof(IEntity<Guid>.Id)))
-                    {
-                        //主键为空或者为默认最小值
-                        if (Guid.Empty.Equals(oldValue))
-                        {
-                            entityInfo.SetValue(GuidGenerator.Create());
+                            if (CurrentUser.Id != null)
+                            {
+                                entityInfo.SetValue(CurrentUser.Id);
+                            }
                         }
                     }
 
-                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
+                    break;
+                case DataFilterType.InsertByObject:
+
+                    if (entityInfo.PropertyName.Equals(nameof(IEntity<Guid>.Id)))
+                    {
+                        //类型为guid
+                        if (typeof(Guid) == entityInfo.EntityColumnInfo.PropertyInfo.PropertyType)
+                        {
+                            //主键为空或者为默认最小值
+                            if (Guid.Empty.Equals(oldValue))
+                            {
+                                entityInfo.SetValue(GuidGenerator.Create());
+                            }
+                        }
+                    }
+
+                    else if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
                     {
                         //为空或者为默认最小值
                         if (DateTime.MinValue.Equals(oldValue))
@@ -200,21 +216,26 @@ namespace Yi.Framework.SqlSugarCore
                             entityInfo.SetValue(DateTime.Now);
                         }
                     }
-                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
+                    else if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
                     {
-                        if (CurrentUser.Id is not null)
+                        //类型为guid
+                        if (typeof(Guid?) == entityInfo.EntityColumnInfo.PropertyInfo.PropertyType)
                         {
-                            entityInfo.SetValue(CurrentUser.Id);
+                            if (CurrentUser.Id is not null)
+                            {
+                                entityInfo.SetValue(CurrentUser.Id);
+                            }
                         }
                     }
-                    
-                    if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
+
+                    else if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
                     {
                         if (CurrentTenant.Id is not null)
                         {
                             entityInfo.SetValue(CurrentTenant.Id);
                         }
                     }
+
                     break;
             }
 
@@ -227,6 +248,7 @@ namespace Yi.Framework.SqlSugarCore
                     {
                         EntityChangeEventHelper.PublishEntityCreatedEvent(entityInfo.EntityValue);
                     }
+
                     break;
                 case DataFilterType.UpdateByObject:
                     if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
@@ -243,8 +265,8 @@ namespace Yi.Framework.SqlSugarCore
                         {
                             EntityChangeEventHelper.PublishEntityUpdatedEvent(entityInfo.EntityValue);
                         }
-
                     }
+
                     break;
                 case DataFilterType.DeleteByObject:
                     if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
@@ -254,14 +276,13 @@ namespace Yi.Framework.SqlSugarCore
                         {
                             foreach (var entityValue in entityValues)
                             {
-
                                 EntityChangeEventHelper.PublishEntityDeletedEvent(entityValue);
                             }
                         }
                     }
+
                     break;
             }
-
         }
 
         /// <summary>
@@ -280,7 +301,6 @@ namespace Yi.Framework.SqlSugarCore
                 sb.AppendLine("===============================");
                 Logger.CreateLogger<SqlSugarDbContext>().LogDebug(sb.ToString());
             }
-
         }
 
         /// <summary>
@@ -306,14 +326,14 @@ namespace Yi.Framework.SqlSugarCore
         {
             if (property.Name == nameof(IHasConcurrencyStamp.ConcurrencyStamp)) //带版本号并发更新
             {
-                // column.IsOnlyIgnoreInsert = true;
-                // column.IsOnlyIgnoreUpdate = true;
                 column.IsEnableUpdateVersionValidation = true;
             }
+
             if (property.PropertyType == typeof(ExtraPropertyDictionary))
             {
                 column.IsIgnore = true;
             }
+
             if (property.Name == nameof(Entity<object>.Id))
             {
                 column.IsPrimarykey = true;
@@ -328,11 +348,13 @@ namespace Yi.Framework.SqlSugarCore
             {
                 Directory.CreateDirectory(directoryName);
             }
+
             switch (Options.DbType)
             {
                 case DbType.MySql:
                     //MySql
-                    SqlSugarClient.DbMaintenance.BackupDataBase(SqlSugarClient.Ado.Connection.Database, $"{Path.Combine(directoryName, fileName)}.sql");//mysql 只支持.net core
+                    SqlSugarClient.DbMaintenance.BackupDataBase(SqlSugarClient.Ado.Connection.Database,
+                        $"{Path.Combine(directoryName, fileName)}.sql"); //mysql 只支持.net core
                     break;
 
 
@@ -344,19 +366,14 @@ namespace Yi.Framework.SqlSugarCore
 
                 case DbType.SqlServer:
                     //SqlServer
-                    SqlSugarClient.DbMaintenance.BackupDataBase(SqlSugarClient.Ado.Connection.Database, $"{Path.Combine(directoryName, fileName)}.bak"/*服务器路径*/);//第一个参数库名 
+                    SqlSugarClient.DbMaintenance.BackupDataBase(SqlSugarClient.Ado.Connection.Database,
+                        $"{Path.Combine(directoryName, fileName)}.bak" /*服务器路径*/); //第一个参数库名 
                     break;
 
 
                 default:
                     throw new NotImplementedException("其他数据库备份未实现");
-
             }
-
-
-
-
-
         }
     }
 }
