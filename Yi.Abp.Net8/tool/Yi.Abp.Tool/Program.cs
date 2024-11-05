@@ -17,7 +17,8 @@ class Program
         //args = ["new", "Acme.Book", "-t", "module", "-csf"];
         //args = ["new", "Acme.Book", "-t", "module"];
         //args = ["add-module", "Acme.Demo", "-s", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8", "-modulePath", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\module\\acme-demo"];
-        args = ["clear", "-path", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\src"];
+        // args = ["clear", "-path", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\src"];
+        args = ["clear","-i","888"];
 #endif
         try
         {
@@ -32,8 +33,8 @@ class Program
                 //})
                 .UseAutofac()
                 .Build();
-            var commandSelector = host.Services.GetRequiredService<CommandSelector>();
-            await commandSelector.SelectorAsync(args);
+            var commandSelector = host.Services.GetRequiredService<CommandInvoker>();
+            await commandSelector.InvokerAsync(args);
         }
         catch (Exception ex)
         {
