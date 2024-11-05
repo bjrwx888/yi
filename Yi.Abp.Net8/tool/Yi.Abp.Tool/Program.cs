@@ -21,12 +21,18 @@ class Program
        
         //帮助
         //args = ["-h"];
+        
         //版本
         // args = ["-v"];
+        
         //清理
         // args = ["clear"];
+        
+        //创建模块
+        args = ["new","oooo", "-t","module","-p","D:\\temp","-csf"];
+        
         //添加模块
-        args = ["add-module", "kkk"];
+        //args = ["add-module", "kkk"];
 #endif
         try
         {

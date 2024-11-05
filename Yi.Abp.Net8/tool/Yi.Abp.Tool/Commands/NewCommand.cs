@@ -26,8 +26,10 @@ namespace Yi.Abp.Tool.Commands
 
         public void CommandLineApplication(CommandLineApplication application)
         {
-            var templateTypeOption = application.Option("-t|--moduleType", "模板类型", CommandOptionType.SingleValue);
-            var csfOption = application.Option("-csf", "是否创建解决方案", CommandOptionType.SingleValue);
+            var templateTypeOption = application.Option("-t|--moduleType", "模板类型:`module`|`porject`",
+                CommandOptionType.SingleValue);
+            var pathOption = application.Option("-p|--path", "创建路径", CommandOptionType.SingleValue);
+            var csfOption = application.Option("-csf", "是否创建解决方案文件夹", CommandOptionType.NoValue);
             var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
 
 
@@ -57,7 +59,13 @@ namespace Yi.Abp.Tool.Commands
                     }).Result;
                 }
 
-                zipPath = $"{id}.zip";
+                var path = string.Empty;
+                if (pathOption.HasValue())
+                {
+                    path = pathOption.Value();
+                }
+
+                zipPath = Path.Combine(path, $"{id}.zip");
                 File.WriteAllBytes(zipPath, fileByteArray);
 
                 #endregion
@@ -71,17 +79,19 @@ namespace Yi.Abp.Tool.Commands
                 {
                     var moduleName = moduleNameArgument.Value.ToLower().Replace(".", "-");
 
-                    if (Directory.Exists(moduleName))
+                    unzipDirPath = Path.Combine(path, unzipDirPath);
+                    if (Directory.Exists(unzipDirPath))
                     {
-                        throw new UserFriendlyException($"文件夹[{moduleName}]已存在，请删除后重试");
+                        throw new UserFriendlyException($"文件夹[{unzipDirPath}]已存在，请删除后重试");
                     }
 
-                    Directory.CreateDirectory(moduleName);
+                    Directory.CreateDirectory(unzipDirPath);
                     unzipDirPath = moduleName;
                 }
 
                 #endregion
 
+        
                 ZipFile.ExtractToDirectory(zipPath, unzipDirPath);
                 //创建压缩包后删除临时目录
                 File.Delete(zipPath);
