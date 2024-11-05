@@ -14,10 +14,9 @@ namespace Yi.Abp.Tool.Commands
         public string? Description { get; }
         public void CommandLineApplication(CommandLineApplication application)
         {
-            var modulePathOption=  application.Option("-modulePath", "模块路径",CommandOptionType.SingleValue);
+            var modulePathOption=  application.Option("-p|--modulePath", "模块路径",CommandOptionType.SingleValue);
             var solutionOption=  application.Option("-s|--solution", "解决方案路径",CommandOptionType.SingleValue);
-            var moduleNameArgument = application.Argument("moduleName", "模块名", null);
-
+            var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
             application.OnExecute(() =>
             {
                 var modulePath = "";
@@ -27,25 +26,25 @@ namespace Yi.Abp.Tool.Commands
                 {
                     modulePath = moduleName.ToLower().Replace(".", "-");
                 }
-
-
+                
+                
                 //解决方案默认在模块文件夹上一级，也可以通过s进行指定
                 var slnPath = string.Empty;
-            
+                
                 if (!solutionOption.HasValue())
                 {
                     slnPath = "../";
                 }
-
+                
                 CheckFirstSlnPath(slnPath);
                 var dotnetSlnCommandPart1 = $"dotnet sln \"{slnPath}\" add \"{modulePath}\\{moduleName}.";
                 var dotnetSlnCommandPart2 = new List<string>() { "Application", "Application.Contracts", "Domain", "Domain.Shared", "SqlSugarCore" };
                 var paths = dotnetSlnCommandPart2.Select(x => $@"{modulePath}\{moduleName}." + x).ToArray();
                 CheckPathExist(paths);
-
+                
                 var cmdCommands = dotnetSlnCommandPart2.Select(x => dotnetSlnCommandPart1 + x+"\"").ToArray();
                 StartCmd(cmdCommands);
-
+                
                 Console.WriteLine("恭喜~模块添加成功！");
                 return 0;
             });

@@ -20,11 +20,13 @@ class Program
         // args = ["clear", "-path", "D:\\code\\csharp\\source\\Yi\\Yi.Abp.Net8\\src"];
        
         //帮助
-        args = ["-h"];
+        //args = ["-h"];
         //版本
         // args = ["-v"];
         //清理
         // args = ["clear"];
+        //添加模块
+        args = ["add-module", "kkk"];
 #endif
         try
         {
