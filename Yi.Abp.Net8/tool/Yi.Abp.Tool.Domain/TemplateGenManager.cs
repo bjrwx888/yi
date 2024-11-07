@@ -13,13 +13,19 @@ namespace Yi.Abp.Tool.Domain
 {
     public class TemplateGenManager : ITransientDependency
     {
-        public readonly ToolOptions _toolOptions;
-        public TemplateGenManager(IOptionsMonitor<ToolOptions> toolOptions) { _toolOptions = toolOptions.CurrentValue; }
+        private readonly ToolOptions _toolOptions;
+        private readonly GiteeManager _giteeManager;
+        public TemplateGenManager(IOptionsMonitor<ToolOptions> toolOptions, GiteeManager giteeManager)
+        {
+            _giteeManager = giteeManager;
+            _toolOptions = toolOptions.CurrentValue;
+        }
         public async Task<string> CreateTemplateAsync(TemplateGenCreateDto input)
         {
-            if (string.IsNullOrEmpty(input.TemplateFilePath))
+            //这里判断gitee上是否有这个分支
+            if (await  _giteeManager.IsExsitBranchAsync(input.GiteeRef))
             {
-                throw new UserFriendlyException($"模板路径无法找到，请检查,[{input.TemplateFilePath}]路径");
+                throw new UserFriendlyException($"Gitee分支未找到{input.GiteeRef}，请检查,[{input.GiteeRef}]分支是否存在");
             }
             if (string.IsNullOrEmpty(_toolOptions.TempDirPath))
             {
@@ -33,8 +39,15 @@ namespace Yi.Abp.Tool.Domain
                 Directory.CreateDirectory(tempFileDirPath);
             }
 
-            //文件解压覆盖
-            ZipFile.ExtractToDirectory(input.TemplateFilePath, tempFileDirPath, true);
+            //下载的模板存放文件路径
+            var downloadFilePath = Path.Combine(_toolOptions.TempDirPath,"download" ,$"{id}.zip");
+           var gitSteam= await _giteeManager.DownLoadFileAsync(input.GiteeRef);
+           using (FileStream fileStream = new FileStream(downloadFilePath, FileMode.Create, FileAccess.Write))
+           {
+              await gitSteam.CopyToAsync(fileStream);
+           }
+            //文件解压覆盖，将刚刚下载的模板，解压即可
+            ZipFile.ExtractToDirectory(downloadFilePath, tempFileDirPath, true);
 
             await ReplaceContentAsync(tempFileDirPath, input.ReplaceStrData);
             var tempFilePath = Path.Combine(_toolOptions.TempDirPath, $"{id}.zip");
@@ -45,13 +58,22 @@ namespace Yi.Abp.Tool.Domain
             return tempFilePath;
         }
 
+        
+        /// <summary>
+        /// 获取全部模板列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<string>> GetAllTemplatesAsync()
+        {
+          return await _giteeManager.GetAllBranchAsync();
+        }
+        
         /// <summary>
         /// 替换内容,key为要替换的内容，value为替换成的内容
         /// </summary>
         /// <returns></returns>
         private async Task ReplaceContentAsync(string rootDirectory, Dictionary<string, string> dic)
         {
-
             foreach (var dicEntry in dic)
             {
                 await ReplaceInDirectory(rootDirectory, dicEntry.Key, dicEntry.Value);
@@ -110,5 +132,6 @@ namespace Yi.Abp.Tool.Domain
                 return directoryPath;
             }
         }
+        
     }
 }

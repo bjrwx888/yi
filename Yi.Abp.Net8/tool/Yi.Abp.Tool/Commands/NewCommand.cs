@@ -26,13 +26,34 @@ namespace Yi.Abp.Tool.Commands
 
         public void CommandLineApplication(CommandLineApplication application)
         {
-            var templateTypeOption = application.Option("-t|--moduleType", "模板类型:`module`|`porject`",
+            var templateTypeOption = application.Option("-t|--template", "模板类型:`module`|`porject`",
                 CommandOptionType.SingleValue);
             var pathOption = application.Option("-p|--path", "创建路径", CommandOptionType.SingleValue);
             var csfOption = application.Option("-csf", "是否创建解决方案文件夹", CommandOptionType.NoValue);
+            
+            var soureOption = application.Option("-s|--soure", "模板来源，gitee模板库分支名称: 默认值`defualt`",
+                CommandOptionType.SingleValue);
+            
             var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
 
-
+            //子命令，new list
+            application.Command("list",(applicationlist) =>
+            {
+                applicationlist.OnExecute(() =>
+                {
+                    Console.WriteLine("正在远程搜索中...");
+                   var list=_templateGenService.GetAllTemplatesAsync().Result;
+                    var tip = $"""
+                              全部模板包括:
+                              模板名称
+                              ----------------
+                              {list.JoinAsString("\n")}
+                              """;
+                    Console.WriteLine(tip);
+                    return 0;
+                });
+            });
+            
             application.OnExecute(() =>
             {
                 #region 处理生成类型
@@ -41,6 +62,8 @@ namespace Yi.Abp.Tool.Commands
                 var zipPath = string.Empty;
                 byte[] fileByteArray;
 
+                var soure= soureOption.HasValue() ? soureOption.Value() : "defualt";
+                
                 var templateType = templateTypeOption.HasValue() ? templateTypeOption.Value() : "module";
                 if (templateType == "module")
                 {
@@ -48,12 +71,13 @@ namespace Yi.Abp.Tool.Commands
                     fileByteArray = (_templateGenService.CreateModuleAsync(new TemplateGenCreateInputDto
                     {
                         Name = moduleNameArgument.Value,
+                        ModuleSoure = soure
                     }).Result);
                 }
                 else
                 {
-                    //代表模块生成
-                    fileByteArray = _templateGenService.CreateProjectAsync(new TemplateGenCreateInputDto
+                    //还是代表模块生成
+                    fileByteArray = _templateGenService.CreateModuleAsync(new TemplateGenCreateInputDto
                     {
                         Name = moduleNameArgument.Value,
                     }).Result;
