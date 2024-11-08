@@ -142,6 +142,7 @@ onUnmounted(() => {
 
 
                     <LableCheck v-model="form.isCsf" title="创建解决方案文件夹" text="指定项目是放在输出文件夹中的新文件夹中，还是直接放在输出文件夹中。" />
+                   <p>默认勾选</p>
 
                   <h4>模板库</h4>
                   <p>现在已经支持公开模板库，地址：https://gitee.com/ccnetcore/yi-template</p>
@@ -206,7 +207,7 @@ onUnmounted(() => {
     }
 
     &-body {
-        height: 1400px;
+        height: 1800px;
         padding: 48px;
         background-color: #fff;
         border-radius: 12px;
