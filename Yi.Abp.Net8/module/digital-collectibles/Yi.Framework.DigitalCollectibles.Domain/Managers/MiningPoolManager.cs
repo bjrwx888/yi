@@ -282,7 +282,6 @@ public class MiningPoolManager : DomainService
             {
                 _logger.LogInformation($"自动挖矿-{onHookItem.Value.UserId},{e.Message}");
             }
-           
         }
     }
 
@@ -334,8 +333,9 @@ public class MiningPoolManager : DomainService
     public async Task RefreshMiningPoolAsync()
     {
         //获取当前最大的限制
-       // var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaxPoolLimit"));
-        var poolData = (await _settingProvider.GetOrNullAsync("PoolData")).Split(',').Select(x=>int.Parse(x)).ToList();
+        // var maximumPoolLimit = int.Parse(await _settingProvider.GetOrNullAsync("MaxPoolLimit"));
+        var poolData = (await _settingProvider.GetOrNullAsync("PoolData")).Split(',').Select(x => int.Parse(x))
+            .ToList();
         DateTime startTime = DateTime.Today.AddHours(10);
         DateTime endTime = startTime.AddDays(1);
         // var probabilityValues = RarityEnumExtensions.GetProbabilityArray();
@@ -368,13 +368,17 @@ public class MiningPoolManager : DomainService
     /// </summary>
     private string CacheKeyPrefix => LazyServiceProvider.LazyGetRequiredService<IOptions<AbpDistributedCacheOptions>>()
         .Value.KeyPrefix;
+
     /// <summary>
     /// 刷新用户挖矿限制
     /// </summary>
     public async Task RefreshMiningUserLimitAsync()
     {
-
-        await RedisClient.DelAsync($"{CacheKeyPrefix}{MiningCacheConst.UserMiningLimit}*");
+        var needKeys = await RedisClient.KeysAsync($"{CacheKeyPrefix}{MiningCacheConst.UserMiningLimit}*");
+        foreach (var needKey in needKeys)
+        {
+            await RedisClient.DelAsync(needKey);
+        }
     }
 
     /// <summary>
