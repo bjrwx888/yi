@@ -69,11 +69,9 @@ public class WeChatMiniProgramAccountService : ApplicationService
     /// <param name="input"></param>
     /// <exception cref="UserFriendlyException"></exception>
     [HttpPost("wechat/mini-program/account/bind")]
-    [Authorize]
+    // [Authorize]
     public async Task PostBindAsync(BindInput input)
     {
-        var userId = CurrentUser.GetId();
-        
         //验证手机号
         await _accountService.ValidationPhoneCaptchaAsync(ValidationPhoneTypeEnum.Bind, input.Phone, input.Code);
         //校验手机号与验证码
@@ -88,20 +86,36 @@ public class WeChatMiniProgramAccountService : ApplicationService
 
         //验证手机号的验证码
         var openId = (await _weChatMiniProgramManager.Code2SessionAsync(new Code2SessionInput(input.JsCode))).openid;
-        
+
+        //是否已经授权过绑定过auth
+        bool isAuthed =true;
+       //如果openId没有绑定过，代表第一次进入，否则就是临时账号进行绑定
+       var authInfo= await _authService.TryGetByOpenIdAsync(openId,AuthTypeConst.WeChatMiniProgram);
+       //从来没绑定过
+       if (authInfo is null)
+       {
+           isAuthed = false;
+       }
+        //账号绑定,不管什么情况，都将jscode与phone用户建立关系即可
         await PostBindToAuthAsync(userInfo.User.Id, openId, userInfo.User.UserName);
         
         //发送账号绑定的事件，不同领域对账号数据进行迁移
         //bbs：钱钱 （累加），禁用临时账号（修改）
         //dc: 价值、积分 （累加）
-       await _localEventBus.PublishAsync(new BindAccountEto
+        
+        //只有之前授权绑定过，才需要将临时账号进行账号数据转移，
+        if (isAuthed)
         {
-            NewUserId = userInfo.User.Id,
-            OldUserId = userId
-        },false);
+            await _localEventBus.PublishAsync(new BindAccountEto
+            {
+                NewUserId = userInfo.User.Id,
+                OldUserId =authInfo.UserId
+            },false);
+        }
+
 
     }
-
+    
     private async Task PostBindToAuthAsync(Guid userId, string openId, string? name = null)
     {
         await _authService.CreateAsync(new AuthCreateOrUpdateInputDto
