@@ -31,7 +31,7 @@ namespace Yi.Abp.Tool.Commands
             var pathOption = application.Option("-p|--path", "创建路径", CommandOptionType.SingleValue);
             var csfOption = application.Option("-csf", "是否创建解决方案文件夹", CommandOptionType.NoValue);
             
-            var soureOption = application.Option("-s|--soure", "模板来源，gitee模板库分支名称: 默认值`defualt`",
+            var soureOption = application.Option("-s|--soure", "模板来源，gitee模板库分支名称: 默认值`default`",
                 CommandOptionType.SingleValue);
             
             var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
@@ -56,13 +56,27 @@ namespace Yi.Abp.Tool.Commands
             
             application.OnExecute(() =>
             {
+                var path = string.Empty;
+                if (pathOption.HasValue())
+                {
+                    path = pathOption.Value();
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                        return 0;
+                    }
+                    
+                }
+       
+                
+                
                 #region 处理生成类型
 
                 var id = Guid.NewGuid().ToString("N");
                 var zipPath = string.Empty;
                 byte[] fileByteArray;
 
-                var soure= soureOption.HasValue() ? soureOption.Value() : "defualt";
+                var soure= soureOption.HasValue() ? soureOption.Value() : "default";
                 
                 var templateType = templateTypeOption.HasValue() ? templateTypeOption.Value() : "module";
                 if (templateType == "module")
@@ -83,11 +97,7 @@ namespace Yi.Abp.Tool.Commands
                     }).Result;
                 }
 
-                var path = string.Empty;
-                if (pathOption.HasValue())
-                {
-                    path = pathOption.Value();
-                }
+
 
                 zipPath = Path.Combine(path, $"{id}.zip");
                 File.WriteAllBytes(zipPath, fileByteArray);

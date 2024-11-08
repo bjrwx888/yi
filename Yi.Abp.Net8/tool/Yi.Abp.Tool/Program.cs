@@ -19,9 +19,9 @@ class Program
         // args = ["clear"];
         
         //创建模块
-        //args = ["new","oooo", "-t","module","-p","D:\\temp","-csf"];
+        args = ["new","oooo", "-t","module","-p","D:\\temp","-csf"];
         //查看模板列表
-        args = ["new","list"];
+        //args = ["new","list"];
         
         //添加模块
         //args = ["add-module", "kkk"];
