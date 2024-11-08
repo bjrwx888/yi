@@ -11,29 +11,31 @@ namespace Yi.Abp.Tool.Commands
     public class AddModuleCommand : ICommand
     {
         public string Command => "add-module";
-        public string? Description { get; }
+        public string? Description => "将内容添加到当前解决方案` yi-abp add-module <moduleName> [-p <path>] [-s <solution>] ";
         public void CommandLineApplication(CommandLineApplication application)
         {
+            application.HelpOption("-h|--help");
             var modulePathOption=  application.Option("-p|--modulePath", "模块路径",CommandOptionType.SingleValue);
             var solutionOption=  application.Option("-s|--solution", "解决方案路径",CommandOptionType.SingleValue);
             var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
             application.OnExecute(() =>
             {
-                var modulePath = "";
                 var moduleName = moduleNameArgument.Value;
-                //模块路径默认按小写规则，当前路径
+  
+                //模块路径默认按小写规则，默认在模块路径下一层
+                var modulePath =moduleName.ToLower().Replace(".", "-");
                 if (modulePathOption.HasValue())
                 {
-                    modulePath = moduleName.ToLower().Replace(".", "-");
+                    modulePath = modulePathOption.Value();
                 }
                 
                 
                 //解决方案默认在模块文件夹上一级，也可以通过s进行指定
-                var slnPath = string.Empty;
+                var slnPath = "../";
                 
-                if (!solutionOption.HasValue())
+                if (solutionOption.HasValue())
                 {
-                    slnPath = "../";
+                    slnPath = solutionOption.Value();
                 }
                 
                 CheckFirstSlnPath(slnPath);

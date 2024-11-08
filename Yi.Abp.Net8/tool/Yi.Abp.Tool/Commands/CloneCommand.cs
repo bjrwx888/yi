@@ -10,19 +10,17 @@ namespace Yi.Abp.Tool.Commands
 {
     public class CloneCommand : ICommand
     {
-        public List<string> CommandStrs => new List<string> { "clone"};
-
-        private const string cloneAddress= "https://gitee.com/ccnetcore/Yi";
+        private const string CloneAddress= "https://gitee.com/ccnetcore/Yi";
 
         
         public string Command => "clone";
-        public string? Description => "克隆最新YiFramework源代码";
+        public string? Description => "克隆最新YiFramework源代码，需依赖git";
 
         public void CommandLineApplication(CommandLineApplication application)
         {
             application.OnExecute(() =>
             {
-                StartCmd($"git clone {cloneAddress}");
+                StartCmd($"git clone {CloneAddress}");
                 return 0;
             });
         }

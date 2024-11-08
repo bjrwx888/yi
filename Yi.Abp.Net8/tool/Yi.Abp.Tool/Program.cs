@@ -23,7 +23,9 @@ class Program
         
         //查看模板列表
         //args = ["new","list"];
-        
+        //查看子命令帮组
+        // args = ["new","-h"];
+
         //添加模块
         //args = ["add-module", "kkk"];
 #endif

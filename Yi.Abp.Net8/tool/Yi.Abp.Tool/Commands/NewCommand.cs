@@ -22,10 +22,12 @@ namespace Yi.Abp.Tool.Commands
 
 
         public string Command => "new";
-        public string? Description => "创建一个模板";
+        public string? Description => "创建项目模板` yi-abp new <name> -csf `";
 
         public void CommandLineApplication(CommandLineApplication application)
         {
+            application.HelpOption("-h|--help");
+            
             var templateTypeOption = application.Option("-t|--template", "模板类型:`module`|`porject`",
                 CommandOptionType.SingleValue);
             var pathOption = application.Option("-p|--path", "创建路径", CommandOptionType.SingleValue);
@@ -35,7 +37,7 @@ namespace Yi.Abp.Tool.Commands
                 CommandOptionType.SingleValue);
             
             var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
-
+            
             //子命令，new list
             application.Command("list",(applicationlist) =>
             {

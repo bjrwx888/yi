@@ -17,6 +17,7 @@ namespace Yi.Abp.Tool.Commands
 
         public void CommandLineApplication(CommandLineApplication application)
         {
+            application.HelpOption("-h|--help");
             List<string> delDirBlacklist = ["obj", "bin"];
             var pathOption=  application.Option("-path", "路径",CommandOptionType.SingleValue);
 
