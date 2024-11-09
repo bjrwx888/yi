@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Volo.Abp.DependencyInjection;
 using Yi.Framework.Core.Extensions;
 using Yi.Framework.WeChat.MiniProgram.HttpModels;
@@ -42,6 +43,34 @@ public class WeChatMiniProgramManager : IWeChatMiniProgramManager, ISingletonDep
             responseBody.ValidateSuccess();
 
             return responseBody;
+        }
+    }
+
+
+    
+    /// <summary>
+    /// 发送模板订阅消息
+    /// </summary>
+    /// <param name="input"></param>
+    public async Task SendSubscribeNoticeAsync(SubscribeNoticeInput input)
+    {
+        var token = await _weChatToken.GetTokenAsync();
+        string url = $"https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={token}";
+        var req = new SubscribeNoticeRequest
+        {
+            touser = input.touser,
+            template_id = input.template_id,
+            data = input.data,
+            miniprogram_state = _options.Notice.State??"formal"
+        };
+        req.template_id=req.template_id?? _options.Notice.TemplateId;
+ 
+        using (HttpClient httpClient = new HttpClient())
+        {
+            var body =new StringContent(JsonConvert.SerializeObject(req));
+            HttpResponseMessage response = await httpClient.PostAsync(url, body);
+            var responseBody = await response.Content.ReadFromJsonAsync<SubscribeNoticeResponse>();
+            responseBody.ValidateSuccess();
         }
     }
 }

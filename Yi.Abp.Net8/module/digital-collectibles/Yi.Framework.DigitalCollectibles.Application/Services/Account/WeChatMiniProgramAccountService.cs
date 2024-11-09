@@ -49,7 +49,7 @@ public class WeChatMiniProgramAccountService : ApplicationService
         var openId = (await _weChatMiniProgramManager.Code2SessionAsync(new Code2SessionInput(intput.JsCode)))
             .openid;
 
-        var authInfo = await _authService.TryGetByOpenIdAsync(openId, AuthTypeConst.WeChatMiniProgram);
+        var authInfo = await _authService.TryGetAuthInfoAsync(openId, AuthTypeConst.WeChatMiniProgram);
         if (authInfo is null)
         {
             throw new UserFriendlyException("该小程序没有绑定任何账号", "2000", "Auth未找到对应关系");
@@ -90,7 +90,7 @@ public class WeChatMiniProgramAccountService : ApplicationService
         //是否已经授权过绑定过auth
         bool isAuthed =true;
        //如果openId没有绑定过，代表第一次进入，否则就是临时账号进行绑定
-       var authInfo= await _authService.TryGetByOpenIdAsync(openId,AuthTypeConst.WeChatMiniProgram);
+       var authInfo= await _authService.TryGetAuthInfoAsync(openId,AuthTypeConst.WeChatMiniProgram);
        //从来没绑定过
        if (authInfo is null)
        {

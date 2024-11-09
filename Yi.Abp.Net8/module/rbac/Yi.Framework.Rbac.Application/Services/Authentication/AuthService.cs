@@ -113,9 +113,11 @@ namespace Yi.Framework.Rbac.Application.Services.Authentication
             return (await GetListAsync(input)).Items;
         }
 
-        public async Task<AuthOutputDto?> TryGetByOpenIdAsync(string openId, string authType)
+        public async Task<AuthOutputDto?> TryGetAuthInfoAsync(string? openId, string authType,Guid? userId=null)
         {
-            var entity = await _repository._DbQueryable.Where(x => x.OpenId == openId)
+            var entity = await _repository._DbQueryable
+                .WhereIF(openId is not null, x => x.OpenId == openId)
+                .WhereIF(userId is not null,x => x.UserId == userId)
                 .Where(x => x.AuthType == authType)
                 .FirstAsync();
             var output = await MapToGetOutputDtoAsync(entity);

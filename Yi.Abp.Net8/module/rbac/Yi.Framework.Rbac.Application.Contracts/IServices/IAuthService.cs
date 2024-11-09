@@ -5,6 +5,6 @@ namespace Yi.Framework.Rbac.Application.Contracts.IServices;
 
 public interface IAuthService
 {
-    Task<AuthOutputDto?> TryGetByOpenIdAsync(string openId, string authType);
+    Task<AuthOutputDto?> TryGetAuthInfoAsync(string? openId, string authType, Guid? userId = null);
     Task<AuthOutputDto> CreateAsync(AuthCreateOrUpdateInputDto input);
 }
