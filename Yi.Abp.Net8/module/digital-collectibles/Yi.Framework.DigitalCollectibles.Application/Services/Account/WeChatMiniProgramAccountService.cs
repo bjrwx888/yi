@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Caching;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Users;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
 using Yi.Framework.DigitalCollectibles.Application.Contracts.Dtos.Account;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Caches;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Enums;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Etos;
@@ -25,6 +27,8 @@ public class WeChatMiniProgramAccountService : ApplicationService
     private readonly IAuthService _authService;
     private readonly IAccountService _accountService;
     private readonly ILocalEventBus _localEventBus;
+    private readonly IDistributedCache<WeChatNoticeCacheItem> _noticeCache;
+
     public WeChatMiniProgramAccountService(IWeChatMiniProgramManager weChatMiniProgramManager, IAuthService authService,
         IAccountService accountService, ILocalEventBus localEventBus)
     {
@@ -33,6 +37,32 @@ public class WeChatMiniProgramAccountService : ApplicationService
         _accountService = accountService;
         _localEventBus = localEventBus;
     }
+
+    /// <summary>
+    /// 设置用户一次性订阅状态
+    /// </summary>
+    [HttpPut("wechat/mini-program/notice/subscribe")]
+    [Authorize]
+    public async Task PutSubscribeNoticeStateAsync()
+    {
+        var userId = CurrentUser.GetId();
+        await _noticeCache.SetAsync($"MiniProgram:notice:{userId}", new WeChatNoticeCacheItem(true));
+    }
+
+    [HttpGet("wechat/mini-program/notice")]
+    [Authorize]
+    public async Task<bool> GetSubscribeNoticeStateAsync()
+    {
+        var userId = CurrentUser.GetId();
+        var notice = await _noticeCache.GetAsync($"MiniProgram:notice:{userId}");
+        if (notice is not null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
     /// <summary>
     /// 使用小程序jsCode登录意社区账号
@@ -88,34 +118,33 @@ public class WeChatMiniProgramAccountService : ApplicationService
         var openId = (await _weChatMiniProgramManager.Code2SessionAsync(new Code2SessionInput(input.JsCode))).openid;
 
         //是否已经授权过绑定过auth
-        bool isAuthed =true;
-       //如果openId没有绑定过，代表第一次进入，否则就是临时账号进行绑定
-       var authInfo= await _authService.TryGetAuthInfoAsync(openId,AuthTypeConst.WeChatMiniProgram);
-       //从来没绑定过
-       if (authInfo is null)
-       {
-           isAuthed = false;
-       }
+        bool isAuthed = true;
+        //如果openId没有绑定过，代表第一次进入，否则就是临时账号进行绑定
+        var authInfo = await _authService.TryGetAuthInfoAsync(openId, AuthTypeConst.WeChatMiniProgram);
+        //从来没绑定过
+        if (authInfo is null)
+        {
+            isAuthed = false;
+        }
+
         //账号绑定,不管什么情况，都将jscode与phone用户建立关系即可
         await PostBindToAuthAsync(userInfo.User.Id, openId, userInfo.User.UserName);
-        
+
         //发送账号绑定的事件，不同领域对账号数据进行迁移
         //bbs：钱钱 （累加），禁用临时账号（修改）
         //dc: 价值、积分 （累加）
-        
+
         //只有之前授权绑定过，才需要将临时账号进行账号数据转移，
         if (isAuthed)
         {
             await _localEventBus.PublishAsync(new BindAccountEto
             {
                 NewUserId = userInfo.User.Id,
-                OldUserId =authInfo.UserId
-            },false);
+                OldUserId = authInfo.UserId
+            }, false);
         }
-
-
     }
-    
+
     private async Task PostBindToAuthAsync(Guid userId, string openId, string? name = null)
     {
         await _authService.CreateAsync(new AuthCreateOrUpdateInputDto
@@ -136,13 +165,13 @@ public class WeChatMiniProgramAccountService : ApplicationService
     {
         //先校验code，openId
         var openId = (await _weChatMiniProgramManager.Code2SessionAsync(new Code2SessionInput(input.JsCode))).openid;
-        
+
         //走普通注册流程
         //同时再加一个小程序绑定即可
         var userName = GenerateRandomString(6);
         await _accountService.PostTempRegisterAsync(new RegisterDto
         {
-            UserName =$"ls_{userName}",
+            UserName = $"ls_{userName}",
             Password = GenerateRandomString(20),
             Nick = $"临时账号-{userName}"
         });

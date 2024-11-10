@@ -1,5 +1,6 @@
 ﻿<script setup>
 import {computed, ref, watch} from "vue";
+import { dayjs } from 'element-plus'
 const data=ref({});
 const realData=ref({});
 const props = defineProps([
@@ -37,18 +38,21 @@ const isConformToRule=computed(()=>{
 </script>
 
 
-<template>
+<template >
+  <div class="shop-card" >
   <el-card  shadow="hover">
     <template #header>{{data.name}}</template>
     <img
         :src="data.imageUrl"
         style="width: 100%"
      alt=""/>
-    简介：{{data.describe}}
+    
     <ul>
+      <li style="font-size: smaller;color: #7c8188;margin-bottom: 5px">简介：{{data.describe}}</li>
       <li :class="{'less-li': realData.money<data.needMoney}">所需钱钱：{{data.needMoney}}</li>
       <li :class="{'less-li': realData.value<data.needValue}">所需价值：{{data.needValue}}</li>
       <li :class="{'less-li': realData.points<data.needPoints}">所需积分：{{data.needPoints}}</li>
+      <li >到期时间：{{dayjs(data.endTime).format("YYYY/MM/DD")}}</li>
       <li>限购数量：{{data.limitNumber}}</li>
       <li>剩余：{{data.stockNumber}}</li>
     </ul>
@@ -59,6 +63,7 @@ const isConformToRule=computed(()=>{
       <el-button v-else :disabled="data.isLimit" type="success" @click="clickBuy">{{data.isLimit===true?"已申请":"申请购买"}} </el-button>
     </div>
   </el-card>
+    </div>
 </template>
 
 <style scoped lang="scss">
@@ -66,9 +71,35 @@ const isConformToRule=computed(()=>{
 {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin: 10px;
 }
 .less-li{
   color: red;
+}
+img{
+  height: 100px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.shop-card :deep(.el-card__body) {
+  padding: 0 2px 0 0!important;
+}
+.shop-card :deep(.el-card__header)
+{
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  //color: red;
+  font-weight: bolder;
+  
+}
+ul{
+  padding: 10px;
+}
+.shop-card :deep(.el-divider)
+{
+  margin: 0;
 }
 </style>

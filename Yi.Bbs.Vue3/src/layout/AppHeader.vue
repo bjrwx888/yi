@@ -15,12 +15,14 @@
           style="color: red;font-weight: bolder;font-size: large;">开始</el-menu-item>
         <el-menu-item index="3" @click="enterWatermelon"
                      >数字藏品</el-menu-item>
-        <el-sub-menu index="4">
-          <template #title>学习</template>
-          <el-menu-item index="3-1">前端</el-menu-item>
-          <el-menu-item index="3-2">后端</el-menu-item>
-          <el-menu-item index="3-3">运维</el-menu-item>
-        </el-sub-menu>
+        <el-menu-item index="4" @click="enterShop"
+        >商城</el-menu-item>
+<!--        <el-sub-menu index="4">-->
+<!--          <template #title>学习</template>-->
+<!--          <el-menu-item index="3-1">前端</el-menu-item>-->
+<!--          <el-menu-item index="3-2">后端</el-menu-item>-->
+<!--          <el-menu-item index="3-3">运维</el-menu-item>-->
+<!--        </el-sub-menu>-->
 
 <!--        <el-sub-menu index="5">-->
 <!--          <template #title>问答</template>-->
@@ -232,7 +234,10 @@ const enterStart = () => {
 }
 
 const enterWatermelon=()=>{
-  alert("即将发布，敬请期待~")
+  alert("真即将发布，敬请期待~")
+}
+const enterShop=()=>{
+  alert("真即将发布，敬请期待~")
 }
 </script>
 
