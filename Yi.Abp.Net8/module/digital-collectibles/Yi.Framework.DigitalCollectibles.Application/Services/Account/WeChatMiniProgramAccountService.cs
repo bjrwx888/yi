@@ -30,12 +30,13 @@ public class WeChatMiniProgramAccountService : ApplicationService
     private readonly IDistributedCache<WeChatNoticeCacheItem> _noticeCache;
 
     public WeChatMiniProgramAccountService(IWeChatMiniProgramManager weChatMiniProgramManager, IAuthService authService,
-        IAccountService accountService, ILocalEventBus localEventBus)
+        IAccountService accountService, ILocalEventBus localEventBus, IDistributedCache<WeChatNoticeCacheItem> noticeCache)
     {
         _weChatMiniProgramManager = weChatMiniProgramManager;
         _authService = authService;
         _accountService = accountService;
         _localEventBus = localEventBus;
+        _noticeCache = noticeCache;
     }
 
     /// <summary>
