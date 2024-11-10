@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -19,6 +20,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.AspNetCore.Serilog;
+using Volo.Abp.AspNetCore.VirtualFileSystem;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
@@ -277,7 +279,7 @@ namespace Yi.Abp.Web
 
             //授权
             context.Services.AddAuthorization();
-
+            
             return Task.CompletedTask;
         }
 
@@ -319,7 +321,18 @@ namespace Yi.Abp.Web
             app.UseYiApiHandlinge();
 
             //静态资源
-            app.UseStaticFiles("/api/app/wwwroot");
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "/api/app/wwwroot",
+                // 可以在这里添加或修改MIME类型映射  
+                ContentTypeProvider = new FileExtensionContentTypeProvider
+                {
+                    Mappings =
+                    {
+                        [".wxss"] = "text/css"
+                    }
+                }
+            });
             app.UseDefaultFiles();
             app.UseDirectoryBrowser("/api/app/wwwroot");
 
