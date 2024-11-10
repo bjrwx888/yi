@@ -14,7 +14,10 @@ public class SubscribeNoticeRequest
     /// </summary>
     public string template_id { get; set; }
     
-
+    /// <summary>
+    /// 跳转页面
+    /// </summary>
+    public string page { get; set; }
 
     /// <summary>
     /// 小程序模板消息的数据
@@ -44,7 +47,12 @@ public class SubscribeNoticeInput
     /// 小程序模板id
     /// </summary>
     public string template_id { get; set; }
-    
+
+    /// <summary>
+    /// 跳转页面
+    /// </summary>
+    public string page { get; set; }
+
     /// <summary>
     /// 公众号模板消息的数据
     /// </summary>

@@ -60,10 +60,11 @@ public class WeChatMiniProgramManager : IWeChatMiniProgramManager, ISingletonDep
         {
             touser = input.touser,
             template_id = input.template_id,
+            page = input.page,
             data = input.data,
-            miniprogram_state = _options.Notice.State??"formal"
+            miniprogram_state = _options.Notice?.State??"formal"
         };
-        req.template_id=req.template_id?? _options.Notice.TemplateId;
+        req.template_id=req.template_id?? _options.Notice?.TemplateId;
  
         using (HttpClient httpClient = new HttpClient())
         {

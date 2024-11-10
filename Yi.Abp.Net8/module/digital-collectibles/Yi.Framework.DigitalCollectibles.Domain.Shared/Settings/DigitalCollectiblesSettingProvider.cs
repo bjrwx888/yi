@@ -22,7 +22,7 @@ namespace Yi.Abp.Domain.Shared.Settings
                 new SettingDefinition("MiningMinIntervalSeconds", "3"),
 
                 //每次挖到矿的概率--控制爆率
-                 new SettingDefinition("MiningMinProbability", "0.06"),
+                 new SettingDefinition("MiningMinProbability", "0.9"),
                 
                 //交易税率--控制频繁交易
                 new SettingDefinition("MarketTaxRate", "0.02"),

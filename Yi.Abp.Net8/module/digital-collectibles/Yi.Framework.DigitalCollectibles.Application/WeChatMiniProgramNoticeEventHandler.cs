@@ -54,6 +54,7 @@ public class WeChatMiniProgramNoticeEventHandler : ILocalEventHandler<WeChatMini
             await _weChatMiniProgramManager.SendSubscribeNoticeAsync(new SubscribeNoticeInput
             {
                 touser = openId,
+                page = "pages/digitalCollectibles/digitalCollectibles",
                 data = new Dictionary<string, keyValueItem>()
                 {
                     //活动名称
