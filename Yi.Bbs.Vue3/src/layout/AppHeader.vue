@@ -42,7 +42,7 @@
     <div class="user">
 
 
-      <div class="money" v-if="isLogin">钱钱：<span>{{ money }}</span></div>
+      <div class="money" v-if="isLogin">钱钱：<span>{{ moneyFixed }}</span></div>
       <el-dropdown v-if="!isIcp" trigger="click">
         <AvatarInfo  :size="30" :isSelf="true" />
 
@@ -50,7 +50,7 @@
 
 
           <el-dropdown-menu v-if="isLogin">
-            <el-dropdown-item>你的钱钱：{{ money }}</el-dropdown-item>
+            <el-dropdown-item>你的钱钱：{{ moneyFixed }}</el-dropdown-item>
             <el-dropdown-item @click="enterProfile">进入个人中心</el-dropdown-item>
             <el-dropdown-item @click="enterActivity">进入活动页面</el-dropdown-item>
             <el-dropdown-item @click="logout">登出</el-dropdown-item>
@@ -149,7 +149,7 @@ const configStore = useConfigStore();
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
-const { money } = storeToRefs(userStore)
+const { moneyFixed } = storeToRefs(userStore)
 const activeIndex = ref("1");
 const searchText = ref("");
 const noticeForNoReadCount = computed(() => {
