@@ -128,6 +128,14 @@ const router = createRouter({
             title: "商城",
           },
         },
+        {
+          name:"dc",
+          path:"/dc",
+          component: () => import("../views/dc/Index.vue"),
+          meta: {
+            title: "数字藏品",
+          },
+        },
       ],
     },
     {

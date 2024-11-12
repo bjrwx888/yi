@@ -12,8 +12,8 @@
         <el-menu-item index="1" @click="enterIndex">主页</el-menu-item>
 
         <el-menu-item index="2" @click="enterStart"
-          style="color: red;font-weight: bolder;font-size: large;">开始</el-menu-item>
-        <el-menu-item index="3" @click="enterWatermelon"
+         >开始</el-menu-item>
+        <el-menu-item index="3" @click="enterWatermelon"  style="color: red;font-weight: bolder;font-size: large;"
                      >数字藏品</el-menu-item>
         <el-menu-item index="4" @click="enterShop"
         >商城</el-menu-item>
@@ -234,10 +234,10 @@ const enterStart = () => {
 }
 
 const enterWatermelon=()=>{
-  alert("真即将发布，敬请期待~")
+  router.push("/dc");
 }
 const enterShop=()=>{
-  alert("真即将发布，敬请期待~")
+  router.push("/shop");
 }
 </script>
 

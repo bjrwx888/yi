@@ -35,11 +35,15 @@
       </el-icon>
       <span>排行榜</span>
     </el-menu-item>
-    <el-menu-item index="7" :route="{ path: '/money' }">
+    <el-menu-item index="7" :route="{ path: '/shop' }">
       <el-icon>
         <ShoppingCart />
       </el-icon>
-      <span>商城（即将上线）</span>
+      <span>商城</span>
+    </el-menu-item>
+    <el-menu-item index="8" :route="{ path: '/dc' }">
+      <el-icon><Trophy /></el-icon>
+      <span>数字藏品</span>
     </el-menu-item>
   </el-menu>
 

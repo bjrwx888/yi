@@ -22,7 +22,7 @@ margin: 10px auto;">
             公正、‌法治、‌爱国、‌敬业、‌诚信、友善
           </p>
           <p v-else @click="onClickToWeChat">
-            点击关注-最新上线<span>《意.Net官方微信公众号》 </span>，分享有<span>深度</span>的.Net知识，希望能帮助大家</p>
+            点击关注-最新上线<span>《意.Net官方微信小程序》 </span>，火爆活动：<span>数字藏品</span>已开放</p>
 
 
         </div>
@@ -107,10 +107,10 @@ margin: 10px auto;">
           <el-col v-if="!isIcp" :span="24">
             <InfoCard header="活动">
               <template #content>
-                <div class="top">你好，很高兴今天又遇到你呀~</div>
+                <div class="top">今天，来一发数字藏品试试？~</div>
                 <el-row class="active">
 
-                  <el-col v-for="item in activeList" :span="6" @click="handleToRouter(item.path)">
+                  <el-col style="padding: 5px 0px;" v-for="item in activeList" :span="6" @click="handleToRouter(item.path)">
 
                     <el-icon color="#70aafb" size="30px">
                       <component :is="item.icon"></component>
@@ -219,10 +219,15 @@ margin: 10px auto;">
 
     <el-dialog
         v-model="wechatDialogVisible"
-        title="意社区官方微信公众号"
+        title="意社区官方"
         width="800"
     >
-      <div style="display: flex;justify-content: center;">
+  
+      <div style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 10px;font-size: large">微信小程序：</p>
+      <img style="width: 200px; height: 200px" src="@/assets/wechat/mini.jpg" alt=""/>
+    <el-divider/>
+        <p style="margin: 10px;font-size: large"> 微信公众号：</p>
         <img style="width: 585px; height: 186px" src="@/assets/wechat/share.png" alt=""/>
       </div>
 
@@ -301,6 +306,12 @@ const activeList = [
   {name: "排行榜", path: "/money", icon: "Money"},
   {name: "开始", path: "/start", icon: "Position"},
   {name: "聊天室", path: "/chat", icon: "ChatRound"},
+
+
+  {name: "商城", path: "/shop", icon: "ShoppingCart"},
+  {name: "数字藏品", path: "/dc", icon: "Trophy"},
+  // {name: "小程序", path: "/", icon: "Position"},
+  // {name: "公众号", path: "/", icon: "ChatRound"},
 ];
 const isIcp = import.meta.env.VITE_APP_ICP === "true";
 
@@ -617,7 +628,7 @@ const onClickToWeChat = () => {
 
   .active {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     color: #8a919f;
 
