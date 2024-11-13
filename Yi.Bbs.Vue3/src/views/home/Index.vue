@@ -261,7 +261,7 @@ import {getWeek} from "@/apis/accessApi.js";
 import {
   getRecommendedTopic,
   getRecommendedFriend,
-  getRankingPoints,
+  getMoneyTop,
   getUserAnalyse,
   getRegisterAnalyse
 } from "@/apis/analyseApi.js";
@@ -345,7 +345,7 @@ const init = async () => {
       weekList.value = weekData;
     })(),
     (async () => {
-      const {data: pointData, config: pointConfig} = await getRankingPoints();
+      const {data: pointData, config: pointConfig} = await getMoneyTop();
       pointList.value = pointData.items;
       isPointFinished.value = pointConfig.isFinish;
     })(),

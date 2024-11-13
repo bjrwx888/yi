@@ -1,6 +1,9 @@
-﻿using Volo.Abp.Domain.Services;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Volo.Abp.Caching;
+using Volo.Abp.Domain.Services;
 using Volo.Abp.Users;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Caches;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
@@ -11,13 +14,20 @@ namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
 public class CollectiblesManager:DomainService
 {
     private readonly ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> _collectiblesUserStoreRepository;
-
-    public CollectiblesManager(ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> collectiblesUserStoreRepository)
+    private readonly ISqlSugarRepository<CollectiblesAggregateRoot> _collectiblesRepository;
+    private readonly IDistributedCache<List<CollectiblesValueCacheItem>> _distributedCache;
+    public CollectiblesManager(ISqlSugarRepository<CollectiblesUserStoreAggregateRoot> collectiblesUserStoreRepository, ISqlSugarRepository<CollectiblesAggregateRoot> collectiblesRepository, IDistributedCache<List<CollectiblesValueCacheItem>> distributedCache)
     {
         _collectiblesUserStoreRepository = collectiblesUserStoreRepository;
+        _collectiblesRepository = collectiblesRepository;
+        _distributedCache = distributedCache;
     }
 
-
+    /// <summary>
+    /// 获取某个用户的价值
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns></returns>
     public async Task<decimal> GetAccountValueAsync(Guid userId)
     {
         var collectiblesList = await _collectiblesUserStoreRepository._DbQueryable
@@ -30,7 +40,14 @@ public class CollectiblesManager:DomainService
                     c.ValueNumber
                 }
             ).ToListAsync();
-        var groupBy = collectiblesList.GroupBy(x => x.Id);
+       var  totalValue=ComputeValue(collectiblesList.Select(x=> (x.Id,x.ValueNumber)).ToList());
+        return totalValue;
+    }
+
+    //计算价值，需要每个藏品的唯一值和藏品的价值即可
+    private decimal ComputeValue(List<(Guid collectiblesId,decimal valueNumber)> data)
+    {
+        var groupBy = data.GroupBy(x => x.collectiblesId);
         decimal totalValue = 0;
 
         //首个价值百分之百，后续每个只有百分之40，最大10个
@@ -41,7 +58,7 @@ public class CollectiblesManager:DomainService
                 
                 if (item.index == 0)
                 {
-                    totalValue += item.value.ValueNumber;
+                    totalValue += item.value.valueNumber;
                 }
                 else if (item.index == 10)
                 {
@@ -50,11 +67,48 @@ public class CollectiblesManager:DomainService
                 }
                 else
                 {
-                    totalValue += item.value.ValueNumber * 0.4m;
+                    totalValue += item.value.valueNumber * 0.4m;
                 }
             }
         }
 
         return totalValue;
+    }
+
+/// <summary>
+/// 获取全量的排行榜
+/// </summary>
+/// <returns></returns>
+    public async Task<List<CollectiblesValueCacheItem>> GetAllAccountValueByCacheAsync()
+    {
+        return  await _distributedCache.GetOrAddAsync("AllAccountValue", async () => await GetAccountValueAsync(),
+            () => new DistributedCacheEntryOptions()
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1)
+            });
+    }
+    
+    private async Task<List<CollectiblesValueCacheItem>> GetAccountValueAsync()
+    {
+        var output = new List<CollectiblesValueCacheItem>();
+        //获取全部用户的库存
+        var allStore=  await _collectiblesUserStoreRepository._DbQueryable.ToListAsync();
+        //获取全部藏品
+        var allCollectiblesDic= (await _collectiblesRepository._DbQueryable.ToListAsync()).ToDictionary(x=>x.Id,y=>y.ValueNumber);
+        
+        //根据用户分组
+        var userGroup=  allStore.GroupBy(x => x.UserId);
+        //每个用户进行计算价值
+        foreach (var item in userGroup)
+        {
+           var value= ComputeValue(item.Select(x => (x.CollectiblesId, allCollectiblesDic[x.CollectiblesId])).ToList());
+           output.Add(new CollectiblesValueCacheItem
+           {
+               UserId = item.Key,
+               Value = value
+           });
+        }
+
+        return output;
     }
 }
