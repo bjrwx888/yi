@@ -20,6 +20,11 @@ public class AutoPassInGoodsJob: QuartzBackgroundWorkerBase
 
         //每小时,第10分钟执行一次
         Trigger = TriggerBuilder.Create().WithIdentity(nameof(AutoPassInGoodsJob))
+            // .WithSimpleSchedule((builer) =>
+            // {
+            //     builer.WithIntervalInHours(10);
+            // })
+            // .StartNow()
             .WithCronSchedule("0 10 * * * ?")
             .Build();
     }

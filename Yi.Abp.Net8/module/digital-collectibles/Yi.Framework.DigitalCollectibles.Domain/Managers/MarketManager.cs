@@ -41,13 +41,14 @@ public class MarketManager : DomainService
         //下架3天前的商品
         var endTine = DateTime.Now.AddDays(-autoPassInGoodsDay);
         //获取所有需要下架商品
-        var marketGoods = await _marketGoodsRepository._DbQueryable.Where(x => x.CreationTime >= endTine).ToListAsync();
+        var marketGoods = await _marketGoodsRepository._DbQueryable.Where(x => x.CreationTime <= endTine).ToListAsync();
 
         //单独处理每一个下架的商品
         foreach (var goods in marketGoods)
         {
             //用户库存
             var userStore = await _collectiblesUserStoreRepository._DbQueryable
+                .Where(x=>x.UserId==goods.SellUserId)
                 .Where(x => x.CollectiblesId == goods.CollectiblesId)
                 .Where(x => x.IsAtMarketing == true).FirstAsync();
             if (userStore is not null)
