@@ -28,7 +28,10 @@ namespace Yi.Abp.Domain.Shared.Settings
                 new SettingDefinition("MarketTaxRate", "0.02"),
                 
                 //矿池刷新内容
-                new SettingDefinition("PoolData", "60,26,10,3,1")
+                new SettingDefinition("PoolData", "60,26,10,3,1"),
+                
+                //自动下架多久天前的商品
+                new SettingDefinition("AutoPassInGoodsDay","3")
             );
         }
     }
