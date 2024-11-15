@@ -1,7 +1,7 @@
 ﻿using Volo.Abp.BackgroundWorkers.Hangfire;
 using Volo.Abp.DependencyInjection;
 
-namespace Yi.Abp.Web;
+namespace Yi.Framework.BackgroundWorkers.Hangfire;
 
 public class YiHangfireConventionalRegistrar : DefaultConventionalRegistrar
 {

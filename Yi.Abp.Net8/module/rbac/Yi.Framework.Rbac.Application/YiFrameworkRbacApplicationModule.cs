@@ -16,8 +16,7 @@ namespace Yi.Framework.Rbac.Application
         typeof(YiFrameworkRbacDomainModule),
 
 
-        typeof(YiFrameworkDddApplicationModule),
-       typeof(AbpBackgroundWorkersHangfireModule)
+        typeof(YiFrameworkDddApplicationModule)
         )]
     public class YiFrameworkRbacApplicationModule : AbpModule
     {

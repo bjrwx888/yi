@@ -35,6 +35,7 @@ using Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
 using Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
+using Yi.Framework.BackgroundWorkers.Hangfire;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Bbs.Application.Extensions;
 using Yi.Framework.ChatHub.Application;
@@ -57,7 +58,7 @@ namespace Yi.Abp.Web
         typeof(AbpSwashbuckleModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpAuditingModule),
-        typeof(AbpBackgroundWorkersHangfireModule),
+        typeof(YiFrameworkBackgroundWorkersHangfireModule),
         typeof(AbpBackgroundJobsHangfireModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(YiFrameworkAspNetCoreModule),
@@ -309,10 +310,6 @@ namespace Yi.Abp.Web
                 return Task.CompletedTask;
             }
 
-        public override void PreConfigureServices(ServiceConfigurationContext context)
-        {
-            context.Services.AddConventionalRegistrar(new YiHangfireConventionalRegistrar());
-        }
 
         public override async Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
         {
@@ -368,17 +365,6 @@ namespace Yi.Abp.Web
 
             //日志记录
             app.UseAbpSerilogEnrichers();
-
-            
-            //定时任务自动注入，Abp默认只有在Quartz才实现
-            var backgroundWorkerManager = context.ServiceProvider.GetRequiredService<IBackgroundWorkerManager>();
-            var works = context.ServiceProvider.GetServices<IHangfireBackgroundWorker>();
-            
-            foreach (var work in works)
-            {
-                await backgroundWorkerManager.AddAsync(work);
-            }
-            
             
             //Hangfire定时任务面板，可配置授权
             app.UseAbpHangfireDashboard("/hangfire", options =>
