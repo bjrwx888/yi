@@ -3,10 +3,11 @@
 /**
  *  获取商城列表
  */
-export function getShopList() {
+export function getShopList(data) {
     return request({
         url: `/bbs-shop`,
         method: "get",
+        params: data
     });
 }
 
