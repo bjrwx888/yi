@@ -136,9 +136,9 @@ namespace Yi.Framework.Bbs.Application.Services.Forum
         [Authorize]
         public override async Task<CommentGetOutputDto> CreateAsync(CommentCreateInputVo input)
         {
-            if (input.Content.Length<=6)
+            if (string.IsNullOrWhiteSpace(input.Content)|| input.Content=="<p><br></p>")
             {
-                throw new UserFriendlyException("评论长度至少大于6");
+                throw new UserFriendlyException("评论不能为空");
             }
             
             var discuess = await _discussRepository.GetFirstAsync(x => x.Id == input.DiscussId);
