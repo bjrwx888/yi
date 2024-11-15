@@ -4,17 +4,13 @@ using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using System.Threading.RateLimiting;
 using Hangfire;
-using Hangfire.Dashboard;
+using Hangfire.MemoryStorage;
 using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Converters;
 using StackExchange.Redis;
 using Volo.Abp.AspNetCore.Auditing;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
@@ -22,7 +18,6 @@ using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
-using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
@@ -30,9 +25,6 @@ using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.BackgroundWorkers.Hangfire;
 using Volo.Abp.Caching;
-using Volo.Abp.Hangfire;
-using Volo.Abp.Json;
-using Volo.Abp.Json.SystemTextJson;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
@@ -43,7 +35,6 @@ using Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
 using Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
-using Yi.Framework.AspNetCore.UnifyResult;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Bbs.Application.Extensions;
 using Yi.Framework.ChatHub.Application;
@@ -187,17 +178,25 @@ namespace Yi.Abp.Web
                     //options.TenantResolvers.RemoveAll(x => x.Name == CookieTenantResolveContributor.ContributorName);
                 });
 
-                //配置Hangfire定时任务存储
+                //配置Hangfire定时任务存储，开启redis后，优先使用redis
                 var redisConfiguration = configuration["Redis:Configuration"];
+                var redisEnabled = configuration["Redis:IsEnabled"];
                 context.Services.AddHangfire(config =>
                 {
-                    config.UseRedisStorage(
-                        ConnectionMultiplexer.Connect(redisConfiguration),
-                        new RedisStorageOptions()
-                        {
-                            InvisibilityTimeout = TimeSpan.FromHours(1), //JOB允许执行1小时
-                            Prefix = "Yi:HangfireJob:"
-                        }).WithJobExpirationTimeout(TimeSpan.FromHours(1));
+                    if (redisEnabled.IsNullOrEmpty() || bool.Parse(redisEnabled))
+                    {
+                        config.UseRedisStorage(
+                            ConnectionMultiplexer.Connect(redisConfiguration),
+                            new RedisStorageOptions()
+                            {
+                                InvisibilityTimeout = TimeSpan.FromHours(1), //JOB允许执行1小时
+                                Prefix = "Yi:HangfireJob:"
+                            }).WithJobExpirationTimeout(TimeSpan.FromHours(1));
+                    }
+                    else
+                    {
+                        config.UseMemoryStorage();
+                    }
                 });
 
                 //速率限制
