@@ -1,11 +1,9 @@
 ﻿using FreeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Quartz;
-using Volo.Abp.BackgroundWorkers.Quartz;
+using Volo.Abp.BackgroundWorkers.Hangfire;
 using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Entities;
 using Yi.Framework.Bbs.Domain.Shared.Caches;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
@@ -13,7 +11,7 @@ using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.Bbs.Application.Jobs;
 
-public class AccessLogStoreJob : QuartzBackgroundWorkerBase
+public class AccessLogStoreJob : HangfireBackgroundWorkerBase
 {
     private readonly ISqlSugarRepository<AccessLogAggregateRoot> _repository;
 
@@ -45,18 +43,23 @@ public class AccessLogStoreJob : QuartzBackgroundWorkerBase
     public AccessLogStoreJob(ISqlSugarRepository<AccessLogAggregateRoot> repository)
     {
         _repository = repository;
-        JobDetail = JobBuilder.Create<AccessLogStoreJob>().WithIdentity(nameof(AccessLogStoreJob))
-            .Build();
+
         
+        RecurringJobId = "访问日志写入数据库";
         //每分钟执行一次
-        Trigger = TriggerBuilder.Create().WithIdentity(nameof(AccessLogStoreJob))
-            .WithCronSchedule("0 * * * * ?")
-            .Build();
+        CronExpression = "0 * * * * ?";
+        // JobDetail = JobBuilder.Create<AccessLogStoreJob>().WithIdentity(nameof(AccessLogStoreJob))
+        //     .Build();
+        // //每分钟执行一次
+        // Trigger = TriggerBuilder.Create().WithIdentity(nameof(AccessLogStoreJob))
+        //     .WithCronSchedule("0 * * * * ?")
+        //     .Build();
         
     
     }
+    
 
-    public override async Task Execute(IJobExecutionContext context)
+    public override async Task DoWorkAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         if (EnableRedisCache)
         {

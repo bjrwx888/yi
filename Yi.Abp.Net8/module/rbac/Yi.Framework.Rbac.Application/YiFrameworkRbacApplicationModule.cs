@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 using Volo.Abp.BackgroundWorkers;
-using Volo.Abp.BackgroundWorkers.Quartz;
+using Volo.Abp.BackgroundWorkers.Hangfire;
 using Volo.Abp.Modularity;
 using Yi.Framework.Ddd.Application;
 using Yi.Framework.Rbac.Application.Contracts;
@@ -17,7 +17,7 @@ namespace Yi.Framework.Rbac.Application
 
 
         typeof(YiFrameworkDddApplicationModule),
-       typeof(AbpBackgroundWorkersQuartzModule)
+       typeof(AbpBackgroundWorkersHangfireModule)
         )]
     public class YiFrameworkRbacApplicationModule : AbpModule
     {
@@ -28,7 +28,6 @@ namespace Yi.Framework.Rbac.Application
             service.AddCaptcha(options =>
             {
                 options.CaptchaType = CaptchaType.ARITHMETIC;
-
             });
         }
 
