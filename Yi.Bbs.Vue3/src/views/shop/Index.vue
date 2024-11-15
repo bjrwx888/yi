@@ -14,7 +14,7 @@ onMounted(async ()=>{
 await initData();
 })
 const  initData=async ()=>{
-  const shopListData= await getShopList();
+  const shopListData= await getShopList({skipCount: 0, maxResultCount: 100});
   shopList.value=shopListData.data.items;
   const accountInfoData= await getAccountInfo();
   accountInfo.value=accountInfoData.data;
