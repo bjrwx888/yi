@@ -24,7 +24,7 @@ namespace Yi.Framework.Rbac.Application.Services.Authentication
         YiCrudAppService<AuthAggregateRoot, AuthOutputDto, Guid, AuthGetListInput, AuthCreateOrUpdateInputDto>,
         IAuthService
     {
-        private HttpContext HttpContext { get; set; }
+        private HttpContext? HttpContext { get; set; }
         private ILogger<AuthService> _logger;
         private ISqlSugarRepository<AuthAggregateRoot, Guid> _repository;
         private IAccountManager _accountManager;
@@ -33,7 +33,8 @@ namespace Yi.Framework.Rbac.Application.Services.Authentication
             ILogger<AuthService> logger, ISqlSugarRepository<AuthAggregateRoot, Guid> repository) : base(repository)
         {
             _logger = logger;
-            HttpContext = httpContextAccessor.HttpContext ?? throw new ApplicationException("未注册Http");
+            //可能为空
+            HttpContext = httpContextAccessor.HttpContext;
             _repository = repository;
             _accountManager = accountManager;
         }
@@ -87,6 +88,10 @@ namespace Yi.Framework.Rbac.Application.Services.Authentication
 
         private async Task<(string, string)> GetOpenIdAndNameAsync(string scheme)
         {
+            if (HttpContext is null)
+            {
+                throw new AggregateException("HttpContext 参数为空");
+            }
             var authenticateResult = await HttpContext.AuthenticateAsync(scheme);
             if (!authenticateResult.Succeeded)
             {
