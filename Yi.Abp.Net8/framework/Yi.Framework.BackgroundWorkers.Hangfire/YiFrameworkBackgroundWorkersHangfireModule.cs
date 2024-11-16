@@ -20,6 +20,8 @@ public class YiFrameworkBackgroundWorkersHangfireModule:AbpModule
             
         foreach (var work in works)
         {
+            //如果为空，默认使用服务器本地utc时间
+            work.TimeZone = work.TimeZone ?? TimeZoneInfo.Local;
             await backgroundWorkerManager.AddAsync(work);
         }
 
