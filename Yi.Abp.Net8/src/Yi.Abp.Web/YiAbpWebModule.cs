@@ -25,6 +25,7 @@ using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.BackgroundWorkers.Hangfire;
 using Volo.Abp.Caching;
+using Volo.Abp.Hangfire;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
@@ -257,12 +258,19 @@ namespace Yi.Abp.Web
                         {
                             OnMessageReceived = context =>
                             {
+                                //优先Query中获取，再去cookies中获取
                                 var accessToken = context.Request.Query["access_token"];
                                 if (!string.IsNullOrEmpty(accessToken))
                                 {
                                     context.Token = accessToken;
                                 }
-
+                                else
+                                {
+                                    if (context.Request.Cookies.TryGetValue("Token",out var cookiesToken))
+                                    {
+                                        context.Token = cookiesToken;
+                                    }
+                                }
                                 return Task.CompletedTask;
                             }
                         };
@@ -366,10 +374,10 @@ namespace Yi.Abp.Web
             //日志记录
             app.UseAbpSerilogEnrichers();
             
-            //Hangfire定时任务面板，可配置授权
+            //Hangfire定时任务面板，可配置授权，意框架支持jwt
             app.UseAbpHangfireDashboard("/hangfire", options =>
             {
-                // options.AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() };
+                 options.AsyncAuthorization = new[] { new YiTokenAuthorizationFilter(app.ApplicationServices) };
             });
 
             //终节点
