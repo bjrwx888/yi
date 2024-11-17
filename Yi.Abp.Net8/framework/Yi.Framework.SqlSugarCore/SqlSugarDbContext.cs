@@ -43,6 +43,7 @@ namespace Yi.Framework.SqlSugarCore
 
         private ISerializeService SerializeService => LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
 
+        private IEnumerable<ISqlSugarDbContextDependencies> SqlSugarDbContextDependencies=>LazyServiceProvider.LazyGetRequiredService<IEnumerable<ISqlSugarDbContextDependencies>>();
         public void SetSqlSugarClient(ISqlSugarClient sqlSugarClient)
         {
             SqlSugarClient = sqlSugarClient;
@@ -51,24 +52,118 @@ namespace Yi.Framework.SqlSugarCore
         public SqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider)
         {
             LazyServiceProvider = lazyServiceProvider;
-            var connectionCreator = LazyServiceProvider.LazyGetRequiredService<ISqlSugarDbConnectionCreator>();
-            connectionCreator.OnSqlSugarClientConfig = OnSqlSugarClientConfig;
-            connectionCreator.EntityService = EntityService;
-            connectionCreator.DataExecuting = DataExecuting;
-            connectionCreator.DataExecuted = DataExecuted;
-            connectionCreator.OnLogExecuting = OnLogExecuting;
-            connectionCreator.OnLogExecuted = OnLogExecuted;
-            SqlSugarClient = new SqlSugarClient(connectionCreator.Build(action: options =>
-            {
-                options.ConnectionString = GetCurrentConnectionString();
-                options.DbType = GetCurrentDbType();
-            }));
-            //统一使用aop处理
-            connectionCreator.SetDbAop(SqlSugarClient);
+            var connectionCreators = LazyServiceProvider.LazyGetRequiredService<ISqlSugarDbContextDependencies>();
+
+            var connectionConfig = BuildConnectionConfig(action: options =>
+                 {
+                     options.ConnectionString = GetCurrentConnectionString();
+                     options.DbType = GetCurrentDbType();
+                 });
+            SqlSugarClient = new SqlSugarClient(connectionConfig);
             //替换默认序列化器
             SqlSugarClient.CurrentConnectionConfig.ConfigureExternalServices.SerializeService = SerializeService;
+           
+            //最后一步，将全程序dbcontext汇总
+            // Aop及多租户连接字符串和类型，需要单独设置
+            SetDbAop(SqlSugarClient);
         }
 
+        /// <summary>
+        /// 构建Aop-sqlsugaraop在多租户模式中，需单独设置
+        /// </summary>
+        /// <param name="sqlSugarClient"></param>
+        public void SetDbAop(ISqlSugarClient sqlSugarClient)
+        {
+            //将所有，ISqlSugarDbContextDependencies进行累加
+            sqlSugarClient.Aop.OnLogExecuting = this.OnLogExecuting;
+            sqlSugarClient.Aop.OnLogExecuted = this.OnLogExecuted;
+            sqlSugarClient.Aop.DataExecuting = this.DataExecuting;
+            sqlSugarClient.Aop.DataExecuted = this.DataExecuted;
+            OnSqlSugarClientConfig(currentDb);
+        }
+
+        /// <summary>
+        /// 构建连接配置
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public ConnectionConfig BuildConnectionConfig(Action<ConnectionConfig>? action=null)
+        {
+            var dbConnOptions = Options;
+            #region 组装options
+            if (dbConnOptions.DbType is null)
+            {
+                throw new ArgumentException("DbType配置为空");
+            }
+            var slavaConFig = new List<SlaveConnectionConfig>();
+            if (dbConnOptions.EnabledReadWrite)
+            {
+                if (dbConnOptions.ReadUrl is null)
+                {
+                    throw new ArgumentException("读写分离为空");
+                }
+
+                var readCon = dbConnOptions.ReadUrl;
+
+                readCon.ForEach(s =>
+                {
+                    //如果是动态saas分库，这里的连接串都不能写死，需要动态添加，这里只配置共享库的连接
+                    slavaConFig.Add(new SlaveConnectionConfig() { ConnectionString = s });
+                });
+            }
+            #endregion
+
+            #region 组装连接config
+            var connectionConfig = new ConnectionConfig()
+            {
+                ConfigId= ConnectionStrings.DefaultConnectionStringName,
+                DbType = dbConnOptions.DbType ?? DbType.Sqlite,
+                ConnectionString = dbConnOptions.Url,
+                IsAutoCloseConnection = true,
+                SlaveConnectionConfigs = slavaConFig,
+                //设置codefirst非空值判断
+                ConfigureExternalServices = new ConfigureExternalServices
+                {
+                    // 处理表
+                    EntityNameService = (type, entity) =>
+                    {
+                        if (dbConnOptions.EnableUnderLine && !entity.DbTableName.Contains('_'))
+                            entity.DbTableName = UtilMethods.ToUnderLine(entity.DbTableName);// 驼峰转下划线
+                    },
+                    EntityService = (c, p) =>
+                    {
+                        if (new NullabilityInfoContext()
+                        .Create(c).WriteState is NullabilityState.Nullable)
+                        {
+                            p.IsNullable = true;
+                        }
+
+                        if (dbConnOptions.EnableUnderLine && !p.IsIgnore && !p.DbColumnName.Contains('_'))
+                            p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName);// 驼峰转下划线
+                       
+                        //将所有，ISqlSugarDbContextDependencies的EntityService进行累加
+                        //额外的实体服务需要这里配置，
+                        EntityService(c, p);
+                    }
+                },
+                //这里多租户有个坑，这里配置是无效的
+                // AopEvents = new AopEvents
+                // {
+                //     DataExecuted = DataExecuted,
+                //     DataExecuting = DataExecuting,
+                //     OnLogExecuted = OnLogExecuted,
+                //     OnLogExecuting = OnLogExecuting
+                // }
+            };
+
+            if (action is not null)
+            {
+                action.Invoke(connectionConfig);
+            }
+            #endregion
+            return connectionConfig;
+        }
+        
         /// <summary>
         /// db切换多库支持
         /// </summary>
@@ -130,215 +225,7 @@ namespace Yi.Framework.SqlSugarCore
             // 条件不满足时返回 null
             return null;
         }
-
-
-        /// <summary>
-        /// 上下文对象扩展
-        /// </summary>
-        /// <param name="sqlSugarClient"></param>
-        protected virtual void OnSqlSugarClientConfig(ISqlSugarClient sqlSugarClient)
-        {
-            //需自定义扩展
-            if (IsSoftDeleteFilterEnabled)
-            {
-                sqlSugarClient.QueryFilter.AddTableFilter<ISoftDelete>(u => u.IsDeleted == false);
-            }
-
-            if (IsMultiTenantFilterEnabled)
-            {
-                //表达式里只能有具体值，不能运算
-                var expressionCurrentTenant = CurrentTenant.Id ?? null;
-                sqlSugarClient.QueryFilter.AddTableFilter<IMultiTenant>(u => u.TenantId == expressionCurrentTenant);
-            }
-
-            CustomDataFilter(sqlSugarClient);
-        }
-
-        protected virtual void CustomDataFilter(ISqlSugarClient sqlSugarClient)
-        {
-        }
-
-        protected virtual void DataExecuted(object oldValue, DataAfterModel entityInfo)
-        {
-        }
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        /// <param name="oldValue"></param>
-        /// <param name="entityInfo"></param>
-        protected virtual void DataExecuting(object oldValue, DataFilterModel entityInfo)
-        {
-            //审计日志
-            switch (entityInfo.OperationType)
-            {
-                case DataFilterType.UpdateByObject:
-
-                    if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModificationTime)))
-                    {
-                        if (!DateTime.MinValue.Equals(oldValue))
-                        {
-                            entityInfo.SetValue(DateTime.Now);
-                        }
-                    }
-                    else if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.LastModifierId)))
-                    {
-                        if (typeof(Guid?) == entityInfo.EntityColumnInfo.PropertyInfo.PropertyType)
-                        {
-                            if (CurrentUser.Id != null)
-                            {
-                                entityInfo.SetValue(CurrentUser.Id);
-                            }
-                        }
-                    }
-
-                    break;
-                case DataFilterType.InsertByObject:
-
-                    if (entityInfo.PropertyName.Equals(nameof(IEntity<Guid>.Id)))
-                    {
-                        //类型为guid
-                        if (typeof(Guid) == entityInfo.EntityColumnInfo.PropertyInfo.PropertyType)
-                        {
-                            //主键为空或者为默认最小值
-                            if (Guid.Empty.Equals(oldValue))
-                            {
-                                entityInfo.SetValue(GuidGenerator.Create());
-                            }
-                        }
-                    }
-
-                    else if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreationTime)))
-                    {
-                        //为空或者为默认最小值
-                        if (DateTime.MinValue.Equals(oldValue))
-                        {
-                            entityInfo.SetValue(DateTime.Now);
-                        }
-                    }
-                    else if (entityInfo.PropertyName.Equals(nameof(IAuditedObject.CreatorId)))
-                    {
-                        //类型为guid
-                        if (typeof(Guid?) == entityInfo.EntityColumnInfo.PropertyInfo.PropertyType)
-                        {
-                            if (CurrentUser.Id is not null)
-                            {
-                                entityInfo.SetValue(CurrentUser.Id);
-                            }
-                        }
-                    }
-
-                    else if (entityInfo.PropertyName.Equals(nameof(IMultiTenant.TenantId)))
-                    {
-                        if (CurrentTenant.Id is not null)
-                        {
-                            entityInfo.SetValue(CurrentTenant.Id);
-                        }
-                    }
-
-                    break;
-            }
-
-
-            //领域事件
-            switch (entityInfo.OperationType)
-            {
-                case DataFilterType.InsertByObject:
-                    if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
-                    {
-                        EntityChangeEventHelper.PublishEntityCreatedEvent(entityInfo.EntityValue);
-                    }
-
-                    break;
-                case DataFilterType.UpdateByObject:
-                    if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
-                    {
-                        //软删除，发布的是删除事件
-                        if (entityInfo.EntityValue is ISoftDelete softDelete)
-                        {
-                            if (softDelete.IsDeleted == true)
-                            {
-                                EntityChangeEventHelper.PublishEntityDeletedEvent(entityInfo.EntityValue);
-                            }
-                        }
-                        else
-                        {
-                            EntityChangeEventHelper.PublishEntityUpdatedEvent(entityInfo.EntityValue);
-                        }
-                    }
-
-                    break;
-                case DataFilterType.DeleteByObject:
-                    if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
-                    {
-                        //这里sqlsugar有个特殊，删除会返回批量的结果
-                        if (entityInfo.EntityValue is IEnumerable entityValues)
-                        {
-                            foreach (var entityValue in entityValues)
-                            {
-                                EntityChangeEventHelper.PublishEntityDeletedEvent(entityValue);
-                            }
-                        }
-                    }
-
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// 日志
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="pars"></param>
-        protected virtual void OnLogExecuting(string sql, SugarParameter[] pars)
-        {
-            if (Options.EnabledSqlLog)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine();
-                sb.AppendLine("==========Yi-SQL执行:==========");
-                sb.AppendLine(UtilMethods.GetSqlString(DbType.SqlServer, sql, pars));
-                sb.AppendLine("===============================");
-                Logger.CreateLogger<SqlSugarDbContext>().LogDebug(sb.ToString());
-            }
-        }
-
-        /// <summary>
-        /// 日志
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="pars"></param>
-        protected virtual void OnLogExecuted(string sql, SugarParameter[] pars)
-        {
-            if (Options.EnabledSqlLog)
-            {
-                var sqllog = $"=========Yi-SQL耗时{SqlSugarClient.Ado.SqlExecutionTime.TotalMilliseconds}毫秒=====";
-                Logger.CreateLogger<SqlSugarDbContext>().LogDebug(sqllog.ToString());
-            }
-        }
-
-        /// <summary>
-        /// 实体配置
-        /// </summary>
-        /// <param name="property"></param>
-        /// <param name="column"></param>
-        protected virtual void EntityService(PropertyInfo property, EntityColumnInfo column)
-        {
-            if (property.Name == nameof(IHasConcurrencyStamp.ConcurrencyStamp)) //带版本号并发更新
-            {
-                column.IsEnableUpdateVersionValidation = true;
-            }
-
-            if (property.PropertyType == typeof(ExtraPropertyDictionary))
-            {
-                column.IsIgnore = true;
-            }
-
-            if (property.Name == nameof(Entity<object>.Id))
-            {
-                column.IsPrimarykey = true;
-            }
-        }
+        
 
         public void BackupDataBase()
         {
