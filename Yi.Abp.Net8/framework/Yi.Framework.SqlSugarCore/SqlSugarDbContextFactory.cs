@@ -17,13 +17,9 @@ namespace Yi.Framework.SqlSugarCore
         /// SqlSugar 客户端
         /// </summary>
         public ISqlSugarClient SqlSugarClient { get; private set; }
-
-        protected ICurrentUser CurrentUser => LazyServiceProvider.GetRequiredService<ICurrentUser>();
         private IAbpLazyServiceProvider LazyServiceProvider { get; }
 
         private ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
-        protected IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
-
         public DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
 
         private ISerializeService SerializeService => LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
@@ -34,18 +30,17 @@ namespace Yi.Framework.SqlSugarCore
         {
             LazyServiceProvider = lazyServiceProvider;
             
-            //获取连接配置
+            //获取连接配置操作，需要进行缓存
             var connectionConfig = BuildConnectionConfig(action: options =>
                  {
                      options.ConnectionString = GetCurrentConnectionString();
                      options.DbType = GetCurrentDbType();
                  });
             SqlSugarClient = new SqlSugarClient(connectionConfig);
-            
-            //替换默认序列化器
-            SqlSugarClient.CurrentConnectionConfig.ConfigureExternalServices.SerializeService = SerializeService;
-            
+            //生命周期，以下都可以直接使用sqlsugardb了
+
             // Aop及多租户连接字符串和类型，需要单独设置
+            // Aop操作需要进行缓存
             SetDbAop(SqlSugarClient);
         }
 
@@ -55,6 +50,9 @@ namespace Yi.Framework.SqlSugarCore
         /// <param name="sqlSugarClient"></param>
         protected virtual void SetDbAop(ISqlSugarClient sqlSugarClient)
         {
+            //替换默认序列化器
+            sqlSugarClient.CurrentConnectionConfig.ConfigureExternalServices.SerializeService = SerializeService;
+            
             //将所有，ISqlSugarDbContextDependencies进行累加
             Action<string, SugarParameter[]> onLogExecuting=null;
             Action<string, SugarParameter[]> onLogExecuted=null;
@@ -71,13 +69,15 @@ namespace Yi.Framework.SqlSugarCore
 
                 onSqlSugarClientConfig += dependency.OnSqlSugarClientConfig;
             }
-
+            //最先存放db操作
+            onSqlSugarClientConfig(sqlSugarClient);
+            
             sqlSugarClient.Aop.OnLogExecuting = onLogExecuting;
             sqlSugarClient.Aop.OnLogExecuted =onLogExecuted;
 
             sqlSugarClient.Aop.DataExecuting = dataExecuting;
             sqlSugarClient.Aop.DataExecuted = dataExecuted;
-            onSqlSugarClientConfig(sqlSugarClient);
+
            
         }
 

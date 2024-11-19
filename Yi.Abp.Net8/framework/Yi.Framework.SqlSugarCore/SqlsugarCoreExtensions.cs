@@ -11,26 +11,19 @@ namespace Yi.Framework.SqlSugarCore
 {
     public static class SqlsugarCoreExtensions
     {
-        public static IServiceCollection AddYiDbContext<DbContext>(this IServiceCollection service, ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where DbContext : class, ISqlSugarDbContext
+        public static IServiceCollection AddYiDbContext<TDbContext>(this IServiceCollection service, ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where TDbContext : class, ISqlSugarDbContextDependencies
         {
-            service.Replace(new ServiceDescriptor(typeof(ISqlSugarDbContext), typeof(DbContext), serviceLifetime));
+            service.Add(new ServiceDescriptor(typeof(ISqlSugarDbContextDependencies), typeof(TDbContext), serviceLifetime));
             return service;
         }
-        public static IServiceCollection TryAddYiDbContext<DbContext>(this IServiceCollection service, ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where DbContext : class, ISqlSugarDbContext
+        
+        public static IServiceCollection AddYiDbContext<TDbContext>(this IServiceCollection service, Action<DbConnOptions> options) where TDbContext : class, ISqlSugarDbContextDependencies
         {
-            service.TryAdd(new ServiceDescriptor(typeof(ISqlSugarDbContext), typeof(DbContext), serviceLifetime));
-            return service;
-        }
-
-
-        public static IServiceCollection AddYiDbContext<DbContext>(this IServiceCollection service, Action<DbConnOptions> options) where DbContext : class, ISqlSugarDbContext
-        {
-
             service.Configure<DbConnOptions>(ops =>
             {
                 options.Invoke(ops);
             });
-            service.AddYiDbContext<DbContext>();
+            service.AddYiDbContext<TDbContext>();
             return service;
         }
     }

@@ -1,5 +1,7 @@
-﻿using SqlSugar;
-using Volo.Abp.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SqlSugar;
+using Volo.Abp.Data;
+using Volo.Abp.Users;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Entities;
 using Yi.Framework.Rbac.Domain.Extensions;
@@ -9,21 +11,16 @@ using Yi.Framework.SqlSugarCore;
 
 namespace Yi.Framework.Rbac.SqlSugarCore
 {
-    public class YiRbacDbContextFactory : SqlSugarDbContextFactory
+    public class YiRbacDbContext : SqlSugarDbContext
     {
-        public YiRbacDbContextFactory(IAbpLazyServiceProvider lazyServiceProvider) : base(lazyServiceProvider)
-        {
-        }
-
+        protected IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
+        protected ICurrentUser CurrentUser => LazyServiceProvider.GetRequiredService<ICurrentUser>();
         protected override void CustomDataFilter(ISqlSugarClient sqlSugarClient)
         {
             if (DataFilter.IsEnabled<IDataPermission>())
             {
                 DataPermissionFilter(sqlSugarClient);
             }
-
-
-            base.CustomDataFilter(sqlSugarClient);
         }
 
 

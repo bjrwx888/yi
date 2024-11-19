@@ -5,13 +5,12 @@ namespace Yi.Framework.SqlSugarCore;
 
 public interface ISqlSugarDbContextDependencies
 {
-    void OnSqlSugarClientConfig(ISqlSugarClient client);
+    void OnSqlSugarClientConfig(ISqlSugarClient sqlSugarClient);
+    void DataExecuted(object oldValue, DataAfterModel entityInfo);
+    void DataExecuting(object oldValue, DataFilterModel entityInfo);
 
-    void DataExecuted(object obj, DataAfterModel dataAfterModel);
-    void DataExecuting(object obj, DataFilterModel dataAfterModel);
-
-    void OnLogExecuting(string str, SugarParameter[] parameters);
-    void OnLogExecuted(string str, SugarParameter[] parameters);
+    void OnLogExecuting(string sql, SugarParameter[] pars);
+    void OnLogExecuted(string sql, SugarParameter[] pars);
     
     void EntityService(PropertyInfo propertyInfo, EntityColumnInfo entityColumnInfo);
 }
