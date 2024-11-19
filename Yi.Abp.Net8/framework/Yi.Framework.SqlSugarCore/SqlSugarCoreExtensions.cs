@@ -9,20 +9,31 @@ using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.SqlSugarCore
 {
-    public static class SqlsugarCoreExtensions
+    public static class SqlSugarCoreExtensions
     {
+        /// <summary>
+        /// 新增db对象，可支持多个
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="serviceLifetime"></param>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <returns></returns>
         public static IServiceCollection AddYiDbContext<TDbContext>(this IServiceCollection service, ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where TDbContext : class, ISqlSugarDbContextDependencies
         {
-            service.Add(new ServiceDescriptor(typeof(ISqlSugarDbContextDependencies), typeof(TDbContext), serviceLifetime));
+            service.AddTransient<ISqlSugarDbContextDependencies, TDbContext>();
             return service;
         }
         
+        /// <summary>
+        /// 新增db对象，可支持多个
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="options"></param>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <returns></returns>
         public static IServiceCollection AddYiDbContext<TDbContext>(this IServiceCollection service, Action<DbConnOptions> options) where TDbContext : class, ISqlSugarDbContextDependencies
         {
-            service.Configure<DbConnOptions>(ops =>
-            {
-                options.Invoke(ops);
-            });
+            service.Configure<DbConnOptions>(options.Invoke);
             service.AddYiDbContext<TDbContext>();
             return service;
         }

@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SqlSugar;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.Threading;
 using Volo.Abp.Users;
 using Yi.Framework.SqlSugarCore.Abstractions;
 using Check = Volo.Abp.Check;
@@ -17,6 +19,7 @@ namespace Yi.Framework.SqlSugarCore
         /// SqlSugar 客户端
         /// </summary>
         public ISqlSugarClient SqlSugarClient { get; private set; }
+
         private IAbpLazyServiceProvider LazyServiceProvider { get; }
 
         private ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
@@ -24,23 +27,29 @@ namespace Yi.Framework.SqlSugarCore
 
         private ISerializeService SerializeService => LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
 
-        private IEnumerable<ISqlSugarDbContextDependencies> SqlSugarDbContextDependencies=>LazyServiceProvider.LazyGetRequiredService<IEnumerable<ISqlSugarDbContextDependencies>>();
-        
+        private IEnumerable<ISqlSugarDbContextDependencies> SqlSugarDbContextDependencies =>
+            LazyServiceProvider.LazyGetRequiredService<IEnumerable<ISqlSugarDbContextDependencies>>();
+
+        private static readonly ConcurrentDictionary<string, ConnectionConfig> ConnectionConfigCache = new();
+
         public SqlSugarDbContextFactory(IAbpLazyServiceProvider lazyServiceProvider)
         {
             LazyServiceProvider = lazyServiceProvider;
-            
+
+            var connectionString = GetCurrentConnectionString();
+
             //获取连接配置操作，需要进行缓存
-            var connectionConfig = BuildConnectionConfig(action: options =>
-                 {
-                     options.ConnectionString = GetCurrentConnectionString();
-                     options.DbType = GetCurrentDbType();
-                 });
+            var connectionConfig = ConnectionConfigCache.GetOrAdd(connectionString, (_) =>
+                BuildConnectionConfig(action: options =>
+                {
+                    options.ConnectionString = connectionString;
+                    options.DbType = GetCurrentDbType();
+                }));
             SqlSugarClient = new SqlSugarClient(connectionConfig);
             //生命周期，以下都可以直接使用sqlsugardb了
 
             // Aop及多租户连接字符串和类型，需要单独设置
-            // Aop操作需要进行缓存
+            // Aop操作不能进行缓存
             SetDbAop(SqlSugarClient);
         }
 
@@ -52,33 +61,32 @@ namespace Yi.Framework.SqlSugarCore
         {
             //替换默认序列化器
             sqlSugarClient.CurrentConnectionConfig.ConfigureExternalServices.SerializeService = SerializeService;
-            
+
             //将所有，ISqlSugarDbContextDependencies进行累加
-            Action<string, SugarParameter[]> onLogExecuting=null;
-            Action<string, SugarParameter[]> onLogExecuted=null;
+            Action<string, SugarParameter[]> onLogExecuting = null;
+            Action<string, SugarParameter[]> onLogExecuted = null;
             Action<object, DataFilterModel> dataExecuting = null;
             Action<object, DataAfterModel> dataExecuted = null;
             Action<ISqlSugarClient> onSqlSugarClientConfig = null;
-            
-            foreach (var dependency in SqlSugarDbContextDependencies.OrderBy(x=>x.ExecutionOrder))
+
+            foreach (var dependency in SqlSugarDbContextDependencies.OrderBy(x => x.ExecutionOrder))
             {
-                onLogExecuting+= dependency.OnLogExecuting;
+                onLogExecuting += dependency.OnLogExecuting;
                 onLogExecuted += dependency.OnLogExecuted;
                 dataExecuting += dependency.DataExecuting;
                 dataExecuted += dependency.DataExecuted;
 
                 onSqlSugarClientConfig += dependency.OnSqlSugarClientConfig;
             }
+
             //最先存放db操作
             onSqlSugarClientConfig(sqlSugarClient);
-            
-            sqlSugarClient.Aop.OnLogExecuting = onLogExecuting;
-            sqlSugarClient.Aop.OnLogExecuted =onLogExecuted;
 
-            sqlSugarClient.Aop.DataExecuting = dataExecuting;
-            sqlSugarClient.Aop.DataExecuted = dataExecuted;
+            sqlSugarClient.Aop.OnLogExecuting =onLogExecuting;
+            sqlSugarClient.Aop.OnLogExecuted = onLogExecuted;
 
-           
+            sqlSugarClient.Aop.DataExecuting =dataExecuting;
+            sqlSugarClient.Aop.DataExecuted =dataExecuted;
         }
 
         /// <summary>
@@ -86,14 +94,17 @@ namespace Yi.Framework.SqlSugarCore
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        protected virtual ConnectionConfig BuildConnectionConfig(Action<ConnectionConfig>? action=null)
+        protected virtual ConnectionConfig BuildConnectionConfig(Action<ConnectionConfig>? action = null)
         {
             var dbConnOptions = Options;
+
             #region 组装options
+
             if (dbConnOptions.DbType is null)
             {
                 throw new ArgumentException("DbType配置为空");
             }
+
             var slavaConFig = new List<SlaveConnectionConfig>();
             if (dbConnOptions.EnabledReadWrite)
             {
@@ -110,12 +121,14 @@ namespace Yi.Framework.SqlSugarCore
                     slavaConFig.Add(new SlaveConnectionConfig() { ConnectionString = s });
                 });
             }
+
             #endregion
 
             #region 组装连接config
+
             var connectionConfig = new ConnectionConfig()
             {
-                ConfigId= ConnectionStrings.DefaultConnectionStringName,
+                ConfigId = ConnectionStrings.DefaultConnectionStringName,
                 DbType = dbConnOptions.DbType ?? DbType.Sqlite,
                 ConnectionString = dbConnOptions.Url,
                 IsAutoCloseConnection = true,
@@ -127,27 +140,28 @@ namespace Yi.Framework.SqlSugarCore
                     EntityNameService = (type, entity) =>
                     {
                         if (dbConnOptions.EnableUnderLine && !entity.DbTableName.Contains('_'))
-                            entity.DbTableName = UtilMethods.ToUnderLine(entity.DbTableName);// 驼峰转下划线
+                            entity.DbTableName = UtilMethods.ToUnderLine(entity.DbTableName); // 驼峰转下划线
                     },
                     EntityService = (c, p) =>
                     {
                         if (new NullabilityInfoContext()
-                        .Create(c).WriteState is NullabilityState.Nullable)
+                                .Create(c).WriteState is NullabilityState.Nullable)
                         {
                             p.IsNullable = true;
                         }
 
                         if (dbConnOptions.EnableUnderLine && !p.IsIgnore && !p.DbColumnName.Contains('_'))
-                            p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName);// 驼峰转下划线
-                       
+                            p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName); // 驼峰转下划线
+
                         //将所有，ISqlSugarDbContextDependencies的EntityService进行累加
                         //额外的实体服务需要这里配置，
 
                         Action<PropertyInfo, EntityColumnInfo> entityService = null;
-                        foreach (var dependency in SqlSugarDbContextDependencies.OrderBy(x=>x.ExecutionOrder))
+                        foreach (var dependency in SqlSugarDbContextDependencies.OrderBy(x => x.ExecutionOrder))
                         {
                             entityService += dependency.EntityService;
                         }
+
                         entityService(c, p);
                     }
                 },
@@ -165,10 +179,12 @@ namespace Yi.Framework.SqlSugarCore
             {
                 action.Invoke(connectionConfig);
             }
+
             #endregion
+
             return connectionConfig;
         }
-        
+
         /// <summary>
         /// db切换多库支持
         /// </summary>
@@ -177,7 +193,7 @@ namespace Yi.Framework.SqlSugarCore
         {
             var connectionStringResolver = LazyServiceProvider.LazyGetRequiredService<IConnectionStringResolver>();
             var connectionString =
-                connectionStringResolver.ResolveAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                AsyncHelper.RunSync(() => connectionStringResolver.ResolveAsync());
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
@@ -230,7 +246,7 @@ namespace Yi.Framework.SqlSugarCore
             // 条件不满足时返回 null
             return null;
         }
-        
+
 
         public virtual void BackupDataBase()
         {

@@ -6,12 +6,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SqlSugar;
-using Volo.Abp;
-using Volo.Abp.Auditing;
 using Volo.Abp.Data;
 using Volo.Abp.Domain;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Modularity;
 using Yi.Framework.SqlSugarCore.Abstractions;
 using Yi.Framework.SqlSugarCore.Repositories;
 using Yi.Framework.SqlSugarCore.Uow;
@@ -47,6 +44,7 @@ namespace Yi.Framework.SqlSugarCore
             //将默认db传递给abp连接字符串模块
             Configure<AbpDbConnectionOptions>(x => { x.ConnectionStrings.Default = dbConfig.Url; });
 
+             context.Services.AddYiDbContext<DefaultSqlSugarDbContext>();
             return Task.CompletedTask;
         }
 
@@ -72,7 +70,6 @@ namespace Yi.Framework.SqlSugarCore
 
 
             logger.LogInformation(sb.ToString());
-            //Todo：准备支持多租户种子数据及CodeFirst
 
             if (options.EnabledCodeFirst)
             {
