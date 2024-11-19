@@ -180,7 +180,7 @@ namespace Yi.Abp.Web
             //配置Hangfire定时任务存储，开启redis后，优先使用redis
             var redisConfiguration = configuration["Redis:Configuration"];
             var redisEnabled = configuration["Redis:IsEnabled"];
-            context.Services.AddHangfire(config =>
+            context.Services.AddHangfire(config=>
             {
                 if (redisEnabled.IsNullOrEmpty() || bool.Parse(redisEnabled))
                 {
