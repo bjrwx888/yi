@@ -5,6 +5,11 @@ namespace Yi.Framework.SqlSugarCore;
 
 public interface ISqlSugarDbContextDependencies
 {
+    /// <summary>
+    /// 执行顺序
+    /// </summary>
+    int ExecutionOrder { get; }
+    
     void OnSqlSugarClientConfig(ISqlSugarClient sqlSugarClient);
     void DataExecuted(object oldValue, DataAfterModel entityInfo);
     void DataExecuting(object oldValue, DataFilterModel entityInfo);

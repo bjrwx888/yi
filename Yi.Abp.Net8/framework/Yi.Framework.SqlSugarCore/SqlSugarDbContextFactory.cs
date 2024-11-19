@@ -60,7 +60,7 @@ namespace Yi.Framework.SqlSugarCore
             Action<object, DataAfterModel> dataExecuted = null;
             Action<ISqlSugarClient> onSqlSugarClientConfig = null;
             
-            foreach (var dependency in SqlSugarDbContextDependencies)
+            foreach (var dependency in SqlSugarDbContextDependencies.OrderBy(x=>x.ExecutionOrder))
             {
                 onLogExecuting+= dependency.OnLogExecuting;
                 onLogExecuted += dependency.OnLogExecuted;
@@ -144,7 +144,7 @@ namespace Yi.Framework.SqlSugarCore
                         //额外的实体服务需要这里配置，
 
                         Action<PropertyInfo, EntityColumnInfo> entityService = null;
-                        foreach (var dependency in SqlSugarDbContextDependencies)
+                        foreach (var dependency in SqlSugarDbContextDependencies.OrderBy(x=>x.ExecutionOrder))
                         {
                             entityService += dependency.EntityService;
                         }

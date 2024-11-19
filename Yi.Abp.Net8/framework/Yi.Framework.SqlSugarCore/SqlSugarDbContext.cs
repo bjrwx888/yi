@@ -9,6 +9,8 @@ public abstract class SqlSugarDbContext : ISqlSugarDbContextDependencies
     //属性注入
     public IAbpLazyServiceProvider LazyServiceProvider { get; set; }
     protected ISqlSugarClient SqlSugarClient { get;private set; }
+    public int ExecutionOrder => 0;
+
     public void OnSqlSugarClientConfig(ISqlSugarClient sqlSugarClient)
     {
         SqlSugarClient = sqlSugarClient;
