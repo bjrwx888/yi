@@ -28,7 +28,7 @@ namespace Yi.Framework.SqlSugarCore
             var section = configuration.GetSection("DbConnOptions");
             Configure<DbConnOptions>(section);
 
-            service.TryAddScoped<ISqlSugarDbContext, SqlSugarDbContext>();
+            service.TryAddScoped<ISqlSugarDbContext, SqlSugarDbContextFactory>();
 
             //不开放sqlsugarClient
             //service.AddTransient<ISqlSugarClient>(x => x.GetRequiredService<ISqlsugarDbContext>().SqlSugarClient);

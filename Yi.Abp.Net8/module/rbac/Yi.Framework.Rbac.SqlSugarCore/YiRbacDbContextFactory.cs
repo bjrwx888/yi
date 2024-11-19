@@ -9,9 +9,9 @@ using Yi.Framework.SqlSugarCore;
 
 namespace Yi.Framework.Rbac.SqlSugarCore
 {
-    public class YiRbacDbContext : SqlSugarDbContext
+    public class YiRbacDbContextFactory : SqlSugarDbContextFactory
     {
-        public YiRbacDbContext(IAbpLazyServiceProvider lazyServiceProvider) : base(lazyServiceProvider)
+        public YiRbacDbContextFactory(IAbpLazyServiceProvider lazyServiceProvider) : base(lazyServiceProvider)
         {
         }
 

@@ -33,7 +33,7 @@ namespace Yi.Abp.SqlsugarCore
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddYiDbContext<YiDbContext>();
+            context.Services.AddYiDbContext<YiDbContextFactory>();
             //默认不开放，可根据项目需要是否Db直接对外开放
             //context.Services.AddTransient(x => x.GetRequiredService<ISqlSugarDbContext>().SqlSugarClient);
         }

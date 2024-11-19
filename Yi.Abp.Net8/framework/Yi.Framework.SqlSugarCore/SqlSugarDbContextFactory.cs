@@ -1,16 +1,9 @@
-﻿using System.Collections;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SqlSugar;
-using Volo.Abp.Auditing;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Entities.Events;
-using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Users;
 using Yi.Framework.SqlSugarCore.Abstractions;
@@ -18,7 +11,7 @@ using Check = Volo.Abp.Check;
 
 namespace Yi.Framework.SqlSugarCore
 {
-    public class SqlSugarDbContext : ISqlSugarDbContext
+    public class SqlSugarDbContextFactory : ISqlSugarDbContext
     {
         /// <summary>
         /// SqlSugar 客户端
@@ -28,42 +21,30 @@ namespace Yi.Framework.SqlSugarCore
         protected ICurrentUser CurrentUser => LazyServiceProvider.GetRequiredService<ICurrentUser>();
         private IAbpLazyServiceProvider LazyServiceProvider { get; }
 
-        private IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetRequiredService<IGuidGenerator>();
-        private ILoggerFactory Logger => LazyServiceProvider.LazyGetRequiredService<ILoggerFactory>();
         private ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
         protected IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
-        protected virtual bool IsMultiTenantFilterEnabled => DataFilter?.IsEnabled<IMultiTenant>() ?? false;
-
-        protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
-
-        private IEntityChangeEventHelper EntityChangeEventHelper =>
-            LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
 
         public DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
 
         private ISerializeService SerializeService => LazyServiceProvider.LazyGetRequiredService<ISerializeService>();
 
         private IEnumerable<ISqlSugarDbContextDependencies> SqlSugarDbContextDependencies=>LazyServiceProvider.LazyGetRequiredService<IEnumerable<ISqlSugarDbContextDependencies>>();
-        public void SetSqlSugarClient(ISqlSugarClient sqlSugarClient)
-        {
-            SqlSugarClient = sqlSugarClient;
-        }
-
-        public SqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider)
+        
+        public SqlSugarDbContextFactory(IAbpLazyServiceProvider lazyServiceProvider)
         {
             LazyServiceProvider = lazyServiceProvider;
-            var connectionCreators = LazyServiceProvider.LazyGetRequiredService<ISqlSugarDbContextDependencies>();
-
+            
+            //获取连接配置
             var connectionConfig = BuildConnectionConfig(action: options =>
                  {
                      options.ConnectionString = GetCurrentConnectionString();
                      options.DbType = GetCurrentDbType();
                  });
             SqlSugarClient = new SqlSugarClient(connectionConfig);
+            
             //替换默认序列化器
             SqlSugarClient.CurrentConnectionConfig.ConfigureExternalServices.SerializeService = SerializeService;
-           
-            //最后一步，将全程序dbcontext汇总
+            
             // Aop及多租户连接字符串和类型，需要单独设置
             SetDbAop(SqlSugarClient);
         }
@@ -72,14 +53,32 @@ namespace Yi.Framework.SqlSugarCore
         /// 构建Aop-sqlsugaraop在多租户模式中，需单独设置
         /// </summary>
         /// <param name="sqlSugarClient"></param>
-        public void SetDbAop(ISqlSugarClient sqlSugarClient)
+        protected virtual void SetDbAop(ISqlSugarClient sqlSugarClient)
         {
             //将所有，ISqlSugarDbContextDependencies进行累加
-            sqlSugarClient.Aop.OnLogExecuting = this.OnLogExecuting;
-            sqlSugarClient.Aop.OnLogExecuted = this.OnLogExecuted;
-            sqlSugarClient.Aop.DataExecuting = this.DataExecuting;
-            sqlSugarClient.Aop.DataExecuted = this.DataExecuted;
-            OnSqlSugarClientConfig(currentDb);
+            Action<string, SugarParameter[]> onLogExecuting=null;
+            Action<string, SugarParameter[]> onLogExecuted=null;
+            Action<object, DataFilterModel> dataExecuting = null;
+            Action<object, DataAfterModel> dataExecuted = null;
+            Action<ISqlSugarClient> onSqlSugarClientConfig = null;
+            
+            foreach (var dependency in SqlSugarDbContextDependencies)
+            {
+                onLogExecuting+= dependency.OnLogExecuting;
+                onLogExecuted += dependency.OnLogExecuted;
+                dataExecuting += dependency.DataExecuting;
+                dataExecuted += dependency.DataExecuted;
+
+                onSqlSugarClientConfig += dependency.OnSqlSugarClientConfig;
+            }
+
+            sqlSugarClient.Aop.OnLogExecuting = onLogExecuting;
+            sqlSugarClient.Aop.OnLogExecuted =onLogExecuted;
+
+            sqlSugarClient.Aop.DataExecuting = dataExecuting;
+            sqlSugarClient.Aop.DataExecuted = dataExecuted;
+            onSqlSugarClientConfig(sqlSugarClient);
+           
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace Yi.Framework.SqlSugarCore
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public ConnectionConfig BuildConnectionConfig(Action<ConnectionConfig>? action=null)
+        protected virtual ConnectionConfig BuildConnectionConfig(Action<ConnectionConfig>? action=null)
         {
             var dbConnOptions = Options;
             #region 组装options
@@ -143,7 +142,13 @@ namespace Yi.Framework.SqlSugarCore
                        
                         //将所有，ISqlSugarDbContextDependencies的EntityService进行累加
                         //额外的实体服务需要这里配置，
-                        EntityService(c, p);
+
+                        Action<PropertyInfo, EntityColumnInfo> entityService = null;
+                        foreach (var dependency in SqlSugarDbContextDependencies)
+                        {
+                            entityService += dependency.EntityService;
+                        }
+                        entityService(c, p);
                     }
                 },
                 //这里多租户有个坑，这里配置是无效的
@@ -227,7 +232,7 @@ namespace Yi.Framework.SqlSugarCore
         }
         
 
-        public void BackupDataBase()
+        public virtual void BackupDataBase()
         {
             string directoryName = "database_backup";
             string fileName = DateTime.Now.ToString($"yyyyMMdd_HHmmss") + $"_{SqlSugarClient.Ado.Connection.Database}";
