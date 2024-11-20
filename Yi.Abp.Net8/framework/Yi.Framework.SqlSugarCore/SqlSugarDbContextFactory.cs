@@ -37,14 +37,18 @@ namespace Yi.Framework.SqlSugarCore
             LazyServiceProvider = lazyServiceProvider;
 
             var connectionString = GetCurrentConnectionString();
-
-            //获取连接配置操作，需要进行缓存
-            var connectionConfig = ConnectionConfigCache.GetOrAdd(connectionString, (_) =>
-                BuildConnectionConfig(action: options =>
-                {
-                    options.ConnectionString = connectionString;
-                    options.DbType = GetCurrentDbType();
-                }));
+            
+            var connectionConfig =BuildConnectionConfig(action: options =>
+            {
+                options.ConnectionString = connectionString;
+                options.DbType = GetCurrentDbType();
+            });
+            // var connectionConfig = ConnectionConfigCache.GetOrAdd(connectionString, (_) =>
+            //     BuildConnectionConfig(action: options =>
+            //     {
+            //         options.ConnectionString = connectionString;
+            //         options.DbType = GetCurrentDbType();
+            //     }));
             SqlSugarClient = new SqlSugarClient(connectionConfig);
             //生命周期，以下都可以直接使用sqlsugardb了
 
