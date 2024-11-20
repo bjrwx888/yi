@@ -7,8 +7,14 @@ namespace Yi.Framework.SqlSugarCore;
 
 public abstract class SqlSugarDbContext : ISqlSugarDbContextDependencies
 {
-    //属性注入
-    public IAbpLazyServiceProvider LazyServiceProvider { get; set; }
+    protected IAbpLazyServiceProvider LazyServiceProvider { get; }
+
+    public SqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider)
+    {
+        this.LazyServiceProvider = lazyServiceProvider;
+    }
+
+
     protected ISqlSugarClient SqlSugarClient { get;private set; }
     public int ExecutionOrder => 0;
 
