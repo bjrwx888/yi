@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
 using Volo.Abp.Data;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.Users;
 using Yi.Framework.Rbac.Domain.Authorization;
 using Yi.Framework.Rbac.Domain.Entities;
@@ -24,6 +25,9 @@ namespace Yi.Framework.Rbac.SqlSugarCore
         }
 
 
+        public YiRbacDbContext(IAbpLazyServiceProvider lazyServiceProvider) : base(lazyServiceProvider)
+        {
+        }
         /// <summary>
         /// 数据权限过滤
         /// </summary>
@@ -86,5 +90,6 @@ namespace Yi.Framework.Rbac.SqlSugarCore
             sqlSugarClient.QueryFilter.AddTableFilter(expUser.ToExpression());
             sqlSugarClient.QueryFilter.AddTableFilter(expRole.ToExpression());
         }
+
     }
 }

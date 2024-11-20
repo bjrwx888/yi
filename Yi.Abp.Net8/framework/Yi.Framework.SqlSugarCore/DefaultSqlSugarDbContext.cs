@@ -32,6 +32,9 @@ public class DefaultSqlSugarDbContext : SqlSugarDbContext
     protected IEntityChangeEventHelper EntityChangeEventHelper =>
         LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
 
+    public DefaultSqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider) : base(lazyServiceProvider)
+    {
+    }
     protected override void CustomDataFilter(ISqlSugarClient sqlSugarClient)
     {
         if (IsSoftDeleteFilterEnabled)
@@ -204,4 +207,5 @@ public class DefaultSqlSugarDbContext : SqlSugarDbContext
             entityColumnInfo.IsPrimarykey = true;
         }
     }
+
 }
