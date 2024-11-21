@@ -15,7 +15,7 @@ import {
   refreshTokenApi
 } from "@/api/account";
 import { useMultiTagsStoreHook } from "./multiTags";
-import { type DataInfo, setToken, removeToken, userKey } from "@/utils/auth";
+import {type DataInfo, setToken, removeToken, userKey, setTenantId, getTenantId} from "@/utils/auth";
 
 export const useUserStore = defineStore({
   id: "pure-user",
@@ -38,7 +38,9 @@ export const useUserStore = defineStore({
     // 是否勾选了登录页的免登录
     isRemembered: false,
     // 登录页的免登录存储几天，默认7天
-    loginDay: 7
+    loginDay: 7,
+    // 租户id
+    tenantId: getTenantId()
   }),
   actions: {
     /** 存储头像 */
@@ -78,8 +80,9 @@ export const useUserStore = defineStore({
       this.loginDay = Number(value);
     },
     /** 登入 */
-    async loginByUsername(data) {
+    async loginByUsername(data:any,tenantId:string) {
       return new Promise<UserResult>((resolve, reject) => {
+        setTenantId(tenantId);
         getLogin(data)
           .then(data => {
             if (data.status == 200) {
@@ -100,6 +103,7 @@ export const useUserStore = defineStore({
             }
           })
           .catch(error => {
+            this.tenantId=null;
             reject(error);
           });
       });

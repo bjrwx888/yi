@@ -23,6 +23,7 @@ export interface DataInfo<T> {
 
 export const userKey = "user-info";
 export const TokenKey = "authorized-token";
+export const TenantIdKey = 'Tenant-Id'
 /**
  * 通过`multiple-tabs`是否在`cookie`中，判断用户是否已经登录系统，
  * 从而支持多标签页打开已经登录的系统后无需再登录。
@@ -138,3 +139,25 @@ export const hasPerms = (value: string | Array<string>): boolean => {
     : isIncludeAllChildren(value, permissions);
   return isAuths ? true : false;
 };
+
+/**
+ * 获取租户id
+ */
+export function getTenantId() {
+  return Cookies.get(TenantIdKey)
+}
+
+/**
+ * 设置租户id
+ * @param tenantId 租户id
+ */
+export function setTenantId(tenantId: string) {
+  return Cookies.set(TenantIdKey, tenantId)
+}
+
+/**
+ * 删除租户id
+ */
+export function removeTenantId() {
+  return Cookies.remove(TenantIdKey)
+}
