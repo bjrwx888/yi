@@ -18,6 +18,14 @@ export type LoginResult = {
   };
 };
 
+export type TenantResult = {
+  status: number;
+  data: Array<{
+    id: string;
+    name: string;
+  }>;
+};
+
 export type UserResult = {
   status: number;
   data: {
@@ -68,6 +76,11 @@ export const getUserInfo = () => {
 export const getCodeImg = () => {
   return http.request<imageCaptcha>("get", "/account/captcha-image");
 };
+
+/** 获取租户信息 */
+export const getTenant = () => {
+  return http.request<TenantResult>("get", "/tenant/select");
+}
 
 /** 刷新`token` */
 export const refreshTokenApi = (data?: object) => {

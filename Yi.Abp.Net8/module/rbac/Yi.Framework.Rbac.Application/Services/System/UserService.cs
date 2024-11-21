@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using TencentCloud.Tcr.V20190924.Models;
@@ -8,7 +9,9 @@ using Volo.Abp.EventBus.Local;
 using Volo.Abp.Users;
 using Yi.Framework.Bbs.Domain.Shared.Enums;
 using Yi.Framework.Bbs.Domain.Shared.Etos;
+using Yi.Framework.Core.Helper;
 using Yi.Framework.Ddd.Application;
+using Yi.Framework.Ddd.Application.Contracts;
 using Yi.Framework.Rbac.Application.Contracts.Dtos.User;
 using Yi.Framework.Rbac.Application.Contracts.IServices;
 using Yi.Framework.Rbac.Domain.Authorization;
@@ -236,6 +239,54 @@ namespace Yi.Framework.Rbac.Application.Services.System
         public override Task PostImportExcelAsync(List<UserCreateInputVo> input)
         {
             return base.PostImportExcelAsync(input);
+        }
+        
+        
+        [RemoteService(false)]
+        public async Task AssemblyBackUser<T>(List<T> dataList) where T : class, IBackUser
+        {
+            HashSet<Guid> useridList = [];
+            foreach (var data in dataList)
+            {
+                if (data.CreatorId != null) useridList.Add(data.CreatorId.Value);
+                if (data.LastModifierId != null) useridList.Add(data.LastModifierId.Value);
+            }
+
+            var userDic = await GetByNameKeyByIdListAsync(useridList);
+            foreach (var data in dataList)
+            {
+                if (data.CreatorId != null)
+                {
+                    data.CreateUserNikeName =
+                        userDic.ContainsKey(data.CreatorId.Value) ? userDic[data.CreatorId.Value] : "";
+                }
+
+                if (data.LastModifierId != null)
+                {
+                    data.UpdateUserNikeName = userDic.ContainsKey(data.LastModifierId.Value)
+                        ? userDic[data.LastModifierId.Value]
+                        : "";
+                }
+            }
+        }
+
+        [RemoteService(false)]
+        public async Task AssemblyBackUser<T>(List<T> dataList, NameValueCollection keyValues) where T : class
+        {
+            await AssemblyDataHelper.AssemblyData(dataList, keyValues, GetByNameKeyByIdListAsync);
+        }
+        
+        /// <summary>
+        /// 用id查询用户，装备配为字典，键为id，值为Nike
+        /// </summary>
+        /// <param name="idList">guid列表</param>
+        /// <returns></returns>
+        private async Task<Dictionary<Guid, string>> GetByNameKeyByIdListAsync(IEnumerable<Guid> idList)
+        {
+            var users = await _repository.GetListAsync(u => idList.Contains(u.Id));
+            Dictionary<Guid, string> userDic = new();
+            users.ForEach(x => userDic.Add(x.Id, x.Nick));
+            return userDic;
         }
     }
 }
