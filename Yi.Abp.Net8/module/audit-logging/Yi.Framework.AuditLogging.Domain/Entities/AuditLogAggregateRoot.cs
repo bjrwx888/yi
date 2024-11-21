@@ -103,6 +103,7 @@ namespace Yi.Framework.AuditLogging.Domain.Entities
 
         public virtual string? CorrelationId { get; set; }
 
+        [SugarColumn(Length = 2000)]
         public virtual string? BrowserInfo { get; protected set; }
 
         public virtual string? HttpMethod { get; protected set; }

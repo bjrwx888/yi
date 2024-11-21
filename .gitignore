@@ -269,6 +269,7 @@ dist
 /Yi.Abp.Net8/src/Yi.Abp.Web/appsettings.Production.json
 /Yi.Abp.Net8/test/Yi.Abp.Test/appsettings.Development.json
 /Yi.Abp.Net8/test/Yi.Abp.Test/appsettings.Production.json
+/Yi.Abp.Net8/tool/Yi.Abp.Tool.Web/appsettings.Development.json
 database_backup
 /Yi.Abp.Net8/src/Yi.Abp.Web/appsettings.Staging.json
 /Yi.Abp.Net8/src/Yi.Abp.Web/logs/

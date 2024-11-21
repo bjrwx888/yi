@@ -13,8 +13,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
 {
     public class UnitOfWorkSqlsugarDbContextProvider<TDbContext> : ISugarDbContextProvider<TDbContext> where TDbContext : ISqlSugarDbContext
     {
-        private readonly ISqlSugarDbConnectionCreator _dbConnectionCreator;
-
         public ILogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>> Logger { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
 
@@ -28,8 +26,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
             IUnitOfWorkManager unitOfWorkManager,
             IConnectionStringResolver connectionStringResolver,
             ICancellationTokenProvider cancellationTokenProvider,
-            ICurrentTenant currentTenant,
-            ISqlSugarDbConnectionCreator dbConnectionCreator
+            ICurrentTenant currentTenant
         )
         {
             UnitOfWorkManager = unitOfWorkManager;
@@ -37,7 +34,6 @@ namespace Yi.Framework.SqlSugarCore.Uow
             CancellationTokenProvider = cancellationTokenProvider;
             CurrentTenant = currentTenant;
             Logger = NullLogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>>.Instance;
-            _dbConnectionCreator = dbConnectionCreator;
         }
 
         //private static object _databaseApiLock = new object();

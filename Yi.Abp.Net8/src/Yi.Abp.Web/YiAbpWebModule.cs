@@ -3,27 +3,26 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using System.Threading.RateLimiting;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Converters;
+using StackExchange.Redis;
+using Volo.Abp.AspNetCore.Auditing;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
-using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
+using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Caching;
-using Volo.Abp.Json;
-using Volo.Abp.Json.SystemTextJson;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
 using Yi.Abp.Application;
@@ -34,7 +33,7 @@ using Yi.Framework.AspNetCore.Authentication.OAuth.Gitee;
 using Yi.Framework.AspNetCore.Authentication.OAuth.QQ;
 using Yi.Framework.AspNetCore.Microsoft.AspNetCore.Builder;
 using Yi.Framework.AspNetCore.Microsoft.Extensions.DependencyInjection;
-using Yi.Framework.AspNetCore.UnifyResult;
+using Yi.Framework.BackgroundWorkers.Hangfire;
 using Yi.Framework.Bbs.Application;
 using Yi.Framework.Bbs.Application.Extensions;
 using Yi.Framework.ChatHub.Application;
@@ -57,6 +56,8 @@ namespace Yi.Abp.Web
         typeof(AbpSwashbuckleModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpAuditingModule),
+        typeof(YiFrameworkBackgroundWorkersHangfireModule),
+        typeof(AbpBackgroundJobsHangfireModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(YiFrameworkAspNetCoreModule),
         typeof(YiFrameworkAspNetCoreAuthenticationOAuthModule)
@@ -70,13 +71,18 @@ namespace Yi.Abp.Web
             var configuration = context.Services.GetConfiguration();
             var host = context.Services.GetHostingEnvironment();
             var service = context.Services;
+
             //请求日志
             Configure<AbpAuditingOptions>(optios =>
             {
                 //默认关闭，开启会有大量的审计日志
                 optios.IsEnabled = true;
-                //审计日志过滤器
-                optios.AlwaysLogSelectors.Add(x => Task.FromResult(!x.Url.StartsWith("/api/app/file/")));
+            });
+            //忽略审计日志路径
+            Configure<AbpAspNetCoreAuditingOptions>(options =>
+            {
+                options.IgnoredUrls.Add("/api/app/file/");
+                options.IgnoredUrls.Add("/hangfire");
             });
 
             //采用furion格式的规范化api，默认不开启，使用abp优雅的方式
@@ -97,7 +103,8 @@ namespace Yi.Abp.Web
                     options => options.RemoteServiceName = "bbs");
                 options.ConventionalControllers.Create(typeof(YiFrameworkChatHubApplicationModule).Assembly,
                     options => options.RemoteServiceName = "chat-hub");
-                options.ConventionalControllers.Create(typeof(YiFrameworkTenantManagementApplicationModule).Assembly,
+                options.ConventionalControllers.Create(
+                    typeof(YiFrameworkTenantManagementApplicationModule).Assembly,
                     options => options.RemoteServiceName = "tenant-management");
                 options.ConventionalControllers.Create(typeof(YiFrameworkCodeGenApplicationModule).Assembly,
                     options => options.RemoteServiceName = "code-gen");
@@ -112,7 +119,7 @@ namespace Yi.Abp.Web
             //     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             //     options.SerializerSettings.Converters.Add(new StringEnumConverter());
             // });
-            
+
             //请使用微软的，注意abp date又包了一层，采用DefaultJsonTypeInfoResolver统一覆盖
             Configure<JsonOptions>(options =>
             {
@@ -167,8 +174,28 @@ namespace Yi.Abp.Web
                 options.TenantResolvers.Add(new HeaderTenantResolveContributor());
                 //options.TenantResolvers.Add(new HeaderTenantResolveContributor());
                 //options.TenantResolvers.Add(new CookieTenantResolveContributor());
-
                 //options.TenantResolvers.RemoveAll(x => x.Name == CookieTenantResolveContributor.ContributorName);
+            });
+
+            //配置Hangfire定时任务存储，开启redis后，优先使用redis
+            var redisConfiguration = configuration["Redis:Configuration"];
+            var redisEnabled = configuration["Redis:IsEnabled"];
+            context.Services.AddHangfire(config=>
+            {
+                if (redisEnabled.IsNullOrEmpty() || bool.Parse(redisEnabled))
+                {
+                    config.UseRedisStorage(
+                        ConnectionMultiplexer.Connect(redisConfiguration),
+                        new RedisStorageOptions()
+                        {
+                            InvisibilityTimeout = TimeSpan.FromHours(1), //JOB允许执行1小时
+                            Prefix = "Yi:HangfireJob:"
+                        }).WithJobExpirationTimeout(TimeSpan.FromHours(1));
+                }
+                else
+                {
+                    config.UseMemoryStorage();
+                }
             });
 
             //速率限制
@@ -228,10 +255,18 @@ namespace Yi.Abp.Web
                     {
                         OnMessageReceived = context =>
                         {
+                            //优先Query中获取，再去cookies中获取
                             var accessToken = context.Request.Query["access_token"];
                             if (!string.IsNullOrEmpty(accessToken))
                             {
                                 context.Token = accessToken;
+                            }
+                            else
+                            {
+                                if (context.Request.Cookies.TryGetValue("Token", out var cookiesToken))
+                                {
+                                    context.Token = cookiesToken;
+                                }
                             }
 
                             return Task.CompletedTask;
@@ -276,11 +311,12 @@ namespace Yi.Abp.Web
             //授权
             context.Services.AddAuthorization();
 
+
             return Task.CompletedTask;
         }
 
 
-        public override Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
+        public override async Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
         {
             var service = context.ServiceProvider;
             var env = context.GetEnvironment();
@@ -335,10 +371,15 @@ namespace Yi.Abp.Web
             //日志记录
             app.UseAbpSerilogEnrichers();
 
+            //Hangfire定时任务面板，可配置授权，意框架支持jwt
+            app.UseAbpHangfireDashboard("/hangfire",
+                options =>
+                {
+                    options.AsyncAuthorization = new[] { new YiTokenAuthorizationFilter(app.ApplicationServices) };
+                });
+
             //终节点
             app.UseConfiguredEndpoints();
-
-            return Task.CompletedTask;
         }
     }
 }
