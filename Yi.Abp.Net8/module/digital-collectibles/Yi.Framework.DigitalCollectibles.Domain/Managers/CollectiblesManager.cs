@@ -4,6 +4,7 @@ using Volo.Abp.Domain.Services;
 using Volo.Abp.Users;
 using Yi.Framework.DigitalCollectibles.Domain.Entities;
 using Yi.Framework.DigitalCollectibles.Domain.Shared.Caches;
+using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
 namespace Yi.Framework.DigitalCollectibles.Domain.Managers;
@@ -110,5 +111,37 @@ public class CollectiblesManager:DomainService
         }
 
         return output;
+    }
+    
+    
+    /// <summary>
+    /// 全量更新藏品价值
+    /// </summary>
+    /// <returns></returns>
+    public async Task UpdateAllValueAsync()
+    {
+        //全部藏品
+        var collectibles = await _collectiblesRepository.GetListAsync();
+        foreach (var item in collectibles)
+        {
+            var defaultValue=  item.Rarity.GetDefaultValue();
+            //计算实际的百分比
+            var realValueRate=  CalculateValue(item.FindTotal);
+
+            var realValue = Math.Round(defaultValue * realValueRate);
+            item.ValueNumber = realValue.To<decimal>();
+        }
+
+        await _collectiblesRepository.UpdateRangeAsync(collectibles);
+    }
+
+    /// <summary>
+    /// 价值计算公式
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    private double CalculateValue(double x)
+    {
+        return 0.1 + 0.9 * Math.Exp(-0.00824 * (x - 1));
     }
 }

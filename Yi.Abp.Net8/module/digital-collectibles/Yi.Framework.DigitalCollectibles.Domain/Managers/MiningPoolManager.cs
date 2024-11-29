@@ -176,7 +176,7 @@ public class MiningPoolManager : DomainService
 
         //如果概率是挖到了矿，再从矿物中随机选择一个稀有度，再在当前稀有度中的矿物列表，随机选择一个具体的矿物
         var pool = await GetMiningPoolContentAsync();
-        if (pool is null|| pool.TotalNumber == 0)
+        if (pool is null || pool.TotalNumber == 0)
         {
             throw new UserFriendlyException($"失败，矿池已经被掏空了，请等矿池刷新后再来");
         }

@@ -4,13 +4,23 @@ using Yi.Framework.DigitalCollectibles.Domain.Shared.Consts;
 
 namespace Yi.Framework.DigitalCollectibles.Domain.Shared.Attributes;
 
+
 public class ProbabilityAttribute : Attribute
 {
-    public double Value { get; set; }
+    /// <summary>
+    /// 概率
+    /// </summary>
+    public double Probability { get; set; }
 
-    public ProbabilityAttribute(double value)
+    /// <summary>
+    /// 默认价值
+    /// </summary>
+    public double DefaultValue { get; set; }
+
+    public ProbabilityAttribute(double probability,double defaultValue)
     {
-        this.Value = value;
+        this.Probability = probability;
+        this.DefaultValue = defaultValue;
     }
 }
 
