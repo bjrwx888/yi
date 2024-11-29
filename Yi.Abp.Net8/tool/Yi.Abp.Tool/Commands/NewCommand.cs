@@ -36,6 +36,9 @@ namespace Yi.Abp.Tool.Commands
             var soureOption = application.Option("-s|--soure", "模板来源，gitee模板库分支名称: 默认值`default`",
                 CommandOptionType.SingleValue);
             
+            var dbmsOption = application.Option("-dbms|--dataBaseMs", "数据库类型，支持目前主流数据库",
+                CommandOptionType.SingleValue);
+            
             var moduleNameArgument = application.Argument("moduleName", "模块名", (_) => { });
             
             //子命令，new list
@@ -58,6 +61,11 @@ namespace Yi.Abp.Tool.Commands
             
             application.OnExecute(() =>
             {
+                if (dbmsOption.HasValue())
+                {
+                    Console.WriteLine($"检测到使用数据库类型-{dbmsOption.Value()}，请在生成后，只需在配置文件中，更改DbConnOptions:Url及DbType即可，支持目前主流数据库20+");
+                }
+                
                 var path = string.Empty;
                 if (pathOption.HasValue())
                 {

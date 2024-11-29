@@ -20,6 +20,7 @@ namespace Yi.Abp.Tool.Commands
         {
             application.OnExecute(() =>
             {
+                Console.WriteLine("正在克隆，请耐心等待");
                 StartCmd($"git clone {CloneAddress}");
                 return 0;
             });
