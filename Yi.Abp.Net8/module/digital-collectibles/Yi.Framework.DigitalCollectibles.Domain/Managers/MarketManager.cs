@@ -122,6 +122,11 @@ public class MarketManager : DomainService
         //3-出售者删除对应库存，购买者新增对应库存
         var marketGoods = await _marketGoodsRepository.GetAsync(x => x.Id == marketGoodsId);
 
+        if (marketGoods is null)
+        {
+            throw new UserFriendlyException($"交易失败，当前交易市场不存在该商品");
+        }
+        
         //1-市场扣减或者关闭该商品
         if (marketGoods.SellNumber == number)
         {
