@@ -72,6 +72,30 @@ namespace Yi.Abp.Web
     {
         private const string DefaultCorsPolicyName = "Default";
 
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            //动态Api-改进在pre中配置，启动更快
+            PreConfigure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.ConventionalControllers.Create(typeof(YiAbpApplicationModule).Assembly,
+                    options => options.RemoteServiceName = "default");
+                options.ConventionalControllers.Create(typeof(YiFrameworkRbacApplicationModule).Assembly,
+                    options => options.RemoteServiceName = "rbac");
+                options.ConventionalControllers.Create(typeof(YiFrameworkBbsApplicationModule).Assembly,
+                    options => options.RemoteServiceName = "bbs");
+                options.ConventionalControllers.Create(typeof(YiFrameworkChatHubApplicationModule).Assembly,
+                    options => options.RemoteServiceName = "chat-hub");
+                options.ConventionalControllers.Create(
+                    typeof(YiFrameworkTenantManagementApplicationModule).Assembly,
+                    options => options.RemoteServiceName = "tenant-management");
+                options.ConventionalControllers.Create(typeof(YiFrameworkCodeGenApplicationModule).Assembly,
+                    options => options.RemoteServiceName = "code-gen");
+
+                //统一前缀
+                options.ConventionalControllers.ConventionalControllerSettings.ForEach(x => x.RootPath = "api/app");
+            });
+        }
+
         public override Task ConfigureServicesAsync(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
@@ -97,6 +121,7 @@ namespace Yi.Abp.Web
 
             //配置错误处理显示详情
             Configure<AbpExceptionHandlingOptions>(options => { options.SendExceptionsDetailsToClients = true; });
+            
 
             //动态Api
             Configure<AbpAspNetCoreMvcOptions>(options =>
