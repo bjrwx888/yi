@@ -35,8 +35,7 @@ namespace Yi.Framework.SqlSugarCore.Uow
             CurrentTenant = currentTenant;
             Logger = NullLogger<UnitOfWorkSqlsugarDbContextProvider<TDbContext>>.Instance;
         }
-
-        //private static object _databaseApiLock = new object();
+        
         public virtual async Task<TDbContext> GetDbContextAsync()
         {
 
@@ -48,19 +47,16 @@ namespace Yi.Framework.SqlSugarCore.Uow
 
 
             var unitOfWork = UnitOfWorkManager.Current;
-            if (unitOfWork == null /*|| unitOfWork.Options.IsTransactional == false*/)
+            if (unitOfWork == null )
             {
-                var dbContext = (TDbContext)ServiceProvider.GetRequiredService<ISqlSugarDbContext>();
-                //提高体验，取消工作单元强制性
-                //throw new AbpException("A DbContext can only be created inside a unit of work!");
+                //var dbContext = (TDbContext)ServiceProvider.GetRequiredService<ISqlSugarDbContext>();
                 //如果不启用工作单元，创建一个新的db，不开启事务即可
-                return dbContext;
+                //return dbContext;
+                
+                //2024-11-30，改回强制性使用工作单元，否则容易造成歧义
+                throw new AbpException("DbContext 只能在工作单元内工作，当前DbContext没有工作单元，如需创建新线程并发操作，请手动创建工作单元");
+
             }
-
-
-
-
-
             //尝试当前工作单元获取db
             var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
 
