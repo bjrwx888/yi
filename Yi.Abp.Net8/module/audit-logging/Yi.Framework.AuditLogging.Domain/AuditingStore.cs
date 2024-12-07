@@ -53,7 +53,7 @@ public class AuditingStore : IAuditingStore, ITransientDependency
     protected virtual async Task SaveLogAsync(AuditLogInfo auditInfo)
     {
         Logger.LogDebug("Yi-请求追踪:" + JsonHelper.ObjToStr(auditInfo, "yyyy-MM-dd HH:mm:ss"));
-        using (var uow = UnitOfWorkManager.Begin(true,isTransactional:false))
+        using (var uow = UnitOfWorkManager.Begin())
         {
             await AuditLogRepository.InsertAsync(await Converter.ConvertAsync(auditInfo));
             await uow.CompleteAsync();
