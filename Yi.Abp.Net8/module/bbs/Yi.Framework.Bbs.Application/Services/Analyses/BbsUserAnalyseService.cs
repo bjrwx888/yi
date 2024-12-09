@@ -208,6 +208,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
 
 
             var output = new List<PointsTopUserDto>();
+            var levelCache = await _bbsUserManager.GetLevelCacheMapAsync();
             result.Items.ToList().ForEach(x =>
             {
                 var currentUserInfo = baseOutput.Where(u => u.UserId == x.UserId).FirstOrDefault();
@@ -221,7 +222,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                         Order = x.Order,
                         Icon = currentUserInfo.Icon,
                         Level = currentUserInfo.Level,
-                        LevelName = _bbsUserManager._levelCacheDic[currentUserInfo.Level].Name,
+                        LevelName = levelCache[currentUserInfo.Level].Name,
                         UserLimit = UserLimitEnum.Normal,
                         Points = x.Points
                     });
@@ -243,7 +244,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
             [FromRoute] Guid? userId)
         {
             var result = await _valueAnalyseService.GetValueTopAsync(input, null);
-            
+
             var userIds = result.Items.Select(x => x.UserId).ToList();
 
             var baseOutput = await _bbsUserManager._userRepository._DbQueryable
@@ -263,6 +264,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
 
 
             var output = new List<ValueTopUserDto>();
+            var levelCache = await _bbsUserManager.GetLevelCacheMapAsync();
             result.Items.ToList().ForEach(x =>
             {
                 var currentUserInfo = baseOutput.Where(u => u.UserId == x.UserId).FirstOrDefault();
@@ -276,7 +278,7 @@ namespace Yi.Framework.Bbs.Application.Services.Analyses
                         Order = x.Order,
                         Icon = currentUserInfo.Icon,
                         Level = currentUserInfo.Level,
-                        LevelName = _bbsUserManager._levelCacheDic[currentUserInfo.Level].Name,
+                        LevelName =levelCache[currentUserInfo.Level].Name,
                         UserLimit = UserLimitEnum.Normal,
                         Value = x.Value
                     });
