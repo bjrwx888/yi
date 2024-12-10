@@ -12,6 +12,7 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Events;
 using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.Uow;
 using Volo.Abp.Users;
 using Yi.Framework.SqlSugarCore.Abstractions;
 
@@ -19,13 +20,13 @@ namespace Yi.Framework.SqlSugarCore;
 
 public class DefaultSqlSugarDbContext : SqlSugarDbContext
 {
-
     protected DbConnOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<DbConnOptions>>().Value;
     protected ICurrentUser CurrentUser => LazyServiceProvider.GetRequiredService<ICurrentUser>();
     protected IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetRequiredService<IGuidGenerator>();
     protected ILoggerFactory Logger => LazyServiceProvider.LazyGetRequiredService<ILoggerFactory>();
     protected ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
     protected IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
+    public IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
     protected virtual bool IsMultiTenantFilterEnabled => DataFilter?.IsEnabled<IMultiTenant>() ?? false;
     protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
 
@@ -35,6 +36,7 @@ public class DefaultSqlSugarDbContext : SqlSugarDbContext
     public DefaultSqlSugarDbContext(IAbpLazyServiceProvider lazyServiceProvider) : base(lazyServiceProvider)
     {
     }
+
     protected override void CustomDataFilter(ISqlSugarClient sqlSugarClient)
     {
         if (IsSoftDeleteFilterEnabled)
@@ -123,7 +125,7 @@ public class DefaultSqlSugarDbContext : SqlSugarDbContext
         }
 
 
-        //领域事件
+        //实体变更领域事件
         switch (entityInfo.OperationType)
         {
             case DataFilterType.InsertByObject:
@@ -165,6 +167,14 @@ public class DefaultSqlSugarDbContext : SqlSugarDbContext
                 }
 
                 break;
+        }
+        
+      
+        //实体领域事件-所有操作类型
+        if (entityInfo.PropertyName == nameof(IEntity<object>.Id))
+        {
+            var eventReport =  CreateEventReport(entityInfo.EntityValue);
+            PublishEntityEvents(eventReport);
         }
     }
 
@@ -208,4 +218,73 @@ public class DefaultSqlSugarDbContext : SqlSugarDbContext
         }
     }
 
+
+    /// <summary>
+    /// 创建领域事件报告
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    protected virtual EntityEventReport? CreateEventReport(object entity)
+    {
+        var eventReport = new EntityEventReport();
+        
+        //判断是否为领域事件-聚合根
+        var generatesDomainEventsEntity = entity as IGeneratesDomainEvents;
+        if (generatesDomainEventsEntity == null)
+        {
+            return eventReport;
+        }
+
+        var localEvents = generatesDomainEventsEntity.GetLocalEvents()?.ToArray();
+        if (localEvents != null && localEvents.Any())
+        {
+            eventReport.DomainEvents.AddRange(
+                localEvents.Select(
+                    eventRecord => new DomainEventEntry(
+                        entity,
+                        eventRecord.EventData,
+                        eventRecord.EventOrder
+                    )
+                )
+            );
+            generatesDomainEventsEntity.ClearLocalEvents();
+        }
+
+        var distributedEvents = generatesDomainEventsEntity.GetDistributedEvents()?.ToArray();
+        if (distributedEvents != null && distributedEvents.Any())
+        {
+            eventReport.DistributedEvents.AddRange(
+                distributedEvents.Select(
+                    eventRecord => new DomainEventEntry(
+                        entity,
+                        eventRecord.EventData,
+                        eventRecord.EventOrder)
+                )
+            );
+            generatesDomainEventsEntity.ClearDistributedEvents();
+        }
+        
+        return eventReport;
+    }
+    
+    /// <summary>
+    /// 发布领域事件
+    /// </summary>
+    /// <param name="changeReport"></param>
+    private void PublishEntityEvents(EntityEventReport changeReport)
+    {
+        foreach (var localEvent in changeReport.DomainEvents)
+        {
+            UnitOfWorkManager.Current?.AddOrReplaceLocalEvent(
+                new UnitOfWorkEventRecord(localEvent.EventData.GetType(), localEvent.EventData, localEvent.EventOrder)
+            );
+        }
+
+        foreach (var distributedEvent in changeReport.DistributedEvents)
+        {
+            UnitOfWorkManager.Current?.AddOrReplaceDistributedEvent(
+                new UnitOfWorkEventRecord(distributedEvent.EventData.GetType(), distributedEvent.EventData, distributedEvent.EventOrder)
+            );
+        }
+    }
 }
