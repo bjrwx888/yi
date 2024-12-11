@@ -251,7 +251,6 @@ namespace Yi.Framework.SqlSugarCore
             return null;
         }
 
-
         public virtual void BackupDataBase()
         {
             string directoryName = "database_backup";

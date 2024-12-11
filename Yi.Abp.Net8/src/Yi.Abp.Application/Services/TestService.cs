@@ -175,6 +175,5 @@ namespace Yi.Abp.Application.Services
 
             return result ?? string.Empty;
         }
-
     }
 }

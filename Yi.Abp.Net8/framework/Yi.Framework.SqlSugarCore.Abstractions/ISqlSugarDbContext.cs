@@ -14,7 +14,7 @@ namespace Yi.Framework.SqlSugarCore.Abstractions
         /// SqlSugarDb
         /// </summary>
         ISqlSugarClient SqlSugarClient { get; }
-
+        
         /// <summary>
         /// 数据库备份
         /// </summary>
