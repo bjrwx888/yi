@@ -37,7 +37,7 @@ namespace Yi.Framework.Rbac.Application.Services
         {
             var path = await GetReturnPathAsync(code, isThumbnail);
 
-            if (!File.Exists(path))
+            if (path is null||!File.Exists(path))
             {
                 return new NotFoundResult();
                 // throw new UserFriendlyException("文件不存在",code:"404");
@@ -53,12 +53,13 @@ namespace Yi.Framework.Rbac.Application.Services
             return new FileContentResult(steam, fileContentType ?? @"text/plain");
         }
 
-        public async Task<string> GetReturnPathAsync(Guid code, bool? isThumbnail)
+        public async Task<string?> GetReturnPathAsync(Guid code, bool? isThumbnail)
         {
             var file = await _repository.GetAsync(x => x.Id == code);
             if (file is null)
             {
-                throw new UserFriendlyException("文件编号未匹配", "404");
+                return null;
+                // throw new UserFriendlyException("文件编号未匹配", "404");
             }
             var path = file.FilePath;
             //如果为缩略图，需要修改路径
