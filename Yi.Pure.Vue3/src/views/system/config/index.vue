@@ -32,23 +32,46 @@ const {
 
 <template>
   <div class="main">
-    <el-form ref="formRef" :inline="true"
-     :model="form"
-      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px] overflow-auto">
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="form"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px] overflow-auto"
+    >
       <el-form-item label="参数名称：" prop="name">
-        <el-input v-model="form.configName" placeholder="请输入参数名称" clearable class="!w-[180px]" />
+        <el-input
+          v-model="form.configName"
+          placeholder="请输入参数名称"
+          clearable
+          class="!w-[180px]"
+        />
       </el-form-item>
       <el-form-item label="参数键名:" prop="key">
-        <el-input v-model="form.configKey" placeholder="请输入参数名称" clearable class="!w-[180px]" />
+        <el-input
+          v-model="form.configKey"
+          placeholder="请输入参数名称"
+          clearable
+          class="!w-[180px]"
+        />
       </el-form-item>
       <el-form-item label="是否内置：" prop="state">
-        <el-select v-model="form.configType" placeholder="" clearable class="!w-[180px]">
+        <el-select
+          v-model="form.configType"
+          placeholder=""
+          clearable
+          class="!w-[180px]"
+        >
           <el-option label="是" :value="true" />
           <el-option label="否" :value="false" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" :icon="useRenderIcon('ri:search-line')" :loading="loading" @click="onSearch">
+        <el-button
+          type="primary"
+          :icon="useRenderIcon('ri:search-line')"
+          :loading="loading"
+          @click="onSearch"
+        >
           搜索
         </el-button>
         <el-button :icon="useRenderIcon(Refresh)" @click="resetForm(formRef)">
@@ -57,9 +80,18 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="参数设置" :columns="columns" :tableRef="tableRef?.getTableRef()" @refresh="onSearch" >
+    <PureTableBar
+      title="参数设置"
+      :columns="columns"
+      :tableRef="tableRef?.getTableRef()"
+      @refresh="onSearch"
+    >
       <template #buttons>
-        <el-button type="primary" :icon="useRenderIcon(AddFill)" @click="openDialog()">
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog()"
+        >
           新增参数
         </el-button>
       </template>
@@ -80,15 +112,31 @@ const {
             background: 'var(--el-fill-color-light)',
             color: 'var(--el-text-color-primary)'
           }"
-          @selection-change="handleSelectionChange">
+          @selection-change="handleSelectionChange"
+        >
           <template #operation="{ row }">
-            <el-button class="reset-margin" link type="primary" :size="size" :icon="useRenderIcon(EditPen)"
-              @click="openDialog('修改', row)">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              :icon="useRenderIcon(EditPen)"
+              @click="openDialog('修改', row)"
+            >
               修改
             </el-button>
-            <el-popconfirm :title="`是否确认删除 ? 参数: ${row.configName}`" @confirm="handleDelete(row)">
+            <el-popconfirm
+              :title="`是否确认删除 ? 参数: ${row.configName}`"
+              @confirm="handleDelete(row)"
+            >
               <template #reference>
-                <el-button class="reset-margin" link type="primary" :size="size" :icon="useRenderIcon(Delete)">
+                <el-button
+                  class="reset-margin"
+                  link
+                  type="primary"
+                  :size="size"
+                  :icon="useRenderIcon(Delete)"
+                >
                   删除
                 </el-button>
               </template>

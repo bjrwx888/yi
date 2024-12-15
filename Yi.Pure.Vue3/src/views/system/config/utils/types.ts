@@ -5,7 +5,7 @@ interface FormItemProps {
   configKey: string;
   configType: string;
   remark: string;
-  creationTime:string;
+  creationTime: string;
 }
 interface FormProps {
   formInline: FormItemProps;
