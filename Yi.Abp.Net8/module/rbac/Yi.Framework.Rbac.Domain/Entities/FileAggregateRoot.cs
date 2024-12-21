@@ -103,7 +103,7 @@ namespace Yi.Framework.Rbac.Domain.Entities
         /// <returns></returns>
         public string GetAndCheakThumbnailSavePath(bool isCheak=false)
         {
-            string thumbnailPath = $"wwwroot/{FileTypeEnum.Thumbnail}";
+            string thumbnailPath = $"wwwroot/{FileTypeEnum.thumbnail}";
             if (isCheak)
             {
                 if (!Directory.Exists(thumbnailPath))

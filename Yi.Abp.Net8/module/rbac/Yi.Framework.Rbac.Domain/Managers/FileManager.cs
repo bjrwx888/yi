@@ -1,8 +1,10 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Guids;
+using Volo.Abp.Imaging;
 using Yi.Framework.Core.Enums;
 using Yi.Framework.Core.Helper;
 using Yi.Framework.Rbac.Domain.Entities;
@@ -13,11 +15,14 @@ public class FileManager : DomainService, IFileManager
 {
     private IGuidGenerator _guidGenerator;
     private readonly IRepository<FileAggregateRoot> _repository;
-
-    public FileManager(IGuidGenerator guidGenerator, IRepository<FileAggregateRoot> repository)
+    private readonly IImageCompressor _imageCompressor;
+    public FileManager(IGuidGenerator guidGenerator, IRepository<FileAggregateRoot> repository,
+        
+        IImageCompressor imageCompressor)
     {
         _guidGenerator = guidGenerator;
         _repository = repository;
+        _imageCompressor = imageCompressor;
     }
 
     /// <summary>
@@ -51,7 +56,7 @@ public class FileManager : DomainService, IFileManager
     /// </summary>
     /// <param name="file"></param>
     /// <param name="fileStream"></param>
-    public async Task SaveFileAsync(FileAggregateRoot file,Stream fileStream)
+    public async Task SaveFileAsync(FileAggregateRoot file, Stream fileStream)
     {
         var filePath = file.GetSaveFilePath();
 
@@ -59,25 +64,52 @@ public class FileManager : DomainService, IFileManager
         using (var stream = new FileStream(filePath, FileMode.CreateNew, FileAccess.ReadWrite))
         {
             await fileStream.CopyToAsync(stream);
+            fileStream.Position = 0;
+        }
 
-            //如果是图片类型，还需要生成缩略图
-            //这里根据自己需求变更，我们的需求是：原始文件与缩略图文件，都要一份
-            var fileType=file.GetFileType();;
-            //如果文件类型是图片，尝试进行压缩
-            if (FileTypeEnum.Image.Equals(fileType))
+
+        //如果是图片类型，还需要生成缩略图
+        //这里根据自己需求变更，我们的需求是：原始文件与缩略图文件，都要一份
+        var fileType = file.GetFileType();
+        //如果文件类型是图片，尝试进行压缩
+        if (FileTypeEnum.image==fileType)
+        {
+            var thumbnailSavePath = file.GetAndCheakThumbnailSavePath(true);
+            Stream compressImageStream=null;
+            try
             {
-               var thumbnailSavePath= file.GetAndCheakThumbnailSavePath(true);
-                try
+                //压缩图片
+                var compressResult = await _imageCompressor.CompressAsync(fileStream, file.GetMimeMapping());
+                if (compressResult.State == ImageProcessState.Done)
                 {
-                    // _imageSharpManager.ImageCompress(f.FileName, f.OpenReadStream(), thumbnailFilePath);
+                    compressImageStream =
+                        (await _imageCompressor.CompressAsync(fileStream, file.GetMimeMapping())).Result;
                 }
-                catch
+                else if (compressResult.State == ImageProcessState.Canceled)
                 {
-                    //如果失败了，直接复制一份到缩略图上即可
-                    var result = new byte[stream.Length];
-                    await stream.ReadAsync(result, 0, result.Length);
-                    await File.WriteAllBytesAsync(thumbnailSavePath, result);
+                    throw new NotSupportedException($"当前图片无法再进行压缩,文件id：{file.Id}");
                 }
+                else
+                {
+                    throw new NotSupportedException($"当前图片不支持压缩,文件id：{file.Id}");
+                }
+            }
+            catch (Exception exception) when (exception is NotSupportedException)
+            {
+                this.LoggerFactory.CreateLogger<FileManager>().LogInformation(exception, exception.Message);
+            }
+            catch (Exception exception)
+            {
+                //如果失败了，直接复制一份到缩略图上即可
+                compressImageStream = fileStream;
+                this.LoggerFactory.CreateLogger<FileManager>().LogError(exception, exception.Message);
+            }
+
+          
+            using (var stream = new FileStream(thumbnailSavePath, FileMode.CreateNew, FileAccess.ReadWrite))
+            {
+                await compressImageStream.CopyToAsync(stream);
+                compressImageStream.Position = 0;
             }
         }
     }
