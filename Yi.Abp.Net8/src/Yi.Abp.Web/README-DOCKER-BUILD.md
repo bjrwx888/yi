@@ -4,7 +4,7 @@
 
 ```shell
 # 在Yi.Abp.Net8 目录下执行
-docker build -t xxx-xxx:${BUILD_NUMBER} -f ./src/Yi.Abp.Web/Dockerfile . 
+docker build -t admin-server:${BUILD_NUMBER} -f ./src/Yi.Abp.Web/Dockerfile . 
 
 ```
 
