@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -97,10 +97,10 @@ namespace Yi.Abp.Web
             var service = context.Services;
 
             //请求日志
-            Configure<AbpAuditingOptions>(optios =>
+            Configure<AbpAuditingOptions>(options =>
             {
                 //默认关闭，开启会有大量的审计日志
-                optios.IsEnabled = true;
+                options.IsEnabled = true;
             });
             //忽略审计日志路径
             Configure<AbpAspNetCoreAuditingOptions>(options =>
