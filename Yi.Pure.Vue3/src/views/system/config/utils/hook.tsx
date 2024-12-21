@@ -1,20 +1,23 @@
 import editForm from "../form.vue";
-import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { FormItemProps } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
-import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
-import { addConfig, delConfig, getConfig, getConfigList, updateConfig } from "@/api/system/config";
-import { getPlatformConfig } from "@/config/index";
+import { deviceDetection } from "@pureadmin/utils";
+import {
+  addConfig,
+  delConfig,
+  getConfig,
+  getConfigList,
+  updateConfig
+} from "@/api/system/config";
 
 export function useConfig() {
   const form = reactive({
     configName: "",
-    configKey:"",
-    configType:"",
+    configKey: "",
+    configType: ""
   });
 
   const pagination = reactive<PaginationProps>({
@@ -24,19 +27,18 @@ export function useConfig() {
     background: true
   });
 
-    /** 高亮当前权限选中行 */
-    function rowStyle({ row: { id } }) {
-      return {
-        cursor: "pointer",
-        background: id === curRow.value?.id ? "var(--el-fill-color-light)" : ""
-      };
-    }
+  /** 高亮当前权限选中行 */
+  function rowStyle({ row: { id } }) {
+    return {
+      cursor: "pointer",
+      background: id === curRow.value?.id ? "var(--el-fill-color-light)" : ""
+    };
+  }
 
   const curRow = ref();
   const formRef = ref();
   const dataList = ref([]);
   const loading = ref(true);
-  const { tagStyle } = usePublicHooks();
 
   const columns: TableColumnList = [
     {
@@ -107,7 +109,6 @@ export function useConfig() {
     loading.value = false;
   }
 
-
   async function openDialog(title = "新增", row?: FormItemProps) {
     let data: any = null;
     if (title == "修改") {
@@ -118,11 +119,11 @@ export function useConfig() {
       title: `${title}参数`,
       props: {
         formInline: {
-          configName:data?.configName?? "",
-          configKey:data?.configKey?? "",
-          configValue:data?.configValue?? "",
-          configTYpe:data?.configType?? "",
-          remark:data?.remark?? "",
+          configName: data?.configName ?? "",
+          configKey: data?.configKey ?? "",
+          configValue: data?.configValue ?? "",
+          configTYpe: data?.configType ?? "",
+          remark: data?.remark ?? ""
         }
       },
       width: "40%",
@@ -146,13 +147,13 @@ export function useConfig() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              console.log('新增参数');
+              console.log("新增参数");
               await addConfig(curData);
               chores();
             } else {
               // 实际开发先调用修改接口，再进行下面操作
-              curData.id = row.id
-              curData.creationTime = row.creationTime
+              curData.id = row.id;
+              curData.creationTime = row.creationTime;
               await updateConfig(row.id, curData);
               chores();
             }
@@ -164,7 +165,9 @@ export function useConfig() {
 
   async function handleDelete(row) {
     await delConfig([row.id]);
-    message(`您删除了参数名称为 ${row.configName} 的这条数据`, { type: "success" });
+    message(`您删除了参数名称为 ${row.configName} 的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
