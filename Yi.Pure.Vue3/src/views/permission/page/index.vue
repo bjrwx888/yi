@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { initRouter } from "@/router/utils";
-import { storageLocal } from "@pureadmin/utils";
-import { type CSSProperties, ref, computed } from "vue";
-import { useUserStoreHook } from "@/store/modules/user";
-import { usePermissionStoreHook } from "@/store/modules/permission";
+import {initRouter} from "@/router/utils";
+import {storageLocal} from "@pureadmin/utils";
+import {type CSSProperties, ref, computed} from "vue";
+import {useUserStoreHook} from "@/store/modules/user";
+import {usePermissionStoreHook} from "@/store/modules/permission";
+import {getTenantId} from "@/utils/auth";
 
 defineOptions({
   name: "PermissionPage"
@@ -31,14 +32,17 @@ const options = [
 
 function onChange() {
   useUserStoreHook()
-    .loginByUsername({ username: username.value, password: "admin123" })
-    .then(res => {
-      if (res.status == 200) {
-        storageLocal().removeItem("async-routes");
-        usePermissionStoreHook().clearAllCachePage();
-        initRouter();
-      }
-    });
+      .loginByUsername(
+          {username: username.value, password: "admin123"},
+          getTenantId()
+      )
+      .then(res => {
+        if (res.status == 200) {
+          storageLocal().removeItem("async-routes");
+          usePermissionStoreHook().clearAllCachePage();
+          initRouter();
+        }
+      });
 }
 </script>
 
@@ -53,19 +57,19 @@ function onChange() {
           <span>当前角色：{{ username }}</span>
         </div>
         <el-link
-          class="mt-2"
-          href="https://github.com/pure-admin/vue-pure-admin/blob/main/src/views/permission/page/index.vue"
-          target="_blank"
+            class="mt-2"
+            href="https://github.com/pure-admin/vue-pure-admin/blob/main/src/views/permission/page/index.vue"
+            target="_blank"
         >
           代码位置 src/views/permission/page/index.vue
         </el-link>
       </template>
       <el-select v-model="username" class="!w-[160px]" @change="onChange">
         <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
         />
       </el-select>
     </el-card>
