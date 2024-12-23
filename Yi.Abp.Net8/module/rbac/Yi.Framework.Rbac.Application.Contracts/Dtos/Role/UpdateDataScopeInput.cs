@@ -2,7 +2,7 @@
 
 namespace Yi.Framework.Rbac.Application.Contracts.Dtos.Role
 {
-    public class UpdateDataScpoceInput
+    public class UpdateDataScopeInput
     {
         public Guid RoleId { get; set; }
 
